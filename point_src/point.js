@@ -175,8 +175,16 @@ class PointPen {
         };
 
         Object.assign(def, miniConf)
-        this.point.project().pen.line(ctx, this.point, def.line.color, def.line.width)
-        this.circle(ctx, undefined, def.circle.color, def.circle.width)
+        this.point.project().pen.line(ctx,
+                this.point,
+                def?.line?.color || def.color,
+                def?.line?.width || def.width,
+                )
+        this.circle(ctx,
+                undefined,
+                def?.line?.color || def.color,
+                def?.circle?.width || def.width,
+                )
     }
 }
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    canvas {
+      border: 1px solid black;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let spaceship = {
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      size: 20,
+      angle: 0,
+      speed: 0,
+      rotationSpeed: 0.05,
+    };
+
+    function drawTriangle(ctx, x, y, size, angle) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+
+      ctx.beginPath();
+      ctx.moveTo(0, -size); // Top point
+      ctx.lineTo(size, size); // Bottom right point
+      ctx.lineTo(-size, size); // Bottom left point
+      ctx.closePath();
+
+      ctx.strokeStyle = 'white';
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function update() {
+      // Move the spaceship
+      spaceship.x += Math.cos(spaceship.angle) * spaceship.speed;
+      spaceship.y += Math.sin(spaceship.angle) * spaceship.speed;
+
+      // Wrap around the canvas edges
+      if (spaceship.x < 0) spaceship.x = canvas.width;
+      if (spaceship.x > canvas.width) spaceship.x = 0;
+      if (spaceship.y < 0) spaceship.y = canvas.height;
+      if (spaceship.y > canvas.height) spaceship.y = 0;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw the spaceship
+      drawTriangle(ctx, spaceship.x, spaceship.y, spaceship.size, spaceship.angle);
+
+      update();
+      requestAnimationFrame(draw);
+    }
+
+    // Handle key press for rotation
+    document.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          spaceship.angle -= spaceship.rotationSpeed;
+          break;
+        case 'ArrowRight':
+          spaceship.angle += spaceship.rotationSpeed;
+          break;
+        case 'ArrowUp':
+          spaceship.speed = 2;
+          break;
+        case 'ArrowDown':
+          spaceship.speed = 0;
+          break;
+      }
+    });
+
+    // Start the animation
+    draw();
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <script src="main.js"></script>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let offsetX = 0;
+    let offsetY = 0;
+    let scale = 1;
+
+    canvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoom = e.deltaY * -0.01;
+      scale += zoom;
+      scale = Math.min(Math.max(.125, scale), 4);
+      draw();
+    });
+
+    let isDragging = false;
+    let startX, startY;
+
+    canvas.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX - offsetX;
+      startY = e.clientY - offsetY;
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        offsetX = e.clientX - startX;
+        offsetY = e.clientY - startY;
+        draw();
+      }
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    function _draw() {
+      ctx.setTransform(scale, 0, 0, scale, offsetX, offsetY);
+      ctx.clearRect(-offsetX / scale, -offsetY / scale, canvas.width / scale, canvas.height / scale);
+      // Render your grid or content here
+      ctx.fillStyle = 'red';
+      ctx.fillRect(50, 50, 100, 100); // Example
+    }
+
+    draw();
+  </script>
+</body>
+</html>

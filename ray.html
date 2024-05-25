@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <script>
+    class Ray {
+      constructor(startX, startY, directionX, directionY, length) {
+        this.startX = startX;
+        this.startY = startY;
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.length = length;
+      }
+
+      setPosition(x, y) {
+        this.startX = x;
+        this.startY = y;
+      }
+
+      setDirection(x, y) {
+        this.directionX = x;
+        this.directionY = y;
+      }
+
+      render(ctx) {
+        const endX = this.startX + this.directionX * this.length;
+        const endY = this.startY + this.directionY * this.length;
+        ctx.beginPath();
+        ctx.moveTo(this.startX, this.startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+      }
+
+      checkIntersection(entity) {
+        // Assuming entity has properties x1, y1, x2, y2 representing its line segment
+        const x1 = this.startX;
+        const y1 = this.startY;
+        const x2 = this.startX + this.directionX * this.length;
+        const y2 = this.startY + this.directionY * this.length;
+        const x3 = entity.x1;
+        const y3 = entity.y1;
+        const x4 = entity.x2;
+        const y4 = entity.y2;
+
+        // Line-line intersection algorithm
+        const denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+        if (denom === 0) return false; // Parallel lines
+
+        const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denom;
+        const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / denom;
+
+        if (t > 0 && t < 1 && u > 0 && u < 1) {
+          // Intersection point
+          const intersectX = x1 + t * (x2 - x1);
+          const intersectY = y1 + t * (y2 - y1);
+          return { x: intersectX, y: intersectY };
+        }
+        return false;
+      }
+    }
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const ray = new Ray(100, 100, 1, 1, 200); // Start at (100, 100), direction (1, 0), length 200
+    const entity = { x1: 150, y1: 50, x2: 150, y2: 250 }; // A vertical line segment
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ray.render(ctx);
+
+      // Draw the entity
+      ctx.beginPath();
+      ctx.moveTo(entity.x1, entity.y1);
+      ctx.lineTo(entity.x2, entity.y2);
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+
+      // Check for intersection
+      const intersection = ray.checkIntersection(entity);
+      if (intersection) {
+        ctx.fillStyle = 'blue';
+        ctx.beginPath();
+        ctx.arc(intersection.x, intersection.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    draw();
+  </script>
+</body>
+</html>

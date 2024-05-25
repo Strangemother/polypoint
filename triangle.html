@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawTriangle(ctx, x, y, size, angle) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+
+      ctx.beginPath();
+      ctx.moveTo(0, -size); // Top point
+      ctx.lineTo(size, size); // Bottom right point
+      ctx.lineTo(-size, size); // Bottom left point
+      ctx.closePath();
+
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw the spaceship at the center with size 20 and facing up (angle 0)
+      drawTriangle(ctx, canvas.width / 2, canvas.height / 2, 20, 0);
+    }
+
+    // Initial draw
+    draw();
+  </script>
+</body>
+</html>

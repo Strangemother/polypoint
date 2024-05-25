@@ -66,39 +66,29 @@ Pop a canvas into your HTML:
 <canvas id='mycanvas'></canvas>
 ```
 
-Use `Polypoint.Stage` to help render a canvas `Point`:
+Use `Polypoint.Stage` to help render a canvas `Point`. A "Stage" provides quick access to the canvas Context('2D'). Override "draw", or provide a draw function through the Stage constructor:
 
 
 ```js
+/* Using a stage */
+let mypoint = new Point(100, 200)
+    , color = 'teal'
+    , width = 3
+    ;
 
-const mypoint = new Point(100, 200)
 mypoint.radius = 50
 
-/* Some options */
-let color = 'teal'
-let width = 3
-
 class MainStage extends Stage {
-    /* A "Stage" provides quick access to the canvas Context('2D')
-    Override "draw", or provide a draw function through the Stage constructor:
-
-        stage = new MainStage('mycanvas', myDrawFunc)
-    */
+    /* No hoops to jump - canvas context as expected. */
     draw(ctx){
-        /* No hoops to jump - use your canvas as expected. */
-
-        this.clear(ctx) // easy to run clearRect(...) call.
-
-        /* Rotate the point to look at the current mouse position .*/
-        mypoint.lookAt(Point.mouse.position)
-        /* optional drawing tools. */
-        mypoint.pen.indicator(ctx, {color, width})
+        this.clear(ctx)                            // run clearRect(...) call.
+        mypoint.lookAt(Point.mouse.position)       // Rotate to look at the mouse
+        mypoint.pen.indicator(ctx, {color, width}) // optional drawing tools.
     }
 }
 
-/* Setup! */
+/* Or: new MainStage('mycanvas', myDrawFunc) */
 const stage = new MainStage('mycanvas')
-
 /* And Go! */
 stage.loopDraw()
 ```
@@ -109,8 +99,10 @@ PFFT Hate easy to use `Stage` setups? No problem! Here's a vanilla canvas setup,
 using the `Point` in our own context:
 
 ```js
+/* Using vanilla canvas and a point. */
 const canvas = document.getElementById('mycanvas');
 const ctx = canvas.getContext('2d');
+
 /* Set the canvas (props) width and height, matching its view size. */
 let rect = canvas.getBoundingClientRect()
 ctx.canvas.width  = rect.width;
@@ -119,24 +111,21 @@ ctx.canvas.height = rect.height;
 /* Enable the mouse monitor.*/
 Point.mouse.listen(canvas)
 
-var mypoint = new Point(100, 200)
-let radius = 50
-let strokeWidth = 3
-let color = 'teal'
-
+let mypoint = new Point(100, 200)
+    , radius = 50
+    , strokeWidth = 3
+    , color = 'teal'
+    ;
 
 function draw() {
     /* A standard canvas draw function to update our point
     per frame. */
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     /* Rotate the point to look at the mouse, then draw a circle (an arc)
     using the pen tool. */
     mypoint.lookAt(Point.mouse.position)
-
     /* Pop a circle a the point.*/
     mypoint.pen.circle(ctx, radius, color, strokeWidth)
-
     /* Draw a line from the project point, back to the origin */
     let projectedPoint = mypoint.project()
     projectedPoint.pen.line(ctx, mypoint, radius, color, strokeWidth)

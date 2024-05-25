@@ -2,19 +2,57 @@
 
 > Polypoint is a library dedicated to the humble 2D point.
 
-
-## Why
-
-I wanted a quick drawing implementation to work on my own ideas and learning.
-But I didn't want to learn an entire new library to execute my thoughts; But I do know enough to read MDN.
-
-However the draw Canvas and SVG libraries are more lower-level than I would like
-whilst punching out thoughts. As such I built this; `Polypoint` - where the simple 2D point can be manipulated without the drawing framework.
-
-Then I built some quick functions to offset the canvas drawing.
+Polypoint aims to provide a straightforward interface for working with 2D points, enabling users to engage in mathematical and creative point drawing without the complexity of traditional drawing libraries. It supports low-level context drawing, allowing users to implement their own drawing logic with ease.
 
 
-## Getting Started.
+```js
+let point = new Point(200, 300)
+let newPoint = point
+                .add(new Point(100, 100)) // Translate
+                .rotate(33)               // Rotate (degrees)
+                .project(100)             // project forward
+                .lookAt(point)            // Rotate
+                ;
+
+// Canvas draw
+newPoint.pen.ngon(ctx, 6, 50)         // Hexagon with a radius
+
+// DOM appliance
+let divStyles = getElementById('mypoint').styles
+divStyles.top = `${newPoint.x}px`
+divStyles.left = `${newPoint.y}px`
+```
+
+
+To help focus on the humble point `Polypoint` offers quick canvas drawing tools, offsetting the setup and execution of the boring parts. Consider this the _framework-less_ drawing tools, and the `Point`.
+
+A quick example of running a _raw_ canvas:
+
+```js
+
+const draw = function(ctx){
+    /* A freebie */
+    stage.clear(ctx)
+
+    /* Raw canvas drawing. */
+    radius = 10
+    ctx.moveTo(100, 100)
+    ctx.arc(ctx, radius)
+    ctx.stroke()
+
+    /* Polypoint point! */
+    let p = point(100, 100)
+    p.pen.circle(radius)
+}
+
+/* Prepare and run! */
+const stage = new Stage('#mycanvas', drawFunc)
+
+stage.draw() // Draw once.
+stage.drawLoop() // AnimationFrame draw loop
+```
+
+## Quick Started.
 
 Import the lib:
 
@@ -28,7 +66,7 @@ Pop a canvas into your HTML:
 <canvas id='mycanvas'></canvas>
 ```
 
-Run Polypoint extras:
+Use `Polypoint.Stage` to help render a canvas `Point`:
 
 
 ```js
@@ -36,22 +74,39 @@ Run Polypoint extras:
 const mypoint = new Point(100, 200)
 mypoint.radius = 50
 
+/* Some options */
 let color = 'teal'
 let width = 3
 
 class MainStage extends Stage {
+    /* A "Stage" provides quick access to the canvas Context('2D')
+    Override "draw", or provide a draw function through the Stage constructor:
+
+        stage = new MainStage('mycanvas', myDrawFunc)
+    */
     draw(ctx){
-        this.clear(ctx)
+        /* No hoops to jump - use your canvas as expected. */
+
+        this.clear(ctx) // easy to run clearRect(...) call.
+
+        /* Rotate the point to look at the current mouse position .*/
         mypoint.lookAt(Point.mouse.position)
+        /* optional drawing tools. */
         mypoint.pen.indicator(ctx, {color, width})
     }
 }
 
+/* Setup! */
 const stage = new MainStage('mycanvas')
+
+/* And Go! */
 stage.loopDraw()
 ```
 
-The same, using raw canvas:
+---
+
+PFFT Hate easy to use `Stage` setups? No problem! Here's a vanilla canvas setup,
+using the `Point` in our own context:
 
 ```js
 const canvas = document.getElementById('mycanvas');
@@ -94,6 +149,7 @@ function draw() {
 draw()
 ```
 
+
 ## What's in the Box
 
 1. `Point`
@@ -102,7 +158,23 @@ draw()
 
 Doesn't sound like much; That's the Point\*!
 
+## Philosophy
+
+Polypoint is designed to help users translate mathematical concepts into visual representations effortlessly. The idea is simple: if you can describe a direction or a point in your mind, you can express it using Polypoint.
+
+## Why
+
+I wanted a quick drawing implementation to work on my own ideas and learning.
+But I didn't want to learn an entire new library to execute my thoughts; But I do know enough to read MDN.
+
+However the draw Canvas and SVG libraries are more lower-level than I would like
+whilst punching out thoughts. As such I built this; `Polypoint` - where the simple 2D point can be manipulated without the drawing framework.
+
+Then I built some quick functions to offset the canvas drawing.
+
 
 ---
 
 \* An accidental pun.
+
+

@@ -12,6 +12,59 @@ const LEFT_DEG = radiansToDegrees(Math.PI  * 1);
 const UP_DEG = radiansToDegrees(Math.PI *1.5);
 
 
+class Compass {
+
+    constructor(setup={}) {
+        this.func = setup.func
+    }
+
+    setDeg() {
+        this.func = radiansToDegrees
+    }
+
+    setRad() {
+        this.func = undefined;
+    }
+
+    static degrees() {
+        return new Compass({
+            func: radiansToDegrees
+        })
+    }
+
+    static get rad() {
+        return new Compass()
+    }
+
+    get(v) {
+        return this.conv(v)
+    }
+
+    get right(){
+         return this.conv(0)
+    }
+
+    get down(){
+         return this.conv(Math.PI *.5)
+    }
+
+    get left(){
+         return this.conv(Math.PI * 1)
+    }
+
+    get up(){
+         return this.conv(Math.PI * 1.5)
+    }
+
+    conv(v) {
+        if(this.func) {
+            return this.func(v)
+        }
+        return v
+    }
+}
+
+
 function radiansToDegrees(radians) {
     return radians * (180 / Math.PI);
 }

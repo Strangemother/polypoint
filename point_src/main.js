@@ -142,7 +142,7 @@ const drawRandomLine = function(){
 
     // ctx.beginPath();
 
-    plRandom.draw.points(ctx, (item,f)=>{
+    plRandom.pen.points(ctx, (item,f)=>{
         ctx.beginPath();
         f(item)
         quickStroke('pink', 2)

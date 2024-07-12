@@ -1,3 +1,4 @@
+
 const point = function(p, b) {
     if(p.constructor == Point) {
         return p
@@ -175,15 +176,16 @@ class PointPen {
         };
 
         Object.assign(def, miniConf)
+
         this.point.project().pen.line(ctx,
                 this.point,
-                def?.line?.color || def.color,
-                def?.line?.width || def.width,
+                def.color || def?.line?.color ,
+                def.width || def?.line?.width ,
                 )
         this.circle(ctx,
                 undefined,
-                def?.line?.color || def.color,
-                def?.circle?.width || def.width,
+                def.color || def?.line?.color,
+                def.width || def?.circle?.width,
                 )
     }
 }
@@ -269,37 +271,18 @@ class Positionable {
 class Rotation extends Positionable {
 
     set rotation(v){
+        /* Set the rotation in Degrees (0 to 360). The value applied is a
+         modulus of 360 and does not account for the _UP_ vector.
 
-        /* Issue:
-        This is a problem. If used with concat addition the value is bad.
-        Because:
+            >>> point.rotation = 600;
+            240
 
-            p.rotation = 0
+            >>> point.rotation += 1
+            241
 
-        results in
-
-            p.rotation = 270
-
-        therefore
-
-            p.rotation += 1
-
-        or
-            p.rotation = 271
-
-        results in:
-
-            p.rotation = 181
-
-        because the UP vector is applied on the _set_ and polutes the incoming
-        value.
-
-        When using an external delta, it obviously works:
-
-            p.rotate = (delta * spinSpeed)
-            delta += 1
-
-        */
+        To set the rotation (degrees) accounting for the _UP_ vector, use
+        the `rotate()` method.
+         */
         this._rotationDegrees = v % 360
     }
 
@@ -324,6 +307,13 @@ class Rotation extends Positionable {
     }
 
     lookAt(otherPoint) {
+        /* Rotate the point such that the angle relative to the
+        `otherPoint` is `0`, essentially _looking at_ the other point.
+
+            point.lookAt(otherPoint)
+
+        Return the angle in radians.
+        */
         // Calculate the differences in x and y coordinates
         const delta = otherPoint.subtract(this);
         // Calculate the angle in radians
@@ -474,6 +464,8 @@ class Point extends Tooling {
         this._opts = opts
         // set 0 or more object
         this.set.apply(this, arguments)
+        this[0] = this.x
+        this[1] = this.y
     }
 
     get draw() {

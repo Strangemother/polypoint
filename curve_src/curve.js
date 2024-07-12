@@ -20,6 +20,10 @@
 
 const EPSILON = 1e-6
 
+//
+// https://trimaran-san.de/en/die-kettenkurve-oder-wie-ein-mathematiker-ankert/
+//
+//
 /**
  * Calculate the catenary curve.
  * Increasing the segments value will produce a catenary closer

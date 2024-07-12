@@ -1,7 +1,7 @@
 
 const canvas = document.getElementById('playspace');
 const ctx = canvas.getContext('2d');
-Point.mouse.listen(canvas)
+// Point.mouse.listen(canvas)
 
 
 const pendulum_main = function(){
@@ -22,12 +22,24 @@ const update = function() {
 }
 
 
+const UNSET = {}
+
+
+const quickStroke = function(color='green', lineWidth=UNSET) {
+    ctx.strokeStyle = color
+    if(lineWidth != UNSET) {
+        ctx.lineWidth = lineWidth
+    }
+    ctx.stroke()
+}
+
 const randomLine = PointList.generate.random(20, 500)
 
 const drawRandomLine = function(){
     /* draw a randomly generated line path */
 
     /* Draw the horizon line - a straight project from A to B*/
+    ctx.beginPath();
     randomLine.draw.horizonLine(ctx)
     quickStroke('red')
 
@@ -37,11 +49,13 @@ const drawRandomLine = function(){
 
 
     /* Draw each point; wrapping the _draw_ call_ with our own functionality.*/
-    randomLine.draw.points(ctx, (item,f)=>{
-        ctx.beginPath();
-        f(item)
-        quickStroke('pink', 2)
-    })
+    // randomLine.draw.pointLine(ctx)
+    // randomLine.draw.points(ctx, (item,f)=>{
+    //     ctx.beginPath();
+    //     f(item)
+    //     quickStroke('pink', 2)
+    // })
+    // quickStroke('pink', 2)
 
     // May bleed if not applied.
     ctx.closePath();

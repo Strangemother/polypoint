@@ -21,7 +21,7 @@ class PointListDraw {
         this.list = list;
     }
 
-    horizonLine() {
+    horizonLine(ctx) {
         // Ensure the path restarts, ensuring the colors don't _bleed_ (from
         // last to first).
         let a = this.list[0]
@@ -30,7 +30,6 @@ class PointListDraw {
         ctx.moveTo(a.x, a.y)
         ctx.lineTo(b.x, b.y)
     }
-
 
     pointLine(ctx, position) {
         // To 'close' the old drawing.
@@ -138,6 +137,10 @@ class PointListShape {
         this.parent = parent;
     }
 
+    get length(){
+        return this.parent.length
+    }
+
     linear(spread, keys=['x'], altValue=undefined, altKeys=['x','y']) {
         /*  order the items in a flat linear list. Spread across the key axis.
         If the altValue is undefined, the _other_ position key is not changed.
@@ -214,6 +217,8 @@ class PointListShape {
             e.x = pos.x + ( spread * (i % rowCount))
             e.y = pos.y + ( Math.floor(i / rowCount) * spread )
         })
+
+        return (new GridTools(this.parent, rowCount, pos))
     }
 
     radius(radius, pos) {
@@ -259,6 +264,82 @@ class PointListShape {
     }
 }
 
+
+class GridTools {
+
+    constructor(parent, width, pos) {
+        this.parent = parent;
+        this.width = width;
+        this.initPosition = pos;
+    }
+
+    /* Return a pointlist of the items within the pseudo grid
+
+        let gridTools = new GridTools(pointList, 10)
+        let columnPointList = gridTools.getColumn(gridTools.width-1)
+        columnPointList.setMany(DOWN_DEG, 'rotation')
+
+    */
+    getColumn(index) {
+        if(index<0) {
+            /* allow index -1 etc, to reduce from the right. */
+            index = this.width + index
+        }
+
+        let items = new PointList()
+        let modIndex = index % this.width
+        for (var i = 0; i < this.parent.length; i+=this.width) {
+            let l = this.getRow(i)
+            items.push(l[modIndex])
+        }
+
+        return items
+    }
+
+    getRow(i){
+        return this.parent.slice(i, i+this.width)
+    }
+
+    /* Splice a segment from the grid in the form of a rectagle*/
+    getRect(){}
+
+    /* Given a point, or index, return the siblings of the grid
+
+        `rowCount` or `total` is required
+    */
+    getSiblings(index, columnCount=this.width, rowCount, total) {
+        let rc = rowCount==undefined? columnCount: rowCount
+        total = total == undefined? rc * columnCount: total
+
+        const currentRow = Math.floor(index / columnCount)
+            , currentColumn = index % columnCount
+            , size  = total
+            /* Up must step back as many cells as a column*/
+            , up    = index - columnCount
+            , left  = index - 1
+            , right = index + 1
+            , down  = index + columnCount
+            , res = []
+            ;
+
+        // console.log(index, 'up', up, 'left', left, 'right', right, 'down', down)
+        const inBounds = (v) => (v >= 0) && (v < total);
+        const boundPush = (v) => inBounds(v) && res.push(v);
+
+        boundPush(up);
+        boundPush(down);
+
+        // left should be the same column
+        let leftCol = left % total;
+        let leftRow = Math.floor(left / columnCount);
+        (currentRow == leftRow) && boundPush(left);
+        // if most right (col ==  total), right cannot be applied.
+        (currentColumn != columnCount-1) && boundPush(right);
+
+        return res.sort()
+    }
+
+}
 
 class PointListPen {
 
@@ -449,6 +530,12 @@ class PointList extends LazyAccessArray {
 
     setY(value, key='y') {
         return this.setMany(value, key)
+    }
+
+    setData(data) {
+        for(let k in data) {
+            this.setMany(data[k], k)
+        }
     }
 
     setMany(value, key) {

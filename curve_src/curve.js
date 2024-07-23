@@ -58,10 +58,12 @@ function getCurve(a, p1, p2, offsetX, offsetY, segments) {
     return data
 }
 
+var superVal = 29
+
 const standardCosH = function(a, x, offsetX, offsetY) {
-    /*a * Math.cosh((x - offsetX) / a) + offsetY*/
     return a * Math.cosh((x - offsetX) / a) + offsetY
 }
+
 
 /**
  * Draws a straight line between two points.

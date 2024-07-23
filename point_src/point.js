@@ -269,7 +269,6 @@ class Positionable {
 
 
 class Rotation extends Positionable {
-
     set rotation(v){
         /* Set the rotation in Degrees (0 to 360). The value applied is a
          modulus of 360 and does not account for the _UP_ vector.
@@ -282,7 +281,13 @@ class Rotation extends Positionable {
 
         To set the rotation (degrees) accounting for the _UP_ vector, use
         the `rotate()` method.
-         */
+        */
+
+        if(this.modulusRotate == false) {
+            this._rotationDegrees = v;
+            return
+        }
+
         this._rotationDegrees = v % 360
     }
 
@@ -291,6 +296,7 @@ class Rotation extends Positionable {
     }
 
     get rotation() {
+
         return this._rotationDegrees
     }
 
@@ -461,11 +467,29 @@ class Point extends Tooling {
         // new Point(x,y, ...)  // reset the opts obj.
         if(arguments.length > 1){ opts = {} }
 
+        this.modulusRotate = undefined
+
         this._opts = opts
         // set 0 or more object
         this.set.apply(this, arguments)
-        this[0] = this.x
-        this[1] = this.y
+        // this[0] = this.x
+        // this[1] = this.y
+    }
+
+    get [0]() {
+        return this.x
+    }
+
+    set [0](v) {
+        this.x = v
+    }
+
+    get [1]() {
+        return this.y
+    }
+
+    set [1](v) {
+        this.y = v
     }
 
     get draw() {

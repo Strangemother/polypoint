@@ -8,20 +8,19 @@ class Line {
         this.width = width
     }
 
-    draw(ctx) {
+    draw(ctx, color=undefined) {
         ctx.beginPath();
 
         let a = this.a;
         let b = this.b;
         ctx.moveTo(a[0], a[1])
-        ctx.strokeStyle = this.color
+        ctx.strokeStyle = color == undefined? this.color: color
         ctx.lineWidth = this.width == undefined? 1: this.width
         ctx.lineTo(b[0], b[1])
 
         ctx.stroke()
     }
 }
-
 
 
 const randomPoints = PointList.generate.random(4, 200)
@@ -53,28 +52,14 @@ class MainStage extends Stage {
 
         this.points = new PointList(
             new Point({
-                name: "up"
-                , rotation: c.up // UP_DEG
+                name: "a"
+                , rotation: c.right
                 , x: offset(), y: globalY
             })
             , new Point({
-                name: "right"
-                , rotation: c.right // RIGHT_DEG
-                , x: offset(), y: globalY
-            })
-            , new Point({
-                name: "down"
-                , rotation: c.down // DOWN_DEG
-                , x: offset(), y: globalY
-            })
-            , new Point({
-                name: "left"
-                , rotation: c.left // LEFT_DEG
-                , x: offset(), y: globalY
-            })
-            , new Point({
-                name: "spinner"
-                , x: offset(), y: globalY
+                name: "b"
+                , rotation: c.left // RIGHT_DEG
+                , x: offset(), y: globalY + 50
             })
         )
 
@@ -88,21 +73,38 @@ class MainStage extends Stage {
     draw(ctx){
         this.clear(ctx)
 
-        this.line.draw(ctx)
+        // this.line.draw(ctx)
         this.drawPoints(ctx)
-        this.drawRandomLine(ctx)
+        // this.drawRandomLine(ctx)
+        //
+
+        /* Draw a line from center to center.*/
+        let line = new Line(this.points[0], this.points[1], 'green', 2)
+        line.draw(ctx, 'red')
+
+        /* Draw a line from the point, projected from the center (by 1)*/
+        let pLine = new Line(this.points[0].project(), this.points[1].project(), 'pink', 1)
+        pLine.draw(ctx)
+
+        this.points[0].rotation += .7
+        this.points[1].rotation -= .5
     }
 
+    /* Draw all the `this.points` as indicators.
+    Currently this is two points.*/
     drawPoints(ctx) {
-        this.points.last().rotation += 2
+
         for(let p in this.points) {
-            this.points[p].pen.indicator(ctx)
+            let point = this.points[p]
+            point.pen?.indicator(ctx, {color: 'green'})
         }
 
+        this.points.draw.pointLine(ctx)
     }
 
+    /* draw a randomly generated line path
+    And draw a line from tip to tip */
     drawRandomLine(ctx){
-        /* draw a randomly generated line path */
 
         /* Draw the horizon line - a straight project from A to B*/
         ctx.beginPath();

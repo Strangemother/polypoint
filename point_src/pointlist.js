@@ -558,12 +558,100 @@ class PointList extends LazyAccessArray {
         })
     }
 
+    keyMany(key, value) {
+        /* Set the X value for all points within the list
+        accepts undefined, number, point[x], function */
+        let orig = value
+        /* copy the key value from the other*/
+        if(isPoint(value)) {
+            value = orig[key]
+        }
+
+        let f = value;
+
+        if(!isFunction(value)) {
+            f = function(e,i,a){
+                    return value
+                }
+        }
+
+        this.forEach((e,i,a)=> {
+            return e[key] = f(e,i,a)
+        })
+    }
+
     cleanArray(fix=true) {
         let r = []
         this.forEach((x)=>r.push(x.asArray(fix)))
         return r
     }
+
+    offset(value) {
+        this.forEach(p=>{
+            p.copy(p.add(value))
+            // p.rotate(rot)
+        })
+    }
+
+    rotate(value, point) {
+        /* Spin the cluster by a given rotation, around an optional anchor
+        If given a single point, the rotation is used.*/
+        let rot = isPoint(value)? value.rotation: value
+        // console.log('rotation to', rot)
+        if(point == undefined) {
+            point = this.centerOfMass()
+        }
+
+        this.forEach(p=>{
+            let target = p
+            const res = originRotate(target, point, rot);
+            target.x = res[0]
+            target.y = res[1]
+            // p.rotate(rot)
+        })
+        // return p
+    }
+
+    lookAt(other) {
+        this.forEach(p=>{ p.lookAt(other)})
+    }
 }
+
+
+function originRotate(target, origin, theta) {
+    /*
+    Example usage:
+
+        const a = [100, 200];
+        const b = [300, 200];
+        const theta90 = 90;
+        const theta50 = 50;
+
+        const newA90 = originRotate(a, b, theta90);
+        const newA50 = originRotate(a, b, theta50);
+
+        console.log('New position for 90 degrees:', newA90);
+        console.log('New position for 50 degrees:', newA50);
+    */
+
+    // Convert theta to radians
+    const thetaRad = theta * (Math.PI / 180);
+
+    // Translate point a to the origin with respect to point origin
+    const aPrime = [target[0] - origin[0], target[1] - origin[1]];
+
+    // Apply the rotation matrix
+    const aPrimeRotated = [
+        aPrime[0] * Math.cos(thetaRad) - aPrime[1] * Math.sin(thetaRad),
+        aPrime[0] * Math.sin(thetaRad) + aPrime[1] * Math.cos(thetaRad)
+    ];
+
+    // Translate the point back
+    const aDoublePrime = [aPrimeRotated[0] + origin[0], aPrimeRotated[1] + origin[1]];
+
+    return aDoublePrime;
+}
+
 
 
 PointList.generate = new PointListGenerator();

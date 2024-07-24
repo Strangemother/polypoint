@@ -104,6 +104,7 @@ class Vector {
   }
 }
 
+
 const reactor = function (a, b, p) {
   const refA = Vector.add(a.toWorld(p), a.pos);
   const refB = Vector.add(b.toWorld(Vector.mul(p, -1)), b.pos);

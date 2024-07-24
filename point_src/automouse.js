@@ -1,4 +1,17 @@
+/*
 
+Automouse provides a point at the mouse position.
+It's the _last known position_ of the mouse; updated upon mousemove.
+
+HTML:
+
+    <script src="point_src/automouse.js"></script>
+
+JS:
+
+    let point = Point.mouse.position
+
+ */
 
 const getLastMousePos = function(){
     return autoMouse.getMousePos(canvas)

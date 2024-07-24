@@ -477,6 +477,13 @@ class Point extends Tooling {
     }
 
     get [0]() {
+        /* return the X value of the point:
+
+            point[0]
+
+        Note:
+            point[0] == point.x
+        */
         return this.x
     }
 

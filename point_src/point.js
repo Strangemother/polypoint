@@ -328,6 +328,57 @@ class Rotation extends Positionable {
         return angleRadians
     }
 
+    turnTo(otherPoint, rotationMultiplier=1){
+        const delta = otherPoint.subtract(this);
+        const targetRad = delta.atan2();
+        const currentRad = this.radians;
+
+        let radDiff = targetRad - currentRad;
+        // Normalize the angle difference to be within the range -PI to PI
+        radDiff = Math.atan2(Math.sin(radDiff), Math.cos(radDiff));
+        const newAngleRadians = currentRad + radDiff * rotationMultiplier;
+        const normRad = Math.atan2(
+                            Math.sin(newAngleRadians),
+                            Math.cos(newAngleRadians)
+                        );
+
+        this.radians = normRad;
+        return normRad
+    }
+
+    turnTo(otherPoint, rotationMultiplier=1){
+        const delta = otherPoint.subtract(this);
+        const targetRad = delta.atan2();
+        const currentRad = this.radians;
+
+        let radDiff = targetRad - currentRad;
+        // Normalize the angle difference to be within the range -PI to PI
+        radDiff = Math.atan2(Math.sin(radDiff), Math.cos(radDiff));
+        const newAngleRadians = currentRad + radDiff * rotationMultiplier;
+        const normRad = Math.atan2(
+                            Math.sin(newAngleRadians),
+                            Math.cos(newAngleRadians)
+                        );
+
+        this.radians = normRad;
+        return normRad
+    }
+
+    turnTo(otherPoint, rotationMultiplier=.3) {
+        const delta = otherPoint.subtract(this);
+        const targetRad = delta.atan2();
+        const currentRad = this.radians;
+
+        let radDiff = targetRad - currentRad;
+        radDiff = Math.atan2(Math.sin(radDiff), Math.cos(radDiff));
+        const newAngleRadians = currentRad + radDiff * rotationMultiplier;
+
+        // Normalize the new angle to be within the range -PI to PI
+        this.radians = Math.atan2(Math.sin(newAngleRadians), Math.cos(newAngleRadians));
+
+        return this.radians;
+    }
+
     getTheta(other, direction=undefined) {
         /* Return the calculated theta value through atan2 and built to offload
         some of the boring.
@@ -474,6 +525,15 @@ class Point extends Tooling {
         this.set.apply(this, arguments)
         // this[0] = this.x
         // this[1] = this.y
+    }
+
+
+    get uuid() {
+        let r = this._id;
+        if(r == undefined) {
+            this._id = r = Math.random().toString(32).slice(2)
+        }
+        return r
     }
 
     get [0]() {

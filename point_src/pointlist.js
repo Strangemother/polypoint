@@ -380,12 +380,17 @@ class PointListPen {
             , circle: {color:'yellow', width: 1}
         };
         Object.assign(def, miniConf)
+        let lc = def.color || def?.line?.color
+        let lw = def.width || def?.line?.width
+        let cc = def.color || def?.line?.color
+        let cw = def.width || def?.circle?.width
+
 
         let eachPoint = (item, arcDrawF) =>{
-                item.project().pen.line(ctx, item, def.line.color, def.line.width)
+                item.project().pen.line(ctx, item, lc, lw)
                 ctx.beginPath();
                 arcDrawF(item)
-                quickStrokeWithCtx(ctx, def.circle.color, def.circle.width)
+                quickStrokeWithCtx(ctx, cc, cw)
             }
 
         this.points(ctx, eachPoint)
@@ -418,7 +423,10 @@ class LazyAccessArray extends Array {
 
     get shape() {
         const C = (this.shapeClass || PointListShape)
-        return (this._shape || (this._shape = new C(this)))
+        if(this._shape == undefined) {
+            Object.defineProperty(this, '_shape', { value: new C(this) })
+        }
+        return this._shape
     }
 
     get each() {
@@ -442,7 +450,7 @@ class LazyAccessArray extends Array {
         const handler = {
             set(headTarget, innerProp, value) {
                 console.log('Set', innerProp, value)
-                target.forEach((p)=>{
+                target.forEach((p, i, a)=>{
                     p[innerProp] = value // .apply(p, arguments)
                 })
 

@@ -1,0 +1,30 @@
+<html>
+  <body>
+    <script src="../p2.min.js"></script>
+
+    <style>
+        canvas {
+            width: 800;
+            height: 600;
+            /*height: 100%;*/
+            border: solid 1px;
+        }
+        html, body {
+            background: #111;
+        }
+
+        .abs-grid {
+            display: grid
+        }
+
+        .abs-grid canvas {
+            grid-area: 1/1/1/1
+        }
+    </style>
+
+    <div class='abs-grid'>
+        <canvas id="canvas"></canvas>
+    </div>
+    <script src="../demos/double-pendulum.js"></script>
+  </body>
+</html>

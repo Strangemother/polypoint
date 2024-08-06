@@ -25,6 +25,7 @@ const saveRestoreDraw = function(ctx, position, callback) {
 }
 
 class Line {
+    doTips = true
     constructor(p1, p2, color='red', width=1){
         // new Line([90, 130], [200, 300], 420)
         this.create.apply(this, arguments)
@@ -60,6 +61,139 @@ class Line {
         ctx.lineWidth = conf.width == undefined? 1: conf.width
         this.perform(ctx)
         this.writeLine(ctx)
+        ;(this.doTips) && this.performDrawTips(ctx)
+    }
+
+    performDrawTips(ctx, result){
+        this.performTipA(ctx, result)
+        this.performTipB(ctx, result)
+    }
+
+    /* Apply a tip at point A, (the first position).
+
+    The Tip is a point, with some styling with an ngon.
+    */
+    performTipA(ctx, result){
+        let tipA = this.a
+        ctx.beginPath()
+
+        this.drawPolyTipA(ctx, result, tipA)
+        this._ctx_fill(ctx)
+
+        let point = this.drawLineTipA(ctx, result, tipA)
+        this.writeLineTip(ctx, point)
+    }
+
+    writeLineTip(ctx, tip) {
+
+        tip.rotation += 90
+        tip.radius = 10
+
+        let lineA = tip.project()
+        tip.rotation += 180
+        let lineB = tip.project()
+        lineA.pen.line(ctx, lineB, 'orange', 2)
+    }
+
+    drawPolyTipA(ctx, result, position) {
+
+        let tail = this.a.copy()
+        /* Rotate this _end point_ to look directly at, then perform a 180,
+        allowing Polypoint to offset the calculation */
+        let target = this.b
+        tail.lookAt(new Point(target))
+        /* Spin the point around the center (its nose).
+        rotate to be _under_ the point. */
+        tail.rotation += 180
+        /* poly distance from the tip */
+        tail.radius = 6
+
+        let callback = tip => {
+            /* Draw tip */
+            tip.draw.ngon(ctx, 3, tail.radius)
+        }
+
+        saveRestoreDraw(ctx, tail, callback)
+
+        return tail
+    }
+
+    _ctx_fill(ctx) {
+        // Make a fancy Fill thing.
+        ctx.fillStyle = '#880000'
+        ctx.fill()
+    }
+
+    drawLineTipA(ctx, result, position) {
+        let s = this.a.copy()
+        ctx.moveTo(s[0], s[1])
+
+        let target = this.b.copy()
+        s.lookAt(new Point(target))
+        return s
+    }
+
+    performTipB(ctx, result){
+        let tipB = this.b
+
+        this.drawPolyTipB(ctx, result, tipB);
+        this._ctx_fill(ctx)
+
+        let res = this.drawLineTipB(ctx, result, tipB)
+        this.writeLineTip(ctx, res)
+    }
+
+
+    drawPolyTipB(ctx, result, position) {
+        let point = (new Point(position)).copy()// || this.b)
+            /* First we grab the cached _curve_ of this line instance. */
+            ;
+        /* For the tail, we take the last-1 [and last] to render a
+        point at this position. */
+        let penUltP = this.b.copy()
+            ;
+
+        /*Ensure the given point is a point instance. */
+        /* it's likely the original point, therefore we ensure it's new. */
+        let tail = point.copy()
+        /* Rotate this _end point_ to look directly at, then perform a 180, allowing Polypoint to offset the calculation */
+        let target = this.a
+
+        tail.lookAt(new Point(target))
+        tail.rotation += 180
+
+        tail.radius = 7
+
+        // ctx.closePath()
+        // ctx.stroke()
+        ctx.beginPath()
+        ctx.save()
+
+        let offsetX = -tail.radius
+            , offsetY = 0 // tail.radius
+        let tip = (new Point(offsetX, offsetY))
+
+        ctx.translate(tail.x, tail.y) // Becomes the draw point.
+        ctx.rotate(degToRad(tail.rotation))// + this.tick))
+
+        /* Draw tip */
+        tip.draw.ngon(ctx, 3, tail.radius)
+        /* Pop the stack, de-rotating the page.*/
+        ctx.restore()
+
+        return tail
+    }
+
+    drawLineTipB(ctx, result, position) {
+        let s = new Point(position)
+        ctx.moveTo(s[0], s[1])
+        let tail = s.copy()
+        /* Look at the target point. */
+
+        let a = this.a
+        // let penUltP = curves[curves.length-2]
+        tail.lookAt(a)
+        return tail
     }
 
     writeLine(ctx) {
@@ -91,8 +225,9 @@ class BezierCurve extends Line {
         let a = this.a
           , b = this.b
           ;
-        let midDistance = a.distanceTo(b)*.5
-        let offset = this.offset == undefined? 0: this.offset
+
+        // let midDistance = a.distanceTo(b)*.5
+        // let offset = this.offset == undefined? 0: this.offset
 
         /*A bezier requires two control points */
         // let cached = [
@@ -199,6 +334,7 @@ class CantenaryCurve extends Line {
         this.writeLine(ctx)
         ;(this.doTips) && this.performDrawTips(ctx, result)
     }
+
     perform(ctx, result) {
 
         result = result || this.getControlPoints()
@@ -226,10 +362,10 @@ class CantenaryCurve extends Line {
         return result;
     }
 
-    performDrawTips(ctx, result){
-        this.performTipA(ctx, result)
-        this.performTipB(ctx, result)
-    }
+    // performDrawTips(ctx, result){
+    //     this.performTipA(ctx, result)
+    //     this.performTipB(ctx, result)
+    // }
 
     performTipB(ctx, result){
         let tipB = this.b
@@ -269,15 +405,15 @@ class CantenaryCurve extends Line {
         lineA.pen.line(ctx, lineB, '#AADDFF', 2)
     }
 
-    performTipA(ctx, result){
-        let tipA = this.a
-        ctx.beginPath()
-        this.drawPolyTipA(ctx, result, tipA)
-        this.writePolyTipB(ctx)
+    // performTipA(ctx, result){
+    //     let tipA = this.a
+    //     ctx.beginPath()
+    //     this.drawPolyTipA(ctx, result, tipA)
+    //     this.writePolyTipB(ctx)
 
-        let res = this.drawLineTipA(ctx, result, tipA)
-        this.writeLineTip(ctx, res)
-    }
+    //     let res = this.drawLineTipA(ctx, result, tipA)
+    //     this.writeLineTip(ctx, res)
+    // }
 
     drawTipA(ctx, result, position) {
     }

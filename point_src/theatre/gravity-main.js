@@ -1,3 +1,4 @@
+/* moved to functions/gravity */
 const applyGravityAndBounds = function(point, gravityVector, bounds, dampingFactor) {
     // Apply gravity
     point.vx += gravityVector.x;

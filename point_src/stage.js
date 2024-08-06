@@ -1,4 +1,42 @@
 
+// Solution 2
+Number.EPSILON = Math.pow(2, -52);
+Math.sign = function(x) {
+    return ((x > 0) - (x < 0)) || +x;
+};
+
+var DecimalPrecision = (function() {
+    return {
+        // Decimal round (half away from zero)
+        round: function(num, decimalPlaces) {
+            var p = Math.pow(10, decimalPlaces || 0);
+            var n = (num * p) * (1 + Number.EPSILON);
+            return Math.round(n) / p;
+        },
+        // Decimal ceil
+        ceil: function(num, decimalPlaces) {
+            var p = Math.pow(10, decimalPlaces || 0);
+            var n = (num * p) * (1 - Math.sign(num) * Number.EPSILON);
+            return Math.ceil(n) / p;
+        },
+        // Decimal floor
+        floor: function(num, decimalPlaces) {
+            var p = Math.pow(10, decimalPlaces || 0);
+            var n = (num * p) * (1 + Math.sign(num) * Number.EPSILON);
+            return Math.floor(n) / p;
+        },
+        // Decimal trunc
+        trunc: function(num, decimalPlaces) {
+            return (num < 0 ? this.ceil : this.floor)(num, decimalPlaces);
+        },
+        // Format using fixed-point notation
+        toFixed: function(num, decimalPlaces) {
+            return this.round(num, decimalPlaces).toFixed(decimalPlaces);
+        }
+    };
+})();
+
+
 class Stages {
     /* A Singleton to manage global functions and data */
     loaded = false
@@ -64,7 +102,7 @@ class Stages {
 
     installCanvas(canvas, stage){
         this.canvasMap.set(canvas, stage)
-        Point.mouse?.listen(canvas)
+        Point.mouse?.mount(canvas)
     }
 }
 
@@ -130,8 +168,11 @@ class StageRender extends StageTools {
             stage.update()
         */
 
-        this.id = Math.random().toString(32)
+        let id = this.id = Math.random().toString(32)
+        this.target = target
         let canvas = stages.resolveNode(target, this)
+        this.setupClock()
+        this.dispatch('stage:prepare', {target, id, canvas })
         this.canvas = canvas
         this.resize()
         this.loopDraw = this.loopDraw.bind(this)
@@ -139,8 +180,54 @@ class StageRender extends StageTools {
         this.compass = Compass.degrees()
         this.mounted(canvas)
         addEventListener('resize', (e)=>this.resizeHandler(e));
+
+        /* late components did not receive `stage:prepare`.
+        As such, they will _announce_ */
+        addEventListener('addon:announce', (e)=>this.addonAnnounceHandler(e));
     }
 
+    /* a given object is mounted on _this_ - such as the `mouse`.
+    This may be called in response to a 'stage:prepare' event.  */
+    addComponent(name, instance) {
+        console.log('Installing', name, 'to', this)
+        Object.defineProperty(this, name, {value: instance})
+    }
+
+    /* an addon instance has anounced itself. Perform the addComonent */
+    addonAnnounceHandler(ev) {
+        let data = ev.detail
+        let instance = data.target
+        // this.dispatch('stage:prepare', {target, id, canvas })
+        let response = {
+            target: this.target
+            , id: this.id
+            , canvas: this.canvas
+        }
+
+        let detail = this._dispatchPrepare(response)
+        /* mimic an event object detail. */
+        console.log('Stage::addonAnnounceHandler', ev, d)
+        instance.announcementResponse(detail)
+    }
+
+    dispatch(name, data) {
+        // this.dispatch('prepare', { target, id, stage: this, canvas })
+        console.log('Dispatch', name)
+        let detail = this._dispatchPrepare(data)
+        dispatchEvent(new CustomEvent(name, detail))
+    }
+
+    /* Given a dictionary, return a finished dictionary, ready for event
+    dispatch */
+    _dispatchPrepare(data) {
+        data['stage'] = this
+        return {detail: data}
+    }
+
+    /* The stage naturally listens to the resize event, with a debouncer.
+    Upon resize, call stickCanvasSize, recaching the internal dimensions for
+    relative meaurements.
+    */
     resizeHandler(event) {
 
         if(!this.debounceResize) { return this.resize() }
@@ -198,9 +285,43 @@ class StageRender extends StageTools {
             inline update per draw
         */
         const ctx = this.ctx;
-        this._drawFunc(ctx)
+        let c = this.tickClock(ctx)
+        this._drawFunc(ctx);
+
+        this.drawFPS(ctx)
     }
 
+    setupClock() {
+
+        let t = new Text(undefined, "FPS")
+        t.position.x = 20
+        t.position.y = 20
+        this.fpsLabel = t
+
+        this.clock = {
+            tick: -1
+            , delta: 0
+            , prevStamp: +(new Date)
+            , get fps() {
+                return Math.floor(1000 / this.delta)
+            }
+        }
+    }
+
+    tickClock(ctx) {
+        let c = this.clock
+        const ts = +(new Date)
+        c.tick += 1
+        c.delta = ts - c.prevStamp
+        c.prevStamp = ts
+        return c
+    }
+
+    drawFPS(ctx) {
+        let t = this.fpsLabel
+        t.text = this.clock.fps
+        t.writeText('red', ctx)
+    }
     draw(ctx) {
         /* The primary rendering function to override.
         Called by the `update()` method, given the context `ctx` of the

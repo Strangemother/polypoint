@@ -1,4 +1,4 @@
-
+/* moved to line/Line */
 class Line {
     constructor(p1, p2, color='red', width=1){
         // new Line([90, 130], [200, 300], 420)
@@ -43,7 +43,7 @@ class Line {
     }
 }
 
-
+/* moved to curvy-line */
 class BezierCurve extends Line {
 
     // create(p1, p2, color='red', width=1) {

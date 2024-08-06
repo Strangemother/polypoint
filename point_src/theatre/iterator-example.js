@@ -1,5 +1,5 @@
 /*An iterator can automatically count between a range. */
-
+/* moved to iter/beta */
 class Iterator {
 
     value = 0

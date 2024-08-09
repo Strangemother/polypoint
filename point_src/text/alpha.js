@@ -16,12 +16,20 @@ class Text {
     // letterSpacing =  undefined
 
     constructor(ctx, text=undefined) {
-        if(text){
-            this.text = text;
-        }
+        this.updateData(text)
+
 
         this.position = new Point(0, 0)
         this.ctx = ctx;
+    }
+
+    updateData(d) {
+        if(typeof(d) == 'string'){
+            this.text = d;
+        }
+        for(let k in d) {
+            this[k] = d[k]
+        }
     }
 
     get width() {

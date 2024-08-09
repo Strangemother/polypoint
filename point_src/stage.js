@@ -171,6 +171,9 @@ class StageRender extends StageTools {
         let id = this.id = Math.random().toString(32)
         this.target = target
         let canvas = stages.resolveNode(target, this)
+        if(canvas == undefined) {
+            console.warn('Stage canvas is undefined through Stage.canvas')
+        }
         this.setupClock()
         this.dispatch('stage:prepare', {target, id, canvas })
         this.canvas = canvas
@@ -193,7 +196,7 @@ class StageRender extends StageTools {
         Object.defineProperty(this, name, {value: instance})
     }
 
-    /* an addon instance has anounced itself. Perform the addComonent */
+    /* an addon instance has anounced itself. Perform the addComponent */
     addonAnnounceHandler(ev) {
         let data = ev.detail
         let instance = data.target
@@ -288,15 +291,15 @@ class StageRender extends StageTools {
         let c = this.tickClock(ctx)
         this._drawFunc(ctx);
 
-        this.drawFPS(ctx)
+        // this.drawFPS(ctx)
     }
 
     setupClock() {
 
-        let t = new Text(undefined, "FPS")
-        t.position.x = 20
-        t.position.y = 20
-        this.fpsLabel = t
+        // let t = new Text(undefined, "FPS")
+        // t.position.x = 20
+        // t.position.y = 20
+        // this.fpsLabel = t
 
         this.clock = {
             tick: -1
@@ -311,6 +314,7 @@ class StageRender extends StageTools {
     tickClock(ctx) {
         let c = this.clock
         const ts = +(new Date)
+        // const ts = Performance.now()
         c.tick += 1
         c.delta = ts - c.prevStamp
         c.prevStamp = ts
@@ -322,6 +326,7 @@ class StageRender extends StageTools {
         t.text = this.clock.fps
         t.writeText('red', ctx)
     }
+
     draw(ctx) {
         /* The primary rendering function to override.
         Called by the `update()` method, given the context `ctx` of the

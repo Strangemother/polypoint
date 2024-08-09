@@ -89,7 +89,6 @@ class MainStage extends Stage {
         // Spin the text to the desired rotation.
         ctx.rotate(h.rotation)
         // ctx.rotate(Math.PI/2 + (rot * .02))
-
         h.writeText()
 
         ctx.translate(10, 10)

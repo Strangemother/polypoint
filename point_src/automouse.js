@@ -37,6 +37,8 @@ class AutoMouse {
         this.zIndex = 'local'
         this.handlers = {}
         this._announce()
+
+        this._peristentPoint = new Point
     }
 
     _announce() {
@@ -84,7 +86,18 @@ class AutoMouse {
     }
 
     get position() {
+        /* The `this.position` method returns a new Point, with the mouse XY
+        (from the last motion).
+        Use `this.point` for a persisent single Point instence. */
         return new Point(this.mouseCache)
+    }
+
+    get point() {
+        /*
+        Return a persistent _point_, of which is updated rather than replaced
+        when the mouse state changes.
+         */
+        return this._peristentPoint
     }
     // [Symbol.toPrimitive](hint) {
 
@@ -169,7 +182,10 @@ class AutoMouse {
         }
 
         this.positions = positions;
-        this.mouseCache = positions[this.zIndex] //{x,y}
+        let state = positions[this.zIndex] //{x,y}
+        this.mouseCache = state
+        this._peristentPoint.x = state.x
+        this._peristentPoint.y = state.y
         this.callHandlers('mousemove', canvas, event)
         return this;
     }
@@ -236,10 +252,35 @@ class AutoMouse {
 
     wheelSize(abs=false) {
         let v = (this.buttons.wheel?.value) || 1
-        let sq = (v * v)
+        let sq = v//(v * v)
         if(abs==true) { return sq }
         return v < 0? -sq: sq
     }
+
+    /*
+    A function to help clamp the wheel scroll within a range. By using this
+    function, the wheel value doesn't exceed the clamp.
+
+
+        let size = mouse.clampWheelSize(5, 20)
+
+    The same can be done with the clamp function
+
+        let size = clamp(mouse.wheelSize(), 30, 300)
+
+    but when the wheel exceeds the clamp, it'll scroll into an unused range.
+
+     */
+    clampWheelSize(min, max, abs=false) {
+        let ws = this.wheelSize(abs);
+        let v =  clamp(ws, min, max)
+        if(this.buttons.wheel!=undefined){
+            this.buttons.wheel.value = v
+        }
+
+        return v
+    }
+
 
     on(canvas, name, handler, opts) {
         let hs = this.handlers[name] || []

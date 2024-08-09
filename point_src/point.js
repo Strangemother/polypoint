@@ -163,6 +163,16 @@ class PointPen {
         }, color, width)
     }
 
+    fill(ctx, fillStyle, radius=undefined) {
+        ctx.beginPath()
+
+        this.point.draw.arc(ctx, radius)
+        ctx.fillStyle = fillStyle
+        // ctx.lineWidth = width == undefined? 1: width
+
+        ctx.fill()
+    }
+
     indicator(ctx, miniConf={}) {
         /* Synonymous to:
 
@@ -487,6 +497,10 @@ class Tooling extends Rotation {
         return distance(this, other)
     }
 
+    distance2D(other) {
+        return distance2D(this, other)
+    }
+
     quantize(amount=1) {
         let q = quantizeNumber
         return new this.constructor({
@@ -498,6 +512,24 @@ class Tooling extends Rotation {
     protractorAngleTo(other, referencePoint) {
         let value = calculateAngleWithRefWithNeg(this, other, referencePoint)
         return new Angle(value)
+    }
+
+    /* Track another point using IK - this point follows the _other_ at a
+    set distance. */
+    track(other, settings) {
+        return followPoint(other, this, settings)
+    }
+
+    /* Track another point using constraints. This point follows the other
+    point at a distance or less. */
+    leash(other, settings) {
+        return constrainDistance(other, this, settings)
+    }
+
+    /* Ensure this point does not overlap the _other_ point. If an overlap
+    occurs, this point is moved. Fundamentally this is the antethsis of leash().*/
+    avoid(other, settings) {
+        return inverseConstrainDistance(other, this, settings)
     }
 }
 

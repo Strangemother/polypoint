@@ -10,8 +10,10 @@ class RelativeNumber {
     }
 }
 
+
 class MainStage extends Stage {
     canvas = 'playspace'
+
     mounted(){
         this.point = new Point(100, this.center.y)
         this.clickPoint = this.center
@@ -19,6 +21,9 @@ class MainStage extends Stage {
         this.line = new Line(this.point, this.clickPoint, 'green', 2)
 
         autoMouse.on(this.canvas, 'click', this.onClick.bind(this))
+        this.cantenary = new CantenaryCurve(this.point, this.point)
+        this.newFPS = new FPS(this)
+        this.newFPS.setup()
     }
 
     draw(ctx) {
@@ -29,6 +34,8 @@ class MainStage extends Stage {
         this.drawCurveLine(ctx)
         this.line.render(ctx)
 
+        this.newFPS.update()
+        this.newFPS.draw(ctx)
         /* The pinned point 100,100 */
         this.point.pen.indicator(ctx)
     }

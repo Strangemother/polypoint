@@ -277,6 +277,7 @@ function distance(xy1, xy2) {
   return Math.sqrt(Math.pow((xy2.x - xy1.x), 2) + Math.pow((xy2.y - xy1.y), 2));
 }
 
+
 // Function to quantize an angle based on the number of divisions (bisect)
 function quantizeAngle(inputAngle, bisect) {
   /*

@@ -1,5 +1,7 @@
 
-/* requires line/Line */
+/* requires line/Line
+
+Replaced by curve-extrs/BezierCurve */
 class BezierCurve extends Line {
 
     // create(p1, p2, color='red', width=1) {

@@ -47,8 +47,8 @@ class MainStage extends Stage {
 
     draw(ctx){
         this.clear(ctx)
-        this.curvyLineA.render(ctx)
-        this.curvyLineA.points.pen.indicators(ctx)
+        this.curvyLineA.points.pen.indicators(ctx, {color: '#444'})
+        this.curvyLineA.render(ctx, { width: 2, color: '#8f08d5'})
         this.tick += 1
         riter.step(this.tick)
         // this.curvyLineA.b.rotation = rotiter.step(this.tick)

@@ -1,4 +1,5 @@
 
+// moved to functions/context.js
 const saveRestoreDraw = function(ctx, position, callback) {
     /*
         + `save()` the context
@@ -106,7 +107,7 @@ class Line {
         rotate to be _under_ the point. */
         tail.rotation += 180
         /* poly distance from the tip */
-        tail.radius = 6
+        tail.radius = 10
 
         let callback = tip => {
             /* Draw tip */
@@ -246,6 +247,71 @@ class BezierCurve extends Line {
     get points() {
         return new PointList(this.a,this.b)
     }
+
+
+    drawLineTipA(ctx, result, position) {
+        let s = this.a.copy()
+        ctx.moveTo(s[0], s[1])
+        s.rotation = this.a.rotation + 180
+        // let target = this.b.copy()
+        // s.lookAt(new Point(target))
+        return s
+    }
+
+    drawPolyTipA(ctx, result, position) {
+
+        let tail = this.a.copy()
+        /* Rotate this _end point_ to look directly at, then perform a 180,
+        allowing Polypoint to offset the calculation */
+        let target = this.b
+        // tail.lookAt(new Point(target))
+        /* Spin the point around the center (its nose).
+        rotate to be _under_ the point. */
+        tail.rotation = this.a.rotation + 180
+        /* poly distance from the tip */
+        tail.radius = 7
+
+        let callback = tip => {
+            /* Draw tip */
+            tip.draw.ngon(ctx, 3, tail.radius)
+        }
+
+        saveRestoreDraw(ctx, tail, callback)
+
+        return tail
+    }
+
+    drawLineTipB(ctx, result, position) {
+        let s = new Point(position).copy()
+        ctx.moveTo(s[0], s[1])
+        // let tail = s.copy()
+        /* Look at the target point. */
+        s.rotation = this.b.rotation
+        let a = this.a
+        // let penUltP = curves[curves.length-2]
+        // tail.lookAt(a)
+        return s
+    }
+
+    drawPolyTipB(ctx, result, position) {
+        /* it's likely the original point, therefore we ensure it's new. */
+        let tail = (new Point(position)).copy()// || this.b)
+            ;
+
+        /* TODO:
+        Attempt to understand why the b tip of a spline is -90,
+        But the `a` tip 180*/
+        tail.rotation += this.b.rotation + -90
+        tail.radius = 7
+
+        let callback = tip => {
+            /* Draw tip */
+            tip.draw.ngon(ctx, 3, tail.radius)
+        }
+
+        saveRestoreDraw(ctx, tail, callback)
+    }
+
 
     perform(ctx) {
         let b = this.b;

@@ -49,12 +49,20 @@ class MainStage extends Stage {
         this.clear(ctx)
 
         let mouse = Point.mouse.position
-        constrainDistance(mouse, this.points[0], 50)
-        constrainDistance(this.points[0], this.points[1], 50)
-        constrainDistance(this.points[1], this.points[2], 50)
-        constrainDistance(this.points[2], this.points[3], 50)
-        constrainDistance(this.points[3], this.points[4], 50)
-        constrainDistance(this.points[4], this.points[5], 50)
+        // constrainDistance(mouse, this.points[0], 50)
+        // constrainDistance(this.points[0], this.points[1], 50)
+        // constrainDistance(this.points[1], this.points[2], 50)
+        // constrainDistance(this.points[2], this.points[3], 50)
+        // constrainDistance(this.points[3], this.points[4], 50)
+        // constrainDistance(this.points[4], this.points[5], 50)
+
+        this.points[0].leash(mouse, 50)
+        this.points[1].leash(this.points[0], 50)
+        this.points[2].leash(this.points[1], 50)
+        this.points[3].leash(this.points[2], 50)
+        this.points[4].leash(this.points[3], 50)
+        this.points[5].leash(this.points[4], 50)
+
         // this.points.last().rotation += 2
         this.points.pen.indicators(ctx)
 

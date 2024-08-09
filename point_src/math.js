@@ -83,6 +83,14 @@ function distance(xy1, xy2) {
 }
 
 
+function distance2D(xy1, xy2) {
+    const dx = xy1.x - xy2.x;
+    const dy = xy1.y - xy2.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return { x: dx, y: dy, distance }
+}
+
+
 const spotPlacement = function(s, offset) {
         let d = distance(s.position, s.end)
         offset = offset == undefined ? (d * -.02): offset

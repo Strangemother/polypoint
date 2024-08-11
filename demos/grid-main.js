@@ -1,7 +1,7 @@
 
 const canvas = document.getElementById('playspace');
 const ctx = canvas.getContext('2d');
-Point.mouse.listen(canvas)
+Point.mouse.mount(canvas)
 
 
 // var t = 0;

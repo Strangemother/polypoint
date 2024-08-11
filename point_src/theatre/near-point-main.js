@@ -22,7 +22,6 @@ class MainStage extends Stage {
         this.points = pointList
         this.dis = new Distances
         this.dis.addPoints(...pointList)
-        let mousePoint = Point.mouse.position
     }
 
     draw(ctx){

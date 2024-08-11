@@ -173,6 +173,7 @@ class PointPen {
         ctx.fill()
     }
 
+
     indicator(ctx, miniConf={}) {
         /* Synonymous to:
 
@@ -239,14 +240,23 @@ class Positionable {
         this.y = y == undefined? 0: y
     }
 
-    subtract(other){
-        return new Point(this.x - other.x, this.y - other.y)
+    subtract(p, _2=p){
+        if(typeof(p) == 'number') {
+            p = point(p, _2)
+        }
+
+        return new Point(this.x - p.x, this.y - p.y)
     }
 
-    add(p) {
+    _cast(p, _2=p) {
         if(typeof(p) == 'number') {
-            p = point(p, p)
+            p = point(p, _2)
         }
+        return p
+    }
+
+    add(p, _b) {
+        p = this._cast(p, _b)
 
         return new Point(
             this.x + p.x,
@@ -336,24 +346,6 @@ class Rotation extends Positionable {
         const angleRadians = delta.atan2()
         this.radians = angleRadians
         return angleRadians
-    }
-
-    turnTo(otherPoint, rotationMultiplier=1){
-        const delta = otherPoint.subtract(this);
-        const targetRad = delta.atan2();
-        const currentRad = this.radians;
-
-        let radDiff = targetRad - currentRad;
-        // Normalize the angle difference to be within the range -PI to PI
-        radDiff = Math.atan2(Math.sin(radDiff), Math.cos(radDiff));
-        const newAngleRadians = currentRad + radDiff * rotationMultiplier;
-        const normRad = Math.atan2(
-                            Math.sin(newAngleRadians),
-                            Math.cos(newAngleRadians)
-                        );
-
-        this.radians = normRad;
-        return normRad
     }
 
     turnTo(otherPoint, rotationMultiplier=1){
@@ -517,19 +509,20 @@ class Tooling extends Rotation {
     /* Track another point using IK - this point follows the _other_ at a
     set distance. */
     track(other, settings) {
-        return followPoint(other, this, settings)
+        // return followPoint(other, this, settings)
+        return constraints.distance(other, this, settings)
     }
 
     /* Track another point using constraints. This point follows the other
     point at a distance or less. */
     leash(other, settings) {
-        return constrainDistance(other, this, settings)
+        return constraints.within(other, this, settings)
     }
 
     /* Ensure this point does not overlap the _other_ point. If an overlap
     occurs, this point is moved. Fundamentally this is the antethsis of leash().*/
     avoid(other, settings) {
-        return inverseConstrainDistance(other, this, settings)
+        return constraints.inverse(other, this, settings)
     }
 }
 
@@ -661,3 +654,5 @@ class Point extends Tooling {
         return false
     }
 }
+
+;Object.defineProperty(Point, 'from', { value: (a,b)=> new Point(a,b) });

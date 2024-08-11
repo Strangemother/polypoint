@@ -18,7 +18,6 @@ const getLastMousePos = function(){
 }
 
 
-
 class AutoMouse {
     /*
         installCanvas(canvas, stage){
@@ -39,12 +38,15 @@ class AutoMouse {
         this._announce()
 
         this._peristentPoint = new Point
+
     }
 
     _announce() {
 
         /* Wait for a stage prep event. */
-        addEventListener('stage:prepare', this.stagePrepareHandler.bind(this))
+
+        events.on('stage:prepare', this.stagePrepareHandler.bind(this))
+        // addEventListener('stage:prepare', this.stagePrepareHandler.bind(this))
 
         // Announce this module is mountable.
         let data = {
@@ -52,7 +54,8 @@ class AutoMouse {
 
         }
 
-        dispatchEvent(new CustomEvent('addon:announce', {detail: data}))
+        events.emit('addon:announce', data)
+        // dispatchEvent(new CustomEvent('addon:announce', {detail: data}))
     }
 
     /* The given event has a stage ready for mounting. Perform any changes,
@@ -143,6 +146,7 @@ class AutoMouse {
                 this.listen(canvas, k, f)
                 continue
             }
+            // f is an array.
             this.listen(canvas, k, f[0], f[1])
 
         }
@@ -191,7 +195,9 @@ class AutoMouse {
     }
 
     callHandlers(name, canvas, event) {
-        for (let func in this.handlers[name]) {
+        let handlers = this.handlers[name]
+        for (let key in handlers) {
+            let func = handlers[key]
             func(canvas, event)
         }
     }
@@ -252,7 +258,7 @@ class AutoMouse {
 
     wheelSize(abs=false) {
         let v = (this.buttons.wheel?.value) || 1
-        let sq = v//(v * v)
+        let sq = isFunction(abs) ? abs(v): v//(v * v)
         if(abs==true) { return sq }
         return v < 0? -sq: sq
     }

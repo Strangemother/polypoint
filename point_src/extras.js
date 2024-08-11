@@ -50,7 +50,7 @@ const quickStrokeWithCtx = function(ctx, color='green', lineWidth=UNSET, f) {
 
 
 
-const approx_distance = function(dx,dy ) {
+approx_distance = function(dx,dy ) {
 
    if ( dx < 0 ) dx = -dx;
    if ( dy < 0 ) dy = -dy;
@@ -73,7 +73,7 @@ const approx_distance = function(dx,dy ) {
 
 
 
-const approx_distance2 = function(dx,dy ) {
+approx_distance2 = function(dx,dy ) {
    let min, max;
 
    if ( dx < 0 ) dx = -dx;

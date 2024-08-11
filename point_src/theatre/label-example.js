@@ -2,9 +2,9 @@
 let rotationPoint = new Point(300, 300)
 
 class Label {
-    fontSize = 12
+    fontSize = 14
     fontWeight = 'normal'
-    fontName = '"Courier New"'
+    fontName = 'Courier New'
     text = undefined
     textAlign = "left" // undefined // "center"
     textBaseline = "top" // undefined //"middle"
@@ -122,11 +122,13 @@ class MainStage extends Stage {
     mounted(){
         let l = new Label(this.ctx, {
             text: 'Milkshake before breakfast.'
-            // , fontSize: 12
+            , fontSize: 16
+            , fontName: 'barlow'
+            // , fontName: 'Arial'
             // , fillStyle: 'green'
         })
         l.position = new Point(100, 100)
-        l.position.rotation = 0 // l.position.radians % Math.PI
+        l.position.rotation = 45 // l.position.radians % Math.PI
 
         this.l = l
 

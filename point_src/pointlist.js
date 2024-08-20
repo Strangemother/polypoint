@@ -31,7 +31,8 @@ class PointListDraw {
         ctx.lineTo(b.x, b.y)
     }
 
-    pointLine(ctx, position) {
+    /* Draw this list as a pointline, provide an init position for an offset. */
+    pointLine(ctx, position, eachFunc) {
         // To 'close' the old drawing.
         let pointsArray = this.list
         let a = pointsArray[0]
@@ -48,6 +49,11 @@ class PointListDraw {
 
         // ctx.strokeStyle = 'white'
         // ctx.stroke()
+    }
+
+    /* Draw a startline lineTo through all points. */
+    line(ctx) {
+        return this.pointLine(ctx)
     }
 }
 
@@ -94,7 +100,7 @@ class PointListGenerator {
 
     }
 
-    list(count=5, distance=10) {
+    list(count=5, distance=10, origin=undefined) {
         /*
             Generate a list of points to a _count_.
 
@@ -115,6 +121,7 @@ class PointListGenerator {
             res.push(p)
         }
 
+        origin && res.offset(origin)
         return res
     }
 
@@ -362,6 +369,10 @@ class PointListPen {
         })
 
     }
+    line(ctx) {
+        this.parent.draw.line(ctx)
+        ctx.stroke()
+    }
 
     indicators(ctx, miniConf={}) {
         /* Synonymous to:
@@ -395,6 +406,23 @@ class PointListPen {
 
         this.points(ctx, eachPoint)
     }
+
+    fill(ctx, fillStyle, radius=undefined) {
+        ctx.beginPath()
+        let fs = fillStyle || this.color
+        if(fs) {ctx.fillStyle = fs};
+
+        this.points(ctx, (p)=> p.pen.fill(ctx, fs, radius))
+        // this.point.draw.arc(ctx, radius)
+        // ctx.lineWidth = width == undefined? 1: width
+
+        ctx.fill()
+    }
+
+    stroke(ctx) {
+        // ctx.stroke()
+        this.points(ctx, (p)=> p.pen.stroke(ctx))
+    }
 }
 
 
@@ -412,8 +440,13 @@ class LazyAccessArray extends Array {
     }
 
     get pen() {
+
         const C = (this.penClass || PointListPen)
-        return (this._pen || (this._pen = new C(this)))
+        if(this._pen == undefined) {
+            Object.defineProperty(this, '_pen', { value: new C(this) })
+        }
+        return this._pen
+        // return (this._pen || (this._pen = new C(this)))
     }
 
     get generate() {
@@ -505,6 +538,14 @@ class LazyAccessArray extends Array {
         const proxy = new Proxy(target, handler);
         return proxy;
     }
+}
+
+const asPoints = function(items) {
+    let res = new PointList;
+    for(let item in items) {
+        res.push(new Point(items[item]))
+    }
+    return res
 }
 
 
@@ -623,6 +664,8 @@ class PointList extends LazyAccessArray {
     lookAt(other) {
         this.forEach(p=>{ p.lookAt(other)})
     }
+
+
 }
 
 

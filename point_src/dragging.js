@@ -24,6 +24,7 @@ class Dragging extends Distances {
     /* click Down<>Up ms delta,*/
     clickSpeed = 300
     clickDragDeadzone = undefined // undefined == 1 radius
+    maxWheelValue = 300
 
     constructor(stage) {
         super()
@@ -38,6 +39,7 @@ class Dragging extends Distances {
         mouse.listen(c, 'mousedown', (c,ev)=> this.onMousedown(stage,c,ev))
         mouse.listen(c, 'mousemove', (c,ev)=> this.onMousemove(stage,c,ev))
         mouse.listen(c, 'mouseup', (c,ev)=> this.onMouseup(stage,c,ev))
+        mouse.listen(c, 'wheel', (c,ev)=> this.onWheel(stage,c,ev), {passive: true})
         this._near = new Point(mouse.position);
     }
 
@@ -107,6 +109,18 @@ class Dragging extends Distances {
         }
 
         this.onLongClick(stage, canvas, ev, delta)
+    }
+
+    onWheel(stage, canvas, ev) {
+        let n = this._near;
+        if(!n) { return };
+
+        let size = event.wheelDelta
+        let positive = size > 0
+        let compute = Math.abs(size * .01)
+        let radius = n.radius;
+        let rad = positive? radius*compute: radius/compute;
+        n.radius = clamp(rad, 1, this.maxWheelValue)
     }
 
     onLongClick(stage, canvas, ev, delta) {

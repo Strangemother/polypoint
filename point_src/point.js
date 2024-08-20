@@ -156,6 +156,12 @@ class PointPen {
         }, color, width)
     }
 
+    stroke(ctx, radius=undefined) {
+        ctx.beginPath()
+        this.point.draw.arc(ctx, radius)
+        ctx.stroke()
+    }
+
     circle(ctx, radius=undefined, color, width) {
         /*An arc, but complete with begin path and stoking */
         this._quickStroke(ctx, ()=>{
@@ -167,7 +173,9 @@ class PointPen {
         ctx.beginPath()
 
         this.point.draw.arc(ctx, radius)
-        ctx.fillStyle = fillStyle
+        let fs = fillStyle == undefined? this.fillStyle || this.point.color: fillStyle
+
+        ctx.fillStyle = fs
         // ctx.lineWidth = width == undefined? 1: width
 
         ctx.fill()
@@ -269,9 +277,11 @@ class Positionable {
             p = point(p, p)
         }
 
+        let nNaN = v => isNaN(v)? 0: v;
+
         return new Point(
-            this.x / p.x,
-            this.y / p.y
+              nNaN(this.x / p.x)
+            , nNaN(this.y / p.y)
         )
     }
 
@@ -340,11 +350,16 @@ class Rotation extends Positionable {
 
         Return the angle in radians.
         */
+        let angleRadians = this.directionTo(otherPoint)
+        this.radians = angleRadians
+        return angleRadians
+    }
+
+    directionTo(otherPoint) {
         // Calculate the differences in x and y coordinates
         const delta = otherPoint.subtract(this);
         // Calculate the angle in radians
         const angleRadians = delta.atan2()
-        this.radians = angleRadians
         return angleRadians
     }
 
@@ -366,20 +381,6 @@ class Rotation extends Positionable {
         return normRad
     }
 
-    turnTo(otherPoint, rotationMultiplier=.3) {
-        const delta = otherPoint.subtract(this);
-        const targetRad = delta.atan2();
-        const currentRad = this.radians;
-
-        let radDiff = targetRad - currentRad;
-        radDiff = Math.atan2(Math.sin(radDiff), Math.cos(radDiff));
-        const newAngleRadians = currentRad + radDiff * rotationMultiplier;
-
-        // Normalize the new angle to be within the range -PI to PI
-        this.radians = Math.atan2(Math.sin(newAngleRadians), Math.cos(newAngleRadians));
-
-        return this.radians;
-    }
 
     getTheta(other, direction=undefined) {
         /* Return the calculated theta value through atan2 and built to offload
@@ -467,6 +468,23 @@ class Tooling extends Rotation {
         return new Point(this.x, this.y)
     }
 
+    magnitude() {
+        let x = this.x;
+        let y = this.y;
+        return Math.sqrt(x * x + y * y);
+    }
+
+    normalized(magnitude=this.magnitude()) {
+        /* Synonymous to:
+
+            {
+                x: AB.x / magnitudeAB,
+                y: AB.y / magnitudeAB
+            };
+        */
+        return this.divide(magnitude)
+        // return this.divide(this.magnitude())
+    }
 
     interpolateTo(other, offset, pointIndex=0) {
         /* return a point relative from _this_ point towards the `other`,
@@ -552,6 +570,12 @@ class Point extends Tooling {
         // this[1] = this.y
     }
 
+    update(data) {
+        /* Perform an _update_ given a dictionary of other properties. */
+        for(let k in data) {
+            this[k] = data[k]
+        }
+    }
 
     get uuid() {
         let r = this._id;

@@ -4,8 +4,9 @@ The _head_ represents the library and its accessibles. In the browner this manif
 first object to loadout; "Polypoint"
  */
 
-;(function(parent, name='Polypoint'){
+;(function(parent, name='Polypoint', debug=false){
 
+    const dlog = debug?console.log.bind(console): ()=>{}
     const waiting = {}
 
     /* Install properties onto an incoming unit
@@ -31,12 +32,12 @@ first object to loadout; "Polypoint"
      */
     const mixin = function(target, addon) {
         if(head[target]) {
-            console.log(`Installing mixin for "${target}"`)
+            dlog(`Installing mixin for "${target}"`)
             populateAddon(target, addon)
             return
         }
 
-        console.log('Mixin Waiting for unit', target)
+        dlog('Mixin Waiting for unit', target)
         if(waiting[target] == undefined) {
             waiting[target] = []
 
@@ -71,7 +72,7 @@ first object to loadout; "Polypoint"
             name = entity.name
         }
 
-        console.log(`Installing entity "${name}"`)
+        dlog(`Installing entity "${name}"`)
         head[name] = entity;
 
         if(waiting[name] != undefined) {
@@ -87,14 +88,14 @@ first object to loadout; "Polypoint"
     }
 
     const populateAddons = function(name, items) {
-        console.log('Installing addons', items.length, 'to', name)
+        dlog('Installing addons', items.length, 'to', name)
         for (var i = 0; i < items.length; i++) {
             populateAddon(name, items[i])
         }
     }
 
     const populateAddon = function(name, item) {
-        console.log('populateAddon', name, item)
+        dlog('populateAddon', name, item)
         let proto = head[name].prototype.constructor.prototype
         // let proto = Object.getPrototypeOf(head[name])
 
@@ -110,6 +111,45 @@ first object to loadout; "Polypoint"
         Object.defineProperty(proto, name, def)
         // Object.defineProperties(proto, name )
     }
+
+    /* Assume many functions to install:
+
+            Polypoint.installFunctions('Point', {
+                track(other, settings) {
+                    return constraints.distance(other, this, settings)
+                }
+
+                , leash(other, settings) {
+                    return constraints.within(other, this, settings)
+                }
+            });
+
+        synonymous to:
+
+        Polypoint.mixin('Point', {
+            track: {
+                value(any=false) {
+                    /// ...
+                }
+                , writable: true
+            }
+            , leash: { ... }
+        })
+
+     */
+    const installFunctions = function(name, functionsDict) {
+        let def = {}
+        for(let k in functionsDict) {
+            let func = functionsDict[k]
+            def[k] = {
+                value: func
+                , writable: true
+            }
+        }
+
+        return mixin(name, def)
+    }
+
 
     /*
         Assume many correctly named functions to access values on first call.
@@ -163,7 +203,8 @@ first object to loadout; "Polypoint"
 
     const head = {
         ready: false
-        , mixin, install, define
+        , mixin, install, installFunctions
+        , define
         , lazyProp
 
         /* Return a map iterator of the installed items.*/

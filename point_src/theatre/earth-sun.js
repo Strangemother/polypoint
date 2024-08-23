@@ -78,13 +78,15 @@ const planets = [
         , diameter: 1_391_400 // km
         , name: 'Sun'
         , au: 0
-        , radius: 400
+        , radius: 500
     },
     {
         color: "#4DA6FF",
         'name': 'Earth',
+        /* the earth is 1 astronomical unit from the sun. */
         au: 1,
-        diameter: 12_756,
+        diameter: 12_756, // KM
+        /* distance from the sun.  == 1au */
         km: 149_600_000
     }
 ]
@@ -103,15 +105,43 @@ class MainStage extends Stage {
         const shareSize = 15
         this.near = this.center.copy()
 
-        this.generatePlanetList()
+        this.createSunEarth()
 
         // this.dis = new Distances
         // this.dis.addPoints(this.center, this.point0, this.point1)
         this.dis = new Dragging
+        this.dis.maxWheelValue = 1000
         this.dis.initDragging(this)
         // this.dis.onDragMove = this.onDragMove.bind(this)
         // this.dis.onDragEnd = this.onDragEnd.bind(this)
         this.dis.addPoints(...this.points)
+    }
+
+    createSunEarth() {
+        let planets = this.generatePlanetList()
+        let [sun, earth] = planets
+        /* Ensure mouse wheel resizes earth */
+        sun.onResize = (e) => {
+            sun.scale = sun.radius / sun.diameter
+            this.setEarth(planets)
+        }
+
+        earth.onResize = (e) => {
+            sun.scale = sun.radius / sun.diameter
+            this.setSun(planets)
+        }
+
+        sun.x = 0
+        sun.y = this.center.y
+        earth.copy(this.center)
+
+        /* The scale of the sun in the view.
+        If the sun had a radius of 500px (1000px total diameter),
+        the scaled sun is 0.0003 the size of the real sun.
+        */
+        sun.scale = sun.radius / sun.diameter
+        console.log(sun.scale)
+        // Calculate the scaled distance from the Earth to the Sun in pixels
     }
 
     generatePlanetList(){
@@ -120,13 +150,23 @@ class MainStage extends Stage {
         let pl = Object.keys(planets).length
         this.points = asPoints(planets)
         this.setEarth(this.points)
+        return this.points
     }
 
     setEarth(ps=this.points) {
-
         let [sun, earth] = [ps[0], ps[1]]
+        /*
+            The earth is a fraction of the sun diameter, scaled to the polypoint
+            _radius_.
+         */
         const earthScaledRadius = (earth.diameter / sun.diameter) * sun.radius;
-        earth.radius = earthScaledRadius
+        earth.radius = clamp(earthScaledRadius, 1, 100)
+    }
+
+    setSun(ps=this.points) {
+        let [sun, earth] = [ps[0], ps[1]]
+        const earthScaledRadius = (sun.diameter / earth.diameter) * earth.radius;
+        sun.radius = clamp(earthScaledRadius, 1, 3000)
     }
 
     draw(ctx){

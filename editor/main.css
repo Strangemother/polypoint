@@ -1,0 +1,72 @@
+#playspace {
+    height: 99%;
+    width: 100%;
+}
+
+.canvas-wrapper {
+    border: solid 1px purple;
+    /*box-sizing: border-box;*/
+    display: grid;
+}
+
+#editor {
+    /*position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;*/
+}
+
+.columns-50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: solid 2px #5a2a2a;
+    /* height: max-content; */
+    box-sizing: border-box;
+    /* border-radius: 0.4em; */
+    /* margin: 4px; */
+    overflow: hidden;
+    flex-grow: 1;
+    height: 100%;
+}
+
+html, body {
+    background: #111;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    width: 100%;
+}
+
+.editor-container {
+    display: grid;
+    /*display: flex;*/
+    grid-template-rows: auto min-content;
+    height: 100%;
+    box-sizing: border-box;
+ }
+
+ .run-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: .5rem .5rem .5rem .5rem;
+    flex-grow: 1;
+ }
+
+ .run-buttons a {
+    color: #BBB;
+    text-decoration: none;
+    display: inline-flex;
+    background: #050505;
+    padding: 0.5em 1.3em;
+    border-radius: 0.4em;
+ }
+
+ .spacer.full {
+    flex-grow: 1;
+ }
+
+.canvas-container {
+    display: grid;
+}

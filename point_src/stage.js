@@ -119,8 +119,8 @@ class StageTools {
 
         center = center || new Point()
 
-        center.x = rect.x + rect.width * .5
-        center.y = rect.y + rect.height * .5
+        center.x = /*rect.x + */rect.width * .5
+        center.y = /*rect.y + */rect.height * .5
 
         rect.center = center
         return rect;
@@ -471,6 +471,8 @@ class Stage extends StageRender {
     }
 
 }
+
+Polypoint.install(Stage)
 
 asObjectUrl = async function(width, height, callback) {
     let quality = .8

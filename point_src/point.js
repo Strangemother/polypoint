@@ -1,4 +1,5 @@
 
+
 const point = function(p, b) {
     if(p.constructor == Point) {
         return p
@@ -118,7 +119,8 @@ class Random {
 }
 
 
-random = new Random()
+const random = new Random()
+
 
 class PointPen {
     // Draw functions for the Point.draw
@@ -295,6 +297,52 @@ class Positionable {
             this.y * p.y
         )
     }
+
+    /* Perform random() on the X and Y.
+
+    If a point is given, randomize to the _max_ of the given point
+    If a single number is given, assume _square_
+    If no params are given, discover the stage size.
+
+    Use `Point.random()` for the same form, as a new point
+
+        let p = new Point()
+        p.randomize(100, 400)
+        p.randomize(100) // 100, 100
+        p.randomize(new Point(100, 400)) // 100, 400
+
+    if one of the keys is undefined, no change occurs:
+
+        p.setXY(500,700)
+        p.randomize(100, undefined) // 100, 700
+        p.randomize(undefined, 400) // 500, 400
+
+        p.randomize(undefined, undefined) // 500, 700 // no change occurs.
+
+    Note; no params will randomize as much as possible (the stage size)
+
+        p.randomize() // 800, 600
+
+    Other features would be nice:
+    + random in rect (like stage):
+
+        p.randomize(rect|dimensions)
+
+    + Randomize other values, e.g radius, colors
+
+        p.randomize(['x', 'y', 'radius', 'mass'])
+
+        // randomize x to max 400, radius to max 50
+        p.randomize({ x: 400, radius: 50})
+
+    + In the future, the _origin_; randomize relative to a point:
+
+        p.randomize({point, relative: true})
+
+    */
+    randomize(px, y) {
+
+    }
 }
 
 
@@ -326,7 +374,6 @@ class Rotation extends Positionable {
     }
 
     get rotation() {
-
         return this._rotationDegrees
     }
 
@@ -542,6 +589,61 @@ class Tooling extends Rotation {
     avoid(other, settings) {
         return constraints.inverse(other, this, settings)
     }
+
+    _midpoint(other, offset=.5) {
+        /*return a new point, with the XY set at the _mid point_ between
+        this point and the given*/
+        let p = this.copy()
+        p.x = (p.x + other.x) * offset
+        p.y = (p.y + other.y) * offset
+        return p
+    }
+
+    midpoint(other, offset=0.5) {
+        /*
+        Returns a new point, with the XY set at the point that is `offset` times
+        the distance from the current point to the other point.
+
+        this function is also `lerp` for linear interpolation
+        */
+        let p = this.copy();
+        p.x = p.x + (other.x - p.x) * offset;
+        p.y = p.y + (other.y - p.y) * offset;
+        return p;
+    }
+
+    lerp = this.midpoint
+
+    lerpPixel(other, pixelDistance) {
+        /*
+        Returns a new point, offset by `pixelDistance` pixels in the direction
+        from this point to the other point.
+        */
+
+        // Calculate the direction vector from this point to the other point
+        let directionX = other.x - this.x;
+        let directionY = other.y - this.y;
+        let dirV = this.distance2D(other)
+        // Calculate the distance between the two points
+        // let distance = Math.sqrt(directionX * directionX + directionY * directionY);
+
+        let distance = this.distanceTo(other)
+        // Normalize the direction vector (to unit length)
+        let unitX = dirV.x / distance;
+        let unitY = dirV.y / distance;
+
+        // Scale the unit vector by the desired pixel distance
+        let offsetX = unitX * pixelDistance;
+        let offsetY = unitY * pixelDistance;
+
+        // Create a new point at the scaled offset from the original point
+        let p = this.copy();
+        p.x = this.x + offsetX;
+        p.y = this.y + offsetY;
+
+        return p;
+    }
+
 }
 
 
@@ -608,23 +710,23 @@ class Point extends Tooling {
         this.y = v
     }
 
-    get draw() {
-        let r = this._draw
-        if(r == undefined) {
-            r = new PointDraw(this)
-            this._draw = r
-        }
-        return r
-    }
+    // get draw() {
+    //     let r = this._draw
+    //     if(r == undefined) {
+    //         r = new PointDraw(this)
+    //         this._draw = r
+    //     }
+    //     return r
+    // }
 
-    get pen() {
-        let r = this._pen
-        if(r == undefined) {
-            r = new PointPen(this)
-            this._pen = r
-        }
-        return r
-    }
+    // get pen() {
+    //     let r = this._pen
+    //     if(r == undefined) {
+    //         r = new PointPen(this)
+    //         this._pen = r
+    //     }
+    //     return r
+    // }
 
     get [Symbol.toStringTag]() {
         return this.toString()
@@ -663,20 +765,72 @@ class Point extends Tooling {
         }
     }
 
-    isNaN(any=false) {
-        let r = 0;
-        r += +isNaN(this.x)
-        r += +isNaN(this.y)
-        if(r==0) { return false }
+    // isNaN(any=false) {
+    //     let r = 0;
+    //     r += +isNaN(this.x)
+    //     r += +isNaN(this.y)
+    //     if(r==0) { return false }
 
-        if(r > 0) {
-            if(any) { return true }
-            // two NaNs, is always isNaN == true
-            if(r >= 2) { return true }
-        }
+    //     if(r > 0) {
+    //         if(any) { return true }
+    //         // two NaNs, is always isNaN == true
+    //         if(r >= 2) { return true }
+    //     }
 
-        return false
-    }
+    //     return false
+    // }
 }
 
+
+Polypoint.lazyProp('Point', {
+    pen() {
+        let r = this._pen
+        if(r == undefined) {
+            r = new PointPen(this)
+            this._pen = r
+        }
+        return r
+    }
+})
+
+
+/* Point.draw... instance.
+*/
+Polypoint.lazyProp('Point', {
+    draw() {
+        let r = this._draw
+        if(r == undefined) {
+            r = new PointDraw(this)
+            this._draw = r
+        }
+        return r
+    }
+})
+
+
+Polypoint.install(Point)
+
+
+Polypoint.mixin('Point', {
+    isNaN: {
+        value(any=false) {
+            let r = 0;
+            r += +isNaN(this.x)
+            r += +isNaN(this.y)
+            if(r==0) { return false }
+
+            if(r > 0) {
+                if(any) { return true }
+                // two NaNs, is always isNaN == true
+                if(r >= 2) { return true }
+            }
+
+            return false
+        }
+        , writable: true
+    }
+})
+
+
 ;Object.defineProperty(Point, 'from', { value: (a,b)=> new Point(a,b) });
+

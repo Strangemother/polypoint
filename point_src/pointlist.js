@@ -15,6 +15,50 @@ const pointArray = function(count=5, distance=10) {
 }
 
 
+const asPoints = function(items) {
+    let res = new PointList;
+    for(let item in items) {
+        res.push(new Point(items[item]))
+    }
+    return res
+}
+
+
+function originRotate(target, origin, theta) {
+    /*
+    Example usage:
+
+        const a = [100, 200];
+        const b = [300, 200];
+        const theta90 = 90;
+        const theta50 = 50;
+
+        const newA90 = originRotate(a, b, theta90);
+        const newA50 = originRotate(a, b, theta50);
+
+        console.log('New position for 90 degrees:', newA90);
+        console.log('New position for 50 degrees:', newA50);
+    */
+
+    // Convert theta to radians
+    const thetaRad = theta * (Math.PI / 180);
+
+    // Translate point a to the origin with respect to point origin
+    const aPrime = [target[0] - origin[0], target[1] - origin[1]];
+
+    // Apply the rotation matrix
+    const aPrimeRotated = [
+        aPrime[0] * Math.cos(thetaRad) - aPrime[1] * Math.sin(thetaRad),
+        aPrime[0] * Math.sin(thetaRad) + aPrime[1] * Math.cos(thetaRad)
+    ];
+
+    // Translate the point back
+    const aDoublePrime = [aPrimeRotated[0] + origin[0], aPrimeRotated[1] + origin[1]];
+
+    return aDoublePrime;
+}
+
+
 class PointListDraw {
 
     constructor(list) {
@@ -228,6 +272,18 @@ class PointListShape {
         return (new GridTools(this.parent, rowCount, pos))
     }
 
+    radial(point, radius){
+        /* "Radial" plots thr points around the a given point.
+        Unlike "circle" or "radius" of which draw from an origin,
+
+        This method rotates around the origin.
+
+        if the given point is undefined, the center of the point list is used.
+        If radius is undefined, the point radius is used.
+        */
+       /// not implemented.
+    }
+
     radius(radius, pos) {
         /* Return a list of points distrubuted evenly around a circle.
 
@@ -430,6 +486,7 @@ class LazyAccessArray extends Array {
 
     // drawClass = undefined
     // penClass = undefined
+    // gradientClass = undefined
     // generatorClass = undefined
     // shapeClass = undefined
 
@@ -447,6 +504,14 @@ class LazyAccessArray extends Array {
         }
         return this._pen
         // return (this._pen || (this._pen = new C(this)))
+    }
+
+    get gradient() {
+        const C = (this.gradientClass || PointListGradient)
+        if(this._gradient == undefined) {
+            Object.defineProperty(this, '_gradient', { value: new C(this) })
+        }
+        return this._gradient
     }
 
     get generate() {
@@ -538,14 +603,6 @@ class LazyAccessArray extends Array {
         const proxy = new Proxy(target, handler);
         return proxy;
     }
-}
-
-const asPoints = function(items) {
-    let res = new PointList;
-    for(let item in items) {
-        res.push(new Point(items[item]))
-    }
-    return res
 }
 
 
@@ -665,44 +722,58 @@ class PointList extends LazyAccessArray {
         this.forEach(p=>{ p.lookAt(other)})
     }
 
-
 }
 
 
-function originRotate(target, origin, theta) {
-    /*
-    Example usage:
+class PointListGradient {
 
-        const a = [100, 200];
-        const b = [300, 200];
-        const theta90 = 90;
-        const theta50 = 50;
+    constructor(parent) {
+        this.parent = parent;
+    }
 
-        const newA90 = originRotate(a, b, theta90);
-        const newA50 = originRotate(a, b, theta50);
+    linear(ctx) {
+        /* use the points to generate a gradient.
 
-        console.log('New position for 90 degrees:', newA90);
-        console.log('New position for 50 degrees:', newA50);
-    */
+        1. from start to end points
+        2. each position must contain a 'color'
+        3. Distance to each stop between 0/1
+        */
 
-    // Convert theta to radians
-    const thetaRad = theta * (Math.PI / 180);
+        let parent = this.parent;
+        let prev = parent[0]
 
-    // Translate point a to the origin with respect to point origin
-    const aPrime = [target[0] - origin[0], target[1] - origin[1]];
+        let distances = [[0, prev.color]];
+        let total = 0;
+        let round = Math.round;
 
-    // Apply the rotation matrix
-    const aPrimeRotated = [
-        aPrime[0] * Math.cos(thetaRad) - aPrime[1] * Math.sin(thetaRad),
-        aPrime[0] * Math.sin(thetaRad) + aPrime[1] * Math.cos(thetaRad)
-    ];
+        for (var i = 1; i < parent.length; i++) {
+            let distance = round(parent[i].distanceTo(prev))
+            distances.push([distance, prev.color])
+            total += distance
+            prev = parent[i]
+        };
 
-    // Translate the point back
-    const aDoublePrime = [aPrimeRotated[0] + origin[0], aPrimeRotated[1] + origin[1]];
+        let stops = []
+        let running = 0
+        for (var i = 0; i < distances.length; i++) {
+            let v = distances[i]
+            let dis = v[0]
+            let r = (dis / total)
+            let stop = Number((r + running).toFixed(4))
+            stops.push([stop, v[1]])
+            running += r
+        }
 
-    return aDoublePrime;
+        let a = parent[0]
+        let b = parent.last()
+        let gradient = ctx.createLinearGradient(a.x, a.y, b.x, b.y)
+        for (var i = 0; i < stops.length; i++) {
+            let stop = stops[i]
+            gradient.addColorStop(stop[0], stop[1]);
+        }
+        return gradient;
+    }
+
 }
-
-
 
 PointList.generate = new PointListGenerator();

@@ -19,12 +19,85 @@ Upon a mouse action we can access the discovered points.
 
  */
 
+
+/*
+Poly.mixin()
+Poly.Point()
+Poly.PointList()
+Poly.functions.graient
+
+
+Polypoint.mixin()
+Polypoint.Point()
+Polypoint.PointList()
+Polypoint.functions.graient */
+
+/*The mixin hot-loads functions and objects into the classy head.
+The target can be a string or root entity.
+
+For example, providing a function to the Point class
+
+    Point.prototype.constructor.prototype.myfunc = function() {
+        console.log('myfunc', this)
+    }
+
+    stage.center.myfunc()
+    "myfunc", Point,...
+
+    The addon may be a dict or function
+    If a function, accept the target:
+
+        'Point', function(Point){
+            Point.prototype.constructor.prototype.myfunc = ()=>{}
+        }
+
+    or return a object to assign as the overload:
+
+        'Point', function(Point){
+            return { myfunc(){} }
+        }
+
+*/
+
+Polypoint.mixin('Point', {
+
+    _draggable: {
+        value: true,
+        writable: true
+    }
+
+    , draggable: {
+        get() {
+            return this._draggable
+        }
+        // value: {
+        // }
+    }
+})
+
+
+/*
+Polypoint.mixin('Stage', {
+    dragging: {
+        value: {
+            get enabled() {
+                return 'foo'
+            }
+
+            , set enabled(value) {
+                console.log('Active', value)
+            }
+        }
+    }
+})*/
+
+
 class Dragging extends Distances {
 
     /* click Down<>Up ms delta,*/
     clickSpeed = 300
     clickDragDeadzone = undefined // undefined == 1 radius
-    maxWheelValue = 300
+    maxWheelValue = 500
 
     constructor(stage) {
         super()
@@ -121,6 +194,7 @@ class Dragging extends Distances {
         let radius = n.radius;
         let rad = positive? radius*compute: radius/compute;
         n.radius = clamp(rad, 1, this.maxWheelValue)
+        n.onResize && n.onResize(ev, stage, canvas)
     }
 
     onLongClick(stage, canvas, ev, delta) {
@@ -170,3 +244,4 @@ class Dragging extends Distances {
 
 }
 
+;Polypoint.install(Dragging);

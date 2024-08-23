@@ -4,7 +4,8 @@ notes:
 
 + Use auto mounting
 + A tick method
-+ a nice class. */
++ a nice class.
+*/
 
 class FPS extends Text {
     color = 'green'

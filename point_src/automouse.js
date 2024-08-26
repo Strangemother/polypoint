@@ -313,8 +313,21 @@ class AutoMouse {
 
 }
 
+Polypoint.head.install(AutoMouse)
 
 const autoMouse = (new AutoMouse(Point))
 
-Point.mouse = autoMouse
+/*
+Install the `Point.mouse` static method.
+*/
+Polypoint.head.static('Point', {
+    mouse: {
+        value: autoMouse
+        // , writable: true
+        // , enumerable: false
+        // , configurable: true
+    }
+})
+
+// Point.mouse = autoMouse
 Point.pointArray = pointArray

@@ -776,4 +776,7 @@ class PointListGradient {
 
 }
 
+Polypoint.head.install(PointListGradient)
+Polypoint.head.install(PointListGenerator)
+
 PointList.generate = new PointListGenerator();

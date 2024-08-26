@@ -46,6 +46,27 @@ const constraints = {
 }
 
 
+Polypoint.head.installFunctions('Point', {
+    /* Track another point using IK - this point follows the _other_ at a
+    set distance. */
+    track(other, settings) {
+        // return followPoint(other, this, settings)
+        return constraints.distance(other, this, settings)
+    }
+
+    /* Track another point using constraints. This point follows the other
+    point at a distance or less. */
+    , leash(other, settings) {
+        return constraints.within(other, this, settings)
+    }
+
+    /* Ensure this point does not overlap the _other_ point. If an overlap
+    occurs, this point is moved. Fundamentally this is the antethsis of leash().*/
+    , avoid(other, settings) {
+        return constraints.inverse(other, this, settings)
+    }
+})
+
 
 // const _constrainDistance = function(pointA, pointB, maxDistance) {
 //     // Calculate the distance between pointA and pointB

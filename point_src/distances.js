@@ -183,6 +183,45 @@ class Distances {
 
 
 
+Polypoint.head.mixin('Point', {
+    isNaN: {
+        value(any=false) {
+            let r = 0;
+            r += +isNaN(this.x)
+            r += +isNaN(this.y)
+            if(r==0) { return false }
+
+            if(r > 0) {
+                if(any) { return true }
+                // two NaNs, is always isNaN == true
+                if(r >= 2) { return true }
+            }
+
+            return false
+        }
+        , writable: true
+    }
+
+    // , distance: {
+
+    //     static value(a, b){
+    //         return Math.hypot(b.x - a.x, b.y - a.y);
+    //     }
+    // }
+    , distanceTo: {
+        value(other) {
+            return distance(this, other)
+        }
+    }
+
+    , distance2D: {
+        value(other) {
+            return distance2D(this, other)
+        }
+    }
+})
+
+
 function distance(xy1, xy2) {
   return Math.sqrt(Math.pow((xy2.x - xy1.x), 2) + Math.pow((xy2.y - xy1.y), 2));
 }

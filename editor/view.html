@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Editor</title>
+
+    <style type="text/css" media="screen"></style>
+    <link rel="stylesheet" href="../editor/main.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
+</head>
+<body>
+
+    <div class="columns-50">
+
+        <div class="editor-container">
+
+            <div class="editor-header">
+                <!-- Mostly used as a spacer for additional buttons,
+                and the auto-overlay for hyperlinks -->
+
+                <div polyclass class="font-pack-lexend+deca-500 run-buttons font-lexend+deca-500">
+                    <div class="primary-title"><h1>Title</h1></div>
+                    <div class="spacer full"></div>
+                    <div class="memory display-flex gap-1em font-size-.8rem">
+                        <div class='display-flex flex-direction-column'>
+                            <span class='label'>total</span>
+                            <span id="memory-total-value">0</span>
+                        </div>
+                        <div class='display-flex flex-direction-column'>
+                            <span class='label'>used</span>
+                            <span id="memory-used-value">0</span>
+                        </div>
+                        <div class='display-flex flex-direction-column'>
+                            <span class='label'>limit</span>
+                            <span id="memory-limit-value">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Updated by ace-editor.js -->
+            <div id="editor"></div>
+
+            <div class="buttons">
+
+                <div polyclass class="font-pack-lexend+deca-500 run-buttons font-lexend+deca-500">
+                    <div class="spacer full"></div>
+                    <a href="javascript:polypointEditor.aceRunText();">Run</a>
+                </div>
+                <div class="footer-privacy"></div>
+            </div>
+
+
+        </div>
+
+        <div class="canvas-container">
+            <div class="canvas-wrapper">
+                <canvas id="playspace"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../point_src/l.js?checkLoaded">
+        // <- adding checkLoaded to the url will dumbly check already inserted script/link tags
+    </script>
+
+    <!-- <script src="../point_src/core/head.js"></script>
+    <script src="../point_src/pointpen.js"></script>
+    <script src="../point_src/pointdraw.js"></script> -->
+
+    <script src="../editor/loads.js"></script>
+    <script src="../editor/loader.js"></script>
+
+    <!--
+    <script src="../point_src/stroke.js"></script>
+    <script src="../point_src/point-content.js"></script>
+    <script src="../point_src/pointlist.js"></script>
+    <script src="../point_src/point.js"></script>
+
+    <script src="../point_src/bisector.js"></script>
+    <script src="../point_src/events.js"></script>
+    <script src="../point_src/automouse.js"></script>
+
+    <script src="../point_src/distances.js"></script>
+    <script src="../point_src/dragging.js"></script>
+    <script src="../point_src/stage.js"></script>
+     -->
+
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.36.0/src-min-noconflict/ace.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/ace-builds@1.36.0/css/ace.min.css" rel="stylesheet">
+     -->
+    <!-- <script src="../editor/ace-editor.js"></script> -->
+</body>
+</html>

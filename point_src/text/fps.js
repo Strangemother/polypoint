@@ -58,10 +58,37 @@ class FPS extends Text {
     }
 
     /* Draw is for visual*/
-    draw(ctx=this.stage.ctx) {
+    draw(ctx=this.stage.ctx, color=this.color) {
         // Text.writeText
-        this.writeText(this.color, ctx)
+        this.writeText(color, ctx)
+    }
+}
+
+Polypoint.head.install(FPS)
+
+class FramerateExt {
+    // tools to extend the stage.
+    constructor(stage) {
+        this.label = new FPS(stage)
+        this.label.setup()
     }
 
-
+    drawFPS(ctx) {
+        let t = this.label
+        t.update()
+        t.draw(ctx, this.color)
+    }
 }
+
+// Polypoint.head.installFunctions('Stage', {
+//     drawFPS(ctx) {
+//         let t = this.fpsLabel
+//         t.text = this.clock.fps
+//         t.writeText('red', ctx)
+//     }
+// });
+
+
+Polypoint.head.lazierProp('Stage', function fps(){
+    return new FramerateExt(this)
+})

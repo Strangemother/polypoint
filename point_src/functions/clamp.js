@@ -11,3 +11,6 @@ const clamp = function(v, lower=undefined, upper=undefined) {
     }
     return res
 }
+
+
+Polypoint.head.add(clamp, 'math')

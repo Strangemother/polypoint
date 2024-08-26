@@ -16,112 +16,6 @@ const point = function(p, b) {
 }
 
 
-class PointDraw {
-    // Draw functions for the Point.draw
-    // methods.
-    constructor(point) {
-        this.point = point;
-    }
-
-    arc(ctx, radius=undefined) {
-        let p = this.point;
-        let r = radius === undefined? p.radius: radius;
-        ctx.arc(p.x, p.y, r, 0, Math.PI2)
-    }
-
-    circle(ctx, radius) {
-        return this.arc(ctx, radius)
-    }
-
-    lineTo(ctx, b) {
-        let a = this.point;
-        if(b != undefined) {
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-        }
-    }
-
-    ngon(ctx, sides, radius, fromCenter=true) {
-        /* Draw a polygon of _n_ sides, with an optional radius.
-
-                polygonPoint.radius = 20
-                polygonPoint.draw.ngon(ctx, 7)
-
-         */
-
-        /* Apply the position of the polypoint.*/
-        let p = this.point;
-        let r = radius === undefined? p.radius: radius;
-
-        if(fromCenter) {
-            p = p.add(-r)
-        }
-
-        // return polyGen(ctx, sides, p);
-        let points = getPolyDistributedPoints(sides, p, r)
-        let p0 = points[0]
-
-        ctx.moveTo(p0.x, p0.y)
-
-        for (i = 1; i <= points.length - 1; i++) {
-            let p = points[i]
-            ctx.lineTo(p.x, p.y);
-        }
-
-    }
-}
-
-
-class Random {
-
-    /* The minimum value the _point(value)_ can be, before
-    the automatic 'float' method is used over the 'int' method.
-    */
-    pointIntMin = 2
-
-    int(multiplier=1) {
-        /* Generate an integer between 0 and the given multiplier.
-            Given 1 (default), the result will be either 0 or 1
-
-            random.int(10)
-            7
-            random.int(50)
-            30
-            random.int(300)
-            220
-        */
-        return Number((this.float() * (multiplier)).toFixed())
-    }
-
-    float(multiplier=1) {
-        return Math.random() * multiplier
-    }
-
-    string(multiplier=1, rot=32){
-        return this.radix(this.float(multiplier), rot).slice(2)
-    }
-
-    radix(v, rot=32) {
-        return v.toString(rot)
-    }
-
-    point(multiplier=1, method=undefined) {
-        /*
-            return a random point(), with the X/Y values set as random*multplier
-         */
-        if (method == undefined) {
-            method = multiplier <= this.pointIntMin ? 'float': 'int'
-        }
-
-        let p = new Point(this[method](multiplier), this[method](multiplier))
-        return p
-    }
-}
-
-
-const random = new Random()
-
-
 
 class Positionable {
 
@@ -345,7 +239,6 @@ class Rotation extends Positionable {
         some of the boring.
         The _direction_ denotes the "gravity" pull. Generally this is `DOWN`.
 
-
         Synonymous to:
 
             let theta = Math.atan2(point.y,
@@ -461,13 +354,13 @@ class Tooling extends Rotation {
         return Math.hypot(b.x - a.x, b.y - a.y);
     }
 
-    distanceTo(other) {
-        return distance(this, other)
-    }
+    // distanceTo(other) {
+    //     return distance(this, other)
+    // }
 
-    distance2D(other) {
-        return distance2D(this, other)
-    }
+    // distance2D(other) {
+    //     return distance2D(this, other)
+    // }
 
     quantize(amount=1) {
         let q = quantizeNumber
@@ -569,6 +462,8 @@ class Point extends Tooling {
         for(let k in data) {
             this[k] = data[k]
         }
+
+        return this
     }
 
     get uuid() {
@@ -673,47 +568,46 @@ class Point extends Tooling {
     // }
 }
 
-/* Point.draw... instance.
-*/
-Polypoint.lazyProp('Point', {
-    draw() {
-        let r = this._draw
-        if(r == undefined) {
-            r = new PointDraw(this)
-            this._draw = r
+class PointCast {
+    /* a bunch of convert function, such as "asObject", wrapped within a sub unit
+
+        Point.as.object()
+    */
+
+    constructor(point) {
+        this.point = point
+    }
+
+    object() {
+        let point = this.point;
+        return {
+            x: point.x
+            , y: point.y
+            , radius: point.radius
+            , rotation: point.rotation
         }
-        return r
-    }
-})
-
-
-
-Polypoint.install(Point)
-
-
-Polypoint.installFunctions('Point', {
-    /* Track another point using IK - this point follows the _other_ at a
-    set distance. */
-    track(other, settings) {
-        // return followPoint(other, this, settings)
-        return constraints.distance(other, this, settings)
     }
 
-    /* Track another point using constraints. This point follows the other
-    point at a distance or less. */
-    , leash(other, settings) {
-        return constraints.within(other, this, settings)
+    array(fix=false) {
+        if(fix) {
+            let int = (x)=> Number( x.toFixed(Number(fix)) )
+            return [int(this.x), int(this.y)]
+        }
+
+        return [this.x, this.y]
     }
-
-    /* Ensure this point does not overlap the _other_ point. If an overlap
-    occurs, this point is moved. Fundamentally this is the antethsis of leash().*/
-    , avoid(other, settings) {
-        return constraints.inverse(other, this, settings)
-    }
-})
+}
 
 
-Polypoint.mixin('Point', {
+Polypoint.head.install(PointCast)
+Polypoint.head.lazierProp('Point', function(){ return new PointCast(this)}, 'as')
+
+
+Polypoint.head.install(Point)
+
+
+
+Polypoint.head.mixin('Point', {
     isNaN: {
         value(any=false) {
             let r = 0;

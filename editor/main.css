@@ -15,6 +15,7 @@
     right: 0;
     bottom: 0;
     left: 0;*/
+    /* height: 100%; */
 }
 
 .columns-50 {
@@ -36,14 +37,16 @@ html, body {
     margin: 0;
     display: flex;
     width: 100%;
+    color: #888;
 }
 
 .editor-container {
     display: grid;
     /*display: flex;*/
-    grid-template-rows: auto min-content;
+    grid-template-rows: min-content auto min-content;
     height: 100%;
     box-sizing: border-box;
+    padding-bottom: 0em;
  }
 
  .run-buttons {
@@ -69,4 +72,55 @@ html, body {
 
 .canvas-container {
     display: grid;
+}
+
+
+
+.ace_scrollbar::-webkit-scrollbar {
+    height: .8em;
+    width: .8em;
+}
+
+.ace_scrollbar::-webkit-scrollbar-track
+{
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #272822; /* Matches ace monokai */
+    border-radius: 10px;
+}
+
+.ace_scrollbar::-webkit-scrollbar-thumb {
+    background-color: black;
+/*     outline: 1px solid slategrey; */
+    border-radius: 1em;
+}
+
+.ace_editor {
+    margin: 0 0 0em 0;
+}
+
+.editor-footer, .editor-header {
+    /* height: 1rem; */
+}
+
+.run-buttons {
+    height: fit-content;
+}
+
+.footer-privacy {
+    padding-bottom: 1em;
+    background: #060606;
+    /* border: solid; */
+    flex-grow: 1;
+    display: none;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.primary-title h1 {
+    margin: 0;
+    color: inherit;
+    padding: 0 0.2em;
 }

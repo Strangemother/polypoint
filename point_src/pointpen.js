@@ -88,10 +88,9 @@ class PointPen {
     }
 }
 
-
-Polypoint.install(PointPen)
-
-Polypoint.lazyProp('Point', {
+Polypoint.head.install(PointPen)
+/*
+Polypoint.head.lazyProp('Point', {
     pen() {
         let r = this._pen
         if(r == undefined) {
@@ -101,4 +100,10 @@ Polypoint.lazyProp('Point', {
         return r
     }
 })
+*/
+
+
+Polypoint.head.lazyProp('Point', {
+    pen() { return new PointPen(this) }
+}, 'pen')
 

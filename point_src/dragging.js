@@ -27,10 +27,10 @@ Poly.PointList()
 Poly.functions.graient
 
 
-Polypoint.mixin()
-Polypoint.Point()
-Polypoint.PointList()
-Polypoint.functions.graient */
+Polypoint.head.mixin()
+Polypoint.head.Point()
+Polypoint.head.PointList()
+Polypoint.head.functions.graient */
 
 /*The mixin hot-loads functions and objects into the classy head.
 The target can be a string or root entity.
@@ -59,7 +59,8 @@ For example, providing a function to the Point class
 
 */
 
-Polypoint.mixin('Point', {
+
+Polypoint.head.mixin('Point', {
 
     _draggable: {
         value: true,
@@ -134,6 +135,8 @@ class Dragging extends Distances {
         this.downPointDistance = new Point(this._near.distance2D(this.mousedownOrigin))
         this._mousedown = true
         this.onDragStartHandler(ev)
+        this._grabbingId = this.stage?.cursor.set('grabbing', this._cursorId)
+
     }
 
     getPoint(){
@@ -146,7 +149,9 @@ class Dragging extends Distances {
             // present the possible nearest
             // this._near = this.closest(stage.mouse.position, 100)
             // this._near = this.closest(stage.mouse.position, (v,p)=> v<=p.radius)
-            this._near = this.intersect(stage.mouse.position, 10)
+            const found = this.intersect(stage.mouse.position, 10)
+            this._near = found
+            this.cursorChange(found)
             // this.near = this.dis.within(100, this.mouse.position)
             // this._near = this.near(stage.mouse.position, 100)[0]
             return
@@ -155,6 +160,36 @@ class Dragging extends Distances {
         // Add translation to selected
         // let v = this.nearOrigin.add(ev.x, ev.y)
         this.onDragMoveHandler(ev)
+    }
+
+    cursorChange(found) {
+        if(found) {
+            /* perform cursor magic */
+
+            if(this._stackedCursor === true) {
+                // nothing to do; mouse is stacked.
+            } else {
+                this._emitCursorHover()
+            }
+        } else {
+            if(this._stackedCursor === true) {
+                this._emitCursorRelease()
+            } else {
+                // nothing to do; mouse is released.
+            }
+        }
+    }
+
+    _emitCursorHover() {
+        this._stackedCursor = true
+        // console.log('enable hover')
+        this._cursorId = this.stage?.cursor.set('grab')
+    }
+    _emitCursorRelease() {
+        this._stackedCursor = false
+        let id = this._cursorId
+        // console.log('disable hover', id)
+        this.stage?.cursor.unset(id)
     }
 
     onMouseup(stage, canvas, ev) {
@@ -166,9 +201,15 @@ class Dragging extends Distances {
         if(minDistance == undefined) {
             minDistance = 20
         }
+
         let dis = this.dragDistance(ev)
         let withinClickDelta = dis < minDistance
         // console.log('Click Speed =', delta, 'distance', dis, 'is click:', isClick)
+
+        if(this._grabbingId != undefined) {
+            this.stage.cursor.unset(this._grabbingId)
+            this._grabbingId = undefined
+        }
 
         if(isClick && (withinClickDelta)) {
             // If the distance was greater than the max,
@@ -217,6 +258,14 @@ class Dragging extends Distances {
         this.onClick(ev)
     }
 
+    drawIris(ctx) {
+        /* The dynamic highlighter. */
+        let p = this.getPoint();
+        if(p) {
+            p.pen.circle(ctx)
+        }
+    }
+
     onClick(ev) {}
 
     onDragMoveHandler(ev) {
@@ -240,8 +289,81 @@ class Dragging extends Distances {
         let offsetSelected = this.downPointDistance.add(x, y)
         this._near.set(offsetSelected.x, offsetSelected.y)
     }
+}
 
+class CursorStack {
+    /*stash and pop cursor states.
+        id = cursor.set(name)
+        cursor.unset(id)
+    */
+
+    constructor(stage) {
+        // this.current = 'default'
+        this.icon = 'default'
+        this.map = new Map;
+        this.stage = stage
+
+    }
+
+    set(name, parallelUnset) {
+        // console.log('set cursor')
+        let uuid = Math.random().toString(32)
+        // if(parallelUnset) {
+        //     this.unset(parallelUnset, true)
+        // }
+        // this.map.set(uuid, [name, this.icon])
+        // this.current = uuid
+        this.icon = name
+        // console.log('set', this.icon)
+        this.setMouseIcon(this.icon)
+        return uuid
+    }
+
+    setMouseIcon(icon){
+        this.stage.canvas.style.cursor = icon
+    }
+
+    unset(uuid, perform=true) {
+        // console.log('unset cursor', uuid)
+        // let [name, now] = this.map.get(uuid)
+        // this.current = now
+        this.icon = 'default'
+
+        // console.log('revert to', this.icon)
+        // if(perform) {
+            this.setMouseIcon(this.icon)
+        // }
+    }
 
 }
 
-;Polypoint.install(Dragging);
+
+Polypoint.head.lazierProp('Stage', function cursor(){
+    return new CursorStack(this);
+
+    // let dr = this._cursor
+    // if(dr == undefined) {
+    //     console.log('Returning new lazyProp "CursorStack"')
+    //     dr = this._cursorStack = new CursorStack
+    //     // dr.initDragging(this)
+    // }
+    // return dr
+});
+
+
+/* The Stage.dragging utility automatically creates and initates Dragging
+when required.
+
+    stage = new Stage;
+    stage.dragging.add(new Point(100, 100))
+*/
+Polypoint.head.lazierProp('Stage', function dragging(){
+    console.log('Returning new lazyProp "Dragging"')
+    let dr = new Dragging(this)
+    dr.initDragging();
+
+    return dr
+});
+
+
+;Polypoint.head.install(Dragging);

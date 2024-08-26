@@ -109,7 +109,8 @@ class Stages {
 stages = new Stages;
 
 
-class StageTools {
+
+class StageRender {
 
     stickCanvasSize(canvas){
         let rect = canvas.getBoundingClientRect()
@@ -129,10 +130,7 @@ class StageTools {
     get center() {
         return this.dimensions.center
     }
-}
 
-
-class StageRender extends StageTools {
     _drawFunc
     _loopDraw = true
 
@@ -140,13 +138,14 @@ class StageRender extends StageTools {
     debounceResizeTimeout = 50
 
     constructor(canvas, drawFunc) {
-        super()
+        // super()
 
         drawFunc = drawFunc || this.draw
         if(drawFunc) {
             this._drawFunc = drawFunc
         }
 
+        this._drawAfter = []
         if(canvas)  {
             this.prepare(canvas)
         }
@@ -291,7 +290,19 @@ class StageRender extends StageTools {
         let c = this.tickClock(ctx)
         this._drawFunc(ctx);
 
+        for(let af of this._drawAfter) {
+            af(ctx)
+        }
         // this.drawFPS(ctx)
+    }
+
+    onDrawAfter(func) {
+        this._drawAfter.push(func)
+    }
+
+    offDrawAfter(func) {
+        let i = this._drawAfter.indexOf(func)
+        this._drawAfter.splice(i, 1)
     }
 
     setupClock() {
@@ -321,11 +332,11 @@ class StageRender extends StageTools {
         return c
     }
 
-    drawFPS(ctx) {
-        let t = this.fpsLabel
-        t.text = this.clock.fps
-        t.writeText('red', ctx)
-    }
+    // drawFPS(ctx) {
+    //     let t = this.fpsLabel
+    //     t.text = this.clock.fps
+    //     t.writeText('red', ctx)
+    // }
 
     draw(ctx) {
         /* The primary rendering function to override.
@@ -424,86 +435,7 @@ class Stage extends StageRender {
         */
         stages.add(this)
     }
-
-    toBlob(callback) {
-        callback = callback || this._stashBlob.bind(this)
-        let cb = (blob) => {
-            const url = URL.createObjectURL(blob)
-            callback && callback(url)
-        }
-
-        this.canvas.toBlob(cb);
-    }
-
-    _stashBlob(uriBlob) {
-        console.log('snapshot stored', uriBlob)
-        this.lastStash = uriBlob
-    }
-
-    toNewImage() {
-        const newImg = document.createElement("img");
-        let cb = (url) => {
-            newImg.onload = () => { URL.revokeObjectURL(url) };
-            newImg.src = url;
-            document.body.appendChild(newImg);
-        }
-
-        let canvas = this.canvas
-        this.toBlob(cb);
-    }
-
-    asDownloadLink() {
-        const linkObjectUrl = document.createElement("a");
-        linkObjectUrl.download="image.jpg"
-        linkObjectUrl.innerHTML = 'Download'
-        linkObjectUrl.onclick = function(e) {
-            setTimeout(()=> URL.revokeObjectURL(linkObjectUrl), 1000)
-            linkObjectUrl.remove()
-        }
-
-        document.body.appendChild(linkObjectUrl);
-
-        let cb = (url) => {
-            linkObjectUrl.href = url
-        }
-
-        this.toBlob(cb);
-    }
-
 }
 
-Polypoint.install(Stage)
+Polypoint.head.install(Stage)
 
-asObjectUrl = async function(width, height, callback) {
-    let quality = .8
-    let canvas = stage.canvas
-    let objectUrl = await canvas.toObjectURL("image/jpeg", quality);
-    // let dataUrl = canvas.toDataURL("image/webp", quality);
-
-    // set object URLs
-    // linkObjectUrl.href = objectUrl;
-    let p = asObjectUrl()
-    return p.then((d)=>console.log('got data'));
-    return p//.then(console.log);
-}
-
-console.log('toObjectURL')
-
-HTMLCanvasElement.prototype.toObjectURL = async function(mimeType="image/jpeg",
-                                                         quality = 0.85
-                                                ) {
-    return new Promise((resolve, reject) => {
-        this.toBlob((blob) => {
-                        if (!blob) {
-                            reject("Error creating blob");
-                            return;
-                        }
-
-                        const blobUrl = URL.createObjectURL(blob);
-                        resolve(blobUrl);
-                    }
-            , mimeType
-            , quality
-        );
-    });
-};

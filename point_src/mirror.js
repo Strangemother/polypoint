@@ -216,3 +216,4 @@ class Mirror {
     }
 }
 
+Polypoint.head.install(Mirror)

@@ -16,7 +16,7 @@
 <body>
   <canvas id="canvas" width="800" height="600"></canvas>
   <script>
-    class Ray {
+    class DirectionRay {
       constructor(startX, startY, directionX, directionY, length) {
         this.startX = startX;
         this.startY = startY;
@@ -69,10 +69,61 @@
       }
     }
 
+class Ray {
+    constructor(start, end, length) {
+        this.startX = start.x;
+        this.startY = start.y;
+        this.endX = end.x;
+        this.endY = end.y;
+        this.length = length;
+
+        // Normalize the direction vector (end - start) and apply the length
+        const dx = this.endX - this.startX;
+        const dy = this.endY - this.startY;
+        const magnitude = Math.sqrt(dx * dy + dy * dy);
+
+        this.directionX = (dx / magnitude) * this.length;
+        this.directionY = (dy / magnitude) * this.length;
+    }
+
+      render(ctx) {
+        const endX = this.startX + this.directionX * this.length;
+        const endY = this.startY + this.directionY * this.length;
+        ctx.beginPath();
+        ctx.moveTo(this.startX, this.startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+      }
+
+    checkIntersection(entity) {
+        const x1 = this.startX;
+        const y1 = this.startY;
+        const x2 = this.startX + this.directionX;
+        const y2 = this.startY + this.directionY;
+        const x3 = entity.x1;
+        const y3 = entity.y1;
+        const x4 = entity.x2;
+        const y4 = entity.y2;
+
+        const denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+        if (denom === 0) return false; // Parallel lines
+
+        const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denom;
+        const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / denom;
+
+        if (t > 0 && t < 1 && u > 0 && u < 1) {
+            const intersectX = x1 + t * (x2 - x1);
+            const intersectY = y1 + t * (y2 - y1);
+            return { x: intersectX, y: intersectY };
+        }
+        return false;
+    }
+}
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    const ray = new Ray(100, 100, 1, 1, 200);
+    const ray = new Ray({x:50, y:50}, {x:400, y:300}, 200);
+
     const entities = [
       { x1: 150, y1: 50, x2: 150, y2: 250 },
       { x1: 200, y1: 100, x2: 300, y2: 400 },

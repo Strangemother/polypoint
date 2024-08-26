@@ -1,0 +1,42 @@
+<html>
+    <head>
+
+        <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
+    </head>
+  <body polyclass class="font-pack-lexend+deca-500">
+    <style>
+        #playspace {
+            width: 100%;
+            height: 100%;
+            border: solid 1px;
+        }
+        html, body {
+            background: #010101;
+        }
+
+    </style>
+
+
+    <canvas id="playspace"></canvas>
+
+    <script src="../point_src/core/head.js"></script>
+    <script src="../point_src/files.js"></script>
+    <script src="../point_src/core/loader.js"></script>
+
+    <script>
+        Polypoint.head.configure({
+            srcPath: '../point_src/'
+            , load: ['point', 'other']
+            , files: polypointFileAssets
+            , onLoad() {
+                console.log('Loaded')
+                Polypoint.head.load("../point_src/theatre/earth-sun.js", ()=>{
+                    console.log('theatre loaded.')
+                })
+            }
+        })
+    </script>
+    <script src="../point_src/functions/clamp.js"></script>
+
+  </body>
+</html>

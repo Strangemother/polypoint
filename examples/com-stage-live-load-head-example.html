@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <style>
+            #playspace {
+                width: 800;
+                height: 600;
+                /*height: 100%;*/
+                border: solid 1px;
+            }
+            html, body {
+                background: #111;
+            }
+        </style>
+
+        <script src="../point_src/core/head.js"></script>
+        <script src="../point_src/files.js"></script>
+        <script src="../point_src/core/loader.js"></script>
+
+        <script>
+            Polypoint.head.configure({
+                srcPath: '../point_src/'
+                , load: ['everything']
+                , files: polypointFileAssets
+                , onLoad() {
+                    console.log('Loaded')
+                    Polypoint.head.load("../point_src/theatre/com-stage-example.js", ()=>{
+                        console.log('theatre loaded.')
+                    })
+                }
+            })
+        </script>
+    </head>
+  <body>
+
+    <canvas id="playspace"></canvas>
+
+
+
+  </body>
+</html>

@@ -146,8 +146,9 @@ const initExample = function(d){
 
 const installFirstValue = function(editorConfig) {
     let value = getStoredValue()
-    if(value != undefined) {
+    if(value != undefined && value.trim().length > 1) {
         setTimeout(function(){
+
             initExample(value)
         }, 5)
         return

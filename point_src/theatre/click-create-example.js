@@ -22,7 +22,6 @@ class MainStage extends Stage {
 
         this.line = new Line(this.point, this.clickPoint, 'green', 2)
 
-
         let drag = this.drag = new Dragging
         drag.initDragging(this)
         drag.addPoints(this.point, this.clickPoint)

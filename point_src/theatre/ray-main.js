@@ -249,6 +249,7 @@ const checkPointIntersection = function(line, point, radius=5, length=400) {
     return false;
 }
 
+
 const checkPointIntersectionExact = function(line, point, radius=5, length=400) {
     const x1 = line.start.x;
     const y1 = line.start.y;

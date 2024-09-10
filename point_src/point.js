@@ -37,7 +37,7 @@ class Positionable {
         return _y == undefined? 0: _y
     }
 
-    set(x,y) {
+    set(x, y) {
 
         if(y == undefined) {
             if(Array.isArray(x)) {
@@ -313,6 +313,9 @@ class Tooling extends Rotation {
         */
         if(position) {
             this.set(position.x, position.y)
+            if(position?.radians){
+                this.radians = position.radians
+            }
             return this;
         }
 
@@ -442,8 +445,11 @@ class Point extends Tooling {
 
     constructor(opts={}){
         super(opts)
+
+        /* Ensure _opts_ is something. Default; a dict. */
         opts = arguments[0] || {}
-        // If given a Point instance, return the  point.
+
+        /* If given a Point instance, return the given point instance */
         if(opts && (opts.constructor == this.constructor) ){ return opts }
         // new Point(x,y, ...)  // reset the opts obj.
         if(arguments.length > 1){ opts = {} }
@@ -453,8 +459,6 @@ class Point extends Tooling {
         this._opts = opts
         // set 0 or more object
         this.set.apply(this, arguments)
-        // this[0] = this.x
-        // this[1] = this.y
     }
 
     update(data) {

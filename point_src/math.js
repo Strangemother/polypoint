@@ -334,7 +334,8 @@ function calculateAngle(point1, point2) {
 }
 
 function calculateAngleWithRef(point1, point2, referencePoint) {
-  // First calculate the "incoming direction" angle using point1 and referencePoint
+  // First calculate the "incoming direction" angle using
+  // point1 and referencePoint
   const refDeltaX = point1.x - referencePoint.x;
   const refDeltaY = point1.y - referencePoint.y;
   let refAngleInDegrees = Math.atan2(refDeltaY, refDeltaX) * (180 / Math.PI);

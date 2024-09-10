@@ -72,7 +72,6 @@ function intersectionPoint(origin, line) {
 }
 
 
-
 function reflectPointOnSameSide(origin, line) {
     const [p1, p2] = line;
     const x1 = p1.x, y1 = p1.y;
@@ -141,17 +140,40 @@ class Mirror {
    step() {
         /* iterate all the reflectPoints, and update the mirror point positions.
         We avoid rewriting the points, so they're more persistent. */
-        let line = this.points;
-        for (var i = 0; i < this.reflectPoints.length; i++) {
-            let p = this.reflectPoints[i];
-            let res = this.reflect(p, line)
-            let mirrorP = this.getMirrorIndex(i)
-            mirrorP.update(res)
-            // new Point(reflectPointOnSameSide(p, line))
+        let lines = this.points.siblings();
+
+        for (var i = 0; i < lines.length; i++) {
+            let line = lines[i]
+            for (var j = 0; j < this.reflectPoints.length; j++) {
+                let p = this.reflectPoints[j];
+                let res = this.reflectSegment(p, line)
+                let mirrorP = this.getMirrorIndex(i+j)
+                mirrorP.update(res)
+                // new Point(reflectPointOnSameSide(p, line))
+            }
         }
     }
 
-    reflect(point, line=this.points) {
+    reflect(point, line) {
+        if(line == undefined || line.siblings != undefined) {
+            return this.reflectSiblings(point)
+        }
+
+        return this.reflectSegment(point)
+    }
+
+    reflectSiblings(point, line=this.points) {
+        let res = new PointList
+        let lines = line.siblings();
+        for (var i = 0; i < lines.length; i++) {
+            let line = lines[i]
+            let rp = this.reflectSegment(point, line)
+            res.push(rp)
+        }
+        return res
+    }
+
+    reflectSegment(point, line=this.points) {
         return new Point(reflectPoint(point, line))
     }
 
@@ -185,21 +207,47 @@ class Mirror {
         return mirrorPoint;
     }
 
-   draw(ctx) {
+    draw(ctx) {
         this.renderLine && this.drawLine(ctx)
         this.renderPoints && this.drawPoints(ctx)
         this.renderReflections && this.drawReflections(ctx)
-   }
+    }
 
-   drawLine(ctx) {
+    drawLine(ctx) {
         this.points.pen.line(ctx, )
     }
 
     drawPoints(ctx) {
+        return this.drawPointsNew(ctx);
+
         ctx.setLineDash([3, 3])
         this.points.pen.stroke(ctx)
+        // this.stroke.wrap(()=>this.points.pen.stroke(ctx))
         ctx.setLineDash([])
-   }
+    }
+
+    pointStroke() {
+        if(this._pointStroke) {
+            return this._pointStroke
+        }
+        this._pointStroke = new Stroke({
+            dash: [4,5]
+            , color: 'red'
+            , width: 2
+            , march: .1
+        })
+
+        return this._pointStroke
+    }
+
+    drawPointsNew(ctx) {
+
+        let s = this.pointStroke()
+        s.step()
+        s.set(ctx)
+        this.points.pen.stroke(ctx)
+        s.unset(ctx)
+    }
 
     drawReflections(ctx) {
         this.mirrorPointsMap.forEach((p)=>{
@@ -215,5 +263,8 @@ class Mirror {
        this.reflectPoints.push.apply(this.reflectPoints, arguments)
     }
 }
+
+
+
 
 Polypoint.head.install(Mirror)

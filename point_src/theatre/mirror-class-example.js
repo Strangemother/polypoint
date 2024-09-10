@@ -17,8 +17,10 @@ class MainStage extends Stage {
 
     createPoints(){
         let _a = new Point({x:406, y:76, radius: 20})
-        let _b = new Point({x:145, y:397, radius: 20})
-        this.points = new PointList(_a,_b)
+        let _b = new Point({x:350, y:300, radius: 20})
+        let _c = new Point({x:245, y:500, radius: 20})
+        // let _d = new Point({x:270, y:550, radius: 20})
+        this.points = new PointList(_a,_b, _c)
         this.origin = new Point({x: 156, y: 135, radius: 20})
         this.other = new Point({x: 150, y:150, radius: 20})
     }
@@ -36,8 +38,10 @@ class MainStage extends Stage {
         this.mirror.step();
         /* Draw the optional contents of the mirror */
         this.mirror.draw(ctx);
+
         /* We can also use the reflect method for an immediate point: */
-        this.mirror.reflect(this.other).pen.indicator(ctx, {color: '#AAA'})
+        // this.mirror.reflect(this.other).pen.indicator(ctx, {color: '#AAA'})
+        this.mirror.reflect(this.other).pen.indicators(ctx, {color: '#AAA'})
     }
 
     drawCircles(ctx) {

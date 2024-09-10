@@ -425,8 +425,9 @@ class PointListPen {
         })
 
     }
-    line(ctx) {
-        this.parent.draw.line(ctx)
+
+    line(ctx, d) {
+        this.parent.draw.line.apply(this.parent.draw, arguments)
         ctx.stroke()
     }
 
@@ -525,6 +526,28 @@ class LazyAccessArray extends Array {
             Object.defineProperty(this, '_shape', { value: new C(this) })
         }
         return this._shape
+    }
+
+    pairs() {
+        /* Return in pairs.
+
+            [a,b,c,d,e,f,g]
+            pairs()
+            a,b
+            c,d
+            e,f
+            siblings()
+        */
+       return arr.flatMap((_, i, a) => i % 2 ? [] : [a.slice(i, i + 2)]);
+
+    }
+
+    siblings() {
+        return this.map((value, index) => {
+            if (index < this.length - 1) {
+                return [value, this[index + 1]];
+            }
+        }).filter(pair => pair !== undefined);
     }
 
     get each() {

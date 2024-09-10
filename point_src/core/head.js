@@ -275,6 +275,9 @@ The head contains a range of hoisting functions to late-load installables.
      */
     const lazierProp = function(name, method, reference) {
         let methodName = reference==undefined? method.name: reference
+        // if(methodName == 'RelativeMotion') {
+        //     debugger;
+        // }
         let target = exposed;
         lazyProp(name, {
             [methodName]() {

@@ -142,7 +142,7 @@ stage.center._pen == Pen
 Synonymous to:
 
 ```js
-Polypoint.mixin('Point', {
+Polypoint.head.mixin('Point', {
     pen: {
         get() {
             let r = this._pen
@@ -165,7 +165,7 @@ Using the `lazyProp` for a _first call create_ is very common. Therefore we have
 > Arrow functions may not maintain the correct scope for `this` within the call. Read the "Method Note" for more info
 
 ```js
-Polypoint.lazierProp('Stage',
+Polypoint.head.lazierProp('Stage',
     function screenshot() {
         return new Screenshot(this)
     }
@@ -185,7 +185,7 @@ stage._screenshot == stage.screenshot
 Synonymous to:
 
 ```js
-Polypoint.lazyProp('Stage', {
+Polypoint.head.lazyProp('Stage', {
     screenshot() {
         let s = this._screenshot;
         if(s) { return s };

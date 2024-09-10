@@ -60,5 +60,11 @@ const polypointFileAssets = function(js='') {
             , `${js}pointdraw.js#pointdraw`
             , `${js}point.js#point`
         ]
+        , everything: [
+            'head'
+            // , 'pointlist'
+            , 'point'
+            , 'other'
+        ]
     }
 }

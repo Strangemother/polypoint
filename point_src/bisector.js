@@ -5,6 +5,15 @@ function bisectAll(items, direction='obtuse') {
     if(['acute', 0].indexOf(direction) > -1) {
         func = acuteBisect
     }
+
+    let l = items.length
+    let lm1 = l-1
+    let last = items[lm1]
+    let first = items[0]
+    // very first should rotated relative to [1] and [l-1]
+    first.radians = func(first, items[0],  items[1])
+    last.radians = func(items[lm1-1], last, first)
+
     for(let i = 1; i < items.length-1; i++) {
         let p = items[i]
         p.radians = func(items[i-1], p,  items[i+1])
@@ -12,6 +21,8 @@ function bisectAll(items, direction='obtuse') {
 }
 
 
+/* Rotate the midPoint to be the bisect of the pointA and pointC, pointing
+in the _obtuse_ direction. */
 function obtuseBisect(pointA, midPoint, pointC) {
     // const mag2d = calculateBisector(pointA, midPoint, pointC);
     // Spin for obtuse.
@@ -29,7 +40,6 @@ function acuteBisect(pointA, midPoint, pointC) {
     return midPoint.directionTo(midPoint.add(mag2d))
 }
 
-
 function calculateBisector(pointA, midPoint, pointC, normalized=false) {
     /*
         // Example usage:
@@ -46,7 +56,6 @@ function calculateBisector(pointA, midPoint, pointC, normalized=false) {
 
     if(!normalized) { return bisector }
     return bisector.normalized()
-
 }
 
 function rawCalculateBisector(pointA, pointB, pointC) {
@@ -85,3 +94,8 @@ function rawCalculateBisector(pointA, pointB, pointC) {
     return normalizedBisector;
 }
 
+
+class PointBisect {
+    /* Bisect tools for a single point */
+
+}

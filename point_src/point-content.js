@@ -101,6 +101,23 @@ const polyGen = function(ctx, count, point, radius) {
 }
 
 
+const pointArea = function(p) {
+    return circleArea(p.radius)
+}
+
+const pointCircumference = function(p) {
+    return radiusCircumference(p.radius)
+}
+
+const radiusCircumference = function(radius) {
+    return 2 * Math.PI * radius
+}
+
+
+const circleArea = (radius, pi=Math.PI) => {
+   return pi * radius * radius;
+};
+
 const getPolyDistributedPoints = function(count, pos, radius) {
     /* Return a list of points distrubuted evenly around a circle.
      */
@@ -192,7 +209,7 @@ let centerOfMass = {
         let weightedSumRotation = 0;
 
         points.forEach((p)=>{
-            let mass = p.mass;
+            let mass = p.radius;
 
             totalMass += mass;
             weightedSum = weightedSum.add(p.multiply(mass))
@@ -228,8 +245,18 @@ function projectFrom(origin, distance=undefined, rotation=undefined) {
     return { x, y };
 }
 
+const TAU = 2 * Math.PI;
+const radiansToTau = function(radians) {
+    /*
+        let radians = Math.PI; // 1/2 TAU
+        console.log(radiansToTau(radians)); // Outputs: 0.5
+    */
+    return radians / TAU;
+}
+
 
 class Angle extends Number {
+
     constructor(value) {
         super(value)
     }
@@ -242,5 +269,6 @@ class Angle extends Number {
         /* Assume this is a radian value and convert to degrees. */
         return radiansToDegrees(this)
     }
+
 }
 

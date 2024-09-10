@@ -99,6 +99,7 @@ class Dragging extends Distances {
     clickSpeed = 300
     clickDragDeadzone = undefined // undefined == 1 radius
     maxWheelValue = 500
+    padding = 10
 
     constructor(stage) {
         super()
@@ -113,12 +114,12 @@ class Dragging extends Distances {
         mouse.listen(c, 'mousedown', (c,ev)=> this.onMousedown(stage,c,ev))
         mouse.listen(c, 'mousemove', (c,ev)=> this.onMousemove(stage,c,ev))
         mouse.listen(c, 'mouseup', (c,ev)=> this.onMouseup(stage,c,ev))
-        mouse.listen(c, 'wheel', (c,ev)=> this.onWheel(stage,c,ev), {passive: true})
+        mouse.listen(c, 'wheel', (c,ev)=> this.onWheelInternal(stage,c,ev), {passive: true})
         this._near = new Point(mouse.position);
     }
 
     add(point) {
-        return this.addPoints(point)
+        return this.addPoints.apply(this, arguments)
     }
 
     onMousedown(stage, canvas, ev) {
@@ -132,10 +133,17 @@ class Dragging extends Distances {
             console.log('not near any point at position', this.mousedownOrigin)
             return
         }
-        this.downPointDistance = new Point(this._near.distance2D(this.mousedownOrigin))
+
+        let distanceValue = this.distanceValue = this._near.distance2D(this.mousedownOrigin)
+        this.downPointDistance = new Point(distanceValue)
         this._mousedown = true
-        this.onDragStartHandler(ev)
         this._grabbingId = this.stage?.cursor.set('grabbing', this._cursorId)
+
+        // if(this.withinBufferZone(this.downPointDistance)) {
+        //     this.onEdgeStartHandler(ev)
+        // } else {
+            this.onDragStartHandler(ev)
+        // }
 
     }
 
@@ -149,7 +157,7 @@ class Dragging extends Distances {
             // present the possible nearest
             // this._near = this.closest(stage.mouse.position, 100)
             // this._near = this.closest(stage.mouse.position, (v,p)=> v<=p.radius)
-            const found = this.intersect(stage.mouse.position, 10)
+            const found = this.intersect(stage.mouse.position, this.padding)
             this._near = found
             this.cursorChange(found)
             // this.near = this.dis.within(100, this.mouse.position)
@@ -164,20 +172,23 @@ class Dragging extends Distances {
 
     cursorChange(found) {
         if(found) {
-            /* perform cursor magic */
 
+            /* perform cursor magic */
             if(this._stackedCursor === true) {
                 // nothing to do; mouse is stacked.
             } else {
                 this._emitCursorHover()
             }
-        } else {
-            if(this._stackedCursor === true) {
-                this._emitCursorRelease()
-            } else {
-                // nothing to do; mouse is released.
-            }
+
+            return
         }
+
+        if(this._stackedCursor === true) {
+            this._emitCursorRelease()
+        }/* else {
+            // nothing to do; mouse is released.
+        }*/
+
     }
 
     _emitCursorHover() {
@@ -185,6 +196,7 @@ class Dragging extends Distances {
         // console.log('enable hover')
         this._cursorId = this.stage?.cursor.set('grab')
     }
+
     _emitCursorRelease() {
         this._stackedCursor = false
         let id = this._cursorId
@@ -225,7 +237,7 @@ class Dragging extends Distances {
         this.onLongClick(stage, canvas, ev, delta)
     }
 
-    onWheel(stage, canvas, ev) {
+    onWheelInternal(stage, canvas, ev) {
         let n = this._near;
         if(!n) { return };
 
@@ -236,6 +248,7 @@ class Dragging extends Distances {
         let rad = positive? radius*compute: radius/compute;
         n.radius = clamp(rad, 1, this.maxWheelValue)
         n.onResize && n.onResize(ev, stage, canvas)
+        this.onWheel(ev, n)
     }
 
     onLongClick(stage, canvas, ev, delta) {
@@ -255,6 +268,10 @@ class Dragging extends Distances {
 
     onClickHander(stage, canvas, ev) {
         // console.log('That was a click not a drag...')
+        //
+        if(this.isEdgeDragging == true) {
+            this.onEdgeEnd(ev)
+        }
         this.onClick(ev)
     }
 
@@ -267,10 +284,33 @@ class Dragging extends Distances {
     }
 
     onClick(ev) {}
+    onDragStart(ev){}
+    onDragMove(ev) {}
+    onDragEnd(ev){}
+    onWheel(ev, point){}
+
+    onEdgeStart(ev) {
+        console.log('onEdgeStart')
+    }
+
+    onEdgeMove(ev) {
+        // console.log('onEdgeMove')
+
+    }
+
+    onEdgeEnd(ev) {
+        console.log('onEdgeEnd')
+    }
 
     onDragMoveHandler(ev) {
-        this.onDragMove(ev)
-        this.applyXY(ev.x, ev.y)
+        if(this.isDragging) {
+            this.applyXY(ev.x, ev.y)
+            this.onDragMove(ev)
+        }
+
+        if(this.isEdgeDragging == true) {
+            this.onEdgeMove(ev)
+        }
     }
 
     onDragStartHandler(ev){
@@ -278,18 +318,37 @@ class Dragging extends Distances {
         this.onDragStart(ev)
     }
 
-    onDragStart(ev){}
-    onDragMove(ev) {}
-    onDragEndHandler(ev){
-        this.onDragEnd(ev)
-        this.isDragging = false
+    onEdgeStartHandler(ev) {
+        this.isEdgeDragging = true
+        this.onEdgeStart(ev)
     }
-    onDragEnd(ev){}
+
+
+    withinBufferZone(distancePoint, buffer=this.padding) {
+        // distance
+        let v = this.distanceValue.distance
+        return v > this._near.radius
+    }
+
+    onDragEndHandler(ev){
+        if(this.isDragging) {
+            this.isDragging = false
+            this.onDragEnd(ev)
+        }
+
+
+        if(this.isEdgeDragging == true) {
+            this.isEdgeDragging = false
+            this.onEdgeEnd(ev)
+        }
+    }
+
     applyXY(x,y){
         let offsetSelected = this.downPointDistance.add(x, y)
         this._near.set(offsetSelected.x, offsetSelected.y)
     }
 }
+
 
 class CursorStack {
     /*stash and pop cursor states.

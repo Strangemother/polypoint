@@ -142,7 +142,7 @@ class Dragging extends Distances {
         // if(this.withinBufferZone(this.downPointDistance)) {
         //     this.onEdgeStartHandler(ev)
         // } else {
-            this.onDragStartHandler(ev)
+            this.onDragStartHandler(ev, this._near)
         // }
 
     }
@@ -284,7 +284,7 @@ class Dragging extends Distances {
     }
 
     onClick(ev) {}
-    onDragStart(ev){}
+    onDragStart(ev, point){}
     onDragMove(ev) {}
     onDragEnd(ev){}
     onWheel(ev, point){}
@@ -313,9 +313,9 @@ class Dragging extends Distances {
         }
     }
 
-    onDragStartHandler(ev){
+    onDragStartHandler(ev, p){
         this.isDragging = true
-        this.onDragStart(ev)
+        this.onDragStart(ev, p)
     }
 
     onEdgeStartHandler(ev) {

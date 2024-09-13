@@ -1,5 +1,45 @@
 
 class SetUnset {
+    /*
+        The "Set Unset" tool acts similar to the _ctx.save()_ method, by applying changes to the context,
+        and then _unsetting_ after usage.
+
+        This allows the _switching_ of a property of the context with `set` and `unset`
+        values previously assigned to changed properties are reapplied - essentially _wrapping_
+        some drawing with context changes.
+
+            su = new SetUnset({
+                lineWidth: 10
+            })
+
+            // lineWidth == ...
+            su.set(ctx)
+            // lineWidth == 10
+            su.unset(ctx)
+            // lineWidth == ...
+
+        Implement shortcuts:
+
+            class Stroke extends SetUnset {
+                getOpts() {
+                    let supported = new Set([
+                        , "lineWidth"
+                    ])
+
+                    let map = {
+                        color: 'strokeStyle'
+                    }
+                    let functional = {
+                        dash: 'lineDashKeyApply'
+                    }
+                    return [supported, map, functional]
+                }
+            }
+
+            st = new Stroke({
+                color: 'red'
+            })
+     */
 
     /* Perform _stroke_ with styling and stoking; but with a convenient
     on/off without using the context switcher. */

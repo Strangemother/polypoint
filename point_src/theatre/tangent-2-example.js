@@ -145,61 +145,6 @@ function calculateAdjustedRotatedTangentLines(pointA, pointB) {
     };
 }
 
-function innerTangents(circle1, circle2) {
-    const { x: x1, y: y1, radius: r1 } = circle1;
-    const { x: x2, y: y2, radius: r2 } = circle2;
-
-    // Calculate the distance between the centers of the two circles
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const d = Math.sqrt(dx * dy + dy * dy);
-
-    if (d <= Math.abs(r2 - r1)) {
-        // No inner tangent exists if one circle is completely inside the other
-        return null;
-    }
-
-    // Angle of the line connecting the centers of the circles
-    const angleBetweenCenters = Math.atan2(dy, dx);
-
-    // Angle for the tangent
-    const angleOffset = Math.asin((r2 - r1) / d);
-
-    // Calculate the angles for the two tangent points
-    const angle1 = angleBetweenCenters + angleOffset;
-    const angle2 = angleBetweenCenters - angleOffset;
-
-    // Tangent points on circle 1
-    const t1x1 = x1 + r1 * Math.cos(angle1);
-    const t1y1 = y1 + r1 * Math.sin(angle1);
-    const t2x1 = x1 + r1 * Math.cos(angle2);
-    const t2y1 = y1 + r1 * Math.sin(angle2);
-
-    // Tangent points on circle 2
-    const t1x2 = x2 + r2 * Math.cos(angle1);
-    const t1y2 = y2 + r2 * Math.sin(angle1);
-    const t2x2 = x2 + r2 * Math.cos(angle2);
-    const t2y2 = y2 + r2 * Math.sin(angle2);
-
-    return {
-        circle1TangentPoints: [
-            { x: t1x1, y: t1y1 },
-            { x: t2x1, y: t2y1 },
-        ],
-        circle2TangentPoints: [
-            { x: t1x2, y: t1y2 },
-            { x: t2x2, y: t2y2 },
-        ],
-    };
-}
-
-// // Example usage:
-// const circle1 = { x: 50, y: 50, radius: 30 };
-// const circle2 = { x: 100, y: 100, radius: 50 };
-
-// const tangents = innerTangents(circle1, circle2);
-// console.log(tangents);
-
 
 class PointTangents {
 
@@ -327,7 +272,18 @@ class PointTangents {
     }
 }
 
-Polypoint.head.lazierProp('Point', function tangent(){ return new PointTangents(this)})
+
+Polypoint.head.lazyProp('Point', {
+    tangent() {
+        let r = this._tangents
+        if(r == undefined) {
+            r = new PointTangents(this)
+            this._tangents = r
+        }
+        return r
+    }
+})
+
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
@@ -337,143 +293,90 @@ class MainStage extends Stage {
         this.rawPointConf = { circle: { color: 'orange', width: 1}}
         this.generate()
         this.doLines()
-        this.doArc()
         // this.dragging.add(...this.randomPoints)
-        this.dragging.addPoints(...this.randomPoints)//, ...this.la, ...this.lb)
+        this.dragging.addPoints(...this.points)//, ...this.la, ...this.lb)
         // this.dragging.onDragEnd = this.onDragEnd.bind(this)
         this.dragging.onDragMove = this.onDragMove.bind(this)
         this.dragging.onWheel = this.onWheel.bind(this)
     }
 
-    generate(pointCount=2){
+    generate(pointCount=3){
         /* Generate a list. In this random... */
-        this.randomPoints = PointList.generate.radius(pointCount, 100, point(200,200))
+        this.points = PointList.generate.radius(pointCount, 100, point(200,200))
         /* Customise the points, randomising the mass and rotation. */
-        this.randomPoints.forEach(p => {
-                p.rotation = Math.random() * 360
+        this.points.forEach(p => {
+                // p.rotation = Math.random() * 360
                 p.radius = Math.max(5, 20)
             })
-
-        // this.doEdges()
-    }
-
-    doArc() {
-        let [a, b] = this.randomPoints;
-        let lines = [this.la, this.lb]
-        let left = [lines[0][0], lines[1][0]]
-        let right = [lines[0][1], lines[1][1]]
-        this.a = a
-        this.b = b
-
-        this.ra = new PointList(...left.concat([a]))
-        this.rb = new PointList(...right.concat([b]))
-    }
-
-    doEdges() {
-
-        const { pointAEdge, pointBEdge } = calculateEdgeToEdgeLine(...this.randomPoints);
-        this.others = new PointList(
-                new Point(pointAEdge)
-                , new Point(pointBEdge)
-            )
-
     }
 
     doLines() {
-        let lines = calculateAdjustedRotatedTangentLines(...this.randomPoints)
+        // let lines = calculateAdjustedRotatedTangentLines(...this.points)
+        let a = this.points[0]
+        let b = this.points[1]
+        let c = this.points[2]
 
-        // let lines = calculateRotatedTangentLines(...this.randomPoints)
-        // let lines = calculateAdjustedTangentLines(...this.randomPoints)
-        // let lines = calculateTangentLines(...this.randomPoints)
-        this.la = new PointList(
-                new Point(lines.a[0])
-                , new Point(lines.a[1])
-            )
-        this.lb = new PointList(
-                new Point(lines.b[0])
-                , new Point(lines.b[1])
-            )
+        this.lines = [
+             this.asPointList(a.tangent.outerLines(b))
+            , this.asPointList(b.tangent.outerLines(c))
+            , this.asPointList(c.tangent.outerLines(a))
+        ]
+
+    }
+
+    asPointList(tLines) {
+
+        return [new PointList(
+            new Point(tLines.a[0])
+            , new Point(tLines.a[1])
+        )
+        , new PointList(
+            new Point(tLines.b[0])
+            , new Point(tLines.b[1])
+        )]
     }
 
     onDragEnd(){
-        this.doEdges()
         this.doLines()
-
     }
 
     onDragMove(){
-        this.doEdges()
         this.doLines()
-        this.doArc()
     }
 
     onWheel(ev, p) {
-        this.doEdges()
         this.doLines()
-        this.doArc()
     }
 
     draw(ctx){
         this.clear(ctx)
-        let p = this.dragging.getPoint();
-        if(p) {
-            p.pen.circle(ctx)
-        }
-
         this.drawView(ctx)
+        this.dragging.getPoint()?.pen.circle(ctx)
     }
 
     drawView(ctx){
-
         /* Draw a circle at the origin points */
-        this.randomPoints.pen.stroke(ctx, this.rawPointConf)
-
+        ctx.strokeStyle = '#555'
+        ctx.lineWidth = 2
+        this.points.pen.stroke(ctx)
         // this.others.pen.indicators(ctx, this.rawPointConf)
 
-        // this.la.pen.indicators(ctx, this.rawPointConf)
-        ctx.strokeStyle = 'red'
-        ctx.lineWidth = 3
+        for(let pointlistPair of this.lines) {
+            ctx.strokeStyle = 'green'
+            ctx.lineWidth = 2
+            pointlistPair[1].pen.line(ctx)
+            // pointlistPair[1].pen.indicators(ctx, this.rawPointConf)
 
-        this.la.pen.line(ctx)
-
-        // this.lb.pen.indicators(ctx, this.rawPointConf)
-        this.lb.pen.line(ctx)
-        let ra = this.ra
-        // ra.pen.indicators(ctx, {color: 'green'})
-        ctx.beginPath()
-        // ctx.moveTo(ra[0].x, ra[0].y)
-        // ctx.moveTo(100, 100)
-
-        let a = ra[2]
-        // inverted because it's the _other_ side.
-        let pa = ra[0]
-        let pb = ra[1]
-
-
-        this.drawArc(ctx, a, pa, pb)
-        // ctx.arc(a.x, a.y, a.radius, a.directionTo(pa), a.directionTo(pb))
-
-        ctx.stroke()
-        ctx.beginPath()
-        ra = this.rb
-        a = ra[2]
-        pa = ra[1]
-        pb = ra[0]
-        // this.drawArc(ra)
-        this.drawArc(ctx, a, pa, pb)
-        // ctx.arc(a.x, a.y, a.radius, a.directionTo(pa), a.directionTo(pb))
-
-        // ctx.arcTo(ra[0].x, ra[0].y, ra[1].x, ra[1].y, ra[2].radius)
-        ctx.stroke()
-        ctx.strokeStyle = 'green'
-        ctx.lineWidth = 1
-    }
-    drawArcPath(ctx, pack) {
+            ctx.strokeStyle = '#880000'
+            ctx.lineWidth = 2
+            pointlistPair[0].pen.line(ctx)
+            pointlistPair.forEach((pl)=>{
+                // pl.pen.indicators(ctx, this.rawPointConf)
+                pl.pen.fill(ctx, '#000')
+            })
+        }
     }
 
-    drawArc(ctx, a, pa, pb) {
-        ctx.arc(a.x, a.y, a.radius, a.directionTo(pa), a.directionTo(pb))
-    }
 }
 
 stage = MainStage.go()

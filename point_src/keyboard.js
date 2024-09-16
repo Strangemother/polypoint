@@ -4,7 +4,7 @@ class StageKeyboard {
     constructor(stage=undefined) {
         this.stage = stage
 
-        this.data = { keydown: [] }
+        this.data = { keydown: [], keyup: [] }
         this.wake()
     }
 
@@ -55,6 +55,10 @@ class StageKeyboard {
 
     onKeydown(codes, handler) {
         this.data['keydown'].push({codes, handler})
+    }
+
+    onKeyup(codes, handler) {
+        this.data['keyup'].push({codes, handler})
     }
 }
 

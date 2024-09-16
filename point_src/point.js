@@ -70,7 +70,7 @@ class Positionable {
         return p
     }
 
-    add(p, _b) {
+    add(p, _b,) {
         p = this._cast(p, _b)
 
         return new Point(

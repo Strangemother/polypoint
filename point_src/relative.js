@@ -65,6 +65,35 @@ class Addon {
 }
 
 
+const impartOnRads = function(radians, direction) {
+    /*
+    Push a XY in a direction relative to the radians.
+
+        const r = impartOnRads(a.radians, direction)
+
+    For example - pointing _right_ and applying the _{1,0}_ direction (denoting forward)
+        will push the point further right, applying _{0, 1}_ pushes the point _left_
+        relative to its direction.
+
+        Or to rephase, imagine a engine on the back of the point - pushing _forward_.
+     */
+
+    // Get the current rotation of the point `p` in radians
+    const cs = cosSin(radians)
+
+    const normalizedDir = direction.normalized()
+
+    // Apply the direction based on the point's rotation
+    // Transform the direction vector to account for the point's rotation
+    let spun = cs.spin(normalizedDir)
+    const rotatedDir = {
+        x: spun.x.cos - spun.y.sin,
+        y: spun.x.sin + spun.y.cos
+    };
+
+    return rotatedDir
+}
+
 class RelativeMotion extends Addon {
 
     _relativeMove(direction, speed=undefined, minSpeed=0, maxSpeed=1) {
@@ -74,21 +103,8 @@ class RelativeMotion extends Addon {
 
         // Avoid division by zero if direction vector is zero
         if (magnitude === 0) return;
-        const normalizedDir = direction.normalized()
 
-        // Clamp speed to be within the allowed range
-        // const clampedSpeed = clamp(speed, minSpeed, maxSpeed);
-
-        // Get the current rotation of the point `p` in radians
-        const cs = cosSin(p.radians)
-
-        // Apply the direction based on the point's rotation
-        // Transform the direction vector to account for the point's rotation
-        let spun = cs.spin(normalizedDir)
-        const rotatedDir = {
-            x: spun.x.cos - spun.y.sin,
-            y: spun.x.sin + spun.y.cos
-        };
+        const rotatedDir = impartOnRads(p.radians, direction)
 
         if(speed == undefined) { speed = 1 }
         // Update position `p` based on the rotated direction and clamped speed

@@ -22,8 +22,9 @@
     <script src="../point_src/core/head.js"></script>
     <script src="../point_src/files.js"></script>
     <script src="../point_src/core/loader.js"></script>
+    <script src="../point_src/setunset.js"></script>
     <script src="../point_src/math.js"></script>
-
+    <!-- SetUnset -->
     <script>
         Polypoint.head.configure({
             srcPath: '../point_src/'
@@ -31,7 +32,7 @@
             , files: polypointFileAssets
             , onLoad() {
                 console.log('Loaded')
-                Polypoint.head.load("../point_src/theatre/arc-pointlist-another-alt.js", ()=>{
+                Polypoint.head.load("../theatre/arc-pointlist-another-alt.js", ()=>{
                     console.log('theatre loaded.')
                 })
             }

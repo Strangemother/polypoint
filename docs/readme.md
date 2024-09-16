@@ -1,4 +1,3 @@
-# Polypoint
 
 > Polypoint.js is a library dedicated to the humble 2D point.
 

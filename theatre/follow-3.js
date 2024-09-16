@@ -44,9 +44,11 @@ const notGreatStep = function(followPoint, mouse) {
 };
 
 
-var gravity = 0.95; // Gravity constant
+// var gravity = -0.05; // Gravity constant for helium balloon.
+var gravity = {x: 0, y:0.95}; // Gravity constant
+
 var stringLength = 200; // The length of the "string"
-var damping = 0.98; // Damping to reduce energy over time
+var damping = 0.9; // Damping to reduce energy over time
 
 // Variables to store the previous mouse position
 let prevMouseX = 0//mouse.x;
@@ -196,7 +198,8 @@ const springyString = function(followPoint, mouse){
     }
 
     // Apply gravity
-    followPoint.vy += gravity;
+    followPoint.vy += gravity.y;
+    followPoint.vx += gravity.x;
 
     // Update the follow point's position based on its velocity
     followPoint.x += followPoint.vx;

@@ -50,7 +50,13 @@ class MainStage extends Stage {
 
         let mouse = Point.mouse.position
         let ps = this.points;
+
+        let restLength = 100;
+        let springConstant = .6;
+        let dampingFactor = 0.99; // Adjust this value between 0 and 1
+
         const lockedPoints = new Set([ps[0]]); // Lock pointA in place
+
 
         applySpringForceDistributed(ps[0], ps[1], restLength, springConstant, dampingFactor, lockedPoints);
         applySpringForceDistributed(ps[1], ps[2], restLength, springConstant, dampingFactor, lockedPoints);

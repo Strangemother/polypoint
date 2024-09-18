@@ -11,7 +11,7 @@ class MainStage extends Stage {
 
     mounted(){
         const point = this.center.copy()
-        this.point.radius = 50
+        point.radius = 50
         this.point = point
     }
 

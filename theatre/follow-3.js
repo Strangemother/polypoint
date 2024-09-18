@@ -48,7 +48,7 @@ const notGreatStep = function(followPoint, mouse) {
 var gravity = {x: 0, y:0.95}; // Gravity constant
 
 var stringLength = 200; // The length of the "string"
-var damping = 0.9; // Damping to reduce energy over time
+var damping = 0.98; // Damping to reduce energy over time
 
 // Variables to store the previous mouse position
 let prevMouseX = 0//mouse.x;

@@ -75,6 +75,9 @@ const applySpringForceLocking = function(pointA, pointB, restLength, springConst
     }
 }
 
+const applySpringForceDistributed = function()  {
+        return applySpringForceDistributedWithTime.apply(this, arguments)
+}
 
 const applySpringForceDistributedWithTime = function(pointA, pointB, restLength,
     springConstant, dampingFactor, lockedPoints = new Set(), deltaTime = 1) {

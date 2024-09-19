@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Multiplayer 2d car game!</title>
+    <link rel="stylesheet" href="car.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="scene">
+        <canvas></canvas>
+        <div class="bullets"></div>
+        <div class="cars">
+          <div class="car red">
+            <div class="car-body">
+              <div class="car-roof"></div>
+            </div>
+            <div class="car-name"></div>
+          </div>
+        </div>
+        <div class="map"></div>
+      </div>
+    </div>
+    <div class="points"></div>
+    <div class="buttons">
+      <button class="disconnect">Disconnect</button>
+      <button class="clearscreen">Clear screen</button>
+    </div>
+    <div class="name"><div class="name-bg"></div><form><p>Connecting...</p><input autofocus placeholder="Nickname" autocomplete="nickname"><button>Play!</button></form></div>
+    <div class="bottomleft">Use keyboard (up/down/left/right/space), swiping (shoot with second finger) or gamepad to drive the red car with other cars online!</div>
+    <script src="https://car.pakastin.fi/socket.io/socket.io.js"></script>
+    <script src="car-controls.js"></script>
+    <script src="car.js"></script>
+
+  </body>
+</html>

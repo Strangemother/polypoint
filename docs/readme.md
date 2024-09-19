@@ -1,4 +1,3 @@
-# Polypoint
 
 > Polypoint.js is a library dedicated to the humble 2D point.
 
@@ -12,7 +11,7 @@ class MainStage extends Stage {
 
     mounted(){
         const point = this.center.copy()
-        this.point.radius = 50
+        point.radius = 50
         this.point = point
     }
 

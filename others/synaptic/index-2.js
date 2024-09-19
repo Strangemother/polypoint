@@ -1,9 +1,7 @@
-let creature = new Point(400, 400);
-creature.health = .5
 
-let learningRate = .3;
-var performLearning = false;
-var loadNeuronsFromFile = true;
+let learningRate = .2;
+var performLearning = true;
+var loadNeuronsFromFile = false;
 var autoStore = false;
 
 
@@ -16,6 +14,57 @@ var rotationOutput = undefined;
 var reverseOutput = 1
 
 
+class Creature extends Point {
+
+    constructor(x,y) {
+        super(x,y)
+        this.health = .5
+
+        this.body = new PointList(
+                new Point({x:20, y:20, radius: 4}),
+                new Point({x:2, y:2, radius: 4}),
+            )
+    }
+
+    render(ctx){
+        this.pen.indicator(ctx, {color:'green'})
+        let bd = this.body
+        bd[0].leash(this, 15)
+        bd[1].leash(bd[0], 15)
+        bd.pen.stroke(ctx, {color:'green'})
+    }
+
+    inputs() {
+        /* return a list of inputs, to the length of the brain input nodes. */
+        let p = this;
+        const t = stage.target;
+        const dim = stage.dimensions
+        const maxRad = 5;
+        const rads = (1+(p.rotation  / 360)) * .5
+        const rot = getRotationCorrection(p, t)//.toFixed(3)
+        let inputs = [
+                0, // p.x / dim.width,
+                // 0, // p.y / dim.height,
+                p.health -= .0001,
+                t.x / dim.width,
+                t.y / dim.height,
+                0,
+                rot,
+            ]
+
+         return inputs
+
+    }
+
+    applyOutputs(items) {
+        let [forward, slip, relRotation] = items
+        this.rotation += relRotation
+        this.relative.move(new Point({x: forward, y: slip}), forward)
+    }
+}
+
+let creature = new Creature()
+
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
@@ -24,9 +73,10 @@ class MainStage extends Stage {
     mounted(){
         const point = this.center.copy()
         point.radius = 10
-        this.point = creature
+        this.point = creature = new Creature()
+
         this.target = new Point(450, 200)
-        creature.lookAt(this.target);
+        this.point.lookAt(this.target);
 
         let l = new Label(this.ctx, {
             text: this.resultText
@@ -86,58 +136,50 @@ class MainStage extends Stage {
         this.inputLabel.writeText(ctx,  '#DDD')
         this.outputLabel.writeText(ctx,  '#DDD')
 
-        p.pen.indicator(ctx, {color:'green'})
+        this.point.render(ctx)
+
     }
 }
 
 
 const creatureTick = function() {
-    let items = getBrainResult()
-    let [forward, reverse, relRotation] = items
-
-    let extra = ((random.float() - .5) * 8)
-    if(random.float() < .49) {
-        extra *= -1
-    }
-    creature.rotation += ((relRotation - .5 ) * 10 ) + extra
-    creature.relative.move(new Point({x: forward, y: 0}), forward - reverse)
-    // creature.relative.left(forward - reverse)
+    let items = getBrainResult(creature)
+    creature.applyOutputs(items)
 
     const target = stage.target
     const distance = creature.distanceTo(target)
 
+    /* reward for food */
     if(distance < target.radius + creature.radius) {
         stage.target = random.point(500)
         creature.health = 1
-    }
 
-    // if(distance > 200) {
-
-    //     creature.update({
-    //         rotation: random.int(360),
-    //         x: random.int(600),
-    //         y: random.int(500),
-    //     })
-    // }
-
-    let needle = getRotationCorrection(creature, target);
-    if(needle > .8 && performLearning == true) {
-        console.log('training')
-        let reward = [forward, random.float(), needle]
-        stage.label.text = reward.map((v) => v.toFixed(3)).join(' ')
-        brain.propagate(learningRate, items)
-
-        if(autoStore == true) {
-            localStorage['creature'] = JSON.stringify(brain.toJSON())
-            if(storeClock != undefined) {
-                clearInterval(storeClock)
+        if(performLearning == true) {
+            console.log('training')
+            for (var i = 0; i < 1000; i++) {
+                brain.propagate(learningRate, items)
             }
-            storeClock = setTimeout(function(){
-                console.log('Saving')
-            }, 1000)
         }
     }
+    /*
+        let needle = getRotationCorrection(creature, target);
+        if(needle > .8 && performLearning == true) {
+            console.log('training')
+            let reward = [forward, random.float(), needle]
+            stage.label.text = reward.map((v) => v.toFixed(3)).join(' ')
+            brain.propagate(learningRate, items)
 
+            if(autoStore == true) {
+                localStorage['creature'] = JSON.stringify(brain.toJSON())
+                if(storeClock != undefined) {
+                    clearInterval(storeClock)
+                }
+                storeClock = setTimeout(function(){
+                    console.log('Saving')
+                }, 1000)
+            }
+        }
+    */
 }
 
 
@@ -169,57 +211,21 @@ function getRotationCorrection(creature, target) {
 }
 
 
-const getBrainResult = function() {
-
-    const p = creature;
+const getBrainResult = function(p) {
     const t = stage.target;
     const dim = stage.dimensions
     const maxRad = 5;
     const rads = (1+(p.rotation  / 360)) * .5
     const rot = getRotationCorrection(p, t)//.toFixed(3)
-    let inputs = [
-            p.x / dim.width,
-            p.y / dim.height,
-            t.x / dim.width,
-            t.y / dim.height,
-            rads,
-            rot,
-            // p.health *= .999,
-        ]
+    let inputs = p.inputs()
 
     let items  = brain.activate(inputs);
-    let [forward, reverse, rotation] = items;
 
     stage.inputLabel.text = "In:   " + inputs.map((v) => v.toFixed(3)).join(' ')
     stage.outputLabel.text = "Out: " + items.map((v) => v.toFixed(3)).join(' ')
     stage.label.text = rot
 
-    let result = [
-        forward,
-        reverse,
-        rotation,
-    ]
-    // 2 neuron result.
-    return result
-}
-
-const makeExpected = function(ok=false) {
-    const target = stage.target
-    distanceToTarget = creature.distanceTo(target)
-
-    if(previousDistance) {
-        rotationOutput = 0
-
-        rotationOutput = getRotationCorrection(creature, target); // Rotate to face target
-        forwardOutput = 1 - rotationOutput
-        ok = true
-    }
-
-    previousDistance = distanceToTarget
-
-    // console.log(forwardOutput, rotationOutput)
-    if(!ok) { return makeExpected(true) }
-    return [forwardOutput, reverseOutput, rotationOutput]
+    return items
 }
 
 
@@ -228,13 +234,14 @@ const start = function(tick=10) {
     return brainTick;
 }
 
+
 const stop = function() {
     clearInterval(brainTick)
 }
 
 
 var input = 6;
-var pool = 20;
+var pool = 6;
 var output = 3; // forward, reverse, rotations amount
 var connections = 30;
 var gates = 20;
@@ -259,31 +266,31 @@ const buildBrain = function(){
     return r
 }
 
+
 const brain = buildBrain()
 const trainer = new synaptic.Trainer(brain)
 
-
 const train = function(){
 
-    var trainer = new synaptic.Trainer(brain)
-    let [px, py] = [-1,-1]
-    let [tx, ty] = [-1,-1]
+    // var trainer = new synaptic.Trainer(brain)
+    let target = random.point()// stage.target
+    let [px, py] = [random.float(),1]
+    let [tx, ty] = [0,0]//[target.x, target.y]
     var trainingSet = [
       {
-        input: [px,py,tx,ty,random.float(), 1],
-        output: [.99, 0, 0.5]
+        input: [px,py,tx,ty, random.float(), 1],
+        output: [1, 0, 0.5]
+      },{
+        input: [px,py,tx,ty, random.float(), random.float()],
+        output: [random.float(),random.float(),random.float()]
       },
       {
-        input: [px,py,tx,ty, .5, 0.02],
-        output: [0, .99, .5]
+        input: [px,py,tx,ty, 0, 0.02],
+        output: [random.float(),random.float(), 1]
       },
       {
-        input: [tx,ty, px-10,py-10, random.float(), 0.02],
-        output: [0, .02, 1]
-      },
-      {
-        input: [tx,ty, px-(random.float() * 100),py-(random.float() * 100), random.float(), .999],
-        output: [0, 1, 0]
+        input: [px,py,tx,ty, 0, 0.02],
+        output: [random.float(),random.float(), -1]
       },
       //,
       // {

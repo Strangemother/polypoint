@@ -28,7 +28,7 @@ class MainStage extends Stage {
         this.target = new Point(450, 200)
         creature.lookAt(this.target);
 
-        let l = new Label(this.ctx, {
+        let l = new FastLabel(this.ctx, {
             text: this.resultText
             , fontSize: 16
             , fontName: 'barlow'
@@ -37,7 +37,7 @@ class MainStage extends Stage {
         l.position = new Point(100, 100)
         this.label = l
 
-         let il = new Label(this.ctx, {
+         let il = new FastLabel(this.ctx, {
             text: 'inputs'
             , fontSize: 16
             , fontName: 'barlow'
@@ -46,8 +46,9 @@ class MainStage extends Stage {
         il.position = new Point(100, 120)
         this.inputLabel = il
 
-        let ol = new Label(this.ctx, {
+        let ol = new FastLabel(this.ctx, {
             text: 'output'
+            , moduloRate: 20
             , fontSize: 16
             , fontName: 'barlow'
         });
@@ -80,6 +81,10 @@ class MainStage extends Stage {
         }else if(p.y < 9) {
             p.y = 590
         }
+
+        this.label.update()
+        this.inputLabel.update()
+        this.outputLabel.update()
 
         // this.label.text = this.resultText
         this.label.writeText(ctx,  '#DDD')

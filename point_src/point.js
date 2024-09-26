@@ -37,12 +37,37 @@ class Positionable {
         return _y == undefined? 0: _y
     }
 
-    set(x, y) {
+    set(x, y, radius, rotation) {
 
-        if(y == undefined) {
+        const isUndefined = function(v) {
+            return v === undefined
+        }
+
+        if(isUndefined(y)) {
+
             if(Array.isArray(x)) {
-                [x,y] = x
-            } else {
+                let lmap = {
+                    1: () => {
+                        /* An array of one
+                            set([200])
+                        */
+                    }
+                    , 2: ()=> {
+                        [x,y] = x
+                    }
+                    , 3: ()=> {
+                        [x,y, radius] = x
+                    }
+                    , 4: ()=> {
+                        [x,y, radius] = x
+                    }
+                }
+
+                lmap[x.length]()
+            } else if(typeof(x)=='number') {
+                y = x
+                x = x
+            }else{
                 // object
                 for(let k in x) {
                     this[k] = x[k]
@@ -51,8 +76,15 @@ class Positionable {
                 x = x?.x
             }
         }
-        this.x = x == undefined? 0: x
-        this.y = y == undefined? 0: y
+
+        this.x = isUndefined(x)? 0: x
+        this.y = isUndefined(y)? 0: y
+        if(!isUndefined(radius)) {
+            this.radius = radius
+        }
+        if(!isUndefined(rotation)) {
+            this.rotation = rotation
+        }
     }
 
     subtract(p, _2=p){
@@ -452,7 +484,7 @@ class Point extends Tooling {
         /* If given a Point instance, return the given point instance */
         if(opts && (opts.constructor == this.constructor) ){ return opts }
         // new Point(x,y, ...)  // reset the opts obj.
-        if(arguments.length > 1){ opts = {} }
+        if(arguments.length > 1 || typeof(arguments[0] == 'number')){ opts = {} }
 
         this.modulusRotate = undefined
 
@@ -539,10 +571,10 @@ class Point extends Tooling {
     asArray(fix=false) {
         if(fix) {
             let int = (x)=> Number( x.toFixed(Number(fix)) )
-            return [int(this.x), int(this.y)]
+            return [int(this.x), int(this.y), int(this.radius), int(this.rotation)]
 
         }
-        return [this.x, this.y]
+        return [this.x, this.y, this.radius, this.rotation]
     }
 
     asObject() {
@@ -593,12 +625,13 @@ class PointCast {
     }
 
     array(fix=false) {
+        let target = this.point;
         if(fix) {
             let int = (x)=> Number( x.toFixed(Number(fix)) )
-            return [int(this.x), int(this.y)]
-        }
+            return [int(target.x), int(target.y), int(target.radius), int(target.rotation)]
 
-        return [this.x, this.y]
+        }
+        return [target.x, target.y, target.radius, target.rotation]
     }
 }
 

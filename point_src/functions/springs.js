@@ -141,11 +141,61 @@ class PointSpring {
     constructor(point) {
         this.parent = point
     }
+
     to(other, restLength, springConstant=.6, dampingFactor=.99, lockedPoints=new Set, deltaTime=1) {
         return applySpringForceDistributedWithTime(this.parent, other,
              restLength, springConstant, dampingFactor, lockedPoints, deltaTime);
     }
 }
+
+class PointListSpring {
+    /* An extension to the PointList for 'springs' */
+
+    restLength = 100
+    springConstant = .6
+    dampingFactor = 0.92 // Adjust this value between 0 and 1
+    deltaTime = .9
+
+    constructor(pointList) {
+        this.parent = pointList
+    }
+
+    chain(rLen=this.restLength,
+        springConstant=this.springConstant,
+        damping=this.damping,
+        lockedPoints=this.lockedPoints,
+        deltaTime=this.deltaTime) {
+        /* Connect from tip to tip without connecting the first to the last. */
+        let ps = this.parent
+        let previous = ps[0]
+        for (var i = 1; i < ps.length; i++) {
+            let current = ps[i]
+            previous.spring.to(current, rLen, springConstant, damping, lockedPoints, deltaTime)
+            previous = current
+        }
+    }
+
+    closedChain() {
+        return this.loop.apply(this, arguments)
+    }
+
+    loop(rLen=this.restLength,
+        springConstant=this.springConstant,
+        damping=this.damping,
+        lockedPoints=this.lockedPoints,
+        deltaTime=this.deltaTime) {
+
+        let ps = this.parent
+        this.chain.apply(this, arguments)
+        ps.last().spring.to(ps[0], rLen, springConstant, damping, lockedPoints, deltaTime)
+    }
+
+}
+
+
+Polypoint.head.deferredProp('PointList', function() {
+        return new PointListSpring(this)
+    }, 'spring')
 
 
 Polypoint.head.lazyProp('Point', {

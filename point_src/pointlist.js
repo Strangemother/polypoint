@@ -169,14 +169,28 @@ class PointListGenerator {
         return res
     }
 
-    random(count, multiplier=100) {
+    random(count, multiplier=100, offset={x:0, y:0}) {
         let R = ()=> Math.random() * multiplier
         const rand = function(index) {
             let i = (10 * (1+index))
-            return new Point({x: R(), y: R()})
+            return new Point({x: offset.x + R(), y: offset.y + R()})
         }
 
         return this.list(count, rand)
+    }
+
+    grid(count, rowCount, spread, pos) {
+        let points = this.list(count)
+        if(spread==undefined) {
+            spread = count;
+        }
+
+        if(pos == undefined){
+            pos = {x: spread, y: spread}
+        }
+
+        points.shape.grid(spread, rowCount, pos)
+        return points;
     }
 }
 
@@ -799,6 +813,7 @@ class PointListGradient {
 
 }
 
+Polypoint.head.install(PointList)
 Polypoint.head.install(PointListGradient)
 Polypoint.head.install(PointListGenerator)
 

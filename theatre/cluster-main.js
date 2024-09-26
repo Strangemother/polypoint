@@ -37,7 +37,7 @@ const conf = {
     }
 }
 
-const selectedConfigName = "blob" // "gas" // 'alt'
+const selectedConfigName = "gas" // "blob" // "gas" // 'alt'
 const settings = conf[selectedConfigName]
 
 

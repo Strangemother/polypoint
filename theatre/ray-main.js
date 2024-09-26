@@ -1,5 +1,5 @@
 
-const ray = {start: {x:30, y:30}, end: {x:500, y:500}}
+const ray = {start: {x:100, y:300}, end: {x:500, y:500}}
 const otherRay = {start: {x:100, y:20}, end: {x:50, y:350}}
 
 
@@ -375,8 +375,6 @@ class MainStage extends Stage {
             let p1 = (new Point(p))
             p1.radius = 30
             p1.pen.indicator(ctx, {color: 'green'})
-
-
 
             p1.copy().update({
                 radius: 20

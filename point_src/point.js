@@ -16,8 +16,25 @@ const point = function(p, b) {
 }
 
 
+class Relative {
 
-class Positionable {
+    constructor(opts={}){
+        // super(opts)
+        this._relativeData = [0, 0, 0, 0]
+    }
+
+    getRelativeData() {
+        let r = this._relativeData
+        if(r == undefined) {
+                                    //x,y,rad,rot
+            r = this._relativeData = [0, 0, 0, 0]
+        }
+        return r
+    }
+}
+
+
+class Positionable extends Relative {
 
     set x(v) {
         this._opts.x = v
@@ -27,14 +44,72 @@ class Positionable {
         this._opts.y = v
     }
 
+    get rel() {
+        let r = this._rel
+        if(r != undefined) {
+            return r
+        }
+
+        let relData = this._relativeData
+        let sp = {
+            get x(){
+                return relData[0]
+            }
+
+            , set x(v) {
+                relData[0] = v
+            }
+
+            , get y(){
+                return relData[1]
+            }
+
+            , set y(v) {
+                relData[1] = v
+            }
+
+            , get radius() {
+                return relData[2]
+            }
+
+            , set radius(v) {
+                return relData[2] = v
+            }
+
+
+            , get rotation() {
+                return relData[3]
+            }
+
+            , set rotation(v) {
+                return relData[3] = v
+            }
+        }
+
+        this._rel = sp
+        return sp
+    }
+
+    set rel(v) {
+        this._opts.rel = v
+    }
+
     get x() {
-        let _x = this._opts.x
-        return _x == undefined? 0: _x
+        const opts = this._opts
+            , _x = opts.x
+            ;
+
+        let r = _x == undefined? 0: _x
+        return r + this._relativeData[0]
     }
 
     get y() {
-        let _y = this._opts.y
-        return _y == undefined? 0: _y
+        const opts = this._opts
+            , _y = opts.y
+            ;
+
+        let r = _y == undefined? 0: _y
+        return r + this._relativeData[1]
     }
 
     set(x, y, radius, rotation) {
@@ -59,7 +134,7 @@ class Positionable {
                         [x,y, radius] = x
                     }
                     , 4: ()=> {
-                        [x,y, radius] = x
+                        [x,y, radius, rotation] = x
                     }
                 }
 
@@ -211,13 +286,13 @@ class Rotation extends Positionable {
     }
 
     get rotation() {
-        return this._rotationDegrees
+        return this._rotationDegrees + this._relativeData[3]
     }
 
     get radians() {
         /*Return the _radians_ of the current rotation, where _rotation returns
         the degrees*/
-        return degToRad(this._rotationDegrees)
+        return degToRad(this._rotationDegrees + this._relativeData[3])
     }
 
     set radians(angle) {
@@ -488,7 +563,7 @@ class Point extends Tooling {
 
         this.modulusRotate = undefined
 
-        this._opts = opts
+        this._opts = Object.assign({relX: 0, relY: 0 }, opts)
         // set 0 or more object
         this.set.apply(this, arguments)
     }
@@ -603,6 +678,7 @@ class Point extends Tooling {
     //     return false
     // }
 }
+
 
 class PointCast {
     /* a bunch of convert function, such as "asObject", wrapped within a sub unit

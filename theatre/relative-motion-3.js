@@ -1,9 +1,4 @@
-const KC = {
-    UP: ['ArrowUp', 'KeyW']
-    , LEFT: ['ArrowLeft', 'KeyA']
-    , RIGHT: ['ArrowRight', 'KeyD']
-    , DOWN: ['ArrowDown', 'KeyS']
-}
+
 
 class MainStage extends Stage {
     canvas = 'canvas'

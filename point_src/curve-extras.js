@@ -25,6 +25,7 @@ const saveRestoreDraw = function(ctx, position, callback) {
 
 }
 
+
 class Line {
     doTips = true
     constructor(p1, p2, color='red', width=1){
@@ -56,10 +57,16 @@ class Line {
         if(typeof(color) != 'string') {
             conf = color
         }
-        ctx.strokeStyle = conf.color || this.color
-        // ctx.strokeStyle = color == undefined? this.color: color
-        // ctx.lineWidth = this.width == undefined? 1: this.width
-        ctx.lineWidth = conf.width == undefined? 1: conf.width
+
+        if(conf.color != undefined && this.color != undefined ) {
+            ctx.strokeStyle = conf.color || this.color
+        }
+
+
+        if(conf.width != undefined) {
+            ctx.lineWidth = conf.width == undefined? 1: conf.width
+        }
+
         this.perform(ctx)
         this.writeLine(ctx)
         ;(this.doTips) && this.performDrawTips(ctx)
@@ -211,6 +218,8 @@ class Line {
     }
 }
 
+Polypoint.head.install(Line)
+
 
 class BezierCurve extends Line {
 
@@ -312,7 +321,6 @@ class BezierCurve extends Line {
         saveRestoreDraw(ctx, tail, callback)
     }
 
-
     perform(ctx) {
         let b = this.b;
         let cps = this.getControlPoints()
@@ -321,6 +329,9 @@ class BezierCurve extends Line {
         ctx.bezierCurveTo(cps[0].x, cps[0].y, cps[1].x, cps[1].y, bp.x, bp.y)
     }
 }
+
+
+Polypoint.head.install(BezierCurve)
 
 
 class CantenaryCurve extends Line {

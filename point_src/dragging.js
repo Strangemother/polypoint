@@ -131,6 +131,7 @@ class Dragging extends Distances {
         // this.nearOrigin = this.near.copy()
         if(this._near == undefined) {
             console.log('not near any point at position', this.mousedownOrigin)
+            this.onEmptyDown(ev)
             return
         }
 
@@ -239,7 +240,7 @@ class Dragging extends Distances {
 
     onWheelInternal(stage, canvas, ev) {
         let n = this._near;
-        if(!n) { return };
+        if(!n) { return this.onWheelEmpty(ev)};
 
         let size = event.wheelDelta
         let positive = size > 0
@@ -283,6 +284,8 @@ class Dragging extends Distances {
         }
     }
 
+    onWheelEmpty(ev) {}
+    onEmptyDown(ev) {}
     onClick(ev) {}
     onDragStart(ev, point){}
     onDragMove(ev) {}

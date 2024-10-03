@@ -110,7 +110,15 @@ class Stroke extends SetUnset {
 
     lineDashKeyApply(ctx, key, newValue, k) {
         let existing = ctx.getLineDash()
-        ctx.setLineDash(newValue)
+        try {
+
+            ctx.setLineDash(newValue)
+        }catch(e) {
+            if(typeof(newValue) == 'number') {
+                console.warn('dash property should be of type Array: [1]')
+            }
+            throw e
+        }
         return {v: existing, f: this.lineDashKeyRemove, k:k }
     }
 

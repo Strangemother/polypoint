@@ -118,20 +118,20 @@ const circleArea = (radius, pi=Math.PI) => {
    return pi * radius * radius;
 };
 
-const getPolyDistributedPoints = function(count, pos, radius) {
+const getPolyDistributedPoints = function(count, pos, radius, rads=0) {
     /* Return a list of points distrubuted evenly around a circle.
      */
     radius = radius == undefined? pos.radius: radius;
     let {x, y} = pos.add(radius);
 
     let res = [
-        point(x + radius * Math.cos(0), y +  radius *  Math.sin(0))
+        point(x + radius * Math.cos(rads), y +  radius *  Math.sin(rads))
     ]
 
     const c2pi = Math.PI2 / count
 
     for (i = 1; i <= count + 1; i++) {
-        let i2pic = i * c2pi;
+        let i2pic = (i * c2pi) + rads;
         let p = point(
                 x + radius * Math.cos(i2pic),
                 y + radius * Math.sin(i2pic)

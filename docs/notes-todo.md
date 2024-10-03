@@ -68,5 +68,7 @@ https://www.youtube.com/watch?v=hpiILbMkF9w&ab_channel=NoBSCode
 https://www.youtube.com/watch?v=CceepU1vIKo&ab_channel=NoBSCode
 
 
-
-
+https://pomax.github.io/bezierinfo/
+https://windowjs.org/
+https://www.glfw.org/
+https://www.svgrepo.com/svg/425335/mouse

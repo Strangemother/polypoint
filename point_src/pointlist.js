@@ -759,6 +759,12 @@ class PointList extends LazyAccessArray {
         this.forEach(p=>{ p.lookAt(other)})
     }
 
+    grow(point=undefined) {
+        /* shift the points within the list as per a growth method.
+        If is a list of 2, the line will extend,
+        If more than 2, the points will push away from the origin point.
+        If the origin is undefined, the COM is used.*/
+    }
 }
 
 

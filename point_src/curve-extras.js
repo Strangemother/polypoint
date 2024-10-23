@@ -25,11 +25,39 @@ const saveRestoreDraw = function(ctx, position, callback) {
 
 }
 
+
 class Line {
     doTips = true
+    doBeginPath = true
+    doClosePath = true
+
     constructor(p1, p2, color='red', width=1){
         // new Line([90, 130], [200, 300], 420)
         this.create.apply(this, arguments)
+    }
+
+    get [0]() {
+        return this.a
+    }
+
+    get [1]() {
+        return this.b
+    }
+
+    last() {
+        return this.b
+    }
+
+    first() {
+        return this.a
+    }
+
+    get length(){
+        return this.a.distanceTo(this.b)
+    }
+
+    get points() {
+        return [this.a, this.b]
     }
 
     create(p1, p2, color='red', width=1) {
@@ -46,7 +74,7 @@ class Line {
     }
 
     start(ctx) {
-        ctx.beginPath();
+        this.doBeginPath && ctx.beginPath();
         let a = this.a;
         ctx.moveTo(a[0], a[1])
     }
@@ -56,10 +84,16 @@ class Line {
         if(typeof(color) != 'string') {
             conf = color
         }
-        ctx.strokeStyle = conf.color || this.color
-        // ctx.strokeStyle = color == undefined? this.color: color
-        // ctx.lineWidth = this.width == undefined? 1: this.width
-        ctx.lineWidth = conf.width == undefined? 1: conf.width
+
+        if(conf.color != undefined && this.color != undefined ) {
+            ctx.strokeStyle = conf.color || this.color
+        }
+
+
+        if(conf.width != undefined) {
+            ctx.lineWidth = conf.width == undefined? 1: conf.width
+        }
+
         this.perform(ctx)
         this.writeLine(ctx)
         ;(this.doTips) && this.performDrawTips(ctx)
@@ -207,9 +241,11 @@ class Line {
     }
 
     close(ctx) {
-        ctx.closePath()
+        this.doClosePath && ctx.closePath()
     }
 }
+
+Polypoint.head.install(Line)
 
 
 class BezierCurve extends Line {
@@ -312,7 +348,6 @@ class BezierCurve extends Line {
         saveRestoreDraw(ctx, tail, callback)
     }
 
-
     perform(ctx) {
         let b = this.b;
         let cps = this.getControlPoints()
@@ -321,6 +356,50 @@ class BezierCurve extends Line {
         ctx.bezierCurveTo(cps[0].x, cps[0].y, cps[1].x, cps[1].y, bp.x, bp.y)
     }
 }
+
+
+
+class QuadraticCurve extends Line {
+    /* A Quad line control point is A.project() */
+    useCache = false
+    getControlPoints(useCache=this.useCache) {
+
+        if(useCache === true && this.cachedControlPoints) {
+            return this.cachedControlPoints
+        }
+
+        let a = this.a
+          , b = this.b
+          ;
+
+        // let midDistance = a.distanceTo(b)*.5
+        // let offset = this.offset == undefined? 0: this.offset
+
+        /*A quadratic curve requires two control points */
+        let cached = [
+              a.project()
+            // , b.project()
+        ]
+
+        this.cachedControlPoints = cached;
+        return cached
+    }
+
+    get points() {
+        return new PointList(this.a,this.b)
+    }
+
+    perform(ctx) {
+        let b = this.b;
+        let cps = this.getControlPoints()
+        // https://developer.mozilla.org/
+        // en-US/docs/Web/API/CanvasRenderingContext2D/quadraticCurveTo
+        ctx.quadraticCurveTo(cps[0].x, cps[0].y, b.x, b.y);
+    }
+}
+
+
+Polypoint.head.install(BezierCurve)
 
 
 class CantenaryCurve extends Line {

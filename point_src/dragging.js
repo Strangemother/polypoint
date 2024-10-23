@@ -111,6 +111,11 @@ class Dragging extends Distances {
         let c = stage.canvas
             , mouse = stage.mouse
             ;
+
+        if(mouse == undefined) {
+            console.error('automouse is not imported. Cannot listen to mouse actions.')
+            return
+        }
         mouse.listen(c, 'mousedown', (c,ev)=> this.onMousedown(stage,c,ev))
         mouse.listen(c, 'mousemove', (c,ev)=> this.onMousemove(stage,c,ev))
         mouse.listen(c, 'mouseup', (c,ev)=> this.onMouseup(stage,c,ev))
@@ -131,6 +136,7 @@ class Dragging extends Distances {
         // this.nearOrigin = this.near.copy()
         if(this._near == undefined) {
             console.log('not near any point at position', this.mousedownOrigin)
+            this.onEmptyDown(ev)
             return
         }
 
@@ -139,6 +145,7 @@ class Dragging extends Distances {
         this._mousedown = true
         this._grabbingId = this.stage?.cursor.set('grabbing', this._cursorId)
 
+        this.callPointHandler('onMousedown', ev)
         // if(this.withinBufferZone(this.downPointDistance)) {
         //     this.onEdgeStartHandler(ev)
         // } else {
@@ -160,6 +167,8 @@ class Dragging extends Distances {
             const found = this.intersect(stage.mouse.position, this.padding)
             this._near = found
             this.cursorChange(found)
+            this.callPointHandler('onMousemove', ev, found)
+
             // this.near = this.dis.within(100, this.mouse.position)
             // this._near = this.near(stage.mouse.position, 100)[0]
             return
@@ -223,6 +232,8 @@ class Dragging extends Distances {
             this._grabbingId = undefined
         }
 
+        this.callPointHandler('onMouseup', ev)
+
         if(isClick && (withinClickDelta)) {
             // If the distance was greater than the max,
             // it's actually a drag
@@ -239,7 +250,7 @@ class Dragging extends Distances {
 
     onWheelInternal(stage, canvas, ev) {
         let n = this._near;
-        if(!n) { return };
+        if(!n) { return this.onWheelEmpty(ev)};
 
         let size = event.wheelDelta
         let positive = size > 0
@@ -248,11 +259,13 @@ class Dragging extends Distances {
         let rad = positive? radius*compute: radius/compute;
         n.radius = clamp(rad, 1, this.maxWheelValue)
         n.onResize && n.onResize(ev, stage, canvas)
-        this.onWheel(ev, n)
+        // this.onWheel(ev, n)
+        this.callDoubleHandler('onWheel', ev, n)
     }
 
     onLongClick(stage, canvas, ev, delta) {
         console.log('Long Click (not dragged)', delta)
+        this.callPointHandler('onLongClick', ev, this._near, delta)
     }
 
     /* Given the EV with a {x,y}, return the distance from the origin mousedown. */
@@ -262,7 +275,6 @@ class Dragging extends Distances {
             return 0
         }
         let v = distance(this.mousedownOrigin, ev)
-        // console.log('dragDistance value=', v)
         return v
     }
 
@@ -272,7 +284,33 @@ class Dragging extends Distances {
         if(this.isEdgeDragging == true) {
             this.onEdgeEnd(ev)
         }
-        this.onClick(ev)
+        let p = this._near
+        this.callDoubleHandler('onClick', ev, p)
+    }
+
+    callDoubleHandler(name, ev, p, x) {
+        /* Given a function name shared by this instance, and the point,
+        call the function with the event and arguments.
+
+            callDoubleHandler('onClick', ev, point, ...)
+
+        The function name must exist on this instance, optional on the point.
+        */
+        let args = [ev, p]
+        if(x != undefined) {
+            args = Array.from(arguments).slice(1)
+        }
+
+        this[name].apply(this, args)
+        this.callPointHandler.apply(this, arguments)
+    }
+
+    callPointHandler(name, ev, p=this._near, x) {
+        let args = [ev]
+        if(x != undefined) {
+            args = args.concat(Array.from(arguments).slice(3))
+        }
+        p && p[name] && p[name].apply(p, args)
     }
 
     drawIris(ctx) {
@@ -283,19 +321,20 @@ class Dragging extends Distances {
         }
     }
 
+    onWheelEmpty(ev) {}
+    onEmptyDown(ev) {}
     onClick(ev) {}
     onDragStart(ev, point){}
     onDragMove(ev) {}
-    onDragEnd(ev){}
+    onDragEnd(ev, point){}
     onWheel(ev, point){}
 
     onEdgeStart(ev) {
-        console.log('onEdgeStart')
+        console.log('onEdgeStart', this._near)
     }
 
     onEdgeMove(ev) {
         // console.log('onEdgeMove')
-
     }
 
     onEdgeEnd(ev) {
@@ -306,6 +345,7 @@ class Dragging extends Distances {
         if(this.isDragging) {
             this.applyXY(ev.x, ev.y)
             this.onDragMove(ev)
+            this.callDoubleHandler('onDragMove', ev)
         }
 
         if(this.isEdgeDragging == true) {
@@ -315,7 +355,8 @@ class Dragging extends Distances {
 
     onDragStartHandler(ev, p){
         this.isDragging = true
-        this.onDragStart(ev, p)
+        // this.onDragStart(ev, p)
+        this.callDoubleHandler('onDragStart', ev, p)
     }
 
     onEdgeStartHandler(ev) {
@@ -333,9 +374,9 @@ class Dragging extends Distances {
     onDragEndHandler(ev){
         if(this.isDragging) {
             this.isDragging = false
-            this.onDragEnd(ev)
+            // this.onDragEnd(ev)
+            this.callDoubleHandler('onDragEnd', ev, this._near)
         }
-
 
         if(this.isEdgeDragging == true) {
             this.isEdgeDragging = false

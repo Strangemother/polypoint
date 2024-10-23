@@ -73,11 +73,11 @@ class StageEvents {
         console.log('Auto listen.')
         const methods = getMethodsOf(entity);
         for(let k in methods){
-            console.log('Checking', k)
+            // console.log('Checking', k)
             if(k.toLowerCase().startsWith('on')) {
                 let f = entity[k].bind(entity)
                 let eventName = k.slice(2).toLowerCase()
-                console.log('Autohooking event', eventName, f)
+                console.log('Autohooking event', eventName)//, f)
                 this.on(eventName,f)
             }
         }

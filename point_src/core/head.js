@@ -32,6 +32,21 @@ The head contains a range of hoisting functions to late-load installables.
         parkedEntity = parent[name]
     }
 
+    /*
+    The Polypoint.file object, to assign meta data to the concurrent file.
+    Note this is exposed on the primary object, and not the 'head'
+     */
+    const fileObject = {
+        meta(data) {
+            /* Incoming mets data for the incoming file.*/
+            console.log('meta config', data)
+            if(data.files) {
+                let src = document.currentScript
+                console.log(src)
+            }
+        }
+    }
+
     /* Install properties onto an incoming unit
 
 
@@ -257,27 +272,31 @@ The head contains a range of hoisting functions to late-load installables.
 
 
     /*
-        Polypoint.lazyProp('Stage', {
-            screenshot() {
-                let s = this._screenshot;
-                if(s) { return s };
-                this._screenshot = new Screenshot(this)
-                return this._screenshot
-            }
-        })
+        Note: This is a singleton.
+
+            Polypoint.lazierProp(name,
+                function screenshot() {
+                    return new Screenshot(this)
+                }
+            );
 
 
-        Polypoint.lazierProp(name,
-            function screenshot() {
-                return new Screenshot(this)
-            }
-        );
+        Synonymous to:
+
+            const scope = Polypoint
+            Polypoint.lazyProp('Stage', {
+                screenshot() {
+                    let s = scope._screenshot;
+                    if(s) { return s };
+                    scope._screenshot = new Screenshot(this)
+                    return scope._screenshot
+                }
+            })
+
      */
     const lazierProp = function(name, method, reference) {
         let methodName = reference==undefined? method.name: reference
-        // if(methodName == 'RelativeMotion') {
-        //     debugger;
-        // }
+
         let target = exposed;
         lazyProp(name, {
             [methodName]() {
@@ -290,6 +309,29 @@ The head contains a range of hoisting functions to late-load installables.
         })
     }
 
+    /* Apply a lazy getter property to a target to return an instance of a thing.
+    The instance of the thing, is created _once_ on-demand, on the target.
+    Future calls return the first created object.
+
+        Polypoint.head.deferredProp('Point', function screenshot() {
+                return new Screenshot(this)
+            }
+        })
+
+    */
+    const deferredProp = function(name, method, reference) {
+        let methodName = reference==undefined? method.name: reference
+
+        return lazyProp(name, {
+            [methodName]() {
+                let innerName = `_${methodName}`
+                let s = this[innerName];
+                if(s) { return s };
+                return this[innerName] = method.bind(this)()
+                // return this[innerName]
+            }
+        })
+    }
 
     const load = function(name, callback){
         /* A shortcut for loading a stub*/
@@ -345,7 +387,7 @@ The head contains a range of hoisting functions to late-load installables.
         , static: staticMixin
         , mixin, install, installFunctions
         , define
-        , lazyProp, lazierProp
+        , lazyProp, lazierProp, deferredProp
         /* Return a map iterator of the installed items.*/
         , get installed() {
             return installMap.keys()
@@ -380,6 +422,7 @@ The head contains a range of hoisting functions to late-load installables.
     const exposed = {
         ready: false
         , head
+        , file: fileObject
     }
 
     if(!strict){

@@ -169,14 +169,29 @@ class PointListGenerator {
         return res
     }
 
-    random(count, multiplier=100) {
-        let R = ()=> Math.random() * multiplier
+    random(count, multiplier=100, offset={x:0, y:0}) {
+        let p = new Point(multiplier)
+        let R = (w)=> Math.random() * p[w]
         const rand = function(index) {
             let i = (10 * (1+index))
-            return new Point({x: R(), y: R()})
+            return new Point({x: offset.x + R('x'), y: offset.y + R('y')})
         }
 
         return this.list(count, rand)
+    }
+
+    grid(count, rowCount, spread, pos) {
+        let points = this.list(count)
+        if(spread==undefined) {
+            spread = count;
+        }
+
+        if(pos == undefined){
+            pos = {x: spread, y: spread}
+        }
+
+        points.shape.grid(spread, rowCount, pos)
+        return points;
     }
 }
 
@@ -448,11 +463,11 @@ class PointListPen {
             , circle: {color:'yellow', width: 1}
         };
         Object.assign(def, miniConf)
+
         let lc = def.color || def?.line?.color
         let lw = def.width || def?.line?.width
         let cc = def.color || def?.line?.color
         let cw = def.width || def?.circle?.width
-
 
         let eachPoint = (item, arcDrawF) =>{
                 item.project().pen.line(ctx, item, lc, lw)
@@ -479,6 +494,10 @@ class PointListPen {
     stroke(ctx) {
         // ctx.stroke()
         this.points(ctx, (p)=> p.pen.stroke(ctx))
+    }
+
+    circle(ctx) {
+        return this.stroke.apply(this, arguments)
     }
 }
 
@@ -528,7 +547,38 @@ class LazyAccessArray extends Array {
         return this._shape
     }
 
-    pairs() {
+    siblings(close=false) {
+        /* Return in pairs.
+
+            [a,b,c,d,e,f,g]
+            pairs()
+            a,b
+            b,c
+            c,d
+            d,e
+            e,f
+            f,g
+
+        */
+        let r = []
+            , l = this.length;
+
+        for (var i = 0; i < l; i++) {
+            let to = this[i+1]
+            if(to==undefined) {continue}
+            let v = new PointList(this[i], to)
+            r.push(v)
+        }
+
+        if(close) {
+            let v = new PointList(this[l-1], this[0])
+            r.push(v)
+        }
+
+        return r
+    }
+
+    pairs(close=false) {
         /* Return in pairs.
 
             [a,b,c,d,e,f,g]
@@ -536,18 +586,21 @@ class LazyAccessArray extends Array {
             a,b
             c,d
             e,f
-            siblings()
+
         */
-       return arr.flatMap((_, i, a) => i % 2 ? [] : [a.slice(i, i + 2)]);
+        let r = []
+            , l = this.length;
 
-    }
+        for (var i = 0; i < l-1; i+=2) {
+            let v = new PointList(this[i], this[i+1])
+            r.push(v)
+        }
 
-    siblings() {
-        return this.map((value, index) => {
-            if (index < this.length - 1) {
-                return [value, this[index + 1]];
-            }
-        }).filter(pair => pair !== undefined);
+        if(close) {
+            let v = new PointList(this[l-1], this[0])
+            r.push(v)
+        }
+        return r
     }
 
     get each() {
@@ -575,6 +628,7 @@ class LazyAccessArray extends Array {
                     p[innerProp] = value // .apply(p, arguments)
                 })
 
+                return true
             }
 
             , get(target, prop, receiver) {
@@ -745,6 +799,12 @@ class PointList extends LazyAccessArray {
         this.forEach(p=>{ p.lookAt(other)})
     }
 
+    grow(point=undefined) {
+        /* shift the points within the list as per a growth method.
+        If is a list of 2, the line will extend,
+        If more than 2, the points will push away from the origin point.
+        If the origin is undefined, the COM is used.*/
+    }
 }
 
 
@@ -799,6 +859,7 @@ class PointListGradient {
 
 }
 
+Polypoint.head.install(PointList)
 Polypoint.head.install(PointListGradient)
 Polypoint.head.install(PointListGenerator)
 

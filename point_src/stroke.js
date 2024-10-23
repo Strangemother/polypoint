@@ -27,7 +27,6 @@ const quickStroke = function(color='green', lineWidth=UNSET, f) {
 }
 
 
-
 const quickStrokeWithCtx = function(ctx, color='green', lineWidth=UNSET, f) {
     ctx.strokeStyle = color
     if(lineWidth != UNSET) {
@@ -110,7 +109,15 @@ class Stroke extends SetUnset {
 
     lineDashKeyApply(ctx, key, newValue, k) {
         let existing = ctx.getLineDash()
-        ctx.setLineDash(newValue)
+        try {
+
+            ctx.setLineDash(newValue)
+        }catch(e) {
+            if(typeof(newValue) == 'number') {
+                console.warn('dash property should be of type Array: [1]')
+            }
+            throw e
+        }
         return {v: existing, f: this.lineDashKeyRemove, k:k }
     }
 
@@ -122,6 +129,155 @@ class Stroke extends SetUnset {
     }
 
 }
+
+
+class StageStrokeMap {
+    /*
+     Create and and manage Strokes, using a name.
+
+        const fooStroke = stage.strokes.create('foo',{
+                        dash: [3,3]
+                        , color: 'grey'
+                        , width: 2
+                    })
+
+    Call set to apply, unset to unapply:
+
+        fooStroke.set(ctx)
+        fooStroke.set()
+
+        fooStroke.set(ctx)
+        fooStroke.unset()
+
+    Fetch the same stroker:
+
+        let fooStroke = stage.strokes.get('fooStroke')
+
+    Or call the stroke object directly:
+
+        stage.strokes.fooStroke.set()
+        stage.strokes.fooStroke.unset()
+
+    Call 'set' on the stroke object to perform the same as above:
+
+        stage.strokes.set('line')
+        stage.line.render(ctx)
+        stage.strokes.unset('line')
+
+    Run in place, immediately enabling the stroke styles:
+
+        let off = stage.strokes.line()
+        stage.line.render(ctx)
+        off()
+
+    Or for less code, provide a function to the immediate caller, to run inline:
+
+        // set 'line'
+        // run the given function
+        // unset 'line'
+        stage.strokes.line(()=>stage.line.render(ctx))
+
+     */
+
+
+    constructor(stage) {
+        this.stage = stage;
+        this.cache = new Map
+    }
+
+    get(name) {
+        return this.cache.get(name)
+    }
+
+    has(name) {
+        return this.cache.has(name)
+    }
+
+    create(name, options) {
+        let stroke = new Stroke(options)
+        this.cache.set(name, stroke)
+        return stroke
+    }
+
+    set(name, ctx=this.stage.ctx) {
+        let stroke = this.get(name)
+        stroke.set(ctx)
+        return stroke
+    }
+
+    unset(name, ctx=this.stage.ctx) {
+        let stroke = this.get(name)
+        stroke.unset(ctx)
+        return stroke
+    }
+
+    remove(name) {
+        let stroke = this.get(name)
+        this.cache.delete(name)
+        return stroke
+    }
+
+    delete(name) {
+        return this.remove(name)
+    }
+
+    propHook(prop) {
+        /* Given a name (and potentially options), return a handler of
+        which can be a function.
+        The handler returns a _off_ function for disabling this same stroke. */
+        return (func)=> {
+            this.set(prop)
+            if(func) { func() }
+            let unsetHook = ()=>{
+                return this.unset(prop)
+            }
+
+            if(func) {
+                return unsetHook()
+            }
+            return unsetHook
+        }
+    }
+}
+
+Polypoint.head.deferredProp('Stage', function strokes() {
+        /* Return an instance of the Strok map object for the stage.
+        This returns a proxy of the instance, providing access to the special calling methods.
+        */
+        let item = new StageStrokeMap(this)
+
+        /* This hansler is designed to check for the property name given to the stroke map.
+        If the name is a stroke name (within the map), return the prop hook, a function
+        to enable to the named stroke.
+
+        This allows:
+
+            stage.strokes.line(()=>renderFunc(ctx))
+
+        over:
+
+            var stroke = stage.strokes..get('line')
+            stroke.set()
+            renderFunc(ctx)
+            stroke.unset()
+
+        */
+        let handler = {
+            get(target, prop, receiver) {
+                if(item.has(prop)) {
+                    // console.log("stroke prop", target, prop, receiver)
+                    return item.propHook(prop)
+                }
+
+                return Reflect.get(...arguments)
+            }
+            , count: ()=> item.map.size()
+        }
+        let proxy = new Proxy(item, handler)
+        return proxy
+})
+
+Polypoint.head.install(Stroke)
 
 
 const example = function() {

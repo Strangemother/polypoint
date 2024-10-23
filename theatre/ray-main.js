@@ -1,5 +1,5 @@
 
-const ray = {start: {x:30, y:30}, end: {x:500, y:500}}
+const ray = {start: {x:100, y:300}, end: {x:500, y:500}}
 const otherRay = {start: {x:100, y:20}, end: {x:50, y:350}}
 
 
@@ -374,20 +374,21 @@ class MainStage extends Stage {
         if(p) {
             let p1 = (new Point(p))
             p1.radius = 30
+
+            /* inbound angle, pointing at the first point. */
             p1.pen.indicator(ctx, {color: 'green'})
 
+            /* symmetry angle, inverse of the inbound */
+            // p1.copy().update({
+            //     radius: 20
+            //     , radians: getAngle(p, ray)//, {start: points[0], end: points[1]})
+            // }).pen.indicator(ctx, {color: 'gray'})
 
-
-            p1.copy().update({
-                radius: 20
-                , radians: getAngle(p, ray)//, {start: points[0], end: points[1]})
-            }).pen.indicator(ctx, {color: 'gray'})
-
+            /* reflect angle.*/
             p1.copy().update({
                 radius: 25
                 , radians: getBounceAngle(p, ray)//, {start: points[0], end: points[1]})
-            }).pen.indicator(ctx)
-
+            }).pen.indicator(ctx, {color: 'red'})
         }
 
         points.pen.indicators(ctx)

@@ -189,7 +189,7 @@ class SetUnset {
         } catch(e) {
             if(e.name == 'TypeError') {
                 let m = `function method does not exist: ${assignment}`
-                e.message = m
+                // e.message = m
             }
 
             throw e

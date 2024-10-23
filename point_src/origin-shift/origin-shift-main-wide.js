@@ -17,13 +17,38 @@ class MainStage extends Stage {
         this.reset()
     }
 
-    draw(ctx, addData={}){
+    draw(ctx=this.ctx, addData={}){
         /* Without _clear_ the view will redraw on-top of the existing content */
         os.shift(addData.count || conf.drawStepCount, addData)
         this.clear(ctx)
         this.drawPoints(ctx)
     }
 
+    drawPath(startIndex=0, clean=true){
+        if(clean) {
+            os.pointList.each.lineColor = undefined;
+        }
+        drawPath(startIndex, os)
+
+        this.draw()
+    }
+
+    example(){
+        this.walk(100000, 'purple');
+        this.walk(10000);
+        this.walk(100000, 'orange');
+        this.walk(10000);
+        this.walk(100000, 'green');
+        this.walk(10000);
+        this.walk(100000, 'red');
+        this.walk(10000);
+        os.rebake(this)
+
+    }
+    walk(count=1000, color=undefined) {
+        os.shift(count, color? {color}: {})
+        this.draw(this.ctx)
+    }
     reset(draw=true){
         os.reset()
         draw && this.draw(this.ctx)

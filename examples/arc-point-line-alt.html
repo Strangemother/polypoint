@@ -1,42 +1,16 @@
-<html>
-    <head>
+{% extends "./example-base.html" %}
+{% block content %}
+<style>
+    #playspace {
+        width: 100%;
+        height: 100%;
+        border: solid 1px;
+    }
+    html, body {
+        background: #111;
+    }
 
-        <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
-    </head>
-  <body polyclass class="font-pack-lexend+deca-500">
-    <style>
-        #playspace {
-            width: 100%;
-            height: 100%;
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
+</style>
+<canvas id="playspace"></canvas>
+{% endblock content %}
 
-    </style>
-
-
-    <canvas id="playspace"></canvas>
-    <script src="../point_src/core/head.js"></script>
-<script src="../point_src/pointpen.js"></script>
-<script src="../point_src/pointdraw.js"></script>
-
-    <script src="../point_src/stroke.js"></script>
-
-    <script src="../point_src/point-content.js"></script>
-
-    <script src="../point_src/pointlist.js"></script>
-    <script src="../point_src/point.js"></script>
-
-    <script src="../point_src/events.js"></script>
-    <script src="../point_src/automouse.js"></script>
-    <script src="../point_src/distances.js"></script>
-    <script src="../point_src/bisector.js"></script>
-    <script src="../point_src/functions/clamp.js"></script>
-    <script src="../point_src/dragging.js"></script>
-
-    <script src="../point_src/stage.js"></script>
-    <script src="../theatre/arc-point-line-alt.js"></script>
-  </body>
-</html>

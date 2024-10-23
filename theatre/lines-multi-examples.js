@@ -32,6 +32,7 @@ class MainStage extends Stage {
         return c
 
     }
+
     setupDragging() {
 
         this.dis = new Dragging

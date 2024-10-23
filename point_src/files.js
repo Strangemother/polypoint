@@ -28,6 +28,7 @@ const polypointFileAssets = function(js='') {
             `${js}text/alpha.js#text-alpha`
             , `${js}text/fps.js#text-fps`
         ]
+
         , capture: [
             `${js}capture/CCapture.js`
             , `${js}capture/gif.js`
@@ -42,16 +43,32 @@ const polypointFileAssets = function(js='') {
             , `${js}events.js#events`
             , `${js}automouse.js#automouse`
         ]
+
         , other: [
             // 'head'
              'fps'
-            , `${js}stroke.js#stroke`
+            , 'stroke'
             , 'pointlist'
             , 'mouse'
             , `${js}bisector.js#bisector`
             , `${js}distances.js#distances`
+            , 'stage'
+            , 'dragging'
+        ]
+        , stroke: [
+            `${js}setunset.js#setunset`
+            , `${js}stroke.js#stroke`
+        ]
+        , bisector: [
+            `${js}bisector.js#bisector`
+        ]
+        , dragging: [
+            `${js}distances.js#distances`
             , `${js}dragging.js#dragging`
-            , `${js}stage.js#stage`
+        ]
+
+        , stage: [
+            `${js}stage.js#stage`
         ]
         , point: [
             'head'

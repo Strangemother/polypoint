@@ -1,10 +1,3 @@
-const KC = {
-    UP: ['ArrowUp', 'KeyW']
-    , LEFT: ['ArrowLeft', 'KeyA']
-    , RIGHT: ['ArrowRight', 'KeyD']
-    , DOWN: ['ArrowDown', 'KeyS']
-}
-
 
 // Function to convert angle to velocity vector
 function angleToVelocity(theta, speed) {
@@ -21,18 +14,19 @@ class MainStage extends Stage {
         console.log('mounted')
         this.mouse.position.vy = this.mouse.position.vx = 0
         this.a = new Point({ x: 200, y: 200, vx: 0, vy: 0})
-        this.events.click(this.mouseClick.bind(this))
-        this.clickPoint = new Point(0,0)
+
 
         this.keyboard.onKeydown(KC.UP, this.onUpKeydown.bind(this))
         this.keyboard.onKeyup(KC.UP, this.onUpKeyup.bind(this))
         this.keyboard.onKeydown(KC.LEFT, this.onLeftKeydown.bind(this))
         this.keyboard.onKeydown(KC.RIGHT, this.onRightKeydown.bind(this))
         this.keyboard.onKeydown(KC.DOWN, this.onDownKeydown.bind(this))
+        this.keyboard.onKeyup(KC.DOWN, this.onDownKeyup.bind(this))
 
         this.a.update({radius: 10})
         this.rotationSpeed = 0
         this.power = 0
+        this.powerDown = false
     }
 
     addMotion(point, speed=1) {
@@ -43,19 +37,33 @@ class MainStage extends Stage {
         return
     }
 
+    performPower(){
+        if(this.powerDown === true) {
+            /* Applied here, bcause a spaceship only applied force when the thottle is on.*/
+            // console.log('power', this.power)
+            // this.power += .008
+            // this.impart(this.power)
+            this.impart(.01)
+            return
+        }
+
+        this.power = 0
+
+        if(this.reverseDown === true) {
+            this.impart(-.01)
+        }
+    }
+
     onUpKeydown(ev) {
         /* On keydown we add some to the throttle.
         As keydown first repeatedly, this will raise the power until
         keyup */
-        this.power += .01
-
-        /* Applied here, bcause a spaceship only applied force when the thottle is on.*/
-        this.impart(this.power)
+        this.powerDown = true
     }
 
     onUpKeyup(ev) {
         /* Reset the throttle */
-        this.power = 0
+        this.powerDown = false
     }
 
     impart(speed=1, direction=new Point(1,0)){
@@ -75,10 +83,14 @@ class MainStage extends Stage {
 
     onDownKeydown(ev) {
         // this.speed -= .1
-        this.impart(-.3)
+        this.reverseDown = true
         // this.speed -= 1
         // this.a.relative.backward(20)
         // this.a.relative.forward(-20)
+    }
+
+    onDownKeyup(ev) {
+        this.reverseDown = false
     }
 
     onLeftKeydown(ev) {
@@ -87,7 +99,7 @@ class MainStage extends Stage {
         */
         if(ev.shiftKey || ev.ctrlKey) {
             /* Perform a _crab_ left */
-            this.impart(.3, new Point(0, -1))
+            this.impart(.02, new Point(0, -1))
             return
         }
 
@@ -100,16 +112,11 @@ class MainStage extends Stage {
         */
         if(ev.shiftKey || ev.ctrlKey) {
             /* Perform a _crab_ right */
-            this.impart(.3, new Point(0, 1))
+            this.impart(.02, new Point(0, 1))
             return
         }
 
         this.rotationSpeed += 1
-    }
-
-    mouseClick(ev) {
-        this.clickPoint = new Point(ev.x, ev.y)
-        this.a.target = this.clickPoint
     }
 
     updateShip(){
@@ -122,6 +129,7 @@ class MainStage extends Stage {
         // this.impart(this.power)
 
         this.addMotion(a, this.speed)
+        this.performPower()
     }
 
     draw(ctx) {
@@ -129,7 +137,6 @@ class MainStage extends Stage {
         this.updateShip()
 
         this.a.pen.indicator(ctx)
-        this.clickPoint.pen.indicator(ctx)
     }
 }
 

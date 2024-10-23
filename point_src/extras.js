@@ -21,8 +21,10 @@ const drawPointLine = function(pointsArray, position) {
     ctx.stroke()
 }
 
-const UNSET = {}
 
+// migrated to stroke
+/*
+const UNSET = {}
 
 const quickStroke = function(color='green', lineWidth=UNSET, f) {
     ctx.strokeStyle = color
@@ -36,7 +38,6 @@ const quickStroke = function(color='green', lineWidth=UNSET, f) {
 }
 
 
-
 const quickStrokeWithCtx = function(ctx, color='green', lineWidth=UNSET, f) {
     ctx.strokeStyle = color
     if(lineWidth != UNSET) {
@@ -47,6 +48,7 @@ const quickStrokeWithCtx = function(ctx, color='green', lineWidth=UNSET, f) {
 
     ctx.stroke()
 }
+*/
 
 
 

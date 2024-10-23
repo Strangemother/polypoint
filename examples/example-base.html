@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
+    </head>
+  <body polyclass class="font-pack-lexend+deca-500">
+    {% block content %}{% endblock content %}
+
+    {% block js %}
+        <script src="../point_src/core/head.js"></script>
+        <script src="../point_src/pointpen.js"></script>
+        <script src="../point_src/pointdraw.js"></script>
+
+        <script src="../point_src/setunset.js"></script>
+        <script src="../point_src/stroke.js"></script>
+
+        <script src="../point_src/point-content.js"></script>
+
+        <script src="../point_src/pointlist.js"></script>
+        <script src="../point_src/point.js"></script>
+
+        <script src="../point_src/events.js"></script>
+        <script src="../point_src/automouse.js"></script>
+        <script src="../point_src/distances.js"></script>
+        <script src="../point_src/bisector.js"></script>
+        <script src="../point_src/functions/clamp.js"></script>
+        <script src="../point_src/dragging.js"></script>
+
+        <script src="../point_src/stage.js"></script>
+    {% endblock js %}
+
+    {% block extra_js %}
+    <script src="../theatre/arc-point-line-alt.js"></script>
+    {% endblock extra_js %}
+  </body>
+</html>
+

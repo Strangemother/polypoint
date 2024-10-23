@@ -1,3 +1,12 @@
+const KC = {
+    UP: ['ArrowUp', 'KeyW']
+    , LEFT: ['ArrowLeft', 'KeyA']
+    , RIGHT: ['ArrowRight', 'KeyD']
+    , DOWN: ['ArrowDown', 'KeyS']
+}
+
+
+
 class StageKeyboard {
     autoListen = true
 
@@ -38,7 +47,7 @@ class StageKeyboard {
     }
 
     stageKeyupHandler(ev) {
-        console.log('stageKeyupHandler')
+        return this.stageKeydownHandler(ev)
     }
 
     getEventParent() {
@@ -60,6 +69,8 @@ class StageKeyboard {
     onKeyup(codes, handler) {
         this.data['keyup'].push({codes, handler})
     }
+
+
 }
 
 

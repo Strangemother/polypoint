@@ -94,6 +94,7 @@ const impartOnRads = function(radians, direction) {
     return rotatedDir
 }
 
+
 class RelativeMotion extends Addon {
 
     _relativeMove(direction, speed=undefined, minSpeed=0, maxSpeed=1) {

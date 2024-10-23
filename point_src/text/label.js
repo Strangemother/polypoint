@@ -18,7 +18,7 @@ class Label {
     fontSize = 14
     fontWeight = 'normal'
     fontName = 'Courier New'
-    text = undefined
+    // text = undefined
     textAlign = "left" // undefined // "center"
     textBaseline = "top" // undefined //"middle"
     position = undefined
@@ -26,7 +26,7 @@ class Label {
     /*Note. Applying this, overrides future get X()*/
     // letterSpacing =  undefined
 
-    text = 'Sweet 90s Jazz.'
+    // text = 'Sweet 90s Jazz.'
     _letterSpacing = undefined //'normal'
 
     constructor(ctx, text=undefined) {
@@ -106,7 +106,6 @@ class Label {
         return gradient
     }
 
-
     writeText(ctx, fillStyle){
         ctx = ctx || this.ctx
         let fontSize = this.fontSize
@@ -123,6 +122,59 @@ class Label {
         ctx.textAlign = this.textAlign
         ctx.textBaseline = this.textBaseline
         ctx.fillText(this.text, pos.x, pos.y)
+    }
+
+}
+
+
+class FastLabel extends Label {
+    /*
+    With modulo for slower updates.
+     */
+    _tick = 0
+    // moduloRate = 15
+    fixed = 0
+    _liveText = '??'
+
+
+    constructor(ctx, text=undefined) {
+        super(ctx, text)
+        if(this.moduloRate == undefined) {
+            this.moduloRate = 10
+        }
+    }
+
+
+    update() {
+        let tick = this._tick += 1
+
+        if(tick % this.moduloRate == 0) {
+            // this.text = currentFPS
+            /* A cleaner text output takes the average of a list of fps counts.*/
+            this._liveText =  this.getCurrentText()
+        }
+    }
+
+    getCurrentText(){
+        return this._currentText
+    }
+
+    set text(v) {
+        this._currentText = v
+    }
+
+    get text() {
+        return  this._liveText
+    }
+
+
+    gather(ctx, conf={}) {
+        conf = super.gather(conf)
+        let r = {
+            moduloRate: this.moduloRate
+        }
+
+        return Object.assign(r, conf)
     }
 
 }

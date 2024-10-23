@@ -92,11 +92,11 @@
 
     const direction = car.power > car.reverse ? 1 : -1;
 
-    if (car.isTurningLeft) {
-      car.angularVelocity -= direction * turnSpeed * car.isTurningLeft;
+    if(car.isTurningLeft) {
+        car.angularVelocity -= direction * turnSpeed * car.isTurningLeft;
     }
-    if (car.isTurningRight) {
-      car.angularVelocity += direction * turnSpeed * car.isTurningRight;
+    if(car.isTurningRight) {
+        car.angularVelocity += direction * turnSpeed * car.isTurningRight;
     }
 
     car.xVelocity += Math.sin(car.angle) * (car.power - car.reverse);
@@ -266,9 +266,6 @@
 
     lastTime = ms;
 
-    if (changed) {
-      sendParams(localCar);
-    }
   }, 1000 / 120);
 
   function renderCar(car, index) {
@@ -395,146 +392,7 @@
     $name.parentNode.removeChild($name);
   };
 
-  const host = await fastestPing(
-    [
-      {
-        host: "https://car-hel1.pakastin.fi",
-        city: "Helsinki, Finland",
-        continent: "Europe",
-      },
-      {
-        host: "https://car-nbg1.pakastin.fi",
-        city: "Nuremberg, Germany",
-        continent: "Europe",
-      },
-      {
-        host: "https://car-fsn1.pakastin.fi",
-        city: "Falkenstein, Germany",
-        continent: "Europe",
-      },
-    ],
-    { host: "https://car.pakastin.fi", city: "Cloudflare (fallback)" }
-  );
 
-  $p.textContent = "Connected to " + host.city + ".";
-
-  const socket = io(host.host);
-
-  socket.on("connect", () => {
-    sendParams(localCar);
-  });
-
-  socket.on("join", () => {
-    sendParams(localCar);
-  });
-
-  socket.on("params", ({ id, params }) => {
-    let car = carsById[id];
-
-    if (!car) {
-      const $el = document.createElement("div");
-      $el.classList.add("car");
-      const $body = document.createElement("div");
-      $body.classList.add("car-body");
-      const $roof = document.createElement("div");
-      $roof.classList.add("car-roof");
-      const $name = document.createElement("div");
-      $name.classList.add("car-name");
-      $body.appendChild($roof);
-      $el.appendChild($body);
-      $el.appendChild($name);
-      $cars.appendChild($el);
-      car = {
-        $el,
-      };
-      carsById[id] = car;
-      cars.push(car);
-    }
-
-    for (const key in params) {
-      if (key !== "el") {
-        car[key] = params[key];
-      }
-    }
-  });
-
-  socket.on("leave", (id) => {
-    const car = carsById[id];
-
-    if (!car) {
-      return console.error("Car not found");
-    }
-
-    for (let i = 0; i < cars.length; i++) {
-      if (cars[i] === car) {
-        cars.splice(i, 1);
-        break;
-      }
-    }
-
-    if (car.$el.parentNode) {
-      car.$el.parentNode.removeChild(car.$el);
-    }
-    delete carsById[id];
-  });
-
-  function sendParams(car) {
-    const {
-      x,
-      y,
-      xVelocity,
-      yVelocity,
-      power,
-      reverse,
-      angle,
-      angularVelocity,
-      isThrottling,
-      isReversing,
-      isShooting,
-      isTurningLeft,
-      isTurningRight,
-      isHit,
-      isShot,
-      name,
-      points,
-    } = car;
-
-    socket.emit("params", {
-      x,
-      y,
-      xVelocity,
-      yVelocity,
-      power,
-      reverse,
-      angle,
-      angularVelocity,
-      isThrottling,
-      isReversing,
-      isShooting,
-      isTurningLeft,
-      isTurningRight,
-      isHit,
-      isShot,
-      name,
-      points,
-    });
-  }
-
-  const $disconnect = document.querySelector(".disconnect");
-
-  $disconnect.onclick = () => {
-    socket.disconnect();
-
-    localCar.name = "";
-
-    while (cars.length > 1) {
-      const car = cars.pop();
-
-      car.$el.parentNode.removeChild(car.$el);
-    }
-
-    $disconnect.parentNode.removeChild($disconnect);
-  };
 
   const $clearScreen = document.querySelector(".clearscreen");
 
@@ -553,54 +411,3 @@
   }
 })();
 
-async function fastestPing(hosts, fallback) {
-  let result;
-
-  try {
-    const continent = Intl.DateTimeFormat()
-      .resolvedOptions()
-      .timeZone.split("/")[0];
-
-    hosts.sort((a, b) => {
-      if (continent === a.continent && continent !== b.continent) {
-        return -1;
-      } else if (continent === b.continent && continent !== a.continent) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  } catch (err) {
-    console.error(err);
-  }
-
-  for (const host of hosts) {
-    const abortController = new AbortController();
-    const abortTimeout = setTimeout(() => abortController.abort(), 5000);
-    try {
-      const startTime = Date.now();
-      await fetch(host.host + "/ping", {
-        signal: abortController.signal,
-      });
-      clearTimeout(abortTimeout);
-      const latency = Date.now() - startTime;
-
-      if (result) {
-        if (latency < result.latency) {
-          result = { host, latency };
-        }
-      } else {
-        result = { host, latency };
-      }
-    } catch (err) {
-      console.error(err);
-      clearTimeout(abortTimeout);
-    }
-  }
-
-  if (result) {
-    return result.host;
-  } else {
-    return fallback;
-  }
-}

@@ -18,7 +18,6 @@ class Text {
     constructor(ctx, text=undefined) {
         this.updateData(text)
 
-
         this.position = new Point(0, 0)
         this.ctx = ctx;
     }
@@ -27,6 +26,7 @@ class Text {
         if(typeof(d) == 'string'){
             this.text = d;
         }
+
         for(let k in d) {
             this[k] = d[k]
         }
@@ -48,7 +48,6 @@ class Text {
         ctx.textBaseline = this.textBaseline
         ctx.fillText(this.text, pos.x, pos.y)
     }
-
 }
 
 

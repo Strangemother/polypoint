@@ -10,9 +10,23 @@ class PointPen {
         ctx.beginPath()
         let r = f()
 
-        ctx.strokeStyle = color == undefined? 'yellow': color
-        ctx.lineWidth = width == undefined? 1: width
+        let origStroke = ctx.strokeStyle
+            , origWidth = ctx.lineWidth
+            ;
+
+        if(color != undefined) {
+
+            ctx.strokeStyle = color == undefined? 'yellow': color
+        }
+
+        if(width != undefined && ctx.lineWidth == undefined) {
+
+            ctx.lineWidth = width == undefined? 1: width
+        }
+
         ctx.stroke()
+        ctx.strokeStyle = origStroke
+        ctx.lineWidth = origWidth
 
         return r
     }

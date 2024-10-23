@@ -16,8 +16,25 @@ const point = function(p, b) {
 }
 
 
+class Relative {
 
-class Positionable {
+    constructor(opts={}){
+        // super(opts)
+        this._relativeData = [0, 0, 0, 0]
+    }
+
+    getRelativeData() {
+        let r = this._relativeData
+        if(r == undefined) {
+                                    //x,y,rad,rot
+            r = this._relativeData = [0, 0, 0, 0]
+        }
+        return r
+    }
+}
+
+
+class Positionable extends Relative {
 
     set x(v) {
         this._opts.x = v
@@ -27,22 +44,105 @@ class Positionable {
         this._opts.y = v
     }
 
+    get rel() {
+        let r = this._rel
+        if(r != undefined) {
+            return r
+        }
+
+        let relData = this._relativeData
+        let sp = {
+            get x(){
+                return relData[0]
+            }
+
+            , set x(v) {
+                relData[0] = v
+            }
+
+            , get y(){
+                return relData[1]
+            }
+
+            , set y(v) {
+                relData[1] = v
+            }
+
+            , get radius() {
+                return relData[2]
+            }
+
+            , set radius(v) {
+                return relData[2] = v
+            }
+
+
+            , get rotation() {
+                return relData[3]
+            }
+
+            , set rotation(v) {
+                return relData[3] = v
+            }
+        }
+
+        this._rel = sp
+        return sp
+    }
+
+    set rel(v) {
+        this._opts.rel = v
+    }
+
     get x() {
-        let _x = this._opts.x
-        return _x == undefined? 0: _x
+        const opts = this._opts
+            , _x = opts.x
+            ;
+
+        let r = _x == undefined? 0: _x
+        return r + this._relativeData[0]
     }
 
     get y() {
-        let _y = this._opts.y
-        return _y == undefined? 0: _y
+        const opts = this._opts
+            , _y = opts.y
+            ;
+
+        let r = _y == undefined? 0: _y
+        return r + this._relativeData[1]
     }
 
-    set(x, y) {
+    set(x, y, radius, rotation) {
 
-        if(y == undefined) {
+        const isUndefined = function(v) {
+            return v === undefined
+        }
+
+        if(isUndefined(y)) {
+
             if(Array.isArray(x)) {
-                [x,y] = x
-            } else {
+                let lmap = {
+                    1: () => {
+                        /* An array of one
+                            set([200])
+                        */
+                    }
+                    , 2: ()=> {
+                        [x,y] = x
+                    }
+                    , 3: ()=> {
+                        [x,y, radius] = x
+                    }
+                    , 4: ()=> {
+                        [x,y, radius, rotation] = x
+                    }
+                }
+
+                lmap[x.length]()
+            } else if(typeof(x)=='number') {
+                y = x
+                x = x
+            }else{
                 // object
                 for(let k in x) {
                     this[k] = x[k]
@@ -51,8 +151,15 @@ class Positionable {
                 x = x?.x
             }
         }
-        this.x = x == undefined? 0: x
-        this.y = y == undefined? 0: y
+
+        this.x = isUndefined(x)? 0: x
+        this.y = isUndefined(y)? 0: y
+        if(!isUndefined(radius)) {
+            this.radius = radius
+        }
+        if(!isUndefined(rotation)) {
+            this.rotation = rotation
+        }
     }
 
     subtract(p, _2=p){
@@ -179,13 +286,13 @@ class Rotation extends Positionable {
     }
 
     get rotation() {
-        return this._rotationDegrees
+        return this._rotationDegrees + this._relativeData[3]
     }
 
     get radians() {
         /*Return the _radians_ of the current rotation, where _rotation returns
         the degrees*/
-        return degToRad(this._rotationDegrees)
+        return degToRad(this._rotationDegrees + this._relativeData[3])
     }
 
     set radians(angle) {
@@ -303,7 +410,9 @@ class Tooling extends Rotation {
         if(rotation !== undefined && relative == true) {
             rotation = (this.UP + rotation) % 360
         }
-        return new this.constructor(projectFrom(this, distance, rotation))
+        let np = new this.constructor(projectFrom(this, distance, rotation))
+        np.rotation = this.rotation
+        return np 
     }
 
 
@@ -319,7 +428,7 @@ class Tooling extends Rotation {
             return this;
         }
 
-        return new Point(this.x, this.y)
+        return new Point(this.x, this.y, this.radius, this.rotation)
     }
 
     magnitude() {
@@ -452,11 +561,11 @@ class Point extends Tooling {
         /* If given a Point instance, return the given point instance */
         if(opts && (opts.constructor == this.constructor) ){ return opts }
         // new Point(x,y, ...)  // reset the opts obj.
-        if(arguments.length > 1){ opts = {} }
+        if(arguments.length > 1 || typeof(arguments[0] == 'number')){ opts = {} }
 
         this.modulusRotate = undefined
 
-        this._opts = opts
+        this._opts = Object.assign({relX: 0, relY: 0 }, opts)
         // set 0 or more object
         this.set.apply(this, arguments)
     }
@@ -539,10 +648,10 @@ class Point extends Tooling {
     asArray(fix=false) {
         if(fix) {
             let int = (x)=> Number( x.toFixed(Number(fix)) )
-            return [int(this.x), int(this.y)]
+            return [int(this.x), int(this.y), int(this.radius), int(this.rotation)]
 
         }
-        return [this.x, this.y]
+        return [this.x, this.y, this.radius, this.rotation]
     }
 
     asObject() {
@@ -572,6 +681,7 @@ class Point extends Tooling {
     // }
 }
 
+
 class PointCast {
     /* a bunch of convert function, such as "asObject", wrapped within a sub unit
 
@@ -593,12 +703,13 @@ class PointCast {
     }
 
     array(fix=false) {
+        let target = this.point;
         if(fix) {
             let int = (x)=> Number( x.toFixed(Number(fix)) )
-            return [int(this.x), int(this.y)]
-        }
+            return [int(target.x), int(target.y), int(target.radius), int(target.rotation)]
 
-        return [this.x, this.y]
+        }
+        return [target.x, target.y, target.radius, target.rotation]
     }
 }
 

@@ -48,7 +48,6 @@ class Text {
         ctx.textBaseline = this.textBaseline
         ctx.fillText(this.text, pos.x, pos.y)
     }
-
 }
 
 

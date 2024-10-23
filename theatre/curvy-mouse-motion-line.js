@@ -66,7 +66,6 @@ class MainStage extends Stage {
         l.render(ctx)
         this.tick += 1
 
-
     }
 
 }

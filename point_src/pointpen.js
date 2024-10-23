@@ -18,7 +18,8 @@ class PointPen {
 
             ctx.strokeStyle = color == undefined? 'yellow': color
         }
-        if(width != undefined) {
+
+        if(width != undefined && ctx.lineWidth == undefined) {
 
             ctx.lineWidth = width == undefined? 1: width
         }

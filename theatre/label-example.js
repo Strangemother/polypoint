@@ -24,12 +24,13 @@ class MainStage extends Stage {
         // t.writeText('red')
         let h = new Label(this.ctx, {
             fontSize: 50
+            , text: "Large eyebrows"
             , textAlign: "center"
             , fontName: '"lexend deca"'
         })
 
         h.fillStyle = 'orange'
-        h.position = new Point(300, 200)
+        h.position = new Point(300, 300)
         this.logo = h;
     }
 

@@ -45,20 +45,6 @@ class MainStage extends Stage {
 
     }
 
-    // onMousemove(e) {
-    //     this.pointA.x = e.offsetX
-    //     this.pointA.y = e.offsetY
-    //     this.pointB.copy(this.pointA.quantize(quantizeNumber(this.pointA.radius)))
-    // }
-
-    // onMousedown(e) {
-    //     this.pointB.color = 'green'
-    // }
-
-    // onMouseup(e) {
-    //     this.pointB.color = undefined
-    // }
-
     draw(ctx){
         this.clear(ctx)
 
@@ -69,9 +55,9 @@ class MainStage extends Stage {
         if(i2.length > 0) {
 
             i2.forEach((xy)=>{
-                let iPoint = (new Point).copy(xy).update({radius: 20})
+                let iPoint = (new Point).copy(xy).update({radius: 5})
                 // iPoint.radius = 30
-                iPoint.pen.indicator(ctx)
+                iPoint.pen.fill(ctx, '#CC00BB')
             })
         }
     }

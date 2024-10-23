@@ -32,6 +32,21 @@ The head contains a range of hoisting functions to late-load installables.
         parkedEntity = parent[name]
     }
 
+    /*
+    The Polypoint.file object, to assign meta data to the concurrent file.
+    Note this is exposed on the primary object, and not the 'head'
+     */
+    const fileObject = {
+        meta(data) {
+            /* Incoming mets data for the incoming file.*/
+            console.log('meta config', data)
+            if(data.files) {
+                let src = document.currentScript
+                console.log(src)
+            }
+        }
+    }
+
     /* Install properties onto an incoming unit
 
 
@@ -294,10 +309,15 @@ The head contains a range of hoisting functions to late-load installables.
         })
     }
 
-    /* Apply a lazy getter property to a target to return an instance of
-    a thing.
-    The instance is created _once_ on-demand. Future calls return the first
-    created object.
+    /* Apply a lazy getter property to a target to return an instance of a thing.
+    The instance of the thing, is created _once_ on-demand, on the target.
+    Future calls return the first created object.
+
+        Polypoint.head.deferredProp('Point', function screenshot() {
+                return new Screenshot(this)
+            }
+        })
+
     */
     const deferredProp = function(name, method, reference) {
         let methodName = reference==undefined? method.name: reference
@@ -402,6 +422,7 @@ The head contains a range of hoisting functions to late-load installables.
     const exposed = {
         ready: false
         , head
+        , file: fileObject
     }
 
     if(!strict){

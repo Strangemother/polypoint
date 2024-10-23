@@ -177,5 +177,4 @@ class FastLabel extends Label {
         return Object.assign(r, conf)
     }
 
-
 }

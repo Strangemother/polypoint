@@ -6,10 +6,10 @@ class PointDraw {
         this.point = point;
     }
 
-    arc(ctx, radius=undefined) {
+    arc(ctx, radius=undefined, start=0, end=Math.PI2, direction=1) {
         let p = this.point;
         let r = radius === undefined? p.radius: radius;
-        ctx.arc(p.x, p.y, r, 0, Math.PI2)
+        ctx.arc(p.x, p.y, r<0?0:r, start, end, direction)
     }
 
     circle(ctx, radius) {

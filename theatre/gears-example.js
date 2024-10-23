@@ -21,7 +21,7 @@ function gearRotate(gearA, gearB, deltaTime=1, speed=1) {
 
     // Calculate gear's angular velocity based on motor's angular velocity
     //  and their radii
-    const angularVelocityGear = -(angularVelocityMotor * gearA.radius / gearB.radius);
+    const angularVelocityGear = -(angularVelocityMotor * gearB.radius / gearA.radius);
 
     // Update the rotation of gearA and gear based on their angular velocities and deltaTime
     // gearA.rotation += angularVelocityMotor * deltaTime;

@@ -173,7 +173,7 @@ class StageRender {
         if(canvas == undefined) {
             console.warn('Stage canvas is undefined through Stage.canvas')
         }
-        this.setupClock()
+        // this.setupClock()
         this.dispatch('stage:prepare', {target, id, canvas })
         this.canvas = canvas
         this.resize()
@@ -287,13 +287,11 @@ class StageRender {
             inline update per draw
         */
         const ctx = this.ctx;
-        let c = this.tickClock(ctx)
         this._drawFunc(ctx);
 
         for(let af of this._drawAfter) {
             af(ctx)
         }
-        // this.drawFPS(ctx)
     }
 
     onDrawAfter(func) {
@@ -305,38 +303,6 @@ class StageRender {
         this._drawAfter.splice(i, 1)
     }
 
-    setupClock() {
-
-        // let t = new Text(undefined, "FPS")
-        // t.position.x = 20
-        // t.position.y = 20
-        // this.fpsLabel = t
-
-        this.clock = {
-            tick: -1
-            , delta: 0
-            , prevStamp: +(new Date)
-            , get fps() {
-                return Math.floor(1000 / this.delta)
-            }
-        }
-    }
-
-    tickClock(ctx) {
-        let c = this.clock
-        const ts = +(new Date)
-        // const ts = Performance.now()
-        c.tick += 1
-        c.delta = ts - c.prevStamp
-        c.prevStamp = ts
-        return c
-    }
-
-    // drawFPS(ctx) {
-    //     let t = this.fpsLabel
-    //     t.text = this.clock.fps
-    //     t.writeText('red', ctx)
-    // }
 
     draw(ctx) {
         /* The primary rendering function to override.

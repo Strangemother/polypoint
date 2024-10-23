@@ -374,18 +374,21 @@ class MainStage extends Stage {
         if(p) {
             let p1 = (new Point(p))
             p1.radius = 30
+
+            /* inbound angle, pointing at the first point. */
             p1.pen.indicator(ctx, {color: 'green'})
 
-            p1.copy().update({
-                radius: 20
-                , radians: getAngle(p, ray)//, {start: points[0], end: points[1]})
-            }).pen.indicator(ctx, {color: 'gray'})
+            /* symmetry angle, inverse of the inbound */
+            // p1.copy().update({
+            //     radius: 20
+            //     , radians: getAngle(p, ray)//, {start: points[0], end: points[1]})
+            // }).pen.indicator(ctx, {color: 'gray'})
 
+            /* reflect angle.*/
             p1.copy().update({
                 radius: 25
                 , radians: getBounceAngle(p, ray)//, {start: points[0], end: points[1]})
-            }).pen.indicator(ctx)
-
+            }).pen.indicator(ctx, {color: 'red'})
         }
 
         points.pen.indicators(ctx)

@@ -138,7 +138,7 @@ const checkPointIntersectionWithin = function(line, point, radius=5, length=400)
 }
 
 
-const checkPointIntersectionEdge = function(line, point, radius = 5, length=undefined) {
+const checkPointIntersectionEdge = function(line, point, radius=point.radius, length=undefined) {
     const x1 = line[0].x;
     const y1 = line[0].y;
 

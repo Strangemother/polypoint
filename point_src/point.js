@@ -410,7 +410,9 @@ class Tooling extends Rotation {
         if(rotation !== undefined && relative == true) {
             rotation = (this.UP + rotation) % 360
         }
-        return new this.constructor(projectFrom(this, distance, rotation))
+        let np = new this.constructor(projectFrom(this, distance, rotation))
+        np.rotation = this.rotation
+        return np 
     }
 
 
@@ -426,7 +428,7 @@ class Tooling extends Rotation {
             return this;
         }
 
-        return new Point(this.x, this.y)
+        return new Point(this.x, this.y, this.radius, this.rotation)
     }
 
     magnitude() {

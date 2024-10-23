@@ -13,10 +13,10 @@ const linearInOut = function(t) {
 
 
 const quadEaseInOut = function(t) {
-
     if(t < 0.5){
         return 2 * t * t
     }
+
     return (-2 * t * t) + (4 * t) - 1
 }
 
@@ -121,19 +121,19 @@ const quinticEaseInOut = function(t) {
 
 const sineEaseIn = function(t) {
 
-    return Math.sin((t - 1) * PI / 2) + 1
+    return Math.sin((t - 1) * Math.PI / 2) + 1
 }
 
 
 const sineEaseOut = function(t) {
 
-    return Math.sin(t * PI / 2)
+    return Math.sin(t * Math.PI / 2)
 }
 
 
 const sineEaseInOut = function(t) {
 
-    return 0.5 * (1 - Math.cos(t * PI))
+    return 0.5 * (1 - Math.cos(t * Math.PI))
 }
 
 
@@ -188,7 +188,7 @@ const exponentialEaseOut = function(t) {
 
 const exponentialEaseInOut = function(t) {
 
-    if( t == 0 or t == 1){
+    if( t == 0 || t == 1){
         return t
     }
 
@@ -206,13 +206,13 @@ const exponentialEaseInOut = function(t) {
 
 const elasticEaseIn = function(t) {
 
-    return Math.sin(13 * PI / 2 * t) * Math.pow(2, 10 * (t - 1))
+    return Math.sin(13 * Math.PI / 2 * t) * Math.pow(2, 10 * (t - 1))
 }
 
 
 const elasticEaseOut = function(t) {
 
-    return Math.sin(-13 * PI / 2 * (t + 1)) * Math.pow(2, -10 * t) + 1
+    return Math.sin(-13 * Math.PI / 2 * (t + 1)) * Math.pow(2, -10 * t) + 1
 }
 
 
@@ -221,13 +221,13 @@ const elasticEaseInOut = function(t) {
     if (t < 0.5) {
         return (
             0.5
-            * Math.sin(13 * PI / 2 * (2 * t))
+            * Math.sin(13 * Math.PI / 2 * (2 * t))
             * Math.pow(2, 10 * ((2 * t) - 1))
         )
     }
 
     return 0.5 * (
-        Math.sin(-13 * PI / 2 * ((2 * t - 1) + 1))
+        Math.sin(-13 * Math.PI / 2 * ((2 * t - 1) + 1))
         * Math.pow(2, -10 * (2 * t - 1))
         + 2
     )
@@ -241,14 +241,14 @@ const elasticEaseInOut = function(t) {
 
 const backEaseIn = function(t) {
 
-    return t * t * t - t * Math.sin(t * PI)
+    return t * t * t - t * Math.sin(t * Math.PI)
 
 }
 
 const backEaseOut = function(t) {
 
     var p = 1 - t
-    return 1 - (p * p * p - p * Math.sin(p * PI))
+    return 1 - (p * p * p - p * Math.sin(p * Math.PI))
 }
 
 
@@ -257,12 +257,12 @@ const backEaseInOut = function(t) {
     if( t < 0.5){
 
         var p = 2 * t
-        return 0.5 * (p * p * p - p * Math.sin(p * PI))
+        return 0.5 * (p * p * p - p * Math.sin(p * Math.PI))
     }
 
     var p = 1 - (2 * t - 1)
 
-    return 0.5 * (1 - (p * p * p - p * Math.sin(p * PI))) + 0.5
+    return 0.5 * (1 - (p * p * p - p * Math.sin(p * Math.PI))) + 0.5
 
 }
 
@@ -273,18 +273,23 @@ const backEaseInOut = function(t) {
 
 const bounceEaseIn = function(t) {
 
-    return 1 - BounceEaseOut(1 - t)
+    return 1 - bounceEaseOut(1 - t)
 }
 
 
 const bounceEaseOut = function(t) {
 
-    if t < 4 / 11:
+    if (t < 4 / 11) {
         return 121 * t * t / 16
-    elif t < 8 / 11:
+    }
+
+    if (t < 8 / 11) {
         return (363 / 40.0 * t * t) - (99 / 10.0 * t) + 17 / 5.0
-    elif t < 9 / 10:
+    }
+
+    if (t < 9 / 10) {
         return (4356 / 361.0 * t * t) - (35442 / 1805.0 * t) + 16061 / 1805.0
+    }
     return (54 / 5.0 * t * t) - (513 / 25.0 * t) + 268 / 25.0
 }
 
@@ -292,7 +297,7 @@ const bounceEaseOut = function(t) {
 const bounceEaseInOut = function(t) {
 
     if( t < 0.5){
-        return 0.5 * BounceEaseIn(t * 2)
+        return 0.5 * bounceEaseIn(t * 2)
     }
-    return 0.5 * BounceEaseOut(t * 2 - 1) + 0.5
+    return 0.5 * bounceEaseOut(t * 2 - 1) + 0.5
 }

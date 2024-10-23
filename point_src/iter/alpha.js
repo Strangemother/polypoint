@@ -51,3 +51,57 @@ class Iter {
     }
 }
 
+/* A LerpValue provides a number between two numbers. The stepping function can be linear
+or another easing.
+
+    v = Value(1, 100)
+    v.get(.5) -> ~50
+
+    v = Value(1, 100, cubicSmooth)
+    v.get(.7) -> ~90
+    v.get(.9) -> ~99
+
+Stepping over time may need a tick step function
+
+    v = Value(1, 100)
+    v.deltaFrom = stage.clock.tick
+    v.step(delta=14ms)
+    // somehow flag 1sec of 60fps?
+    v.get()
+    v.get()
+    v.get()
+
+Divisor Values accept an A, B and a splitting V
+
+    Value(0, 1, 100)
+    v.get(.5) -> .05
+
+*/
+
+class Value {
+    constructor(a=0, b=1, easing=undefined) {
+        this.a = a
+        this.b = b
+        this.step = .5
+                                            // linear
+        this.easing = easiing == undefined? v=>v: easing
+    }
+
+    width(){
+        return this.b - this.a
+    }
+
+    t(v) {
+        return this.width() * v
+    }
+
+    get(step=this.step){
+        raw = this.t(this.step)
+                /* a smoothing function */
+        return this.mutate(raw)
+    }
+
+    mutate(value) {
+        return this.easing(value)
+    }
+}

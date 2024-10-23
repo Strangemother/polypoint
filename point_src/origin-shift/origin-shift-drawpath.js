@@ -1,4 +1,4 @@
-const drawPath = function(startIndex, origin=os.origin) {
+const drawPath = function(startIndex, os=os) {
     let running = true;
     let index = startIndex;
     let next
@@ -6,6 +6,8 @@ const drawPath = function(startIndex, origin=os.origin) {
     let count = 0;
     let max = 5000;
     let tin = +(new Date)
+    let pointList = os.pointList
+    let origin = os.origin
     while(running) {
         if(count > max) {
             console.log('Break at max', max, 'index=', index)

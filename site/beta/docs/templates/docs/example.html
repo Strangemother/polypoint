@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polypoint</title>
+    {% load link %}
+    {% css "css/index.css" %}
+</head>
+<body polyclass class='background-#222
+                        color-#DDD
+                        margin-0
+                        font-pack-lexend+deca-500
+                        font-lexend+deca-500 letter-spacing-.1px'>
+    <header class='primary background-#111'>
+        <div class="logo padding-1em
+                    font-size-1rem">Polypoint</div>
+    </header>
+    <main>
+        <header>
+            <h1 class="title
+                        text-align-center
+                        font-size-5rem">
+                Point Events</h1>
+        </header>
+
+    <div class="outer-block">
+        <div class="block">
+            <p>A Point can host functions for events such as <code>mousemove</code></p>
+
+            <pre>
+                    {% load content %}
+                <code class='language-javascript'>{% file_content "events/mypoint.js" %}</code>
+            </pre>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+
+            <h2 class="font-size-2rem">Requirements</h2>
+
+            <p>
+                Actions apply through the <a href="component/dragging/">dragging</a> component. Ensure its imported:
+            </p>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <pre><code>
+                &lt;script src="point_src/functions/clamp.js"&gt;&lt;/script&gt;
+                &lt;script src="point_src/distances.js"&gt;&lt;/script&gt;
+                &lt;script src="point_src/dragging.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <h2 class="font-size-2rem">Usage</h2>
+
+            <p>
+                Add a point to the <code>stage.dragging</code>
+            </p>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <details>
+                <summary>From above</summary>
+                <pre class='click-show'>
+                    {% code_content "events/mypoint.js" %}
+                </pre>
+            </details>
+            <pre>
+                {% code_content "events/mypoint-stage.js" %}
+            </pre>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+
+            <h2 class="font-size-2rem">Methods</h2>
+
+            <p>
+                Hookable actions for a Point:
+            </p>
+
+            <ul>
+                <li>onClick</li>
+                <li>onMousedown</li>
+                <li>onMousemove</li>
+                <li>onMouseup</li>
+                <li>onDragStart</li>
+                <li>onDragMove</li>
+                <li>onDragEnd</li>
+                <li>onLongClick</li>
+                <li>onWheel</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <h2 class="font-size-2rem">Examples</h2>
+            <pre>
+                {% code_content "events/mypoint-example.js" %}
+            </pre>
+        </div>
+    </div>
+
+    </main>
+
+    {% js "js/polyclass.browser-full.js" %}
+
+    {% css "css/default.min.css" %}
+    {% css "css/atom-one-dark.min.css" %}
+    {% js "js/highlight.min.js" %}
+    <!-- and it's easy to individually load additional languages -->
+    {% js "js/javascript.min.js" %}
+
+    {% js "js/index.js" %}
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

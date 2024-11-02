@@ -1,17 +1,7 @@
-<html>
-  <body>
-    <style>
-        #canvas {
-            width: 100%;
-            height: 100%;
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="canvas"></canvas>
+{% block js %}
+    {# {% include "./imports/click-create.html" %} #}
 
     <script src="../point_src/core/head.js"></script>
     <script src="../point_src/pointpen.js"></script>
@@ -36,5 +26,4 @@
 
     <script src="../theatre/gears-example.js"></script>
 
-  </body>
-</html>
+{% endblock js %}

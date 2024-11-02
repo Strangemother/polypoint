@@ -1,18 +1,8 @@
-<html>
-  <body>
-    <style>
-        #playspace {
-            width: 800;
-            height: 600;
-            /*height: 100%;*/
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="playspace"></canvas>
+{% block js %}
+    {# {% include "./imports/click-create.html" %} #}
+
     <!--
         <script src="../ik_src/ik.js"></script>
     <script src="../ik_src/ik-test.js"></script>
@@ -26,5 +16,4 @@
     <script src="../others/ik_src/ik-segments.js"></script>
     <script src="../others/ik_src/main-ik-only.js"></script>
 
-  </body>
-</html>
+{% endblock js %}

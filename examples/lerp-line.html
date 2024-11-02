@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <style>
-        #canvas {
-            width: 90%;
-            height: 90%;
-            box-sizing: border-box;
-            border: solid 1px;
-        }
-        html, body {
-            margin: 0;
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="canvas"></canvas>
+{% block js %}
+    {# {% include "./imports/NAME.html" %} #}
 
     <script src="../point_src/core/head.js"></script>
     <script src="../point_src/pointpen.js"></script>
@@ -40,6 +27,9 @@
 
     <script src="../point_src/automouse.js"></script>
     <script src="../theatre/lerp-line.js"></script>
+{% endblock js %}
 
-  </body>
-</html>
+
+{% block extra_js %}
+
+{% endblock extra_js %}

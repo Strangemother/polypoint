@@ -1,18 +1,8 @@
-<html>
-  <body>
-    <style>
-        #playspace {
-            width: 800;
-            height: 600;
-            /*height: 100%;*/
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
 
-    <canvas id="playspace"></canvas>
+{% extends "./example-base.html" %}
+
+{% block js %}
+    {# {% include "./imports/NAME.html" %} #}
 
     <script src="../point_src/math.js"></script>
 
@@ -32,6 +22,10 @@
     <script src="../point_src/stroke.js"></script>
 
     <script src="../theatre/lookat-main.js"></script>
+>
+{% endblock js %}
 
-  </body>
-</html>
+
+{% block extra_js %}
+
+{% endblock extra_js %}

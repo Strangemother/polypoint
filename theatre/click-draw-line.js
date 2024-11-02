@@ -3,7 +3,7 @@
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.drawn = []

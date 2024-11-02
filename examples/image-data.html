@@ -1,17 +1,7 @@
-<html>
-  <body>
-    <style>
-        #playspace {
-            height: 98%;
-            width: 98%;
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="playspace"></canvas>
+{% block js %}
+    {# {% include "./imports/click-create.html" %} #}
 
     <script src="../point_src/math.js"></script>
 
@@ -34,6 +24,4 @@
 
     <script src="../point_src/image.js"></script>
     <script src="../theatre/image-data.js"></script>
-
-  </body>
-</html>
+{% endblock js %}

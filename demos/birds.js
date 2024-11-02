@@ -1,34 +1,34 @@
 var Bird = {
-  def: function(n, m, s) {
-    if (m) this.e(n.prototype, m);
-    if (s) this.e(n, s);
-    return n;
-  },
-  e: function(o, p) {
-    for (prop in p) o[prop] = p[prop];
-    return o;
-  },
-  v: [
-    [5, 0, 0],
-    [-5, -2, 1],
-    [-5, 0, 0],
-    [-5, -2, -1],
-    [0, 2, -6],
-    [0, 2, 6],
-    [2, 0, 0],
-    [-3, 0, 0]
-  ],
-  beak: [
-    [0, 1, 2],
-    [4, 7, 6],
-    [5, 6, 7]
-  ],
-  L: null,
-  V: {
-    x: 0,
-    y: 0,
-    z: 5000
-  }
+    def: function(n, m, s) {
+      if (m) this.e(n.prototype, m);
+      if (s) this.e(n, s);
+      return n;
+    },
+    e: function(o, p) {
+      for (prop in p) o[prop] = p[prop];
+      return o;
+    },
+    v: [
+      [5, 0, 0],
+      [-5, -2, 1],
+      [-5, 0, 0],
+      [-5, -2, -1],
+      [0, 2, -6],
+      [0, 2, 6],
+      [2, 0, 0],
+      [-3, 0, 0]
+    ],
+    beak: [
+      [0, 1, 2],
+      [4, 7, 6],
+      [5, 6, 7]
+    ],
+    L: null,
+    V: {
+      x: 0,
+      y: 0,
+      z: 5000
+    }
 }
 Bird.obj = Bird.def(
   function() {

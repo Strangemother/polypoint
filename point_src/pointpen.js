@@ -19,9 +19,12 @@ class PointPen {
             ctx.strokeStyle = color == undefined? 'yellow': color
         }
 
-        if(width != undefined && ctx.lineWidth == undefined) {
+        // if(width != undefined && ctx.lineWidth == undefined) {
+        //     ctx.lineWidth = width == undefined? 1: width
+        // }
 
-            ctx.lineWidth = width == undefined? 1: width
+        if(width != undefined) {
+            ctx.lineWidth = width
         }
 
         ctx.stroke()
@@ -45,6 +48,9 @@ class PointPen {
 
     line(ctx, otherPoint, color, width) {
         this._quickStroke(ctx, ()=>{
+            if(otherPoint == undefined){
+                otherPoint = this.point.project()
+            }
             this.point.draw.lineTo(ctx, otherPoint)
         }, color, width)
     }

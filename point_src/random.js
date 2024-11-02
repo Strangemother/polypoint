@@ -7,8 +7,8 @@ class Random {
     */
     pointIntMin = 2
 
-    int(multiplier=1) {
-        /* Generate an integer between 0 and the given multiplier.
+    int(min=1, max) {
+        /* Generate an integer between 0 and the given min.
             Given 1 (default), the result will be either 0 or 1
 
             random.int(10)
@@ -18,11 +18,21 @@ class Random {
             random.int(300)
             220
         */
-        return Number((this.float() * (multiplier)).toFixed())
+        if(max != undefined) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        let r = this.float()
+        return Number( (r * min).toFixed(0) )
     }
 
-    float(multiplier=1) {
-        return Math.random() * multiplier
+    float(min=1, max) {
+
+        if(max != undefined) {
+            return Math.random() * (max - min) + min;
+        }
+
+        return Math.random() * min
     }
 
     string(multiplier=1, rot=32){

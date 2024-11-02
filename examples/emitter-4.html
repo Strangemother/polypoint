@@ -1,17 +1,7 @@
-<html>
-  <body>
-    <style>
-        #playspace {
-            height: 800;
-            width: 800;
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="playspace"></canvas>
+{% block js %}
+    {# {% include "./imports/click-create.html" %} #}
 
     <script src="../point_src/core/head.js"></script>
     <script src="../point_src/pointpen.js"></script>
@@ -19,6 +9,7 @@
     <script src="../point_src/math.js"></script>
 
     <script src="../point_src/point-content.js"></script>
+    <script src="../point_src/pointlistpen.js"></script>
     <script src="../point_src/pointlist.js"></script>
     <script src="../point_src/point.js"></script>
 
@@ -43,5 +34,4 @@
 
     <script src="../theatre/emitter-4.js"></script>
 
-  </body>
-</html>
+{% endblock js %}

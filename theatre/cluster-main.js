@@ -321,6 +321,6 @@ class MainStage extends Stage {
     }
 }
 
-const stage = new MainStage('canvas')
+const stage = new MainStage('playspace')
 stage.loopDraw()
 // stage.go()

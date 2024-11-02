@@ -32,6 +32,7 @@ class MainStage extends Stage {
 
     coupling() {
         this.ma.lookAt(this.projection)
+
         this.mb.rotation = this.ma.rotation + 180
     }
 
@@ -43,7 +44,6 @@ class MainStage extends Stage {
 
         this.ma.pen.indicator(ctx)
         this.mb.pen.indicator(ctx)
-
 
         this.pa.pen.indicator(ctx)
         this.pb.pen.indicator(ctx)

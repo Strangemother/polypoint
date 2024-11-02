@@ -1,18 +1,7 @@
-<html>
-  <body>
-    <style>
-        #playspace {
-            width: 800;
-            height: 600;
-            /*height: 100%;*/
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="playspace"></canvas>
+{% block js %}
+    {# {% include "./imports/click-create.html" %} #}
 
     <script src="../point_src/math.js"></script>
     <script src="../point_src/core/head.js"></script>
@@ -32,5 +21,4 @@
 
     <script src="../theatre/grid-pillow-main.js"></script>
 
-  </body>
-</html>
+{% endblock js %}

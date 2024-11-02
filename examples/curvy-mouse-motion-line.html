@@ -1,21 +1,8 @@
-<html>
-  <body>
-    <style>
-        #playspace {
-            height: 800;
-            width: 800;
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="playspace"></canvas>
-    <!--
-        <script src="../ik_src/ik.js"></script>
-    {# <script src="../ik_src/ik-test-2.js"></script> #}
-    -->
+{% block js %}
+    {# {% include "./imports/click-create.html" %} #}
+
     <script src="../point_src/core/head.js"></script>
     <script src="../point_src/pointpen.js"></script>
     <script src="../point_src/pointdraw.js"></script>
@@ -42,6 +29,4 @@
     <script src="../point_src/stroke.js"></script>
 
     <script src="../theatre/curvy-mouse-motion-line.js"></script>
-
-  </body>
-</html>
+{% endblock js %}

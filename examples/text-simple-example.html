@@ -1,26 +1,13 @@
-<html>
-    <head>
+{% extends "./example-base.html" %}
 
-        <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
-    </head>
-  <body polyclass class="font-pack-lexend+deca-500
-                         font-pack-barlow-400
-                         font-family-barlow">
-    <style>
-        #playspace {
-            width: 800;
-            height: 600;
-            /*height: 100%;*/
-            border: solid 1px;
-        }
 
-        html, body {
-            background: #111;
-        }
-    </style>
+{% block body_class %}
+    font-pack-barlow-400 font-family-barlow
+{% endblock body_class %}
 
-    <canvas id="playspace"></canvas>
 
+{% block js %}
+    {# {% include "./imports/click-create.html" %} #}
     <script src="../point_src/core/head.js"></script>
     <script src="../point_src/pointpen.js"></script>
     <script src="../point_src/pointdraw.js"></script>
@@ -39,5 +26,4 @@
     <script src="../point_src/text/beta.js"></script>
 
     <script src="../theatre/text-simple-example.js"></script>
-  </body>
-</html>
+{% endblock js %}

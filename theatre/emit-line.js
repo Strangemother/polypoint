@@ -12,6 +12,19 @@ class MainStage extends Stage {
         e2.tickModulo = 12
         e2.speed = 1
         e2.birthrate = 10
+
+        // let e2 = new RandomPointEmitter({
+        //     x: 400
+        //     , y: 400
+        //     , radius: 60
+        //     // e2.direction = {x:-1, y:0} //inward.
+        //     , fromEdge: true
+        //     , tickModulo: 12
+        //     , speed: 1
+        //     , birthrate: 10
+        // })
+
+
         e2.wake()
         this.e2 = e2
 

@@ -1,17 +1,6 @@
-<html>
-  <body>
-    <style>
-        #playspace {
-            height: 98%;
-            width: 98%;
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="playspace"></canvas>
+{% block js %}
 
     <script src="../point_src/math.js"></script>
 
@@ -38,5 +27,10 @@
 
     <script src="../theatre/lerp-curve-lines.js"></script>
 
-  </body>
-</html>
+    {# {% include "./imports/NAME.html" %} #}
+{% endblock js %}
+
+
+{% block extra_js %}
+
+{% endblock extra_js %}

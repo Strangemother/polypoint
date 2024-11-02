@@ -199,7 +199,64 @@ Point.vx == Point.velocity.x
 Point.vy == Point.velocity.y
  */
 
+
+class PointSpeed {
+    constructor(point) {
+        this.point = point;
+    }
+
+    get xy() {
+        let p = this.point
+        if(this._speedValue){ return this._speedValue }
+        if(!this.previous) {
+            this.previous = [p.x, p.y]
+            this._moduloTicker = 0
+            return this._speedDistance = [0,0]
+        }
+
+        let mo = this._moduloTicker++
+        let now = [p.x, p.y]
+        if(mo % 2 == 0) {
+            let prev = this.previous
+            let distance = [now[0] - prev[0], now[1] - prev[1]]
+            this._speedDistance = distance
+        }
+        this.previous = now
+        return this._speedDistance
+
+    }
+
+    set xy(v) {
+        /* Likely override with a custom value. */
+        this._speedValue = v
+    }
+
+    absolute(multplier=1) {
+        return this.xy.map((b)=>Math.abs(b))
+    }
+
+    float(multplier=1) {
+        return this.xy.reduce((a,b)=>a+b)
+    }
+
+    absFloat(multplier=1) {
+        return this.xy.reduce((a,b)=>Math.abs(a)+Math.abs(b))
+    }
+
+    direction(multplier=1) {
+        // return an angle representing the direction.
+        let d = this._speedDistance?this._speedDistance:[0,0];
+        return Math.atan2(d[0] * multplier, d[1] * multplier)
+    }
+}
+
+Polypoint.head.deferredProp('Point', function speed2D(){
+    return new PointSpeed(this);
+})
+
+
 Polypoint.head.mixin('Point', {
+
     velocity: {
         get() {
             let v = this._velocity
@@ -213,6 +270,7 @@ Polypoint.head.mixin('Point', {
             this._velocity = v
         }
     }
+
     , vx: {
         get() {
             return this.velocity.x

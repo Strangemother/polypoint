@@ -37,8 +37,8 @@ class MainStage extends Stage {
         if(this.perspective) {
             spunPoints = pseudo3DRotate(this.points, spin, center, false)
             spunPoints = pseudo3DRotatePerspective(spunPoints, center, this.projection)
-        } else {
         }
+
         this.spunPointsA = spunPoints.map(p=>new Point(p))
         this.spunPointsB = pseudo3DRotate(this.points2, spin, center, true).map(p=>new Point(p))
     }

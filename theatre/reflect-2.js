@@ -337,7 +337,7 @@ class MainStage extends Stage {
 
         ray.pen.indicators(ctx)
         // Draw the plane
-        line.pen.line(ctx)
+        line.pen.line(ctx, {color:'#AAA', width: 3})
 
         let planeRay = {start: line[0], end: line[1]}
         let planeLen = distance(line[0], line[1])

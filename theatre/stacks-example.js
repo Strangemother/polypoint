@@ -72,7 +72,7 @@ class Stack {
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.generate(4)

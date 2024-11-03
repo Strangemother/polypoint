@@ -331,7 +331,7 @@ Polypoint.head.lazierProp('Point', function tangent(){ return new PointTangents(
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.rawPointConf = { circle: { color: 'orange', width: 1}}

@@ -32,7 +32,7 @@ function gearRotate(gearA, gearB, deltaTime=1, speed=1) {
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.rawPointConf = { circle: { color: 'orange', width: 1}}

@@ -1,7 +1,7 @@
 
 
 class MainStage extends Stage {
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted() {
         this.indicator = new Point({x: 300, y: 300}); // Start the draggable point somewhere
@@ -55,7 +55,7 @@ class MainStage extends Stage {
 
 class xMainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.indicator = undefined

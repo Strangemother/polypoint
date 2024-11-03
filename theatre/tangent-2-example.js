@@ -287,7 +287,7 @@ Polypoint.head.lazyProp('Point', {
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.rawPointConf = { circle: { color: 'orange', width: 1}}

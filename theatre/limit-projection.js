@@ -1,6 +1,6 @@
 /*class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.point = new Point(100, 100, 10, this.compass.right)
@@ -19,7 +19,7 @@ stage = MainStage.go()
 */
 
 class MainStage extends Stage {
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted() {
         this.point = new Point(350, 300, 10, this.compass.right)

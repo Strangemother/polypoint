@@ -541,7 +541,7 @@ class LazyAccessArray extends Array {
 
         const handler = {
             set(headTarget, innerProp, value) {
-                console.log('Set', innerProp, value)
+                // console.log('Set', innerProp, value)
                 let innerV = value
                 if(!isFunction(innerV)) {
                     innerV = ()=> value

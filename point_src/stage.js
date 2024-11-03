@@ -279,7 +279,44 @@ class StageRender {
     }
 
     get ctx() {
-        return this._ctx || (this._ctx = this.canvas.getContext('2d'))
+        return this._ctx || (this._ctx = this.getContext(this.canvas))
+    }
+
+    getContext(canvas, type='2d') {
+        /*
+            alpha
+                A boolean value that indicates if the canvas contains an alpha
+                channel. If set to false, the browser now knows that the
+                backdrop is always opaque, which can speed up drawing of
+                transparent content and images.
+
+            colorSpace Optional
+                Specifies the color space of the rendering context.
+                Possible values are:
+
+                    "srgb" selects the sRGB color space. (default value)
+                    "display-p3" selects the display-p3 color space.
+
+            desynchronized
+                A boolean value that hints the user agent to reduce the
+                latency by desynchronizing the canvas paint cycle from the
+                event loop.
+
+            willReadFrequently
+                A boolean value that indicates whether or not a lot of
+                read-back operations are planned. This will force the use of
+                a software (instead of hardware accelerated) 2D canvas and
+                can save memory when calling getImageData() frequently.
+         */
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
+        let options = {
+            alpha: true
+            , colorSpace: 'srgb'
+            , desynchronized: true
+            , willReadFrequently: false
+        }
+
+        return this.canvas.getContext(type, options)
     }
 
     update() {

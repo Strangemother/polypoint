@@ -20,9 +20,30 @@ class PointListPen {
 
     }
 
-    line(ctx, d) {
+    line(ctx, color_or_conf, b) {
         this.pointList.draw.line.apply(this.pointList.draw, arguments)
-        ctx.stroke()
+        // params or dict
+        // line(ctx, width, color ...)
+        // line(ctx, {width, color})
+        let l = arguments.length
+        let opts = {
+            1: ()=>{
+                //no conf
+            }
+            , 2: ()=>{
+                // ctx, dict
+                const col = color_or_conf.color || ctx.strokeStyle
+                const width = color_or_conf.width || ctx.lineWidth
+                quickStrokeWithCtx(ctx, col, width)
+            }
+            , 3: ()=>{
+                // ctx, width, color ...
+                quickStrokeWithCtx(ctx, color_or_conf, b)
+            }
+        }
+
+        let c = opts[l]()
+        // ctx.stroke()
     }
 
     indicator() {

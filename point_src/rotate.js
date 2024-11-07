@@ -39,7 +39,7 @@ function pseudo3DRotate(points, rotationAngles, rotationCenter, offset=true) {
     const translatedPoints = points.map(point => ({
         x: point.x - rotationCenter.x,
         y: point.y - rotationCenter.y,
-        z: 0, // Initial Z coordinate
+        z: point.z || 0, // Initial Z coordinate
         radius: point.radius
     }));
 
@@ -65,12 +65,15 @@ function pseudo3DRotate(points, rotationAngles, rotationCenter, offset=true) {
 
 function pseudo3DRotatePerspective(rotatedPoints, rotationCenter, distance) {
     // Project back to 2D using perspective projection and translate back
+    const z = rotationCenter.z == undefined? 0:  rotationCenter.z;
     const projectedPoints = rotatedPoints.map(point => {
         const factor = distance / (distance + point.z);
+
         return {
-            x: (point.x * factor) + rotationCenter.x,
-            y: (point.y * factor) + rotationCenter.y,
-            radius: point.radius * factor
+            x: (point.x * factor) + rotationCenter.x
+            , y: (point.y * factor) + rotationCenter.y
+            , z: (point.z ) + z
+            , radius: point.radius * factor
         };
     });
 
@@ -78,3 +81,44 @@ function pseudo3DRotatePerspective(rotatedPoints, rotationCenter, distance) {
 }
 
 
+
+function pseudo3DRotatePerspectiveInPlace(rotatedPoints, rotationCenter, distance) {
+    // Project back to 2D using perspective projection and translate back
+    const projectedPoints = rotatedPoints.forEach(point => {
+        const factor = distance / (distance + point.z);
+        point.x = (point.x * factor) + rotationCenter.x
+        point.y = (point.y * factor) + rotationCenter.y
+        point.radius = point.radius * factor
+    });
+
+    return rotatedPoints;
+}
+
+
+
+class Pseudo3d {
+    constructor(parent) {
+        this.parent = parent
+    }
+
+    orthogonal(spin, center=this.parent.centerOfMass()){
+        let spunPoints = pseudo3DRotate(this.parent, spin, center, true)
+        return PointList.from(spunPoints).map(p=>new Point(p))
+    }
+
+    perspective(spin, center=this.parent.centerOfMass(), projection=200, perspectiveCenter=undefined) {
+        let spunPoints = pseudo3DRotate(this.parent, spin, center, false)
+        // let spunPoints = pseudo3DRotateOrig(this.parent, spin, center, false)
+        perspectiveCenter = perspectiveCenter == undefined? center: perspectiveCenter
+        spunPoints = pseudo3DRotatePerspective(spunPoints
+                , perspectiveCenter
+                , projection)
+
+        return PointList.from(spunPoints).cast()
+        // return PointList.from(spunPoints.map(p=>new Point(p)))
+    }
+}
+
+Polypoint.head.deferredProp('PointList', function pseudo3d(){
+    return new Pseudo3d(this)
+})

@@ -19,9 +19,12 @@ class PointPen {
             ctx.strokeStyle = color == undefined? 'yellow': color
         }
 
-        if(width != undefined && ctx.lineWidth == undefined) {
+        // if(width != undefined && ctx.lineWidth == undefined) {
+        //     ctx.lineWidth = width == undefined? 1: width
+        // }
 
-            ctx.lineWidth = width == undefined? 1: width
+        if(width != undefined) {
+            ctx.lineWidth = width
         }
 
         ctx.stroke()
@@ -45,6 +48,9 @@ class PointPen {
 
     line(ctx, otherPoint, color, width) {
         this._quickStroke(ctx, ()=>{
+            if(otherPoint == undefined){
+                otherPoint = this.point.project()
+            }
             this.point.draw.lineTo(ctx, otherPoint)
         }, color, width)
     }
@@ -55,11 +61,43 @@ class PointPen {
         ctx.stroke()
     }
 
-    circle(ctx, radius=undefined, color, width) {
+    circle(ctx, radius_or_conf=undefined, color, width) {
         /*An arc, but complete with begin path and stoking */
-        this._quickStroke(ctx, ()=>{
-            this.point.draw.arc(ctx, radius)
-        }, color, width)
+
+        let l = arguments.length
+        let opts = {
+            1: ()=>{
+                //no conf
+                this._quickStroke(ctx, ()=>{
+                    this.point.draw.arc(ctx)
+                })
+            }
+            , 2: ()=>{
+                // ctx, dict
+                const _color = radius_or_conf.color || ctx.strokeStyle
+                const _width = radius_or_conf.width || ctx.lineWidth
+                const _radius = radius_or_conf.radius || this.point.radius
+                // quickStrokeWithCtx(ctx, _color, width)
+                this._quickStroke(ctx, ()=>{
+                    this.point.draw.arc(ctx, _radius)
+                }, _color , _width)
+            }
+            , 3: ()=>{
+                // ctx, width, color ...
+                this._quickStroke(ctx, ()=>{
+                    this.point.draw.arc(ctx, radius_or_conf)
+                }, color , width)
+            }
+        }
+
+        const extended = function(length) {
+            return (length > 3) && opts[3]
+        }
+        let c = (opts[l]==undefined?extended(l):opts[l])()
+
+        // this._quickStroke(ctx, ()=>{
+        //     this.point.draw.arc(ctx, radius)
+        // }, _color , _width)
     }
 
     fill(ctx, fillStyle, radius=undefined) {

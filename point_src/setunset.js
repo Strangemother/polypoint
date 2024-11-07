@@ -1,8 +1,8 @@
 
 class SetUnset {
     /*
-        The "Set Unset" tool acts similar to the _ctx.save()_ method, by applying changes to the context,
-        and then _unsetting_ after usage.
+        The "Set Unset" tool acts similar to the _ctx.save()_ method, by applying
+        changes to the context, and then _unsetting_ after usage.
 
         This allows the _switching_ of a property of the context with `set` and `unset`
         values previously assigned to changed properties are reapplied - essentially _wrapping_
@@ -48,7 +48,12 @@ class SetUnset {
         this._cache = {}
         this.steps = []
         this._enabled = settings.enabled === undefined? true: settings.enabled
-        this.update(settings)
+
+        this.onCreate(this.update(settings))
+    }
+
+    onCreate(cachedData) {
+
     }
 
     update(settings) {
@@ -202,18 +207,22 @@ class SetUnset {
             return
         }
 
-        let cacheProps = this._cache;
+        let cacheProps = this.getCacheBeforeApply();
 
         let keep = {}
         for(let key in cacheProps) {
             /* Iter all the assignments,
             functionally calling each */
             let entry = cacheProps[key]
-            let stored = entry.f(ctx, key, entry.v, entry.k)
+            let stored = entry.f(ctx, key, entry.v, entry.k, cacheProps)
             keep[key] = stored
         }
 
         this._applied = keep
+    }
+
+    getCacheBeforeApply() {
+        return this._cache
     }
 
     unset(ctx, settings) {
@@ -232,7 +241,7 @@ class SetUnset {
             /* Iter all the assignments,
             functionally calling each */
             let entry = cacheProps[key]
-            let stored = entry.f(ctx, key, entry.v, entry.k)
+            let stored = entry.f(ctx, key, entry.v, entry.k, cacheProps)
             // keep[key] = stored
         }
         // ctx.setLineDash([])
@@ -242,12 +251,20 @@ class SetUnset {
         /* a start but probably more dynamic. */
     }
 
-    wrap(settings, stuff) {
-        /* Wrap the call with a start stop */
-        if(stuff == undefined) {
-            stuff = settings;
+    wrap(ctx, settings, func) {
+        /* Wrap the call with a start stop
+
+            wrap(ctx, ()=>{})
+            wrap(ctx, settings, ()=>{})
+        */
+        if(func == undefined) {
+            func = settings;
             settings = this.settings;
         }
+
+        this.set(ctx, settings)
+        func(ctx)
+        this.unset(ctx, settings)
     }
 
     step() {

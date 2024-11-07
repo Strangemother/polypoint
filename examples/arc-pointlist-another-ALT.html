@@ -1,44 +1,26 @@
-<html>
-    <head>
+{% extends "./example-base.html" %}
 
-        <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
-    </head>
-  <body polyclass class="font-pack-lexend+deca-500">
-    <style>
-        #playspace {
-            width: 100%;
-            height: 100%;
-            border: solid 1px;
+
+{% block js %}
+<script src="../point_src/core/head.js"></script>
+<script src="../point_src/files.js"></script>
+<script src="../point_src/core/loader.js"></script>
+
+<script src="../point_src/math.js"></script>
+<!-- SetUnset -->
+<script>
+    Polypoint.head.configure({
+        srcPath: '../point_src/'
+        , load: ['everything']
+        , files: polypointFileAssets
+        , onLoad() {
+            console.log('Loaded')
+            Polypoint.head.load("../theatre/arc-pointlist-another-alt.js", ()=>{
+                console.log('theatre loaded.')
+            })
         }
-        html, body {
-            background: #010101;
-        }
+    })
+</script>
+<script src="../point_src/functions/clamp.js"></script>
+{% endblock js %}
 
-    </style>
-
-
-    <canvas id="playspace"></canvas>
-
-    <script src="../point_src/core/head.js"></script>
-    <script src="../point_src/files.js"></script>
-    <script src="../point_src/core/loader.js"></script>
-    <script src="../point_src/setunset.js"></script>
-    <script src="../point_src/math.js"></script>
-    <!-- SetUnset -->
-    <script>
-        Polypoint.head.configure({
-            srcPath: '../point_src/'
-            , load: ['everything']
-            , files: polypointFileAssets
-            , onLoad() {
-                console.log('Loaded')
-                Polypoint.head.load("../theatre/arc-pointlist-another-alt.js", ()=>{
-                    console.log('theatre loaded.')
-                })
-            }
-        })
-    </script>
-    <script src="../point_src/functions/clamp.js"></script>
-
-  </body>
-</html>

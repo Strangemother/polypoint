@@ -1,0 +1,22 @@
+{% extends "docs/doc-base.html" %}
+{% load link %}
+{% block page_title %}{{ page_title }}{% endblock page_title %}
+
+{% block content %}
+
+<div class="outer-block">
+    <div class="block">
+        <p>This file presents all the script tag imports within the examples/{{ page_title }}.html file.</p>
+        <h2>{{ object_list|length }} Script{{ object_list|pluralize }}</h2>
+        <ul>
+            {% for obj in object_list %}
+            <li>
+                &lt;script src="{{ obj.src }}"&gt;&lt;/script&gt;<br>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+{% endblock content %}

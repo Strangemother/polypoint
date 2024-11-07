@@ -261,7 +261,7 @@ class Ship extends Point {
 
 
 class MainStage extends Stage {
-    canvas = 'canvas'
+    canvas = 'playspace'
     mounted() {
         console.log('mounted')
 

@@ -1,6 +1,6 @@
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted() {
         this.points1 = PointList.generate.grid(100, 10, 40);

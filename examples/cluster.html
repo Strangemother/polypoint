@@ -1,41 +1,10 @@
-<html>
-  <body>
-    <style>
-        #canvas {
-            width: 800;
-            height: 600;
-            /*height: 100%;*/
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+{% extends "./example-base.html" %}
 
-    <canvas id="canvas"></canvas>
-    <!--
-        <script src="../ik_src/ik.js"></script>
-    <script src="../ik_src/ik-test.js"></script>
-    {# <script src="../ik_src/ik-test-2.js"></script> #}
-    -->
-    <script src="../point_src/core/head.js"></script>
-<script src="../point_src/pointpen.js"></script>
-<script src="../point_src/pointdraw.js"></script>
-    <script src="../point_src/extras.js"></script>
-    <script src="../point_src/math.js"></script>
-    <script src="../point_src/point-content.js"></script>
-    <script src="../point_src/stage.js"></script>
-    <script src="../point_src/point.js"></script>
-    <script src="../point_src/distances.js"></script>
-    <script src="../point_src/pointlist.js"></script>
-    <script src="../point_src/events.js"></script>
+{% block js %}
+    {% include "./imports/cluster.html" %}
+{% endblock js %}
 
 
-    <script src="../point_src/setunset.js"></script>
-    <script src="../point_src/stroke.js"></script>
-
-    <script src="../point_src/automouse.js"></script>
+{% block extra_js %}
     <script src="../theatre/cluster-main.js"></script>
-
-  </body>
-</html>
+{% endblock extra_js %}

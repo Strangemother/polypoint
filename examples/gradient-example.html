@@ -1,9 +1,8 @@
-<html>
-    <head>
+{% extends "./example-base.html" %}
 
-        <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
-    </head>
-  <body polyclass class="font-pack-lexend+deca-500">
+{% block js %}
+    {# {% include "./imports/click-create.html" %} #}
+
     <style>
         #playspace {
             width: 800;
@@ -39,5 +38,4 @@
 
     <script src="../point_src/stage.js"></script>
     <script src="../theatre/gradient-example.js"></script>
-  </body>
-</html>
+{% endblock js %}

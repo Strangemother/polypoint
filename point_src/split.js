@@ -3,11 +3,11 @@ const splitToPointList = function(point, count, radius, rotation, angle=undefine
     let p1 = point
     let r = radius || point.radius
     p1 = p1.subtract(r)
-    p1.radius = r
-    p1.rotation = rotation || point.rotation
-
+    let _radius = radius || p1.radius
+    // p1.rotation = rotation || point.rotation
+    let rot = rotation || p1.radians
     return PointList.from(
-                getPolyDistributedPoints(count, p1, p1.radius, p1.radians, angle)
+                getPolyDistributedPoints(count, p1, _radius, rot, angle)
                 // splitRadius(p1, count)
             )
 }

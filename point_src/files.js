@@ -37,6 +37,7 @@ const polypointFileAssets = function(js='') {
         ]
         , pointlist: [
             `${js}pointlist.js#pointlist`
+            , `${js}pointlistpen.js#pointlistpen`
         ]
         , mouse: [
             'point'

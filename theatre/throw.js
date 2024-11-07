@@ -8,7 +8,7 @@ function angleToVelocity(theta, speed) {
 }
 
 class MainStage extends Stage {
-    canvas = 'canvas'
+    canvas = 'playspace'
     mounted() {
         console.log('mounted')
         this.mouse.point.vy = this.mouse.point.vx = 0
@@ -152,7 +152,7 @@ class MainStage extends Stage {
 
 
 class ReflectMainStage extends Stage {
-    canvas = 'canvas'
+    canvas = 'playspace'
     mounted() {
         console.log('mounted')
         this.mouse.position.vy = this.mouse.position.vx = 0
@@ -247,7 +247,7 @@ class ReflectMainStage extends Stage {
 }
 
 class WorkingMainStage extends Stage {
-    canvas = 'canvas'
+    canvas = 'playspace'
     mounted() {
         console.log('mounted')
         this.mouse.position.vy = this.mouse.position.vx = 0

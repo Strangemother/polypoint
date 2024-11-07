@@ -48,6 +48,8 @@ class Emitter extends Point {
     of the indicator.*/
     direction = {x:1, y:0}
 
+    pointLimit = 2000
+
     wake() {
         this.points = new PointList
         this.direction = new Point(this.direction)
@@ -73,6 +75,8 @@ class Emitter extends Point {
     cycle() {
         /* Perform a task of one step, involving birthing, and killing
         points, selecting and rotation lerp points.*/
+        let l = this.points.length
+        if(l > this.pointLimit) { return }
         let birthrate = this.birthrate
         for (var i = 0; i < birthrate; i++) {
             let p = this.newPoint(i/birthrate)
@@ -80,7 +84,7 @@ class Emitter extends Point {
             this.points.push(p)
         }
 
-        let l = this.points.length
+        l = this.points.length
         if(this.lastCount != l) {
             // console.log('Point length', l)
             this.length = l
@@ -126,6 +130,9 @@ class Emitter extends Point {
 
 class LineEmitter extends Emitter {
 
+    radiusVariant = 2
+    minSize = 5
+    directionVariant = 5
 
     wake() {
         this.index = 0
@@ -141,7 +148,7 @@ class LineEmitter extends Emitter {
 
     newPoint(birthPartial) {
         let choice = this.getChoice()
-        
+
         let template = this.positions[choice]
         if(!template) {debugger}
         let p = template.copy()
@@ -174,19 +181,16 @@ class LineEmitter extends Emitter {
         let choice = (Math.random() * l).toFixed(0)
         if(choice >= l) { choice = l - 1}
         if(choice < 0) { choice = 0}
-        return choice 
+        return choice
     }
-    
-    radiusVariant = 2
-    minSize = 5
-    directionVariant = 5
+
     pump(point, birthIndex, birthrate) {
         let partial = birthIndex / birthrate
         let v = ((1+ partial) * (1+birthIndex)  * Math.random()) * this.directionVariant
         let s = ((1+ partial) * (1+birthIndex)  * Math.random()) * 1
         point.rotation += v * (Math.random()>.488? -1: 1)
-        
- 
+
+
         let FORWARD = this.direction
         // create a vector in the direction of the nose
         // x=1 as forward is across to the right (0deg) by default.
@@ -234,3 +238,44 @@ class PumpRandomPointEmitter extends RandomPointEmitter {
     directionVariant = 360
     minSize = 2
 }
+
+class DirectionalPointEmitter extends RandomPointEmitter {
+    directionVariant = .05
+    particleSpeed = .6
+    lifetime = 200
+    fromEdge = true
+    tickModulo = 5
+    //  speed = 100
+    birthrate = .1
+    pointLimit = 1000
+
+    invert = false
+    stepDirection(multplier){
+        return this.speed2D.direction(multplier)
+    }
+
+    step(direction, speedFloat, point){
+        super.step()
+        let invert = 1 + (-2 * +this.invert)
+        direction = direction == undefined? this.stepDirection(invert): direction
+        speedFloat = speedFloat == undefined? this.speed2D.absFloat(): speedFloat
+        this.rotation = 90 - radiansToDegrees(direction)
+
+        let v = speedFloat == undefined ? Math.abs(direction[0])+Math.abs(direction[1]): speedFloat
+        let vh = (v * .5)
+        this.birthrate = v < 1? 0: .1
+        // this.birthrate = vh * .3
+        this.particleSpeed = 1 + (vh * .1)
+        this.radiusVariant = .1 + (vh * .02)
+
+        if(point) {
+            this.lifetime = (this.distanceTo(point) - vh) * .4
+        }
+    }
+}
+
+class TrailPointEmitter extends DirectionalPointEmitter {
+    invert = true
+    // tickModulo = 5
+}
+

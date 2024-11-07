@@ -1,0 +1,26 @@
+{% extends "./example-base.html" %}
+{% comment "What" %}
+    The "Generic named" template extends the example base and infers the name of
+    the imports _include_ and the theatre script name.
+
+    Apply to the template file:
+
+        {% extends "./generic_named.html" %}
+
+    If the target example file is "foo-example.html", the expected imports become:
+
+        imports/foo-example.html
+        theatre/foo-example.js
+{% endcomment %}
+{% load strings  %}
+
+{% block js %}
+    {% str_merge "./imports/" part_name ".html" as include_name %}
+    {% include include_name %}
+{% endblock js %}
+
+
+{% block extra_js %}
+    {% str_merge "../theatre/" part_name ".js" as script_name %}
+    <script src={{script_name}}></script>
+{% endblock extra_js %}

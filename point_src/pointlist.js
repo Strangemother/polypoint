@@ -419,88 +419,6 @@ class GridTools {
 
 }
 
-class PointListPen {
-
-    constructor(parent) {
-        this.parent = parent;
-    }
-
-    points(ctx, cb) {
-        let defaultF = (x)=>{
-            // ctx.beginPath()
-            x.draw.arc(ctx)
-            // ctx.stroke()
-        }
-        if(cb == undefined) {
-            cb = (x,f)=>f(x)
-        }
-
-        this.parent.forEach((x)=>{
-            cb(x, defaultF)
-        })
-
-    }
-
-    line(ctx, d) {
-        this.parent.draw.line.apply(this.parent.draw, arguments)
-        ctx.stroke()
-    }
-
-    indicators(ctx, miniConf={}) {
-        /* Synonymous to:
-
-            randomPoints.draw.points(ctx, (item, arcDraw)=>{
-                item.project().pen.line(ctx, item, 'red', 1)
-                ctx.beginPath();
-                arcDraw(item)
-                quickStroke('orange', 1)
-            })
-
-        */
-
-        let def = {
-            line: {color:'red', width: 2}
-            , circle: {color:'yellow', width: 1}
-        };
-        Object.assign(def, miniConf)
-
-        let lc = def.color || def?.line?.color
-        let lw = def.width || def?.line?.width
-        let cc = def.color || def?.line?.color
-        let cw = def.width || def?.circle?.width
-
-        let eachPoint = (item, arcDrawF) =>{
-                item.project().pen.line(ctx, item, lc, lw)
-                ctx.beginPath();
-                arcDrawF(item)
-                quickStrokeWithCtx(ctx, cc, cw)
-            }
-
-        this.points(ctx, eachPoint)
-    }
-
-    fill(ctx, fillStyle, radius=undefined) {
-        ctx.beginPath()
-        let fs = fillStyle || this.color
-        if(fs) {ctx.fillStyle = fs};
-
-        this.points(ctx, (p)=> p.pen.fill(ctx, fs, radius))
-        // this.point.draw.arc(ctx, radius)
-        // ctx.lineWidth = width == undefined? 1: width
-
-        ctx.fill()
-    }
-
-    stroke(ctx) {
-        // ctx.stroke()
-        this.points(ctx, (p)=> p.pen.stroke(ctx))
-    }
-
-    circle(ctx) {
-        return this.stroke.apply(this, arguments)
-    }
-}
-
 
 class LazyAccessArray extends Array {
 
@@ -623,9 +541,14 @@ class LazyAccessArray extends Array {
 
         const handler = {
             set(headTarget, innerProp, value) {
-                console.log('Set', innerProp, value)
+                // console.log('Set', innerProp, value)
+                let innerV = value
+                if(!isFunction(innerV)) {
+                    innerV = ()=> value
+                }
+
                 target.forEach((p, i, a)=>{
-                    p[innerProp] = value // .apply(p, arguments)
+                    p[innerProp] = innerV.apply(p, [p, i, a])
                 })
 
                 return true
@@ -636,8 +559,20 @@ class LazyAccessArray extends Array {
                 const caller = function eachCaller(values) {
                     console.log('Called', this, this.prop, values)
                     let r = []
+                    let previouslyCalled = undefined;
+                    let isCaller = function(v){
+                        if(previouslyCalled) {
+                            return previouslyCalled
+                        }
+                        previouslyCalled = isFunction(v)
+                    }
+
                     this.target.forEach((p)=>{
-                        let v = p[this.prop].apply(p, arguments)
+
+                        let v = p[this.prop]
+                        if(isCaller(v)){
+                            v = v.apply(p, arguments)
+                        }
                         r.push(v)
                     })
                     return r;
@@ -652,6 +587,27 @@ class LazyAccessArray extends Array {
                         target.forEach((p)=>{
                             p[innerProp] = value // .apply(p, arguments)
                         })
+                    }
+
+                    , get(headTarget, innerProp, _proxy) {
+                        console.log('Get', innerProp, _proxy)
+
+                        let fs = {
+                            array: ()=> {
+                                let r = []
+                                target.forEach((p)=>{ r.push(p[prop]) })
+                                return r
+                            }
+                        }
+
+                        return fs[innerProp]//() // _proxy
+                    }
+                    , next(){
+                        console.log('next')
+                    }
+                    , [Symbol.iterator] () {
+                        console.log('iterator')
+                        return stage.points
                     }
 
                     , apply(target, thisArg, argsList) {
@@ -670,10 +626,8 @@ class LazyAccessArray extends Array {
 
 
                 const proxy = new Proxy(head, headHandler);
-
-                return proxy
-
                 // return Reflect.get(...arguments)
+                return proxy
             }
         }
 
@@ -695,16 +649,60 @@ class PointList extends LazyAccessArray {
 
     getBoundingClientRect() {
         /* return thr bounding box of the point.*/
-        return DOMRect.fromRect({
-            x: 10
-            , y: 10
-            , width: 200
-            , height: 200
+        return DOMRect.fromRect(this.getSize())
+    }
+
+    getSize() {
+        /* Return the width/height of the pointlist, discovering the _min_
+        and _max_ points to determin a rectangle */
+
+        let x = 0
+            , y = 0
+            , min = this[0]
+            , max = {x,y}
+            ;
+
+        this.forEach((p)=>{
+
+            if(p.x < min.x) { min.x = p.x };
+            if(p.y < min.y) { min.y = p.y };
+
+            if(p.x > max.x) { max.x = p.x };
+            if(p.y > max.y) { max.y = p.y };
         })
+
+        return {
+            x: min.x
+            , y: min.y
+            , width: max.x - min.x
+            , height: max.y - min.y
+            , min, max
+        }
+    }
+
+    cast(type=Point, func) {
+        /* mutate each point with the given.
+        Similar to map(p=>new Cast(p))
+        */
+        if(func == undefined)  {
+            func = function(p){
+                return new type(p)
+            }
+        }
+        return this.map(p=>func(p))
+
     }
 
     centerOfMass(type='simple', origin) {
         return centerOfMass[type](this, origin)
+    }
+
+    get center() {
+        let size = this.getSize()
+        let x = (size.width * .5)
+        let y = (size.height * .5)
+        // let z = size.z * .5
+        return new Point(size.x + x, size.y + y)
     }
 
     setX(value, key='x') {

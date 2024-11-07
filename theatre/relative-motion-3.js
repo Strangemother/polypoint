@@ -1,7 +1,7 @@
 
 
 class MainStage extends Stage {
-    canvas = 'canvas'
+    canvas = 'playspace'
     mounted() {
         console.log('mounted')
         this.mouse.position.vy = this.mouse.position.vx = 0

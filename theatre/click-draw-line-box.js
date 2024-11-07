@@ -91,7 +91,7 @@ May I ask if you can show me the function to produce this?*/
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.lines = []

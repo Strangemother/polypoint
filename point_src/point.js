@@ -174,6 +174,9 @@ class Positionable extends Relative {
         if(typeof(p) == 'number') {
             p = point(p, _2)
         }
+        if(Array.isArray(p)){
+            return point(p, _2)
+        }
         return p
     }
 
@@ -412,7 +415,7 @@ class Tooling extends Rotation {
         }
         let np = new this.constructor(projectFrom(this, distance, rotation))
         np.rotation = this.rotation
-        return np 
+        return np
     }
 
 

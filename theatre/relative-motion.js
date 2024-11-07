@@ -115,7 +115,7 @@ const lerp = (x, y, a) => x * (1 - a) + y * a;
 
 
 class MainStage extends Stage {
-    canvas = 'canvas'
+    canvas = 'playspace'
     mounted() {
         console.log('mounted')
         this.mouse.position.vy = this.mouse.position.vx = 0

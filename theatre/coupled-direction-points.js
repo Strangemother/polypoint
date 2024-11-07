@@ -15,7 +15,10 @@ class MainStage extends Stage {
 
     coupling() {
         this.point.lookAt(this.projection)
+        this.point.radius = this.point.distanceTo(this.projection)
+
         this.point2.rotation = this.point.rotation + 180
+        this.point2.radius = this.point.radius
     }
 
     draw(ctx){

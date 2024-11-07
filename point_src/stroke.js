@@ -94,7 +94,7 @@ class Stroke extends SetUnset {
     }
 
     marchKeyApply(ctx, key, newValue) {
-        /* The given key should be the "march" param, and the calue applied
+        /* The given key should be the "march" param, and the value applied
         within the setup. Apply marching ants by applying the internal stepper
         value as the lineDashOffset.
         */

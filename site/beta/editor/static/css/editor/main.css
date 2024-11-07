@@ -1,0 +1,135 @@
+#playspace {
+    height: 99%;
+    width: 100%;
+}
+
+.canvas-wrapper {
+    border: solid 1px purple;
+    /*box-sizing: border-box;*/
+    display: grid;
+}
+
+#editor {
+    /*position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;*/
+    /* height: 100%; */
+}
+
+.run-buttons select {
+    background: #1e1e1e;
+    color: #999;
+    border: none;
+    padding: 0 0.6em;
+    margin: 0em 0em;
+    border-radius: 0.6em;
+}
+
+.columns-50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: solid 2px #5a2a2a;
+    /* height: max-content; */
+    box-sizing: border-box;
+    /* border-radius: 0.4em; */
+    /* margin: 4px; */
+    overflow: hidden;
+    flex-grow: 1;
+    height: 100%;
+}
+
+html, body {
+    background: #111;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    color: #888;
+}
+
+.editor-container {
+    display: grid;
+    /*display: flex;*/
+    grid-template-rows: min-content auto min-content;
+    height: 100%;
+    box-sizing: border-box;
+    padding-bottom: 0em;
+ }
+
+ .run-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: .5rem .5rem .5rem .5rem;
+    flex-grow: 1;
+ }
+
+ .run-buttons a {
+    color: #BBB;
+    text-decoration: none;
+    display: inline-flex;
+    background: #050505;
+    padding: 0.5em 1.3em;
+    border-radius: 0.4em;
+ }
+
+ .spacer.full {
+    flex-grow: 1;
+ }
+
+.canvas-container {
+    display: grid;
+}
+
+
+
+.ace_scrollbar::-webkit-scrollbar {
+    height: .8em;
+    width: .8em;
+}
+
+.ace_scrollbar::-webkit-scrollbar-track
+{
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #272822; /* Matches ace monokai */
+    border-radius: 10px;
+}
+
+.ace_scrollbar::-webkit-scrollbar-thumb {
+    background-color: black;
+/*     outline: 1px solid slategrey; */
+    border-radius: 1em;
+}
+
+.ace_editor {
+    margin: 0 0 0em 0;
+}
+
+.editor-footer, .editor-header {
+    /* height: 1rem; */
+}
+
+.run-buttons {
+    height: fit-content;
+}
+
+.footer-privacy {
+    padding-bottom: 1em;
+    background: #060606;
+    /* border: solid; */
+    flex-grow: 1;
+    display: none;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.primary-title h1 {
+    margin: 0;
+    color: inherit;
+    padding: 0 0.2em;
+}

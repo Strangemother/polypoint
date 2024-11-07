@@ -1,6 +1,6 @@
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'playspace'
+    canvas = 'canvas'
 
     mounted(){
         this.pointA = this.center.copy().update({ radius: 100})

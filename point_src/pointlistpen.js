@@ -29,6 +29,9 @@ class PointListPen {
         let opts = {
             1: ()=>{
                 //no conf
+                const col = ctx.strokeStyle
+                const width = ctx.lineWidth
+                quickStrokeWithCtx(ctx, col, width)
             }
             , 2: ()=>{
                 // ctx, dict

@@ -8,11 +8,75 @@ The head contains a range of hoisting functions to late-load installables.
 1. add this file
 2. Load assets with Polypoint.head.install() ...
 
+    class A {
+
+        foo() {
+            return 'foo'
+        }
+    }
+
+
+    class B extends A {
+
+        bar() {
+            return 'bar'
+        }
+    }
+
+
+    class C extends B {
+
+        baz() {
+            return 'baz'
+        }
+    }
+
+    Polypoint.head.install(A)
+    Polypoint.head.install(B)
+    Polypoint.head.install(C)
+
+    Polypoint.head.mixin('C', {
+        one: {
+            get() {
+                return 'one'
+            }
+        }
+    })
+
+    c = new C;
+    c.one == 'one'
+    c.two == undefined
+
+    Polypoint.head.mixin('B', {
+        two: {
+            get() {
+                return 'two'
+            }
+        }
+    })
+
+    b = new B;
+    b.two == 'two'
+    c.two == 'two'
+
+    Polypoint.head.mixin('A', {
+        three: {
+            get() {
+                return 'three'
+            }
+        }
+    })
+
+    (new A).three == 'three'
+    b.three == 'three'
+    c.three == 'three'
+
 */
-;(function(parent, name='Polypoint', debug=false, strict=true){
+;(function(parent, name=undefined, debug=false, strict=true){
 
     const dlog = debug?console.log.bind(console): ()=>{}
     const waiting = {}
+    const currentScr = document.currentScript
     const currentLoc = document.currentScript.src
 
     /* Options to configure the lib. Append with `lib.cofigure(d)` */
@@ -26,6 +90,35 @@ The head contains a range of hoisting functions to late-load installables.
     However this can also serve as a protection from accidental deletion.
     */
     let parkedEntity = undefined;
+
+    const resolveName = function(n){
+        /* Return the name, by order:
+
+            Attribute `name`
+            Dataset `name`
+            hash value `#name`
+            filename   `name.js`
+        */
+        if(n === undefined) {
+            /* Grab the `name` from the script, then the `data-name` */
+            n = currentScr.dataset.name
+            const attr = currentScr.attributes.name
+            if(attr) {
+                n = attr.value
+            };
+        }
+
+        if(n === undefined) {
+            // Check for the HASH name, default to the filename.
+            let src = currentScr.src;
+            let u = new URL(src).hash.slice(1)
+            n = (u.length > 0) ? u: src.split('/').pop()
+        }
+
+        return n;
+    }
+
+    name = resolveName(name)
 
     if(parent[name] !== undefined) {
         console.log('Parked asset on', name)
@@ -142,6 +235,13 @@ The head contains a range of hoisting functions to late-load installables.
             [...]
         */
         installMap.set(name, entity)
+    }
+
+    const installMany = function() {
+        /* Receive many items to install
+            installMany(A, B, C)
+        */
+       Array.from(arguments).forEach(C => install(C))
     }
 
     const populateAddons = function(name, items, targetPrototype=true) {
@@ -317,7 +417,6 @@ The head contains a range of hoisting functions to late-load installables.
                 return new Screenshot(this)
             }
         })
-
     */
     const deferredProp = function(name, method, reference) {
         let methodName = reference==undefined? method.name: reference
@@ -385,7 +484,8 @@ The head contains a range of hoisting functions to late-load installables.
         , configure
         , load
         , static: staticMixin
-        , mixin, install, installFunctions
+        , mixin, install, installMany
+        , installFunctions
         , define
         , lazyProp, lazierProp, deferredProp
         /* Return a map iterator of the installed items.*/
@@ -439,6 +539,79 @@ The head contains a range of hoisting functions to late-load installables.
         })
     }
 
-    parent[name] = exposed;
+    class Stub {
+        /* A fancy detectable string thing. */
+        constructor(prop, history=[]) {
+            this.assignedName = prop
+            this.history = history
+
+            const proxy = new Proxy(this, {
+                get(target, property, receiver) {
+                    if(Reflect.has(target, property)){
+                        return Reflect.get(target, property, receiver)
+                    }
+                    return target.getUndefined(target, property, receiver)
+                },
+            });
+            return proxy;
+        }
+
+        getUndefined(target, property, receiver) {
+            console.log('get unknown', property, 'on stub')
+            this.history.push(this.assignedName)
+            return new this.constructor(property, this.history)
+        }
+
+        get(v) {
+            console.log(v)
+        }
+
+        get [Symbol.toStringTag]() {
+            return this.toString()
+        }
+
+        [Symbol.toPrimitive](hint) {
+            if (hint === 'string') {
+                return this.toString()
+            }
+            return Reflect.apply(...arguments)
+        }
+
+        toString(){
+            return this.assignedName;
+        }
+    }
+
+
+    const exposedProxyHandler = {
+        get(target, prop, receiver) {
+            /* Upon _get_ of a property within the exposed object,
+            we first test to ensure the target value exists,
+
+            If not, return a stub allowing capture and import.
+            Else the stub can be reactive to usage.
+
+            If true, return the prop object.
+            */
+            if(!Reflect.has(target, prop)) {
+                return this.getUnknown(target, prop, receiver)
+            }
+
+            // console.log('Exposed Get', prop)
+            return Reflect.get(target, prop, receiver)
+        }
+
+        , getUnknown(target, prop, receiver) {
+            /* A request to  a property of which does not exist (yet).
+            Return a stub in place of the requested future import.
+            */
+            // console.warn('Unknown prop response', prop)
+            return new Stub(prop)
+        }
+    }
+
+    const exposureProxy = new Proxy(exposed, exposedProxyHandler)
+
+    parent[name] = exposureProxy;
 
 }).apply({}, [this]);

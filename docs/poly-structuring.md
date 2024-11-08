@@ -1,35 +1,191 @@
 # Poly-Structure!
 
-Polypoint clever integration allows us to install methods - before, and after, an instance is created.
+Polypoint clever classy integration allows us to install properties before, and after, a class exists.
+
++ Define classes without the magic
++ Ready-to-go global object
++ Lazy install any property or method
++ Pre or late stage mixins
+
+When building core libraries imports usually need to be imported before their required. But what if you didn't know you needed the import until _after_ you've created something?
+
++ Composition through injection in classic ES6.
++ Parallel modularity through late-stage inheritance.
+
+
+## Installation
+
+To get started, include the assets within your scope or page.
+
+```jinja
+<script src="../point_src/core/head.js" name=mylib></script>
+```
+
+This installs an object with a range of functions, conveniently using the `name=mylib` to define the global object name:
 
 ```js
+window.mylib
 
+// Tools available in `head`
+window.mylib.head.mixin(...)
+```
+
+### Name
+
+You can provide a name for the root global object through any of the following:
+
+
+#### `name` Attribute
+
+Apply the attribute `name=mylib`:
+
+```jinja
+<script src="../point_src/core/head.js" name='Polypoint'></script>
+```
+
+#### `data-name` Attribute
+
+Or use the `data-name=mylib` property:
+
+```jinja
+<script src="../point_src/core/head.js" data-name='Polypoint'></script>
+```
+
+#### Filepath Hash Value
+
+If that's not possible, the _hash_ at the end of the filepath `src=head.js#mylib` can define the name:
+
+```jinja
+<script src="../point_src/core/head.js#Polypoint"></script>
+```
+
+#### Default _filename_
+
+If non of those exist, the name of the imported file is used
+
+```jinja
+<!-- name is head.js -->
+<script src="../point_src/core/head.js"></script>
+```
+
+## Getting Started
+
+We use standard ES6 classes for our code:
+
+```js
+class Human {
+    speak() { return 'meow' }
+}
+```
+
+We can store this class in our named library (called `mylib` from above)
+
+```js
+mylib.head.install(Human)
+```
+
+And install functionality:
+
+```js
+/* our custom thing */
+class Human {};
+
+/* Some late stage mixin */
+mylib.head.mixin('Human', {
+    frogCount: {
+        value: 2,
+        writable: true,
+        // enumerable: true,
+        // configurable: true,
+    },
+    ownsFrog: {
+        get() {
+            return this.frogCount += 1
+        }
+    }
+})
+
+/* Install the class of interest. */
+mylib.head.install(Human)
+```
+
+We use the `Human` as expected:
+
+```js
+h = new Human
+
+console.log(h.ownsFrog) // 3
+console.log(h.ownsFrog) // 4
+console.log(h.ownsFrog) // 5
+```
+
+## Larger Example
+
+Here we create a class called `A`, instantiate it (as `a`) - then install.
+
+```js
 class A {
+    /* My Fancy class full of important busy ness work ness. */
     foo() { return 'foo' }
 }
 
-Polypoint.head.install(A)
 
+let a = new A
+let a2 = new A
 
-a = new A
+/* As expected. `hello` doesn't exist. */
 console.log(a.hello)
+console.log(a2.hello)
 // undefined
 
+/* Now we can set it up. */
+Polypoint.head.install(A)
+
+/* Install an addon after creation */
 Polypoint.head.mixin('A', {
     hello: {
         value:  'world'
     }
 })
 
-
-a = new A
+/* Poof! The new property is available on the existing instance! */
 console.log(a.hello)
+console.log(a2.hello)
 // world
 
+/* And new stuff! */
+let a3 = new A
+
+console.log(a3.hello)
+// world
 ```
 
 
-Let's define a basic inheritence chain:
+### Inheritance Compliant
+
+We can target a class within a chain of inheritance. All children of a class will receive the updates
+
+```js
+class A {};
+class B extends A {};
+class C extends B {};
+
+
+Polypoint.head.installMany(A, B, C)
+Polypoint.head.mixin('B', {
+    one: {
+        get() => 'flew'
+    }
+})
+
+const c = new C()
+console.log(c.one)
+// 'flew'
+```
+
+### Larger Example
+
+Let's define a basic inheritance chain:
 
 ```js
 
@@ -48,12 +204,10 @@ class C extends B {
 }
 
 // Install them to make them _detectable_
-Polypoint.head.install(A)
-Polypoint.head.install(B)
-Polypoint.head.install(C)
+Polypoint.head.installMany(A, B, C)
 ```
 
-We can use our classes as normal.
+We can use our classes as expected:
 
 ```js
 c = new C()
@@ -61,6 +215,7 @@ c.foo() == 'foo'
 ```
 
 At any point, we can define extra functionality:
+
 ```js
 
 Polypoint.head.mixin('C', {

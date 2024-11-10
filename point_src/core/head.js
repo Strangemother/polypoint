@@ -97,7 +97,8 @@ The head contains a range of hoisting functions to late-load installables.
             Attribute `name`
             Dataset `name`
             hash value `#name`
-            filename   `name.js`
+            ~filename   `name.js`~
+            Polypoint (default-name)
         */
         if(n === undefined) {
             /* Grab the `name` from the script, then the `data-name` */
@@ -109,10 +110,19 @@ The head contains a range of hoisting functions to late-load installables.
         }
 
         if(n === undefined) {
-            // Check for the HASH name, default to the filename.
+            // Check for the HASH name,
             let src = currentScr.src;
             let u = new URL(src).hash.slice(1)
-            n = (u.length > 0) ? u: src.split('/').pop()
+            if(u.length > 0) {
+                n = u;
+            }
+
+            /* default to the filename.*/
+            // src.split('/').pop()
+        }
+
+        if(n === undefined) {
+            n = 'Polypoint'
         }
 
         return n;
@@ -162,19 +172,22 @@ The head contains a range of hoisting functions to late-load installables.
         this.center.draggable == false
      */
     const mixin = function(target, addon, targetPrototype=true) {
-        if(exposed[target]) {
-            dlog(`Installing mixin for "${target}"`)
-            populateAddon(target, addon, targetPrototype)
+        const targetName = target.getMixinTarget? target.getMixinTarget(): target
+
+        if(exposed[targetName]) {
+
+            dlog(`Installing mixin for "${targetName}"`)
+            populateAddon(targetName, addon, targetPrototype)
             return
         }
 
-        dlog('Mixin Waiting for unit', target)
-        if(waiting[target] == undefined) {
-            waiting[target] = []
+        dlog('Mixin Waiting for unit', targetName)
+        if(waiting[targetName] == undefined) {
+            waiting[targetName] = []
 
         }
 
-        waiting[target].push(addon)
+        waiting[targetName].push(addon)
     }
 
     /* Install static methods:
@@ -540,7 +553,9 @@ The head contains a range of hoisting functions to late-load installables.
     }
 
     class Stub {
-        /* A fancy detectable string thing. */
+        /* The stub applies a reference to a non-existence [future] class.
+        Allowing the extension of future classes when they appear.
+        */
         constructor(prop, history=[]) {
             this.assignedName = prop
             this.history = history
@@ -554,6 +569,12 @@ The head contains a range of hoisting functions to late-load installables.
                 },
             });
             return proxy;
+        }
+
+        getMixinTarget() {
+            /* This unit was given in place of a mixin definition.
+            Return the _name_ of the target*/
+            return this.assignedName
         }
 
         getUndefined(target, property, receiver) {
@@ -614,4 +635,4 @@ The head contains a range of hoisting functions to late-load installables.
 
     parent[name] = exposureProxy;
 
-}).apply({}, [this]);
+}).apply({}, [this, undefined, true]);

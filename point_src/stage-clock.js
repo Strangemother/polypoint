@@ -15,10 +15,31 @@ Polypoint.head.deferredProp('Stage', function clock(){
 
     const clock = {
             tick: -1
-            , delta: 0
+            /* The default delta is _one frame_ at 60fps.
+            This is later updated - but is required early for mounted _fps_ tests.*/
+            , delta: (1000/60)
             , prevStamp: +(new Date)
             , get fps() {
                 return Math.floor(1000 / this.delta)
+            }
+            , splitSeconds(seconds=1, fps=this.fps) {
+                return 1 / (fps * seconds)
+            }
+
+            , frameStepValue(seconds=1) {
+                /*
+                    Derive the correct value to add per frame, to ensure a count
+                    the total value at the target count of seconds is equal to 1.
+
+                    let v = frameStepValue(3)
+                    // 0.005
+
+                    // Add this value per frame
+                    total += v
+                    // At 3 seconds, this total == 1
+
+                */
+                return this.splitSeconds(seconds)
             }
         }
 

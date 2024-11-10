@@ -1,5 +1,4 @@
 
-
 class MainStage extends Stage {
     canvas = 'playspace'
 
@@ -22,21 +21,13 @@ class MainStage extends Stage {
 
     onMousemove(ev) {
         let p = this.mouse.point;
-
-        // Project p onto the line formed by points a and b
-        let ab = { x: this.b.x - this.a.x, y: this.b.y - this.a.y };
-        let ap = { x: p.x - this.a.x, y: p.y - this.a.y };
-        let abLengthSq = ab.x * ab.x + ab.y * ab.y;
-        let t = (ap.x * ab.x + ap.y * ab.y) / abLengthSq; // Projection factor
-
-        // Clamp t between 0 and 1 to restrict within line segment
-        t = Math.max(0, Math.min(1, t));
+        // let f = this.findNearestPoint(this.line, p)
+        let f = this.line.findNearestPoint(p)
 
         // Update the draggable point to the projection on the line
-        this.indicator.x = this.a.x + t * ab.x;
-        this.indicator.y = this.a.y + t * ab.y;
-
-
+        this.indicator.set(f)
+        // this.indicator.x = f.x;
+        // this.indicator.y = f.y;
     }
 
     draw(ctx) {
@@ -50,46 +41,47 @@ class MainStage extends Stage {
         // Draw the draggable point along the line
         this.indicator?.pen.fill(ctx, 'green');
     }
-}
+};
 
 
-class xMainStage extends Stage {
-    // canvas = document.getElementById('playspace');
-    canvas = 'playspace'
 
-    mounted(){
-        this.indicator = undefined
-        let a = new Point({x:100, y:100})
-        let b = new Point({x:500, y:500})
+const findNearestPoint = function(line, point) {
+    /* Find the point along the line of which is _closest_ to the given
+    point. */
 
-        this.dragging.add(a,b)
-        this.line = new Line(a,b)
+    let b = line.b
+    let a = line.a
+    let p = point
+    // Project p onto the line formed by points a and b
+    let ab = { x: b.x - a.x, y: b.y - a.y };
+    let ap = { x: p.x - a.x, y: p.y - a.y };
+    let abLengthSq = ab.x * ab.x + ab.y * ab.y;
+    let t = (ap.x * ab.x + ap.y * ab.y) / abLengthSq; // Projection factor
 
+    // Clamp t between 0 and 1 to restrict within line segment
+    t = Math.max(0, Math.min(1, t));
 
-        this.stroke = new Stroke({
-            color: '#eee'
-            , width: 1
-            , dash: [7, 4]
-        })
-
-        this.events.wake()
-    }
-
-    onMousemove(ev) {
-        let p = this.mouse.point
-        this.indicator = p;
-    }
-
-    draw(ctx){
-        this.clear(ctx)
-
-        this.stroke.set(ctx)
-        this.line.render(ctx, {color: '#90000'})
-        this.stroke.unset(ctx)
-
-        this.indicator?.pen.fill(ctx, 'green')
-
+    // Update the draggable point to the projection on the line
+    return {
+        x: a.x + t * ab.x
+        , y: a.y + t * ab.y
     }
 }
 
-stage = MainStage.go()
+Polypoint.head.installFunctions('Line', {
+    findNearestPoint(point){
+        /* Find the point along the line of which is _closest_ to the given
+        point. */
+        let localCache = this._nearestPoint
+        if(!localCache) {
+            localCache = this._nearestPoint = new Point
+        }
+
+        localCache.set(findNearestPoint(this, point))
+
+        return localCache
+    }
+})
+
+
+;stage = MainStage.go();

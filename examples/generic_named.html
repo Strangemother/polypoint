@@ -13,10 +13,17 @@
         theatre/foo-example.js
 {% endcomment %}
 {% load strings  %}
+{% load try_include %}
 
 {% block js %}
     {% str_merge "./imports/" part_name ".html" as include_name %}
-    {% include include_name %}
+    {% if include_name|template_exists %}
+        {% include include_name %}
+    {% else %}
+        <div class="no-imports">
+            <p>Imports for "{{ part_name }}" do not exist.</p>
+        </div>
+    {% endif %}
 {% endblock js %}
 
 

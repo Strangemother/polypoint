@@ -1,0 +1,67 @@
+{% extends "docs/doc-base.html" %}
+{% load content %}
+{% load wrap %}
+{% comment "What" %}
+    This template presents a javascript file from the designated _src_ directory
+    (within the settings.py).
+
+        http://localhost:8000/docs/events
+
+    The view reads the file and processes the header comment, supplied in the
+    context `metadata`.
+{% endcomment %}
+
+{% block page_title %}
+    {% firstof metadata.title metadata.path %}
+{% endblock page_title %}
+
+
+{% block content %}
+        <div class="outer-block">
+            {% comment "what" %}
+                The script imports example block
+            {% endcomment %}
+            <div class="block">
+            {% if file_exists %}
+                {% include "./fragments/single-import.html" with name=path %}
+            {% else %}
+                <p>File does not exist: "{{path}}".</p>
+            {% endif %}
+            </div>
+        </div>
+
+    <div class="outer-block">
+        <div class="block">
+            {% if markdown %}
+                <div>
+                {{ markdown.rendered|safe }}
+                </div>
+            {% else %}
+                <p>No documentation supplied in the file header</p>
+            {% endif %}
+            <div>
+                {% if metadata %}
+                    {% include 'docs/metadata-table.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <h2 class="font-size-2rem">Secondary Title</h2>
+            <p>
+                Secondary content with a link. <a href="component/dragging/">dragging</a> component.
+            </p>
+            <details>
+                <summary>Collapsable content</summary>
+                <pre class='click-show'>
+                    {% code_content "events/mypoint.js" %}
+                </pre>
+            </details>
+            <pre>
+                {% code_content "events/mypoint-stage.js" %}
+            </pre>
+        </div>
+    </div>
+{% endblock content %}

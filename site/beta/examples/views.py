@@ -1,30 +1,18 @@
+from pprint import pprint as pp
+from operator import itemgetter
+from pathlib import Path
+import markdown
+import textwrap
+import re
+
+from django.http import Http404
 from django.conf import settings
 from trim import views
-from django.http import Http404
-
-from pathlib import Path
-from operator import itemgetter
 
 from editor.views import PointSrcAssetView, TheatreSrcAssetView
+from .file_reader import imports_list
 
-
-def get_theatre_list(**kw):
-    # get all files in the theatre dir
-    # parent = settings.POLYPOINT_THEATRE_DIR
-    parent = settings.POLYPOINT_EXAMPLES_DIR
-
-    tpath = Path(parent)
-    res = ()
-    for asset in tpath.iterdir():
-        if asset.is_file():
-            modified = asset.stat().st_mtime
-            # get date
-            res += (
-                    (str(asset.relative_to(tpath)), modified,),
-                )
-
-    res = reversed(sorted(res, key=itemgetter(1)))
-    return tuple(res)
+from .theatre import get_theatre_list, get_metadata
 
 
 class ExampleIndexTemplateView(views.ListView):
@@ -38,10 +26,6 @@ class ExampleIndexTemplateView(views.ListView):
         """
         return get_theatre_list()
 
-
-from .file_reader import imports_list
-
-from django.conf import settings
 
 class ScriptsImportListView(views.ListView):
     """
@@ -80,8 +64,27 @@ class ScriptsRawImportView(ScriptsImportListView):
 
 
 class ExampleFileView(views.TemplateView):
+    """Show an _example_ file from the given `path`.
 
-    template_name = 'examples/file.html'
+        http://localhost:8000/examples/lerp-line/
+
+    + Attempt `examples/lerp-line.html` template
+    + In the template, try `examples/imports/lerp-line.html` extras
+    + In the browser, attempt request to `theatre/lerp-line.js`
+
+    This is a combination of `examples/` theatre files, and their imports.
+    The template is chosen from `examples` using the `{path}.html`.
+    If this template does not exist, the default `template_name` is used.
+
+    The `examples/imports` may apply, found by the name of the path:
+    `examples/imports/{path}.html`
+
+    Finally the _theatre_ file is attempted at `theatre/{path}.js`.
+    """
+    # The template file will be generated based upon the
+    # path; e.g. "egg" -> "theatre/egg.js", "examples/egg.html"
+    # If the template file does not exist, use this default template.
+    template_name = 'default_template.html'
 
     def get_context_data(self, **kwargs):
         # kwargs.setdefault("view", self)
@@ -92,6 +95,13 @@ class ExampleFileView(views.TemplateView):
         path = self.kwargs.get('path')
         p = Path(path).with_suffix('')
         r['part_name'] = p
+        meta = get_metadata(path)
+
+        r['metadata'] = meta
+        md = meta.get('markdown', None)
+        if md:
+            r['markdown'] = md
+            del meta['markdown']
         return r
 
     def get_template_names(self):
@@ -104,9 +114,10 @@ class ExampleFileView(views.TemplateView):
         names = [
             path,
             f"{path}.html",
+            self.template_name
         ]
-        return names
         # names = super().get_template_names()
+        return names
 
 
 class ExampleExtFileView(ExampleFileView):

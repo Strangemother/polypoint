@@ -1,13 +1,15 @@
 /*
-
 Units to _track_ items and positions.
 First version is just a set of distance testers,
 
-version 2 includes a 'distance machine' to parallel compute many distances.
+Version 2 includes a 'distance machine' to parallel compute many distances.
 
     d=new Distances;
     d.addPoints(...stage.points);
 
+
+{% load content %}
+<pre>{% code_content "events/mypoint-stage.js" %}</pre>
 
 */
 

@@ -1,12 +1,20 @@
 /*
 
-The _head_ represents the library and its accessibles. In the browner this manifests as the
-first object to loadout; "Polypoint"
+The _head_ represents the library and its accessibles. In the browser this manifests as the
+first object to loadout: `Polypoint`.
 
 The head contains a range of hoisting functions to late-load installables.
 
-1. add this file
-2. Load assets with Polypoint.head.install() ...
+## Usage
+
+1. Add this file
+2. Load assets with `Polypoint.head.install()` ...
+
+Once loaded, assets are available through the same object `Polypoint.MyClass`
+
+## Example
+
+We can load standardclasses:
 
     class A {
 
@@ -35,6 +43,15 @@ The head contains a range of hoisting functions to late-load installables.
     Polypoint.head.install(B)
     Polypoint.head.install(C)
 
+
+Once loaded, we can access them within the object:
+
+    Polypoint.A
+    // class A ...
+
+
+And target the loaded classes for live property mixin:
+
     Polypoint.head.mixin('C', {
         one: {
             get() {
@@ -45,8 +62,14 @@ The head contains a range of hoisting functions to late-load installables.
 
     c = new C;
     c.one == 'one'
+
+This can occur _late_, and decent through dependant children:
+
+
+    // Property on _c_ does not exist yet.
     c.two == undefined
 
+    // Load a property into "B"
     Polypoint.head.mixin('B', {
         two: {
             get() {
@@ -55,10 +78,16 @@ The head contains a range of hoisting functions to late-load installables.
         }
     })
 
+    // New B as the new property.
     b = new B;
     b.two == 'two'
+
+    // Existing "C" instances gain the new property.
     c.two == 'two'
 
+This works for many mixins:
+
+    // Another late mixin, targeting the root class
     Polypoint.head.mixin('A', {
         three: {
             get() {
@@ -67,6 +96,7 @@ The head contains a range of hoisting functions to late-load installables.
         }
     })
 
+    // All (a,b,c) instances gain the new property
     (new A).three == 'three'
     b.three == 'three'
     c.three == 'three'
@@ -74,7 +104,14 @@ The head contains a range of hoisting functions to late-load installables.
 */
 ;(function(parent, name=undefined, debug=false, strict=true){
 
-    const dlog = debug?console.log.bind(console): ()=>{}
+    var dlog = debug?console.log.bind(console): ()=>{}
+
+    try{
+        if(logger) {
+            dlog = logger.create("head")
+        }
+    } catch{}
+
     const waiting = {}
     const currentScr = document.currentScript
     const currentLoc = document.currentScript.src
@@ -131,7 +168,7 @@ The head contains a range of hoisting functions to late-load installables.
     name = resolveName(name)
 
     if(parent[name] !== undefined) {
-        console.log('Parked asset on', name)
+        dlog('Parked asset on', name)
         parkedEntity = parent[name]
     }
 
@@ -142,10 +179,10 @@ The head contains a range of hoisting functions to late-load installables.
     const fileObject = {
         meta(data) {
             /* Incoming mets data for the incoming file.*/
-            console.log('meta config', data)
+            dlog('meta config', data)
             if(data.files) {
                 let src = document.currentScript
-                console.log(src)
+                dlog(src)
             }
         }
     }
@@ -368,7 +405,7 @@ The head contains a range of hoisting functions to late-load installables.
             stage.center._pen == Pen
      */
     const lazyProp = function(name, propsDict) {
-        console.log('lazyProp', name, Object.keys(propsDict))
+        dlog('lazyProp', name, Object.keys(propsDict))
         let def = {
         }
 
@@ -448,7 +485,7 @@ The head contains a range of hoisting functions to late-load installables.
     const load = function(name, callback){
         /* A shortcut for loading a stub*/
         return ljs.load(name, function() {
-            console.log('Loaded', name, arguments);
+            dlog('Loaded', name, arguments);
             return callback && callback()
         })
     }
@@ -578,13 +615,13 @@ The head contains a range of hoisting functions to late-load installables.
         }
 
         getUndefined(target, property, receiver) {
-            console.log('get unknown', property, 'on stub')
+            dlog('get unknown', property, 'on stub')
             this.history.push(this.assignedName)
             return new this.constructor(property, this.history)
         }
 
         get(v) {
-            console.log(v)
+            dlog(v)
         }
 
         get [Symbol.toStringTag]() {
@@ -618,7 +655,7 @@ The head contains a range of hoisting functions to late-load installables.
                 return this.getUnknown(target, prop, receiver)
             }
 
-            // console.log('Exposed Get', prop)
+            // dlog('Exposed Get', prop)
             return Reflect.get(target, prop, receiver)
         }
 

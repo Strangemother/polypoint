@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>{% block title %}{{ title }}{% endblock title %}</title>
     {% load link %}
     {% css "css/index.css" %}
     {% load content %}
@@ -14,8 +14,26 @@
                         font-pack-lexend+deca-500
                         font-lexend+deca-500 letter-spacing-.1px'>
     <header class='primary background-#111'>
-        <div class="logo padding-1em
-                    font-size-1rem">Polypoint</div>
+
+        <div class="header-container">
+          <div class="left">
+                <div class="logo padding-1em
+                            font-size-1rem">Polypoint</div>
+          </div>
+          <div class="nav">
+                <div class="nav-container">
+                    <ul>
+                        <li>{% link "docs:home" 'Docs' %}</li>
+                        <li>{% link "examples:example" 'Theatre' %}</li>
+                        <li>{% link "editor:home" 'Editor' %}</li>
+                    </ul>
+                </div>
+          </div>
+          <div class="right">
+
+          </div>
+        </div>
+
     </header>
 
     <main>
@@ -26,21 +44,42 @@
                 {% block page_title %}{{ page_title }}{% endblock page_title %}
             </h1>
         </header>
-        {% block content %}
 
+        <div class="outer-block">
+            <div class="block crumb-info-container">
+                <div class="breadcrumb-container">
+                    <ul>
+                        <li>
+                            {% link "docs:home" 'Docs' %}
+                        </li>
+                        {% for part in object_path.parts %}
+                            <li>
+                                <a href="#">{{ part }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tags-container">
+                    <ul>
+                        {% for part in metadata.tags %}
+                            <li>
+                                {{ part }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        {% block content %}
         {% endblock content %}
     </main>
 
     {% js "js/polyclass.browser-full.js" %}
 
-    {% css "css/default.min.css" %}
-    {% css "css/atom-one-dark.min.css" %}
-    {% js "js/highlight.min.js" %}
-    <!-- and it's easy to individually load additional languages -->
-    {% js "js/javascript.min.js" %}
+    {% include "./imports/highlight-js.html" %}
 
     {% js "js/index.js" %}
 
-    <script>hljs.highlightAll();</script>
 </body>
 </html>

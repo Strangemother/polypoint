@@ -8,20 +8,9 @@
     <div class="block">
         <p>Fish.</p>
         <div class="file-list">
-            <ul>
-                {% for src_file in object_list %}
-                <li>
-                    {% link "docs:point_src" src_file.name src_file.name %}
-                    <a href="#">
-                    {{ src_file.name }}{% if src_file.is_dir %}/{% else %}.js{% endif %}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
+            {% include './fragments/dir-object_list-ul.html' %}
         </div>
-        <pre>
-            <code class='language-javascript'>{% file_content "events/mypoint.js" %}</code>
-        </pre>
+
     </div>
 </div>
 {% endblock content %}

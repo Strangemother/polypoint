@@ -128,7 +128,7 @@ const getPolyDistributedPoints = function(count, pos, radius, rads, angle) {
 
     const c2pi = Math.PI2 / count
 
-    for (i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
         let i2pic = (i * c2pi) + rads;
         let p = point(
                 x + radius * Math.cos(i2pic),

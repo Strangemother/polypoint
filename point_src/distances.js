@@ -1,18 +1,17 @@
 /*
-Units to _track_ items and positions.
-First version is just a set of distance testers,
+Track the distances between given points.
 
-Version 2 includes a 'distance machine' to parallel compute many distances.
+    const d = new Distances;
+    d.addPoints(...points);
 
-    d=new Distances;
-    d.addPoints(...stage.points);
+    const near = d.closest(Point.mouse.position)
 
+---
 
 {% load content %}
 <pre>{% code_content "events/mypoint-stage.js" %}</pre>
 
 */
-
 class Distances {
 
     constructor(){

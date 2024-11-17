@@ -1,0 +1,22 @@
+{% load link %}
+
+{% css "css/default.min.css" %}
+{% css "css/atom-one-dark.min.css" %}
+
+{% js "js/highlight.min.js" %}
+
+<!-- and it's easy to individually load additional languages -->
+{% js "js/highlight-languages/javascript.min.js" %}
+{% js "js/highlight-languages/django.min.js" %}
+
+
+<script>
+    hljs.configure({
+      noHighlightRe: /^do-not-highlightme$/i,
+      // languageDetectRe: /\bgrammar-([\w-]+)\b/i, // for `grammar-swift` style CSS naming
+      // classPrefix: ''     // don't append class prefix
+                          // … other options aren't changed
+    });
+    hljs.highlightAll();
+    console.log(hljs.listLanguages())
+</script>

@@ -1,3 +1,13 @@
+/*
+---
+title: Stage Clock
+---
+
+The stage clock assigns additional `clock` functionality to the Stage, such as an `fps()` method:
+
+    stage = new Stage
+    stage.clock.fps() // 59
+ */
 Polypoint.head.deferredProp('Stage', function clock(){
     // this.setupClock()
     console.log('Setup clock')

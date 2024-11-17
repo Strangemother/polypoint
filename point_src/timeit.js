@@ -1,19 +1,25 @@
+/*
+---
+title: TimeIt Class
+---
+The TimeIt entity provides _time taken_ tests for running code.
+
+    const timeit = new TimeIt('my label')
+    timeit.start()
+    // ... insert delay ...
+    timeit.stop()
+    timeit.timeTaken()
+    // TimeIt("my label") complete 100ms
+
+This can be reduced to two statements, by assigning a `startNow` bool
+to the constructor:
+
+    const timeit = new TimeIt('my label', true)
+    console.log(timeit.stop().toString())
+    // TimeIt("my label") complete 2002ms
+
+ */
 class TimeIt {
-    /* The TimeIt entity provides _time taken_ tests for running code.
-
-        timeit = new TimeIt('my label')
-        timeit.start()
-        timeit.stop()
-        timeit.timeTaken()
-
-    This can be reduced to two statements, by assigning a `startNow` bool
-    to the constructor:
-
-        timeit = new TimeIt('my label', true)
-        console.log(timeit.stop().toString())
-        // TimeIt("y") complete 2002ms
-
-     */
     constructor(label, startNow=false) {
         this.label = label
         if(startNow) {

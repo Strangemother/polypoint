@@ -46,7 +46,7 @@ class PointDraw {
 
         ctx.moveTo(p0.x, p0.y)
 
-        for (i = 1; i <= points.length - 1; i++) {
+        for (let i = 1; i <= points.length - 1; i++) {
             let p = points[i]
             ctx.lineTo(p.x, p.y);
         }

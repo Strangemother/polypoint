@@ -1,0 +1,21 @@
+{% load link %}
+{% comment "What" %}
+    Expect file objects, present the object_list in a UL list.
+
+    Review `docs.view::get_src_list` for more on src_file objects.
+{% endcomment %}
+<ul>
+{% for src_file in object_list %}
+    <!-- <div>path: {{ src_file.rel_path }}</div> -->
+    <!-- <div>name: {{ src_file.rel_name }}</div> -->
+    {% if src_file.is_dir %}
+        <li class='directory-item'>
+            {% link "docs:point_src_dir" src_file.rel_path src_file.name %}/
+        </li>
+    {% else %}
+        <li class='file-item'>
+            {% link "docs:point_src" src_file.rel_name src_file.name %}
+        </li>
+    {% endif %}
+{% endfor %}
+</ul>

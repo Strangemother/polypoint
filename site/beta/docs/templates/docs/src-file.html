@@ -2,6 +2,8 @@
 {% load content %}
 {% load wrap %}
 {% comment "What" %}
+    # src code file presentation.
+
     This template presents a javascript file from the designated _src_ directory
     (within the settings.py).
 
@@ -22,12 +24,21 @@
                 The script imports example block
             {% endcomment %}
             <div class="block">
-            {% if file_exists %}
-                {% include "./fragments/single-import.html" with name=path %}
-            {% else %}
-                <p>File does not exist: "{{path}}".</p>
-            {% endif %}
+                {% if metadata.dependencies %}
+                    {% for dep_filepath in metadata.dependencies %}
+                        {% include "./fragments/single-import.html" with path=dep_filepath %}
+                    {% endfor %}
+                {% endif %}
+
+                {% if file_exists %}
+                    {% include "./fragments/single-import.html" with name=path %}
+                {% else %}
+                    <p>File does not exist: "{{path}}".</p>
+                {% endif %}
+
+                <hr class="border-color-#222 margin-2em">
             </div>
+
         </div>
 
     <div class="outer-block">
@@ -47,21 +58,18 @@
         </div>
     </div>
 
-    <div class="outer-block">
+    <div class="outer-block display-none">
         <div class="block">
             <h2 class="font-size-2rem">Secondary Title</h2>
             <p>
                 Secondary content with a link. <a href="component/dragging/">dragging</a> component.
             </p>
+            {% comment %}
             <details>
-                <summary>Collapsable content</summary>
-                <pre class='click-show'>
-                    {% code_content "events/mypoint.js" %}
-                </pre>
+                <summary>Content: {{ object_path }}</summary>
+                <pre class='do-not-highlightme'>{% src_code_content object_path %}</pre>
             </details>
-            <pre>
-                {% code_content "events/mypoint-stage.js" %}
-            </pre>
+            {% endcomment %}
         </div>
     </div>
 {% endblock content %}

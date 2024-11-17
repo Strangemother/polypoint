@@ -32,7 +32,42 @@ def get_theatre_list(**kw):
     return tuple(res)
 
 
-def get_metadata(path, parent=None):
+def render_markdown(path, parent):
+    theatre_file = (parent / path)
+    text_data = theatre_file.read_text()
+
+    md = ''
+    html = ''
+    meta = None
+
+    if len(text_data) > 0:
+        # print(text_data)
+        # text_data = textwrap.dedent(text_data).strip()
+        extensions=[
+            # MyExtClass(),
+            # 'myext',
+            # 'path.to.my.ext:MyExtClass'
+            'meta',
+            'extra',
+            ]
+        md = markdown.Markdown(extensions=extensions)
+        html = md.convert(text_data)
+        meta = md.Meta
+
+    res = file_default_meta(path, meta)
+    res['filepath_exists'] = True
+    res['path'] = path
+    res['filepath'] = theatre_file.relative_to(parent)
+
+    res['markdown'] = {
+        "html": html,
+        "content": text_data,
+    }
+
+    return res
+
+
+def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
     """Attempt to parse the theatre file and other config locations
     to apply _metadata_ about the theatre file to the context.
 
@@ -43,12 +78,15 @@ def get_metadata(path, parent=None):
     converted through markdown.
     """
     parent = parent or settings.POLYPOINT_THEATRE_DIR
-    theatre_file = (parent / path).with_suffix('.js')
+    theatre_file = (parent / path)
+
+    if ensure_suffix:
+        theatre_file = theatre_file.with_suffix(ensure_suffix)
 
     if not theatre_file.exists():
         print('File does not exist:', theatre_file)
         print('Given path:', path)
-        res = file_default_meta(path)
+        res = file_default_meta(path, meta_keys=meta_keys)
         res['path'] = path
         res['filepath'] = theatre_file.relative_to(parent)
         res['filepath_exists'] = False
@@ -86,7 +124,7 @@ def get_metadata(path, parent=None):
         html = md.convert(text_data)
         meta = md.Meta
 
-    res = file_default_meta(path, meta)
+    res = file_default_meta(path, meta, meta_keys=meta_keys)
     res['filepath_exists'] = True
     res['path'] = path
     res['filepath'] = theatre_file.relative_to(parent)
@@ -99,25 +137,31 @@ def get_metadata(path, parent=None):
     return res
 
 
-def file_default_meta(path, raw_meta=None):
+def file_default_meta(path, raw_meta=None, meta_keys=None):
     """Return the meta object, The given meta object is cleaned when applied.
     """
     meta = {}
     if raw_meta:
-        meta = clean_file_meta(raw_meta)
+        meta = clean_file_meta(raw_meta, meta_keys=meta_keys)
     return meta
 
 
-def clean_file_meta(raw_meta):
+def clean_file_meta(raw_meta, meta_keys=None):
     # proprties of which expect one entity; others are discarded.
-    one_string_props = (
+
+    one_props, multi_props = None, None
+
+    if meta_keys is not None:
+        one_props, multi_props = meta_keys
+
+    one_string_props = one_props or (
             'title',
             #'layout',
             #'bunny',
         )
 
     # Propeties expecting a list
-    many_string_props = (
+    many_string_props = multi_props or (
             # 'tags',
             #'related',
             'imports',

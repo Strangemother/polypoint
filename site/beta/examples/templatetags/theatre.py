@@ -1,52 +1,42 @@
+"""Tools to assist with theatre files.
+
+These templatetags extend the `examples.theatre` tools.
+"""
+
 from django import template
 from django.urls import resolve, reverse
 from django.conf import settings
 
+from examples import theatre
 
 register = template.Library()
 
 # @register.simple_tag(takes_context=True, name='file_content')
 # def file_content(context, view_name, *url_args, **kwargs):
+    # {% file_content "view_name" warning=message|lower profile=user.profile %}
 
+@register.simple_tag(takes_context=True, name='theatre.render_markdown')
+def render_markdown_file(context, filepath, *url_args, **kwargs):
+    """Render the markdown filepath, relative to the theatre directory.
 
-@register.inclusion_tag('templatetags/file_content.html', takes_context=True,
-                        name='file_content')
-def file_content_template(context, filename, *args, **kwargs):
-    """Load the given file from the demos path, and return as a content to
-    push into the view.
+        {% theatre.render_markdown "readme.md" %}
 
-        <pre>
-            <code class='language-javascript'>
-                {% file_content "events/mypoint.js" %}
-            </code>
-        </pre>
+    Creates:
+
+        POLYPOINT_THEATRE_DIR / "readme.md"
+
     """
-    info = get_file_contents(filename)
+    # {% file_content "view_name" warning=message|lower profile=user.profile %}
+    path = settings.POLYPOINT_THEATRE_DIR / filepath
 
-    return {
-        'exists': info['exists'],
-        'content': info['content'],
-    }
+    if path.exists() is False:
+        return '' # safe exit.
 
+    # Read the file, render, return text.
+    # content = path.read_text()
+    content = theatre.render_markdown(filepath, settings.POLYPOINT_THEATRE_DIR)
+    return content['markdown']['html']
 
-@register.inclusion_tag('templatetags/code_content.html', takes_context=True,
-                        name='src_code_content')
-def src_code_content_template(context, filename, *args, **kwargs):
-    """Load the source code file from the settings.POLYPOINT_SRC_DIR directory.
-    as a finished code block:
-
-        <pre>
-            {% src_code_content "stage.js" %}
-        </pre>
-    """
-    info = get_file_contents(filename, settings.POLYPOINT_SRC_DIR)
-
-    return {
-        'lang_class': 'language-javascript',
-        'exists': info['exists'],
-        'content': info['content'],
-        'uuid': rand_str()
-    }
 
 
 @register.inclusion_tag('templatetags/code_content.html', takes_context=True,

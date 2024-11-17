@@ -1,14 +1,6 @@
 /*
     ---
     title: Lerpy Lerpy Lerpingson
-    layout: post
-    published-on: 1 January 2000
-    tags:
-        Line, Lerp, other
-    related:
-        lerp-curve-lines
-    imports:
-        lerp-line.html
     files:
         ../point_src/core/head.js
         ../point_src/pointpen.js
@@ -34,6 +26,24 @@
     # Line LERP
 
     Lerp a point along a straight line
+*/
+
+/*
+    ---
+    title: Lerpy Lerpy Lerpingson
+    layout: post
+    published-on: 1 January 2000
+    tags:
+        Line, Lerp, other
+    related:
+        lerp-curve-lines
+    imports:
+        lerp-line.html
+    files:
+        ../literal/path.js
+    ---
+
+    markdown content
 */
 class MainStage extends Stage {
     canvas = 'playspace'

@@ -1,8 +1,10 @@
 /*
-// Example usage:
-rowCount = 9;
-positionIndex = 5;
-console.log(getNeighboursRect(positionIndex, rowCount));
+    Assist with the discovery of siblings in a grid.
+
+        // Example usage:
+        rowCount = 9;
+        positionIndex = 5;
+        console.log(getNeighboursRect(positionIndex, rowCount));
 */
 function getNeighboursRect(index, rowCount, columnCount, rowWidth) {
     let total = rowCount * columnCount

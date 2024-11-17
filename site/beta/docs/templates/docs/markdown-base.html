@@ -1,0 +1,20 @@
+{% extends "docs/doc-base.html" %}
+
+
+{% block title %}
+    {% firstof metadata.title "Markdown Base" %}
+{% endblock title %}
+
+{% block page_title %}
+    {% firstof metadata.title "Markdown Base" %}
+{% endblock page_title %}
+
+{% block content %}
+    <div class="outer-block">
+        <div class="block">
+            {{ markdown.html|safe }}
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

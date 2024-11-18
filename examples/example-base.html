@@ -9,20 +9,21 @@
                 /*box-sizing: border-box;*/
                 padding: 0;
                 margin: auto;
-                border: solid 1px;
+                border: solid 1px #000;
             }
             html, body {
                 margin: 0;
                 background: #111;
+                color: #CCC;
                 height: 100%;
                 width: 100%;
             }
 
         </style>
-
+        <title>{% block title %}Polypoint{% endblock title %}</title>
     </head>
     <body polyclass class="{% block body_class %}{% endblock body_class %}
-    font-pack-lexend+deca-500">
+    font-pack-lexend+deca-500 font-lexend+deca-500">
         {% block content %}
         <canvas id="playspace"></canvas>
         {% endblock content %}

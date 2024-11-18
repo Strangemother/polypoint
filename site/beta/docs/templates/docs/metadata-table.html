@@ -1,0 +1,14 @@
+{% for filepath in metadata.files %}
+    <script src={{ filepath }}></script>
+{% endfor %}
+<details>
+    <summary>Meta Data</summary>
+    <table>
+        {% for field,value in metadata.items %}
+        <tr>
+            <td>{{ field }}</td>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</details>

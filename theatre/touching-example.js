@@ -1,3 +1,4 @@
+
 class Reactor {
 
     velocityReductionFactor = .99

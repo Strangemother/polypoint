@@ -13,10 +13,45 @@
         theatre/foo-example.js
 {% endcomment %}
 {% load strings  %}
+{% load try_include %}
+
+{% if metadata %}
+    {% block title %}{{ metadata.title }}{% endblock title %}
+{% endif %}
 
 {% block js %}
     {% str_merge "./imports/" part_name ".html" as include_name %}
-    {% include include_name %}
+    {% if include_name|template_exists %}
+        {% include include_name %}
+    {% else %}
+        <div class="no-imports">
+            <p>Default imports file "{{ part_name }}" do not exist.</p>
+        </div>
+    {% endif %}
+
+    {% for import_template_name in metadata.imports %}
+        {% str_merge "./imports/" import_template_name as include_name %}
+        <!-- Including import "{{include_name}}" -->
+        {% if include_name|template_exists %}
+            <!-- exists "{{include_name}}" -->
+            {% include include_name %}
+        {% else %}
+            <!-- fail "{{include_name}}" -->
+            <div class="no-imports">
+                <p>Defined imports "{{ import_template_name }}" do not exist.</p>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% if markdown %}
+        <div class="markdown-content border-solid-1px-#333 margin-1em font-lexand-deca">
+            {{ markdown.html|safe }}
+        </div>
+    {% endif %}
+
+    {% if metadata %}
+        {% include 'docs/metadata-table.html' %}
+    {% endif %}
 {% endblock js %}
 
 

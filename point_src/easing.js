@@ -1,15 +1,12 @@
 
-// """
-// Linear
-// """
+// --------------- Linear --------------------
+
 const linearInOut = function(t) {
 
     return t
 }
 
-// """
-// Quadratic easing functions
-// """
+// --------------- Quadratic easing functions --------------------
 
 
 const quadEaseInOut = function(t) {
@@ -20,35 +17,26 @@ const quadEaseInOut = function(t) {
     return (-2 * t * t) + (4 * t) - 1
 }
 
-
 const quadEaseIn = function(t) {
 
     return t * t
 }
 
-
 const quadEaseOut = function(t) {
-
     return -(t * (t - 2))
 }
 
-
-// """
-// Cubic easing functions
-// """
-
+// --------------- Cubic easing functions --------------------
 
 const cubicEaseIn = function(t) {
 
     return t * t * t
 }
 
-
 const cubicEaseOut = function(t) {
 
     return (t - 1) * (t - 1) * (t - 1) + 1
 }
-
 
 const cubicEaseInOut = function(t) {
 
@@ -59,23 +47,17 @@ const cubicEaseInOut = function(t) {
     return 0.5 * p * p * p + 1
 }
 
-
-// """
-// Quartic easing functions
-// """
-
+// --------------- Quartic easing functions --------------------
 
 const quarticEaseIn = function(t) {
 
     return t * t * t * t
 }
 
-
 const quarticEaseOut = function(t) {
 
     return (t - 1) * (t - 1) * (t - 1) * (1 - t) + 1
 }
-
 
 const quarticEaseInOut = function(t) {
 
@@ -86,23 +68,17 @@ const quarticEaseInOut = function(t) {
     return -8 * p * p * p * p + 1
 }
 
-
-// """
-// Quintic easing functions
-// """
-
+// --------------- Quintic easing functions --------------------
 
 const quinticEaseIn = function(t) {
 
     return t * t * t * t * t
 }
 
-
 const quinticEaseOut = function(t) {
 
     return (t - 1) * (t - 1) * (t - 1) * (t - 1) * (t - 1) + 1
 }
-
 
 const quinticEaseInOut = function(t) {
 
@@ -111,48 +87,36 @@ const quinticEaseInOut = function(t) {
     }
     var p = (2 * t) - 2
     return 0.5 * p * p * p * p * p + 1
-
 }
 
-// """
-// Sine easing functions
-// """
-
+// --------------- Sine easing functions --------------------
 
 const sineEaseIn = function(t) {
 
     return Math.sin((t - 1) * Math.PI / 2) + 1
 }
 
-
 const sineEaseOut = function(t) {
 
     return Math.sin(t * Math.PI / 2)
 }
-
 
 const sineEaseInOut = function(t) {
 
     return 0.5 * (1 - Math.cos(t * Math.PI))
 }
 
-
-// """
-// Circular easing functions
-// """
-
+// --------------- Circular easing functions --------------------
 
 const circularEaseIn = function(t) {
 
     return 1 - Math.sqrt(1 - (t * t))
 }
 
-
 const circularEaseOut = function(t) {
 
     return Math.sqrt((2 - t) * t)
 }
-
 
 const circularEaseInOut = function(t) {
 
@@ -162,11 +126,7 @@ const circularEaseInOut = function(t) {
     return 0.5 * (Math.sqrt(-((2 * t) - 3) * ((2 * t) - 1)) + 1)
 }
 
-
-// """
-// Exponential easing functions
-// """
-
+// --------------- Exponential easing functions --------------------
 
 const exponentialEaseIn = function(t) {
 
@@ -176,7 +136,6 @@ const exponentialEaseIn = function(t) {
     return Math.pow(2, 10 * (t - 1))
 }
 
-
 const exponentialEaseOut = function(t) {
 
     if( t == 1){
@@ -184,7 +143,6 @@ const exponentialEaseOut = function(t) {
     }
     return 1 - Math.pow(2, -10 * t)
 }
-
 
 const exponentialEaseInOut = function(t) {
 
@@ -198,23 +156,17 @@ const exponentialEaseInOut = function(t) {
     return -0.5 * Math.pow(2, (-20 * t) + 10) + 1
 }
 
-
-// """
-// Elastic Easing Functions
-// """
-
+// --------------- Elastic Easing Functions --------------------
 
 const elasticEaseIn = function(t) {
 
     return Math.sin(13 * Math.PI / 2 * t) * Math.pow(2, 10 * (t - 1))
 }
 
-
 const elasticEaseOut = function(t) {
 
     return Math.sin(-13 * Math.PI / 2 * (t + 1)) * Math.pow(2, -10 * t) + 1
 }
-
 
 const elasticEaseInOut = function(t) {
 
@@ -231,18 +183,13 @@ const elasticEaseInOut = function(t) {
         * Math.pow(2, -10 * (2 * t - 1))
         + 2
     )
-
 }
 
-// """
-// Back Easing Functions
-// """
-
+// --------------- Back Easing Functions --------------------
 
 const backEaseIn = function(t) {
 
     return t * t * t - t * Math.sin(t * Math.PI)
-
 }
 
 const backEaseOut = function(t) {
@@ -250,7 +197,6 @@ const backEaseOut = function(t) {
     var p = 1 - t
     return 1 - (p * p * p - p * Math.sin(p * Math.PI))
 }
-
 
 const backEaseInOut = function(t) {
 
@@ -263,19 +209,14 @@ const backEaseInOut = function(t) {
     var p = 1 - (2 * t - 1)
 
     return 0.5 * (1 - (p * p * p - p * Math.sin(p * Math.PI))) + 0.5
-
 }
 
-// """
-// Bounce Easing Functions
-// """
-
+// --------------- Bounce Easing Functions --------------------
 
 const bounceEaseIn = function(t) {
 
     return 1 - bounceEaseOut(1 - t)
 }
-
 
 const bounceEaseOut = function(t) {
 
@@ -293,11 +234,80 @@ const bounceEaseOut = function(t) {
     return (54 / 5.0 * t * t) - (513 / 25.0 * t) + 268 / 25.0
 }
 
-
 const bounceEaseInOut = function(t) {
 
     if( t < 0.5){
         return 0.5 * bounceEaseIn(t * 2)
     }
     return 0.5 * bounceEaseOut(t * 2 - 1) + 0.5
+}
+
+// ----
+//
+
+const easingFunctions = {
+    /* A neat little collector for easing methods - built into an object.
+
+        easing = EasingFunctions
+        easing.quad.inOut
+        easing.quad.in
+        easing.quad.out
+    */
+    defaultName: 'linear'
+    , get(name=this.defaultName, anchor='inOut') {
+        return this[name][anchor]
+    }
+    , linear: {
+        inOut: linearInOut
+    }
+    , quad:{
+        in: quadEaseIn
+        , out: quadEaseOut
+        , inOut: quadEaseInOut
+    }
+    , cubic:{
+        in: cubicEaseIn
+        , out: cubicEaseOut
+        , inOut: cubicEaseInOut
+    }
+    , quartic:{
+        in: quarticEaseIn
+        , out: quarticEaseOut
+        , inOut: quarticEaseInOut
+    }
+    , quintic:{
+        in: quinticEaseIn
+        , out: quinticEaseOut
+        , inOut: quinticEaseInOut
+    }
+    , sine:{
+        in: sineEaseIn
+        , out: sineEaseOut
+        , inOut: sineEaseInOut
+    }
+    , circular:{
+        in: circularEaseIn
+        , out: circularEaseOut
+        , inOut: circularEaseInOut
+    }
+    , exponential:{
+        in: exponentialEaseIn
+        , out: exponentialEaseOut
+        , inOut: exponentialEaseInOut
+    }
+    , elastic:{
+        in: elasticEaseIn
+        , out: elasticEaseOut
+        , inOut: elasticEaseInOut
+    }
+    , back:{
+        in: backEaseIn
+        , out: backEaseOut
+        , inOut: backEaseInOut
+    }
+    , bounce:{
+        in: bounceEaseIn
+        , out: bounceEaseOut
+        , inOut: bounceEaseInOut
+    }
 }

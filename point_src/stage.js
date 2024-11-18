@@ -1,3 +1,27 @@
+/* A Stage acts as a convenience tool to hoist a canvas and begin drawing.
+It's not fundamental to the drawing tools and a start requestAnimationFrame will
+work.
+
+The Stage helps manage loading and looping of content. Extend with custom functionality and run:
+
+    class MainStage extends Stage {
+        // canvas = document.getElementById('playspace');
+        canvas = 'playspace'
+    }
+
+    stage = MainStage.go({
+        loop: true
+    })
+
+This will execute the canvas name. It provides some free tools:
+
++ `mount()` and `draw(ctx)` functions
++ _load_ capture events
++ size locking and auto resizing
++ optional request frame loop
++ builtin measurement tools; `center` and `dimensions`
+
+*/
 
 // Solution 2
 Number.EPSILON = Math.pow(2, -52);
@@ -391,30 +415,6 @@ class StageRender {
 
 
 
-/* A Stage acts as a convenience tool to hoist a canvas and begin drawing.
-It's not fundamental to the drawing tools and a start requestAnimationFrame will
-work.
-
-The Stage helps manage loading and looping of content. Extend with custom functionality and run:
-
-    class MainStage extends Stage {
-        // canvas = document.getElementById('playspace');
-        canvas = 'playspace'
-    }
-
-    stage = MainStage.go({
-        loop: true
-    })
-
-This will execute the canvas name. It provides some free tools:
-
-+ `mount()` and `draw(ctx)` functions
-+ _load_ capture events
-+ size locking and auto resizing
-+ optional request frame loop
-+ builtin measurement tools; `center` and `dimensions`
-
-*/
 class Stage extends StageRender {
 
     loaded = false

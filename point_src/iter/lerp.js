@@ -88,7 +88,6 @@ class Value {
         // console.log('Mutated', mutator)
         let done = step >= (1 - .00001)
 
-
         let raw = this.t(mutator)
         // console.log('Computed', raw)
         let res = this.a + raw
@@ -113,7 +112,6 @@ class Value {
 
     doneHandler(value, preValue, mutator, step) {
         console.log('done', value, preValue)
-
     }
 
     split(count=1) {

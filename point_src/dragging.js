@@ -1,4 +1,10 @@
 /*
+---
+title: Dragging
+dependencies:
+    distances.js
+---
+
 Dragging tool performs distance tests for all applied points.
 
     drag = new Dragging
@@ -15,46 +21,6 @@ Upon a mouse action we can access the discovered points.
         let p = drag.getPoint();
         if(p) {
             p.pen.circle(ctx)
-        }
-
- */
-
-
-/*
-Poly.mixin()
-Poly.Point()
-Poly.PointList()
-Poly.functions.graient
-
-
-Polypoint.head.mixin()
-Polypoint.head.Point()
-Polypoint.head.PointList()
-Polypoint.head.functions.graient */
-
-/*The mixin hot-loads functions and objects into the classy head.
-The target can be a string or root entity.
-
-For example, providing a function to the Point class
-
-    Point.prototype.constructor.prototype.myfunc = function() {
-        console.log('myfunc', this)
-    }
-
-    stage.center.myfunc()
-    "myfunc", Point,...
-
-    The addon may be a dict or function
-    If a function, accept the target:
-
-        'Point', function(Point){
-            Point.prototype.constructor.prototype.myfunc = ()=>{}
-        }
-
-    or return a object to assign as the overload:
-
-        'Point', function(Point){
-            return { myfunc(){} }
         }
 
 */
@@ -402,7 +368,6 @@ class CursorStack {
         this.icon = 'default'
         this.map = new Map;
         this.stage = stage
-
     }
 
     set(name, parallelUnset) {

@@ -1,0 +1,10 @@
+{% extends "./generic_named.html" %}
+
+{% comment "What" %}
+    When a theatre file does not have a dedicated _template_ file (such as egg.html) this file is served in its place.
+{% endcomment %}
+
+{% block content %}
+    {{ block.super }}
+    <p>Default HTML file for a theatre JS file without a dedicated example template.</p>
+{% endblock content %}

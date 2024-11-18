@@ -240,6 +240,7 @@ class StageStrokeMap {
     }
 }
 
+
 Polypoint.head.deferredProp('Stage', function strokes() {
         /* Return an instance of the Strok map object for the stage.
         This returns a proxy of the instance, providing access to the special calling methods.

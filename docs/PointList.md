@@ -1,6 +1,6 @@
 # PointList
 
-A `PointList` maintains many points. It's actually an `Array` with some convenience function.
+A `PointList` maintains many points. It's actually an `Array` with some convenience functions.
 
 
 Generate 100 random points:
@@ -18,7 +18,6 @@ topLeftOrigin = point(200,200)
 
 circle = PointList.generate.radius(pointCount, radius, topLeftOrigin)
 ```
-
 
 Iterate and edit:
 

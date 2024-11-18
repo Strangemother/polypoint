@@ -1,4 +1,50 @@
 
+const findNearestPoint = function(bezierStack, p, divisor=100) {
+
+    let minDist = Infinity;
+    let closestPoint = null;
+
+    let pointA = bezierStack.line.a
+    let pointB = bezierStack.line.b
+    let controlPointA = bezierStack.controlPoints.a
+    let controlPointB = bezierStack.controlPoints.b
+
+    // Sample points along the Bezier curve
+    for (let i = 0; i <= divisor; i++) {
+        let t = i / divisor;
+        let oneMt = 1 - t;
+        let omtp3 = Math.pow(oneMt, 3)
+        let tpow3 = Math.pow(t, 3)
+        let tpow2 = Math.pow(t, 2)
+        let omtp2 = Math.pow(oneMt, 2)
+
+        // Calculate the point on the cubic Bezier curve at parameter t
+        let x = omtp3 * pointA.x + 3
+                * omtp2 * t * controlPointA.x + 3
+                * (oneMt) * tpow2 * controlPointB.x
+                + tpow3 * pointB.x
+                ;
+
+        let y = omtp3 * pointA.y + 3
+                * omtp2 * t * controlPointA.y + 3
+                * (oneMt) * tpow2 * controlPointB.y
+                + tpow3 * pointB.y
+                ;
+
+        let dx = p.x - x;
+        let dy = p.y - y;
+        let distSq = dx * dx + dy * dy;
+
+        if (distSq < minDist) {
+            minDist = distSq;
+            closestPoint = { x: x, y: y };
+        }
+    }
+
+    return closestPoint
+}
+
+
 class MainStage extends Stage {
     canvas='playspace'
     live = true
@@ -26,52 +72,21 @@ class MainStage extends Stage {
         this.events.wake()
     }
 
-    xonMousemove(ev) {
-        /* edit the indicator position to present the closest point*/
-        this.indicator = this.mouse.position
-    }
-
     onMousemove(ev) {
         let p = this.mouse.position;
-        let minDist = Infinity;
-        let closestPoint = null;
 
-        // Sample points along the Bezier curve
-        let steps = 100;
-        for (let i = 0; i <= steps; i++) {
-            let t = i / steps;
-            let oneMt = 1 - t;
-            let omtp3 = Math.pow(oneMt, 3)
-            let tpow3 = Math.pow(t, 3)
-            let tpow2 = Math.pow(t, 2)
-            let omtp2 = Math.pow(oneMt, 2)
-
-            // Calculate the point on the cubic Bezier curve at parameter t
-            let x =
-                omtp3 * this.pointA.x +
-                3 * omtp2 * t * this.controlPointA.x +
-                3 * (oneMt) * tpow2 * this.controlPointB.x +
-                tpow3 * this.pointB.x;
-
-            let y =
-                omtp3 * this.pointA.y +
-                3 * omtp2 * t * this.controlPointA.y +
-                3 * (oneMt) * tpow2 * this.controlPointB.y +
-                tpow3 * this.pointB.y;
-
-            let dx = p.x - x;
-            let dy = p.y - y;
-            let distSq = dx * dx + dy * dy;
-
-            if (distSq < minDist) {
-                minDist = distSq;
-                closestPoint = { x: x, y: y };
+        const stack ={
+            line: this.line
+            , controlPoints: {
+                a: this.controlPointA
+                , b: this.controlPointB
             }
-        }
+        };
 
-        // Update the indicator to the closest point on the curve
-        this.indicator.x = closestPoint.x;
-        this.indicator.y = closestPoint.y;
+        const closestPoint = findNearestPoint(stack, p)
+
+        this.indicator.set(closestPoint);
+        // this.indicator.x = closestPoint.x; this.indicator.y = closestPoint.y;
     }
 
     updatePointsToControl(){

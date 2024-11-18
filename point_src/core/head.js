@@ -1,18 +1,119 @@
 /*
 
-The _head_ represents the library and its accessibles. In the browner this manifests as the
-first object to loadout; "Polypoint"
+The _head_ represents the library and its accessibles. In the browser this manifests as the
+first object to loadout: `Polypoint`.
 
 The head contains a range of hoisting functions to late-load installables.
 
-1. add this file
-2. Load assets with Polypoint.head.install() ...
+## Usage
+
+1. Add this file
+2. Load assets with `Polypoint.head.install()` ...
+
+Once loaded, assets are available through the same object `Polypoint.MyClass`
+
+## Example
+
+We can load standardclasses:
+
+    class A {
+
+        foo() {
+            return 'foo'
+        }
+    }
+
+
+    class B extends A {
+
+        bar() {
+            return 'bar'
+        }
+    }
+
+
+    class C extends B {
+
+        baz() {
+            return 'baz'
+        }
+    }
+
+    Polypoint.head.install(A)
+    Polypoint.head.install(B)
+    Polypoint.head.install(C)
+
+
+Once loaded, we can access them within the object:
+
+    Polypoint.A
+    // class A ...
+
+
+And target the loaded classes for live property mixin:
+
+    Polypoint.head.mixin('C', {
+        one: {
+            get() {
+                return 'one'
+            }
+        }
+    })
+
+    c = new C;
+    c.one == 'one'
+
+This can occur _late_, and decent through dependant children:
+
+
+    // Property on _c_ does not exist yet.
+    c.two == undefined
+
+    // Load a property into "B"
+    Polypoint.head.mixin('B', {
+        two: {
+            get() {
+                return 'two'
+            }
+        }
+    })
+
+    // New B as the new property.
+    b = new B;
+    b.two == 'two'
+
+    // Existing "C" instances gain the new property.
+    c.two == 'two'
+
+This works for many mixins:
+
+    // Another late mixin, targeting the root class
+    Polypoint.head.mixin('A', {
+        three: {
+            get() {
+                return 'three'
+            }
+        }
+    })
+
+    // All (a,b,c) instances gain the new property
+    (new A).three == 'three'
+    b.three == 'three'
+    c.three == 'three'
 
 */
-;(function(parent, name='Polypoint', debug=false, strict=true){
+;(function(parent, name=undefined, debug=false, strict=true){
 
-    const dlog = debug?console.log.bind(console): ()=>{}
+    var dlog = debug?console.log.bind(console): ()=>{}
+
+    try{
+        if(logger) {
+            dlog = logger.create("head")
+        }
+    } catch{}
+
     const waiting = {}
+    const currentScr = document.currentScript
     const currentLoc = document.currentScript.src
 
     /* Options to configure the lib. Append with `lib.cofigure(d)` */
@@ -27,8 +128,47 @@ The head contains a range of hoisting functions to late-load installables.
     */
     let parkedEntity = undefined;
 
+    const resolveName = function(n){
+        /* Return the name, by order:
+
+            Attribute `name`
+            Dataset `name`
+            hash value `#name`
+            ~filename   `name.js`~
+            Polypoint (default-name)
+        */
+        if(n === undefined) {
+            /* Grab the `name` from the script, then the `data-name` */
+            n = currentScr.dataset.name
+            const attr = currentScr.attributes.name
+            if(attr) {
+                n = attr.value
+            };
+        }
+
+        if(n === undefined) {
+            // Check for the HASH name,
+            let src = currentScr.src;
+            let u = new URL(src).hash.slice(1)
+            if(u.length > 0) {
+                n = u;
+            }
+
+            /* default to the filename.*/
+            // src.split('/').pop()
+        }
+
+        if(n === undefined) {
+            n = 'Polypoint'
+        }
+
+        return n;
+    }
+
+    name = resolveName(name)
+
     if(parent[name] !== undefined) {
-        console.log('Parked asset on', name)
+        dlog('Parked asset on', name)
         parkedEntity = parent[name]
     }
 
@@ -39,10 +179,10 @@ The head contains a range of hoisting functions to late-load installables.
     const fileObject = {
         meta(data) {
             /* Incoming mets data for the incoming file.*/
-            console.log('meta config', data)
+            dlog('meta config', data)
             if(data.files) {
                 let src = document.currentScript
-                console.log(src)
+                dlog(src)
             }
         }
     }
@@ -69,19 +209,22 @@ The head contains a range of hoisting functions to late-load installables.
         this.center.draggable == false
      */
     const mixin = function(target, addon, targetPrototype=true) {
-        if(exposed[target]) {
-            dlog(`Installing mixin for "${target}"`)
-            populateAddon(target, addon, targetPrototype)
+        const targetName = target.getMixinTarget? target.getMixinTarget(): target
+
+        if(exposed[targetName]) {
+
+            dlog(`Installing mixin for "${targetName}"`)
+            populateAddon(targetName, addon, targetPrototype)
             return
         }
 
-        dlog('Mixin Waiting for unit', target)
-        if(waiting[target] == undefined) {
-            waiting[target] = []
+        dlog('Mixin Waiting for unit', targetName)
+        if(waiting[targetName] == undefined) {
+            waiting[targetName] = []
 
         }
 
-        waiting[target].push(addon)
+        waiting[targetName].push(addon)
     }
 
     /* Install static methods:
@@ -142,6 +285,13 @@ The head contains a range of hoisting functions to late-load installables.
             [...]
         */
         installMap.set(name, entity)
+    }
+
+    const installMany = function() {
+        /* Receive many items to install
+            installMany(A, B, C)
+        */
+       Array.from(arguments).forEach(C => install(C))
     }
 
     const populateAddons = function(name, items, targetPrototype=true) {
@@ -255,7 +405,7 @@ The head contains a range of hoisting functions to late-load installables.
             stage.center._pen == Pen
      */
     const lazyProp = function(name, propsDict) {
-        console.log('lazyProp', name, Object.keys(propsDict))
+        dlog('lazyProp', name, Object.keys(propsDict))
         let def = {
         }
 
@@ -317,7 +467,6 @@ The head contains a range of hoisting functions to late-load installables.
                 return new Screenshot(this)
             }
         })
-
     */
     const deferredProp = function(name, method, reference) {
         let methodName = reference==undefined? method.name: reference
@@ -336,7 +485,7 @@ The head contains a range of hoisting functions to late-load installables.
     const load = function(name, callback){
         /* A shortcut for loading a stub*/
         return ljs.load(name, function() {
-            console.log('Loaded', name, arguments);
+            dlog('Loaded', name, arguments);
             return callback && callback()
         })
     }
@@ -385,7 +534,8 @@ The head contains a range of hoisting functions to late-load installables.
         , configure
         , load
         , static: staticMixin
-        , mixin, install, installFunctions
+        , mixin, install, installMany
+        , installFunctions
         , define
         , lazyProp, lazierProp, deferredProp
         /* Return a map iterator of the installed items.*/
@@ -439,6 +589,87 @@ The head contains a range of hoisting functions to late-load installables.
         })
     }
 
-    parent[name] = exposed;
+    class Stub {
+        /* The stub applies a reference to a non-existence [future] class.
+        Allowing the extension of future classes when they appear.
+        */
+        constructor(prop, history=[]) {
+            this.assignedName = prop
+            this.history = history
 
-}).apply({}, [this]);
+            const proxy = new Proxy(this, {
+                get(target, property, receiver) {
+                    if(Reflect.has(target, property)){
+                        return Reflect.get(target, property, receiver)
+                    }
+                    return target.getUndefined(target, property, receiver)
+                },
+            });
+            return proxy;
+        }
+
+        getMixinTarget() {
+            /* This unit was given in place of a mixin definition.
+            Return the _name_ of the target*/
+            return this.assignedName
+        }
+
+        getUndefined(target, property, receiver) {
+            dlog('get unknown', property, 'on stub')
+            this.history.push(this.assignedName)
+            return new this.constructor(property, this.history)
+        }
+
+        get(v) {
+            dlog(v)
+        }
+
+        get [Symbol.toStringTag]() {
+            return this.toString()
+        }
+
+        [Symbol.toPrimitive](hint) {
+            if (hint === 'string') {
+                return this.toString()
+            }
+            return Reflect.apply(...arguments)
+        }
+
+        toString(){
+            return this.assignedName;
+        }
+    }
+
+
+    const exposedProxyHandler = {
+        get(target, prop, receiver) {
+            /* Upon _get_ of a property within the exposed object,
+            we first test to ensure the target value exists,
+
+            If not, return a stub allowing capture and import.
+            Else the stub can be reactive to usage.
+
+            If true, return the prop object.
+            */
+            if(!Reflect.has(target, prop)) {
+                return this.getUnknown(target, prop, receiver)
+            }
+
+            // dlog('Exposed Get', prop)
+            return Reflect.get(target, prop, receiver)
+        }
+
+        , getUnknown(target, prop, receiver) {
+            /* A request to  a property of which does not exist (yet).
+            Return a stub in place of the requested future import.
+            */
+            // console.warn('Unknown prop response', prop)
+            return new Stub(prop)
+        }
+    }
+
+    const exposureProxy = new Proxy(exposed, exposedProxyHandler)
+
+    parent[name] = exposureProxy;
+
+}).apply({}, [this, undefined, true]);

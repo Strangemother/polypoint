@@ -1,0 +1,23 @@
+{% extends "docs/doc-base.html" %}
+{% load content link %}
+
+{% block page_title %}Parse{% endblock page_title %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        <p>File Parse {{ object_path }}</p>
+        <div class="tree"></div>
+        <h2>Source</h2>
+        <pre id="file-content">
+            {% src_code_content object_path %}
+        </pre>
+
+    </div>
+</div>
+
+{% js "js/acorn.js" %}
+{% js "js/file-parser.js" %}
+
+{% endblock content %}
+

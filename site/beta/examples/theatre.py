@@ -16,6 +16,15 @@ def get_theatre_list(**kw):
     # parent = settings.POLYPOINT_EXAMPLES_DIR
     parent = settings.POLYPOINT_THEATRE_DIR
 
+    reverse = kw.get('reverse', True)
+    order_by = kw.get('orderby', None)
+    default_order_index = 1
+    order_named = {
+        'modified': 1,
+        'name': 0,
+    }
+
+    order_index = order_named.get(order_by, default_order_index)
     tpath = Path(parent)
     res = ()
     for asset in tpath.iterdir():
@@ -28,7 +37,9 @@ def get_theatre_list(**kw):
                     (str(nn), modified,),
                 )
 
-    res = reversed(sorted(res, key=itemgetter(1)))
+    res = sorted(res, key=itemgetter(order_index))
+    if reverse:
+        res = reversed(res)
     return tuple(res)
 
 
@@ -128,13 +139,91 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
     res['filepath_exists'] = True
     res['path'] = path
     res['filepath'] = theatre_file.relative_to(parent)
-
+    res['clean_files'] = clean_files_list(res)
     res['markdown'] = {
         "html": html,
         "content": text_data,
     }
 
     return res
+
+
+import json
+
+def clean_files_list(metadata):
+    src_dir = settings.POLYPOINT_SRC_DIR
+    files_path = src_dir / 'files.json'
+    file_ref = json.loads(files_path.read_text())
+    files = metadata.get('files', ())
+    src_dir = metadata.get('src_dir', None)
+    if src_dir is not None:
+        src_dir = src_dir[0]
+    # replace specials from the files packs.
+    # ensure set()
+    res = ()
+    for leaf in files:
+        item_list = file_ref.get(leaf)
+        if item_list is None:
+            # A string or non-object reference.
+            # foo: undefined
+            lsw = leaf.startswith
+            if (lsw('/*') or lsw('#') or lsw('// ') ):
+                # skip commented.
+                continue
+            res += (leaf, )
+            continue
+        if isinstance(item_list, str):
+            # discovered item is a string
+            # foo: "bar.js"
+            res += (item_list, )
+            continue
+        # An object to iterate.
+        # foo: [bar, baz]
+        res += flatten_leaf(leaf, file_ref, src_dir)
+        # Merge the sub list
+        # for item in item_list:
+    # finally, clean dup file imports.
+    return tuple({x:0 for x in res}.keys())
+
+
+
+def flatten_leaf(leaf, file_ref, src_dir=None):
+    """Given a lead and reference dictionary, return a list of
+    files for the leaf entry. This Any name leaf within the reference is
+    applied to the list.
+
+
+        file_ref = {
+            leaf: [
+                filepath.js
+                other
+            ]
+            other: [
+                a.js
+                b.js
+            ]
+        }
+
+        file_ref[leaf] == [
+            filepath.js
+            a.js
+            b.js
+        ]
+    """
+    res = ()
+    items = file_ref[leaf]
+    src_dir = src_dir or ''
+    if isinstance(items, str):
+        return (f"{src_dir}{items}",)
+    for item in items:
+        if item in file_ref:
+            res += flatten_leaf(item, file_ref, src_dir)
+            continue
+        res += (f"{src_dir}{item}",)
+
+    # set() is disordered. This is an ordered set.
+    return tuple({x:0 for x in res}.keys())
+
 
 
 def file_default_meta(path, raw_meta=None, meta_keys=None):

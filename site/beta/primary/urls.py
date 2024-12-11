@@ -7,7 +7,7 @@ from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from trim import urls as trim_urls
-from trim.urls import path_includes as includes
+# from trim.urls import path_includes as includes
 
 from search import views as search_views
 from editor import views as editor_views
@@ -20,12 +20,13 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     # path("docs/", include(docs.urls)),
-
 ]
 
 
+from trim.urls import path_includes_pair as includes
+
 urlpatterns += includes(
-                    'docs',
+                    ('docs', 'files/'),
                     'editor',
                     'examples',
                 )

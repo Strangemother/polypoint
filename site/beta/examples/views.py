@@ -18,13 +18,17 @@ from .theatre import get_theatre_list, get_metadata
 class ExampleIndexTemplateView(views.ListView):
     """
     Index view for the examples, with a list of available files
+
+        http://localhost:8000/examples/
     """
     template_name = 'examples/index.html'
     def get_queryset(self):
         """
         Return the list of items for this view.
         """
-        return get_theatre_list()
+        orderby = self.request.GET.get('orderby', None)
+        reverse = 'reverse' in self.request.GET
+        return get_theatre_list(reverse=reverse, orderby=orderby)
 
 
 class ScriptsImportListView(views.ListView):

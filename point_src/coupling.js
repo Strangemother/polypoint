@@ -56,12 +56,23 @@ class Coupling {
     }
 
     step(){
+        /* Perform a single _step_ of the coupling test,
+        if either side of the connection has changed, bubble the update
+        to its sibling - through the relative conversion. */
+
 
         const perform = function(changes,
                                 primary, primaryCache,
                                 secondary, secondaryCache,
                                 func
                             ){
+            /* The perform function is called by the each pair _twice_, for
+            both sides of a coupling, providing a list of keys (`changes`) to
+            assign updates.
+
+            This is called only if a value stores in the cache differs to
+            the current value on a point.
+             */
             changes.forEach((key, i) => {
                 /* Install the current primary value into its cache.
                 and apply the value to the second entity, also applying
@@ -72,7 +83,8 @@ class Coupling {
                 secondaryCache[key] = secondary[key] = func(key, av)
             });
         }
-        /* A Test of an item */
+
+        /* A Test of a single item. */
         const eachFunc = item => {
 
             let a = item.a
@@ -81,16 +93,21 @@ class Coupling {
                 , aCache = item.aCache
                 , bCache = item.bCache
                 ;
+
             perform(this.hasChanged(a, aCache)
                     , a, aCache
                     , b, bCache
-                    , (key, value) => value + offset[key]
+                    , (key, value) => {
+                            return value + offset[key];
+                        }
                     )
 
             perform(this.hasChanged(b, bCache)
                     , b, bCache
                     , a, aCache
-                    , (key, value) => value + -offset[key]
+                    , (key, value) => {
+                            return value + -offset[key];
+                        }
                     )
         }
 
@@ -239,6 +256,10 @@ class LockedCoupling {
         */
         let res = new Set;
         if(aCache.dirty || isNaN(aCache.dirty)) {
+
+            /* Here we flag _zero_ rather than delete or undefined
+            to denote that dirty is false without extra steps. */
+            aCache.dirty = 0
             return Object.keys(aCache)
         };
 

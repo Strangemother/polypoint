@@ -37,11 +37,32 @@ class Relative {
 class Positionable extends Relative {
 
     set x(v) {
-        this._opts.x = v
+        this._opts.x = isFunction(v)? v(this, 'x'): v
     }
 
     set y(v) {
-        this._opts.y = v
+        this._opts.y = isFunction(v)? v(this, 'y'): v
+    }
+
+    get x() {
+        const opts = this._opts
+            , _x = opts.x
+            ;
+
+        let r = _x == undefined? 0: _x
+        let v = this._relativeData[0]
+        r = isFunction(r)? r(this, 'x'): r
+        return r + v
+    }
+
+    get y() {
+        const opts = this._opts
+            , _y = opts.y
+            ;
+
+        let r = _y == undefined? 0: _y
+        r = isFunction(r)? r(this, 'y'): r
+        return r + this._relativeData[1]
     }
 
     get rel() {
@@ -76,7 +97,6 @@ class Positionable extends Relative {
                 return relData[2] = v
             }
 
-
             , get rotation() {
                 return relData[3]
             }
@@ -92,24 +112,6 @@ class Positionable extends Relative {
 
     set rel(v) {
         this._opts.rel = v
-    }
-
-    get x() {
-        const opts = this._opts
-            , _x = opts.x
-            ;
-
-        let r = _x == undefined? 0: _x
-        return r + this._relativeData[0]
-    }
-
-    get y() {
-        const opts = this._opts
-            , _y = opts.y
-            ;
-
-        let r = _y == undefined? 0: _y
-        return r + this._relativeData[1]
     }
 
     set(x, y, radius, rotation) {
@@ -162,14 +164,6 @@ class Positionable extends Relative {
         }
     }
 
-    subtract(p, _2=p){
-        if(typeof(p) == 'number') {
-            p = point(p, _2)
-        }
-
-        return new Point(this.x - p.x, this.y - p.y)
-    }
-
     _cast(p, _2=p) {
         if(typeof(p) == 'number') {
             p = point(p, _2)
@@ -178,6 +172,14 @@ class Positionable extends Relative {
             return point(p, _2)
         }
         return p
+    }
+
+    subtract(p, _2=p){
+        if(typeof(p) == 'number') {
+            p = point(p, _2)
+        }
+
+        return new Point(this.x - p.x, this.y - p.y)
     }
 
     add(p, _b,) {
@@ -428,6 +430,9 @@ class Tooling extends Rotation {
             if(position?.radians){
                 this.radians = position.radians
             }
+            // if(position?.rotation){
+            //     this.rotation = position.rotation
+            // }
             return this;
         }
 
@@ -583,6 +588,8 @@ class Point extends Tooling {
     }
 
     get uuid() {
+        /* Get or create a random _id for this point.
+        Return a unique string */
         let r = this._id;
         if(r == undefined) {
             this._id = r = Math.random().toString(32).slice(2)
@@ -746,5 +753,14 @@ Polypoint.head.mixin('Point', {
 })
 
 
-;Object.defineProperty(Point, 'from', { value: (a,b)=> new Point(a,b) });
+;Object.defineProperty(Point, 'from', {
+    value: function(a,b, c, d){
+
+        if(a.offsetX && b==undefined) {
+            // is an event
+            return new Point(a.offsetX, a.offsetY)
+        }
+        return new Point(a,b, c, d)
+    }
+});
 

@@ -1,4 +1,10 @@
+/*
+title: Emitter
+category: emitter
 
+---
+
+*/
 class MainStage extends Stage {
     canvas = 'playspace'
 

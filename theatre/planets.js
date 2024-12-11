@@ -1,3 +1,25 @@
+/*
+title: Planets
+files:
+    ../point_src/core/head.js
+    ../point_src/pointlistpen.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/events.js
+    ../point_src/automouse.js
+    ../point_src/distances.js
+    ../point_src/bisector.js
+    ../point_src/dragging.js
+    ../point_src/functions/clamp.js
+    ../point_src/rotate.js
+    ../point_src/stage.js
+ */
+
 const arcLine = function(ctx, points) {
     ctx.beginPath();
     // midPoint.pen.indicator(ctx)
@@ -159,15 +181,24 @@ class MainStage extends Stage {
         this.dis.initDragging(this)
         // this.dis.onDragMove = this.onDragMove.bind(this)
         // this.dis.onDragEnd = this.onDragEnd.bind(this)
-        this.dis.addPoints(...this.points)
+        this.rotSize = 0
+        this.perspectiveCenter = new Point({x:800, y:600})
+        this.spin = {
+            x: -this.rotSize
+            , y:  -98
+            , z: -10
+        }
+
+        this.dis.addPoints(...this.points, this.perspectiveCenter)
     }
 
     generatePlanetList(){
         let offset = new Point({x: 50, y:0})
-        let origin = new Point({x: 150, y:150})
+        let origin = new Point({x: 100, y:100})
         let pl = Object.keys(planets).length
         this.points = PointList.generate.list(pl, offset, origin);
         this.makePlanets(this.points, this.multiplier, 10)
+
         // this.points.each(p=> {
         //     // p.
         // })
@@ -187,7 +218,7 @@ class MainStage extends Stage {
             let info = planets[name]
             info.name = name;
             info.index = i
-            i
+
             let sunOffsetKM = i==0? 1: info.km * km
             info.x = (offset + sunOffsetKM * mul)
             // info.radius = (info.diameter * .5)
@@ -196,17 +227,31 @@ class MainStage extends Stage {
     }
 
     draw(ctx){
+        this.spin.y += .5;
         this.clear(ctx)
-        arcLine(ctx, this.points)
-        bisectAll(this.points)
-        ctx.stroke();
+        // arcLine(ctx, this.points)
+        // bisectAll(this.points)
+        // ctx.stroke();
         this.drawCircles(ctx)
-        this.drawIris(ctx)
+        this.perspectiveCenter.pen.fill(ctx, '#880000')
+        // this.drawIris(ctx)
     }
 
     drawCircles(ctx) {
+
+        const projectionPoint = this.points[0]
+        const perspectiveCenter = this.perspectiveCenter
+
+        this.projected = this.points.pseudo3d.perspective(this.spin,
+                projectionPoint,
+                2000,
+                perspectiveCenter
+                )
         // this.points.pen.indicators(ctx)
-        this.points.pen.fill(ctx)
+        this.projected.pen.fill(ctx, 'white')
+        ctx.lineStyle = 'red'
+        this.projected.pen.stroke(ctx)
+        // this.points.pen.fill(ctx)
     }
 
     drawIris(ctx) {
@@ -223,4 +268,4 @@ class MainStage extends Stage {
 }
 
 
-; stage = MainStage.go();
+;stage = MainStage.go();

@@ -125,3 +125,24 @@ distance lines.
 With cutting, a user can cut a line, select other points and merge.
 reorder the pointlist by distance (relative)
 draw a line along them to generate a new shape.
+
+---
+
+Notes for polypoint
+
+https://sites.google.com/site/logicedges/how-to-draw#h.caqf7q1byr0y
+https://sites.google.com/site/logicedges/the-schr%C3%B6dinger-equation
+
+Interpolator
+Manipulator
+Controller
+Updator
+Modulator
+
+Animator
+
+
+
+
+
+

@@ -106,6 +106,7 @@ class PointListGenerator {
 
     constructor(parent) {
         this.parent = parent;
+
     }
 
     _distanceToPointFunction(distance) {
@@ -169,12 +170,37 @@ class PointListGenerator {
         return res
     }
 
-    random(count, multiplier=100, offset={x:0, y:0}) {
-        let p = new Point(multiplier)
-        let R = (w)=> Math.random() * p[w]
+    random(count, multiplier=100, offset={x:0, y:0, radius: 0, rotation: 0}) {
+        /*Generate a set of random points
+
+            PointList.generate.random(10)
+
+        Apply a multipler and offset:
+
+            let count = 20
+            let multiplier = [300, 200, null, 0]
+            let offset = [100, 100, 10, 0]
+
+            PointList.generate.random(count, multiplier, offset)
+
+         */
+        let multiplierP = new Point(multiplier)
+        let offsetP = new Point(offset)
+        let R = (w)=> Math.random() * multiplierP[w]
+
+        let doRads = multiplierP.radius != null
+        let doRotation = multiplierP.rotation != null
+
         const rand = function(index) {
-            let i = (10 * (1+index))
-            return new Point({x: offset.x + R('x'), y: offset.y + R('y')})
+            /* Fundamental options.*/
+            const opts = {
+                x: offsetP.x + R('x')
+                , y: offsetP.y + R('y'),
+            }
+            /* Optonal edits. If null, they're not applied.*/
+            doRads && (opts['radius'] = offsetP.radius + R('radius'))
+            doRotation && (opts['rotation'] = offsetP.rotation + R('rotation'))
+            return new Point(opts)
         }
 
         return this.list(count, rand)
@@ -454,7 +480,10 @@ class LazyAccessArray extends Array {
 
     get generate() {
         const C = (this.generatorClass || PointListGenerator)
-        return (this._generator || (this._generator = new C(this)))
+        if(this._generator == undefined) {
+            Object.defineProperty(this, '_generator', { value: new C(this) })
+        }
+        return this._generator
     }
 
     get shape() {
@@ -557,7 +586,7 @@ class LazyAccessArray extends Array {
             , get(target, prop, receiver) {
 
                 const caller = function eachCaller(values) {
-                    console.log('Called', this, this.prop, values)
+                    // console.log('Called', this, this.prop, values)
                     let r = []
                     let previouslyCalled = undefined;
                     let isCaller = function(v){
@@ -618,7 +647,7 @@ class LazyAccessArray extends Array {
                             ---
                             this: the head headHandler
                         */
-                        console.log('Call to head', this)
+                        // console.log('Call to head', this)
                                 // head
                         return target.apply(thisArg, argsList)
                     }
@@ -690,7 +719,6 @@ class PointList extends LazyAccessArray {
             }
         }
         return this.map(p=>func(p))
-
     }
 
     centerOfMass(type='simple', origin) {
@@ -717,6 +745,12 @@ class PointList extends LazyAccessArray {
         for(let k in data) {
             this.setMany(data[k], k)
         }
+    }
+
+    update(data) {
+        this.forEach((e,i,a)=> {
+            return e.update(data)
+        })
     }
 
     setMany(value, key) {
@@ -769,7 +803,10 @@ class PointList extends LazyAccessArray {
 
     offset(value) {
         this.forEach(p=>{
-            p.copy(p.add(value))
+            let va = p.add(value)
+            p.x = va.x
+            p.y = va.y
+            // p.copy(p.add(value))
             // p.rotate(rot)
         })
     }
@@ -860,5 +897,6 @@ class PointListGradient {
 Polypoint.head.install(PointList)
 Polypoint.head.install(PointListGradient)
 Polypoint.head.install(PointListGenerator)
+
 
 PointList.generate = new PointListGenerator();

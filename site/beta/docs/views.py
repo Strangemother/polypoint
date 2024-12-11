@@ -9,6 +9,7 @@ from django.shortcuts import render
 
 from trim import views
 from trim.markdown import (
+    MarkdownToMarkdownTemplateResponse,
     MarkdownDoubleTemplateResponse,
     MarkdownTemplateResponse,
     MarkdownReponseMixin,
@@ -102,7 +103,7 @@ class FileParseView(views.TemplateView):
         return r
 
 
-class MarkdownExampleView(views.TemplateView):
+class MarkdownExamplePureView(views.TemplateView):
     """Given a markdown file as the template_name, render as the response.
 
     This is a direct replacement for standard HTML templates, allowing the
@@ -124,6 +125,17 @@ class MarkdownExampleView(views.TemplateView):
     response_class = MarkdownDoubleTemplateResponse
     template_name = 'docs/markdown-example.md'
     # template_name = 'docs/markdown-base.html'
+
+
+class MarkdownToMarkdownExampleView(views.ListView):
+    response_class = MarkdownToMarkdownTemplateResponse
+    template_name = 'docs/md/src-list-example.md'
+
+    def get_queryset(self):
+        """
+        Return the list of items for this view.
+        """
+        return get_src_list()
 
 
 class SubMarkdownTemplateResponse(TemplateResponse):
@@ -364,6 +376,5 @@ class PointSrcFileView(views.TemplateView):
         """Given the HTML from the markdown content, reprocess through
         the templating library, returning HTML with rendered django templates.
         """
-        print('reprocess_template_text')
         return pre_processed_html
 

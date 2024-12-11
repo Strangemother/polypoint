@@ -198,8 +198,8 @@ class StageRender {
             console.warn('Stage canvas is undefined through Stage.canvas')
         }
         // this.setupClock()
-        this.dispatch('stage:prepare', {target, id, canvas })
         this.canvas = canvas
+        this.dispatch('stage:prepare', {target, id, canvas })
         this.resize()
         this.loopDraw = this.loopDraw.bind(this)
         this._prepared = true;

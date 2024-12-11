@@ -104,7 +104,19 @@ class PointPen {
         ctx.beginPath()
 
         this.point.draw.arc(ctx, radius)
-        let fs = fillStyle == undefined? this.fillStyle || this.point.color: fillStyle
+        const getFillStyle = () => {
+            if(fillStyle.color != undefined) {
+                return fillStyle.color
+            }
+
+            if(fillStyle.fillStyle != undefined) {
+                return fillStyle.fillStyle
+            }
+
+            return fillStyle
+        };
+
+        let fs = fillStyle == undefined? this.fillStyle || this.point.color: getFillStyle()
 
         ctx.fillStyle = fs
         // ctx.lineWidth = width == undefined? 1: width
@@ -120,23 +132,28 @@ class PointPen {
             weightedComPoint.pen.circle(ctx, undefined, 'yellow', 1)
 
         */
-        let def = {
-            line: {color:'red', width: 2}
-            , circle: {color:'yellow', width: 1}
-        };
+        // let def = {
+        //     line: {color:'red', width: 2}
+        //     , circle: {color:'yellow', width: 1}
+        // };
 
+        // Object.assign(def, miniConf)
+
+        let defaultCircleColor = '#66DD22'
+        let defaultLineColor = defaultCircleColor
+        let def = {
+            line: {/*color:'red',*/ width: 2}
+            , circle: {/*color:'yellow',*/ width: 1}
+        };
         Object.assign(def, miniConf)
 
-        this.point.project().pen.line(ctx,
-                this.point,
-                def.color || def?.line?.color ,
-                def.width || def?.line?.width ,
-                )
-        this.circle(ctx,
-                undefined,
-                def.color || def?.line?.color,
-                def.width || def?.circle?.width,
-                )
+        let lc = def?.line?.color || def.color || defaultLineColor
+        let lw = def?.line?.width || def.width
+        let cc = def?.circle?.color || def?.color || def?.line?.color || defaultCircleColor
+        let cw = def.width || def?.circle?.width
+
+        this.point.project().pen.line(ctx, this.point, lc, lw,)
+        this.circle(ctx, undefined,cc, cw,)
     }
 }
 

@@ -1,3 +1,21 @@
+/*
+
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/stage.js
+    ../point_src/events.js
+    ../point_src/stage-clock.js
+    ../point_src/easing.js
+    ../point_src/timeit.js
+    ../point_src/iter/lerp.js
+
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

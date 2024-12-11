@@ -57,18 +57,20 @@ distance between an expected time, and a smoothed time.
 
 class Value {
 
-    constructor(a=0, b=1, easing=undefined) {
+    constructor(a=0, b=1, easing=undefined, doneStop=false) {
         this.a = a
         this.fix = 5
         this.b = b
         this.step = .5
         this.done = false
+        this.doneStop = doneStop
 
         this.setEasing(easing)
     }
 
     setEasing(easing){
-        let linear = v=>Number(v.toFixed(this.fix));
+        let linear = v=>v;
+        // let linear = v=>Number(v.toFixed(this.fix));
         this.easing = easing == undefined? linear: easing
     }
 
@@ -87,7 +89,7 @@ class Value {
         let mutator = this.mutate(step)
         // console.log('Mutated', mutator)
         let done = step >= (1 - .00001)
-
+        if(done && this.doneStop) { mutator = 1 }
         let raw = this.t(mutator)
         // console.log('Computed', raw)
         let res = this.a + raw
@@ -95,6 +97,7 @@ class Value {
         if(done == true) {
             this.emitDoneEvent(res, raw, mutator, step)
         }
+
         // console.log('Result', res)
         return res
     }

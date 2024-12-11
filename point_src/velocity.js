@@ -1,6 +1,10 @@
-/* A "Velocity" class to represent _motion_ of a point or entity.
-In truth this is a lot like the _point_ - but contains specific tools.
-for `vx` and `vy` values. */
+/*
+The velocity addon supplies classes and methods for speed and Vector based motion.
+
+A `Vector` is very similar to a `Point`, but is referenced within a point through
+`vx`, `vy`
+
+ */
 
 
 class Vector {

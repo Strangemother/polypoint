@@ -1,4 +1,4 @@
-.title h1, h1.title {
+.title h1, h1.title, h1 {
     background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -109,7 +109,7 @@ header.primary ul li a {
 
 
 body {
-    background: #222;
+    background: #111;
 }
 
 
@@ -120,4 +120,17 @@ body {
 
 main a {
     color: hsl(291deg 72% 59%);
+}
+
+main blockquote {
+    background: #181818;
+    padding: 1em 3em;
+    margin: 1rem 0em 1em 0em;
+    font-size: 1.1em;
+    border-left: solid 4px #957638;
+}
+
+main p {
+    line-height: 1.5;
+    letter-spacing: .2px;
 }

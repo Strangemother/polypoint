@@ -15,8 +15,10 @@ class MainStage extends Stage {
         this.mouse.point.mass = 2000
         this.mouse.point.av = -20
 
-        this.a = new Point({ x: 200, y: 300, av: .1, vx: 1, vy: 0, radius: 40, mass: 200 })
-        this.b = new Point({ x: 500, y: 300, av: -.5, vx: .3, vy: 0, radius: 40, mass: 2000 })
+        this.a = new Point({ x: 200, y: 300, av: .1, vx: 1, vy: 0
+                            , radius: 40, mass: 20 })
+        this.b = new Point({ x: 500, y: 300, av: -.5, vx: .3, vy: 0
+                            , radius: 40, mass: 20 })
 
         this.rotationMultiplier = 30//1-this.clock.delta
         this.friction = 4

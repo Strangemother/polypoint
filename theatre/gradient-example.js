@@ -1,4 +1,7 @@
-
+/*
+title: Gradient
+category: gradient
+*/
 class MainStage extends Stage {
     canvas='playspace'
 

@@ -239,6 +239,7 @@ class PumpRandomPointEmitter extends RandomPointEmitter {
     minSize = 2
 }
 
+
 class DirectionalPointEmitter extends RandomPointEmitter {
     directionVariant = .05
     particleSpeed = .6
@@ -273,6 +274,7 @@ class DirectionalPointEmitter extends RandomPointEmitter {
         }
     }
 }
+
 
 class TrailPointEmitter extends DirectionalPointEmitter {
     invert = true

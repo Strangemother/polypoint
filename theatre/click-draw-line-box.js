@@ -1,94 +1,27 @@
-const twoPointBox = function(a, b, func) {
-    let asLine = func || function(c, d) {
-        let l = new Line(c, d)
-        l.doTips = false
-        return l;
-    }
-
-    return [
-          // x top
-          asLine([a.x, a.y], [b.x, a.y])
-          // y left
-        , asLine([a.x, a.y], [a.x, b.y])
-        // x bottom
-        , asLine([a.x, b.y], [b.x, b.y])
-        // y right
-        , asLine([b.x, a.y], [b.x, b.y])
-    ]
-}
-
-
-
-const disorderdTwoPointsAsRect = function(a, b) {
-
-    return [
-          // x top
-          {x: a.x, y: a.y}, {x: b.x, y: a.y}
-          // y left
-        , {x: a.x, y: a.y}, {x: a.x, y: b.y}
-        // x bottom
-        , {x: a.x, y: b.y}, {x: b.x, y: b.y}
-        // y right
-        , {x: b.x, y: a.y}, {x: b.x, y: b.y}
-    ]
-}
-
-
-const twoPointsAsRectOrdered = function(a, b) {
-    const minX = Math.min(a.x, b.x);
-    const maxX = Math.max(a.x, b.x);
-    const minY = Math.min(a.y, b.y);
-    const maxY = Math.max(a.y, b.y);
-
-    return [
-        { x: minX, y: minY }, // Bottom-left corner
-        { x: maxX, y: minY }, // Bottom-right corner
-        { x: maxX, y: maxY }, // Top-right corner
-        { x: minX, y: maxY }  // Top-left corner
-    ];
-}
-
-
-
-
-// const asDimensions = function() {
-
-//     return {
-//         "x": 0,
-//         "y": 0,
-//         "width": 1394.09375,
-//         "height": 698.046875,
-//         "top": 0,
-//         "right": 1394.09375,
-//         "bottom": 698.046875,
-//         "left": 0
-//     }
-
-// }
-
-
 /*
-Hello GPT, I am working on my Polypoint library, a JS library dedicated to 2D points.
-I would like to make a JS function of which accepts a single point, and a list of other points,
-And the function should check if the given single point exists within the the polyon of the _other_ points.
-
-For example:
-
-    let othersBox = [
-        new Point(200, 200)
-        , new Point(200, 500)
-        , new Point(500, 500)
-        , new Point(500, 200)
-    ]
-    let result = withinBox(new Point(300, 500), othersBox)
-    console.log(result == true)
-
-This should work with any number of points, from 3 (for a triangle), this example shows 4.
-But it should also work with 4+ points.
-
-May I ask if you can show me the function to produce this?*/
-
-
+title: Draw Box
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/extras.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/stage.js
+    ../point_src/point.js
+    ../point_src/distances.js
+    ../point_src/pointlist.js
+    ../point_src/events.js
+    ../point_src/functions/clamp.js
+    ../point_src/curve-extras.js
+    ../point_src/random.js
+    ../point_src/dragging.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+    ../point_src/functions/within.js
+    ../point_src/automouse.js
+    ../point_src/recttools.js
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

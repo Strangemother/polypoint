@@ -1,7 +1,43 @@
 # PointList
 
-A `PointList` maintains many points. It's actually an `Array` with some convenience functions.
+A `PointList` maintains many `Point` objects. It's secretly just an `Array` (with some extra function for convenience).
 
+
+## Getting Started
+
+A `PointList` accepts many points.
+
+```js
+const points = new PointList(
+                    new Point(100, 200),
+                    new Point(350, 200),
+                    new Point(700, 200),
+                    // ...
+                );
+
+points.forEach(point=>console.log(point))
+
+// _Pen_ methods exist for easy drawing:
+points.pen.indicators(ctx, {color: 'green'})
+```
+
+## Casting
+
+We can load Point specific values for each entry, then `cast()` them in-place as `Point` types:
+
+```js
+const objects = new PointList(
+     { x: 300, y: 100, vx: 0, vy: 0}
+    , { x: 500, y: 100, vx: 0, vy: 0}
+    , { x: 700, y: 100, vx: 0, vy: 0}
+    , { x: 900, y: 100, vx: 0, vy: 0}
+)
+
+const points = objects.cast()
+```
+
+
+## Generate
 
 Generate 100 random points:
 

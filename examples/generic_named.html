@@ -12,14 +12,25 @@
         imports/foo-example.html
         theatre/foo-example.js
 {% endcomment %}
-{% load strings  %}
-{% load try_include %}
+{% load strings link try_include %}
 
 {% if metadata %}
     {% block title %}{{ metadata.title }}{% endblock title %}
 {% endif %}
 
+ {% block content %}
+    {% css "css/index.css" %}
+    {% include "docs/header.html" %}
+    <main>
+        <canvas id="playspace"></canvas>
+    </main>
+{% endblock content %}
+
 {% block js %}
+
+    {% comment %}
+        Install the import of the same filename - if it exists.
+    {% endcomment %}
     {% str_merge "./imports/" part_name ".html" as include_name %}
     {% if include_name|template_exists %}
         {% include include_name %}
@@ -29,6 +40,10 @@
         </div>
     {% endif %}
 
+    {% comment %}
+        Apply any custom imports from the markdown meta data (at the top
+        of a JS file.)
+    {% endcomment %}
     {% for import_template_name in metadata.imports %}
         {% str_merge "./imports/" import_template_name as include_name %}
         <!-- Including import "{{include_name}}" -->
@@ -50,6 +65,11 @@
     {% endif %}
 
     {% if metadata %}
+
+        {% for filepath in metadata.clean_files %}
+            <script src={{ filepath }}></script>
+        {% endfor %}
+
         {% include 'docs/metadata-table.html' %}
     {% endif %}
 {% endblock js %}

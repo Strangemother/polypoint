@@ -5,7 +5,11 @@ const splitToPointList = function(point, count, radius, rotation, angle=undefine
     p1 = p1.subtract(r)
     let _radius = radius || p1.radius
     // p1.rotation = rotation || point.rotation
-    let rot = rotation || p1.radians
+    //
+    //
+    /* p1 does not recieve r.radians - use the original rads.
+    rotation ==0 is falsy.*/
+    let rot = rotation == undefined? point.radians: rotation
     return PointList.from(
                 getPolyDistributedPoints(count, p1, _radius, rot, angle)
                 // splitRadius(p1, count)
@@ -15,7 +19,6 @@ const splitToPointList = function(point, count, radius, rotation, angle=undefine
 
 
 Polypoint.head.installFunctions('Point', {
-
     /* A "split" function to divide the point circumference to many points.
     Return a list of points.
 
@@ -42,6 +45,7 @@ function bLerp(a,b,t){
 function lerpV2(a,b,t){
     return { x: bLerp(a.x,b.x,t), y: bLerp(a.y,b.y,t) };
 }
+
 
 function get_bezier_point(p0, p1, p2, p3, t ){
     var a = lerpV2(p0,p1,t);

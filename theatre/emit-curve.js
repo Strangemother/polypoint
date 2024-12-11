@@ -1,4 +1,10 @@
+/*
+title: Emitter Curve
+category: emitter
 
+---
+
+*/
 class MainStage extends Stage {
     canvas = 'playspace'
 

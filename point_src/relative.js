@@ -1,4 +1,6 @@
-
+/*
+The relative motion addon supplied `Point.relative` methods, to
+ */
 const cosSin = function(value=1) {
     /* The cosSin object is a simple helper for cos/sin of a value.
 

@@ -46,6 +46,133 @@ const constraints = {
 }
 
 
+const stringAttach = function(followPoint, originPoint, settings) {
+    // Apply gravity to the follow point's vertical velocity
+    // Calculate the vector from the originPoint to the follow point
+    // let dx = followPoint.x - originPoint.x ;
+    // let dy = followPoint.y - originPoint.y ;
+    const defaultSettings = {
+        gravity: {x:0, y:1}
+        , damping:.95
+        , dotDamping:.2
+        , forceMultiplier:.1
+        , forceValue:undefined
+        , distance: 100
+    }
+
+    const conf = Object.assign(defaultSettings, settings);
+
+    const gravity = conf.gravity
+        , damping = conf.damping
+        , dotDamping = conf.dotDamping
+        , forceMultiplier = conf.forceMultiplier
+        , forceValue = conf.forceValue
+        , stringLength = conf.distance
+        ;
+
+    let dx = originPoint.x - followPoint.x;
+    let dy = originPoint.y - followPoint.y;
+
+    // Calculate the current distance between the follow point and the originPoint
+    let distance = Math.sqrt(dx * dx + dy * dy);
+
+    // Set the follow point's position to be exactly on the circumference of the string length
+    // const force = (distance - stringLength) * 0.01; // Tweak this factor as needed
+
+    // If the distance exceeds the string length, we need to constrain the follow point
+    if (distance > stringLength) {
+
+        // Normalize the direction vector
+        dx /= distance;
+        dy /= distance;
+
+        if(dotDamping!==false) {
+            // Adjust the velocity so that it reflects the string tension
+            let dotProduct = (followPoint.vx * dx + followPoint.vy * dy) * dotDamping;
+            followPoint.vx -= dotProduct * dx;
+            followPoint.vy -= dotProduct * dy;
+        }
+
+        if(forceMultiplier!==false){
+            const force = forceValue? forceValue: (distance - stringLength) * forceMultiplier; // Tweak this factor as needed
+            followPoint.vx += force * dx;
+            followPoint.vy += force * dy;
+        }
+
+    }
+
+    // Apply gravity
+    if(gravity){
+        followPoint.vy += gravity.y;
+        followPoint.vx += gravity.x;
+    }
+
+    // Update the follow point's position based on its velocity
+    followPoint.x += followPoint.vx;
+    followPoint.y += followPoint.vy;
+
+    if(damping) {
+        // Apply damping continuously to smooth the motion
+        followPoint.vx *= damping;
+        followPoint.vy *= damping;
+    }
+};
+
+
+class PointConstraints {
+
+
+    constructor(point) {
+        this.parent = point
+        /* string stuff */
+        this.gravity = {x:0, y:1}
+        this.damping =.95
+        this.dotDamping =.2
+        this.forceMultiplier =.1
+        this.forceValue =undefined
+        this.distance = 100
+    }
+
+    /* Track another point using IK - this point follows the _other_ at a
+    set distance. */
+    track(other, settings) {
+        // return followPoint(other, this, settings)
+        return constraints.distance(other, this.parent, settings)
+    }
+
+    /* Track another point using constraints. This point follows the other
+    point at a distance or less. */
+    leash(other, settings) {
+        return constraints.within(other, this.parent, settings)
+    }
+
+    /* Ensure this point does not overlap the _other_ point. If an overlap
+    occurs, this point is moved. Fundamentally this is the antethsis of leash().*/
+    avoid(other, settings) {
+        return constraints.inverse(other, this.parent, settings)
+    }
+
+    string(other, settings){
+        // Manipulate the _other_; with this entity as the origin owner.
+        const c = Object.assign({
+            gravity: this.gravity
+            , damping: this.damping
+            , dotDamping: this.dotDamping
+            , forceMultiplier: this.forceMultiplier
+            , forceValue: this.forceValue
+            , distance: this.distance
+        }, settings)
+        return stringAttach(other, this.parent, c)
+    }
+}
+
+Polypoint.head.deferredProp('Point',
+    function constraint() {
+        return new PointConstraints(this)
+    }
+);
+
+
 Polypoint.head.installFunctions('Point', {
     /* Track another point using IK - this point follows the _other_ at a
     set distance. */

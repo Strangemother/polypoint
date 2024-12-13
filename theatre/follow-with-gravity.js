@@ -192,7 +192,8 @@ const springyString = function(followPoint, mouse){
 };
 
 
-const heavyStep = function(followPoint, mouse, gravity, damping=.9, dotDamping=.2, forceMultiplier=.1) {
+const heavyStep = function(followPoint, mouse, gravity,
+                           damping=.9, dotDamping=.2, forceMultiplier=.1, forceValue=undefined) {
     // Apply gravity to the follow point's vertical velocity
     // Calculate the vector from the mouse to the follow point
     // let dx = followPoint.x - mouse.x ;
@@ -208,10 +209,10 @@ const heavyStep = function(followPoint, mouse, gravity, damping=.9, dotDamping=.
 
     // If the distance exceeds the string length, we need to constrain the follow point
     if (distance > stringLength) {
+
         // Normalize the direction vector
         dx /= distance;
         dy /= distance;
-
 
         if(dotDamping!==false) {
             // Adjust the velocity so that it reflects the string tension
@@ -221,7 +222,7 @@ const heavyStep = function(followPoint, mouse, gravity, damping=.9, dotDamping=.
         }
 
         if(forceMultiplier!==false){
-            const force = (distance - stringLength) * forceMultiplier; // Tweak this factor as needed
+            const force = forceValue? forceValue: (distance - stringLength) * forceMultiplier; // Tweak this factor as needed
             followPoint.vx += force * dx;
             followPoint.vy += force * dy;
         }
@@ -291,7 +292,8 @@ class MainStage extends Stage {
         }
 
         let funcs = [
-              (p, pin) => springyString(p, pin)
+              // (p, pin) => springyString(p, pin)
+            (p, pin) => heavyStep(p, pin, gravity, .98, .2, .9)
             , (p, pin) => heavyStep(p, pin, gravity, .99)
             , (p, pin) => heavyStep(p, pin, gravity, .98, false, .1)
             , (p, pin) => heavyStep(p, pin, gravity, .99, false)

@@ -33,6 +33,10 @@ class Relative {
     }
 }
 
+class XY extends Array {
+
+}
+
 
 class Positionable extends Relative {
 
@@ -112,6 +116,18 @@ class Positionable extends Relative {
 
     set rel(v) {
         this._opts.rel = v
+    }
+
+    set xy(other) {
+        /* Set a X Y pair on the entity, receiving from
+        another XY, or Point*/
+        this.x = other[0]
+        this.y = other[1]
+    }
+
+    get xy() {
+        // return the XY
+        return new XY(this.x, this.y,)
     }
 
     set(x, y, radius, rotation) {
@@ -344,7 +360,6 @@ class Rotation extends Positionable {
         this.radians = normRad;
         return normRad
     }
-
 
     getTheta(other, direction=undefined) {
         /* Return the calculated theta value through atan2 and built to offload

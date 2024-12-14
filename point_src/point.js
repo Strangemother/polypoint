@@ -35,6 +35,21 @@ class Relative {
 
 class XY extends Array {
 
+    get x() {
+        return this[0]
+    }
+
+    get y() {
+        return this[1]
+    }
+
+    multiply(v) {
+        this[0] *= v
+        this[1] *= v
+        return this
+    }
+
+    mul(){ return this.multiply.apply(this, arguments) }
 }
 
 

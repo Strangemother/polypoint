@@ -95,7 +95,7 @@ class MainStage extends Stage {
         this.pointB.pen.indicator(ctx, {color: '#444'})
         this.pointC.pen.indicator(ctx, {color: '#444'})
         this.pointD.pen.indicator(ctx, {color: '#444'})
-        this.point0.pen.indicator(ctx, {color: '#ccc'})
+        // this.point0.pen.indicator(ctx, {color: '#ccc'})
 
 
         // // Nice bright control point for the bezier curve

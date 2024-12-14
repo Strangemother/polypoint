@@ -1,5 +1,5 @@
 /*
-title: Gears (Nearly)
+title: Gears (Internal Wheel)
 src_dir: ../point_src/
 files:
     ../point_src/core/head.js
@@ -38,33 +38,14 @@ class MainStage extends Stage {
 
     generate(pointCount=2){
         let gb = this.gearBox = new GearBox()
-
-        let ps = new PointList(
-            new Point({x:350, y:200, radius: 150}),
-            new Point({x:700, y:200, radius: 75}),
-
-            new Point({x:600, y:400, radius: 100}),
-            new Point({x:600, y:100, radius: 20}),
-
-            new Point({x:659, y:500, radius: 120}),
-            new Point({x:150, y:450, radius: 20}),
-
-            new Point({x:180, y:150, radius: 140}),
-            new Point({x:180, y:150, radius: 15}),
-
-            new Point({x:100, y:200, radius: 70, motor: 1}),
-            new Point({x:800, y:300, radius: 70, motor: -.5})
-        )
-
-        ps.each.angularVelocity = 0
-
-        gb.points = ps
-        gb.bindPinionWheels(ps[0], ps[1])
-        gb.bindPinionWheels(ps[2], ps[3])
-        gb.bindPinionWheels(ps[4], ps[5])
-        gb.bindPinionWheels(ps[6], ps[7])
-
-        return ps
+        gb.createMotor({x:100, y:300, radius: 30})
+        gb.createGear({x:100, y:200, radius: 100})
+        gb.createReductionGear({x:200, y:200, radius: 100})
+        gb.createReductionGear({x:300, y:200, radius: 100})
+        gb.createReductionGear({x:400, y:200, radius: 100})
+        gb.createInternalGear({x:400, y:300, radius: 60})
+        gb.createInternalGear({x:400, y:300, radius: 60})
+        return gb.points
     }
 
 

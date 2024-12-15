@@ -5,8 +5,10 @@ class GearBox {
         this.tick = 0
         this.doSpokes = true
         /* For xy bound wheels */
-        this.bindMap = new Map()
-        this.bindMapRev = new Map()
+        // this.bindMap = new Map()
+        // this.bindMapRev = new Map()
+        this.bindMap = new XYBindMap()
+
         this.points = points == undefined? new PointList: points
     }
 
@@ -19,48 +21,53 @@ class GearBox {
 
         // pinion.parentWheel = large
         // large.childWheel = pinion
-        pinion.xy = large.xy
+        // pinion.xy = large.xy
         // pinion.isPinion = true
 
-        this.bindMap.set(large, pinion)
-        this.bindMapRev.set(pinion, large)
+        // this.bindMap.set(large, pinion)
+        // this.bindMapRev.set(pinion, large)
+        this.bindMap.connect(large, pinion)
     }
 
     ensureDoubleBound(){
         /*
             Iterate the bindmap, ensuring the XY of a pair match -
          */
-        this.bindMap.forEach((vChild, kOwner)=>{
+        this.bindMap.step()
 
-            // check dirties.
-            let target = undefined //vChild
-            let parent = undefined // kOwner
+        return
 
-            let kOwner_dirty = kOwner._xy && kOwner._xy.toString() != kOwner.xy
-            let vChild_dirty = vChild._xy && vChild._xy.toString() != vChild.xy
+        // this.bindMap.forEach((vChild, kOwner)=>{
 
-            if(kOwner_dirty === true) {
-                // copy
-                // vChild.xy = kOwner.xy
-                target = vChild
-                parent = kOwner
-            }
+        //     // check dirties.
+        //     let target = undefined //vChild
+        //     let parent = undefined // kOwner
 
-            if(vChild_dirty === true) {
-                // copy back to parent.
-                parent = vChild
-                target = kOwner
-            }
+        //     let kOwner_dirty = kOwner._xy && kOwner._xy.toString() != kOwner.xy
+        //     let vChild_dirty = vChild._xy && vChild._xy.toString() != vChild.xy
 
-            if(target && target.xy.toString() != parent.xy) {
-                target.xy = parent.xy
-            }
+        //     if(kOwner_dirty === true) {
+        //         // copy
+        //         // vChild.xy = kOwner.xy
+        //         target = vChild
+        //         parent = kOwner
+        //     }
 
-            // Is now clean.
-            vChild._xy = vChild.xy
-            kOwner._xy = kOwner.xy
+        //     if(vChild_dirty === true) {
+        //         // copy back to parent.
+        //         parent = vChild
+        //         target = kOwner
+        //     }
 
-        })
+        //     if(target && target.xy.toString() != parent.xy) {
+        //         target.xy = parent.xy
+        //     }
+
+        //     // Is now clean.
+        //     vChild._xy = vChild.xy
+        //     kOwner._xy = kOwner.xy
+
+        // })
     }
 
     performStep() {
@@ -242,8 +249,8 @@ class GearBox {
             }
 
             /* Bubble pinion and internal wheels.*/
-            safeAppendTouchesActive(this.bindMap, touchPoint, this.wheelWheel.bind(this))
-            safeAppendTouchesActive(this.bindMapRev, touchPoint, this.wheelWheel.bind(this))
+            safeAppendTouchesActive(this.bindMap.bindMap, touchPoint, this.wheelWheel.bind(this))
+            safeAppendTouchesActive(this.bindMap.bindMapRev, touchPoint, this.wheelWheel.bind(this))
         }
 
         forEachEach(touchMap, callback)
@@ -427,13 +434,22 @@ class GearBox {
       // circleB.rotation += circleB.angularVelocity
     }
 
-
     calculateReceiverVelocity(originPoint, receiverPoint){
         return (originPoint.radius / receiverPoint.radius) * originPoint.angularVelocity;
     }
 
-
     ratchetAllowed(parentOriginPoint, boundReceiverPoint) {
+        /* Ratcheting ensures the boundReceiverPoint can (and is) being spun
+        in the ratchet direction `-1, 0, 1,` left, both, right respectively.
+
+        If pass, return True:
+
+            + If ratcheting == undefined, assume 0
+            + if 0; both directions
+            + if -1 ratchet and angularVelocity < 0; ratchet left
+            + if 1 ratchet and angularVelocity > 0; ratchet right
+
+        */
         let canRatchet = (
                           (boundReceiverPoint.ratchet == undefined)
                           || (boundReceiverPoint.ratchet < 0 && parentOriginPoint.angularVelocity < 0)
@@ -441,7 +457,6 @@ class GearBox {
                         )
         return canRatchet;
     }
-
 
     createGear(options) {
         let p = new Point(options)
@@ -467,6 +482,7 @@ class GearBox {
         if(p.motor == undefined) {
             p.motor = 1
         }
+        return p
     }
 }
 

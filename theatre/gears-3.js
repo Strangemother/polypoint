@@ -18,6 +18,7 @@ files:
     ../point_src/stage-clock.js
     ../point_src/touching.js
     ../point_src/coupling.js
+    ../point_src/xybind.js
     ../point_src/gearbox.js
 ---
 

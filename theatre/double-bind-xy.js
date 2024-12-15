@@ -18,114 +18,13 @@ files:
     ../point_src/stage-clock.js
     ../point_src/touching.js
     ../point_src/coupling.js
+    ../point_src/xybind.js
+    ../point_src/protractor.js
 ---
 
 Bind the XY of two points, ensuring movement (such as _dragging_) of one entity,
 affects the other.
 */
-
-// Works.
-class XYBindMap {
-    constructor() {
-        this.bindMap = new Map()
-        this.bindMapRev = new Map()
-    }
-
-    step(){
-        const pairTest = (vChild, kOwner)=>{
-            /* Iterate the bindmap, ensuring the XY of a pair match
-            Propagate the changed value (dirty) to the unchanges value. */
-            let target = undefined //vChild
-            let parent = undefined // kOwner
-
-            /* Stringy here, as that correctly tests the array == array */
-            let kOwner_dirty = kOwner._xy && kOwner._xy.toString() != kOwner.xy
-            let vChild_dirty = vChild._xy && vChild._xy.toString() != vChild.xy
-
-            // alt dirty check.
-            vChild_dirty = vChild._dirty == undefined? vChild_dirty: vChild._dirty// || (~~vChild.xy == ~~kOwner.xy)
-            kOwner_dirty = kOwner._dirty == undefined? kOwner_dirty: kOwner._dirty// || (~~kOwner.xy == ~~vChild.xy)
-            if(vChild._updateRequired) {
-                // console.log('dirty child')
-                kOwner_dirty = true
-            }
-
-            if(kOwner._updateRequired) {
-                // console.log('dirty owner')
-                vChild_dirty = true
-            }
-
-
-            if(kOwner_dirty === true) {
-                /*
-                    The parent is dirty, push the changes to the child.
-                */
-                // vChild.xy = kOwner.xy
-                target = vChild
-                parent = kOwner
-                // console.log('dirty owner')
-            }
-
-            if(vChild_dirty === true) {
-                /* The child vars are dirty, propagate to the parent */
-                // copy back to parent.
-                target = kOwner
-                parent = vChild
-            }
-
-            let updateRequired = target && target._updateRequired == true
-            let parentUpdateRequired = parent && parent._updateRequired == true
-
-            if(parentUpdateRequired || updateRequired || kOwner_dirty || vChild_dirty) {
-                /*
-                    Only occurs if either are dirty, pushing the _dirty_ (changed)
-                    value to the currently unchanged.
-                 */
-                const updateFunction = function() {
-                    target.xy = parent.xy
-                }
-
-                const smoothUpdateFunction = function() {
-
-                    let xy = target.xy
-                    let d = distance2D(xy, parent.xy)
-                    // console.log(d)
-                    target.xy = [
-                          xy[0] - (d.x * .1)
-                        , xy[1] - (d.y * .1)
-                    ]
-
-                    target._updateRequired = !(d.distance < 5)
-                }
-
-                // target && (target._dirty = true)// d < target.radius
-                // target._updateRequired = !(d.distance < 5)
-                // smoothUpdateFunction()
-
-                updateFunction()
-                // console.log(target.radius, target._updateRequired)
-            }
-
-
-            // Is now clean.
-            vChild._xy = vChild.xy
-            kOwner._xy = kOwner.xy
-
-        }
-
-        this.bindMap.forEach(pairTest)
-    }
-
-    connect(parent, child) {
-
-        // child.parentWheel = parent
-        // parent.childWheel = child
-        child.xy = parent.xy
-        // child.isPinion = true
-        this.bindMap.set(parent, child)
-        this.bindMapRev.set(child, parent)
-    }
-}
 
 
 class MainStage extends Stage {
@@ -153,17 +52,17 @@ class MainStage extends Stage {
             new Point({x:659, y:500, radius: 120}),
             new Point({x:150, y:450, radius: 20}),
 
-            new Point({x:180, y:150, radius: 140}),
-            new Point({x:180, y:150, radius: 15}),
+            // new Point({x:180, y:150, radius: 140}),
+            // new Point({x:180, y:150, radius: 15}),
 
-            new Point({x:100, y:200, radius: 70}),
-            new Point({x:800, y:300, radius: 70})
+            // new Point({x:100, y:200, radius: 70}),
+            // new Point({x:800, y:300, radius: 70})
         )
 
-        this.bindMap.connect(ps[0], ps[1])
-        this.bindMap.connect(ps[2], ps[3])
+        this.bindMap.connect(ps[0], ps[1], { speed: .1 })
+        this.bindMap.connect(ps[2], ps[3], { distance: 40, angle: 1})
         this.bindMap.connect(ps[4], ps[5])
-        this.bindMap.connect(ps[6], ps[7])
+        // this.bindMap.connect(ps[6], ps[7])
 
         return ps
     }

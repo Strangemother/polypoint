@@ -1,3 +1,26 @@
+/*
+files:
+    ../point_src/math.js
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/point-content.js
+    ../point_src/pointlistpen.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/events.js
+    ../point_src/automouse.js
+    ../point_src/stage.js
+    ../point_src/extras.js
+    ../point_src/random.js
+    ../point_src/stage-clock.js
+    ../point_src/text/alpha.js
+    ../point_src/text/fps.js
+    ../point_src/split.js
+    stroke
+    dragging
+
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

@@ -114,7 +114,7 @@ class Value {
     }
 
     doneHandler(value, preValue, mutator, step) {
-        console.log('done', value, preValue)
+        // console.log('done', value, preValue)
     }
 
     split(count=1) {

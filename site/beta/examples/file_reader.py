@@ -43,3 +43,4 @@ def imports_list(filename, tag='script'):
     parser = MyHTMLParser()
     parser.feed(content)
     return tuple(dict(x) for x in parser.keep[tag])
+

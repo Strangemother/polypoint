@@ -1,33 +1,26 @@
 # Stage: Getting Started
 
-First we need some HTML:
+To make drawing super easy, we can use the `Stage` class. It helps with setup of the rendering loop (plus a few extra features.)
 
-```html
-<html>
-  <body>
-    <style>
-        #playspace {
-            width: 1400;
-            height: 900;
-            border: solid 1px;
-        }
-        html, body {
-            background: #111;
-        }
-    </style>
+---
 
-    <canvas id="playspace"></canvas>
+To get started, we can extend and run a stage:
 
-    <script src="point_src/math.js"></script>
+```js
+class MainStage extends Stage {
+    canvas = "my_canvas_id"
 
-    <script src="point_src/point-content.js"></script>
-    <script src="point_src/pointlist.js"></script>
-    <script src="point_src/point.js"></script>
+    draw(ctx) {
+        this.clear(ctx)
+        // Draw stuff.
+        this.center.pen.indicator(ctx)
+    }
+}
 
-    <script src="point_src/automouse.js"></script>
-    <script src="point_src/stage.js"></script>
-    <script src="point_src/extras.js"></script>
-
-  </body>
-</html>
+// Run it.
+const stage = MainStage.go()
 ```
+
+And that's it!
+
+---

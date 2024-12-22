@@ -1,20 +1,13 @@
 /*
 files:
-    ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
-    ../point_src/math.js
-    ../point_src/point-content.js
+    head
+    point
     pointlist
-    ../point_src/point.js
-    ../point_src/events.js
-    ../point_src/automouse.js
-    ../point_src/stage.js
+    mouse
+    stage
+    ../point_src/math.js
     ../point_src/extras.js
-    ../point_src/setunset.js
-    ../point_src/stroke.js
-
-
+    stroke
  */
 const canvas = document.getElementById('playspace');
 const ctx = canvas.getContext('2d');

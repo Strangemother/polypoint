@@ -69,6 +69,7 @@ function radiansToDegrees(radians) {
     return radians * (180 / Math.PI);
 }
 
+
 const degToRad = function(value) {
     return value * (Math.PI / 180);
 }
@@ -117,6 +118,7 @@ const radiusCircumference = function(radius) {
 const circleArea = (radius, pi=Math.PI) => {
    return pi * radius * radius;
 };
+
 
 const getPolyDistributedPoints = function(count, pos, radius, rads, angle) {
     /* Return a list of points distrubuted evenly around a circle.
@@ -245,6 +247,9 @@ function projectFrom(origin, distance=undefined, rotation=undefined) {
     return { x, y };
 }
 
+
+
+
 const TAU = 2 * Math.PI;
 const radiansToTau = function(radians) {
     /*
@@ -255,7 +260,7 @@ const radiansToTau = function(radians) {
 }
 
 
-class Angle extends Number {
+class XAngle extends Number {
 
     constructor(value) {
         super(value)

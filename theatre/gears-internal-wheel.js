@@ -19,6 +19,7 @@ files:
     ../point_src/touching.js
     ../point_src/coupling.js
     ../point_src/gearbox.js
+    xybind
 ---
 
 A simple example of gear-like rotations

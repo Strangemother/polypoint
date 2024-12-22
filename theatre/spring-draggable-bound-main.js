@@ -1,4 +1,28 @@
-/* moved to functions/springs */
+/*
+title: Spring Forces Distributed With Time
+tags: springs
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/math.js
+    ../point_src/extras.js
+    ../point_src/point-content.js
+    ../point_src/pointlistpen.js
+    ../point_src/pointlist.js
+    ../point_src/events.js
+    ../point_src/point.js
+    ../point_src/distances.js
+    ../point_src/dragging.js
+    ../point_src/stage.js
+    ../point_src/automouse.js
+    ../point_src/functions/springs.js
+    ../point_src/functions/clamp.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+
+
+*/
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
@@ -24,24 +48,6 @@ class MainStage extends Stage {
                 , radius: 8
                 , mass: 8
             })
-            // , new Point({
-            //      x: 450, y: 520
-            //     , vx: .4, vy: -.1
-            //     , radius: 8
-            //     , mass: 8
-            // })
-            // , new Point({
-            //      x: 450, y: 520
-            //     , vx: .4, vy: -.1
-            //     , radius: 8
-            //     , mass: 8
-            // })
-            // , new Point({
-            //      x: 450, y: 520
-            //     , vx: .4, vy: -.1
-            //     , radius: 8
-            //     , mass: 8
-            // })
         )
 
         this.dragging.addPoints(...this.points)

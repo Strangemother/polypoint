@@ -29,38 +29,6 @@ Math.sign = function(x) {
     return ((x > 0) - (x < 0)) || +x;
 };
 
-var DecimalPrecision = (function() {
-    return {
-        // Decimal round (half away from zero)
-        round: function(num, decimalPlaces) {
-            var p = Math.pow(10, decimalPlaces || 0);
-            var n = (num * p) * (1 + Number.EPSILON);
-            return Math.round(n) / p;
-        },
-        // Decimal ceil
-        ceil: function(num, decimalPlaces) {
-            var p = Math.pow(10, decimalPlaces || 0);
-            var n = (num * p) * (1 - Math.sign(num) * Number.EPSILON);
-            return Math.ceil(n) / p;
-        },
-        // Decimal floor
-        floor: function(num, decimalPlaces) {
-            var p = Math.pow(10, decimalPlaces || 0);
-            var n = (num * p) * (1 + Math.sign(num) * Number.EPSILON);
-            return Math.floor(n) / p;
-        },
-        // Decimal trunc
-        trunc: function(num, decimalPlaces) {
-            return (num < 0 ? this.ceil : this.floor)(num, decimalPlaces);
-        },
-        // Format using fixed-point notation
-        toFixed: function(num, decimalPlaces) {
-            return this.round(num, decimalPlaces).toFixed(decimalPlaces);
-        }
-    };
-})();
-
-
 class Stages {
     /* A Singleton to manage global functions and data */
     loaded = false
@@ -303,6 +271,8 @@ class StageRender {
     }
 
     get ctx() {
+        /* Return the cached context object of the current canvas.
+        */
         return this._ctx || (this._ctx = this.getContext(this.canvas))
     }
 
@@ -440,5 +410,5 @@ class Stage extends StageRender {
     }
 }
 
-Polypoint.head.install(Stage)
 
+Polypoint.head.install(Stage)

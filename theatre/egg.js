@@ -75,8 +75,8 @@ class MainStage extends Stage {
     updatePointsToControl(){
         this.pointA.lookAt(this.controlPointA)
         this.pointB.lookAt(this.controlPointB)
-        this.pointA.radius = this.pointA.distanceTo(this.controlPointA)
-        this.pointB.radius = this.pointB.distanceTo(this.controlPointB)
+        this.pointA.radius = this.pointC.radius = this.pointA.distanceTo(this.controlPointA)
+        this.pointB.radius = this.pointD.radius = this.pointB.distanceTo(this.controlPointB)
 
         this.pointC.rotation = this.pointA.rotation + 180
         this.pointD.rotation = this.pointB.rotation + 180

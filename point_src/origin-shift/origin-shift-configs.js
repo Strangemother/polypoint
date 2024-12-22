@@ -15,8 +15,8 @@ class OriginShiftConfigs {
             /* Position radius*/
             , radius
             /* How many items per row within the grid */
-            , cols: 270
-            , rows: 170
+            , cols: 200
+            , rows: 120
 
             /* Distance between nodes - not including extended draws*/
             , gap// Math.floor(radius * .25)

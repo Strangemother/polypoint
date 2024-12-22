@@ -28,10 +28,12 @@ POLYPOINT_DEMO_DIR = SITE_DIR / 'site_demos'
 POLYPOINT_DOCS_DIR = SITE_DIR / 'docs'
 POLYPOINT_THEATRE_DIR = SITE_DIR / 'theatre'
 POLYPOINT_EXAMPLES_DIR = SITE_DIR / 'examples'
+POLYPOINT_THEATRE_SRC_RELATIVE_PATH = '../point_src/'
 
 # a pack of locations we can use for {% markdown.file filepath %}
 TRIM_MARKDOWN_DIRS = {
     'point_src': POLYPOINT_SRC_DIR,
+    'point_src_rel': POLYPOINT_THEATRE_SRC_RELATIVE_PATH,
     'site_demos': POLYPOINT_DEMO_DIR,
     'docs': POLYPOINT_DOCS_DIR,
     'theatre': POLYPOINT_THEATRE_DIR,

@@ -69,7 +69,6 @@ Test is the midPoint creates an concave angle relative to the two given points.
  */
 const isConcave = function(previousPoint, p, nextPoint) {
     return calculateAngle(p, nextPoint) > 180
-
     // return obtuseBisect(previousPoint, p, nextPoint) > -1
 }
 

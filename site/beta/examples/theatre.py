@@ -158,6 +158,12 @@ def clean_files_list(metadata):
     src_dir = metadata.get('src_dir', None)
     if src_dir is not None:
         src_dir = src_dir[0]
+
+    if src_dir is None:
+        # the src dir is a relative path
+        # to the server call.
+        src_dir = settings.POLYPOINT_THEATRE_SRC_RELATIVE_PATH
+
     # replace specials from the files packs.
     # ensure set()
     res = ()
@@ -184,7 +190,6 @@ def clean_files_list(metadata):
         # for item in item_list:
     # finally, clean dup file imports.
     return tuple({x:0 for x in res}.keys())
-
 
 
 def flatten_leaf(leaf, file_ref, src_dir=None):
@@ -223,7 +228,6 @@ def flatten_leaf(leaf, file_ref, src_dir=None):
 
     # set() is disordered. This is an ordered set.
     return tuple({x:0 for x in res}.keys())
-
 
 
 def file_default_meta(path, raw_meta=None, meta_keys=None):
@@ -296,3 +300,29 @@ def clean_file_meta(raw_meta, meta_keys=None):
     return res
 
 
+def read_all():
+    """Read all the _example_ (theatre) files
+    """
+    # parent = settings.POLYPOINT_THEATRE_DIR
+    # parent = settings.POLYPOINT_EXAMPLES_DIR
+    parent = settings.POLYPOINT_SRC_DIR
+    # parent = settings.POLYPOINT_THEATRE_DIR
+    tpath = Path(parent)
+    res = ()
+    for asset in tpath.iterdir():
+        if asset.is_file():
+            # modified = asset.stat().st_mtime
+            nn = asset.relative_to(tpath)
+            item = read_resolve(nn, parent)
+            item['markdown'] = None
+            res += (item,)
+
+    print('Read', len(res), 'items')
+    return res
+
+
+def read_resolve(rel_path, parent_path):
+    """Expecting a formatted file, read the meta data and return an object.
+    """
+    fmeta = get_metadata(rel_path, parent=parent_path, meta_keys=None, ensure_suffix=None)
+    return fmeta

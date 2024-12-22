@@ -123,7 +123,7 @@ const pointList = PointList.generate.list(conf.rowCount * conf.rowCount, 0)
 /* To set the position of the grid generator, we can just edit the first point. */
 pointList[0].set(20, 20)
 /* Then reshape internally */
-let s = pointList.shape.grid(conf.pointSpread, conf.rowCount)
+let ss = pointList.shape.grid(conf.pointSpread, conf.rowCount)
 
 
 const autoMain = function(){

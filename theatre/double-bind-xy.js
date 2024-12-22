@@ -1,31 +1,20 @@
 /*
-title: double Bind XY
+title: Double Bind XY
 src_dir: ../point_src/
 files:
     ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
-    ../point_src/extras.js
-    ../point_src/math.js
-    ../point_src/point-content.js
-    ../point_src/stage.js
-    ../point_src/point.js
+    point
+    stage
     dragging
     pointlist
     mouse
     stroke
-    ../point_src/split.js
-    ../point_src/stage-clock.js
-    ../point_src/touching.js
-    ../point_src/coupling.js
-    ../point_src/xybind.js
-    ../point_src/protractor.js
+    xybind
 ---
 
 Bind the XY of two points, ensuring movement (such as _dragging_) of one entity,
 affects the other.
 */
-
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
@@ -37,32 +26,47 @@ class MainStage extends Stage {
         let r = this.generate()
         this.points = r
         this.dragging.add(...r)
-        this.dragging.onEmptyDown = this.onEmptyDown.bind(this)
+        // this.dragging.onEmptyDown = this.onEmptyDown.bind(this)
     }
 
     generate(pointCount=2){
 
         let ps = new PointList(
-            new Point({x:100, y:200, radius: 150}),
-            new Point({x:700, y:200, radius: 25}),
+            new Point({x:100, y:200, radius: 60}),
+            new Point({radius: 10}),
 
-            new Point({x:600, y:400, radius: 100}),
-            new Point({x:600, y:100, radius: 20}),
+            new Point({x:100, y:400, radius: 60}),
+            new Point({radius: 10}),
 
-            new Point({x:659, y:500, radius: 120}),
-            new Point({x:150, y:450, radius: 20}),
+            new Point({x:300, y:200, radius: 60}),
+            new Point({radius: 10}),
 
-            // new Point({x:180, y:150, radius: 140}),
-            // new Point({x:180, y:150, radius: 15}),
+            new Point({x:300, y:400, radius: 60}),
+            new Point({radius: 10}),
 
-            // new Point({x:100, y:200, radius: 70}),
-            // new Point({x:800, y:300, radius: 70})
+            new Point({x:500, y:200, radius: 60}),
+            new Point({radius: 10}),
+
+            new Point({x:500, y:400, radius: 60}),
+            new Point({radius: 10})
         )
 
-        this.bindMap.connect(ps[0], ps[1], { speed: .1 })
-        this.bindMap.connect(ps[2], ps[3], { distance: 40, angle: 1})
-        this.bindMap.connect(ps[4], ps[5])
-        // this.bindMap.connect(ps[6], ps[7])
+        // this.bindMap.connect(ps[0], ps[1], { speed: .1 })
+        // this.bindMap.connect(ps[2], ps[3] /*, { speed: 1 }*/)
+        // this.bindMap.connect(ps[4], ps[5], { distance: 100, angle: 0})
+        // this.bindMap.connect(ps[6], ps[7], { distance: 100, angle: 0, relative: false})
+        // this.bindMap.connect(ps[8], ps[9], { distance: 100, angle: 2, movable: true})
+        // this.bindMap.connect(ps[10], ps[11], { distance: 100, angle: 2, relative: false, movable: true})
+        ps[0].xyBindChild(ps[1], { speed: .1 })
+        ps[2].xyBindChild(ps[3] /*, { speed: 1 }*/)
+
+        ps[4].xyBind.settings = { distance: 100, angle: 0}
+        ps[4].xyBindChild(ps[5])
+
+        // ps[4].xyBindChild(ps[5], { distance: 100, angle: 0})
+        ps[6].xyBindChild(ps[7], { distance: 100, angle: 0, relative: false})
+        ps[8].xyBindChild(ps[9], { distance: 100, angle: 2, movable: true})
+        ps[10].xyBindChild(ps[11], { distance: 100, angle: 2, relative: false, movable: true})
 
         return ps
     }
@@ -80,12 +84,30 @@ class MainStage extends Stage {
         this.dragging.add(p)
     }
 
+    simpleRotate(){
+
+        this.points[4].rotation += 1;
+        this.points[6].rotation += 1;
+
+        this.points[8].rotation += 1;
+        this.points[10].rotation += 1;
+
+        this.points[5]._updateRequired = true;
+        this.points[7]._updateRequired = true;
+
+        this.points[9]._updateRequired = true;
+        this.points[11]._updateRequired = true;
+
+        // this.points[3]._bindingSettings.angle += degToRad(1);
+        // this.points[5]._bindingSettings.angle += degToRad(1);
+    }
+
     draw(ctx){
         this.clear(ctx)
-
+        this.simpleRotate()
         /* To ensure the bindmap correctly updated, call when required.*/
         this.bindMap.step()
-
+        this.xyBind.step()
         this.points.pen.indicators(ctx)
 
         let p = this.dragging.getPoint();

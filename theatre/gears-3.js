@@ -33,6 +33,7 @@ class MainStage extends Stage {
     mounted(){
         this.rawPointConf = { circle: { color: 'orange', width: 1}}
         let r = this.generate()
+
         this.dragging.add(...r)
         this.dragging.onEmptyDown = this.onEmptyDown.bind(this)
     }

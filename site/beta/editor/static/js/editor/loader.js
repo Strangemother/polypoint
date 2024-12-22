@@ -27,7 +27,7 @@ const loadPolypointCoreTools = function() {
 
     /* Read the point_src/files.js for definitions */
     let fundamentals = [
-        'point',// 'stage', 'mouse', 'pointlist', 'dragging', 'bisector', 'stroke',
+        // 'point',// 'stage', 'mouse', 'pointlist', 'dragging', 'bisector', 'stroke',
     ]
 
     /* Here we automatically start with point src.*/

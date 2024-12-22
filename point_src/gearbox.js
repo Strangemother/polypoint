@@ -162,27 +162,30 @@ class GearBox {
 
         const safeAppendTouchesActive = function(map, touchPoint, func){
 
-            let boundWheel = map.get(touchPoint)
-            if(boundWheel == undefined){ return }
+            let boundWheels = map.get(touchPoint)
+            if(boundWheels == undefined){ return }
                 /* This is a reduction gear (a gear with a smaller gear
                 (pinion) within. The touchPoint is bound to the `b` point.
                 */
 
                 /* Wheel wheel performs a locked (pinned) angularVelocity */
-                // wheelWheel(touchPoint, boundWheel)
-                // func(touchPoint, boundWheel)
+                // wheelWheel(touchPoint, boundWheels)
+                // func(touchPoint, boundWheels)
 
                 // /* Push bound point touches, */
-                // let touching = getTouching(boundWheel, touchPoint)
-                // safeAppendTouch(boundWheel, touching)
-            activateFunction(touchPoint, boundWheel, func)
+                // let touching = getTouching(boundWheels, touchPoint)
+                // safeAppendTouch(boundWheels, touching)
+            activateFunction(touchPoint, boundWheels, func)
         }//.bind(this)
 
-        const activateFunction = function(target, origin, func) {
-            func(target, origin)
-            /* Push bound point touches, */
-            let touching = getTouching(origin, target)
-            safeAppendTouch(origin, touching)
+        const activateFunction = function(target, origins, func) {
+            origins.forEach(origin=>{
+
+                func(target, origin)
+                /* Push bound point touches, */
+                let touching = getTouching(origin, target)
+                safeAppendTouch(origin, touching)
+            })
         }
 
         const activateFunctionInverted = function(target, origin, func) {

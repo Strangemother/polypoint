@@ -45,6 +45,7 @@ class MainStage extends Stage {
             )
 
         this.lines = twoPointBox(...box)
+
         this.rectTools = new RectTools(
                                     box[0].x, box[0].y
                                     , box[1].x, box[1].y

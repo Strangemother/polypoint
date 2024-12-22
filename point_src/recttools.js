@@ -18,7 +18,6 @@ const twoPointBox = function(a, b, func) {
 }
 
 
-
 const disorderdTwoPointsAsRect = function(a, b) {
 
     return [
@@ -121,8 +120,8 @@ class RectTools extends DOMRect {
         return true
     }
 
-    touchingPoint(p) {
-        const r = p.radius
+    touchingPoint(p, r=p.radius) {
+        // const r = p.radius
         // debugger;
         const _tests = [
               () => p.x < this.x - r
@@ -135,13 +134,13 @@ class RectTools extends DOMRect {
         for(let f of _tests) {
             if( f() ) {
                 // console.log(`not pass ${f}`)
-                // return false
+                return false
             };
         }
 
         // return intersects(p, this)
-        return hasIntersection(p, this)
-        // return true
+        // return hasIntersection(p, this)
+        return true
         // let cornerDistance_sq = (p.x - (this.x - this.width/2)) ^2
         //                       + (p.y - (this.y - this.height/2)) ^2
         //                         ;

@@ -103,26 +103,6 @@ stages = new Stages;
 
 
 class StageRender {
-
-    stickCanvasSize(canvas){
-        let rect = canvas.getBoundingClientRect()
-        canvas.width  = rect.width;
-        canvas.height = rect.height;
-        let center = this.dimensions?.center
-
-        center = center || new Point()
-
-        center.x = /*rect.x + */rect.width * .5
-        center.y = /*rect.y + */rect.height * .5
-
-        rect.center = center
-        return rect;
-    }
-
-    get center() {
-        return this.dimensions.center
-    }
-
     _drawFunc
     _loopDraw = true
 
@@ -141,6 +121,25 @@ class StageRender {
         if(canvas)  {
             this.prepare(canvas)
         }
+    }
+
+    stickCanvasSize(canvas){
+        let rect = canvas.getBoundingClientRect()
+        canvas.width  = rect.width;
+        canvas.height = rect.height;
+        let center = this.dimensions?.center
+
+        center = center || new Point()
+
+        center.x = /*rect.x + */rect.width * .5
+        center.y = /*rect.y + */rect.height * .5
+
+        rect.center = center
+        return rect;
+    }
+
+    get center() {
+        return this.dimensions.center
     }
 
     prepare(target) {

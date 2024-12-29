@@ -1,4 +1,7 @@
-
+/*
+files:
+    other.js
+ */
 // moved to functions/context.js
 const saveRestoreDraw = function(ctx, position, callback) {
     /*
@@ -337,7 +340,7 @@ class BezierCurve extends Line {
         /* TODO:
         Attempt to understand why the b tip of a spline is -90,
         But the `a` tip 180*/
-        tail.rotation += this.b.rotation + -90
+        tail.rotation = this.b.rotation + 180
         tail.radius = 7
 
         let callback = tip => {

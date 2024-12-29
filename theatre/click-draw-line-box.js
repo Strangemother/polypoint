@@ -118,10 +118,10 @@ class MainStage extends Stage {
             this.handle?.pen.fill(ctx, '#ddd')
         }
 
-        this.stroke.set(ctx)
-        this.lines.forEach(l=>l.render(ctx))
-        this.stroke.unset(ctx)
-
+        this.stroke.wrap(ctx, ()=>this.lines.forEach(l=>l.render(ctx)))
+        // this.stroke.set(ctx)
+        // this.lines.forEach(l=>l.render(ctx))
+        // this.stroke.unset(ctx)
 
     }
 }

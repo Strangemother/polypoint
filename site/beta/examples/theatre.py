@@ -103,7 +103,6 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
         res['filepath_exists'] = False
         return res
 
-
     tf = theatre_file
     # extract the first comment and convert to markdown.
     content = tf.read_text()
@@ -139,6 +138,7 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
     res['filepath_exists'] = True
     res['path'] = path
     res['filepath'] = theatre_file.relative_to(parent)
+    # res['clean_files'] = destack_file_dependencies(clean_files_list(res))
     res['clean_files'] = clean_files_list(res)
     res['markdown'] = {
         "html": html,
@@ -147,6 +147,13 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
 
     return res
 
+def destack_file_dependencies(clean_files_list):
+    for filepath in clean_files_list:
+        # check file,
+        # if has header install header
+        #   # if the dependency has an dependency, stack above.
+        pass
+    return clean_file_meta
 
 import json
 
@@ -170,7 +177,7 @@ def clean_files_list(metadata):
     for leaf in files:
         item_list = file_ref.get(leaf)
         if item_list is None:
-            # A string or non-object reference.
+            # A string or relative filepath (non-object reference)
             # foo: undefined
             lsw = leaf.startswith
             if (lsw('/*') or lsw('#') or lsw('// ') ):

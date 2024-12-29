@@ -21,11 +21,6 @@ files:
     ../point_src/text/label.js
     ../point_src/text/alpha.js
  */
-function quantizeNumber(value, quantize=1) {
-  const quantizedValue = Math.round(value / quantize) * quantize;
-  return quantizedValue;
-}
-
 
 class MainStage extends Stage {
     canvas='playspace'
@@ -51,7 +46,11 @@ class MainStage extends Stage {
 
     updateText() {
         let a = this.indicatorPoint;
-        let rot = calculateAngle360(a, this.linePoint, a.rotation)
+        let b = this.linePoint;
+        let rot = calculateAngle360(a, b, a.rotation)
+        // let rot = invertClockRotation(calculateAngle180(a, b, a.rotation))
+        // let rot = calculateAngle180(a, b, a.rotation)
+        // let rot = calculateInverseAngle180(a, b, a.rotation)
         this.label.text = rot.toFixed(0)
     }
 
@@ -64,16 +63,14 @@ class MainStage extends Stage {
 
         let a = this.indicatorPoint;
         let b = this.linePoint;
-
         // a.rotation -= .1;
-
         a.pen.indicator(ctx)
         // a.pen.indicator(ctx)
         a.pen.line(ctx, b)
         a.lookAt(this.targetPoint)
 
         this.targetPoint.pen.fill(ctx, '#33dd33')
-        b.pen.fill(ctx, '#33dd33')
+        b.pen.fill(ctx, '#99ddff')
         // this.linePoint.pen.indicator(ctx, {color: this.linePoint.color})
 
         this.updateText()

@@ -1,10 +1,14 @@
-
-
 /* A Simple Point Label - devoid of all the settings, in favour of pure rendering
-(at a point and rotation). */
+(at a point and rotation).
 
 
+    point.text.plain()
+        point.text.writeText()
+            point.text.write()
+    point.text.fill()
+        ctx.fillText
 
+*/
 class PointText {
 
     constructor(point) {

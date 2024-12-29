@@ -2,7 +2,7 @@
 /* requires line/Line
 
 Replaced by curve-extrs/BezierCurve */
-class BezierCurve extends Line {
+class XBezierCurve extends Line {
 
     // create(p1, p2, color='red', width=1) {
     // }

@@ -24,6 +24,7 @@ functions
 
     rpm
  */
+
 // ----- DEGREES -----
 const AngleConvertTable = {
     degrees:{
@@ -50,6 +51,7 @@ const AngleConvertTable = {
 
 
 class Angle {
+    // static convert = AngleConvertTable
 
     defaultType = undefined
     // defaultType = 'degrees'
@@ -74,6 +76,23 @@ class Angle {
         return angleConstantsMap.get(v)
     }
 
+    [Symbol.toPrimitive](hint){
+
+        // return this.value;
+
+        let o = {
+            'number': ()=>this.value
+            , 'string': ()=> this.toString()
+            // Upon operator (+)
+            , 'default': ()=>this.value
+        }
+
+        let f = o[hint]
+        f = (f == undefined)? f=()=>this:f
+
+        return f()
+    }
+
     as(toType, value=this.value){
         let fromType = this.type
         let rToType = this.resolveType(toType)
@@ -88,7 +107,7 @@ class Angle {
            return new this.constructor(this.value, rToType)
         }
 
-        console.log('Converting', fromType, rToType)
+        // console.log('Converting', fromType, rToType)
 
         let top = AngleConvertTable[fromType]
         // console.log('top', top)
@@ -135,7 +154,16 @@ for(let k in angleAliasStack) {
     // let tname = [k.slice(0,1).toUpperCase(), k.slice(1)].join('')
     let name = k
     angleConstantsMap.set(k, name)
-    angleAliasStack[k].forEach(n => {
+    let keys = angleAliasStack[k]
+    let r = []
+    keys.forEach(n => {
+        if(n.length > 1) {
+            r.push(`${n}s`)
+        }
+    })
+
+    keys = keys.concat(r)
+    keys.forEach(n => {
         angleConstantsMap.set(n, name)
         Object.defineProperty(Angle.prototype, n, {
             get() {
@@ -143,14 +171,41 @@ for(let k in angleAliasStack) {
             }//.bind({key:n, name, parent: this})
 
         })
-
-        if(n.length > 1) {
-            Object.defineProperty(Angle.prototype, `${n}s`, {
-                get() {
-                    return this.as(name)
-                }//.bind({key:n, name, parent: this})
-
-            })
-        }
     })
+}
+
+
+// degToRad
+// radiansToDegrees
+// deg2rad
+
+const generateAngleFunctions = function() {
+    let res = {}
+    for(let name in angleAliasStack) {
+        // console.log(name)
+        for(let key of angleAliasStack[name]) {
+            // deg to tau
+            // deg to turns
+            // d to turn
+            // console.log('  ', key)
+            for(let otherName in angleAliasStack) {
+                if(otherName == name) {
+                    // ignore deg => deg
+                    continue
+                }
+
+                // console.log('    ', otherName)
+
+                console.log(name, otherName, '|' , name, otherName)
+                for(let otherKey of angleAliasStack[otherName]) {
+                    // if(otherKey == key) {
+                    //     continue
+                    // }
+
+                    // console.log('      ', otherKey)
+                    console.log(name, otherName, '|' , key, otherKey)
+                }
+            }
+        }
+    }
 }

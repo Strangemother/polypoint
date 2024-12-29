@@ -17,7 +17,6 @@ const splitToPointList = function(point, count, radius, rotation, angle=undefine
 }
 
 
-
 Polypoint.head.installFunctions('Point', {
     /* A "split" function to divide the point circumference to many points.
     Return a list of points.
@@ -85,7 +84,7 @@ Polypoint.head.installFunctions('BezierCurve', {
         let splitVal = 1 / (count+1)
 
         for (var i = 1; i < count+1; i++) {
-            let t = i*splitVal
+            let t = i * splitVal
             let { dx, dy } = get_bezier_derivative(p0, p1, p2, p3, t)
             p= new Point(get_bezier_point(p0, p1, p2, p3, t))
             p.radians = angle + Math.atan2(-dx, dy)

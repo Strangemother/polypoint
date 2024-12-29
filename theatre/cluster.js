@@ -13,56 +13,56 @@ files:
     ../point_src/pointlist.js
     ../point_src/pointlistpen.js
     ../point_src/events.js
+    ../point_src/table.js
     stroke
     mouse
-
  */
-const conf = {
-    'default': {
-        minDistance: 30
-        , attractionStrength: 0.004
-        , repulsionStrength: 200
-        , damping: 0.60
-        , minVelocity: 0.1
-        , maxVelocity: 5
-    }
-    , 'alt': {
-        minDistance: 90
-        , attractionStrength: 0.002
-        , repulsionStrength: 100
-        , damping: 0.66
-        , minVelocity: 0.08
-        , maxVelocity: 5
-    }
-    , 'gas': {
-        minDistance: 100
-        , attractionStrength: 0.001
-        , repulsionStrength: 800
-        , damping: 0.974
-        , minVelocity: 0.1
-        , maxVelocity: 9
-        , itercount: 1
-    }
-    , 'blob': {
-        minDistance: 90
-        , attractionStrength: 0.002
-        , repulsionStrength: 100
-        , damping: 0.95
-        , minVelocity: 0.1
-        , maxVelocity: 20
-        , itercount: 1
-        // , method: 'squareDistance'
-    }
+
+
+let keys = [
+    "minDistance"
+    , "attractionStrength"
+    , "repulsionStrength"
+    , "damping"
+    , "minVelocity"
+    , "maxVelocity"
+    , "itercount"
+    , "method"
+]
+
+const confTable = new Table(keys, {
+      'default': [30,  0.004, 200, 0.60,  0.1,  5]
+    , 'alt':     [90,  0.002, 100, 0.66,  0.08, 5]
+    , 'gas':     [100, 0.001, 800, 0.974, 0.1,  9,  1]
+    , 'stable':  [100, 0.001, 80,  0.974, 0.01, 9,  1]
+    , 'blob':    [90,  0.002, 100, 0.95,  0.1,  20, 1, 'springy']
+})
+
+
+const exampleFunc = function(ctx){
+    fromArgs(arguments, ['ctx', 'width', 'color'])
+    fromArgs(arguments, ['ctx', 'radius', 'color', 'width'])
+
+    fromArgs(arguments, ['ctx', 'radius', 'color', 'width'])
+    // ctx, radius, color, width
+    /*
+        ctx:ctx
+        , radius:radius
+        , color:color
+        , width:width
+     */
 }
 
 const selectedConfigName = "gas" // "blob" // "gas" // 'alt'
-const settings = conf[selectedConfigName]
+const settings = confTable.get(selectedConfigName)
+// const settings = conf[selectedConfigName]
 
 
 var points = PointList.generate.random(10, 500);
 points.forEach(p => {
     p.vx = 0
     p.vy = 0
+    p.radius = 5
 })
 
 
@@ -70,6 +70,7 @@ var pointsB = PointList.generate.random(10, 500);
 pointsB.forEach(p => {
     p.vx = 0
     p.vy = 0
+    p.radius = 5
 })
 
 
@@ -85,41 +86,45 @@ function gravitate(items, focul, settings) {
         , method = settings.method || 'general'
         ;
 
+    const _xyd = function(item) {
+        const dx = centerX - item.x;
+        const dy = centerY - item.y;
+        const distance = item.distanceTo({x:centerX, y:centerY})
+        return [dx,dy,distance]
+    }
+
     const m = {
+
         springy(item) {
             // springy
-            const dx = centerX - item.x;
-            const dy = centerY - item.y;
-            const distance = item.distanceTo({x:centerX, y:centerY})
+            let xyd = _xyd(item)
+            const at = (xyd[2] * .0001) + attractionStrength
 
-            const at = (distance * .0001) + attractionStrength
-
-            item.vx += at * dx;
-            item.vy += at * dy;
+            item.vx += at * xyd[0];
+            item.vy += at * xyd[1];
 
         }
         , general(item){
             // general
-            const dx = centerX - item.x;
-            const dy = centerY - item.y;
-            const distance = item.distanceTo({x:centerX, y:centerY})
+            let xyd = _xyd(item)
+            const at = (xyd[2] * .0001) + attractionStrength
 
-            const distanceSpeed = distance * .0001
-
-            item.vx += distanceSpeed + attractionStrength * dx;
-            item.vy += distanceSpeed + attractionStrength * dy;
+            item.vx += at * xyd[0];
+            item.vy += at * xyd[1];
 
         }
         , squareDistance(item) {
             // square distance
-            const dx = centerX - item.x;
-            const dy = centerY - item.y;
-            const distance = item.distanceTo({x:centerX, y:centerY}) * .0004
+            let xyd = _xyd(item)
+            // const dx = centerX - item.x;
+            // const dy = centerY - item.y;
+            // const distance = item.distanceTo({x:centerX, y:centerY}) * .0004
+            const distance = xyd[2] * .0004
 
             const at = (attractionStrength * .01) +  ((distance * distance) * .03)
 
-            item.vx +=  at * dx;
-            item.vy +=  at * dy;
+            item.vx +=  at * xyd[0];
+            item.vy +=  at * xyd[1];
         }
     }
 
@@ -180,6 +185,7 @@ function limitSpeed(minVelocity, maxVelocity, item) {
 
         return item
 }
+
 
 function _gravitate(items, focul, settings) {
     const centerX = focul == undefined? canvas.width * .5: focul.x
@@ -310,8 +316,11 @@ class MainStage extends Stage {
 
     draw(ctx) {
         let settings = this.settings
-        let center = stage.center
+        let center = this.center
         let targetPosition = Point.mouse.position;
+        if(stage.mouse.position.xy.toString() == [0,0]) {
+            targetPosition = this.center
+        }
 
         let c = settings.itercount
         if(c == undefined) { c = 10 }

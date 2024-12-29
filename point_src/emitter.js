@@ -81,6 +81,7 @@ class Emitter extends Point {
         for (var i = 0; i < birthrate; i++) {
             let p = this.newPoint(i/birthrate)
             this.pump(p, i, birthrate)
+            this.offsetSpawnedPoint(p, i, birthrate)
             this.points.push(p)
         }
 
@@ -125,6 +126,14 @@ class Emitter extends Point {
         return p
     }
 
+    offsetSpawnedPoint(p){
+        if(this.spawnOffset) {
+            // debugger
+            const _moved = impartOnRads(p.radians, new Point({x: -1, y:0}))
+            p.x += _moved.x * p.radius - (p.vx * this.particleSpeed)
+            p.y += _moved.y * p.radius - (p.vy * this.particleSpeed)
+        }
+    }
 }
 
 

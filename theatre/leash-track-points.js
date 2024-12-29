@@ -1,5 +1,4 @@
 /*
-src_dir: ../point_src/
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -7,14 +6,19 @@ files:
     ../point_src/math.js
     ../point_src/extras.js
     ../point_src/point-content.js
-    pointlist
+    ../point_src/pointlistpen.js
+    ../point_src/pointlist.js
     ../point_src/point.js
     ../point_src/stage.js
     ../point_src/events.js
     ../point_src/automouse.js
-    ../point_src/constrain-distance-locked.js
-    stroke
+    ../point_src/distances.js
+    dragging
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+    ../point_src/constrain-distance.js
  */
+
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
@@ -40,38 +44,41 @@ class MainStage extends Stage {
                 , mass: 8
             })
             , new Point({
-                 x: 450, y: 580
+                 x: 490, y: 490
                 , vx: .4, vy: -.1
                 , radius: 8
                 , mass: 8
             })
-            , new Point({
-                 x: 450, y: 520
-                , vx: .4, vy: -.1
-                , radius: 8
-                , mass: 8
-            })
-            , new Point({
-                 x: 450, y: 520
-                , vx: .4, vy: -.1
-                , radius: 8
-                , mass: 8
-            })
+            // , new Point({
+            //      x: 450, y: 520
+            //     , vx: .4, vy: -.1
+            //     , radius: 8
+            //     , mass: 8
+            // })
+            // , new Point({
+            //      x: 450, y: 520
+            //     , vx: .4, vy: -.1
+            //     , radius: 8
+            //     , mass: 8
+            // })
         )
+
+        this.dragging.add(...this.points)
     }
 
     draw(ctx){
         this.clear(ctx)
 
         let mouse = Point.mouse.position
-        followPoint(mouse, this.points[0], 50)
-        followPoint(this.points[0], this.points[1], 50)
-        followPoint(this.points[1], this.points[2], 50)
-        followPoint(this.points[2], this.points[3], 50)
-        followPoint(this.points[3], this.points[4], 50)
-        followPoint(this.points[4], this.points[5], 50)
-        // this.points.last().rotation += 2
-        this.points.pen.indicators(ctx)
+
+        this.points[3].track(this.points[2], 200)
+        this.points[1].leash(this.points[0], 200)
+
+        this.points[1].pen.indicator(ctx)
+        this.points[3].pen.indicator(ctx)
+
+        this.points[2].pen.fill(ctx, '#33aadd')
+        this.points[0].pen.fill(ctx, '#33aadd')
 
     }
 }

@@ -47,7 +47,8 @@
     const reverseClick = function(ev) {
         let l = new URL(window.location)
         let rev = l.searchParams.get('reverse')
-        let reverse = rev? !rev.toLowerCase().startsWith('t'): false
+        /* Assuming currently _false_, Set to _true_ if the reverse param is blank*/
+        let reverse = rev? !rev.toLowerCase().startsWith('t'): true
         changeURL({ reverse })
     }
 

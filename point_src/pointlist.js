@@ -1,4 +1,3 @@
-
 const pointArray = function(count=5, distance=10) {
     let res = new PointList
     let f = (i) => point(0, distance*i);
@@ -891,8 +890,8 @@ class PointListGradient {
         }
         return gradient;
     }
-
 }
+
 
 Polypoint.head.install(PointList)
 Polypoint.head.install(PointListGradient)

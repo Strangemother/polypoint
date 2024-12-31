@@ -246,6 +246,42 @@ This works for many mixins:
         return mixin(target, addon, false)
     }
 
+    /*
+    Install many static functions. Expect:
+
+        Polypoint.head.staticFunctions('PointList', {
+            fromJSON(text) {
+                let output = JSON.parse(text)
+                return (PointList.from(output)).cast()
+            }
+        })
+
+    Install:
+
+        Polypoint.head.static('PointList', {
+            fromJSON: {
+                value: function(text) {
+                    let output = JSON.parse(text)
+                    return (PointList.from(output)).cast()
+                }
+            }
+        })
+     */
+    const staticFunctions = function(target, methods) {
+        let def = {}
+        for(let k in methods) {
+            let func = methods[k]
+            def[k] = {
+                value: func
+                , writable: true
+            }
+        }
+        return mixin(target, def, false) //targetPrototype=false
+        // return mixin(target, methods, false)
+        // return mixin(name, def)
+
+    }
+
     const installMap = new Map;
 
     /* "Install" an entity, allowing the automated mixin population
@@ -533,6 +569,7 @@ This works for many mixins:
         , config: exposedConfig
         , configure
         , load
+        , staticFunctions
         , static: staticMixin
         , mixin, install, installMany
         , installFunctions

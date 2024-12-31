@@ -1,0 +1,202 @@
+/*
+
+CSS for the examples "file"
+
+    http://localhost:8000/examples/chord-example/
+
+Presenting a header, canvas and user tools.
+Extending the "example-base.html"
+
+    {% link.css "examples/css/file-view.css" %}
+
+ */
+#playspace {
+    width: 97%;
+    height: 96%;
+    /*box-sizing: border-box;*/
+    padding: 0;
+    margin: 0 0 0 1%;
+    border: solid 2px #000;
+}
+
+html, body {
+    margin: 0;
+    background: #111;
+    color: #CCC;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    max-height: 100%;
+}
+
+body {
+    grid-template-rows: min-content auto;
+}
+
+.horiz-stack {
+    /* border: solid 1px; */
+    display: grid;
+    grid-template-columns: auto 20em;
+    height: 100%;
+}
+
+.horiz-stack .primary-panel {
+    /* border: solid 1px red; */
+    display: grid;
+    grid-template-rows: min-content auto min-content;
+}
+
+.right-panel-container {
+    /* border: solid 1px red; */
+    overflow: auto;
+    margin-right: 1em;
+}
+
+main {
+    /* border: solid 1px red; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+footer.primay-status-bar {
+    background: #0a0a0a;
+    padding: 3px 1em;
+    font-size: 1rem;
+    display: flex;
+    font-size: .8rem;
+    gap: 1em;
+}
+
+.info-container {
+    font-size: 14px;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+    padding: 0 1em 0 2em;
+}
+
+.markdown-content ul li,
+.markdown-content ol li {
+    margin: 0.2em 0;
+}
+
+.extra-buttons {
+    font-size: 0.9rem;
+    margin-left: 1%;
+}
+
+.memory-values-container {
+    font-weight: 400;
+    /* background: #111; */
+    padding: 0.2em 0.7em;
+    font-size: 0.7rem;
+    gap: 1em;
+    display: flex;
+}
+
+.memory-values-container > span {
+    min-width: 5em;
+    /* outline: solid 1px red; */
+}
+
+.memory-cell {
+    gap: 0.3em;
+    display: flex;
+}
+
+.memory-cell .label {
+    text-transform: uppercase;
+    color: #555;
+}
+
+.error-state #playspace {
+    border-color: darkred;
+}
+
+.widget {
+    background: hsl(0deg 0% 3%);
+    border-radius: 0.6em;
+    padding: 0.4em 0;
+    color: #999;
+}
+
+.widgets-container {
+    font-size: 12px;
+    /* font-size: 0.9rem; */
+    gap: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+}
+
+div#widgets > * {}
+
+span.widget-label {
+    display: table-cell;
+    padding: 0rem 0.3em 0em 0.5em;
+    min-width: 1.3em;
+    text-align: right;
+}
+
+span.widget-label {}
+
+.widget-fields {
+    display: table;
+    min-width: 4em;
+    margin-right: 0.5em;
+}
+
+.widget-field {
+    display: table-row;
+}
+
+span.widget-value {
+    min-width: 1.5em;
+    /* background: hsl(0deg 0% 6%); */
+    padding: 0 0.2em;
+    display: table-cell;
+    /* border-bottom: solid 1px #000; */
+    font-weight: 500;
+}
+
+.widget-field.field-y .widget-label {
+    color: hsl(120 94% 37% / 1);
+    text-transform: uppercase;
+}
+
+.widget-field.field-x .widget-label {
+    color: hsl(0 59% 52% / 1);
+    text-transform: uppercase;
+}
+
+ul.actions-container {
+    list-style: none;
+    padding: 0;
+    margin: 1em 0;
+    display: flex;
+    gap: 1em;
+}
+
+a.button {
+    text-decoration: none;
+    background: hsl(0deg 0% 3%);
+    padding: .5em 1.1em;
+    display: inline-block;
+    border-radius: 0.4em;
+    font-size: 0.9rem;
+    /* color: inherit; */
+    /* color: #cfcfcf; */
+    font-family: 'Inter';
+    /* letter-spacing: 0.5px; */
+}
+
+.markdown-content pre {
+    background: #080808;
+    padding: 0.6em 0.9em;
+    border-radius: .4em;
+}
+
+.markdown-content p code {background: #080808;padding: 0.1em .4em;border-radius: 0.3em;}

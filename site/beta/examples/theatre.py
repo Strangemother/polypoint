@@ -147,6 +147,7 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
 
     return res
 
+
 def destack_file_dependencies(clean_files_list):
     for filepath in clean_files_list:
         # check file,
@@ -157,7 +158,7 @@ def destack_file_dependencies(clean_files_list):
 
 import json
 
-def clean_files_list(metadata):
+def clean_files_list(metadata, deep_include=True):
     src_dir = settings.POLYPOINT_SRC_DIR
     files_path = src_dir / 'files.json'
     file_ref = json.loads(files_path.read_text())
@@ -195,8 +196,48 @@ def clean_files_list(metadata):
         res += flatten_leaf(leaf, file_ref, src_dir)
         # Merge the sub list
         # for item in item_list:
+
     # finally, clean dup file imports.
-    return tuple({x:0 for x in res}.keys())
+    res = tuple({x:0 for x in res}.keys())
+
+    if deep_include is False:
+        return res
+
+    # unpack each file head and slice in imports.
+    parent_src_dir = settings.POLYPOINT_SRC_DIR
+    relative_src_dir = settings.POLYPOINT_THEATRE_SRC_RELATIVE_PATH
+    restacked = ()
+    for path in res:
+        fp = parent_src_dir / path
+        if fp.exists() is False:
+            ## print('x Ignore sub file', path)
+            continue
+
+        # Can be checked.
+        ## print('- Reading', path)
+        mets = get_metadata(path, parent=parent_src_dir)#, meta_keys=None, ensure_suffix='.js')
+        files = mets['clean_files']
+
+        if len(files) == 0:
+            ## print('  No Inner files; Ignoring')
+            restacked += (path,)
+            continue
+
+
+        ## print('  Found', files)
+
+        # Re-relative the inner path, to
+        # a path matching the relative
+        rel_paths = ()
+        for subfile in files:
+            p = f"{relative_src_dir}{subfile}"
+            rel_paths += (p,)
+        # parent_src_dir / foo.js
+        restacked += rel_paths + (path,)
+
+    restacked = tuple({x:0 for x in restacked}.keys())
+    return restacked
+
 
 
 def flatten_leaf(leaf, file_ref, src_dir=None):

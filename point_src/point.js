@@ -1,4 +1,9 @@
-
+/*
+files:
+    foo.js
+    relative-xy.js
+    pointcast.js
+*/
 
 const isPoint = function(value) {
     return value.constructor == Point
@@ -18,112 +23,6 @@ const point = function(p, b) {
     }
 
     return p
-}
-
-
-class Relative {
-
-    constructor(opts={}){
-        // super(opts)
-        this._relativeData = [0, 0, 0, 0]
-    }
-
-    getRelativeData() {
-        let r = this._relativeData
-        if(r == undefined) {
-                                    //x,y,rad,rot
-            r = this._relativeData = [0, 0, 0, 0]
-        }
-        return r
-    }
-
-    get rel() {
-        let parent = this;
-        let r = this._rel
-        if(r != undefined) {
-            return r
-        }
-
-        let relData = this.getRelativeData()
-        let sp = {
-            get x(){
-                return relData[0]
-            }
-
-            , set x(v) {
-                relData[0] = v
-            }
-
-            , get y(){
-                return relData[1]
-            }
-
-            , set y(v) {
-                relData[1] = v
-            }
-
-            , get radius() {
-                return relData[2]
-            }
-
-            , set radius(v) {
-                return relData[2] = v
-            }
-
-            , get rotation() {
-                return relData[3]
-            }
-
-            , set rotation(v) {
-                return relData[3] = v
-            }
-
-            , clear() {
-                // delete all values
-                parent._relativeData = [0,0,0,0]
-            }
-        }
-
-        this._rel = sp
-        return sp
-    }
-
-    set rel(v) {
-        this._opts.rel = v
-    }
-
-    set xy(other) {
-        /* Set a X Y pair on the entity, receiving from
-        another XY, or Point*/
-        this.x = other[0]
-        this.y = other[1]
-    }
-
-    get xy() {
-        // return the XY
-        return new XY(this.x, this.y,)
-    }
-
-}
-
-
-class XY extends Array {
-
-    get x() {
-        return this[0]
-    }
-
-    get y() {
-        return this[1]
-    }
-
-    multiply(v) {
-        this[0] *= v
-        this[1] *= v
-        return this
-    }
-
-    mul(){ return this.multiply.apply(this, arguments) }
 }
 
 
@@ -754,42 +653,6 @@ class Point extends Tooling {
     //     return false
     // }
 }
-
-
-class PointCast {
-    /* a bunch of convert function, such as "asObject", wrapped within a sub unit
-
-        Point.as.object()
-    */
-
-    constructor(point) {
-        this.point = point
-    }
-
-    object() {
-        let point = this.point;
-        return {
-            x: point.x
-            , y: point.y
-            , radius: point.radius
-            , rotation: point.rotation
-        }
-    }
-
-    array(fix=false) {
-        let target = this.point;
-        if(fix) {
-            let int = (x)=> Number( x.toFixed(Number(fix)) )
-            return [int(target.x), int(target.y), int(target.radius), int(target.rotation)]
-
-        }
-        return [target.x, target.y, target.radius, target.rotation]
-    }
-}
-
-
-Polypoint.head.install(PointCast)
-Polypoint.head.lazierProp('Point', function(){ return new PointCast(this)}, 'as')
 
 
 Polypoint.head.install(Point)

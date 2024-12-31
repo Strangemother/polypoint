@@ -167,7 +167,6 @@ class GridPlane {
 
         let i = 0;
         while(drawing.x) {
-
             ticker.x > padding.left && _drawTopDownLine(ticker.x, skew)
             drawing.x = ticker.x < (width + boxWidth);
             ticker.x += boxWidth
@@ -181,7 +180,6 @@ class GridPlane {
         i = 0;
         while(drawing.y) {
             ticker.y > padding.top && _drawLeftRightLine(ticker.y, -skew)
-
             drawing.y = ticker.y < (height + boxWidth);
             ticker.y += boxWidth
             i++;

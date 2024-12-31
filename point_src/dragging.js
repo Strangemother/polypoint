@@ -93,6 +93,10 @@ class Dragging extends Distances {
         return this.addPoints.apply(this, arguments)
     }
 
+    set(many) {
+        return this.setPoints.apply(this, arguments)
+    }
+
     onMousedown(stage, canvas, ev) {
         // register point
         // Select near

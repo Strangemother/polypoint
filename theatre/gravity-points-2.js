@@ -348,16 +348,21 @@ const applyGravityAndBoundsAngular = function(point, gravityVector, bounds, line
 
 
 const gravityVector = { x: 0, y: 0.1 }; // Gravity pointing downwards
-const bounds = { left: 0, right: 800, top: 0, bottom: 600 }; // Define bounds of the canvas or space
+const bounds = { left: 100, right: 800, top: 100, bottom: 600 }; // Define bounds of the canvas or space
 /* Lower is less bouncy. .2 is heavy boulder rock,
 .3 similar to a bowling ball hitting the isle wood
 .6 similar a footbal hitting dense grass
 .9 similar to a low enegy bouncy ball
 1 similar to a steel bearing hitting an atomic trampoline.  */
-const linearDampingFactor = .4; // Adjust this value to control the bouncing effect
-const angularDampingFactor = 0.999; // Adjust this value to control the rotation speed reduction
-const friction = .3; // Adjust this value to simulate friction at the point of contact
-const rollingFriction = .4; // Adjust this value to simulate rolling friction at the point of contact
+
+//  bouncing effect
+const linearDampingFactor = .9; // .4
+// rotation speed reduction
+const angularDampingFactor = 0.999; // .999
+// simulate friction at the point of contact
+const friction = .9;
+// simulate rolling friction at the point of contact
+const rollingFriction = .4;
 
 
 class MainStage extends Stage {
@@ -374,8 +379,8 @@ class MainStage extends Stage {
             })
             , new Point({
                  x: 300, y: 320
-                , vx: 2
-                , vy: -2
+                , vx: 10
+                , vy: -8
                 , radius: 10
                 , mass: 10
                 , omega: -.30 // Angular velocity
@@ -396,7 +401,10 @@ class MainStage extends Stage {
     draw(ctx){
         this.clear(ctx)
         applyGravityAndBounds(this.points[0], gravityVector, bounds, linearDampingFactor, angularDampingFactor)
-        applyGravityAndBoundsAngular1(this.points[1],
+        applyGravityAndBoundsAngular1(this.points[2],
+                                    gravityVector, bounds,
+                                    linearDampingFactor, angularDampingFactor, friction)
+        applyGravityAndBoundsAngularWithRadius(this.points[1],
                                     gravityVector, bounds,
                                     linearDampingFactor, angularDampingFactor, friction)
         // applyGravityAndBoundsAngular15(this.points[1], gravityVector, bounds, linearDampingFactor, angularDampingFactor, rollingFriction)

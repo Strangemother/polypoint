@@ -63,21 +63,26 @@ class Stages {
             return target;
         }
 
-        let node = document.getElementById(target)
+        let node = target
+        if(typeof(target) == "string") {
 
-        if(node == null) {
-            let nodes = document.querySelectorAll(target)
-            if(nodes.length == 0) {
-                // Cannot find node;
-                console.warn('Cannot resolve node', target)
-                return undefined
+            node = document.getElementById(target)
+            if(node == null) {
+                let nodes = document.querySelectorAll(target)
+                if(nodes.length == 0) {
+                    // Cannot find node;
+                    console.warn('Cannot resolve node', target)
+                    return undefined
+                }
+
+                if(nodes.length > 1) {
+                    console.warn('One canvas per stage.', target)
+                    return nodes[0]
+                }
             }
 
-            if(nodes.length > 1) {
-                console.warn('One canvas per stage.', target)
-                return nodes[0]
-            }
         }
+
 
         return node;
     }
@@ -124,7 +129,13 @@ class StageRender {
     }
 
     stickCanvasSize(canvas){
-        let rect = canvas.getBoundingClientRect()
+        let rect = canvas.getBoundingClientRect && canvas.getBoundingClientRect()
+        if(rect == undefined) {
+            rect = {
+                width: canvas.width
+                , height: canvas.height
+            }
+        }
         canvas.width  = rect.width;
         canvas.height = rect.height;
         let center = this.dimensions?.center
@@ -160,14 +171,23 @@ class StageRender {
 
         let id = this.id = Math.random().toString(32)
         this.target = target
-        let canvas = stages.resolveNode(target, this)
+        let canvas;
+        if(this.resolveCanvas) {
+            canvas = this.resolveCanvas(target, this)
+        } else {
+            canvas = stages.resolveNode(target, this)
+        }
         if(canvas == undefined) {
             console.warn('Stage canvas is undefined through Stage.canvas')
         }
         // this.setupClock()
         this.canvas = canvas
         this.dispatch('stage:prepare', {target, id, canvas })
-        this.resize()
+
+        /* Stick the shape */
+        if(canvas) {
+            this.resize()
+        }
         this.loopDraw = this.loopDraw.bind(this)
         this._prepared = true;
         this.compass = Compass.degrees()

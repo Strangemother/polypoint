@@ -24,6 +24,10 @@ class Distances {
         }
     }
 
+    setPoints() {
+        this.points.clear()
+        this.addPoints.apply(this, arguments)
+    }
     /* Return the closest point to the given point, for example the nearest
     point to the mouse.
 

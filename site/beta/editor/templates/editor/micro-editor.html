@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% comment "What" %}
+    The micro editor - for applying an editor in the main site, within an iframe.
+
+        http://localhost:8000/editor/v1/micro/
+
+    through editor.views.MicroView
+
+    The loaded file exists within the `path` object.
+
+        path:
+            path
+            exists
+            content
+
+{% endcomment %}
+<html lang="en">
+<head>
+    <title>Micro Editor</title>
+
+    <style type="text/css" media="screen"></style>
+
+    {% load link  %}
+    {% css "css/editor/main.css" %}
+    {% css "css/editor/micro-editor.css" %}
+    {% js "js/polyclass.browser-full.js" %}
+</head>
+<body>
+
+    <div class="columns-50">
+        <div class="editor-container">
+            <div class="editor-header">
+                <!-- Mostly used as a spacer for additional buttons,
+                and the auto-overlay for hyperlinks -->
+
+                <div polyclass class="font-pack-lexend+deca-500 run-buttons font-lexend+deca-500">
+                    <div class="primary-title"><h1>{{ metadata.title }}</h1></div>
+                    <div class="spacer full"></div>
+
+                    <div class="spacer full"></div>
+                    <div class="memory display-flex gap-1em font-size-.8rem">
+                        <div class='display-flex flex-direction-column'>
+                            <span class='label'>total</span>
+                            <span id="memory-total-value">0</span>
+                        </div>
+                        <div class='display-flex flex-direction-column'>
+                            <span class='label'>used</span>
+                            <span id="memory-used-value">0</span>
+                        </div>
+                        <div class='display-flex flex-direction-column'>
+                            <span class='label'>limit</span>
+                            <span id="memory-limit-value">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Updated by ace-editor.js -->
+            <div id="editor">{% spaceless %}
+                    {% if path.exists %}{{ path.content|safe }}{% else %}// no file{% endif %}
+                {% endspaceless %}</div>
+
+            <div class="buttons">
+
+                <div polyclass class="font-pack-lexend+deca-500 run-buttons font-lexend+deca-500">
+                     {% include 'docs/metadata-table.html' %}
+                    <div class="spacer full"></div>
+                    <a href="javascript:polypointEditor.aceRunText();">Run</a>
+                </div>
+                <div class="footer-privacy"></div>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <div class="canvas-wrapper">
+                <canvas id="playspace"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/editor/point_src/l.js?checkLoaded">
+        // <- adding checkLoaded to the url will dumbly check already inserted script/link tags
+    </script>
+
+    {% js "js/editor/main.js" %}
+
+    {# core requirements. #}
+    <script src="/editor/point_src/core/loader.js"></script>
+    <script src="/editor/point_src/files.js"></script>
+
+
+    {% comment %}
+        Load core view editor files.
+        The 'editor' entry is applied as an alias, then the `loader`
+        performs a _load_ of 'editor', calling polypointEditor.startView()
+    {% endcomment %}
+    {% js "js/editor/loads.js" %}
+    {% js "js/editor/loader.js" %}
+
+
+    {% comment "inline loader" %}
+        Utilise the theatre file awareness to create the scripts as required
+        here by the imports.
+    {% endcomment %}
+    {% for filepath in metadata.clean_files %}
+        <script src={{ filepath }}></script>
+    {% endfor %}
+
+
+</body>
+</html>

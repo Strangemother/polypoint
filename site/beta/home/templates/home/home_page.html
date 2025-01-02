@@ -1,5 +1,6 @@
-{% extends "base.html" %}
+{% extends "docs/doc-base.html" %}
 {% load static %}
+{% load markdown %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -7,15 +8,18 @@
 
 {% comment %}
 Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
 <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+{% endcomment %}
 {% endblock extra_css %}
 
+{% block page_title %}Polypoint{% endblock page_title %}
+
 {% block content %}
-
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-{% include 'home/welcome_page.html' %}
-
+<main>
+    <div class="outer-block iframe-block">
+        <div class="block">
+            {% include "./iframe_src.html" with src_partial='curve-knife.js' %}
+        </div>
+    </div>
+</main>
 {% endblock content %}

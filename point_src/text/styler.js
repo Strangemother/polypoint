@@ -64,7 +64,6 @@ class FontStyle extends SetUnset {
     getOpts() {
         /* ctx properties of which don't need map adapting, */
         let supported = new Set([
-
             , "font"
             , "textAlign"
             , "textBaseline"
@@ -101,7 +100,6 @@ class FontStyle extends SetUnset {
     }
 
     onCreate(cachedData) {
-
         /* here we generate a custom entry to build a string when set.*/
         cachedData['fontString'] = {
                 f: this.applyFontString.bind(this)

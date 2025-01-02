@@ -1,4 +1,22 @@
 /*
+files:
+    ../point_src/math.js
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/events.js
+    ../point_src/automouse.js
+    ../point_src/stage.js
+    ../point_src/extras.js
+    ../point_src/random.js
+    ../point_src/distances.js
+    ../point_src/dragging.js
+    ../point_src/stage-clock.js
+
+
 A relative motion of each point witin a random pointlist
 */
 class MainStage extends Stage {
@@ -26,7 +44,7 @@ class MainStage extends Stage {
     }
 
     step() {
-        let speed = 10
+        let speed = 6
         let radius = 100
         let tick = this.clock.tick * (speed * .01)
         this.point.rel.x = Math.sin(tick) * radius

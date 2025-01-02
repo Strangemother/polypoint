@@ -29,38 +29,6 @@ Math.sign = function(x) {
     return ((x > 0) - (x < 0)) || +x;
 };
 
-var DecimalPrecision = (function() {
-    return {
-        // Decimal round (half away from zero)
-        round: function(num, decimalPlaces) {
-            var p = Math.pow(10, decimalPlaces || 0);
-            var n = (num * p) * (1 + Number.EPSILON);
-            return Math.round(n) / p;
-        },
-        // Decimal ceil
-        ceil: function(num, decimalPlaces) {
-            var p = Math.pow(10, decimalPlaces || 0);
-            var n = (num * p) * (1 - Math.sign(num) * Number.EPSILON);
-            return Math.ceil(n) / p;
-        },
-        // Decimal floor
-        floor: function(num, decimalPlaces) {
-            var p = Math.pow(10, decimalPlaces || 0);
-            var n = (num * p) * (1 + Math.sign(num) * Number.EPSILON);
-            return Math.floor(n) / p;
-        },
-        // Decimal trunc
-        trunc: function(num, decimalPlaces) {
-            return (num < 0 ? this.ceil : this.floor)(num, decimalPlaces);
-        },
-        // Format using fixed-point notation
-        toFixed: function(num, decimalPlaces) {
-            return this.round(num, decimalPlaces).toFixed(decimalPlaces);
-        }
-    };
-})();
-
-
 class Stages {
     /* A Singleton to manage global functions and data */
     loaded = false
@@ -95,21 +63,26 @@ class Stages {
             return target;
         }
 
-        let node = document.getElementById(target)
+        let node = target
+        if(typeof(target) == "string") {
 
-        if(node == null) {
-            let nodes = document.querySelectorAll(target)
-            if(nodes.length == 0) {
-                // Cannot find node;
-                console.warn('Cannot resolve node', target)
-                return undefined
+            node = document.getElementById(target)
+            if(node == null) {
+                let nodes = document.querySelectorAll(target)
+                if(nodes.length == 0) {
+                    // Cannot find node;
+                    console.warn('Cannot resolve node', target)
+                    return undefined
+                }
+
+                if(nodes.length > 1) {
+                    console.warn('One canvas per stage.', target)
+                    return nodes[0]
+                }
             }
 
-            if(nodes.length > 1) {
-                console.warn('One canvas per stage.', target)
-                return nodes[0]
-            }
         }
+
 
         return node;
     }
@@ -135,9 +108,34 @@ stages = new Stages;
 
 
 class StageRender {
+    _drawFunc
+    _loopDraw = true
+
+    debounceResize = true
+    debounceResizeTimeout = 100
+
+    constructor(canvas, drawFunc) {
+        // super()
+
+        drawFunc = drawFunc || this.draw
+        if(drawFunc) {
+            this._drawFunc = drawFunc
+        }
+
+        this._drawAfter = []
+        if(canvas)  {
+            this.prepare(canvas)
+        }
+    }
 
     stickCanvasSize(canvas){
-        let rect = canvas.getBoundingClientRect()
+        let rect = canvas.getBoundingClientRect && canvas.getBoundingClientRect()
+        if(rect == undefined) {
+            rect = {
+                width: canvas.width
+                , height: canvas.height
+            }
+        }
         canvas.width  = rect.width;
         canvas.height = rect.height;
         let center = this.dimensions?.center
@@ -153,26 +151,6 @@ class StageRender {
 
     get center() {
         return this.dimensions.center
-    }
-
-    _drawFunc
-    _loopDraw = true
-
-    debounceResize = true
-    debounceResizeTimeout = 50
-
-    constructor(canvas, drawFunc) {
-        // super()
-
-        drawFunc = drawFunc || this.draw
-        if(drawFunc) {
-            this._drawFunc = drawFunc
-        }
-
-        this._drawAfter = []
-        if(canvas)  {
-            this.prepare(canvas)
-        }
     }
 
     prepare(target) {
@@ -193,14 +171,23 @@ class StageRender {
 
         let id = this.id = Math.random().toString(32)
         this.target = target
-        let canvas = stages.resolveNode(target, this)
+        let canvas;
+        if(this.resolveCanvas) {
+            canvas = this.resolveCanvas(target, this)
+        } else {
+            canvas = stages.resolveNode(target, this)
+        }
         if(canvas == undefined) {
             console.warn('Stage canvas is undefined through Stage.canvas')
         }
         // this.setupClock()
-        this.dispatch('stage:prepare', {target, id, canvas })
         this.canvas = canvas
-        this.resize()
+        this.dispatch('stage:prepare', {target, id, canvas })
+
+        /* Stick the shape */
+        if(canvas) {
+            this.resize()
+        }
         this.loopDraw = this.loopDraw.bind(this)
         this._prepared = true;
         this.compass = Compass.degrees()
@@ -303,6 +290,8 @@ class StageRender {
     }
 
     get ctx() {
+        /* Return the cached context object of the current canvas.
+        */
         return this._ctx || (this._ctx = this.getContext(this.canvas))
     }
 
@@ -440,5 +429,5 @@ class Stage extends StageRender {
     }
 }
 
-Polypoint.head.install(Stage)
 
+Polypoint.head.install(Stage)

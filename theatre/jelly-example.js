@@ -202,7 +202,7 @@ const allContraints = [];
 
 
 class JellyPoint {
-    constructor (pos, square) {
+    constructor(pos, square) {
         this.pos = pos;
         this.velocity = new JellyVector();
         this.force = new JellyVector();
@@ -213,7 +213,7 @@ class JellyPoint {
         this.square = square;
     }
 
-    update () {
+    update() {
         this.velocity.add(JellyVector.mul(this.force, SPEED));
 
         this.force = new JellyVector(0, GRAVITY / ITERATIONS);
@@ -231,14 +231,14 @@ class JellyPoint {
             this.moveTo(mouse, this.mouseDiff);
     }
 
-    toWorld (input) {
+    toWorld(input) {
         return new JellyVector(
             -input.y * Math.sin(this.p) + input.x * Math.cos(this.p),
             input.y * Math.cos(this.p) + input.x * Math.sin(this.p)
         );
     }
 
-    vat (R) {
+    vat(R) {
         const dr = JellyVector.sub(R, this.pos);
         const vdr = this.w * dr.length;
 
@@ -250,17 +250,17 @@ class JellyPoint {
         );
     }
 
-    addForce (F) {
+    addForce(F) {
         this.force.add(F);
     }
 
-    addTorque (F, R) {
+    addTorque(F, R) {
         const arm = JellyVector.sub(R, this.pos);
         const torque = F.y * arm.x - F.x * arm.y;
         this.torque += torque;
     }
 
-    moveTo (v, offset) {
+    moveTo(v, offset) {
         const targetX = v.x + offset.x;
         const targetY = v.y + offset.y;
         const strength = 0.001;

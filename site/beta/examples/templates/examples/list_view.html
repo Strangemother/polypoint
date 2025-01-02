@@ -3,10 +3,13 @@
 {% block page_title %}Examples{% endblock page_title %}
 
 {% block content %}
+
+{% link.css  "examples/css/list_view.css" %}
+
 <div class="outer-block">
     <div class="block">
         <h2>{{ object_list|length }} Examples</h2>
-        <ul>
+        <ul class='file-list'>
             {% for obj in object_list %}
             <li>
                 {% link "examples:file_example" obj.0 obj.0 %}

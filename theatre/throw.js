@@ -1,4 +1,23 @@
+/*
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/extras.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/stage.js
+    ../point_src/point.js
+    ../point_src/distances.js
+    ../point_src/pointlist.js
+    ../point_src/events.js
+    ../point_src/functions/clamp.js
+    ../point_src/relative.js
+    ../point_src/keyboard.js
+    ../point_src/automouse.js
+---
 
+ */
 // Function to convert angle to velocity vector
 function angleToVelocity(theta, speed) {
   return {
@@ -10,13 +29,10 @@ function angleToVelocity(theta, speed) {
 class MainStage extends Stage {
     canvas = 'playspace'
     mounted() {
-        console.log('mounted')
-        this.mouse.point.vy = this.mouse.point.vx = 0
-        this.mouse.point.mass = 2000
-        this.mouse.point.av = -20
-
-        this.a = new Point({ x: 200, y: 300, av: .1, vx: 1, vy: 0, radius: 40, mass: 200 })
-        this.b = new Point({ x: 500, y: 300, av: -.5, vx: .3, vy: 0, radius: 40, mass: 2000 })
+        this.a = new Point({ x: 200, y: 300, av: .1, vx: 1, vy: 0
+                            , radius: 40, mass: 20 })
+        this.b = new Point({ x: 500, y: 300, av: -.1, vx: .3, vy: 0
+                            , radius: 40, mass: 20 })
 
         this.rotationMultiplier = 30//1-this.clock.delta
         this.friction = 4
@@ -32,9 +48,6 @@ class MainStage extends Stage {
     updatePoints(a,b) {
         a.rotation += a.av * this.rotationMultiplier
         b.rotation -= b.av * this.rotationMultiplier
-        let mp = this.mouse.point
-        mp.rotation += mp.av
-
         this.addMotion(a)
         this.addMotion(b)
     }
@@ -150,144 +163,5 @@ class MainStage extends Stage {
 
 }
 
-
-class ReflectMainStage extends Stage {
-    canvas = 'playspace'
-    mounted() {
-        console.log('mounted')
-        this.mouse.position.vy = this.mouse.position.vx = 0
-
-        this.a = new Point({ x: 200, y: 230, av: 100,  vx: 1, vy: 0, radius: 10, mass: 20 })
-        this.b = new Point({ x: 600, y: 400, av: -10,  vx: 0, vy: 0, radius: 200, mass: 120 })
-
-        this.a.update({ radius: 10 })
-        this.rotationSpeed = -130
-        this.power = 0
-        this.powerDown = false
-    }
-
-    addMotion(point) {
-        /* Update the position of the point based on its velocity */
-        point.x += point.vx
-        point.y += point.vy
-    }
-
-    updatePoints() {
-        let a = this.a
-            , b = this.b
-            ;
-        a.rotation += a.av
-        b.rotation += b.av
-        // this.rotationSpeed *= .99
-        this.addMotion(a)
-        this.addMotion(b)
-    }
-
-    handleCollision() {
-        let a = this.a;
-        let b = this.b;
-
-        // Calculate the distance between the two points
-        let dx = b.x - a.x;
-        let dy = b.y - a.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-
-        // Check for collision
-        if (distance < a.radius + b.radius) {
-            // Collision detected
-
-            // Normal vector (unit vector from a to b)
-            let nx = dx / distance;
-            let ny = dy / distance;
-
-            // Tangent vector (perpendicular to normal)
-            let tx = -ny;
-            let ty = nx;
-
-            // Dot product of velocity and normal/tangent vectors
-            let v1n = a.vx * nx + a.vy * ny;
-            let v1t = a.vx * tx + a.vy * ty;
-            let v2n = b.vx * nx + b.vy * ny;
-            let v2t = b.vx * tx + b.vy * ty;
-
-            // Masses
-            let m1 = a.mass;
-            let m2 = b.mass;
-
-            // Compute new normal velocities (1D elastic collision equations)
-            let v1n_prime = (v1n * (m1 - m2) + 2 * m2 * v2n) / (m1 + m2);
-            let v2n_prime = (v2n * (m2 - m1) + 2 * m1 * v1n) / (m1 + m2);
-
-            // Update velocities
-            a.vx = v1n_prime * nx + v1t * tx;
-            a.vy = v1n_prime * ny + v1t * ty;
-            b.vx = v2n_prime * nx + v2t * tx;
-            b.vy = v2n_prime * ny + v2t * ty;
-
-            // Adjust positions to prevent overlap
-            let overlap = 0.5 * (a.radius + b.radius - distance + 1);
-            a.x -= overlap * nx;
-            a.y -= overlap * ny;
-            b.x += overlap * nx;
-            b.y += overlap * ny;
-        }
-    }
-
-    draw(ctx) {
-        this.clear(ctx)
-        this.updatePoints()
-        this.handleCollision()
-
-        // Update position of point b if it has velocity
-        this.addMotion(this.b)
-
-        this.a.pen.indicator(ctx)
-        this.b.pen.indicator(ctx)
-    }
-}
-
-class WorkingMainStage extends Stage {
-    canvas = 'playspace'
-    mounted() {
-        console.log('mounted')
-        this.mouse.position.vy = this.mouse.position.vx = 0
-
-        this.a = new Point({ x: 200, y: 230, vx: 1, vy: 0, radius: 10, mass: 20})
-        this.b = new Point({ x: 600, y: 400, radius: 200, vx: 0, vy: 0, mass: 10})
-
-        this.a.update({radius: 10})
-        this.rotationSpeed = 0
-        this.power = 0
-        this.powerDown = false
-    }
-
-    addMotion(point, speed=1) {
-        /* Because we're in a zero-gravity space, the velocity is simply _added_
-        to the current XY, pushing the point in the direction of forced. */
-        point.x += point.vx
-        point.y += point.vy
-        return
-    }
-
-    updatePointA(){
-        let a = this.a;
-        a.rotation += this.rotationSpeed
-        this.rotationSpeed *= .99
-        /* We could constantly push here - however without motion dampening
-        it's likely you'll always drift
-        (in the direction of radians - like a leaky engine) */
-        // this.impart(this.power)
-        this.addMotion(a, this.speed)
-
-    }
-
-    draw(ctx) {
-        this.clear(ctx)
-        this.updatePointA()
-
-        this.a.pen.indicator(ctx)
-        this.b.pen.indicator(ctx)
-    }
-}
 
 const stage = MainStage.go()

@@ -1,4 +1,18 @@
-
+/*
+files:
+    ../point_src/core/head.js
+    stroke
+    point
+    pointlist
+    mouse
+    dragging
+    ../point_src/bisector.js
+    ../point_src/functions/clamp.js
+    ../point_src/stage-clock.js
+    ../point_src/catenary-curve.js
+    ../point_src/curve-extras.js
+    ../point_src/stage.js
+ */
 function reflectPoint(origin, line) {
     const [p1, p2] = line;
     const x1 = p1.x, y1 = p1.y;

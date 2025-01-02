@@ -1,4 +1,14 @@
-
+/*
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/stage.js
+ */
 const canvas = document.getElementById('playspace');
 const ctx = canvas.getContext('2d');
 // Point.mouse.listen(canvas)

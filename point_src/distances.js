@@ -24,6 +24,10 @@ class Distances {
         }
     }
 
+    setPoints() {
+        this.points.clear()
+        this.addPoints.apply(this, arguments)
+    }
     /* Return the closest point to the given point, for example the nearest
     point to the mouse.
 
@@ -202,13 +206,6 @@ Polypoint.head.mixin('Point', {
         }
         , writable: true
     }
-
-    // , distance: {
-
-    //     static value(a, b){
-    //         return Math.hypot(b.x - a.x, b.y - a.y);
-    //     }
-    // }
     , distanceTo: {
         value(other) {
             return distance(this, other)
@@ -221,6 +218,15 @@ Polypoint.head.mixin('Point', {
         }
     }
 })
+
+
+// Polypoint.head.static('Point', {
+//     distance: {
+//         value(a, b){
+//             return Math.hypot(b.x - a.x, b.y - a.y);
+//         }
+//     }
+// })
 
 
 function distance(xy1, xy2) {

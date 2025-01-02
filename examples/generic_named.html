@@ -12,46 +12,231 @@
         imports/foo-example.html
         theatre/foo-example.js
 {% endcomment %}
-{% load strings  %}
-{% load try_include %}
+{% load strings link try_include %}
 
 {% if metadata %}
     {% block title %}{{ metadata.title }}{% endblock title %}
 {% endif %}
 
-{% block js %}
-    {% str_merge "./imports/" part_name ".html" as include_name %}
-    {% if include_name|template_exists %}
-        {% include include_name %}
-    {% else %}
-        <div class="no-imports">
-            <p>Default imports file "{{ part_name }}" do not exist.</p>
-        </div>
-    {% endif %}
+ {% block content %}
+    {% css "css/index.css" %}
+    {% include "docs/header.html" %}
+    <main>
+        <div class="horiz-stack">
+            <div class="primary-panel">
+                <div class="header-tools extra-buttons font-Inter-500">
+                    <span>Extra Bits</span>
+                </div>
+                <div class="canvas-container">
+                    {% block canvas_container %}
+                    <canvas id="playspace"></canvas>
+                    {% endblock canvas_container %}
+                </div>
+                <div class="footer-tools">
 
-    {% for import_template_name in metadata.imports %}
-        {% str_merge "./imports/" import_template_name as include_name %}
-        <!-- Including import "{{include_name}}" -->
-        {% if include_name|template_exists %}
-            <!-- exists "{{include_name}}" -->
-            {% include include_name %}
-        {% else %}
-            <!-- fail "{{include_name}}" -->
-            <div class="no-imports">
-                <p>Defined imports "{{ import_template_name }}" do not exist.</p>
+                </div>
             </div>
-        {% endif %}
-    {% endfor %}
 
-    {% if markdown %}
-        <div class="markdown-content border-solid-1px-#333 margin-1em font-lexand-deca">
-            {{ markdown.html|safe }}
+            <div class="right-panel-container">
+                <h2>{{  metadata.title }}</h2>
+
+                {% verbatim %}
+                <!-- anywhere on the page -->
+                <div id='mini-app'>
+
+                  <ul class='actions-container'>
+                      <li v-for='item in controls' class='action-container'>
+                            <div class="action">
+
+                                <div v-if="item.field == 'button'">
+                                   <a class='button'
+                                        href="javascript:;"
+                                        @click="clickHandler($event, item)">{{ item.label }}</a>
+                                </div>
+
+                                <div v-if="item.field == 'input'">
+                                   <label>
+                                        <span class="pseudo-label">
+                                            {{ item.label }}
+                                        </span>
+
+                                        <input
+                                            :type="item.type || 'input'"
+                                            :value="item.value"
+                                            @input="changeHandler($event, item)"
+                                            step="1" />
+                                    </label>
+                                </div>
+
+                                <div v-if="item.field == 'select'">
+                                    <label>
+                                        <span class="pseudo-label">
+                                            {{ item.label }}
+                                        </span>
+                                        <select class='select'
+                                            @change="changeHandler($event, item)">
+                                            <option v-for='option in item.options'>
+                                                {{ option }}
+                                            </option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <div v-if="item.field == 'range'">
+                                    <label>
+                                        <span class="pseudo-label">
+                                            {{ item.label }}
+                                        </span>
+
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="100"
+                                            value="30"
+                                            @input="changeHandler($event, item)"
+                                            step="1" />
+                                    </label>
+                                </div>
+
+
+                                <!--
+                                    Actions being:
+
+                                        button
+                                        dropdown
+                                        color
+                                        radios
+                                        text
+                                        number options
+
+                                    Basically all types
+                                -->
+                            </div>
+                      </li>
+                  </ul>
+                </div>
+
+                <!-- An app for little cell items. -->
+                <div id="widgets" class="widgets-container font-Inter-400">
+                    <div class='widget-owner' v-for='item in widgets'>
+
+                        <div class="floating widget" :id="item.id">
+                            <div class='widget-fields'>
+                                <div class='widget-field' :class='"field-"+key' v-for='(definition, key) in item.fields'>
+                                    <span class="widget-label" v-html="definition.label"></span>
+                                    <span class="widget-value">
+                                        {{ definition.value }}
+                                    </span>
+                                    <span class='widget-postfix' v-html="definition.postfix || ''"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endverbatim %}
+
+                <div class="info-container font-Inter-500">
+
+                    {% comment %}
+                        Install the import of the same filename - if it exists.
+                    {% endcomment %}
+                    {% str_merge "./imports/" part_name ".html" as include_name %}
+                    {% if include_name|template_exists %}
+                        {% include include_name %}
+                    {% else %}
+                        <div class="no-imports">
+                            <p>Default imports file "{{ part_name }}" do not exist.</p>
+                        </div>
+                    {% endif %}
+
+                    {% comment %}
+                        Apply any custom imports from the markdown meta data (at the top
+                        of a JS file.)
+                    {% endcomment %}
+                    {% for import_template_name in metadata.imports %}
+                        {% str_merge "./imports/" import_template_name as include_name %}
+                        <!-- Including import "{{include_name}}" -->
+                        {% if include_name|template_exists %}
+                            <!-- exists "{{include_name}}" -->
+                            {% include include_name %}
+                        {% else %}
+                            <!-- fail "{{include_name}}" -->
+                            <div class="no-imports">
+                                <p>Defined imports "{{ import_template_name }}" do not exist.</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="markdown-container">
+
+                        {% if markdown %}
+                            <div class="markdown-content">
+                                {{ markdown.html|safe }}
+                            </div>
+                        {% endif %}
+
+                        {% if metadata %}
+                            {% include 'docs/metadata-table.html' %}
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
         </div>
-    {% endif %}
+
+        <footer class="primay-status-bar font-Inter-500">
+
+            {% comment "without-petite-vue" %}
+            <div class="memory-values-container">
+                <div class='memory-cell'>
+                    <span class="label">total</span>
+                    <span id="memory-total-value">0</span>
+                </div>
+                <div class='memory-cell'>
+                    <span class="label">used</span>
+                    <span id="memory-used-value">0</span>
+                </div>
+                <div class='memory-cell'>
+                    <span class="label">limit</span>
+                    <span id="memory-limit-value">0</span>
+                </div>
+            </div>
+            {% endcomment %}
+
+            {% verbatim %}
+            <div id="memory-values" class="memory-values-container">
+                <div class='memory-cell' v-for='item in memoryCache'>
+                    <span class="label">{{ item.label }}</span>
+                    <span class="memory-value">{{ item.value }} {{ item.postfix }}</span>
+                </div>
+            </div>
+            {% endverbatim %}
+
+            {% str_merge "../theatre/" part_name ".js" as script_name %}
+            <div>{{ script_name }}</div>
+        </footer>
+    </main>
+{% endblock content %}
+
+{% load link %}
+
+{% block js %}
+
+    {# <script src="https://unpkg.com/petite-vue" defer init></script> #}
+    {% link.js "examples/js/petite-vue.iife.js" "defer" %}
+    {% link.js "examples/js/memory-tool-app.js" %}
+    {% link.js "examples/js/widget-app.js" %}
+    {% link.js "examples/js/button-app.js" %}
+    {% link.js "examples/js/global-error-handler.js" %}
+    {% link.js "examples/js/file-view.js" %}
 
     {% if metadata %}
-        {% include 'docs/metadata-table.html' %}
+        {% for filepath in metadata.clean_files %}
+            <script src={{ filepath }}></script>
+        {% endfor %}
     {% endif %}
+
 {% endblock js %}
 
 

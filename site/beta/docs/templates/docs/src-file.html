@@ -1,6 +1,5 @@
 {% extends "docs/doc-base.html" %}
-{% load content %}
-{% load wrap %}
+{% load content link wrap %}
 {% comment "What" %}
     # src code file presentation.
 
@@ -35,7 +34,9 @@
                 {% else %}
                     <p>File does not exist: "{{path}}".</p>
                 {% endif %}
-
+                <div class="parse">
+                    {% link "docs:file_parse" path "parse" %}
+                </div>
                 <hr class="border-color-#222 margin-2em">
             </div>
 

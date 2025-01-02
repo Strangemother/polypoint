@@ -1,4 +1,4 @@
-.title h1, h1.title {
+.title h1, h1.title, h1 {
     background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -8,7 +8,7 @@
 }
 
 main h2 {
-    background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%);
+    background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, #4a3fde 77%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -71,7 +71,7 @@ header.primary ul li a {
   max-width: 1000px;
 }
 
-.primary .left {grid-area: left;border-right: solid 1px #333;}
+.primary .left {grid-area: left;/* border-right: solid 1px #333; */}
 .primary .right { grid-area: right; }
 
 
@@ -109,7 +109,8 @@ header.primary ul li a {
 
 
 body {
-    background: #222;
+    background: #111;
+    height: 100%;
 }
 
 
@@ -121,3 +122,28 @@ body {
 main a {
     color: hsl(291deg 72% 59%);
 }
+
+main blockquote {
+    background: #181818;
+    padding: 1em 3em;
+    margin: 1rem 0em 1em 0em;
+    font-size: 1.1em;
+    border-left: solid 4px #957638;
+}
+
+main p {
+    line-height: 1.5;
+    letter-spacing: .2px;
+}
+
+
+iframe {
+    width: 100%;
+    min-height: 30em;
+}
+
+.iframe-block .block {
+    max-width: unset;
+}
+
+canvas#playspace {}

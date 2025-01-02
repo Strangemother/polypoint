@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+{% comment "What" %}
+    The primary view for the editor v1
+
+        http://localhost:8000/editor/v1/
+
+    through editor.views.IndexView
+
+    The loaded file exists within the `path` object.
+
+        path:
+            path
+            exists
+            content
+
+{% endcomment %}
 <html lang="en">
 <head>
     <title>Editor</title>
@@ -93,6 +108,16 @@
     {% js "js/editor/loads.js" %}
     {% js "js/editor/loader.js" %}
 
+    {% comment "inline loader" %}
+        Utilise the theatre file awareness to create the scripts as required
+        here by the imports.
+    {% endcomment %}
+
+        {% for filepath in metadata.clean_files %}
+            <script src={{ filepath }}></script>
+        {% endfor %}
+
+        {% include 'docs/metadata-table.html' %}
 
     <!--
     <script src="../point_src/stroke.js"></script>

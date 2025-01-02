@@ -1,8 +1,31 @@
 {% extends "docs/doc-base.html" %}
+{% comment "What" %}
+    The _Theatre_ index file. Listing all the example files within the
+    THEATRE directory.
+
+        http://localhost:8000/examples/
+{% endcomment %}
 {% load link theatre %}
 {% block page_title %}Theatre{% endblock page_title %}
 
 {% block content %}
+
+<div>
+    <select name="orderby" id='orderby'>
+        <option selected>Ordering</option>
+        {% for o in view.orders %}
+            <option value="{{ o.0 }}">{{ o.1 }}</option>
+        {% endfor %}
+    </select>
+    <div class="right">
+        <a href="javascript:;"
+            id='direction'>reverse</a>
+    </div>
+
+</div>
+{% js "examples/js/index.js" %}
+{% css "examples/css/index.css" %}
+
 <div class="outer-block">
     <div class="block">
         {% theatre.render_markdown "readme.md" as markdown_text %}
@@ -12,7 +35,7 @@
 
         <h2>{{ object_list|length }} Examples</h2>
 
-        <ul>
+        <ul class='example-list'>
             {% for obj in object_list %}
             <li>
                 {% link "examples:file_example" obj.0 obj.0 %}

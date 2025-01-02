@@ -4,7 +4,7 @@
     t.text = 'new text value'
     t.writeText(fillStyle)
  */
-class Text {
+class TextAlpha {
     fontSize = 12
     fontWeight = 'normal'
     fontName = 'lexend deca'

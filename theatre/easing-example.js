@@ -1,3 +1,23 @@
+/*
+
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/stage.js
+    ../point_src/events.js
+    ../point_src/stage-clock.js
+    ../point_src/easing.js
+    ../point_src/timeit.js
+    ../point_src/iter/lerp.js
+    ../point_src/random.js
+
+
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
@@ -17,6 +37,37 @@ class MainStage extends Stage {
 
         this.easingFunctionX = easingFunctions.get(this.easeNameX, this.easyDirX)
         this.easingFunctionY = easingFunctions.get(this.easeNameY, this.easyDirY)
+
+        addButton('move', {
+            // label: 'move'
+             onclick: ()=> console.log('move')
+        })
+        let _this = this;
+        addControl('easing', {
+            type: 'select'
+            , onchange(ev) {
+                let v = ev.currentTarget.value
+                console.log('set easeNameY to', v)
+                _this.easeNameY = v
+                _this.easeNameX = v
+
+                _this.easingFunctionX = easingFunctions.get(_this.easeNameX, _this.easyDirX)
+                _this.easingFunctionY = easingFunctions.get(_this.easeNameY, _this.easyDirY)
+            }
+
+            , options: [
+                "linear"
+                , "quad"
+                , "cubic"
+                , "quartic"
+                , "sine"
+                , "circular"
+                , "exponential"
+                , "elastic"
+                , "back"
+                , "bounce"
+            ]
+        })
     }
 
     onClick(ev) {

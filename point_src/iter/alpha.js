@@ -84,7 +84,7 @@ class Value {
         this.b = b
         this.step = .5
                                             // linear
-        this.easing = easiing == undefined? v=>v: easing
+        this.easing = easing == undefined? v=>v: easing
     }
 
     width(){

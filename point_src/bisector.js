@@ -1,4 +1,8 @@
-
+/*A Bisect divides an angle or line segment into two equal parts.
+Imagine you have two points connected by a line or forming an angle.
+The bisector finds the exact middle, splitting the angle or the line
+into two even halves.
+*/
 
 function bisectAll(items, direction='obtuse') {
     let func = obtuseBisect;

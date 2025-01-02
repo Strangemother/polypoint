@@ -2,28 +2,15 @@
 <html class='polypoint-demo'>
     <head>
         <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
-        <style>
-            #playspace {
-                width: 90%;
-                height: 90%;
-                /*box-sizing: border-box;*/
-                padding: 0;
-                margin: auto;
-                border: solid 1px #000;
-            }
-            html, body {
-                margin: 0;
-                background: #111;
-                color: #CCC;
-                height: 100%;
-                width: 100%;
-            }
+        {% load link %}
+        {% link.css "examples/css/file-view.css" %}
 
-        </style>
         <title>{% block title %}Polypoint{% endblock title %}</title>
     </head>
     <body polyclass class="{% block body_class %}{% endblock body_class %}
-    font-pack-lexend+deca-500 font-lexend+deca-500">
+    font-pack-lexend+deca-500
+    font-lexend+deca-500
+    font-pack-Inter-400-500">
         {% block content %}
         <canvas id="playspace"></canvas>
         {% endblock content %}
@@ -32,8 +19,7 @@
             {% include "./imports/base.html" %}
         {% endblock js %}
 
-        {% block extra_js %}
-        {% endblock extra_js %}
+        {% block extra_js %}{% endblock extra_js %}
     </body>
 </html>
 

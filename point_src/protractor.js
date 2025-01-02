@@ -31,6 +31,12 @@ function calculateAngle180(point1, point2, rotation, direction=1) {
 }
 
 
+function calculateInverseAngle180(point1, point2, rotation, direction=1) {
+    let rot = calculateAngle180(point1, point2, rotation, direction) * -1
+    rot -= rot > 0? 180: -180
+    return rot
+}
+
 function invertClockRotation(angleInDegrees) {
     let rev = (360 - angleInDegrees) % 360
     return rev;
@@ -58,6 +64,16 @@ function getCavity(point1, midPoint, point2) {
 
   // Do to this, we can use the calculate angle 180,
   debugger;
+}
+
+function calculateAngleDiff(primaryPoint, secondaryPoint) {
+    // return ((b.radians - a.radians) + Math.PI2) % Math.PI2
+    let rads = radiansDiff(primaryPoint.radians, secondaryPoint.radians)
+    return radiansToDegrees(rads)
+}
+
+function radiansDiff(primaryRads, secondaryRads) {
+   return ((primaryRads - secondaryRads) + Math.PI2) % Math.PI2
 }
 
 function calculateAngleWithRef(point1, point2, referencePoint) {

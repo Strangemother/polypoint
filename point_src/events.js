@@ -51,17 +51,26 @@ function getMethodsOf(obj){
     return methods
 }
 
+;addEventListener('stage:prepare', function(event){
+    let {id, canvas, stage} = event.detail
+    console.log('event', stage)
+    if(stage.autoEvents !== false)  {
+        /* default true for event.wake() */
+        stage.events.wake()
+    }
+})
 
 class StageEvents {
     autoListen = true
 
     constructor(stage=undefined) {
         this.stage = stage
+        this._hooked = false
     }
 
     wake(){
         if(this.getAutoListen()) {
-            this.hook(this.stage)
+            (!this._hooked) && this.hook(this.stage)
         }
     }
 
@@ -81,6 +90,7 @@ class StageEvents {
                 this.on(eventName,f)
             }
         }
+        this._hooked = true
     }
 
     on(name, handler, props) {

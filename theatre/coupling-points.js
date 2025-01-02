@@ -17,14 +17,12 @@ files:
     ../point_src/coupling.js
 ---
 
-Bind many points
- */
+# Coupling Three Points
 
-/* In the new one, each key is tested in a cache.
-Previously it was a string - therefore when updates occured the string was pre-cached
-multiple updates failed, as the key was (false positive) cached in a previous step.
+assign multiple _coupled_ keys across three points. Dragging a point adapts its
+sibling.
+
 */
-
 class MainStage extends Stage {
     canvas='playspace'
 

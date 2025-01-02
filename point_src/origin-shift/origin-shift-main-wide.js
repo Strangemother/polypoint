@@ -15,6 +15,7 @@ class MainStage extends Stage {
 
     mounted(){
         this.reset()
+        this.example()
     }
 
     draw(ctx=this.ctx, addData={}){

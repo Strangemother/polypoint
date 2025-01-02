@@ -1,4 +1,14 @@
-
+/*
+files:
+    head
+    point
+    pointlist
+    mouse
+    stage
+    ../point_src/math.js
+    ../point_src/extras.js
+    stroke
+ */
 const canvas = document.getElementById('playspace');
 const ctx = canvas.getContext('2d');
 Point.mouse.mount(canvas)

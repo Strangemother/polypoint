@@ -1,4 +1,27 @@
+/*
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/pointlistpen.js
+    ../point_src/point.js
+    ../point_src/events.js
+    ../point_src/automouse.js
+    ../point_src/distances.js
+    ../point_src/bisector.js
+    ../point_src/dragging.js
+    ../point_src/functions/clamp.js
+    ../others/curve_src/curve.js
+    ../point_src/curve-extras.js
+    ../point_src/stage.js
 
+
+
+ */
 function reflectPoint(origin, line) {
     const [p1, p2] = line;
     const x1 = p1.x, y1 = p1.y;

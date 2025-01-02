@@ -23,7 +23,7 @@ class Random {
         }
 
         let r = this.float()
-        return Number( (r * min).toFixed(0) )
+        return Number( ~~(r * min) )
     }
 
     float(min=1, max) {

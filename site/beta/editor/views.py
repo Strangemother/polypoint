@@ -3,7 +3,13 @@ from trim import views
 from django.http import Http404
 
 from pathlib import Path
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.utils.decorators import method_decorator
 
+# @xframe_options_exempt
+from examples import theatre
+
+@method_decorator(xframe_options_exempt, name='dispatch')
 class IndexView(views.TemplateView):
     template_name = 'editor/view.html'
 
@@ -13,7 +19,19 @@ class IndexView(views.TemplateView):
 
         if 'path' in kwargs:
             kw['path'] = get_theatre_file_contents(kwargs['path'])
+            if kw['path']['exists'] is True:
+                # load theatre meta
+                # rel kwargs['path']
+                kw['metadata'] = theatre.read_resolve(
+                        kwargs['path'],
+                        settings.POLYPOINT_THEATRE_DIR,
+                    )
         return kw
+
+
+@method_decorator(xframe_options_exempt, name='dispatch')
+class MicroView(IndexView):
+    template_name = 'editor/micro-editor.html'
 
 
 class PointSrcAssetView(views.TemplateView):

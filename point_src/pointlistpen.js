@@ -53,6 +53,8 @@ class PointListPen {
         return this.indicators.apply(this, arguments)
     }
 
+
+
     indicators(ctx, miniConf={}) {
         /* Synonymous to:
 
@@ -65,15 +67,17 @@ class PointListPen {
 
         */
 
+        let defaultCircleColor = '#66DD22'
+        let defaultLineColor = defaultCircleColor
         let def = {
-            line: {color:'red', width: 2}
-            , circle: {color:'yellow', width: 1}
+            line: {/*color:'red',*/ width: 2}
+            , circle: {/*color:'yellow',*/ width: 1}
         };
         Object.assign(def, miniConf)
 
-        let lc = def.color || def?.line?.color
-        let lw = def.width || def?.line?.width
-        let cc = def.color || def?.line?.color
+        let lc = def?.line?.color || def.color || defaultLineColor
+        let lw = def?.line?.width || def.width
+        let cc = def?.circle?.color || def?.color || def?.line?.color || defaultCircleColor
         let cw = def.width || def?.circle?.width
 
         let eachPoint = (item, arcDrawF) =>{

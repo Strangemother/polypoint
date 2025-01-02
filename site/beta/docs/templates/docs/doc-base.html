@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title }}{% endblock title %}</title>
     {% load link %}
+
     {% css "css/index.css" %}
     {% load content %}
 </head>
@@ -13,29 +14,7 @@
                         margin-0
                         font-pack-lexend+deca-500
                         font-lexend+deca-500 letter-spacing-.1px'>
-    <header class='primary background-#111'>
-
-        <div class="header-container">
-          <div class="left">
-                <div class="logo padding-1em
-                            font-size-1rem">Polypoint</div>
-          </div>
-          <div class="nav">
-                <div class="nav-container">
-                    <ul>
-                        <li>{% link "docs:home" 'Docs' %}</li>
-                        <li>{% link "examples:example" 'Theatre' %}</li>
-                        <li>{% link "editor:home" 'Editor' %}</li>
-                    </ul>
-                </div>
-          </div>
-          <div class="right">
-
-          </div>
-        </div>
-
-    </header>
-
+    {% include "./header.html" %}
     <main>
         <header>
             <h1 class="title
@@ -71,8 +50,7 @@
             </div>
         </div>
 
-        {% block content %}
-        {% endblock content %}
+        {% block content %} {% endblock content %}
     </main>
 
     {% js "js/polyclass.browser-full.js" %}

@@ -1,3 +1,27 @@
+/*
+src_dir: ../point_src/
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/extras.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/stage.js
+    ../point_src/point.js
+    ../point_src/distances.js
+    pointlist
+    ../point_src/events.js
+    ../point_src/functions/clamp.js
+    dragging
+    stroke
+    ../point_src/split.js
+    ../point_src/curve-extras.js
+    ../point_src/stage-clock.js
+    ../point_src/protractor.js
+    ../point_src/relative.js
+    ../point_src/automouse.js
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
@@ -69,6 +93,4 @@ class MainStage extends Stage {
     }
 }
 
-
-
-stage = MainStage.go()
+;stage = MainStage.go();

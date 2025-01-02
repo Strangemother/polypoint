@@ -114,6 +114,7 @@ const findNearestPoint = function(line, point) {
     }
 }
 
+
 Polypoint.head.installFunctions('Line', {
     findNearestPoint(point){
         /* Find the point along the line of which is _closest_ to the given

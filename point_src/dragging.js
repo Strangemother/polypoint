@@ -93,6 +93,10 @@ class Dragging extends Distances {
         return this.addPoints.apply(this, arguments)
     }
 
+    set(many) {
+        return this.setPoints.apply(this, arguments)
+    }
+
     onMousedown(stage, canvas, ev) {
         // register point
         // Select near
@@ -102,7 +106,8 @@ class Dragging extends Distances {
         // this.nearOrigin = this.near.copy()
         if(this._near == undefined) {
             console.log('not near any point at position', this.mousedownOrigin)
-            this.onEmptyDown(ev)
+            this.callDoubleHandler('onEmptyDown', ev)
+            // this.onEmptyDown(ev)
             return
         }
 

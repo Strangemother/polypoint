@@ -24,7 +24,7 @@ class PointDraw {
         }
     }
 
-    ngon(ctx, sides, radius, fromCenter=true) {
+    ngon(ctx, sides, radius, fromCenter=true, angle=0) {
         /* Draw a polygon of _n_ sides, with an optional radius.
 
                 polygonPoint.radius = 20
@@ -41,7 +41,7 @@ class PointDraw {
         }
 
         // return polyGen(ctx, sides, p);
-        let points = getPolyDistributedPoints(sides, p, r)
+        let points = getPolyDistributedPoints(sides, p, r, angle)
         let p0 = points[0]
 
         ctx.moveTo(p0.x, p0.y)
@@ -50,7 +50,7 @@ class PointDraw {
             let p = points[i]
             ctx.lineTo(p.x, p.y);
         }
-
+        return points
     }
 }
 

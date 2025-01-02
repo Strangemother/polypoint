@@ -69,6 +69,7 @@ class Label {
             , fontSizeMeasurement: this.fontSizeMeasurement || 'px'
             , font: undefined
         }
+
         return Object.assign(r, conf)
     }
 

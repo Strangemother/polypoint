@@ -7,7 +7,7 @@ notes:
 + a nice class.
 */
 
-class FPS extends Text {
+class FPS extends TextAlpha {
     color = 'green'
 
     // Higher is a longer delay between visual text updates.

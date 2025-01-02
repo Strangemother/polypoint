@@ -1,12 +1,14 @@
 {% extends "docs/doc-base.html" %}
-{% load content link %}
+{% load content link markdown %}
 
-{% block page_title %}Documentation{% endblock page_title %}
+{% block page_title %}Files{% endblock page_title %}
 
 {% block content %}
 <div class="outer-block">
     <div class="block">
-        <p>Fish.</p>
+
+        {% markdown.file "docs" "readme.md" %}
+
         <div class="file-list">
             {% include './fragments/dir-object_list-ul.html' %}
         </div>

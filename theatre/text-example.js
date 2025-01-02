@@ -1,4 +1,15 @@
+/*
 
+files:
+    ../point_src/point-content.js
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/stage.js
+    ../point_src/text/alpha.js
+ */
 const canvas = document.getElementById('playspace');
 // const ctx = canvas.getContext('2d');
 // Point.mouse.listen(canvas)
@@ -16,7 +27,7 @@ const automain = function(){
 let rotationPoint = new Point(300, 300)
 
 
-class HyperwayLogo extends Text {
+class HyperwayLogo extends TextAlpha {
     text = 'HYPERWAY'
     fontSize = 50
     _letterSpacing = undefined //'normal'

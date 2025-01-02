@@ -1,26 +1,15 @@
-/* A Stage acts as a convenience tool to hoist a canvas and begin drawing.
-It's not fundamental to the drawing tools and a start requestAnimationFrame will
-work.
+/*
+Add extra methods to the `Scene` to capture screenshots of the canvas.
 
-The Stage helps manage loading and looping of content. Extend with custom functionality and run:
+    stage = (new Stage()).go()
+    // creates new image
+    stage.screenshot.toNewImage()
 
-    class MainStage extends Stage {
-        // canvas = document.getElementById('playspace');
-        canvas = 'playspace'
-    }
+Download a jpg file:
 
-    stage = MainStage.go({
-        loop: true
-    })
-
-This will execute the canvas name. It provides some free tools:
-
-+ `mount()` and `draw(ctx)` functions
-+ _load_ capture events
-+ size locking and auto resizing
-+ optional request frame loop
-+ builtin measurement tools; `center` and `dimensions`
-
+    stage = new Stage
+    stage.screenshot.asDownloadLink()
+    // Click the newly DOM inserted link
 */
 class Screenshot {
 
@@ -97,8 +86,6 @@ asObjectUrl = async function(width, height, callback) {
     return p.then((d)=>console.log('got data'));
     return p//.then(console.log);
 }
-
-console.log('toObjectURL')
 
 const asObject = async function(mimeType="image/jpeg", quality = 0.85) {
     let promiseFunc = (resolve, reject) => {

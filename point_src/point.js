@@ -1,3 +1,13 @@
+/*
+files:
+    foo.js
+    relative-xy.js
+    pointcast.js
+*/
+
+const isPoint = function(value) {
+    return value.constructor == Point
+}
 
 
 const point = function(p, b) {
@@ -16,100 +26,67 @@ const point = function(p, b) {
 }
 
 
-class Relative {
-
-    constructor(opts={}){
-        // super(opts)
-        this._relativeData = [0, 0, 0, 0]
-    }
-
-    getRelativeData() {
-        let r = this._relativeData
-        if(r == undefined) {
-                                    //x,y,rad,rot
-            r = this._relativeData = [0, 0, 0, 0]
-        }
-        return r
-    }
-}
-
-
 class Positionable extends Relative {
 
     set x(v) {
-        this._opts.x = v
+        // this._opts.x = isFunction(v)? v(this, 'x'): v
+        return this.setSpecial('x', v)
     }
 
     set y(v) {
-        this._opts.y = v
-    }
-
-    get rel() {
-        let r = this._rel
-        if(r != undefined) {
-            return r
-        }
-
-        let relData = this._relativeData
-        let sp = {
-            get x(){
-                return relData[0]
-            }
-
-            , set x(v) {
-                relData[0] = v
-            }
-
-            , get y(){
-                return relData[1]
-            }
-
-            , set y(v) {
-                relData[1] = v
-            }
-
-            , get radius() {
-                return relData[2]
-            }
-
-            , set radius(v) {
-                return relData[2] = v
-            }
-
-
-            , get rotation() {
-                return relData[3]
-            }
-
-            , set rotation(v) {
-                return relData[3] = v
-            }
-        }
-
-        this._rel = sp
-        return sp
-    }
-
-    set rel(v) {
-        this._opts.rel = v
+        // this._opts.y = isFunction(v)? v(this, 'y'): v
+        return this.setSpecial('y', v)
     }
 
     get x() {
-        const opts = this._opts
-            , _x = opts.x
-            ;
-
-        let r = _x == undefined? 0: _x
-        return r + this._relativeData[0]
+        // const _x = this._opts.x;
+        // let r = _x == undefined? 0: _x
+        // let v = this._relativeData[0]
+        // r = isFunction(r)? r(this, 'x'): r
+        // return r + v
+        return this.getSpecial('x', 0)
     }
 
     get y() {
-        const opts = this._opts
-            , _y = opts.y
-            ;
+        // const _y = this._opts.y;
+        // let r = _y == undefined? 0: _y
+        // r = isFunction(r)? r(this, 'y'): r
+        // return r + this._relativeData[1]
+        return this.getSpecial('y', 1)
+    }
 
-        let r = _y == undefined? 0: _y
-        return r + this._relativeData[1]
+    set radius(v) {
+        // this._opts.radius = isFunction(v)? v(this, 'radius'): v
+        return this.setSpecial('radius', v)
+    }
+
+    get radius() {
+        // const _radius = this._opts.radius
+        // let r = _radius == undefined? 0: _radius;
+        // r = isFunction(r)? r(this, 'radius'): r;
+        // return r + this._relativeData[2]
+        return this.getSpecial('radius', 2, 5)
+    }
+
+    setSpecial(key,  v) {
+        this._opts[key] = isFunction(v)? v(this, key): v
+        this.onSpecialSet(key, v)
+        return true
+    }
+
+    onSpecialSet(key, v) {
+        /* Iterate through all spy methods*/
+        let name = `${key}Set`
+        this[name] && this[name](v)
+        // console.log(name)
+    }
+
+    getSpecial(key, relIndex=undefined, defaultValue=0) {
+        const internalValue = this._opts[key];
+        let r = internalValue == undefined? defaultValue: internalValue
+        r = isFunction(r)? r(this, key): r
+        let relVal = relIndex? this.getRelativeData()[relIndex]: 0
+        return r + relVal
     }
 
     set(x, y, radius, rotation) {
@@ -154,20 +131,13 @@ class Positionable extends Relative {
 
         this.x = isUndefined(x)? 0: x
         this.y = isUndefined(y)? 0: y
+
         if(!isUndefined(radius)) {
             this.radius = radius
         }
         if(!isUndefined(rotation)) {
             this.rotation = rotation
         }
-    }
-
-    subtract(p, _2=p){
-        if(typeof(p) == 'number') {
-            p = point(p, _2)
-        }
-
-        return new Point(this.x - p.x, this.y - p.y)
     }
 
     _cast(p, _2=p) {
@@ -178,6 +148,14 @@ class Positionable extends Relative {
             return point(p, _2)
         }
         return p
+    }
+
+    subtract(p, _2=p){
+        if(typeof(p) == 'number') {
+            p = point(p, _2)
+        }
+
+        return new Point(this.x - p.x, this.y - p.y)
     }
 
     add(p, _b,) {
@@ -213,49 +191,73 @@ class Positionable extends Relative {
         )
     }
 
-    /* Perform random() on the X and Y.
+    // _midpoint(other, offset=.5) {
+    //     /*return a new point, with the XY set at the _mid point_ between
+    //     this point and the given*/
+    //     let p = this.copy()
+    //     p.x = (p.x + other.x) * offset
+    //     p.y = (p.y + other.y) * offset
+    //     return p
+    // }
 
-    If a point is given, randomize to the _max_ of the given point
-    If a single number is given, assume _square_
-    If no params are given, discover the stage size.
+    midpoint(other, offset=0.5) {
+        /*
+        Returns a new point, with the XY set at the point that is `offset` times
+        the distance from the current point to the other point.
 
-    Use `Point.random()` for the same form, as a new point
+        this function is also `lerp` for linear interpolation
+        */
+        let p = this.copy();
+        p.x = p.x + (other.x - p.x) * offset;
+        p.y = p.y + (other.y - p.y) * offset;
+        return p;
+    }
 
-        let p = new Point()
-        p.randomize(100, 400)
-        p.randomize(100) // 100, 100
-        p.randomize(new Point(100, 400)) // 100, 400
+    lerp = this.midpoint
 
-    if one of the keys is undefined, no change occurs:
-
-        p.setXY(500,700)
-        p.randomize(100, undefined) // 100, 700
-        p.randomize(undefined, 400) // 500, 400
-
-        p.randomize(undefined, undefined) // 500, 700 // no change occurs.
-
-    Note; no params will randomize as much as possible (the stage size)
-
-        p.randomize() // 800, 600
-
-    Other features would be nice:
-    + random in rect (like stage):
-
-        p.randomize(rect|dimensions)
-
-    + Randomize other values, e.g radius, colors
-
-        p.randomize(['x', 'y', 'radius', 'mass'])
-
-        // randomize x to max 400, radius to max 50
-        p.randomize({ x: 400, radius: 50})
-
-    + In the future, the _origin_; randomize relative to a point:
-
-        p.randomize({point, relative: true})
-
-    */
     randomize(px, y) {
+        /* Perform random() on the X and Y.
+
+        If a point is given, randomize to the _max_ of the given point
+        If a single number is given, assume _square_
+        If no params are given, discover the stage size.
+
+        Use `Point.random()` for the same form, as a new point
+
+            let p = new Point()
+            p.randomize(100, 400)
+            p.randomize(100) // 100, 100
+            p.randomize(new Point(100, 400)) // 100, 400
+
+        if one of the keys is undefined, no change occurs:
+
+            p.setXY(500,700)
+            p.randomize(100, undefined) // 100, 700
+            p.randomize(undefined, 400) // 500, 400
+
+            p.randomize(undefined, undefined) // 500, 700 // no change occurs.
+
+        Note; no params will randomize as much as possible (the stage size)
+
+            p.randomize() // 800, 600
+
+        Other features would be nice:
+        + random in rect (like stage):
+
+            p.randomize(rect|dimensions)
+
+        + Randomize other values, e.g radius, colors
+
+            p.randomize(['x', 'y', 'radius', 'mass'])
+
+            // randomize x to max 400, radius to max 50
+            p.randomize({ x: 400, radius: 50})
+
+        + In the future, the _origin_; randomize relative to a point:
+
+            p.randomize({point, relative: true})
+
+        */
 
     }
 }
@@ -277,25 +279,31 @@ class Rotation extends Positionable {
         */
 
         if(this.modulusRotate == false) {
-            this._rotationDegrees = v;
-            return
+            // this._rotationDegrees = v;
+            return this.setSpecial('rotation', v)
+            // return
         }
 
-        this._rotationDegrees = v % 360
+        // this._rotationDegrees = v % 360
+        return this.setSpecial('rotation', v % 360)
+
     }
 
     rotate(degrees) {
         this.rotation = this.UP + degrees
+        return this
     }
 
     get rotation() {
-        return this._rotationDegrees + this._relativeData[3]
+        // return this._rotationDegrees + this._relativeData[3]
+        return this.getSpecial('rotation', 3, UP_DEG)
     }
 
     get radians() {
         /*Return the _radians_ of the current rotation, where _rotation returns
         the degrees*/
-        return degToRad(this._rotationDegrees + this._relativeData[3])
+        return degToRad(this.getSpecial('rotation', 3))
+        // return degToRad(this._rotationDegrees + this._relativeData[3])
     }
 
     set radians(angle) {
@@ -312,9 +320,7 @@ class Rotation extends Positionable {
 
         Return the angle in radians.
         */
-        let angleRadians = this.directionTo(otherPoint)
-        this.radians = angleRadians
-        return angleRadians
+        return this.radians = this.directionTo(otherPoint)
     }
 
     directionTo(otherPoint) {
@@ -342,7 +348,6 @@ class Rotation extends Positionable {
         this.radians = normRad;
         return normRad
     }
-
 
     getTheta(other, direction=undefined) {
         /* Return the calculated theta value through atan2 and built to offload
@@ -418,8 +423,7 @@ class Tooling extends Rotation {
         return np
     }
 
-
-    copy(position) {
+    copy(position, deep=false) {
         /* Given another point, replicate the value into this node.
         Else, return a new node with the same information as this point.
         */
@@ -427,6 +431,15 @@ class Tooling extends Rotation {
             this.set(position.x, position.y)
             if(position?.radians){
                 this.radians = position.radians
+            }
+
+            if(deep==true) {
+                /* Deep should inspect all given options
+                to a point, and apply them all. */
+
+                if(position.radius){
+                    this.radius = position.radius
+                }
             }
             return this;
         }
@@ -490,30 +503,6 @@ class Tooling extends Rotation {
         return new Angle(value)
     }
 
-    _midpoint(other, offset=.5) {
-        /*return a new point, with the XY set at the _mid point_ between
-        this point and the given*/
-        let p = this.copy()
-        p.x = (p.x + other.x) * offset
-        p.y = (p.y + other.y) * offset
-        return p
-    }
-
-    midpoint(other, offset=0.5) {
-        /*
-        Returns a new point, with the XY set at the point that is `offset` times
-        the distance from the current point to the other point.
-
-        this function is also `lerp` for linear interpolation
-        */
-        let p = this.copy();
-        p.x = p.x + (other.x - p.x) * offset;
-        p.y = p.y + (other.y - p.y) * offset;
-        return p;
-    }
-
-    lerp = this.midpoint
-
     lerpPixel(other, pixelDistance) {
         /*
         Returns a new point, offset by `pixelDistance` pixels in the direction
@@ -551,7 +540,7 @@ class Point extends Tooling {
     // x=0
     // y=0
 
-    radius = 5
+    // radius = 5
     UP = UP_DEG
     _rotationDegrees = UP_DEG
 
@@ -583,9 +572,12 @@ class Point extends Tooling {
     }
 
     get uuid() {
+        /* Get or create a random _id for this point.
+        Return a unique string */
         let r = this._id;
         if(r == undefined) {
-            this._id = r = Math.random().toString(32).slice(2)
+            this._id = r = (~~(Math.random() * 10000)).toString(32)
+            // this._id = r = Math.random().toString(32).slice(2)
         }
         return r
     }
@@ -613,24 +605,6 @@ class Point extends Tooling {
         this.y = v
     }
 
-    // get draw() {
-    //     let r = this._draw
-    //     if(r == undefined) {
-    //         r = new PointDraw(this)
-    //         this._draw = r
-    //     }
-    //     return r
-    // }
-
-    // get pen() {
-    //     let r = this._pen
-    //     if(r == undefined) {
-    //         r = new PointPen(this)
-    //         this._pen = r
-    //     }
-    //     return r
-    // }
-
     get [Symbol.toStringTag]() {
         return this.toString()
     }
@@ -643,7 +617,8 @@ class Point extends Tooling {
     }
 
     toString(){
-        return `Point({x:${this.x}, y:${this.y}})`;
+        let name = 'point'
+        return `${name}({x:${this.x}, y:${this.y}})`;
     }
 
     get _liveProps() { return true }
@@ -685,44 +660,7 @@ class Point extends Tooling {
 }
 
 
-class PointCast {
-    /* a bunch of convert function, such as "asObject", wrapped within a sub unit
-
-        Point.as.object()
-    */
-
-    constructor(point) {
-        this.point = point
-    }
-
-    object() {
-        let point = this.point;
-        return {
-            x: point.x
-            , y: point.y
-            , radius: point.radius
-            , rotation: point.rotation
-        }
-    }
-
-    array(fix=false) {
-        let target = this.point;
-        if(fix) {
-            let int = (x)=> Number( x.toFixed(Number(fix)) )
-            return [int(target.x), int(target.y), int(target.radius), int(target.rotation)]
-
-        }
-        return [target.x, target.y, target.radius, target.rotation]
-    }
-}
-
-
-Polypoint.head.install(PointCast)
-Polypoint.head.lazierProp('Point', function(){ return new PointCast(this)}, 'as')
-
-
 Polypoint.head.install(Point)
-
 
 
 Polypoint.head.mixin('Point', {
@@ -746,5 +684,14 @@ Polypoint.head.mixin('Point', {
 })
 
 
-;Object.defineProperty(Point, 'from', { value: (a,b)=> new Point(a,b) });
+;Object.defineProperty(Point, 'from', {
+    value: function(a,b, c, d){
+
+        if(a.offsetX && b==undefined) {
+            // is an event
+            return new Point(a.offsetX, a.offsetY)
+        }
+        return new Point(a,b, c, d)
+    }
+});
 

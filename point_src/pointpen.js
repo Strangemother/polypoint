@@ -6,8 +6,8 @@ class PointPen {
         this.point = point;
     }
 
-    _quickStroke(ctx, f, color, width=1) {
-        ctx.beginPath()
+    _quickStroke(ctx, f, color, width=1, open=true, close=false) {
+        open && ctx.beginPath()
         let r = f()
 
         let origStroke = ctx.strokeStyle
@@ -15,7 +15,6 @@ class PointPen {
             ;
 
         if(color != undefined) {
-
             ctx.strokeStyle = color == undefined? 'yellow': color
         }
 
@@ -27,6 +26,8 @@ class PointPen {
             ctx.lineWidth = width
         }
 
+        close && ctx.closePath()
+
         ctx.stroke()
         ctx.strokeStyle = origStroke
         ctx.lineWidth = origWidth
@@ -34,16 +35,17 @@ class PointPen {
         return r
     }
 
-    ngon(ctx, sides, radius, fromCenter=true) {
-        this._quickStroke(ctx, ()=>{
-            this.point.draw.ngon(ctx, sides, radius, fromCenter)
-        })
+    ngon(ctx, sides, radius, fromCenter=true, color, width=1, angle=0, open=true, close=true) {
+        return this._quickStroke(ctx, ()=>{
+            let points = this.point.draw.ngon(ctx, sides, radius, fromCenter, angle)
+
+        }, color, width, open, close)
     }
 
-    circleGon(ctx, radius, lod=.3, fromCenter=true) {
+    circleGon(ctx, radius, lod=.3, fromCenter=true,color, width=1, open=true, close=true) {
         let sides = Number((radius * lod).toFixed())
         sides = Math.max(8, sides)
-        return this.ngon(ctx, sides, radius, fromCenter)
+        return this.ngon(ctx, sides, radius, fromCenter, color, width, open, close)
     }
 
     line(ctx, otherPoint, color, width) {
@@ -51,7 +53,20 @@ class PointPen {
             if(otherPoint == undefined){
                 otherPoint = this.point.project()
             }
-            this.point.draw.lineTo(ctx, otherPoint)
+            return this.point.draw.lineTo(ctx, otherPoint)
+        }, color, width)
+    }
+
+    arc(ctx, otherPoint, color, distance=this.point.radius, width, direction=1) {
+        // draw.arc(ctx, radius=undefined, start=0, end=Math.PI2, direction=1)
+        this._quickStroke(ctx, ()=>{
+            if(otherPoint == undefined){
+                otherPoint = this.point.project()
+            }
+            let start = this.point.radians
+            let end = otherPoint.radians
+            this.point.draw.arc(ctx, distance, start, end, direction)
+
         }, color, width)
     }
 
@@ -104,7 +119,19 @@ class PointPen {
         ctx.beginPath()
 
         this.point.draw.arc(ctx, radius)
-        let fs = fillStyle == undefined? this.fillStyle || this.point.color: fillStyle
+        const getFillStyle = () => {
+            if(fillStyle.color != undefined) {
+                return fillStyle.color
+            }
+
+            if(fillStyle.fillStyle != undefined) {
+                return fillStyle.fillStyle
+            }
+
+            return fillStyle
+        };
+
+        let fs = fillStyle == undefined? this.fillStyle || this.point.color: getFillStyle()
 
         ctx.fillStyle = fs
         // ctx.lineWidth = width == undefined? 1: width
@@ -112,6 +139,29 @@ class PointPen {
         ctx.fill()
     }
 
+    box(ctx, size=this.point.radius, color, width, angle){
+        /*
+            A box is a rectangle on the outside of radius.
+            If an angle is given, the box cannot be a _rect_ and returns an ngon(4).
+
+        */
+        if(angle != undefined) {
+            /* produce a ngon in the same location.*/
+            return this.ngon(ctx, 4, size * 1.4, true, color, width, angle)
+        }
+        let offset = {x: -size, y: -size}
+        return this.rect(ctx, size*2, undefined, color, width, offset)
+    }
+
+    rect(ctx, width=this.point.radius, height, color, strokeWidth, offset={x:0, y:0}) {
+        let xy = this.point.xy
+        if(height == undefined) {
+            height = width
+        }
+        this._quickStroke(ctx, ()=>{
+           ctx.rect(xy.x + offset.x, xy.y + offset.y, width, height)
+        }, color, strokeWidth)
+    }
 
     indicator(ctx, miniConf={}) {
         /* Synonymous to:
@@ -120,25 +170,31 @@ class PointPen {
             weightedComPoint.pen.circle(ctx, undefined, 'yellow', 1)
 
         */
-        let def = {
-            line: {color:'red', width: 2}
-            , circle: {color:'yellow', width: 1}
-        };
+        // let def = {
+        //     line: {color:'red', width: 2}
+        //     , circle: {color:'yellow', width: 1}
+        // };
 
+        // Object.assign(def, miniConf)
+
+        let defaultCircleColor = '#66DD22'
+        let defaultLineColor = defaultCircleColor
+        let def = {
+            line: {/*color:'red',*/ width: 2}
+            , circle: {/*color:'yellow',*/ width: 1}
+        };
         Object.assign(def, miniConf)
 
-        this.point.project().pen.line(ctx,
-                this.point,
-                def.color || def?.line?.color ,
-                def.width || def?.line?.width ,
-                )
-        this.circle(ctx,
-                undefined,
-                def.color || def?.line?.color,
-                def.width || def?.circle?.width,
-                )
+        let lc = def?.line?.color || def.color || defaultLineColor
+        let lw = def?.line?.width || def.width
+        let cc = def?.circle?.color || def?.color || def?.line?.color || defaultCircleColor
+        let cw = def.width || def?.circle?.width
+
+        this.point.project().pen.line(ctx, this.point, lc, lw,)
+        this.circle(ctx, undefined,cc, cw,)
     }
 }
+
 
 Polypoint.head.install(PointPen)
 /*

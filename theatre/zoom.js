@@ -1,7 +1,18 @@
 /*
 ---
 title: Zooming Points
+src_dir: ../point_src/
 files:
+    ../point_src/math.js
+    ../point_src/core/head.js
+    point
+    pointlist
+    mouse
+    ../point_src/stage.js
+    ../point_src/extras.js
+    ../point_src/random.js
+    stroke
+    dragging
     ../point_src/zoom.js
 ---
 

@@ -78,17 +78,17 @@ let quantizeT = function(s, t, rect){
 }
 
 
-function distance(xy1, xy2) {
-  return Math.sqrt(Math.pow((xy2.x - xy1.x), 2) + Math.pow((xy2.y - xy1.y), 2));
-}
+// function distance(xy1, xy2) {
+//   return Math.sqrt(Math.pow((xy2.x - xy1.x), 2) + Math.pow((xy2.y - xy1.y), 2));
+// }
 
 
-function distance2D(xy1, xy2) {
-    const dx = xy1.x - xy2.x;
-    const dy = xy1.y - xy2.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    return { x: dx, y: dy, distance }
-}
+// function distance2D(xy1, xy2) {
+//     const dx = xy1.x - xy2.x;
+//     const dy = xy1.y - xy2.y;
+//     const distance = Math.sqrt(dx * dx + dy * dy);
+//     return { x: dx, y: dy, distance }
+// }
 
 
 const spotPlacement = function(s, offset) {
@@ -281,9 +281,9 @@ function findRadius(pointA, pointB, pointC) {
 }
 
 
-function distance(xy1, xy2) {
-  return Math.sqrt(Math.pow((xy2.x - xy1.x), 2) + Math.pow((xy2.y - xy1.y), 2));
-}
+// function distance(xy1, xy2) {
+//   return Math.sqrt(Math.pow((xy2.x - xy1.x), 2) + Math.pow((xy2.y - xy1.y), 2));
+// }
 
 // Function to quantize an angle based on the number of divisions (bisect)
 function quantizeAngle(inputAngle, bisect) {

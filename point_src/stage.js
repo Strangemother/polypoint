@@ -112,7 +112,7 @@ class StageRender {
     _loopDraw = true
 
     debounceResize = true
-    debounceResizeTimeout = 50
+    debounceResizeTimeout = 100
 
     constructor(canvas, drawFunc) {
         // super()

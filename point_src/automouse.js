@@ -29,7 +29,8 @@ class AutoMouse {
         // A stash of the movement position, in relative forms.
         this.positions = {}
         // layer x,y selection - for position
-        this.zIndex = 'local'
+        this.zIndex = 'bound'
+        // this.zIndex = 'local'
         this.handlers = {}
         this._announce()
 
@@ -160,6 +161,8 @@ class AutoMouse {
 
         // console.log('Mousemove', event)
         // Relative to the stage 0,0
+        this._lastEvent = event
+        var rect = canvas.getBoundingClientRect();
         let positions = {
             local: {
                 x: event.offsetX
@@ -175,10 +178,38 @@ class AutoMouse {
                 x: event.screenX
                 , y: event.screenY
             }
+            , client: {
+                x: event.clientX
+                , y: event.clientY
+            }
+            , layer: {
+                x: event.layerX
+                , y: event.layerY
+            }
             , vector: {
                 x: event.movementX
                 , y: event.movementY
             }
+            , absolute: {
+                x: event.x
+                , y: event.y
+            }
+            , custom: {
+                x: event.clientX - rect.left - canvas.clientLeft
+                , y: event.clientY - rect.top - canvas.clientTop
+
+                // x:  event.pageX - event.target.offsetLeft
+                // , y:  event.pageY - event.target.offsetTop
+
+                // x: event.target.offsetLeft + event.layerX
+                // , y: event.target.offsetTop + event.layerY
+            }
+
+            , bound: {
+                x: event.clientX - rect.left
+                , y: event.clientY - rect.top
+            }
+
         }
 
         this.positions = positions;

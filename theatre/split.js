@@ -66,6 +66,7 @@ class MainStage extends Stage {
 
         this.curve2.render(ctx, {color: 'red'})
         this.curve2.split(this.count,  0, ctx).pen.indicators(ctx)
+        // let l = this.curve.splitHinted(this.count).pen.indicators(ctx, {color:'red'})
 
         // let [p0, p3] = this.curve2.points
         // let midX = (p0.x + p3.x) * .5

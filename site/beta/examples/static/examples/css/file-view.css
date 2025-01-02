@@ -178,6 +178,8 @@ ul.actions-container {
     margin: 1em 0;
     display: flex;
     gap: 1em;
+    flex-wrap: wrap;
+    font-family: 'Inter';
 }
 
 a.button {
@@ -200,3 +202,46 @@ a.button {
 }
 
 .markdown-content p code {background: #080808;padding: 0.1em .4em;border-radius: 0.3em;}
+
+.canvas-container {
+    display: grid;
+}
+
+
+.actions-container input, 
+.actions-container select {
+    background: inherit;
+    color: inherit;
+    border: solid 2px #000;
+    font: inherit;
+    display: inline-flex;
+}
+
+.actions-container option {
+    background-color: #111;
+    color: inherit;
+}
+
+.actions-container input, 
+.actions-container select {
+    background: inherit;
+    color: inherit;
+    border: solid 2px #000;
+    font: inherit;
+    display: inline-flex;
+}
+
+.actions-container option {
+    background-color: #111;
+    color: inherit;
+}
+
+.action-container label {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+span.pseudo-label {
+    font-size: 0.8em;
+}

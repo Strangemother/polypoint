@@ -74,6 +74,7 @@ class MainStage extends Stage {
             a.radius = lerpRadius(asFirst.radius, asLast.radius, i/l)
             b.radius = lerpRadius(bsFirst.radius, bsLast.radius, i/l)
         }
+
         const radiusDistance = function(a, b, i) {
             /* Auto by distance. */
             let d = a.distanceTo(b)

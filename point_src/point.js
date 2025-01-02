@@ -320,9 +320,7 @@ class Rotation extends Positionable {
 
         Return the angle in radians.
         */
-        let angleRadians = this.directionTo(otherPoint)
-        this.radians = angleRadians
-        return angleRadians
+        return this.radians = this.directionTo(otherPoint)
     }
 
     directionTo(otherPoint) {
@@ -425,7 +423,7 @@ class Tooling extends Rotation {
         return np
     }
 
-    copy(position) {
+    copy(position, deep=false) {
         /* Given another point, replicate the value into this node.
         Else, return a new node with the same information as this point.
         */
@@ -434,9 +432,15 @@ class Tooling extends Rotation {
             if(position?.radians){
                 this.radians = position.radians
             }
-            // if(position?.rotation){
-            //     this.rotation = position.rotation
-            // }
+
+            if(deep==true) {
+                /* Deep should inspect all given options
+                to a point, and apply them all. */
+
+                if(position.radius){
+                    this.radius = position.radius
+                }
+            }
             return this;
         }
 
@@ -572,7 +576,8 @@ class Point extends Tooling {
         Return a unique string */
         let r = this._id;
         if(r == undefined) {
-            this._id = r = Math.random().toString(32).slice(2)
+            this._id = r = (~~(Math.random() * 10000)).toString(32)
+            // this._id = r = Math.random().toString(32).slice(2)
         }
         return r
     }

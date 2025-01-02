@@ -48,13 +48,27 @@
                       <li v-for='item in controls' class='action-container'>
                             <div class="action">
 
-                                <div v-if="item.type == 'button'">
+                                <div v-if="item.field == 'button'">
                                    <a class='button'
                                         href="javascript:;"
                                         @click="clickHandler($event, item)">{{ item.label }}</a>
                                 </div>
 
-                                <div v-if="item.type == 'select'">
+                                <div v-if="item.field == 'input'">
+                                   <label>
+                                        <span class="pseudo-label">
+                                            {{ item.label }}
+                                        </span>
+
+                                        <input
+                                            :type="item.type || 'input'"
+                                            :value="item.value"
+                                            @input="changeHandler($event, item)"
+                                            step="1" />
+                                    </label>
+                                </div>
+
+                                <div v-if="item.field == 'select'">
                                     <label>
                                         <span class="pseudo-label">
                                             {{ item.label }}
@@ -65,6 +79,22 @@
                                                 {{ option }}
                                             </option>
                                         </select>
+                                    </label>
+                                </div>
+
+                                <div v-if="item.field == 'range'">
+                                    <label>
+                                        <span class="pseudo-label">
+                                            {{ item.label }}
+                                        </span>
+
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="100"
+                                            value="30"
+                                            @input="changeHandler($event, item)"
+                                            step="1" />
                                     </label>
                                 </div>
 

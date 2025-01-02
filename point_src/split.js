@@ -1,4 +1,9 @@
-    /* splitToPointList(point, count).pen.indicators(ctx)*/
+/*
+files:
+    functions/clamp.js
+*/
+
+/* splitToPointList(point, count).pen.indicators(ctx)*/
 const splitToPointList = function(point, count, radius, rotation, angle=undefined) {
     let p1 = point
     let r = radius || point.radius
@@ -173,7 +178,6 @@ Polypoint.head.installFunctions('BezierCurve', {
             return r
         }
 
-
         let midX = (p0.x + p3.x) * .5
         let midY = (p0.y + p3.y) * .5
         let mid = new Point(midX, midY)
@@ -205,8 +209,41 @@ Polypoint.head.installFunctions('BezierCurve', {
 
         return r
     }
+
+    , splitHinted(count) {
+        /* Perform a split, using the point hints as a reference for size
+        and rotation lerping through the count. */
+        let r = new PointList
+        let [first, last] = this.points
+        let [p1, p2] = this.getControlPoints()
+
+        let midX = (first.x + last.x) * .5
+        let midY = (first.y + last.y) * .5
+        let mid = new Point(midX, midY)
+
+        let splitVal = 1 / (count-1)
+        let dis = first.distanceTo(last)
+        for (var i = 0; i < count; i++) {
+            let p = new Point(get_bezier_point(first, p1, p2, last, i*splitVal))
+            p.radius = lerpRadius(first.radius, last.radius, i/count)
+            p.lookAt(mid)
+            p.rotation = lerpRadius(first.rotation, last.rotation, i/count)
+            r.push(p)
+        }
+        return r
+
+    }
 });
 
+
+const lerpRadius = function(a, b, v) {
+    /* Process the width from the _first_ to the _last_ of a line.*/
+    // let av = ((asLast.radius - asFirst.radius) * (i/l))+asFirst.radius
+    return ((b - a) * v) + a
+}
+
+const radiusManual = function(a, b, i) {
+}
 
 Polypoint.head.installFunctions('Line', {
 

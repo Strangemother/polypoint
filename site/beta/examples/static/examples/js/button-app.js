@@ -11,8 +11,8 @@ const addButton = function(name, definition)  {
             console.log('Save')
         }
     })*/
-    if(definition.type == undefined) {
-        definition.type = 'button'
+    if(definition.field == undefined) {
+        definition.field = 'button'
     }
 
     return addControl(name, definition)

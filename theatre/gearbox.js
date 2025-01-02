@@ -20,6 +20,7 @@ files:
     ../point_src/coupling.js
     ../point_src/xybind.js
     ../point_src/gearbox.js
+    ../point_src/json.js
 ---
 
 A simple example of gear-like rotations
@@ -73,4 +74,5 @@ class MainStage extends Stage {
 
 }
 
-stage = MainStage.go()
+
+stage = MainStage.go();

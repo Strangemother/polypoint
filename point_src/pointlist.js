@@ -746,6 +746,14 @@ class PointList extends LazyAccessArray {
         }
     }
 
+    getById(id){
+        for(let p of this) {
+            if(p._id == id) {
+                return p
+            }
+        }
+    }
+
     update(data) {
         this.forEach((e,i,a)=> {
             return e.update(data)

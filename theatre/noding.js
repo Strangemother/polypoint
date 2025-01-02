@@ -1,4 +1,5 @@
 /*
+title: Titles on "Nodes"
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -22,6 +23,9 @@ files:
     ../point_src/stroke.js
     ../point_src/functions/within.js
     ../point_src/automouse.js
+---
+
+Automatically apply a alpha label, given the position within a list of points.
  */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');

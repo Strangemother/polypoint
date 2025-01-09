@@ -127,7 +127,7 @@ Polypoint.head.installFunctions('BezierCurve', {
         return r
     }
 
-    , split(count, angle = undefined) {
+    , split(count, angle=0) {
         let p0 = this.a;
         let p3 = this.b;
         let [p1, p2] = this.getControlPoints();
@@ -151,7 +151,7 @@ Polypoint.head.installFunctions('BezierCurve', {
             let t = i * splitVal ;
             let p = new Point(get_bezier_point(p0, p1, p2, p3, t));
             let { dx, dy } = get_bezier_derivative(p0, p1, p2, p3, t);
-            p.radians = Math.atan2(-dx, dy)
+            p.radians = Math.atan2(-dx, dy) + angle
             // p.radians = Math.atan2(dx, -dy) + Math.PI;
 
             r.push(p);

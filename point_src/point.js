@@ -1,6 +1,5 @@
 /*
 files:
-    foo.js
     relative-xy.js
     pointcast.js
 */

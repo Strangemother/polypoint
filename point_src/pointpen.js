@@ -160,6 +160,7 @@ class PointPen {
         }
         this._quickStroke(ctx, ()=>{
            ctx.rect(xy.x + offset.x, xy.y + offset.y, width, height)
+           // this.point.draw.pen(ctx, width, height)
         }, color, strokeWidth)
     }
 

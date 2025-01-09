@@ -32,9 +32,16 @@ var n_tmp;
 
 var Utils = {
     dist : function (pl, dps) {
-        return (Math.sqrt(Math.pow(pl.x - dps.x, 2) + Math.pow(pl.y - dps.y, 2)))
+        return Math.sqrt(
+                Math.pow(pl.x - dps.x, 2) + Math.pow(pl.y - dps.y, 2)
+            )
     }
 }
+
+
+let asteroidToAsteroidBounciness = .04
+let asteroidToPlanetBounciness = 1
+
 
 class World {
 
@@ -61,84 +68,55 @@ class World {
         // this.canvas.height = 600;
         this.context = this.canvas.getContext("2d");
 
-        // // Events handlers
-        // var mouseUp = function(e) {
-        //     var tmp = new Asteroid(n_tmp.x, n_tmp.y, 15, "#0f0")
+        // this.generatePlanets()
+        this.generateAsteroids(150, 10)
+        // this.generateInversePlanets()
 
-        //     var tmp_x = (n_tmp.x - n_tmp.xp) || 0
-        //     var tmp_y = (n_tmp.y - n_tmp.yp) || 0
-        //     var dist = Math.min(Math.sqrt(tmp_x * tmp_x + tmp_y * tmp_y), 50) || 1;
-        //     if (dist != 0) {
-        //         tmp.vx = tmp_x / dist * (dist / 10)
-        //         tmp.vy = tmp_y / dist * (dist / 10)
-        //     }
-        //     _this.entities.push(tmp);
-        //     _this.mousedown = false
-        //     n_tmp = undefined
-        // };
+        this.loop();
+    }
 
-        // var mouseDown = function(e) {
-        //     _this.mousedown = true;
-        //     n_tmp = {
-        //         x:e.clientX || 0,
-        //         y:e.clientY || 0,
-        //         xp:undefined,
-        //         yp:undefined
-        //     }
-        // };
-        // var mouseMove = function(e) {
-        //     if (_this.mousedown && n_tmp){
-        //         n_tmp.xp = e.clientX
-        //         n_tmp.yp = e.clientY
-        //     }
-        // }
-        // var touchMove = function(e) {
-        //     if (_this.mousedown && n_tmp){
-        //         n_tmp.xp = e.touches[0].pageX
-        //         n_tmp.yp = e.touches[0].pageY
-        //     }
-        // }
+    plotRand(v){
+        return Math.floor(Math.random() * v) % (v - 200) + 100
+    }
 
+    generatePlanets(){
         // Generating planets
         for (var i = 0; i < 3; i++) {
             var tmp = new Planet(
-                Math.floor(Math.random() * this.canvas.width) % (this.canvas.width - 200) + 100
-              , Math.floor(Math.random() * this.canvas.height) % (this.canvas.height - 200) + 100
+                this.plotRand(this.canvas.width)
+              , this.plotRand(this.canvas.height)
               , Math.floor(Math.random() * 100) + 20
               , "#9922EE"
             );
             this.entities.push(tmp);
         }
+    }
+
+    generateInversePlanets(){
 
         for (var i = 0; i < 3; i++) {
             var tmp = new Planet(
-                    Math.floor(Math.random() * this.canvas.width) % (this.canvas.width - 200) + 100
-                  , Math.floor(Math.random() * this.canvas.height) % (this.canvas.height - 200) + 100
+                    this.plotRand(this.canvas.width)
+                  , this.plotRand(this.canvas.height)
                   , Math.floor(Math.random() * -100) - 20
                   , "#ccc"
             );
             this.entities.push(tmp);
         }
+    }
+
+    generateAsteroids(count, size=10){
 
         // Generating asteroids
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < count; i++) {
              var tmp = new Asteroid(
-                Math.floor(Math.random() * this.canvas.width) % (this.canvas.width - 200) + 100
-              , Math.floor(Math.random() * this.canvas.height) % (this.canvas.height - 200) + 100
-              , 15
+              this.plotRand(this.canvas.width)
+              , this.plotRand(this.canvas.height)
+              , size
               , "#99DDAA"
             );
             this.entities.push(tmp);
         }
-
-        // this.canvas.addEventListener("mousedown", mouseDown);
-        // this.canvas.addEventListener("mouseup", mouseUp);
-        // this.canvas.addEventListener("mousemove", mouseMove);
-        // this.canvas.addEventListener("touchstart", mouseDown);
-        // this.canvas.addEventListener("touchend", mouseUp);
-        // this.canvas.addEventListener("touchmove", touchMove);
-
-        this.loop();
     }
 
     loop() {
@@ -186,15 +164,16 @@ class Entity extends Point {
     }
 
     draw(context) {
-      if (typeof context != "object" || !(context instanceof CanvasRenderingContext2D))
-        return false;
+        if (typeof context != "object" || !(context instanceof CanvasRenderingContext2D)) {
+            return false;
+        }
 
-      context.fillStyle = this.color;
-      context.beginPath();
-      context.arc(this.x, this.y, Math.abs(this.m) / 2, 0, 2 * Math.PI, false);
-      context.fill();
-      context.closePath();
-      return true;
+        context.fillStyle = this.color;
+        context.beginPath();
+        context.arc(this.x, this.y, Math.abs(this.m) / 2, 0, 2 * Math.PI, false);
+        context.fill();
+        context.closePath();
+        return true;
     }
 }
 
@@ -225,44 +204,53 @@ class Asteroid extends Entity {
 
         _this = this
 
-        if (typeof world != "object"
-            || !(world instanceof World)
+        if (typeof world != "object" || !(world instanceof World)
             || world.pause) {
             return false
         }
-
         len = world.entities.length
         elem = world.entities
+
+        /* Asteroisd motion.*/
         for (var i = 0; i < len; i++) {
-            if(elem[i] == undefined
-                || elem[i] instanceof Planet){
+            let el = elem[i]
+            if(el == undefined || el instanceof Planet){
                 continue
             }
 
-            a = _this.r + elem[i].r;
+            /* distance to this target. */
+            a = _this.r + el.r;
 
-            if(elem[i].x < 0
-                || elem[i].y < 0
-                || elem[i].x > 2000
-                || elem[i].y > 2000) {
-                elem[i] = undefined
+            /* Boundry death */
+            if(el.x < 0
+                || el.y < 0
+                || el.x > 2000
+                || el.y > 2000) {
+                el.x = 100 + Math.random() * 800
+                el.y = 100 + Math.random() * 800
                 continue
             }
-            vdist = Utils.dist(_this, elem[i])
+
+            vdist = Utils.dist(_this, el)
+
             if (vdist == 0 || vdist >= a) {
                 continue
             }
 
+
+            /* Asteroid to asteroid impact.*/
             pen = vdist - a
-            cos = (-_this.x + elem[i].x) / vdist
-            sin = (-_this.y + elem[i].y) / vdist
-            _this.vx = _this.vx * 0.5 + cos * pen
-            _this.vy = _this.vy * 0.5 + sin * pen
+            cos = (-_this.x + el.x) / vdist
+            sin = (-_this.y + el.y) / vdist
+            _this.vx = _this.vx * 0.5 + cos * (pen * asteroidToAsteroidBounciness)
+            _this.vy = _this.vy * 0.5 + sin * (pen * asteroidToAsteroidBounciness)
         }
 
+        /* Planet gravities. */
         for (var i = 0; i < len; i++) {
             if (elem[i] == undefined
-                || elem[i] instanceof Asteroid) {
+                // || elem[i] instanceof Asteroid
+                ) {
                 continue
             }
 
@@ -270,6 +258,7 @@ class Asteroid extends Entity {
             if (vdist == 0) {
                 continue
             }
+
 
             d_x = -_this.x + elem[i].x;
             d_y = -_this.y + elem[i].y;
@@ -282,8 +271,8 @@ class Asteroid extends Entity {
             pen = vdist - (_this.r + elem[i].r);
 
             if (pen < 0) {
-                _this.vx = _this.vx * 0.8 + (cos * pen);
-                _this.vy = _this.vy * 0.8 + (sin * pen);
+                _this.vx = _this.vx * 0.8 + (cos * (pen * asteroidToPlanetBounciness));
+                _this.vy = _this.vy * 0.8 + (sin * (pen * asteroidToPlanetBounciness));
             }
         }
 
@@ -309,7 +298,7 @@ class MainStage extends Stage {
     canvas='playspace'
     mounted(){
         galaxy.init(this.canvas);
-        this.dragging.add(...galaxy.entities)
+        // this.dragging.add(...galaxy.entities)
     }
 
     draw(ctx) {

@@ -73,7 +73,7 @@ class MainStage extends Stage {
             //  perform an update and continue...
             // let newVal = this.hands.getSecondHand(this.secondsDest || point.rotation , seconds)
             let v = this._secondHandLerp.get(this.microStep)
-            const nv = (this.secondsDest) - tsos // + v
+            const nv = this.secondsDest - tsos
             // console.log(nv.toFixed(3), v.toFixed(3), (nv + v).toFixed(), this.microStep)
             point.rotation = v + nv
             return
@@ -173,8 +173,12 @@ class MainStage extends Stage {
         const psl = ps.length
 
         ps.forEach(function(e,i,a){
+            e.rotation=p.rotation+90
+            e.text.plain(ctx, ((psl-1 + i) % psl)+1 )
+            // e.text.string(ctx, ((psl-1 + i) % psl)+1 )
+
             // e.text.plain(ctx, ((psl-1 + i) % psl)+1 )
-            e.text.fill(ctx, ((psl-1 + i) % psl)+1 )
+            // e.text.fill(ctx, ((psl-1 + i) % psl)+1 )
         })
 
         // this.line.render(ctx)

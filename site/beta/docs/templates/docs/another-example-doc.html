@@ -1,0 +1,159 @@
+{% extends "docs/doc-base.html" %}
+{% comment "what" %}
+
+A document article; covering a component in an article form.
+
++ Similar to a 'doc' but without the entire API.
++ similar to an advert for a component.
++ Or as a 'recipe' article.
+
+{% endcomment %}
+{% load link %}
+{% block page_title %}Stage{% endblock page_title %}
+{% block content %}
+    {% link.css "css/docs/another-example.css" %}
+
+    <div class="outer-block large-hero-block pair-block">
+        <div class="block">
+            <div class="left">
+                <div class="filler-box">
+
+                    <h2>{% lorem 2 w random %}</h2>
+                    <p>{% lorem 30 w random %}</p>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="filler-box">
+
+                <pre>
+                    {% load content %}
+                    <code class='language-javascript'>{% file_content "events/mypoint.js" %}</code>
+                </pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% include "./fragements/large-center-block.html" %}
+
+    <div class="outer-block large-hero-block pair-block flipped">
+        <div class="block">
+            <div class="left">
+                <div class="filler-box">
+
+                    <pre>
+                        {% load content %}
+                        <code class='language-javascript'>{% file_content "events/mypoint.js" %}</code>
+                    </pre>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="filler-box">
+                    <h2>{% lorem 2 w random %}</h2>
+                    <p>{% lorem 30 w random %}</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="outer-block">
+        <div class="block">
+            <pre><code>
+                &lt;script src="point_src/functions/clamp.js"&gt;&lt;/script&gt;
+                &lt;script src="point_src/distances.js"&gt;&lt;/script&gt;
+                &lt;script src="point_src/dragging.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <h2 class="font-size-2rem">Usage</h2>
+
+            <p>
+                Add a point to the <code>stage.dragging</code>
+            </p>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <details>
+                <summary>From above</summary>
+                <pre class='click-show'>
+                    {% code_content "events/mypoint.js" %}
+                </pre>
+            </details>
+            <pre>
+                {% code_content "events/mypoint-stage.js" %}
+            </pre>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+
+            <h2 class="font-size-2rem">Methods</h2>
+
+            <p>
+                Hookable actions for a Point:
+            </p>
+
+            <ul>
+                <li>onClick</li>
+                <li>onMousedown</li>
+                <li>onMousemove</li>
+                <li>onMouseup</li>
+                <li>onDragStart</li>
+                <li>onDragMove</li>
+                <li>onDragEnd</li>
+                <li>onLongClick</li>
+                <li>onWheel</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <h2 class="font-size-2rem">Examples</h2>
+            <pre>
+                {% code_content "events/mypoint-example.js" %}
+            </pre>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+
+        <div class="outer-block large-hero-block footer-block triple-block">
+
+            <div class="block">
+                <div class="left">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+
+                <div class="center">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+
+                <div class="right">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock content %}

@@ -19,6 +19,10 @@ files:
     ../point_src/angle.js
     ../point_src/tangents.js
  */
+const isOuterPoint = function(p, nextPoint) {
+    return calculateAngle(p, nextPoint) > 180
+    // return obtuseBisect(previousPoint, p, nextPoint) > -1
+}
 class MainStage extends Stage {
     canvas = 'playspace'
 
@@ -47,7 +51,10 @@ class MainStage extends Stage {
         biPoints.forEach((pair, i, items)=>{
             let [a, b] = pair
             let [c, d] = items[i+1] == undefined? items[0]: items[i+1]
+            let outer = b.isOuterPoint = calculateAngle(a, d)
+
             res.push(b.tangent.bb(d))
+
             // res.push(b.tangent.outerLines(d).b)
         })
 
@@ -91,9 +98,10 @@ class MainStage extends Stage {
         this.regenerate()
 
         this.biPoints.forEach(pair=>{
-            pair[0].pen.circle(ctx, {color:'#555'})
+
+            pair[0].pen.circle(ctx, {color: '#555'})
             // outside point.
-            pair[1].pen.circle(ctx, {color:'#880000'})
+            pair[1].pen.circle(ctx, {color: '#880000'})
             // pair.forEach(p=>p.pen.circle(ctx, {color:'#555'}))
         })
 

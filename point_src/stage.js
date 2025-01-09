@@ -117,7 +117,7 @@ class StageRender {
     constructor(canvas, drawFunc) {
         // super()
 
-        drawFunc = drawFunc || this.draw
+        drawFunc = drawFunc || ( ()=>this.stageStartDraw(this.draw))
         if(drawFunc) {
             this._drawFunc = drawFunc
         }
@@ -177,6 +177,7 @@ class StageRender {
         } else {
             canvas = stages.resolveNode(target, this)
         }
+
         if(canvas == undefined) {
             console.warn('Stage canvas is undefined through Stage.canvas')
         }
@@ -258,9 +259,18 @@ class StageRender {
         /* A Convenient place to perform initial work. */
     }
 
-    stop(freeze=true) { this._loopDraw = !freeze }
+    stop(freeze=true) {
+        this._loopDraw = !freeze
+        if(!this._loopDraw) {
+            this.stopDraw()
+        }
+    }
 
     static go(additionalData={}) {
+        /* Make a copy of a new Stage.
+        Call prepare() if required. If `additionalData.loop` is `true` (default)
+        start the update loopDraw
+        */
         let _stage = new this;
         if(_stage._prepared != true) {
             _stage.prepare()
@@ -273,6 +283,18 @@ class StageRender {
         }
 
         return _stage
+    }
+
+    stageStartDraw(drawFunc){
+        this.firstDraw(this.ctx)
+        let _drawFunc = drawFunc  || this.draw
+        if(drawFunc) {
+            this._drawFunc = _drawFunc
+            this.update()
+            return
+        }
+
+        this.stopDraw()
     }
 
     loopDraw() {
@@ -353,7 +375,7 @@ class StageRender {
         this._drawAfter.splice(i, 1)
     }
 
-
+    firstDraw(ctx) {}
     draw(ctx) {
         /* The primary rendering function to override.
         Called by the `update()` method, given the context `ctx` of the

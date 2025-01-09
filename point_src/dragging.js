@@ -116,7 +116,7 @@ class Dragging extends Distances {
         this._mousedown = true
         this._grabbingId = this.stage?.cursor.set('grabbing', this._cursorId)
 
-        this.callPointHandler('onMousedown', ev)
+        this.callPointHandler('onMousedown', ev, this._near)
         // if(this.withinBufferZone(this.downPointDistance)) {
         //     this.onEdgeStartHandler(ev)
         // } else {

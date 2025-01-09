@@ -1,0 +1,315 @@
+{% extends "docs/doc-base.html" %}
+{% comment "what" %}
+An example of the content for a polypoint doc page. Some ideas:
+
++ Large purple outer block, with black text
++ And the inverse for interesting things.
+
+The doc page menu items should contain a parse, large text, simple components list
+
++ point
++ pointlist
++ Curves and lines
+    + Line
+    + Curve
+
+Then larger modules
+
++ Cluster
++ Dragging
++ Distances
+
+---
+
+On the left
+
+{% endcomment %}
+{% load link %}
+{% block page_title %}Polypoint{% endblock page_title %}
+{% block content %}
+    {% link.css "css/docs/another-example.css" %}
+
+    <div class="outer-block super-block large-hero-block">
+        <div class="block">
+            <div class="left">
+                <h2>Polypoint</h2>
+                <!-- <h2>{% lorem 2 w random %}</h2> -->
+                <div class="text-content">
+                    <p>{% lorem 30 w %}</p>
+
+                </div>
+                <a href="#">More Info</a>
+            </div>
+        </div>
+    </div>
+
+    {% include "./fragements/large-center-block.html" %}
+
+
+    <div class="outer-block large-hero-block pair-block">
+        <div class="block">
+            <div class="left">
+                <div class="filler-box">
+
+                    <h2>{% lorem 2 w random %}</h2>
+                    <p>{% lorem 30 w random %}</p>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="filler-box">
+
+                <pre>
+                    {% load content %}
+                    <code class='language-javascript'>{% file_content "events/mypoint.js" %}</code>
+                </pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="outer-block large-hero-block pair-block flipped">
+        <div class="block">
+            <div class="left">
+                <div class="filler-box">
+
+                    <pre>
+                        {% load content %}
+                        <code class='language-javascript'>{% file_content "events/mypoint.js" %}</code>
+                    </pre>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="filler-box">
+                    <h2>{% lorem 2 w random %}</h2>
+                    <p>{% lorem 30 w random %}</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="outer-block large-hero-block triple-block">
+
+        <div class="block">
+            <div class="left">
+                <div class="filler-box">
+                    <h3>{% lorem 2 w random %}</h3>
+                    <p>{% lorem 30 w random %}</p>
+                </div>
+
+            </div>
+
+            <div class="center">
+                <div class="filler-box">
+
+                    <h3>Embrace</h3>
+                    <p>{% lorem 20 w random %}</p>
+                </div>
+
+            </div>
+
+            <div class="right">
+                <div class="filler-box">
+                    <h3>Ramble</h3>
+                    <p>{% lorem 20 w random %}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% include "./fragements/large-center-block.html" %}
+
+    <div class="outer-block large-hero-block triple-block">
+
+        <div class="block">
+            <div class="left">
+                <div class="filler-box">
+                    <!-- <h3>{% lorem 2 w random %}</h3>
+                    <p>{% lorem 30 w random %}</p> -->
+                </div>
+
+            </div>
+
+            <div class="center">
+                <div class="filler-box">
+                    <h3>{% lorem 1 w random %}</h3>
+                    <p>{% lorem 20 w random %}</p>
+                </div>
+
+            </div>
+
+            <div class="right">
+                <div class="filler-box">
+                    <h3>{% lorem 1 w random %}</h3>
+                    <p>{% lorem 20 w random %}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% include "./fragements/large-center-block.html" %}
+
+    <div class="outer-block large-hero-block triple-block">
+
+        <div class="block">
+            <div class="left">
+                <div class="filler-box">
+                    <!-- <h3>{% lorem 2 w random %}</h3>
+                    <p>{% lorem 30 w random %}</p> -->
+                </div>
+
+            </div>
+
+            <div class="center">
+                <div class="filler-box">
+                    <h3>{% lorem 1 w random %}</h3>
+                    <p>{% lorem 20 w random %}</p>
+                </div>
+
+            </div>
+
+            <div class="right">
+                <div class="filler-box">
+                    <!-- <h3>{% lorem 1 w random %}</h3>
+                    <p>{% lorem 20 w random %}</p> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="outer-block">
+
+        <div class="block">
+            <div class="item-a">
+                <div class="filler-box">
+                    <h3>{% lorem 2 w random %}</h3>
+                    <p>{% lorem 30 w random %}</p>
+                </div>
+
+            </div>
+
+            <div class="item-b">
+                <div class="filler-box">
+
+                    <h3>Embrace</h3>
+                    <p>{% lorem 20 w random %}</p>
+                </div>
+
+            </div>
+
+            <div class="item-c">
+                <div class="filler-box">
+                    <h3>Ramble</h3>
+                    <p>{% lorem 20 w random %}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="outer-block super-menu">
+        <div class="block">
+            <h1 class="font-size-2rem">Stuff</h1>
+            <ul>
+                <li>
+                    <a href="#">Point</a>
+                </li>
+                <li>
+                    <a href="#">PointList</a>
+                </li>
+                <li>
+                    <a href="#">Stage</a>
+                </li>
+                <li>
+                    <a href="#">Lines</a>
+                    <ul>
+                        <li>
+                            <a href="#">Line</a>
+                        </li>
+                        <li>
+                            <a href="#">Curve</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">Angle</a>
+                </li>
+                <li>
+                    <a href="#">Text</a>
+                </li>
+
+                <li>
+                    <a href="#">Hit Me</a>
+                    <ul>
+                        <li>
+                            <a href="#">Collisions</a>
+                        </li>
+                        <li>
+                            <a href="#">Constraints</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">Box Of</a>
+                    <ul>
+                        <li>
+                            <a href="#">Clustering</a>
+                        </li>
+                        <li>
+                            <a href="#">Gears</a>
+                        </li>
+                        <li>
+                            <a href="#">Gravity</a>
+                        </li>
+                        <li>
+                            <a href="#">Asteroids</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        {% include "./fragements/large-center-block.html" %}
+        <hr>
+        <div class="outer-block large-hero-block footer-block triple-block">
+
+            <div class="block">
+                <div class="left">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+
+                <div class="center">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+
+                <div class="right">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock content %}

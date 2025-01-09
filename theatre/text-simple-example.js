@@ -40,7 +40,7 @@ class MainStage extends Stage {
         let fontSize = p.radius * .5
 
         ctx.fillStyle = '#EEE'
-        ctx.font = `400 ${fontSize}px barlow`;
+        ctx.font = `400 ${fontSize}px inter`;
         ctx.textAlign = 'left' // center
         ctx.textBaseline = 'middle'
 
@@ -51,11 +51,9 @@ class MainStage extends Stage {
 
         p.text.fill(ctx, "Fill Label", {x, y: 0})
 
-        p.text.plain(ctx, "Plain Label", {x, y: 0, radians: 0})
+        /* A label, with offset. */
+        p.text.label(ctx, "label Label", {x, y: 0, radians: 0})
 
-        // p.text.plain(ctx, "Label Two", {x: x, y: 0, radians: 1})
-        // p.text.plain(ctx, "Label Three", {x: x, y: 0, radians: 2})
-        // p.text.plain(ctx, "Label Four", {x: x, y: 0, radians: 3})
 
         p.pen.indicator(ctx, undefined, 'red')
 
@@ -65,15 +63,15 @@ class MainStage extends Stage {
         pB.rotation -= .5
 
         pB.pen.circle(ctx, undefined, 'red')
-        pB.text.plain(ctx, "Plain Label", {x:0, y: 0, radians: 0})
+        pB.text.offsetString(ctx, "offsetString", {x:0, y: 0, radians: 0})
 
         ctx.textAlign = 'right'
         pC.pen.circle(ctx, undefined, 'red')
-        pC.text.plain(ctx, "Plain Label", {x:-pC.radius - pad, y: 0, radians: 0})
+        pC.text.offsetString(ctx, "offsetString", {x:-pC.radius - pad, y: 0, radians: 0})
 
         // pC.rotation -= .5
         ctx.textAlign = 'left'
-        pC.text.plain(ctx, "Plain Label", {x:pC.radius + pad, y: 0, radians: 0})
+        pC.text.offsetString(ctx, "offsetString", {x:pC.radius + pad, y: 0, radians: 0})
     }
 
 }

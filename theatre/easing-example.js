@@ -42,9 +42,11 @@ class MainStage extends Stage {
             // label: 'move'
              onclick: ()=> console.log('move')
         })
+
         let _this = this;
+
         addControl('easing', {
-            type: 'select'
+            field: 'select'
             , onchange(ev) {
                 let v = ev.currentTarget.value
                 console.log('set easeNameY to', v)

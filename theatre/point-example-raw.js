@@ -1,7 +1,24 @@
+/*
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/point.js
+    ../point_src/events.js
+    ../point_src/pointlist.js
+    ../point_src/pointlistpen.js
+    ../point_src/automouse.js
 
+---
+
+This example doesn't use a `Stage`, in favour of a more _raw_ drawing method.
+ */
 const canvas = document.getElementById('playspace');
 const ctx = canvas.getContext('2d');
 Point.mouse.listen(canvas)
+
 
 class Line {
     constructor(p1, p2, length=100, color='red', width=1){

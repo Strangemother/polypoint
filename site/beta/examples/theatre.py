@@ -210,7 +210,8 @@ def clean_files_list(metadata, deep_include=True):
     for path in res:
         fp = parent_src_dir / path
         if fp.exists() is False:
-            ## print('x Ignore sub file', path)
+            print('x Ignore sub file', path)
+            restacked += (path,)
             continue
 
         # Can be checked.

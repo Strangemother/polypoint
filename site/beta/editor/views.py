@@ -39,10 +39,32 @@ class PointSrcAssetView(views.TemplateView):
 
     def get_context_data(self,**kwargs):
         kw = super().get_context_data(**kwargs)
+        # kw['path'] = self.inject_requirements(get_file_contents(kwargs['path']))
         kw['path'] = get_file_contents(kwargs['path'])
         if kw['path']['exists'] is False:
             raise Http404
+
         return kw
+
+    def inject_requirements(self, obj):
+        extra = 'window \n\n'
+        src_dir = Path(settings.POLYPOINT_SRC_DIR)
+        # parent = Path(settings.POLYPOINT_THEATRE_SRC_RELATIVE_PATH)
+        data = theatre.get_metadata(obj['path'], parent=src_dir)
+        files = data.get('files', ())
+
+        file_contents = ()
+        for rp in files:
+            fp = src_dir / rp
+            if fp.exists() is False:
+                print('File does not exist', fp)
+                continue
+            file_contents += (fp.read_text(), )
+            print(fp)
+
+        extra = '\n\n'.join(file_contents)
+        obj['content'] = extra + obj['content']
+        return obj
 
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)

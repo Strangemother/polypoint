@@ -1,0 +1,338 @@
+
+h2 {
+    color :green;
+}
+
+main > header {
+    background: #141414;
+    display: flex;
+    justify-content: center;
+}
+
+.outer-block.breadcrumb-block {
+    background: #111;
+    font-size: 1.2rem;
+}
+
+.outer-block.super-block.large-hero-block {
+    background: linear-gradient(135deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%);
+    display: flex;
+    /* background: #6d38d0; */
+    padding: 6em 0;
+}
+
+.outer-block.super-block.large-hero-block h2 {
+    color: #0c0c0c;
+    -webkit-text-fill-color: unset;
+    font-size: 8em;
+    margin: 0rem 0 0rem;
+    padding: 0;
+    line-height: 1.2em;
+    font-weight: 700;
+}
+
+.outer-block.super-block.large-hero-block p {
+    font-size: 1.7em;
+    /* max-width: 50rem; */
+    /* display: flex; */
+    margin: 3em 0 1em 0;
+    padding: 0;
+    flex-basis: 40rem;
+}
+
+.outer-block.super-block.large-hero-block .left {
+    display: grid;
+    flex-wrap: wrap;
+    gap: 0em;
+    width: auto;
+}
+
+.outer-block.super-block.large-hero-block .left a {
+    font-size: 1.9rem;
+    color: black;
+    text-underline-offset: 0.3em;
+    text-decoration-style: dashed;
+}
+
+.outer-block.large-hero-block.pair-block {
+    display: flex;
+}
+
+.outer-block.large-hero-block.pair-block .block, .outer-block.triple-block .block {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    max-width: unset;
+    flex-wrap: wrap;
+}
+
+
+.outer-block.large-center-block {
+    background: #1b1b1b;
+}
+
+.outer-block.large-center-block h2 {
+    text-align: center;
+    font-size: 5rem;
+    padding: 0rem 0;
+    color: #e5e5e5cf;
+    background: unset;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: unset;
+}
+
+.outer-block.large-center-block p {
+    font-size: 1.6em;
+    margin: 0em 0 0em;
+    line-height: 1.5em;
+    background: linear-gradient(169deg, hsl(299deg 67% 49%) 7%, hsl(244deg 79% 66%) 77%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 1rem 0rem;
+}
+
+.large-center-block .block {
+    padding: 6em 0;
+    gap: 4em;
+    display: flex;
+    flex-direction: column;
+    /* background: #111; */
+}
+
+.pair-block .left p, .flipped.pair-block .right p {
+    font-size: 1.4em;
+    /* background: #222; */
+    /* padding: 3em 4em; */
+    padding: 1em 3em 1em 0em;
+}
+
+.pair-block .left h2, .flipped.pair-block .right h2 {
+    font-size: 3em;
+    text-transform: capitalize;
+    margin: 1em 0 0;
+}
+
+.outer-block.large-hero-block.pair-block pre {
+    font-size: 1.4em;
+    background: #282c34;
+    margin: 0;
+}
+
+.outer-block.large-hero-block.pair-block pre code {
+    margin-left: 3em;
+}
+
+.outer-block.large-hero-block.pair-block .right {
+    background: #282c34;
+}
+
+
+.filler-box {
+    min-height: 10em;
+    /* background: #111; */
+    /* border: solid 1px red; */
+    width: 600px;
+    align-items: flex-start;
+}
+
+
+.super-menu ul {
+    list-style: none;
+    margin: 0.2rem 0 1rem;
+    padding: 0 1.2em;
+    color: #b32bb6;
+    font-size: 2.5rem;
+}
+
+.super-menu ul li a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-flex;
+    padding: 0.2em 0;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 0.1rem;
+}
+
+.super-menu ul li ul a {
+    text-decoration-style: dotted;
+}
+
+
+.super-menu ul li ul {
+    display: flex;
+    gap: 0.7em;
+    color: #aaa;
+    /* border-bottom: solid 1px #000; */
+    /* margin-bottom: 1em; */
+    /* padding-bottom: 1em; */
+}
+
+.super-block .text-content {
+    display: flex;
+}
+
+.pair-block .block > * {
+    flex-grow: 1;
+    /* max-width: 500px; */
+    flex-basis: 50%;
+    display: flex;
+}
+
+.pair-block .block > .left {
+    justify-content: right;
+    display: flex;
+    background: #111;
+    flex-wrap: wrap;
+}
+
+.outer-block.large-hero-block.triple-block {
+    display: flex;
+}
+
+
+.triple-block h3 {
+    /* background: linear-gradient(324deg, hsl(0deg 0% 100%) 7%, hsl(0deg 0% 82%) 77%); */
+    /* -webkit-background-clip: text; */
+    background-clip: text;
+    /* -webkit-text-fill-color: transparent; */
+    /* margin: 1rem 0rem; */
+}
+
+
+.triple-block .block > * {
+    flex-grow: 1;
+    /* max-width: 500px; */
+    flex-basis: 30%;
+    display: flex;
+    /* outline: solid 1px red; */
+}
+
+.triple-block .filler-box {
+    width: unset;
+    min-height: unset;
+    min-width: 22em;
+    padding: 2em 3em 1em;
+    display: flex;
+    margin: 0 0em;
+    flex-direction: column;
+}
+
+.triple-block .left {
+    justify-content: flex-end;
+    /* background: #282c34; */
+    /* background: #111111; */
+}
+
+.triple-block .block {
+    justify-content: center;
+    gap: 0em;
+    /* justify-content: space-evenly; */
+    margin: 5em 0;
+}
+
+.triple-block .filler-box {
+    /* outline: solid 1px rebeccapurple; */
+    flex-basis: 24em;
+}
+
+.triple-block .center {
+    justify-content: center;
+    flex-basis: min-content;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.triple-block .filler-box p {
+    padding: 0 0em 1em;
+    font-size: 1.3em;
+    /* color: hsl(298deg 96% 68%); */
+    /* color: #533ddb; */
+}
+
+.triple-block .center {
+    background: #111111;
+}
+
+.triple-block h3 {
+    font-size: 2em;
+    margin: 1rem 0em 1rem;
+    color: hsl(298deg 87% 60%);
+}
+
+.triple-block .block .right {
+    /* background: #111111; */
+    /* background: #282c34; */
+}
+
+.outer-block.footer-block.triple-block {
+    display: flex;
+    /* background: #111; */
+    /* margin-top: 5em; */
+}
+
+footer .triple-block .block {
+    margin: 0em 0 0 0;
+}
+
+footer.main-footer {
+    margin: 7em 0 0 0;
+    background: #111;
+}
+
+footer .outer-block.large-center-block {
+    background: unset;
+}
+
+.main-footer hr {
+    border-color: #000;
+}
+
+footer .large-center-block .block {
+    padding: 3em 0;
+    gap: 2em;
+}
+
+.flipped.pair-block .block > .left {
+    background: #282c34;
+}
+
+.flipped.pair-block .block > .right {
+    background: #111;
+}
+
+.flipped.pair-block .right p {
+    padding: 1em 0em 0em 3em;
+}
+
+.flipped.pair-block .right h2 {
+    margin: 3rem 0 0 4rem;
+}
+
+.right-arrow-split {
+    border: solid 1px #282c34;
+}
+
+.method .info {
+    padding: 0em 1em;
+}
+
+.method .sig {
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+}
+
+.method .sig h3 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.method .sig span.returns {
+    background: #111;
+    padding: 0.3em 0.7em;
+}

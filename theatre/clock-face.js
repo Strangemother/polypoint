@@ -240,7 +240,8 @@ class MainStage extends Stage {
 
         ps.forEach(function(e,i,a){
             // e.text.plain(ctx, ((psl-1 + i) % psl)+1 )
-            e.text.fill(ctx, ((psl-1 + i) % psl)+1 )
+            // e.text.fill(ctx, ((psl-1 + i) % psl)+1 )
+            e.text.string(ctx, ((psl-1 + i) % psl)+1 )
         })
 
         // this.line.render(ctx)

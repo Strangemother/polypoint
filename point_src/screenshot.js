@@ -8,6 +8,10 @@ Add extra methods to the `Scene` to capture screenshots of the canvas.
 Download a jpg file:
 
     stage = new Stage
+    stage.screenshot.downloadImage("my-filename.jpg")
+
+Or spawn a link:
+
     stage.screenshot.asDownloadLink()
     // Click the newly DOM inserted link
 */
@@ -15,6 +19,7 @@ class Screenshot {
 
     constructor(stage) {
         this.stage = stage;
+        this.toBlobURL = this.toBlob
     }
 
     toBlob(callback) {
@@ -25,6 +30,18 @@ class Screenshot {
         }
 
         this.stage.canvas.toBlob(cb);
+    }
+
+
+    downloadImage(name='my-file-name.jpg'){
+        this.toBlob(function(url){
+            const anchor = document.createElement('a');
+            anchor.download = name; // optional, but you can give the file a name
+            anchor.href = url // URL.createObjectURL(blob);
+            anchor.click(); // ✨ magic!
+            // URL.revokeObjectURL(anchor.href); // remove it from memory and save on memory! 😎
+            setTimeout(()=> URL.revokeObjectURL(anchor.href), 1000)
+        })
     }
 
     _stashBlob(uriBlob) {

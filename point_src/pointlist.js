@@ -215,8 +215,16 @@ class PointListGenerator {
             pos = {x: spread, y: spread}
         }
 
-        points.shape.grid(spread, rowCount, pos)
+        this._gridTool = points.shape.grid(spread, rowCount, pos)
         return points;
+    }
+
+    getGridTool(rowCount, pos) {
+        if(this._gridTool == undefined) {
+            this._gridTool = new GridTools(this.parent, rowCount, pos)
+        }
+
+        return this._gridTool
     }
 }
 
@@ -309,7 +317,7 @@ class PointListShape {
             e.y = pos.y + ( Math.floor(i / rowCount) * spread )
         })
 
-        return (new GridTools(this.parent, rowCount, pos))
+        return new GridTools(this.parent, rowCount, pos)
     }
 
     radial(point, radius){
@@ -441,6 +449,40 @@ class GridTools {
 
         return res.sort()
     }
+
+    getSiblings8(index, columnCount = this.width, rowCount, total) {
+        // If rowCount is not given, assume a square grid rowCount == columnCount
+        const rc = (rowCount == null) ? columnCount : rowCount;
+        // If total is not given, it is rc*columnCount by default
+        total = (total == null) ? rc * columnCount : total;
+
+        const currentRow    = Math.floor(index / columnCount);
+        const currentColumn = index % columnCount;
+        const res           = [];
+
+        // Offsets in the range -1 to 1, excluding (0, 0).
+        for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
+            for (let colOffset = -1; colOffset <= 1; colOffset++) {
+              // Skip the origin cell itself.
+              if (rowOffset === 0 && colOffset === 0) continue;
+
+              const newRow    = currentRow    + rowOffset;
+              const newColumn = currentColumn + colOffset;
+
+              // Check that the new coordinates are within the grid boundaries.
+              if (newRow >= 0 && newRow < rc && newColumn >= 0 && newColumn < columnCount) {
+                const neighborIndex = newRow * columnCount + newColumn;
+                // Also ensure this index is within the total number of cells.
+                if (neighborIndex >= 0 && neighborIndex < total) {
+                  res.push(neighborIndex);
+                }
+              }
+            }
+        }
+
+        return res.sort((a, b) => a - b);
+    }
+
 
 }
 

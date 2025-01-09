@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Sliding Bar Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #eee;
+      font-family: sans-serif;
+    }
+    #canvasContainer {
+      text-align: center;
+      margin: 20px auto;
+      user-select: none;
+    }
+    #myCanvas {
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: crosshair;
+    }
+    .note {
+      width: 640px;
+      margin: 10px auto;
+      text-align: left;
+      font-size: 14px;
+      color: #444;
+    }
+    .note strong {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<div id="canvasContainer">
+  <canvas id="myCanvas" width="600" height="400"></canvas>
+</div>
+
+<div class="note">
+  <p>
+    <strong>Instructions:</strong>
+    - <strong>Drag the blue point (B)</strong> around. It will remain on the circle around (A), keeping the bar length constant. The joint (M) slides on the bar.
+    - <strong>Drag the green point (M)</strong> itself. It will slide along the bar between A and B.
+    - Point (A) is fixed in place (red).
+  </p>
+</div>
+
+<script>
+(function() {
+  const canvas = document.getElementById('myCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // --- Points A, B, M ---
+  // A is fixed; B can move on a circle around A; M must lie on line AB.
+  let A = { x: 200, y: 200 };  // fixed anchor
+  let B = { x: 400, y: 200 };  // user-draggable, but distance to A is constant
+  let M = { x: 300, y: 200 };  // sliding joint on line AB
+
+  // Bar length: distance from A to B (initially)
+  const barLength = dist(A, B);
+
+  // Which point are we dragging? null if none.
+  let dragging = null;
+
+  // --- Event listeners ---
+  canvas.addEventListener('mousedown', onMouseDown);
+  canvas.addEventListener('mousemove', onMouseMove);
+  canvas.addEventListener('mouseup', onMouseUp);
+  canvas.addEventListener('mouseleave', onMouseUp); // stop dragging if mouse leaves canvas
+
+  // Initial draw
+  draw();
+
+  // ---------------------------------------------------------------------------
+  // Mouse Handlers
+  // ---------------------------------------------------------------------------
+  function onMouseDown(e) {
+    const {x, y} = getMousePos(e);
+
+    // Check proximity to B or M (A is fixed)
+    if (dist({x, y}, B) < 10) {
+      dragging = 'B';
+    } else if (dist({x, y}, M) < 10) {
+      dragging = 'M';
+    } else {
+      dragging = null;
+    }
+  }
+
+  function onMouseMove(e) {
+    if (!dragging) return;
+
+    const {x, y} = getMousePos(e);
+
+    if (dragging === 'B') {
+      // Move B, but keep distance(B,A) == barLength
+      moveBkeepingDistance(x, y);
+      // After moving B, re-project M onto line AB so it slides
+      projectMontoAB();
+    }
+    else if (dragging === 'M') {
+      // Move M, but forcibly keep it on line AB
+      moveMontoAB(x, y);
+    }
+
+    draw();
+  }
+
+  function onMouseUp(e) {
+    dragging = null;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Geometry / Movement
+  // ---------------------------------------------------------------------------
+  function moveBkeepingDistance(newBx, newBy) {
+    // We want (B.x, B.y) such that dist(A, B) = barLength
+    const dx = newBx - A.x;
+    const dy = newBy - A.y;
+    const d  = Math.sqrt(dx*dx + dy*dy) || 1;
+
+    // Scale so that B is exactly barLength from A
+    B.x = A.x + (dx * (barLength / d));
+    B.y = A.y + (dy * (barLength / d));
+  }
+
+  function projectMontoAB() {
+    // Project the current M onto the line from A to B
+    // Parametric line: P(t) = A + t*(B - A)
+    // We want t that minimizes distance(M, P(t)).
+    // t = ((M - A) dot (B - A)) / |B - A|^2
+    const ABx = B.x - A.x;
+    const ABy = B.y - A.y;
+    const AMx = M.x - A.x;
+    const AMy = M.y - A.y;
+    const denom = (ABx*ABx + ABy*ABy);
+    if (denom === 0) return; // A and B are at same spot (unlikely here)
+
+    const t = (AMx*ABx + AMy*ABy) / denom;
+
+    // Now clamp t to [0,1] if you want M to remain between A and B
+    // but if you want it to be anywhere on infinite line, skip clamp.
+    const tClamped = Math.max(0, Math.min(1, t));
+
+    M.x = A.x + tClamped * ABx;
+    M.y = A.y + tClamped * ABy;
+  }
+
+  function moveMontoAB(newMx, newMy) {
+    // Temporarily set M = (newMx, newMy), then project onto line AB
+    M.x = newMx;
+    M.y = newMy;
+    projectMontoAB();
+  }
+
+  function dist(p1, p2) {
+    return Math.hypot(p2.x - p1.x, p2.y - p1.y);
+  }
+
+  function getMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Drawing
+  // ---------------------------------------------------------------------------
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw line AB (the "bar")
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Draw point A (fixed)
+    drawPoint(A.x, A.y, 'red');
+    // Draw point B (movable)
+    drawPoint(B.x, B.y, 'blue');
+    // Draw point M (joint sliding on AB)
+    drawPoint(M.x, M.y, 'green');
+
+    // Optionally: show the circle of radius=barLength around A
+    ctx.beginPath();
+    ctx.arc(A.x, A.y, barLength, 0, 2*Math.PI);
+    ctx.strokeStyle = '#999';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5,5]);
+    ctx.stroke();
+    ctx.setLineDash([]); // reset
+  }
+
+  function drawPoint(x, y, color) {
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, 2*Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.strokeStyle = '#000';
+    ctx.stroke();
+  }
+
+})();
+</script>
+</body>
+</html>

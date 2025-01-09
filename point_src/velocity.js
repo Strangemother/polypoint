@@ -254,6 +254,7 @@ class PointSpeed {
     }
 }
 
+
 Polypoint.head.deferredProp('Point', function speed2D(){
     return new PointSpeed(this);
 })

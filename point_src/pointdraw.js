@@ -24,6 +24,27 @@ class PointDraw {
         }
     }
 
+    rect(ctx, width=this.point.radius, height) {
+        // rect(x, y, width, height)
+        if(height==undefined) {
+            height = width
+        }
+        let p = this.point
+        ctx.rect(p.x, p.y, width, height)
+    }
+
+    roundRect(ctx, width=this.point.radius, height, radii=[10]) {
+        // rect(x, y, width, height)
+        // ctx.roundRect(400, 150, -200, 100, [0, 30, 50, 60]);
+        if(height==undefined) {
+            height = width
+        }
+        let p = this.point
+        ctx.roundRect(p.x, p.y, width, height, radii)
+    }
+
+
+
     ngon(ctx, sides, radius, fromCenter=true, angle=0) {
         /* Draw a polygon of _n_ sides, with an optional radius.
 

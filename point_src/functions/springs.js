@@ -137,6 +137,7 @@ const applySpringForceDistributedWithTime = function(pointA, pointB, restLength,
     }
 }
 
+
 class PointSpring {
     constructor(point) {
         this.parent = point
@@ -147,6 +148,7 @@ class PointSpring {
              restLength, springConstant, dampingFactor, lockedPoints, deltaTime);
     }
 }
+
 
 class PointListSpring {
     /* An extension to the PointList for 'springs' */

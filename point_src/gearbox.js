@@ -37,37 +37,6 @@ class GearBox {
 
         return
 
-        // this.bindMap.forEach((vChild, kOwner)=>{
-
-        //     // check dirties.
-        //     let target = undefined //vChild
-        //     let parent = undefined // kOwner
-
-        //     let kOwner_dirty = kOwner._xy && kOwner._xy.toString() != kOwner.xy
-        //     let vChild_dirty = vChild._xy && vChild._xy.toString() != vChild.xy
-
-        //     if(kOwner_dirty === true) {
-        //         // copy
-        //         // vChild.xy = kOwner.xy
-        //         target = vChild
-        //         parent = kOwner
-        //     }
-
-        //     if(vChild_dirty === true) {
-        //         // copy back to parent.
-        //         parent = vChild
-        //         target = kOwner
-        //     }
-
-        //     if(target && target.xy.toString() != parent.xy) {
-        //         target.xy = parent.xy
-        //     }
-
-        //     // Is now clean.
-        //     vChild._xy = vChild.xy
-        //     kOwner._xy = kOwner.xy
-
-        // })
     }
 
     performStep() {
@@ -204,29 +173,6 @@ class GearBox {
                 })
             })
         }
-
-        // touchMap.forEach((touchPoints, origin)=> {
-        //     // Origin should be motor.
-
-        //     // Iterate the touchPoints array, rotating and getting hits.
-        //     touchPoints.forEach((touchPoint) => {
-        //         const doubleHit = touchPoint._hitTick == hitTick
-        //         touchPoint.doubleHit = doubleHit
-
-        //         if(doubleHit) {
-        //             // fancy math?
-        //             doubleTouchCV(origin, touchPoint)
-        //             return
-        //         }
-
-        //         /*assign tick - for future test.*/
-        //         touchPoint._hitTick = hitTick
-
-        //         safeAppendTouchesActive(this.bindMap, touchPoint, wheelWheel)
-        //         safeAppendTouchesActive(this.bindMapRev, touchPoint, wheelWheel)
-        //         activateFunctionInverted(touchPoint, origin, gearWheel)
-        //     })
-        // })
 
         let callback = (origin, touchPoint, touchPoints)=> {
             const doubleHit = touchPoint._hitTick == hitTick

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Bar Pinned at M(t) on a Bézier Curve</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #eee;
+      font-family: sans-serif;
+      user-select: none;
+    }
+    #container {
+      margin: 20px auto;
+      text-align: center;
+    }
+    #myCanvas {
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: crosshair;
+      display: block;
+      margin: 0 auto;
+    }
+    #sliderContainer {
+      width: 600px;
+      margin: 10px auto;
+      text-align: center;
+    }
+    .note {
+      width: 600px;
+      margin: 10px auto;
+      text-align: left;
+      font-size: 14px;
+      color: #444;
+    }
+    .note strong {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<div id="container">
+  <canvas id="myCanvas" width="600" height="400"></canvas>
+</div>
+
+<div id="sliderContainer">
+  <label for="sliderT">Bézier parameter (t):</label>
+  <input type="range" id="sliderT" min="0" max="1" step="0.01" value="0.5"/>
+</div>
+
+<div class="note">
+  <p>
+    <strong>Instructions:</strong>
+    - <strong>Drag endpoints A (red)</strong> or <strong>B (blue)</strong> to reposition them.
+      The other endpoint is recalculated so that the bar (A–B) stays the same length and still passes through <em>M(t)</em> (green).
+    - <strong>Use the slider</strong> to move <em>M</em> along the Bézier curve.
+      A/B adjust accordingly to keep the bar going through <em>M(t)</em>.
+    - The control points <em>P0, P1, P2, P3</em> are shown in gray, along with the Bézier curve (black).
+  </p>
+  <p>
+    If you want a truly dynamic “drag A/B <em>and</em> the solver automatically finds <em>t</em>,”
+    you’ll need an iterative approach. This example keeps it simpler by letting you set <em>t</em>
+    via the slider.
+  </p>
+</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById('myCanvas');
+  const ctx    = canvas.getContext('2d');
+  const sliderT = document.getElementById('sliderT');
+
+  // ---------------------------------------------------------------------------
+  // 1) Bézier Control Points
+  //    We'll define a cubic curve from P0 -> P1 -> P2 -> P3
+  // ---------------------------------------------------------------------------
+  const P0 = { x: 100, y: 300 };
+  const P1 = { x: 200, y: 100 };
+  const P2 = { x: 400, y: 100 };
+  const P3 = { x: 500, y: 300 };
+
+  // Evaluate cubic Bézier at parameter t
+  function bezierPoint(p0, p1, p2, p3, t) {
+    // (1 - t)^3 * p0 + 3(1 - t)^2 t * p1 + 3(1 - t) t^2 * p2 + t^3 * p3
+    const mt = 1 - t;
+    const mt2 = mt * mt;
+    const t2  = t * t;
+
+    return {
+      x: p0.x * (mt2 * mt)
+         + p1.x * (3 * mt2 * t)
+         + p2.x * (3 * mt * t2)
+         + p3.x * (t2 * t),
+      y: p0.y * (mt2 * mt)
+         + p1.y * (3 * mt2 * t)
+         + p2.y * (3 * mt * t2)
+         + p3.y * (t2 * t)
+    };
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2) The pinned point M(t), and bar endpoints A, B
+  //    We'll store the bar length L = |A - B|.
+  //    A, B must always pass through M(t) and remain distance L apart.
+  // ---------------------------------------------------------------------------
+  let t = 0.5; // initial parameter
+  let M = bezierPoint(P0, P1, P2, P3, t);
+
+  // Endpoints (start them around M)
+  // We'll place A to the left, B to the right, for example
+  let A = { x: M.x - 50, y: M.y };
+  let B = { x: M.x + 50, y: M.y };
+
+  // Fixed bar length
+  const L = distance(A, B);
+
+  // For sign/direction usage (like before)
+  const dirA = getDirectionFactor(A, B, M);
+  const dirB = getDirectionFactor(B, A, M);
+
+  // Current drag: "A" or "B" or null
+  let dragging = null;
+
+  // ---------------------------------------------------------------------------
+  // 3) Add event listeners
+  // ---------------------------------------------------------------------------
+  canvas.addEventListener('mousedown', onMouseDown);
+  canvas.addEventListener('mousemove', onMouseMove);
+  canvas.addEventListener('mouseup',   onMouseUp);
+  canvas.addEventListener('mouseleave',onMouseUp);
+
+  sliderT.addEventListener('input', onSliderChange);
+
+  function onSliderChange(e) {
+    t = parseFloat(e.target.value);
+    M = bezierPoint(P0, P1, P2, P3, t);
+
+    // We must re-position A or B so that the bar still goes through M
+    // For simplicity, we'll move B. (You could pick whichever or do both.)
+    repositionBfromA(dirA);
+    draw();
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4) Mouse drag logic
+  // ---------------------------------------------------------------------------
+  function onMouseDown(e) {
+    const { x, y } = getMousePos(e);
+    if (distance({x,y}, A) < 10) {
+      dragging = "A";
+    } else if (distance({x,y}, B) < 10) {
+      dragging = "B";
+    }
+  }
+
+  function onMouseMove(e) {
+    if (!dragging) return;
+
+    const { x, y } = getMousePos(e);
+
+    if (dragging === "A") {
+      A.x = x;
+      A.y = y;
+      // Then reposition B so that A->B passes through M and distance(A,B)=L
+      repositionBfromA(dirA);
+    }
+    else if (dragging === "B") {
+      B.x = x;
+      B.y = y;
+      // Reposition A similarly
+      repositionAfromB(dirB);
+    }
+    draw();
+  }
+
+  function onMouseUp(e) {
+    dragging = null;
+  }
+
+  // ---------------------------------------------------------------------------
+  // 5) Reposition functions (same principle as the “fixed pin” example)
+  // ---------------------------------------------------------------------------
+  function repositionBfromA(directionFactor) {
+    // We want B such that M is on line A->B, and |A-B|=L.
+    // (B - A) = s * (M - A).  =>  s= ±(L / |M-A|)
+    const AMx = M.x - A.x;
+    const AMy = M.y - A.y;
+    const distAM = Math.hypot(AMx, AMy);
+    if (distAM < 1e-9) {
+      // Degenerate: A == M
+      B.x = A.x;
+      B.y = A.y;
+      return;
+    }
+    const s = directionFactor * (L / distAM);
+    B.x = A.x + s * AMx;
+    B.y = A.y + s * AMy;
+  }
+
+  function repositionAfromB(directionFactor) {
+    // We want A such that M is on line B->A, and |A-B|=L.
+    const BMx = M.x - B.x;
+    const BMy = M.y - B.y;
+    const distBM = Math.hypot(BMx, BMy);
+    if (distBM < 1e-9) {
+      A.x = B.x;
+      A.y = B.y;
+      return;
+    }
+    const s = directionFactor * (L / distBM);
+    A.x = B.x + s * BMx;
+    A.y = B.y + s * BMy;
+  }
+
+  function getDirectionFactor(A, B, M) {
+    // s = ((B - A) dot (M - A)) / |M - A|^2
+    const AMx = M.x - A.x;
+    const AMy = M.y - A.y;
+    const ABx = B.x - A.x;
+    const ABy = B.y - A.y;
+
+    const dot = AMx*ABx + AMy*ABy;
+    const magAM2 = AMx*AMx + AMy*AMy;
+    if (magAM2 < 1e-9) return +1;
+    const s = dot / magAM2;
+    return (s >= 0) ? +1 : -1;
+  }
+
+  // ---------------------------------------------------------------------------
+  // 6) Drawing
+  // ---------------------------------------------------------------------------
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the Bézier curve
+    drawBezierCurve(P0, P1, P2, P3);
+
+    // Draw control points (P0..P3) in gray
+    drawPoint(P0.x, P0.y, '#888');
+    drawPoint(P1.x, P1.y, '#888');
+    drawPoint(P2.x, P2.y, '#888');
+    drawPoint(P3.x, P3.y, '#888');
+
+    // Draw the bar (line from A to B)
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#333';
+    ctx.stroke();
+
+    // Draw A (red), B (blue), M (green)
+    drawPoint(A.x, A.y, 'red');
+    drawPoint(B.x, B.y, 'blue');
+    drawPoint(M.x, M.y, 'green');
+  }
+
+  // Helper: draw a cubic Bézier from P0->P1->P2->P3
+  function drawBezierCurve(p0, p1, p2, p3) {
+    ctx.beginPath();
+    ctx.moveTo(p0.x, p0.y);
+    ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  function drawPoint(x, y, color) {
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, 2*Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.strokeStyle = '#000';
+    ctx.stroke();
+  }
+
+  function distance(p1, p2) {
+    return Math.hypot(p2.x - p1.x, p2.y - p1.y);
+  }
+
+  function getMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  }
+
+  // Do an initial draw
+  draw();
+})();
+</script>
+
+</body>
+</html>

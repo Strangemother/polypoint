@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Fixed Pin M, Sliding Bar A-B</title>
+  <style>
+    body { margin: 0; padding: 0; background: #eee; }
+    #myCanvas {
+      display: block;
+      margin: 20px auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: crosshair;
+    }
+    .note {
+      max-width: 600px;
+      margin: 10px auto;
+      font: 14px sans-serif;
+      color: #444;
+    }
+    .note strong {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="600" height="400"></canvas>
+
+<div class="note">
+  <p>
+    <strong>Instructions:</strong>
+    - Point <strong>A (red)</strong> and <strong>B (blue)</strong> form the ends of the bar.<br/>
+    - Point <strong>M (green)</strong> is a fixed pin and cannot move.<br/>
+    - The bar length is constant, and always passes through M.<br/>
+    - <strong>Drag A or B</strong> with your mouse, and see the other endpoint react.<br/>
+  </p>
+</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById('myCanvas');
+  const ctx    = canvas.getContext('2d');
+
+  // ---------------------------------------------------------------------------
+  // 1) Initial positions
+  //    M is fixed in place. A and B define a bar that passes through M.
+  // ---------------------------------------------------------------------------
+  let M = { x: 300, y: 200 };  // The pinned point, DOES NOT MOVE
+  let A = { x: 200, y: 200 };  // Red endpoint
+  let B = { x: 400, y: 200 };  // Blue endpoint
+
+  // The bar length L
+  const L = distance(A, B);
+
+  // We'll store direction factors for each end. They determine on which
+  // "side" of M the bar extends. We get them from the initial configuration.
+  const dirA = getDirectionFactor(A, B, M);  // if we drag A, how do we find B?
+  const dirB = getDirectionFactor(B, A, M);  // if we drag B, how do we find A?
+
+  // Currently dragging? "A" | "B" | null
+  let dragging = null;
+
+  // ---------------------------------------------------------------------------
+  // 2) Event listeners
+  // ---------------------------------------------------------------------------
+  canvas.addEventListener('mousedown', onMouseDown);
+  canvas.addEventListener('mousemove', onMouseMove);
+  canvas.addEventListener('mouseup',   onMouseUp);
+  canvas.addEventListener('mouseleave',onMouseUp); // stop dragging if mouse leaves
+
+  // Draw initially
+  draw();
+
+  // ---------------------------------------------------------------------------
+  // MOUSE HANDLERS
+  // ---------------------------------------------------------------------------
+  function onMouseDown(e) {
+    const { x, y } = getMousePos(e);
+    if (distance({x, y}, A) < 10) {
+      dragging = "A";
+    } else if (distance({x, y}, B) < 10) {
+      dragging = "B";
+    } else {
+      dragging = null;
+    }
+  }
+
+  function onMouseMove(e) {
+    if (!dragging) return;
+    const { x, y } = getMousePos(e);
+
+    if (dragging === "A") {
+      // Move A under the mouse
+      A.x = x;
+      A.y = y;
+      // Then reposition B so that:
+      //   (1) |A-B| = L
+      //   (2) M is on line A->B
+      // We'll pick the sign from 'dirA'
+      repositionBfromA(dirA);
+    }
+    else if (dragging === "B") {
+      // Move B under the mouse
+      B.x = x;
+      B.y = y;
+      // Then reposition A with sign from 'dirB'
+      repositionAfromB(dirB);
+    }
+
+    draw();
+  }
+
+  function onMouseUp(e) {
+    dragging = null;
+  }
+
+  // ---------------------------------------------------------------------------
+  // REPOSITION LOGIC
+  // ---------------------------------------------------------------------------
+  /**
+   * Recompute B given the new A, ensuring:
+   * 1) distance(A,B) = L
+   * 2) M is on line A->B
+   *
+   * If M is on line A->B, then B-A = s*(M-A).
+   * Also, |B-A| = L => |s| * |M-A| = L => s = ± (L / |A-M|).
+   *
+   * We pick + or - based on the stored direction factor.
+   */
+  function repositionBfromA(directionFactor) {
+    const AMx = M.x - A.x;
+    const AMy = M.y - A.y;
+    const distAM = Math.hypot(AMx, AMy);
+
+    // If A == M, it's degenerate; skip or clamp
+    if (distAM < 1e-9) {
+      // Just put B = A for now (or do something else)
+      B.x = A.x;
+      B.y = A.y;
+      return;
+    }
+
+    const s = directionFactor * (L / distAM);
+    B.x = A.x + s * AMx;
+    B.y = A.y + s * AMy;
+  }
+
+  /**
+   * Recompute A given the new B, ensuring:
+   * 1) distance(A,B) = L
+   * 2) M is on line A->B
+   */
+  function repositionAfromB(directionFactor) {
+    const BMx = M.x - B.x;
+    const BMy = M.y - B.y;
+    const distBM = Math.hypot(BMx, BMy);
+
+    if (distBM < 1e-9) {
+      A.x = B.x;
+      A.y = B.y;
+      return;
+    }
+
+    const s = directionFactor * (L / distBM);
+    A.x = B.x + s * BMx;
+    A.y = B.y + s * BMy;
+  }
+
+  /**
+   * Figure out whether s = +L/|AM| or -L/|AM| for the initial configuration.
+   *
+   * We'll solve B - A = s*(M - A), and check sign of 's' from the current positions.
+   * s = ((B - A) dot (M - A)) / |M - A|^2
+   */
+  function getDirectionFactor(A, B, M) {
+    const AM = { x: M.x - A.x, y: M.y - A.y };
+    const AB = { x: B.x - A.x, y: B.y - A.y };
+
+    const dot = AM.x*AB.x + AM.y*AB.y;
+    const magAM2 = AM.x*AM.x + AM.y*AM.y;
+    if (magAM2 < 1e-9) return +1; // degenerate
+    const s = dot / magAM2; // could be pos or neg
+    return (s >= 0) ? +1 : -1;
+  }
+
+  // ---------------------------------------------------------------------------
+  // DRAWING
+  // ---------------------------------------------------------------------------
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the bar (line from A to B)
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#333";
+    ctx.stroke();
+
+    // Draw A (red)
+    drawPoint(A.x, A.y, "red");
+    // Draw B (blue)
+    drawPoint(B.x, B.y, "blue");
+    // Draw M (green) - pinned/fixed
+    drawPoint(M.x, M.y, "green");
+  }
+
+  function drawPoint(x, y, color) {
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, 2*Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.strokeStyle = "#000";
+    ctx.stroke();
+  }
+
+  // ---------------------------------------------------------------------------
+  // HELPERS
+  // ---------------------------------------------------------------------------
+  function distance(p1, p2) {
+    return Math.hypot(p2.x - p1.x, p2.y - p1.y);
+  }
+
+  function getMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  }
+
+})();
+</script>
+</body>
+</html>

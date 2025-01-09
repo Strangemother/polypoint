@@ -10,6 +10,7 @@ files:
     ../point_src/point.js
     ../point_src/distances.js
     ../point_src/pointlist.js
+    ../point_src/pointlistpen.js
     ../point_src/events.js
     ../point_src/functions/clamp.js
     ../point_src/curve-extras.js
@@ -19,6 +20,12 @@ files:
     ../point_src/stroke.js
     ../point_src/functions/within.js
     ../point_src/automouse.js
+
+---
+
+Draw lines through a list of points created by clicks.
+
+As a fun extra, check the mouse is within the drawn polygon with the `withinPolygon` function
 
  */
 
@@ -44,8 +51,6 @@ class MainStage extends Stage {
                 this.line = new PointList
             }
             this.line.push(Point.from(ev))
-        } else {
-            debugger
         }
     }
 

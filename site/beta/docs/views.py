@@ -86,6 +86,21 @@ class IndexView(views.ListView):
         return r
 
 
+class ExamplePageView(views.TemplateView):
+    template_name = 'docs/another-example-index.html'
+
+    def get_context_data(self, **kwargs):
+        r = super().get_context_data(**kwargs)
+        return r
+
+class ExampleDocPageView(ExamplePageView):
+    template_name = 'docs/another-example-doc.html'
+
+class ExampleDoc2PageView(ExamplePageView):
+    template_name = 'docs/another-example-doc-2.html'
+
+
+
 class FileParseView(views.TemplateView):
     """Show a source presentation - reading the file meta and presenting an import."""
     template_name = 'docs/file-parser.html'

@@ -1,4 +1,23 @@
-/* moved to functions/springs */
+/*
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/math.js
+    ../point_src/functions/springs.js
+    ../point_src/extras.js
+    ../point_src/point-content.js
+    ../point_src/pointlistpen.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    dragging
+    ../point_src/stage.js
+    stroke
+    mouse
+
+
+moved to functions/springs
+*/
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');

@@ -36,6 +36,8 @@ const confTable = new Table(keys, {
     , 'gas':     [100, 0.001, 800, 0.974, 0.1,  9,  1]
     , 'stable':  [100, 0.001, 80,  0.974, 0.01, 9,  1]
     , 'blob':    [90,  0.002, 100, 0.95,  0.1,  20, 1, 'springy']
+    , 'orbitals':[400, 0.01, 90, 0.99,  0.08, 5,  1]
+    , 'orbitab': [200, 0.01, 300, 0.98,  0.08, 5,  1]
 })
 
 
@@ -53,7 +55,7 @@ const exampleFunc = function(ctx){
      */
 }
 
-const selectedConfigName = "gas" // "blob" // "gas" // 'alt'
+const selectedConfigName = "orbitab" // "blob" // "gas" // 'alt'
 const settings = confTable.get(selectedConfigName)
 // const settings = conf[selectedConfigName]
 

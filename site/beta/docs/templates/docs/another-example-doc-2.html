@@ -1,0 +1,204 @@
+{% extends "docs/doc-base.html" %}
+{% comment "what" %}
+
+A document article; covering a component in an article form.
+
++ Similar to a 'doc' but without the entire API.
++ similar to an advert for a component.
++ Or as a 'recipe' article.
+
+{% endcomment %}
+{% load link %}
+{% block page_title %}Stage{% endblock page_title %}
+{% block content %}
+
+    {% link.js "examples/js/petite-vue.iife.js" "defer" %}
+
+    <script src=/examples/point_src/core/head.js></script>
+    <script src=/examples/point_src/stage.js></script>
+    {% link.css "css/docs/another-example.css" %}
+
+    <div class="outer-block large-hero-block pair-block">
+        <div class="block">
+            <div class="align-content-center left">
+                <div class="filler-box">
+                    <p>
+                        To make drawing super easy, we can use the <code>Stage</code> class. It helps with setup of the rendering loop (plus a few extra features.)
+                    </p>
+                    <div class="right-arrow-split"></div>
+                    <p>
+                        Polypoint is designed to expose the raw canvas drawing features, whilst providing an API to wield them.
+
+                    </p>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="filler-box">
+
+                    <pre>
+                        {% load content %}
+                        <code class='language-javascript'>{% file_content "stage/first-example.js" %}</code>
+                    </pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="outer-block">
+        <div class="block">
+            <h2 class="font-size-2rem">Methods</h2>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>prepare</h3>
+                    <div class='brackets empty'>()</div>
+                </div>
+                <div class='info'>
+                    <p>performs the first setup (prepare), and calls load() once.</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>load</h3>
+                    <div class='brackets empty'>()</div>
+                </div>
+                <div class='info'>
+                    <p>called first time the stage is prepared.</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>mounted</h3>
+                    <div class='brackets empty'>()</div>
+                </div>
+                <div class='info'>
+                    <p>prepared and ready to draw</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>clear</h3>
+                    <div class='brackets empty'>()</div>
+                </div>
+                <div class='info'>
+                    <p>clear a rectangle.</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>draw</h3>
+                    <div class='brackets empty'>()</div>
+                </div>
+                <div class='info'>
+                    <p>perform one frame of the loop - this.clear() is called by default</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>onDrawAfter(func)</h3>
+                </div>
+                <div class='info'>
+                    <p>add a function to run after the draw step</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-object'>
+                    <h3>ctx</h3>
+                    <span class="returns">CanvasContext</span>
+                </div>
+                <div class='info'>
+                    <p>return the ctx (read only)</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>loopDraw</h3>
+                    <div class='brackets empty'>()</div>
+                </div>
+                <div class='info'>
+                    <p>runs itself forever after the first call to continuly call the 'update()' method</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>go({})</h3>
+                </div>
+                <div class='info'>
+                    <p>A static method to run the stage with minimal effort</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>resize</h3>
+                    <div class='brackets empty'>()</div>
+                </div>
+                <div class='info'>
+                    <p>calls upon the stickCanvasSize to set the dimensions. Occurs after a resize event.</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-method'>
+                    <h3>distpatch</h3>
+                    <div class='brackets empty'>()</div>
+                </div>
+                <div class='info'>
+                    <p>send an event from the stage.</p>
+                </div>
+            </div>
+
+            <div class='method'>
+                <div class='sig type-object'>
+                    <h3>center</h3>
+                    <span class="returns">Point</span>
+                </div>
+                <div class='info'>
+                    <p>A center point</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <footer class="main-footer">
+
+        <div class="outer-block large-hero-block footer-block triple-block">
+
+            <div class="block">
+                <div class="left">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+
+                <div class="center">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+
+                <div class="right">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock content %}

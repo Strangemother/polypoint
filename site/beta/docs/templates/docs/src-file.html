@@ -1,7 +1,11 @@
 {% extends "docs/doc-base.html" %}
 {% load content link wrap %}
+{% load try_include markdown theatre strings %}
 {% comment "What" %}
     # src code file presentation.
+
+        docs:point_src=('PointSrcFileView', 'file/<path:path>/'),
+        http://localhost:8000/files/file/point.js/
 
     This template presents a javascript file from the designated _src_ directory
     (within the settings.py).
@@ -18,30 +22,74 @@
 
 
 {% block content %}
-        <div class="outer-block">
-            {% comment "what" %}
-                The script imports example block
-            {% endcomment %}
-            <div class="block">
-                {% if metadata.dependencies %}
-                    {% for dep_filepath in metadata.dependencies %}
-                        {% include "./fragments/single-import.html" with path=dep_filepath %}
-                    {% endfor %}
-                {% endif %}
+    {% link.js "examples/js/petite-vue.iife.js" "defer" %}
 
-                {% if file_exists %}
-                    {% include "./fragments/single-import.html" with name=path %}
-                {% else %}
-                    <p>File does not exist: "{{path}}".</p>
-                {% endif %}
-                <div class="parse">
-                    {% link "docs:file_parse" path "parse" %}
-                </div>
-                <hr class="border-color-#222 margin-2em">
-            </div>
+    {% link.js "js/docs/doc-prop-methods.js" %}
+    {% link.js "js/docs/methods-app.js" "defer" %}
 
+    {{ metadata.doc_loader|json_script:"doc-loader-info" }}
+    <script type="text/javascript">
+
+        window.LOADERS = function(){
+            return JSON.parse(document.getElementById('doc-loader-info').textContent);
+        }
+    </script>
+
+    {% src_files metadata.doc_imports as point_files %}
+    <script src=/examples/point_src/core/head.js></script>
+    {% for item in point_files %}
+        <div>
+            {% link.url 'examples:point_src' item '_' as link_str %}
+            <script src="{{ link_str }}"></script>
         </div>
+    {% endfor %}
 
+    {# File list of JS assets #}
+    <div class="outer-block">
+        <div class="block" id="methods">
+            <div class="border-solid-1px-#880000">
+                <p>File imports discovered within the "docs_import" meta key (including meta imports)</p>
+                <ul class="display-table">
+                    {% for item in point_files %}
+                    <li class="display-table-row">
+                        <div class="display-table-cell">{{ item }}</div>
+                        <div class="display-table-cell">
+                        {% link.url 'examples:point_src' item '_' as url_link %}
+                        {% link 'docs:point_src' item url_link %}
+                        </div>
+                        {# <script type="text/javascript" src='{{url_link}}'></script> #}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {# Import example and parse button. #}
+    <div class="outer-block">
+        {% comment "what" %}
+            The script imports example block
+        {% endcomment %}
+        <div class="block">
+            {% if metadata.dependencies %}
+                {% for dep_filepath in metadata.dependencies %}
+                    {% include "./fragments/single-import.html" with path=dep_filepath %}
+                {% endfor %}
+            {% endif %}
+
+            {% if file_exists %}
+                {% include "./fragments/single-import.html" with name=path %}
+            {% else %}
+                <p>File does not exist: "{{path}}".</p>
+            {% endif %}
+            <div class="parse">
+                {% link "docs:file_parse" path "parse" %}
+            </div>
+            <hr class="border-color-#222 margin-2em">
+        </div>
+    </div>
+
+    {#  file meta Markdown #}
     <div class="outer-block">
         <div class="block">
             {% if markdown %}
@@ -55,6 +103,53 @@
                 {% if metadata %}
                     {% include 'docs/metadata-table.html' %}
                 {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {# doc readme text #}
+    <div class="outer-block">
+        <div class="block" id="methods">
+            <div class="content-text">
+                {% for part_path in metadata.doc_readme %}
+                    {% markdown.file "docs" part_path %}
+                {% endfor %}
+            </div>
+
+            <h2>Methods</h2>
+            {% comment "what" %}
+                A link list of all discovered methods,
+                at JS runtime.
+
+                Each item is a link to a django discovered
+                'doc piece' below.
+
+                Requires (petite) Vue and doc-index
+            {% endcomment %}
+            {% verbatim %}
+            <div class='prop-list'>
+                <a class='prop-item'
+                    :class='"type-" + type'
+                    :href="'#prop-key-' + key"
+                    :data-type="type"
+                    v-for='type, key in getUnitMethods()'>
+                    {{key}}
+                    <!-- <div class='brackets empty'>()</div> -->
+                </a>
+            </div>
+            {% endverbatim %}
+
+            {% comment "what" %}
+                List of all methods, discovered automatically.
+
+                Alternatively for a single item:
+
+                    {% get_doc_piece 'stage/0.md' %}
+            {% endcomment %}
+            <div class="methods-container">
+                {% for re_path in metadata.doc_content %}
+                    {% iter_doc_pieces re_path ignore_readme=True %}
+                {% endfor %}
             </div>
         </div>
     </div>

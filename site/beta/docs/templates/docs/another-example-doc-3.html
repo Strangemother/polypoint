@@ -1,0 +1,126 @@
+{% extends "docs/doc-base.html" %}
+{% comment "what" %}
+doc doc.
+
+Object.getOwnPropertyNames(Object.getPrototypeOf(new StageRender));
+
+{% endcomment %}
+{% load link markdown %}
+{% load try_include %}
+{% block page_title %}Point Class{% endblock page_title %}
+{% block content %}
+
+    {% link.js "examples/js/petite-vue.iife.js" "defer" %}
+
+    <script src=/examples/point_src/core/head.js></script>
+    <script src=/examples/point_src/core/loader.js></script>
+    <script src=/examples/point_src/point-content.js></script>
+    {% if metadata %}
+        {% for filepath in metadata.clean_files %}
+            <script src=/examples/point_src/{{ filepath }}></script>
+        {% endfor %}
+    {% endif %}
+
+    {# <script src=/examples/point_src/pointpen.js></script> #}
+    {# <script src=/examples/point_src/pointdraw.js></script> #}
+    <script src=/examples/point_src/point.js></script>
+
+    {% link.js "js/docs/doc-prop-methods.js" %}
+    {% link.js "js/docs/doc-index.js" "defer" %}
+    {% link.js "js/docs/methods-app.js" "defer" %}
+
+    {% link.css "css/docs/another-example.css" %}
+    {% link.css "css/docs/doc-structure.css" %}
+
+
+    <div class="content-stack">
+
+        <div class="left-superlist-container">
+            {% include "./superlist.html" %}
+        </div>
+
+        <div class="outer-block">
+            <div class="block" id="methods">
+                <div class="content-text">
+                    {# 'point/readme.md' #}
+                    {% markdown.file "docs" metadata.doc_readme.0 %}
+                </div>
+
+                <h2>Methods</h2>
+                {% comment "what" %}
+                    A link list of all discovered methods,
+                    at JS runtime.
+
+                    Each item is a link to a django discovered
+                    'doc piece' below.
+                {% endcomment %}
+                {% verbatim %}
+                <div class='prop-list'>
+                    <a class='prop-item'
+                        :class='"type-" + type'
+                        :href="'#prop-key-' + key"
+                        :data-type="type"
+                        v-for='type, key in getUnitMethods()'>
+                        {{key}}
+                        <!-- <div class='brackets empty'>()</div> -->
+                    </a>
+
+                </div>
+                {% endverbatim %}
+
+                {% comment "what" %}
+                    List of all methods, discovered automatically.
+
+                    Alternatively for a single item:
+
+                        {% get_doc_piece 'stage/0.md' %}
+                {% endcomment %}
+                <div class="methods-container">
+                    {% iter_doc_pieces 'point/*.md' ignore_readme=True %}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="toc-container" id="toc-container">
+            {% verbatim %}
+                <ul>
+                    <li :class='"tag-" + title.tagName'
+                        v-for="title in getTitles()">
+                        <a :href='"#prop-key-" + title.key'>{{ title.textContent }}</a>
+                    </li>
+                </ul>
+            {% endverbatim %}
+        </div>
+    </div>
+
+    <footer class="main-footer">
+
+        <div class="outer-block large-hero-block footer-block triple-block">
+
+            <div class="block">
+                <div class="left">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+
+                <div class="center">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+
+                <div class="right">
+                    <div class="filler-box">
+                        <p>{% lorem 10 w random %}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock content %}

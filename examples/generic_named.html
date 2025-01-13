@@ -21,7 +21,7 @@
  {% block content %}
     {% css "css/index.css" %}
     {% include "docs/header.html" %}
-    <main>
+    <main class="icon-pack-outlined">
         <div class="horiz-stack">
             <div class="primary-panel">
                 <div class="header-tools extra-buttons font-Inter-500">
@@ -121,6 +121,7 @@
                     <div class='widget-owner' v-for='item in widgets'>
 
                         <div class="floating widget" :id="item.id">
+                            <h3 v-if='item.showTitle == true'>{{ item.title }}</h3>
                             <div class='widget-fields'>
                                 <div class='widget-field' :class='"field-"+key' v-for='(definition, key) in item.fields'>
                                     <span class="widget-label" v-html="definition.label"></span>

@@ -6,8 +6,52 @@ from pathlib import Path
 import markdown
 import textwrap
 import re
-
+import os
 from django.conf import settings
+import json
+
+# Import from special py_tools space (will change later)
+from tree import Tree, generic_run
+
+from datetime import datetime
+
+def store_tree(filename, tree_data):
+    """ Called by the editor.TreeStorePostView to record a JSON POST
+    of the AST.
+
+        tree_result = theatre.store_tree(filename, json_content)
+
+    The `tree_data` is `dict` converted from JSON and os stored into the
+    docs/trees/ directory.
+    """
+    root_path = settings.POLYPOINT_DOCS_DIR / "trees"
+    f = Path(filename)
+    csuf = f.suffix[1:]
+    save_path = root_path / f.parent / f'{f.stem}-{csuf}-tree.json'
+    tree_data['info'] = {
+        'filename': filename,
+        'store_dt': str(datetime.now()),
+    }
+    s = json.dumps(tree_data, indent=4)
+
+    if save_path.parent.exists() is False:
+        os.makedirs(save_path.parent)
+    save_path.write_text(s)
+
+    generic_run(save_path, src_dir=Path(settings.POLYPOINT_SRC_DIR))
+
+    # Then lets use a tree.
+    # tree = Tree(save_path, src_dir=Path(settings.POLYPOINT_SRC_DIR))
+
+    # tree.prepare()
+    # res = tree.parse_all()
+    # reader = Reader(res, out_dir, comments=tree.get_comments())
+
+
+    return {
+        'save_path': save_path,
+        'exists': save_path.exists(),
+    }
 
 
 def get_theatre_list(**kw):
@@ -43,7 +87,7 @@ def get_theatre_list(**kw):
     return tuple(res)
 
 
-def render_markdown(path, parent):
+def render_markdown(path, parent, clean_meta=False, meta_keys=None):
     theatre_file = (parent / path)
     text_data = theatre_file.read_text()
 
@@ -64,6 +108,9 @@ def render_markdown(path, parent):
         md = markdown.Markdown(extensions=extensions)
         html = md.convert(text_data)
         meta = md.Meta
+        if clean_meta:
+            meta = clean_file_meta(meta, meta_keys=meta_keys)
+
 
     res = file_default_meta(path, meta)
     res['filepath_exists'] = True
@@ -148,29 +195,108 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
     return res
 
 
-def destack_file_dependencies(clean_files_list):
-    for filepath in clean_files_list:
+def destack_file_dependencies(filepaths):
+    for filepath in filepaths:
         # check file,
         # if has header install header
         #   # if the dependency has an dependency, stack above.
         pass
     return clean_file_meta
 
-import json
 
-def clean_files_list(metadata, deep_include=True):
+import json
+def clean_files_list(metadata=None, deep_include=True, files=None, rel_prefix=None):
+    """Generate a clean file list given the meta data of the target.
+
+        with deep_include=true (default), each file is tested for its own
+        imports, and slots them into the result:
+
+            metadata= { "files", ('point.js', )}
+            clean_files_list(metadata)
+
+        return:
+
+            ../point_src/relative-xy.js
+            ../point_src/pointcast.js
+            ../point_src/point.js
+
+        Without deep, the imports are not included:
+
+            clean_files_list(metadata, deep=False)
+
+            ../point_src/point.js
+
+        ---
+
+        Imports are special names from the `files.json`:
+
+            res = clean_files_list(context['metadata'], files=('point',))
+
+            pointpen.js      |
+            point-content.js |-- 'point' reference from json
+            pointdraw.js     |
+
+            relative-xy.js   |__ From point.js headers
+            pointcast.js     |
+
+            point.js         |-- target import
+
+        ---
+
+            res = file_default_meta(path, meta, meta_keys=meta_keys)
+            res['clean_files'] = clean_files_list(res)
+
+        --
+
+            res = theatre.clean_files_list(context['metadata'], files=('point',))
+
+            ../point_src/pointpen.js
+            ../point_src/point-content.js
+            ../point_src/pointdraw.js
+            ../point_src/relative-xy.js
+            ../point_src/pointcast.js
+            ../point_src/point.js
+
+        ---
+
+        Alter the relative prefix of each file:
+
+            res = theatre.clean_files_list(context['metadata'],
+                                        files=names, rel_prefix='')
+
+            pointpen.js
+            point-content.js
+            pointdraw.js
+            relative-xy.js
+            pointcast.js
+            point.js
+
+        This can be applied to a static link. E.g a Trim link:
+
+            {% load link %}
+
+            {% link.url 'examples:point_src' item '_' %}
+            /examples/point_src/point.js
+
+    """
     src_dir = settings.POLYPOINT_SRC_DIR
     files_path = src_dir / 'files.json'
     file_ref = json.loads(files_path.read_text())
-    files = metadata.get('files', ())
-    src_dir = metadata.get('src_dir', None)
-    if src_dir is not None:
-        src_dir = src_dir[0]
+    if files is None:
+        files = metadata.get('files', ())
+    print('clean_files_list', files)
 
-    if src_dir is None:
+    rel_src_dir = rel_prefix
+    if rel_prefix is None:
+        rel_src_dir = metadata.get('rel_src_dir', None)
+    if rel_src_dir is not None:
+        if isinstance(rel_src_dir, (tuple, list)):
+            rel_src_dir = rel_src_dir[0]
+
+    if rel_src_dir is None:
         # the src dir is a relative path
         # to the server call.
-        src_dir = settings.POLYPOINT_THEATRE_SRC_RELATIVE_PATH
+        rel_src_dir = settings.POLYPOINT_THEATRE_SRC_RELATIVE_PATH
 
     # replace specials from the files packs.
     # ensure set()
@@ -193,7 +319,7 @@ def clean_files_list(metadata, deep_include=True):
             continue
         # An object to iterate.
         # foo: [bar, baz]
-        res += flatten_leaf(leaf, file_ref, src_dir)
+        res += flatten_leaf(leaf, file_ref, rel_src_dir)
         # Merge the sub list
         # for item in item_list:
 
@@ -203,11 +329,18 @@ def clean_files_list(metadata, deep_include=True):
     if deep_include is False:
         return res
 
+    # print('deep include on res', files, res)
     # unpack each file head and slice in imports.
     parent_src_dir = settings.POLYPOINT_SRC_DIR
-    relative_src_dir = settings.POLYPOINT_THEATRE_SRC_RELATIVE_PATH
+    relative_src_dir = rel_src_dir
+    if rel_src_dir is None:
+        relative_src_dir = settings.POLYPOINT_THEATRE_SRC_RELATIVE_PATH
     restacked = ()
     for path in res:
+        if len(path) == 0:
+            # Guard against blank paths, sometimes
+            # give from dirty list entries in markdown (YAML) headers
+            continue
         fp = parent_src_dir / path
         if fp.exists() is False:
             print('x Ignore sub file', path)
@@ -242,7 +375,7 @@ def clean_files_list(metadata, deep_include=True):
 
 
 def flatten_leaf(leaf, file_ref, src_dir=None):
-    """Given a lead and reference dictionary, return a list of
+    """Given a leaf and reference dictionary, return a list of
     files for the leaf entry. This Any name leaf within the reference is
     applied to the list.
 

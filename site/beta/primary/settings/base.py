@@ -29,6 +29,7 @@ POLYPOINT_DOCS_DIR = SITE_DIR / 'docs'
 POLYPOINT_THEATRE_DIR = SITE_DIR / 'theatre'
 POLYPOINT_EXAMPLES_DIR = SITE_DIR / 'examples'
 POLYPOINT_THEATRE_SRC_RELATIVE_PATH = '../point_src/'
+POLYPOINT_TOOLS = SITE_DIR / 'py_tools'
 
 # a pack of locations we can use for {% markdown.file filepath %}
 TRIM_MARKDOWN_DIRS = {
@@ -39,6 +40,10 @@ TRIM_MARKDOWN_DIRS = {
     'theatre': POLYPOINT_THEATRE_DIR,
     'examples': POLYPOINT_EXAMPLES_DIR,
 }
+
+import sys
+# add the custom tool reference (will change later.)
+sys.path.append(str(POLYPOINT_TOOLS))
 
 
 INSTALLED_APPS = [

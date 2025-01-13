@@ -17,7 +17,6 @@ class PointListPen {
         this.pointList.forEach((x)=>{
             cb(x, defaultF)
         })
-
     }
 
     line(ctx, color_or_conf, b) {
@@ -52,8 +51,6 @@ class PointListPen {
     indicator() {
         return this.indicators.apply(this, arguments)
     }
-
-
 
     indicators(ctx, miniConf={}) {
         /* Synonymous to:

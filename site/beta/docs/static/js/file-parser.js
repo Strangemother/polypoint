@@ -9,6 +9,7 @@ const runTreeAuto = function(){
     console.log(tree.result)
     console.log(tree.ast)
     console.log(tree)
+    return tree
 }
 
 
@@ -42,9 +43,59 @@ const readAsset = function() {
     // return JSON.stringify(ast, null, 2)
 }
 
+
+const testResolveComment = function(){
+    let comments = tree.comments
+    let method = tree.result.classes.Point.methods.asObject
+
+    let startIndex = 82 // comment index for this func.
+    let testComments = comments.slice(startIndex, startIndex+2)
+
+    let res =  resolveCommentsWithin(method, comments)
+    console.log('Length should equal 2:', res.length)
+    console.log('First item is correct:', res[0]  == testComments[0])
+    console.log('Second item is correct:', res[1]  == testComments[1])
+    return res;
+}
+
+
+const resolveCommentsWithin = function(methodDefinition, treeComments) {
+    /* Resolve all comments _within_ a method, This can be the first comment,
+    or all inner comments.
+
+        resolveComment(tree.result.classes.Point.methods.asObject, tree.comments)
+
+
+    Return a list of 0 or more comment nodes.
+    */
+    // tree.result.classes.Point.methods.asObject
+    // tree.comments
+    // {isStatic: false, start: 16785, end: 17053}
+    let openStack = false
+        , items = []
+        ;
+    // find a comment; comment.start >= def.start, comment.end <= def.end
+    treeComments.forEach(comment=>{
+        openStack = (comment.start >= methodDefinition.start
+                     && comment.end <= methodDefinition.end)
+        // active space
+        if(openStack) {
+            items.push(comment)
+        }
+
+        if(comment.end >= methodDefinition.end) {
+            // close space
+            openStack = false;
+        }
+    })
+
+    return items;
+}
+
 const treeToJSON = function() {
     console.log(JSON.stringify(tree.result, null, 2));
 }
+
 
 class TreeReader {
 
@@ -179,8 +230,8 @@ class TreeReader {
         }
         // split methods and properties
         bodyItems.forEach((e) => {
-            let { isStatic } = e;
-            dmap[e.type][e.name] = { isStatic }
+            let { isStatic, start, end } = e;
+            dmap[e.type][e.name] = { isStatic, start, end }
         })
 
         return {
@@ -193,10 +244,13 @@ class TreeReader {
 
     readNodeMethodDefinition(node, index, items, parentNode, tree) {
         /* Read a single method definition. */
+
         return {
             name: node.key.name
             , type: 'method'
             , isStatic: node.static
+            , start: node.start
+            , end: node.end
         }
     }
 
@@ -227,9 +281,13 @@ class TreeReader {
     }
 
     getMethodInfo(node) {
+        /* return the information for a method. */
+
         return {
             name: node.key.name
             , isStatic: node.static
+            , start: node.start
+            , end: node.end
         }
     }
 

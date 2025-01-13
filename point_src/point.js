@@ -2,6 +2,11 @@
 files:
     relative-xy.js
     pointcast.js
+doc_readme: point/readme.md
+doc_content: point/*.md
+doc_imports: point
+doc_loader: loadDocInfo
+
 */
 
 const isPoint = function(value) {
@@ -22,6 +27,13 @@ const point = function(p, b) {
     }
 
     return p
+}
+
+
+window.loadDocInfo = function() {
+    /* Return the think to resolve */
+    console.log('loadDocInfo called')
+    return Point;
 }
 
 
@@ -531,7 +543,6 @@ class Tooling extends Rotation {
 
         return p;
     }
-
 }
 
 
@@ -634,6 +645,8 @@ class Point extends Tooling {
     asObject() {
         /* Return the important information about this node,
         used for _save_ or copy methods. */
+
+        /* Another comment. */
         return {
             x: this.x
             , y: this.y

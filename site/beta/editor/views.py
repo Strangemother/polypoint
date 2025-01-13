@@ -72,6 +72,40 @@ class PointSrcAssetView(views.TemplateView):
         # response['Content-Length'] = len(content)
         return response
 
+from . import forms
+
+class TreeStorePostView(views.FormView):
+    """Receive a POST of JSON content from a parser, for a file within
+    the point src.
+    When enabled, this file is stored for later use within the documentation.
+    """
+    template_name = "editor/tree_form.html"
+    form_class = forms.TreeForm
+    success_url = views.reverse_lazy('editor:tree_success')
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        json_content = data['content']
+        filename = data['filename']
+        # json_content['info'] = {
+        #     "filename": filename
+        # }
+        # print('Result', filename, json_content.keys())
+        # json_content = json.loads(json_content)
+        self.tree_result = theatre.store_tree(filename, json_content)
+        self.form_filename = filename
+        print('RESULT', self.tree_result)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        ok = self.tree_result['exists']
+        filename = self.form_filename
+        return views.reverse('docs:point_src', args=(self.form_filename,))
+
+import json
+
+class TreeStorePostSuccessView(views.TemplateView):
+    template_name = "editor/tree_post_succes.html"
 
 
 class TheatreSrcAssetView(views.TemplateView):

@@ -376,6 +376,7 @@ class StageRender {
     }
 
     firstDraw(ctx) {}
+
     draw(ctx) {
         /* The primary rendering function to override.
         Called by the `update()` method, given the context `ctx` of the

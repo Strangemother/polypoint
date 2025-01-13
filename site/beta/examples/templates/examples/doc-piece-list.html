@@ -1,0 +1,4 @@
+{% load try_include %}
+{% for rel_filepath in filepaths %}
+    {% get_doc_piece rel_filepath %}
+{% endfor %}

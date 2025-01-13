@@ -1,3 +1,27 @@
+/*
+
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/extras.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/stage.js
+    ../point_src/point.js
+    ../point_src/distances.js
+    ../point_src/pointlistpen.js
+    ../point_src/pointlist.js
+    ../point_src/events.js
+    ../point_src/functions/clamp.js
+    ../point_src/curve-extras.js
+    ../point_src/random.js
+    ../point_src/dragging.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+    ../point_src/automouse.js
+
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
@@ -53,7 +77,7 @@ class MainStage extends Stage {
             return
         }
         //speedVector
-        mp.speed = mp.distanceTo(lastPosition)
+        mp.speed = mp.distanceTo(lastPosition) * .5
         let dist = mp.speed
         if(this.drawingLine && dist > this.maxDistance) {
             this.line && this.tickFunc()
@@ -91,9 +115,9 @@ class MainStage extends Stage {
             let firstPoint = abPointList.first()
             let dist = firstPoint.distanceTo(endPoint)
             let newFirst = Point.from(firstPoint.asArray())
-            newFirst.radius += dist * .1
+            newFirst.radius += dist * .4
             let newEnd = Point.from(endPoint.asArray())
-            newEnd.radius += dist * .2
+            newEnd.radius += dist * .4
             newEnd.rotation += 180
 
             let curve = new BezierCurve(newFirst, newEnd)

@@ -14,9 +14,11 @@ urlpatterns = urls.paths_named(views,
     page_example=('ExamplePageView', 'example/1/'),
     another_page_example=('ExampleDocPageView', 'example/2/'),
     another_page_example_2=('ExampleDoc2PageView', 'example/3/'),
+    another_page_example_3=('ExampleDoc3PageView', 'example/4/'),
 
     md2md=('MarkdownToMarkdownExampleView', 'md2md/'),
     point_src_dir=('PointSrcDirView', 'dir/<path:path>/'),
     point_src=('PointSrcFileView', 'file/<path:path>/'),
+
     file_parse=('FileParseView', ('parse/<path:path>/', 'parse/', )),
 )

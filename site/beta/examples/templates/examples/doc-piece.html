@@ -1,0 +1,20 @@
+
+<a class="anchor" name="prop-key-{{ prop_key }}"></a>
+<div class='method prop-key-{{ prop_key }} type-{{ type }}'
+    data-type="{{type}}"
+    data-returns="{{returns}}"
+    data-prop="{{prop_key}}">
+
+    <div class='sig type-{{ type }}'>
+        <h3>{% firstof title alt_title %}</h3>
+        {% if type == 'function' %}
+        {# <div class='brackets empty'>()</div> #}
+        {% endif %}
+        {% if returns %}
+            <span class='returns'>{{ returns }}</span>
+        {% endif %}
+    </div>
+    <div class='info'>
+        <div class="markdown-html-container">{{ markdown.html|safe }}</div>
+    </div>
+</div>

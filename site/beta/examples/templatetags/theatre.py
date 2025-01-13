@@ -38,6 +38,32 @@ def render_markdown_file(context, filepath, *url_args, **kwargs):
     return content['markdown']['html']
 
 
+@register.simple_tag(takes_context=True, name='src_files')
+def get_src_files(context, names):
+    """Given a list of reference names, return script include strings
+    for imports.
+
+        {% src_files "point" as point_files %}
+
+    returning a list:
+
+        ../point_src/pointpen.js
+        ../point_src/point-content.js
+        ../point_src/pointdraw.js
+        ../point_src/relative-xy.js
+        ../point_src/pointcast.js
+        ../point_src/point.js
+
+    through the theatre file list, synonmyous to:
+
+        res = theatre.clean_files_list(context['metadata'], files=('point',))
+    """
+    if isinstance(names, str):
+        names = (names, )
+    res = theatre.clean_files_list(context['metadata'],
+                                files=names, rel_prefix='')
+
+    return res
 
 @register.inclusion_tag('templatetags/code_content.html', takes_context=True,
                         name='code_content')

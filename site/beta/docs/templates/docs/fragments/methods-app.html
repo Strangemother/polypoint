@@ -1,0 +1,22 @@
+{% load link theatre %}
+
+{% link.js "js/docs/doc-prop-methods.js" %}
+{% link.js "js/docs/methods-app.js" "defer" %}
+
+<script src=/examples/point_src/core/head.js></script>
+{# File list of JS assets #}
+{% src_files metadata.doc_imports as point_files %}
+<div class="border-solid-1px-red">
+    <ul class="display-table">
+        {% for item in point_files %}
+        <li class="display-table-row">
+            <div class="display-table-cell">{{ item }}</div>
+            <div class="display-table-cell">
+            {% link.url 'examples:point_src' item '_' as url_link %}
+            {{ url_link }}
+            </div>
+            <script type="text/javascript" src='{{url_link}}'></script>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

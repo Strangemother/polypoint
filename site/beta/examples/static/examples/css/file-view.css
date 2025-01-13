@@ -119,7 +119,7 @@ footer.primay-status-bar {
 .widget {
     background: hsl(0deg 0% 3%);
     border-radius: 0.6em;
-    padding: 0.4em 0;
+    padding: 0em 0 0.4em 0;
     color: #999;
 }
 
@@ -147,6 +147,7 @@ span.widget-label {}
     display: table;
     min-width: 4em;
     margin-right: 0.5em;
+    padding-top: 0.2rem;
 }
 
 .widget-field {
@@ -244,4 +245,13 @@ a.button {
 
 span.pseudo-label {
     font-size: 0.8em;
+}
+
+.widget > h3 {
+    margin: 0;
+    padding: 0em 0.5em 0em;
+    font-size: inherit;
+    text-align: center;
+    font-weight: 400;
+    color: #c439d5;
 }

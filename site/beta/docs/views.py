@@ -93,11 +93,25 @@ class ExamplePageView(views.TemplateView):
         r = super().get_context_data(**kwargs)
         return r
 
+
 class ExampleDocPageView(ExamplePageView):
     template_name = 'docs/another-example-doc.html'
 
+
 class ExampleDoc2PageView(ExamplePageView):
     template_name = 'docs/another-example-doc-2.html'
+
+
+class ExampleDoc3PageView(ExamplePageView):
+    template_name = 'docs/another-example-doc-3.html'
+
+    def get_context_data(self, **kwargs):
+        r = super().get_context_data(**kwargs)
+        path = 'point.js'
+        parent = settings.POLYPOINT_SRC_DIR
+        meta = theatre.get_metadata(path, parent)
+        r['metadata'] = meta
+        return r
 
 
 
@@ -256,7 +270,6 @@ class PointSrcDirView(views.ListView):
             "exists": True,
             "text": readme_md_text,
         })
-
 
         parent = settings.POLYPOINT_SRC_DIR
         rel_path = readme_path.relative_to(parent)

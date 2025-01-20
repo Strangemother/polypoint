@@ -1,33 +1,42 @@
 """
 Read the AST tree of the js files within the docs/trees.
 """
-from datetime import datetime as dt
 import os
-from pathlib import Path
 import json
+from pathlib import Path
+from datetime import datetime as dt
 
 from django.conf import settings
-
 from collections import defaultdict
 
-def run_test(**kw):
+from .encoder import ComplexEncoder
+from .reader import Reader
+from .convert import Convert
+
+def run_test(tree_filepath=None, **kw):
     """
     import tree
     tree.run_test(keep_coords=True)
     """
     root = Path('C:/Users/jay/Documents/projects/polypoint/')
-    # tree_filepath = f"{root}/docs/trees/point-js-tree.json"
-    tree_filepath = f"{root}/docs/trees/relative-xy-js-tree.json"
+    tree_filepath = kw.get('tree_filepath', f"{root}/docs/trees/point-js-tree.json")
+    # tree_filepath = f"{root}/docs/trees/relative-xy-js-tree.json"
     src_dir = f"{root}/point_src/"
+    filepath = f"{src_dir}/point.js"
     print('Reading tree file', tree_filepath)
+    filepath = Path(filepath).relative_to(src_dir)
     # t.load_treefile()
     # t.load_file()
     # t.split_file()
-    return generic_run(tree_filepath, src_dir, **kw)
+    return generic_run(tree_filepath, src_dir, filepath, **kw)
 
 
-def generic_run(tree_filepath, src_dir, **kw):
-
+def generic_run(tree_filepath, src_dir, filepath=None, **kw):
+    """
+        tree_filepath: the ast tree filepath
+        src_dir: the polypoint src directory for reference.
+        filepath: the input filepath used to generate the AST (optional)
+    """
     rp = Path(tree_filepath).with_suffix('')
     out_dir = rp / 'cut-cache'
     if out_dir.exists() is False:
@@ -40,9 +49,15 @@ def generic_run(tree_filepath, src_dir, **kw):
     print('Writing', out_p)
     t.write_result(out_p, res)
 
-    reader = Reader(res, out_dir, comments=t.get_comments())
-    reader.make_classes_methods_docfiles()
+    reader = Reader(res, out_dir, filepath, comments=t.get_comments())
+    cut_result = reader.make_docfiles()
+
+    output_dir = kw.get('output_dir')
+
+    Convert().flatten(cut_result['filepath'], output_dir)
+
     return t, reader
+
 
 def reload_tool():
     """
@@ -55,360 +70,12 @@ def reload_tool():
     return tree
 
 
-class Reader:
-
-    def __init__(self, tree, output_dir, comments=None):
-        self.tree = tree
-        self.output_dir = output_dir
-        self.comments = comments
-
-    def make_classes_methods_docfiles(self):
-        """Read the self.tree for all class definition.
-        Split all methods into seperate files in 'class-cut',
-        and create a 'data-cut' cheaper version for UI consuption.
-
-            t = Tree(p, src_dir=src_dir, **kw)
-            t.prepare()
-            res = t.parse_all()
-            t.write_result(out_p, res)
-            reader = Reader(res, out_dir, comments=t.get_comments())
-            reader.make_classes_methods_docfiles()
-
-        write:
-            + A dir for each class
-            + a file for each method
-        """
-        results = self.tree#.parse_all()
-        keeps = ()
-        for block in results:
-            if block['type'] == 'ClassDeclaration':
-                keeps += (block,)
-
-        out_dir = self.output_dir
-        # now a file per class block.
-        for class_block in keeps:
-            class_name = class_block['id']['name']
-            filename = out_dir / f"class-cut-{class_name}.json"
-
-            content = json.dumps(class_block, cls=ComplexEncoder, indent=4)
-            filename.write_text(content)
-
-            class_body = class_block['body']
-            for method_def in class_body['body']:
-                self.make_method_cutfiles(method_def, class_block)
-
-    def make_method_cutfiles(self, method_def, class_block):
-        """Build the method asset for the single MethodDefinition
-
-        this is stored within 'class-cut' and 'data-cut'for each file.
-        """
-        out_dir = self.output_dir
-
-        method_name = self.get_method_name(method_def)
-        params = self.get_method_params(method_def)
-        comments = self.get_method_comments(method_def, block_comments=True, single_line=False)
-        class_name = class_block['id']['name']
-        filename = out_dir / "class-cut" / class_name / f"{method_name}.json"
-
-        # JSON file created for this method definition
-        info_file_data = dict(
-                method_name=method_name,
-                class_name=class_name,
-                params=params,
-                coord=method_def['coord'],
-                ast_file="ignored", # filename,
-                comments=comments,
-            )
-
-        info_file = out_dir / "data-cut" / class_name / f"{method_name}.json"
-
-        self.save_write_json(info_file, info_file_data)
-        self.save_write_json(filename, method_def)
-
-    def get_method_comments(self, method_def, block_comments=True, single_line=True):
-        """Given a method with coords, return a list of 0 to many comments
-        for this method definition.
-
-        This requires the original tree `comments`
-        """
-        # Splice in where
-        res = ()
-
-        coord = method_def['coord']
-        # print('Coord', coord)
-        start = coord.start
-        end = coord.end
-
-        for comment in self.comments:
-            #Ensure the given comment is within the working range
-            openStack = comment['start'] >= start and comment['end'] <= end
-            if openStack:
-                # Is a block, and blocks are requested
-                match_block = comment['block'] == True and block_comments == True
-                # is a single line, and single line is request
-                match_single_line = comment['block'] == False and single_line == True
-                if match_block or match_single_line:
-                    # Clean up the comment to match
-                    # the existing pattern.
-                    _comment = comment.copy()
-                    _comment['coord'] = [
-                                _comment['start'],
-                                _comment['end'],
-                            ]
-
-                    _comment.pop('start', None)
-                    _comment.pop('end', None)
-
-                    res += (_comment, )
-
-            # Past the end of the applicable range.
-            if comment['end'] >= end:
-                break
-
-        return res
-
-
-    def get_method_params(self, method_def):
-        """
-
-        (Pdb) pp(method_def['value'])
-            {'async': False,
-             'body': {'body': ({'argument': {'arguments': ({'raw': "'x'",
-                                                            'type': 'Literal',
-                                                            'value': 'x'},
-                                                           {'name': 'v',
-                                                            'type': 'Identifier'}),
-                                             'callee': {'computed': False,
-                                                        'object': {'type': 'ThisExpression'},
-                                                        'optional': False,
-                                                        'property': {'name': 'setSpecial',
-                                                                     'type': 'Identifier'},
-                                                        'type': 'MemberExpression'},
-                                             'optional': False,
-                                             'type': 'CallExpression'},
-                                'type': 'ReturnStatement'},),
-                      'type': 'BlockStatement'},
-             'expression': False,
-             'generator': False,
-             'id': None,
-             'params': ({'name': 'v', 'type': 'Identifier'},),
-             'type': 'FunctionExpression'}
-
-        ---
-
-            {'action': 'raw',
-             'computed': False,
-             'key': {'name': 'lerp', 'type': 'Identifier'},
-             'static': False,
-             'type': 'PropertyDefinition',
-             'value': {'computed': False,
-                       'object': {'type': 'ThisExpression'},
-                       'optional': False,
-                       'property': {'name': 'midpoint', 'type': 'Identifier'},
-                       'type': 'MemberExpression'}}
-        """
-
-        value = method_def['value']
-        _type = value['type']
-        name = f"get_method_params_{_type}"
-        print('discovering', name, )
-        if hasattr(self, name):
-            return getattr(self, name)(method_def)
-        return self.get_method_params_unknown(method_def)
-
-    def get_method_params_FunctionExpression(self, method_def):
-        """
-        value=
-            {'async': False,
-             'body': {'body': ({'argument': {'arguments': ({'raw': "'x'",
-                                                            'type': 'Literal',
-                                                            'value': 'x'},
-                                                           {'name': 'v',
-                                                            'type': 'Identifier'}),
-                                             'callee': {'computed': False,
-                                                        'object': {'type': 'ThisExpression'},
-                                                        'optional': False,
-                                                        'property': {'name': 'setSpecial',
-                                                                     'type': 'Identifier'},
-                                                        'type': 'MemberExpression'},
-                                             'optional': False,
-                                             'type': 'CallExpression'},
-                                'type': 'ReturnStatement'},),
-                      'type': 'BlockStatement'},
-             'expression': False,
-             'generator': False,
-             'id': None,
-             'params': ({'name': 'v', 'type': 'Identifier'},),
-             'type': 'FunctionExpression'}
-
-        ---
-
-            (Pdb) pp(node)
-            {'computed': False,
-             'key': {'name': 'x', 'type': 'Identifier'},
-             'kind': 'set',
-             'static': False,
-             'type': 'MethodDefinition',
-             'value': {'async': False,
-                       'body': {'body': ({'argument': {'arguments': ({'raw': "'x'",
-                                                                      'type': 'Literal',
-                                                                      'value': 'x'},
-                                                                     {'name': 'v',
-                                                                      'type': 'Identifier'}),
-                                                       'callee': {'computed': False,
-                                                                  'object': {'type': 'ThisExpression'},
-                                                                  'optional': False,
-                                                                  'property': {'name': 'setSpecial',
-                                                                               'type': 'Identifier'},
-                                                                  'type': 'MemberExpression'},
-                                                       'optional': False,
-                                                       'type': 'CallExpression'},
-                                          'type': 'ReturnStatement'},),
-                                'type': 'BlockStatement'},
-                       'expression': False,
-                       'generator': False,
-                       'id': None,
-                       'params': ({'name': 'v', 'type': 'Identifier'},),
-                       'type': 'FunctionExpression'}}
-        """
-        value = method_def['value']
-        params = value['params']
-        return params
-
-    def get_method_params_MemberExpression(self, node):
-        """
-            {'action': 'raw',
-             'computed': False,
-             'key': {'name': 'lerp', 'type': 'Identifier'},
-             'static': False,
-             'type': 'PropertyDefinition',
-             'value': {'computed': False,
-                       'object': {'type': 'ThisExpression'},
-                       'optional': False,
-                       'property': {'name': 'midpoint', 'type': 'Identifier'},
-                       'type': 'MemberExpression'}}
-        """
-        return node['key']['name']
-
-    def get_method_params_PropertyDefinition(self, node):
-        """
-        (Pdb) pp(node)
-        {'action': 'raw',
-         'computed': False,
-         'key': {'name': 'UP', 'type': 'Identifier'},
-         'static': False,
-         'type': 'PropertyDefinition',
-         'value': {'name': 'UP_DEG', 'type': 'Identifier'}}
-        """
-        return node['key']['name']
-
-    def get_method_params_Identifier(self, method_def):
-        return method_def['key']['name']
-
-    def get_method_params_unknown(self, method_def):
-        print('unknown value def for params...', method_def['type'])
-        import pdb; pdb.set_trace()  # breakpoint 46e927f8 //
-
-    def save_write_json(self, filename, content):
-        if filename.parent.exists() is False:
-            os.makedirs(filename.parent)
-
-        t_content = json.dumps(content, cls=ComplexEncoder, indent=4)
-        filename.write_text(t_content)
-
-    def get_method_name(self, method_def):
-        _type = method_def['key']['type']
-        name = f"method_definition_key_{_type}"
-        if hasattr(self, name):
-            return getattr(self, name)(method_def)
-
-        return self.method_definition_key_unknown(method_def)
-
-    def method_definition_key_unknown(self, method_def):
-        print('Not found', name)
-        import pdb; pdb.set_trace()  # breakpoint d8418351 //
-
-    # def method_definition_key_MethodDefinition(self, method_def):
-    def method_definition_key_Identifier(self, method_def):
-        """
-        (Pdb) pp(method_def)
-        {'computed': False,
-         'key': {'name': 'x', 'type': 'Identifier'},
-         'kind': 'set',
-         'static': False,
-         'type': 'MethodDefinition',
-         'value': {'async': False,
-                   'body': {'body': ({'argument': {'arguments': ({'raw': "'x'",
-                                                                  'type': 'Literal',
-                                                                  'value': 'x'},
-                                                                 {'name': 'v',
-                                                                  'type': 'Identifier'}),
-                                                   'callee': {'computed': False,
-                                                              'object': {'type': 'ThisExpression'},
-                                                              'optional': False,
-                                                              'property': {'name': 'setSpecial',
-                                                                           'type': 'Identifier'},
-                                                              'type': 'MemberExpression'},
-                                                   'optional': False,
-                                                   'type': 'CallExpression'},
-                                      'type': 'ReturnStatement'},),
-                            'type': 'BlockStatement'},
-                   'expression': False,
-                   'generator': False,
-                   'id': None,
-                   'params': ({'name': 'v', 'type': 'Identifier'},),
-                   'type': 'FunctionExpression'}}
-        """
-        return method_def['key']['name']
-
-    def method_definition_key_Literal(self, method_def):
-        #  {'type': 'Literal', 'value': 0, 'raw': '0'}
-        return method_def['key']['raw']
-
-    def method_definition_key_MemberExpression(self, method_def):
-
-        """
-            {'computed': False,
-             'object': {'name': 'Symbol',
-                        'type': 'Identifier'},
-             'optional': False,
-             'property': {'name': 'toStringTag',
-                          'type': 'Identifier'},
-             'type': 'MemberExpression'}
-
-        for JS:
-
-            get [Symbol.toStringTag]() {
-                return this.toString()
-            }
-        """
-
-        kd = method_def['key']
-        return f"{kd['object']['name']}.{kd['property']['name']}"
-
-
 class TreeGetter:
     def __init__(self, data):
         self._data = data
 
     def __getattr__(self, key):
         return self._data[key]
-
-
-import json
-class ComplexEncoder(json.JSONEncoder):
-    # json.dumps(cls=ComplexEncoder)
-    def default(self, obj):
-        if hasattr(obj, 'as_json'):
-            return obj.as_json()
-
-        if isinstance(obj, Path):
-            return str(obj.as_posix())
-
-        if isinstance(obj, Coord):
-            return vars(obj)
-        # Let the base class default method raise the TypeError
-        return super().default(obj)
 
 
 class TreeLoader:
@@ -1025,6 +692,11 @@ class Tree(TreeLoader):
         self.copy_from_many(clean, keys, index, node, ast)
         return clean
 
+    def read_node_FunctionDeclaration(self, node, index, parent, ast):
+        clean = self.twist_coords(node)
+        res = ()
+        return clean
+
     def read_node_MemberExpression(self, node, index, parent, ast):
         clean = self.twist_coords(node)
         # clean['object'] = self.read_node(node['object'], index, node, ast)
@@ -1128,7 +800,6 @@ class Tree(TreeLoader):
         # Create the coordinates unit
 
 
-
 class Coord:
     """Coordinates, packing the start, end, and _loc_ in a readable unit.
     """
@@ -1173,3 +844,4 @@ class Coord:
 
     def __repr__(self):
         return f"<{self.__str__()}>"
+

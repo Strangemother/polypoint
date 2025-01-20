@@ -19,6 +19,7 @@ urlpatterns = urls.paths_named(views,
     md2md=('MarkdownToMarkdownExampleView', 'md2md/'),
     point_src_dir=('PointSrcDirView', 'dir/<path:path>/'),
     point_src=('PointSrcFileView', 'file/<path:path>/'),
+    # point_class=('PointSrcClassView', 'class/<path:path>/'),
 
     file_parse=('FileParseView', ('parse/<path:path>/', 'parse/', )),
 )

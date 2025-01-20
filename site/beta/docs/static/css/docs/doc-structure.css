@@ -37,7 +37,10 @@
     text-decoration: underline;
 }
 
-.toc-container {}
+.toc-container > ul {
+    max-height: 83vh;
+    overflow: auto;
+}
 
 .outer-block .method {
     border-top: solid 2px #111;
@@ -108,7 +111,7 @@ a.prop-item.type-object {
     /* border: solid 1px red; */
     display: flex;
     position: relative;
-    top: -5rem;
+    top: -9rem;
     z-index: 2;
 }
 
@@ -121,4 +124,133 @@ li.tag-H3 {
 
 a.prop-item:hover, a.prop-item:focus {
     text-decoration: underline;
+}
+
+h3.class-method-name {
+    font-size: inherit;
+    margin: 0;
+    padding: 0 0.2em 0 0em;
+    color: hsl(291deg 72% 66%);
+    font-weight: normal;
+}
+
+.signature .method-head {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.params .comma:last-child {
+    display: none;
+}
+
+.params .comma, .signature .bracket {
+    color: hsl(209deg 11% 62%);
+    /* font-size: 1em; */
+    display: inline-flex;
+}
+
+.signature .params span.name {
+    /* outline: solid 1px red; */
+    /* background: #181818; */
+    padding: 0 0em;
+    color: #99d19b;
+    /* font-size: 1rem; */
+    display: inline-flex;
+    align-items: center;
+}
+
+.signature .params {
+    /* margin: 0 0.3em; */
+    display: flex;
+    gap: 0.3em;
+    font-size: 1rem;
+}
+
+span.default-value {
+    align-items: center;
+    display: inline-flex;
+}
+
+.signature .bracket {
+    /* font-size: 1.3em; */
+}
+
+.kind-method {
+}
+
+span.class-method-kind.kind-method {
+    color: hsl(210deg 74% 58%);
+}
+
+span.class-method-kind.kind-constructor {
+    color: tan;
+}
+
+.class-method-kind {
+    background: #171717;
+    font-size: 1rem;
+    padding: 0.2em 0.5em;
+    border-radius: 0.3em;
+    /* flex-grow: 1; */
+    /* text-align: right; */
+}
+
+
+.sticky-header {
+    position: sticky;
+    top: 3em;
+    background: #111;
+    padding: 1rem 0;
+    display: flex;
+    background: #222;
+    gap: 0.5em;
+    display: flex;
+    align-items: center;
+}
+
+.classes-container .class-unit {
+    margin-top: 5em;
+}
+
+.classes-container h2 {
+    margin: 0;
+    background: unset;
+    -webkit-text-fill-color: unset;
+    color: inherit;
+    font-weight: normal;
+    font-size: 1.4rem;
+    color: hsl(299deg 82% 44%);
+}
+
+.classes-container .parent-class {
+    font-size: 1.2em;
+    color: hsl(299deg 49% 50%);
+}
+
+.class-unit span.sub-text {
+    color: #666;
+    padding-left: 0.4rem;
+    /* font-size: 1rem; */
+}
+
+.method-owner-class {
+    font-size: 1rem;
+    margin-left: auto;
+}
+
+li[data-ishome="true"] .method-owner-class {
+    display: none;
+}
+
+.class-doc {
+    padding: 0 1em 0 2em;
+}
+
+.toc-container a.kind-method .kind {
+    display: none;
+}
+
+.toc-container a.kind-set .kind, .toc-container a.kind-get .kind {
+    color: #666;
 }

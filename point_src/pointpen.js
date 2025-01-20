@@ -165,7 +165,8 @@ class PointPen {
     }
 
     indicator(ctx, miniConf={}) {
-        /* Synonymous to:
+        /*
+        Synonymous to:
 
             weightedComPoint.project().pen.line(ctx, weightedComPoint, 'red', 2)
             weightedComPoint.pen.circle(ctx, undefined, 'yellow', 1)

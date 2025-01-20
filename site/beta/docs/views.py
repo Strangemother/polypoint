@@ -18,6 +18,8 @@ from examples import theatre
 import markdown
 
 
+import json
+
 def get_src_list(sub_path=None, **kw):
     # get all files in the src dir
 
@@ -374,7 +376,46 @@ class PointSrcFileView(views.TemplateView):
         path = self.kwargs.get('path')
         p = Path(path).with_suffix('.js')
         r['object_path'] = p
-        return self.markdown_and_meta(r, path)
+        r = self.markdown_and_meta(r, path)
+        return self.apply_method_docs(r, path)
+
+    def apply_method_docs(self, r, path):
+        """Apply the additional information for all methods for this unit,
+        from the docs. (data-cuts)
+        """
+        rp = Path(path)
+        docs_parent = settings.POLYPOINT_DOCS_DIR
+
+        # target filename
+        name = rp.with_suffix('.js').name.replace('.', '-')
+        nrp = rp.with_name(f'{name}-references.json')
+        trees_parent = docs_parent / f"trees/clean" / nrp
+
+        print('\n\ntrees_parent.exists(): ',trees_parent.exists(), trees_parent, '\n\n')
+
+        if trees_parent.exists() is False:
+            return r
+
+        # Open the file, read all methods. As this is the src file ('point.js')
+        # we access all referenes.
+        refs = self.get_json(trees_parent)
+        ref_path = trees_parent.parent
+        result = {}
+        for name in refs['defined']:
+            class_info = refs['items'][name] # E.g. Point
+            # now iter each sub defined entity e.g. 0-Positionable
+            for local_key in class_info['local_references']:
+                class_ref = class_info[local_key]
+                class_info_file = ref_path / class_ref['info_file']
+                class_def = self.get_json(class_info_file)
+                result[name] = class_def
+
+        # store to the given object
+        r['references'] = result
+        return r
+
+    def get_json(self, path):
+        return json.loads(path.read_text())
 
     def markdown_and_meta(self, r, path):
         """coupled with the response_class, render the file disovered markdown
@@ -406,3 +447,5 @@ class PointSrcFileView(views.TemplateView):
         """
         return pre_processed_html
 
+
+# class PointSrcClassView(PointSrcFileView):

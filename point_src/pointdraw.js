@@ -16,6 +16,22 @@ class PointDraw {
         return this.arc(ctx, radius)
     }
 
+    line(ctx, distance=this.point.radius) {
+        /* draw a line from the current point position to the length of
+        the given `distance`. */
+    }
+
+    hair(ctx, length) {
+        /* draw a line in two antipose directions. Similar to two `line` call in
+        opposite directions. */
+    }
+
+    crossHair(ctx, length, sqeeeze=0, rotation){
+        /* Two hair() calls in a cross formation. With a squeeze factor, 0 for
+        no change (cross) and 1 for full change (two lines drawn upon each other)
+        */
+    }
+
     lineTo(ctx, b) {
         let a = this.point;
         if(b != undefined) {
@@ -42,7 +58,6 @@ class PointDraw {
         let p = this.point
         ctx.roundRect(p.x, p.y, width, height, radii)
     }
-
 
 
     ngon(ctx, sides, radius, fromCenter=true, angle=0) {

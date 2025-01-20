@@ -26,6 +26,7 @@
 
     {% link.js "js/docs/doc-prop-methods.js" %}
     {% link.js "js/docs/methods-app.js" "defer" %}
+    {% link.css "css/docs/src-file.css" %}
 
     {{ metadata.doc_loader|json_script:"doc-loader-info" }}
     <script type="text/javascript">
@@ -47,8 +48,9 @@
     {# File list of JS assets #}
     <div class="outer-block">
         <div class="block" id="methods">
+
             <div class="border-solid-1px-#880000">
-                <p>File imports discovered within the "docs_import" meta key (including meta imports)</p>
+                <p>File imports discovered within the "docs_imports" meta key (including meta imports)</p>
                 <ul class="display-table">
                     {% for item in point_files %}
                     <li class="display-table-row">
@@ -107,65 +109,196 @@
         </div>
     </div>
 
-    {# doc readme text #}
-    <div class="outer-block">
-        <div class="block" id="methods">
-            <div class="content-text">
-                {% for part_path in metadata.doc_readme %}
-                    {% markdown.file "docs" part_path %}
-                {% endfor %}
+<hr>
+
+    {% link.css "css/docs/another-example.css" %}
+    {% link.css "css/docs/doc-structure.css" %}
+
+    {% link.js "js/docs/toc-app.js" "defer" %}
+
+    <div class="content-stack">
+
+        <div class="left-superlist-container">
+            {% include "./superlist.html" %}
+        </div>
+
+        <div class="outer-block">
+            <div class="block" id="methods">
+                <div class="content-text">
+                    {# 'point/readme.md' #}
+                    {% markdown.file "docs" metadata.doc_readme.0 %}
+                </div>
+
+                <hr>
+
+                <h2>Methods</h2>
+                {% comment "what" %}
+                    A link list of all discovered methods,
+                    at JS runtime.
+
+                    Each item is a link to a django discovered
+                    'doc piece' below.
+                {% endcomment %}
+                {% verbatim %}
+                <div class='prop-list'>
+                    <a class='prop-item'
+                        :class='"type-" + type'
+                        :href="'#prop-key-' + key"
+                        :data-type="type"
+                        v-for='type, key in getUnitMethods()'>
+                        {{key}}
+                        <!-- <div class='brackets empty'>()</div> -->
+                    </a>
+
+                </div>
+                {% endverbatim %}
+
+                {% comment "what" %}
+                    List of all methods, discovered automatically.
+
+                    Alternatively for a single item:
+
+                        {% get_doc_piece 'stage/0.md' %}
+                <div class="methods-container">
+                    {% iter_doc_pieces 'point/*.md' ignore_readme=True %}
+                </div>
+                {% endcomment %}
+
+                {% comment "what" %}
+                    List of all methods, discovered automatically.
+
+                    Alternatively for a single item:
+
+                        {% get_doc_piece 'stage/0.md' %}
+                {% endcomment %}
+                <div class="methods-container">
+                    {% for re_path in metadata.doc_content %}
+                        {% iter_doc_pieces re_path ignore_readme=True %}
+                    {% endfor %}
+
+                    <div class="classes-container">
+                        {% for class_name, class_info in references.items %}
+                        <div class="class-unit">
+                            <a class='anchor' name='{{class_name}}'></a>
+
+                            <div class="sticky-header">
+                                <div class="item-kind-space">
+                                    <span class="class-method-kind kind-class">class</span>
+                                </div>
+                                <h2 data-key='{{class_name}}'>{{ class_name }}</h2>
+                                {% if class_info.inherits %}
+                                    <span class="sub-text inherits">extends</span>
+                                    <span class="parent-class">{{ class_info.inherits }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="class-doc">
+                                <div class="comments">
+                                    {% for comment in class_info.comments %}
+                                        <div class="comment">
+                                            {{ comment.html|safe }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+
+                            <ul class='class-methods'>
+                                {% for class_method in class_info.methods %}
+                                <li class="kind-{{class_method.kind}}"
+                                    data-current-class="{{class_name}}"
+                                    data-owner-class="{{ class_method.class_name }}"
+                                    {% if class_name == class_method.class_name %}
+                                        data-ishome="true"
+                                    {% else %}
+                                        data-ishome="false"
+                                    {% endif %}
+                                    data-key='{{ class_name }}-{{ class_method.method_name }}'>
+                                    <div class="signature">
+
+                                        <a class='anchor' name='{{ class_name }}-{{ class_method.method_name }}'></a>
+                                        <div class='method-head'>
+                                            <div class="item-kind-space">
+                                                <span class="class-method-kind kind-{{ class_method.kind }}">
+                                                    {% firstof class_method.kind '' %}
+                                                </span>
+                                            </div>
+                                            <h3 data-kind='{{class_method.kind}}' data-key='{{ class_name }}-{{ class_method.method_name }}'
+                                                class="class-method-name">{{ class_method.method_name }}</h3>
+                                        </div>
+
+                                        {% if class_method.kind == 'method' %}
+                                            <div class="bracket bracket-open">(</div>
+                                        {% endif %}
+
+                                        <div class="params">
+                                            {% for param in class_method.params %}
+                                                <span class="name">{{ param.name }}</span>
+                                                {% if param.default_value %}
+                                                    <span>=</span>
+                                                    <span class="default-value">{{param.default_value}}</span>
+                                                {% endif %}
+                                                {% comment %}
+                                                {% if param.name %}
+                                                {% else %}
+                                                    <span>{{ param.left.name }}</span>
+                                                    {% if param.right.value %}
+                                                        <span>=</span>
+                                                        <span>{{ param.right.value }}</span>
+                                                    {% elif param.right.name %}
+                                                        <span>=</span>
+                                                        <span>{{ param.right.name }}</span>
+                                                    {% else %}
+                                                        <span>?</span>
+                                                        <span>{{ param.right.keys }}</span>
+                                                    {% endif %}
+                                                {% endif %}
+                                                {% endcomment %}
+                                                <span class="comma">,</span>
+                                            {% endfor %}
+                                        </div>
+
+                                        {% if class_method.kind == 'method' %}
+                                            <div class="bracket bracket-close">)</div>
+                                        {% endif %}
+
+                                        <div class="method-owner-class">
+                                            <span class="sub-text inherits">from</span>
+                                            <span class="owner-class-name">{{ class_method.class_name }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="comments">
+                                        {% for comment in class_method.comments %}
+                                            <div class="comment">
+                                                {{ comment.html|safe }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <h2>Methods</h2>
-            {% comment "what" %}
-                A link list of all discovered methods,
-                at JS runtime.
-
-                Each item is a link to a django discovered
-                'doc piece' below.
-
-                Requires (petite) Vue and doc-index
-            {% endcomment %}
+        <div class="toc-container" id="toc-container">
             {% verbatim %}
-            <div class='prop-list'>
-                <a class='prop-item'
-                    :class='"type-" + type'
-                    :href="'#prop-key-' + key"
-                    :data-type="type"
-                    v-for='type, key in getUnitMethods()'>
-                    {{key}}
-                    <!-- <div class='brackets empty'>()</div> -->
-                </a>
-            </div>
+                <ul>
+                    <li :class='"tag-" + title.tagName'
+                        v-for="title in getTitles()">
+                        <a :class='"kind-" + title.kind' :href='"#" + title.key'>
+                            <span class='kind'>{{ title.kind }}</span>
+                            <span class='text-content'>{{ title.textContent }}</span>
+                        </a>
+                    </li>
+                </ul>
             {% endverbatim %}
-
-            {% comment "what" %}
-                List of all methods, discovered automatically.
-
-                Alternatively for a single item:
-
-                    {% get_doc_piece 'stage/0.md' %}
-            {% endcomment %}
-            <div class="methods-container">
-                {% for re_path in metadata.doc_content %}
-                    {% iter_doc_pieces re_path ignore_readme=True %}
-                {% endfor %}
-            </div>
         </div>
     </div>
 
-    <div class="outer-block display-none">
-        <div class="block">
-            <h2 class="font-size-2rem">Secondary Title</h2>
-            <p>
-                Secondary content with a link. <a href="component/dragging/">dragging</a> component.
-            </p>
-            {% comment %}
-            <details>
-                <summary>Content: {{ object_path }}</summary>
-                <pre class='do-not-highlightme'>{% src_code_content object_path %}</pre>
-            </details>
-            {% endcomment %}
-        </div>
-    </div>
 {% endblock content %}

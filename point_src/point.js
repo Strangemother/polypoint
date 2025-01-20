@@ -38,18 +38,44 @@ window.loadDocInfo = function() {
 
 
 class Positionable extends Relative {
+    /* The base `Positionable` class provides functionality for
+    plotting the X and Y of an entity. This includes any fundamental
+    methods such as `multiply()`.
+    */
+    set x(value) {
+        /* Set the _X_ (horizontal | latitude | across) value of the positionable.
+        From cooridinate top left `(0,0)``
 
-    set x(v) {
+            point.x = 100
+
+        If the given value is a function, the function is called immediately,
+        with _this_ positionable as the first argument.
+
+            stage.center.x = (p)=>200
+
+         */
         // this._opts.x = isFunction(v)? v(this, 'x'): v
-        return this.setSpecial('x', v)
+        return this.setSpecial('x', value)
     }
 
-    set y(v) {
+    set y(value) {
+        /* Set the _Y_ (vertical | height | longtitude) value of the positionable.
+        From cooridinate top left `(0,0)``
+
+            point.x = 100
+
+        If the given value is a function, the function is called immediately,
+        with _this_ positionable as the first argument.
+
+            stage.center.x = (p)=>200
+
+         */
         // this._opts.y = isFunction(v)? v(this, 'y'): v
-        return this.setSpecial('y', v)
+        return this.setSpecial('y', value)
     }
 
     get x() {
+
         // const _x = this._opts.x;
         // let r = _x == undefined? 0: _x
         // let v = this._relativeData[0]
@@ -59,6 +85,7 @@ class Positionable extends Relative {
     }
 
     get y() {
+
         // const _y = this._opts.y;
         // let r = _y == undefined? 0: _y
         // r = isFunction(r)? r(this, 'y'): r
@@ -72,6 +99,12 @@ class Positionable extends Relative {
     }
 
     get radius() {
+        /*
+        Return the _radius_ of this point in base units (pixels)
+
+            const point = new Point(100,300, 20)
+            point.radius == 20
+        */
         // const _radius = this._opts.radius
         // let r = _radius == undefined? 0: _radius;
         // r = isFunction(r)? r(this, 'radius'): r;
@@ -79,20 +112,60 @@ class Positionable extends Relative {
         return this.getSpecial('radius', 2, 5)
     }
 
-    setSpecial(key,  v) {
-        this._opts[key] = isFunction(v)? v(this, key): v
-        this.onSpecialSet(key, v)
+    setSpecial(key,  value) {
+        /* Set the given `key`, `value`, assuming the given key is a "special"
+        string, such as "radius".
+        This method is called by the special getters and setters for this point:
+
+            const point = new Point(100,300, 20)
+            point.setSpecial('radius', 55)
+
+        Synonymous to:
+
+            point.radius = 55
+
+        */
+        this._opts[key] = isFunction(value)? value(this, key): value
+        this.onSpecialSet(key, value)
         return true
     }
 
-    onSpecialSet(key, v) {
-        /* Iterate through all spy methods*/
+    onSpecialSet(key, value) {
+        /* A callback executed by setSpecial when a "special" property is called.
+
+        If a method on this point exists matching the _set method_ pattern,
+        the method is called with the given `value`:
+
+            class MyPoint extends Point {
+                radiusSet(value) {
+                    console.log('New Radius value is', value)
+                }
+            }
+
+        */
         let name = `${key}Set`
-        this[name] && this[name](v)
+        this[name] && this[name](value)
         // console.log(name)
     }
 
     getSpecial(key, relIndex=undefined, defaultValue=0) {
+        /* Return a stored _special_ value given a `key`.
+
+        If the `relIndex`  property is not None, the relative value found
+        at the index (within this points relative data Array),
+        add the stashed relative value to the result.
+
+            const point = new Point(100,300, 20)
+            point.getSpecial('radius', 2)
+            // 20
+
+        if a default value is given, and the internal `key` value does not exist,
+        return the default value:
+
+            point.getSpecial('banana', 'yellow')
+            'yellow'
+
+        */
         const internalValue = this._opts[key];
         let r = internalValue == undefined? defaultValue: internalValue
         r = isFunction(r)? r(this, key): r
@@ -151,54 +224,50 @@ class Positionable extends Relative {
         }
     }
 
-    _cast(p, _2=p) {
-        if(typeof(p) == 'number') {
-            p = point(p, _2)
-        }
-        if(Array.isArray(p)){
-            return point(p, _2)
-        }
-        return p
+    _cast(other, _2=other) {
+        if(typeof(other) == 'number') { other = point(other, _2) }
+        if(Array.isArray(other)){ return point(other, _2) }
+        return other
     }
 
-    subtract(p, _2=p){
-        if(typeof(p) == 'number') {
-            p = point(p, _2)
+    subtract(other, _2=other){
+        if(typeof(other) == 'number') {
+            other = point(other, _2)
         }
 
-        return new Point(this.x - p.x, this.y - p.y)
+        return new Point(this.x - other.x, this.y - other.y)
     }
 
-    add(p, _b,) {
-        p = this._cast(p, _b)
+    add(other, _b,) {
+        other = this._cast(other, _b)
 
         return new Point(
-            this.x + p.x,
-            this.y + p.y
+            this.x + other.x,
+            this.y + other.y
         )
     }
 
-    divide(p) {
-        if(typeof(p) == 'number') {
-            p = point(p, p)
+    divide(other) {
+        if(typeof(other) == 'number') {
+            other = point(other, other)
         }
 
         let nNaN = v => isNaN(v)? 0: v;
 
         return new Point(
-              nNaN(this.x / p.x)
-            , nNaN(this.y / p.y)
+              nNaN(this.x / other.x)
+            , nNaN(this.y / other.y)
         )
     }
 
-    multiply(p) {
-        if(typeof(p) == 'number') {
-            p = point(p, p)
+    multiply(other) {
+        if(typeof(other) == 'number') {
+            other = point(other, other)
         }
 
         return new Point(
-            this.x * p.x,
-            this.y * p.y
+            this.x * other.x,
+            this.y * other.y
         )
     }
 
@@ -253,6 +322,7 @@ class Positionable extends Relative {
             p.randomize() // 800, 600
 
         Other features would be nice:
+
         + random in rect (like stage):
 
             p.randomize(rect|dimensions)
@@ -275,28 +345,24 @@ class Positionable extends Relative {
 
 
 class Rotation extends Positionable {
-    set rotation(v){
-        /* Set the rotation in Degrees (0 to 360). The value applied is a
-         modulus of 360 and does not account for the _UP_ vector.
+    set rotation(value){
+        /* Set the rotation in degrees (0 to 360). If `this.modulusRotate` is
+        `true` (default), the given value is fixed through modulus 360
 
-            >>> point.rotation = 600;
-            240
+            point.rotation = 600
+            // 240
+            point.rotation += 1
+            // 241
 
-            >>> point.rotation += 1
-            241
-
-        To set the rotation (degrees) accounting for the _UP_ vector, use
-        the `rotate()` method.
+        To set the rotation (degrees) whilst accounting for the _UP_ vector,
+        consider the `rotate()` method.
         */
 
         if(this.modulusRotate == false) {
-            // this._rotationDegrees = v;
-            return this.setSpecial('rotation', v)
-            // return
+            return this.setSpecial('rotation', value)
         }
 
-        // this._rotationDegrees = v % 360
-        return this.setSpecial('rotation', v % 360)
+        return this.setSpecial('rotation', value % 360)
 
     }
 
@@ -306,7 +372,6 @@ class Rotation extends Positionable {
     }
 
     get rotation() {
-        // return this._rotationDegrees + this._relativeData[3]
         return this.getSpecial('rotation', 3, UP_DEG)
     }
 
@@ -314,7 +379,6 @@ class Rotation extends Positionable {
         /*Return the _radians_ of the current rotation, where _rotation returns
         the degrees*/
         return degToRad(this.getSpecial('rotation', 3))
-        // return degToRad(this._rotationDegrees + this._relativeData[3])
     }
 
     set radians(angle) {
@@ -376,7 +440,7 @@ class Rotation extends Positionable {
             let theta = Math.atan2(point.y - other.y,
                                    point.x - other.x) - DOWN;
 
-         */
+        */
         let x = this.x
           , y = this.y
             ;
@@ -410,9 +474,7 @@ class Tooling extends Rotation {
             return direction()
         }
 
-        // if(direction == undefined) {
         return res
-        // }
     }
 
     atan2() {
@@ -465,7 +527,8 @@ class Tooling extends Rotation {
     }
 
     normalized(magnitude=this.magnitude()) {
-        /* Synonymous to:
+        /*
+        Synonymous to:
 
             {
                 x: AB.x / magnitudeAB,
@@ -481,7 +544,7 @@ class Tooling extends Rotation {
         offset by the given number `offset` value.
         The `pointIndex` (default 0) identifies from which point [this, other]
         to offset.*/
-        // console.log('interpolateTo', this, other)
+
         return getPointOffsetAbsolute(this, other, offset, pointIndex)
     }
 
@@ -492,14 +555,6 @@ class Tooling extends Rotation {
     static distance(a, b){
         return Math.hypot(b.x - a.x, b.y - a.y);
     }
-
-    // distanceTo(other) {
-    //     return distance(this, other)
-    // }
-
-    // distance2D(other) {
-    //     return distance2D(this, other)
-    // }
 
     quantize(amount=1) {
         let q = quantizeNumber
@@ -524,9 +579,6 @@ class Tooling extends Rotation {
         let directionX = other.x - this.x;
         let directionY = other.y - this.y;
         let dirV = this.distance2D(other)
-        // Calculate the distance between the two points
-        // let distance = Math.sqrt(directionX * directionX + directionY * directionY);
-
         let distance = this.distanceTo(other)
         // Normalize the direction vector (to unit length)
         let unitX = dirV.x / distance;
@@ -547,14 +599,50 @@ class Tooling extends Rotation {
 
 
 class Point extends Tooling {
+    /*The `Point` is the primary class for manipulating XY 2D points.
+
+    Arguments:
+
+        new Point(100, 200)
+
+    Object | Array:
+
+        new Point({x: 100, y: 200})
+        new Point([100, 200])
+
+    Properties:
+
+        point = new Point
+        point.x = 100
+        point.y = 200
+
+    */
+
     // x=0
     // y=0
-
     // radius = 5
     UP = UP_DEG
     _rotationDegrees = UP_DEG
 
     constructor(opts={}){
+        /* A new point accepts arguments, an object, or an array.
+
+        By default the `Point` accepts up to four arguments
+
+            new Point(x, y, radius, rotation)
+
+        The same properties may be supplied as a single `Array`:
+
+            new Point([x, y, radius, rotation])
+
+        If the given object is an `object`, we can assign properties
+        immediately:
+
+            point = new Point({x, y, radius, rotation, other:100})
+            point.other
+            // 100
+
+        */
         super(opts)
 
         /* Ensure _opts_ is something. Default; a dict. */
@@ -573,7 +661,11 @@ class Point extends Tooling {
     }
 
     update(data) {
-        /* Perform an _update_ given a dictionary of other properties. */
+        /*
+        Perform an _update_ given a dictionary of other properties.
+
+            point.update({ x: 200, color: 'red' })
+        */
         for(let k in data) {
             this[k] = data[k]
         }
@@ -582,12 +674,12 @@ class Point extends Tooling {
     }
 
     get uuid() {
-        /* Get or create a random _id for this point.
-        Return a unique string */
+        /* Get or create the random `_id` for this point.
+        Return a unique string.
+        */
         let r = this._id;
         if(r == undefined) {
             this._id = r = (~~(Math.random() * 10000)).toString(32)
-            // this._id = r = Math.random().toString(32).slice(2)
         }
         return r
     }
@@ -598,21 +690,42 @@ class Point extends Tooling {
             point[0]
 
         Note:
+
             point[0] == point.x
         */
         return this.x
     }
 
-    set [0](v) {
-        this.x = v
+    set [0](value) {
+        /*
+        Sugar function to apply `this.x`:
+
+            point[0] = 100
+            point.x == 100
+        */
+        this.x = value
     }
 
     get [1]() {
+        /* return the Y value of the point:
+
+            point[0]
+
+        Note:
+
+            point[0] == point.y
+        */
         return this.y
     }
 
-    set [1](v) {
-        this.y = v
+    set [1](value) {
+        /*
+        Sugar function to apply `this.y`:
+
+            point[0] = 300
+            point.y == 300
+        */
+        this.y = value
     }
 
     get [Symbol.toStringTag]() {
@@ -634,19 +747,33 @@ class Point extends Tooling {
     get _liveProps() { return true }
 
     asArray(fix=false) {
+        /*
+        Return this point as an Array of 4 values:
+
+            const point = new Point(1,2,3,4);
+            point.asArray();
+            // [1,2,3,4]
+
+        Keys:
+
+        + x
+        + y
+        + radius
+        + rotation
+
+        */
+        // let r = [this.x, this.y, this.radius, this.rotation]
+        let r = Object.values(this.asObject())
         if(fix) {
             let int = (x)=> Number( x.toFixed(Number(fix)) )
-            return [int(this.x), int(this.y), int(this.radius), int(this.rotation)]
-
+            return r.map(v=>int(v))
         }
-        return [this.x, this.y, this.radius, this.rotation]
+        return r
     }
 
     asObject() {
         /* Return the important information about this node,
         used for _save_ or copy methods. */
-
-        /* Another comment. */
         return {
             x: this.x
             , y: this.y
@@ -655,20 +782,6 @@ class Point extends Tooling {
         }
     }
 
-    // isNaN(any=false) {
-    //     let r = 0;
-    //     r += +isNaN(this.x)
-    //     r += +isNaN(this.y)
-    //     if(r==0) { return false }
-
-    //     if(r > 0) {
-    //         if(any) { return true }
-    //         // two NaNs, is always isNaN == true
-    //         if(r >= 2) { return true }
-    //     }
-
-    //     return false
-    // }
 }
 
 

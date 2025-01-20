@@ -38,7 +38,10 @@ def store_tree(filename, tree_data):
         os.makedirs(save_path.parent)
     save_path.write_text(s)
 
-    generic_run(save_path, src_dir=Path(settings.POLYPOINT_SRC_DIR))
+    generic_run(save_path,
+            filepath=filename,
+            src_dir=Path(settings.POLYPOINT_SRC_DIR),
+            output_dir=Path(settings.POLYPOINT_DOCS_DIR) / 'trees/clean/')
 
     # Then lets use a tree.
     # tree = Tree(save_path, src_dir=Path(settings.POLYPOINT_SRC_DIR))

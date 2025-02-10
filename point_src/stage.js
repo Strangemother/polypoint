@@ -414,7 +414,31 @@ class StageRender {
         this._drawAfter.splice(i, 1)
     }
 
-    firstDraw(ctx) {}
+    onDrawBefore(func) {
+        this._drawBefore.push(func)
+    }
+
+    offDrawBefore(func) {
+        let i = this._drawBefore.indexOf(func)
+        this._drawBefore.splice(i, 1)
+    }
+
+    firstDraw(ctx) {
+        /* The `firstDraw(ctx)` method us used _once_ when drawing starts.
+        This occurs before the first `update()` call is performed.
+
+        This is useful if you're setting context arguments - but only need to
+        set them once.
+
+            class Main extends Stage {
+                firstDraw(ctx) {
+                    ctx.fillStyle = '#ccc'
+                    ctx.font = 'normal 1em arial'
+                }
+            }
+
+        */
+    }
 
     draw(ctx) {
         /* The primary rendering function to override.
@@ -448,7 +472,7 @@ class StageRender {
         this.clear(ctx)
     }
 
-    clear(ctx) {
+    clear(ctx, fillStyle=null) {
         /* Perform a standard 'clearRect' using the cached dimensions of the
         canvas.
 
@@ -458,9 +482,18 @@ class StageRender {
 
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        Apply an optional flood fillStyle:
+
+            stage.clear(ctx, '#000')
         */
         let dimensions = this.dimensions
         ctx.clearRect(0, 0, dimensions.width, dimensions.height);
+
+        if(fillStyle === null) { return }
+        ctx.rect(0, 0, dimensions.width, dimensions.height);
+        ctx.fillStyle = fillStyle
+        ctx.fill();
     }
 }
 

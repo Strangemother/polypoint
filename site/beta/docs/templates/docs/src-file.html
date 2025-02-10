@@ -122,34 +122,38 @@
             {% include "./superlist.html" %}
         </div>
 
-        <div class="outer-block">
-            <div class="block" id="methods">
+        <div class="outer-block primary-content-container">
+            <div class="block primary-content-block" id="methods">
+                <div class="pusher"></div>
                 <div class="content-text">
                     {# 'point/readme.md' #}
                     {% markdown.file "docs" metadata.doc_readme.0 %}
                 </div>
 
-                <hr>
+                <div class="display-none">
 
-                <h2>Methods</h2>
-                {% comment "what" %}
-                    A link list of all discovered methods,
-                    at JS runtime.
+                    <hr>
 
-                    Each item is a link to a django discovered
-                    'doc piece' below.
-                {% endcomment %}
-                {% verbatim %}
-                <div class='prop-list'>
-                    <a class='prop-item'
-                        :class='"type-" + type'
-                        :href="'#prop-key-' + key"
-                        :data-type="type"
-                        v-for='type, key in getUnitMethods()'>
-                        {{key}}
-                        <!-- <div class='brackets empty'>()</div> -->
-                    </a>
+                    <h2>Methods</h2>
+                    {% comment "what" %}
+                        A link list of all discovered methods,
+                        at JS runtime.
 
+                        Each item is a link to a django discovered
+                        'doc piece' below.
+                    {% endcomment %}
+                    {% verbatim %}
+                    <div class='prop-list'>
+                        <a class='prop-item'
+                            :class='"type-" + type'
+                            :href="'#prop-key-' + key"
+                            :data-type="type"
+                            v-for='type, key in getUnitMethods()'>
+                            {{key}}
+                            <!-- <div class='brackets empty'>()</div> -->
+                        </a>
+
+                    </div>
                 </div>
                 {% endverbatim %}
 

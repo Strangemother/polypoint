@@ -1,6 +1,28 @@
 
 const randomItem = function(items){
-    return items[Math.floor(Math.random()*items.length)];
+    return items[Math.floor((Math.random())*items.length)];
+}
+
+const randomItemBias = function(items, bias=0.0){
+    let l = items.length
+
+    let getR = function(){
+
+        const a = Math.pow(Math.random(), 3);
+        let v = 1 - a;
+        if (Math.random() < 0.5) {
+            v = a;
+        }
+        let r = Math.floor(v * l)
+        return r
+    }
+
+    // console.log(v,l, v * l, r)
+    let res = items[getR()];
+    if (res == undefined) {
+        res = items[getR()]
+    }
+    return res
 }
 
 
@@ -69,10 +91,21 @@ class OriginShift {
         return this.move(count, addData)
     }
 
+    pickNext(possible, addData) {
+
+        return randomItem(possible)
+    }
+
     // The current node points to a new origin
     // the new origin has no pointer
     randomMove(addData) {
-        let nextIndex = randomItem(this.nextPossible())
+        let possibles = this.nextPossible(this.origin, addData?.directionBias)
+        /*.forEach(x=>{
+            if(x != undefined) {
+                possibles.push(x);
+            }
+        })*/
+        let nextIndex = this.pickNext(possibles, addData)
         return this.moveTo(nextIndex, addData)
     }
 
@@ -106,8 +139,14 @@ class OriginShift {
 
     }
 
-    nextPossible(index=this.origin) {
-        return this.gridTools.getSiblings(index, conf.cols, conf.rows)
+    nextPossible(index=this.origin, dir=undefined) {
+        // getSiblings(index, columnCount=this.width, rowCount, total, expand=false)
+        let v = this.gridTools.getSiblings(index, conf.cols, conf.rows, undefined, true)
+        let r = Object.values(v)
+        if(dir && v[dir]) {
+            r.push(v[dir])
+        }
+        return r
     }
 
     rebake(stage) {

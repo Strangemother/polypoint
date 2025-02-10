@@ -1,3 +1,32 @@
+
+.toc-container ul {
+  --sb-track-color: #101010;
+  --sb-thumb-color: #000;
+  --sb-size: 14px;
+}
+
+.toc-container ul::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+.toc-container ul::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 6px;
+}
+
+.toc-container ul::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 6px;
+  border: 2px solid #000;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .toc-container ul {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+}
+
 .content-stack {
     display: flex;
     justify-content: center;

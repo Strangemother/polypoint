@@ -13,6 +13,7 @@
                         color-#DDD
                         margin-0
                         font-pack-rubik-500-700
+                        font-pack-roboto+mono
                         font-rubik-500 letter-spacing-.1px'>
     {% include "./header.html" %}
     <main>
@@ -23,7 +24,7 @@
                 {% block page_title %}{{ page_title }}{% endblock page_title %}
             </h1>
         </header>
-
+        {% block header_footer %}{% endblock header_footer %}
         <div class="outer-block breadcrumb-block">
             <div class="block crumb-info-container">
                 <div class="breadcrumb-container">

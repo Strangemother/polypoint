@@ -61,7 +61,7 @@ class Value {
         this.a = a
         this.fix = 5
         this.b = b
-        this.step = .5
+        this.step = .005
         this.done = false
         this.doneStop = doneStop
 

@@ -418,7 +418,7 @@ class GridTools {
 
         `rowCount` or `total` is required
     */
-    getSiblings(index, columnCount=this.width, rowCount, total) {
+    getSiblings(index, columnCount=this.width, rowCount, total, expand=false) {
         let rc = rowCount==undefined? columnCount: rowCount
         total = total == undefined? rc * columnCount: total
 
@@ -430,24 +430,33 @@ class GridTools {
             , left  = index - 1
             , right = index + 1
             , down  = index + columnCount
-            , res = []
+            , res = {}
+            // , res = []
             ;
 
         // console.log(index, 'up', up, 'left', left, 'right', right, 'down', down)
         const inBounds = (v) => (v >= 0) && (v < total);
-        const boundPush = (v) => inBounds(v) && res.push(v);
+        const boundPush = (n, v) => {
+            if(inBounds(v)) {
+                res[n] = v
+                // res.push(v)
+            }};
 
-        boundPush(up);
-        boundPush(down);
+        boundPush('up', up);
+        boundPush('down', down);
 
         // left should be the same column
         let leftCol = left % total;
         let leftRow = Math.floor(left / columnCount);
-        (currentRow == leftRow) && boundPush(left);
+        (currentRow == leftRow) && boundPush('left', left);
         // if most right (col ==  total), right cannot be applied.
-        (currentColumn != columnCount-1) && boundPush(right);
+        (currentColumn != columnCount-1) && boundPush('right', right);
 
-        return res.sort()
+        if(expand) {
+            return res;
+        }
+
+        return Object.values(res).sort()
     }
 
     getSiblings8(index, columnCount = this.width, rowCount, total) {

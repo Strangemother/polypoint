@@ -235,7 +235,7 @@ class Convert:
         d = method_item_data
         d.pop('ast_file', None)
         d.pop('info_file', None)
-        d.pop('coord', None)
+        # d.pop('coord', None)
         d.pop('filepath', None)
         d['params'] = self.clean_params(d)
 

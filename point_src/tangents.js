@@ -199,8 +199,64 @@ class PointTangents {
 
         // Return the two lines (top and bottom)
         return {
-            a: [{ x: lineA1.x, y: lineA1.y }, { x: lineB1.x, y: lineB1.y }],
-            b: [{ x: lineA2.x, y: lineA2.y }, { x: lineB2.x, y: lineB2.y }]
+            a: [{ x: lineA2.x, y: lineA2.y }, { x: lineB2.x, y: lineB2.y }],
+            b: [{ x: lineA1.x, y: lineA1.y }, { x: lineB1.x, y: lineB1.y }]
+        };
+    }
+
+    calculateCrossTangentLines(pointA, pointB) {
+        const { x: x1, y: y1, radius: r1 } = pointA;
+        const { x: x2, y: y2, radius: r2 } = pointB;
+
+        // Distance between centers
+        const d = Math.hypot(x2 - x1, y2 - y1);
+
+        // Internal tangents exist only if circles are separate enough:
+        if (d < r1 + r2) {
+          // Could return an empty result, throw, or handle as desired
+          return null;
+        }
+
+        // Base angle from A to B
+        const baseAngle = Math.atan2(y2 - y1, x2 - x1);
+
+        // For the internal tangents, we have sin(delta) = (r1 + r2)/d.
+        // (delta exists only when d >= r1+r2)
+        const delta = Math.asin((r1 + r2) / d);
+        // The radius (tangent) direction makes an angle offset from perpendicular:
+        const offset = Math.PI / 2 - delta;
+
+        let cpx = Math.cos(baseAngle + offset)
+        let cpy = Math.sin(baseAngle + offset)
+        let cmx = Math.cos(baseAngle - offset)
+        let cmy = Math.sin(baseAngle - offset)
+        // First internal tangent ('ab'):
+        const tangentA1 = {
+            x: x1 + cpx * r1,
+            y: y1 + cpy * r1,
+        };
+
+        const tangentB1 = {
+            x: x2 - Math.cos(baseAngle + offset) * r2,
+            y: y2 - cpy * r2,
+        };
+
+        // Second internal tangent ('ba'):
+        const tangentA2 = {
+            x: x1 + cmx * r1,
+            y: y1 + cmy * r1,
+        };
+
+        const tangentB2 = {
+            x: x2 - cmx * r2,
+            y: y2 - cmy * r2,
+        };
+
+        return {
+            // 'ab' goes from A’s tangent point (using +offset) to B’s tangent point (using +offset)
+            // and 'ba' is the other internal tangent.
+            ab: [tangentA1, tangentB1],
+            ba: [tangentA2, tangentB2],
         };
     }
 

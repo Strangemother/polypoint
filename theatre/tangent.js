@@ -1,4 +1,26 @@
 /*
+
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/extras.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/stage.js
+    ../point_src/point.js
+    ../point_src/distances.js
+    ../point_src/dragging.js
+    ../point_src/functions/clamp.js
+    ../point_src/pointlistpen.js
+    ../point_src/pointlist.js
+    ../point_src/events.js
+    ../point_src/automouse.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+
+---
+
 https://www.youtube.com/watch?v=m1zmWiboxzU
  */
 
@@ -145,6 +167,7 @@ function calculateAdjustedRotatedTangentLines(pointA, pointB) {
     };
 }
 
+
 function innerTangents(circle1, circle2) {
     const { x: x1, y: y1, radius: r1 } = circle1;
     const { x: x2, y: y2, radius: r2 } = circle2;
@@ -287,7 +310,7 @@ class PointTangents {
     lineB(other) {
         /* return a line (two points) for the _bottom_ direct tagent. */
         let v = this.calculateTangentLines(this.parent, other)
-        return v.a
+        return v.b
     }
 
     a(other) {
@@ -327,7 +350,9 @@ class PointTangents {
     }
 }
 
+
 Polypoint.head.lazierProp('Point', function tangent(){ return new PointTangents(this)})
+
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
@@ -475,5 +500,6 @@ class MainStage extends Stage {
         ctx.arc(a.x, a.y, a.radius, a.directionTo(pa), a.directionTo(pb))
     }
 }
+
 
 stage = MainStage.go()

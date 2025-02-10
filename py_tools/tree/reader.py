@@ -296,11 +296,37 @@ class Reader:
         # print('Coord', coord)
         start = coord.start
         end = coord.end
+        start_index = None
 
-        for comment in self.comments:
-            #Ensure the given comment is within the working range
+        def clean_comment(comment_block):
+            _cb = comment_block.copy()
+            _cb['coord'] = [
+                        _cb['start'],
+                        _cb['end'],
+                    ]
+
+            _cb.pop('start', None)
+            _cb.pop('end', None)
+            return _cb
+
+        for i, comment in enumerate(self.comments):
+            # Ensure the given comment is within the working range
+
+            ## (if touching) if the [comment-1].end == comment.start-1
+            prev_comment = self.comments[i-1]
+            prev = prev_comment['currentLoc']['line']
+            head_start = method_def['coord'].loc['start']['line']
+            if head_start - prev == 1:
+                prev_match_block = prev_comment['block'] == True and block_comments == True
+                if prev_match_block:
+                    # is touching block comment
+                    _prev_comment = clean_comment(prev_comment)
+                    res += (_prev_comment, )
+
             openStack = comment['start'] >= start and comment['end'] <= end
             if openStack:
+                start_index = start_index or i
+
                 # Is a block, and blocks are requested
                 match_block = comment['block'] == True and block_comments == True
                 # is a single line, and single line is request
@@ -308,15 +334,7 @@ class Reader:
                 if match_block or match_single_line:
                     # Clean up the comment to match
                     # the existing pattern.
-                    _comment = comment.copy()
-                    _comment['coord'] = [
-                                _comment['start'],
-                                _comment['end'],
-                            ]
-
-                    _comment.pop('start', None)
-                    _comment.pop('end', None)
-
+                    _comment = clean_comment(comment)
                     res += (_comment, )
 
             # Past the end of the applicable range.

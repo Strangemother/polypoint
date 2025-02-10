@@ -1,5 +1,27 @@
+/*
 
-/* Perform this:
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/events.js
+    ../point_src/automouse.js
+    ../point_src/distances.js
+    ../point_src/dragging.js
+    ../point_src/functions/clamp.js
+    ../point_src/curve-extras.js
+    ../point_src/mirror.js
+    ../point_src/stage.js
+    ../point_src/text/label.js
+    ../point_src/intersections.js
+
+
+Perform this:
 https://www.youtube.com/watch?v=SUI_AWpgmzU
 
 draw two rays from the two points (o1, o2) (of any angle)

@@ -170,10 +170,10 @@ class TreeReader {
         // return map
     }
 
-    stashComment(block, text, start, end) {
+    stashComment(block, text, start, end, startLoc, currentLoc) {
 
         this.comments.push({
-            block, text, start, end
+            block, text, start, end, startLoc, currentLoc
         })
     }
 
@@ -184,8 +184,9 @@ class TreeReader {
         return acorn.parse(text, {
             ecmaVersion: 'latest'
             , locations: true
-            , onComment: function(block, text, start, end){
-                stash(block, text, start, end)
+            , onComment: function(block, text, start, end, startLoc, currentLoc){
+                stash(block, text, start, end, startLoc, currentLoc)
+                // debugger
                 /*
                 block:  true if the comment is a block comment,
                         false if it is a line comment.

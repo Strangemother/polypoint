@@ -288,7 +288,7 @@ class PointTangents {
     lineB(other) {
         /* return a line (two points) for the _bottom_ direct tagent. */
         let v = this.calculateTangentLines(this.parent, other)
-        return v.a
+        return v.b
     }
 
     a(other) {

@@ -275,6 +275,9 @@ class Reader:
             if match_block or match_single_line:
                 if openStack:
                     res += (comment, )
+                    # break at the first comment discovery. To save the spillover
+                    # for the _next_ method header comment
+                    break
             # Past the end of the applicable range.
             if comment['end'] >= end:
                 break

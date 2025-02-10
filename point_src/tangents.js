@@ -318,13 +318,17 @@ class PointTangents {
         return v.b
     }
 
-    ab() {
+    ab(other) {
         /* return the tangent line _through_ the center, similar to points [0,3]
         However the tangent points are adjusted - rotated around the radius. */
+        let v = this.calculateCrossTangentLines(this.parent, other)
+        return v.ab
     }
 
-    ba() {
+    ba(other) {
         /* return the tangent line point A (bottom), point B (top) */
+        let v = this.calculateCrossTangentLines(this.parent, other)
+        return v.ba
     }
 }
 

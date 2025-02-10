@@ -54,6 +54,13 @@ class Random {
         let p = new Point(this[method](multiplier), this[method](multiplier))
         return p
     }
+
+    color(h=360, s=100, l=100) {
+        let deg = random.int(h)
+        let sat = random.int(s)
+        let lig = random.int(l)
+        return `hsl(${deg}deg ${sat}% ${lig}%)`
+    }
 }
 
 

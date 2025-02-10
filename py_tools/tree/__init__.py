@@ -78,6 +78,10 @@ class TreeGetter:
         return self._data[key]
 
 
+
+class MissingFile(Exception):
+    pass
+
 class TreeLoader:
 
     def __init__(self, tree_filepath=None, filepath=None, src_dir=None, **kw):
@@ -108,7 +112,8 @@ class TreeLoader:
 
         if fp.exists() is False:
             print('Cannot load file', fp)
-            return False
+            # return False
+            raise MissingFile(f"Cannot load file {fp}")
 
         self.loaded_tree = json.loads(fp.read_text())
 

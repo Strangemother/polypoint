@@ -122,7 +122,9 @@ class StageRender {
             this._drawFunc = drawFunc
         }
 
+        this._nextTick = new Set;
         this._drawAfter = []
+        this._drawBefore = []
         if(canvas)  {
             this.prepare(canvas)
         }
@@ -319,30 +321,31 @@ class StageRender {
 
     getContext(canvas, type='2d') {
         /*
-            alpha
+        + `alpha`:
                 A boolean value that indicates if the canvas contains an alpha
                 channel. If set to false, the browser now knows that the
                 backdrop is always opaque, which can speed up drawing of
                 transparent content and images.
 
-            colorSpace Optional
+        + `colorSpace` Optional:
                 Specifies the color space of the rendering context.
                 Possible values are:
 
                     "srgb" selects the sRGB color space. (default value)
                     "display-p3" selects the display-p3 color space.
 
-            desynchronized
+        + `desynchronized`:
                 A boolean value that hints the user agent to reduce the
                 latency by desynchronizing the canvas paint cycle from the
                 event loop.
 
-            willReadFrequently
+        + `willReadFrequently`:
                 A boolean value that indicates whether or not a lot of
                 read-back operations are planned. This will force the use of
                 a software (instead of hardware accelerated) 2D canvas and
                 can save memory when calling getImageData() frequently.
          */
+
         // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
         let options = {
             alpha: true
@@ -359,11 +362,47 @@ class StageRender {
             inline update per draw
         */
         const ctx = this.ctx;
+
+        for(let af of this._drawAfter) {
+            af(ctx)
+        }
+
+        let nt = this._nextTick;
+        nt.forEach(f=>f(ctx, this))
+        nt.size && (this._nextTick = new Set)
+
         this._drawFunc(ctx);
 
         for(let af of this._drawAfter) {
             af(ctx)
         }
+    }
+
+
+    nextTick(func) {
+        /* Run the given function (with context) on the next draw call.
+        This function is very similar to `onDrawBefore`, but only runs _once_.
+
+            stage.nextTick(function(ctx){
+                // run next time.
+                stage.runCustomRender(ctx)
+            })
+
+        This is useful for performing clearups, or running routines on
+        single action:
+
+            let v = this.v = new Value(this.p.radius, width, easing)
+            v.doneHandler = ()=>{
+                // st.switchOut()
+                this.nextTick(this.switchOut.bind(this))
+            }
+
+            switchOut() {
+                console.log('doneHandler')
+                this.v = undefined;
+            }
+        */
+        this._nextTick.add(func)
     }
 
     onDrawAfter(func) {

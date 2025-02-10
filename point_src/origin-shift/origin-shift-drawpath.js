@@ -1,4 +1,4 @@
-const drawPath = function(startIndex, os=os) {
+const drawPath = function(startIndex, os=os, f=undefined) {
     let running = true;
     let index = startIndex;
     let next
@@ -8,6 +8,11 @@ const drawPath = function(startIndex, os=os) {
     let tin = +(new Date)
     let pointList = os.pointList
     let origin = os.origin
+    if(f == undefined) {
+        f = (p) => {
+            p.lineColor = 'red'
+        }
+    }
     while(running) {
         if(count > max) {
             console.log('Break at max', max, 'index=', index)
@@ -15,7 +20,8 @@ const drawPath = function(startIndex, os=os) {
             return index
         }
         let p = pointList[index]
-        p.lineColor = 'red'
+        if(f) { f(p) }
+
         index = p.target;
         running = index != undefined
         if(origin==index) {

@@ -42,6 +42,11 @@ class Positionable extends Relative {
     plotting the X and Y of an entity. This includes any fundamental
     methods such as `multiply()`.
     */
+
+    /* ABOVE X method
+
+    Multiline - touching.
+    */
     set x(value) {
         /* Set the _X_ (horizontal | latitude | across) value of the positionable.
         From cooridinate top left `(0,0)``

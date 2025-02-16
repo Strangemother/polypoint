@@ -25,6 +25,15 @@ class StageKeyboard {
     }
 
     stageKeydownHandler(ev) {
+
+        let p = this.stage
+        if(p.onKeydown) {
+            p.onKeydown(ev)
+        }
+        return this.genericHandler(ev)
+    }
+
+    genericHandler(ev) {
         for(let item of this.data[ev.type]) {
             if(this.matchCode(ev, item)) {
                 // console.log('YEY!')
@@ -47,7 +56,12 @@ class StageKeyboard {
     }
 
     stageKeyupHandler(ev) {
-        return this.stageKeydownHandler(ev)
+
+        let p = this.stage
+        if(p.onKeyup) {
+            p.onKeyup(ev)
+        }
+        return this.genericHandler(ev)
     }
 
     getEventParent() {

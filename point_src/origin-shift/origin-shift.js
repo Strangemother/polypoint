@@ -63,6 +63,9 @@ class OriginShift {
     + the last indexed point becomes the origin.
     */
     reset(draw=true){
+
+        this.init()
+
         let pl = this.pointList
         this.origin = pl.length - 1
 
@@ -81,9 +84,9 @@ class OriginShift {
     }
 
     move(count=1, addData) {
-
         for (var i = count - 1; i >= 0; i--) {
-            this.randomMove(addData)
+            // this.randomMove(addData)
+            this.randomMove2(addData)
         }
     }
 
@@ -92,7 +95,6 @@ class OriginShift {
     }
 
     pickNext(possible, addData) {
-
         return randomItem(possible)
     }
 
@@ -107,6 +109,38 @@ class OriginShift {
         })*/
         let nextIndex = this.pickNext(possibles, addData)
         return this.moveTo(nextIndex, addData)
+    }
+
+    randomMove2(addData) {
+        /*
+        The two step random move will walk 2 cells forward if available.
+        This stretches the walls.
+         */
+        let possibles = this.nextPossibleRaw(this.origin, addData?.directionBias)
+        let values = Object.values(possibles)
+        let flipped = {}
+        for(let k in possibles) {
+            flipped[possibles[k]] = k
+        }
+
+        let nextIndex = this.pickNext(values, addData)
+        let chosenDir = flipped[nextIndex]
+        // Nextnext index, is the chosen dir from the next index.
+        let nextNextCell = this.getNear(nextIndex)
+        let nextNextIndex = nextNextCell[chosenDir]
+
+
+        let v = this.moveTo(nextIndex, addData)
+        if(nextNextIndex) {
+            return this.moveTo(nextNextIndex, addData)
+        }
+
+        return v;
+    }
+
+    getNear(origin=this.origin){
+        let v = this.gridTools.getSiblings(origin, conf.cols, conf.rows, undefined, true)
+        return v
     }
 
     moveTo(nextIndex, addData={}) {
@@ -149,6 +183,19 @@ class OriginShift {
         return r
     }
 
+    nextPossibleRaw(index=this.origin){
+        return this.gridTools.getSiblings(index, conf.cols, conf.rows, undefined, true)
+    }
+
+    expand(rowCount=conf.cols, spread=20){
+        let points = this.pointList
+
+        this.pointList = subdivideA(points, rowCount)
+        const newRowCount = rowCount + (rowCount-1)
+        conf.cols = conf.rows = newRowCount
+        this.gridTools = this.pointList.shape.grid(parseInt(spread), newRowCount)
+        return newRowCount
+    }
     rebake(stage) {
         this.reset()
         this.shift(50000)

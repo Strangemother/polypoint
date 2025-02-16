@@ -33,6 +33,7 @@ class MainStage extends Stage {
             color: 'green'
             , width: 5
             , dash: [7, 4]
+            , march: .3
         })
 
     }
@@ -43,6 +44,8 @@ class MainStage extends Stage {
         pos.pen.circle(ctx)
 
         let lineStroke = this.lineStroke
+
+        lineStroke.step()
         lineStroke.set(ctx)
         this.pa.pen.indicator(ctx)
         lineStroke.unset(ctx)

@@ -74,6 +74,7 @@ class MainStage extends Stage {
                 this.stage.offset = parseFloat(sval) * .01
             }
         })
+
     }
 
     draw(ctx){

@@ -51,13 +51,16 @@ Polypoint.head.installFunctions('PointList', {
             return PointList.from(output).cast()
         }
 
+        return this.fromUnpacked(output)
+    }
+    , fromUnpacked(content) {
 
         for (var i = 0; i < this.length; i++) {
-            let definition = output[i]
+            let definition = content[i]
             this[i].copy(Point.from(definition),1)
         }
 
-        let extra = output.length - this.length
+        let extra = content.length - this.length
 
         if(extra == 0) {
             return this
@@ -72,11 +75,20 @@ Polypoint.head.installFunctions('PointList', {
         }
 
         for (var i = 0; i < extra; i++) {
-            let definition = output[i + this.length]
+            let definition = content[i + this.length]
             console.log('Installing', this.length + i, definition)
             this.push(createFunc(definition))
         }
+    }
 
+    , toLocalStore(name) {
+        localStorage[name] = this.toJSON()
+    }
+    , fromLocalStore(name, mutate=true) {
+        let v = localStorage[name];
+        if(v){
+            return this.fromJSON(v, mutate)
+        }
     }
 })
 

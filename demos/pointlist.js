@@ -476,6 +476,7 @@ class PointList extends LazyAccessArray {
         this.forEach((x)=>r.push(x.asArray(fix)))
         return r
     }
+
 }
 
 

@@ -18,6 +18,10 @@ files:
     ../point_src/functions/clamp.js
     ../point_src/rotate.js
     ../point_src/stage.js
+    ../point_src/gradient.js
+    ../point_src/json.js
+    ../point_src/text/alpha.js
+    ../point_src/text/label.js
  */
 
 const arcLine = function(ctx, points) {
@@ -53,16 +57,7 @@ const arcLine = function(ctx, points) {
     // ctx.stroke();
 }
 
-
-
-
-
 /*
-
-
-
-
-
 Mercury #1a1a1a Yes it is really that dark
 
 Venus #e6e6e6 or perhaps a bit darker

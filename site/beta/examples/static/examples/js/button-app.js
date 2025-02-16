@@ -120,6 +120,7 @@ const createMiniApp = function() {
             if(unit.onclick) {
                 unit.onclick(ev, unit)
             }
+
             emitEvent('polypoint:control:click', unit)
         }
 

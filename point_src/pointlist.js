@@ -144,6 +144,18 @@ class PointListGenerator {
 
     }
 
+    countOf(count) {
+        /* Genrate a count of points, without editing the values. */
+
+        let PointListClass = (this.parent? this.parent.constructor: PointList);
+        let res = new PointListClass
+        for(let i = 0; i<=count-1; i++){
+            let p = new Point;
+            res.push(p)
+        }
+        return res
+    }
+
     list(count=5, distance=10, origin=undefined) {
         /*
             Generate a list of points to a _count_.
@@ -556,6 +568,9 @@ class LazyAccessArray extends Array {
             e,f
             f,g
 
+        example:
+
+            myitems.siblings().map(pair=>[pair[0].uuid, pair[1].uuid]);
         */
         let r = []
             , l = this.length;
@@ -583,6 +598,10 @@ class LazyAccessArray extends Array {
             a,b
             c,d
             e,f
+
+        example:
+
+            myitems.pairs().map((b)=>b[0].uuid);
 
         */
         let r = []
@@ -726,6 +745,32 @@ class PointList extends LazyAccessArray {
         return this[this.length-1]
     }
 
+    copy(deep=false) {
+        /* Copy:
+
+            stage.points.copy() == stage.points
+            false
+            stage.points.copy()[0] == stage.points[0]
+            true
+
+        Deep Copy:
+
+            stage.points.copy(true) == stage.points
+            false
+            stage.points.copy(true)[0] == stage.points[0]
+            false
+        */
+        let pl = new PointList;
+        if (deep == true) {
+            this.forEach(p=>{
+                pl.push(p.copy())
+            })
+        }
+
+        return  pl.concat(this)
+    }
+
+
     getBoundingClientRect() {
         /* return thr bounding box of the point.*/
         return DOMRect.fromRect(this.getSize())
@@ -801,6 +846,18 @@ class PointList extends LazyAccessArray {
         for(let p of this) {
             if(p._id == id) {
                 return p
+            }
+        }
+    }
+
+    getByName(name) {
+        return this.getByKey('name', name)
+    }
+
+    getByKey(key, value) {
+        for(let x of this){
+            if(x[key] == value){
+                return x
             }
         }
     }

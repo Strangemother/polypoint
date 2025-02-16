@@ -67,21 +67,24 @@ def get_theatre_list(**kw):
     order_by = kw.get('orderby', None)
     default_order_index = 1
     order_named = {
-        'modified': 1,
         'name': 0,
+        'modified': 1,
+        'created': 2,
     }
 
     order_index = order_named.get(order_by, default_order_index)
+    print('Ordering', order_index, order_by)
     tpath = Path(parent)
     res = ()
     for asset in tpath.iterdir():
         if asset.is_file():
             modified = asset.stat().st_mtime
+            created = asset.stat().st_ctime
             # get date
             nn = asset.relative_to(tpath).with_suffix('')
 
             res += (
-                    (str(nn), modified,),
+                    (str(nn), modified, created,),
                 )
 
     res = sorted(res, key=itemgetter(order_index))

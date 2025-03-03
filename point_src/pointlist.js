@@ -74,6 +74,18 @@ class PointListDraw {
         ctx.lineTo(b.x, b.y)
     }
 
+    stroke(ctx) {
+        // ctx.stroke()
+        let args = arguments;
+        this.list.forEach((p)=> p.draw.stroke.apply(p.draw, args))
+    }
+
+    circle(ctx, radius=undefined, color, width) {
+        let args = arguments;
+        this.list.forEach((p)=> p.draw.circle.apply(p.draw, args))
+        // return this.stroke.apply(this, arguments)
+    }
+
     /* Draw this list as a pointline, provide an init position for an offset. */
     pointLine(ctx, position, eachFunc) {
         // To 'close' the old drawing.
@@ -425,6 +437,23 @@ class GridTools {
 
     /* Splice a segment from the grid in the form of a rectagle*/
     getRect(){}
+
+    subdivide(split=1, mutate=true) {
+        /* Subdivide all cells within the grid by the given `split` integer.
+        This adds up to 5 points to divide a _quad_ into 4 equal quads.
+
+        if `mutate` is true, the new points are inserted into the grid, accounting
+        for the row count offset.
+
+        If mutate is false, return the new points.
+
+            points = PointList.generate.grid(16, 4, 50)
+            points.getGridTool().subdivide(1, true)
+            // points.length == 40
+        */
+
+    }
+
 
     /* Given a point, or index, return the siblings of the grid
 
@@ -955,6 +984,15 @@ class PointList extends LazyAccessArray {
         If more than 2, the points will push away from the origin point.
         If the origin is undefined, the COM is used.*/
     }
+
+    sortByRadius(){
+        this.sort((a,b)=>b.radius-a.radius)
+    }
+
+    sortByZ(){
+        this.sort((a,b)=>b.z-a.z)
+    }
+
 }
 
 

@@ -14,15 +14,24 @@ Delete the line below if you're just getting started and want to remove the welc
 
 {% endblock extra_css %}
 
-{% block page_title %}Polypoint{% endblock page_title %}
+{% block page_title %}Poly.ink{% endblock page_title %}
+{% block header_block %}
+<h1 class="title
+            text-align-center
+            font-size-5rem">
+        {{ page_title }}
+</h1>
+{% endblock header_block %}
 
 {% block header_footer %}
 
 <div class="quick-links">
     <ul>
         <li>
-            <a href="#">github</a>
-
+            <a href="#">Getting Started</a>
+        </li>
+        <li>
+            <a href="#">Github</a>
         </li>
     </ul>
 </div>
@@ -34,7 +43,9 @@ Delete the line below if you're just getting started and want to remove the welc
 {% link.css "css/bubble-demo.css" %}
 
 <div class="bubble-likeness">
-    <img src="{% static "./img/pramod-tiwari--HE_g2BcZ_A-unsplash.jpg" %}">
+    {% comment %}
+        <img src="{% static "./img/pramod-tiwari--HE_g2BcZ_A-unsplash.jpg" %}">
+    {% endcomment %}
     {# pramod-tiwari--HE_g2BcZ_A-unsplash.jpg #}
     <div class="bubble-canvas-container">
         <canvas id='bubbles-canvas'></canvas>

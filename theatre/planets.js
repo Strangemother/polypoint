@@ -259,6 +259,7 @@ class MainStage extends Stage {
             dash: [5, 4]
             , color: '#DDD'
             , width: 2
+            , march: .1
         })
 
         let l = this.label = new Label(this.ctx, {
@@ -371,9 +372,10 @@ class MainStage extends Stage {
 
         if(p) {
             this.label.text = p.name
-            let un = this.strokes.focul()
+            let stroke = this.strokes.focul()
+            stroke.step()
             p.pen.circle(ctx, p.radius + 15, 'white', 2)
-            un()
+            stroke.unset(ctx)
             this.label.writeText(ctx)
             // p.pen.circle(ctx, undefined, 'white', 2)
         } else {

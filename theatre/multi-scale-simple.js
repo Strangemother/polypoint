@@ -19,23 +19,15 @@ files:
     ../point_src/stage.js
 ---
 
-Multiscale assigns a map of relative sizes. Upon `update` the points are tested
-for their expected size. If the current size does not match the expected, a rescale
-of all points is performed.
+Multiscale - 2 points.
 
-    alpha: 1
-    , beta: 2
-    , charlie: 3
-    , delta: 8
-    , echo: 1.2
+    alpha: 10
+    , beta: 1
 */
 
 const ratios = {
-    alpha: 1
-    , beta: 2
-    , charlie: 3
-    , delta: 8
-    , echo: 1.2
+    alpha: 10
+    , beta: 1
 }
 
 

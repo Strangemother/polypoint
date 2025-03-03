@@ -79,7 +79,15 @@ class Stroke extends SetUnset {
 
         This is simply a more specific _step_ function
         */
-       this._march += delta
+        let v = this.settings?.march
+        if(v == undefined) {
+            v = 1
+        }
+        return this._march += delta * v
+    }
+
+    step(delta=1) {
+        return this.march(delta)
     }
 
     marchKeyPrepare() {
@@ -226,16 +234,18 @@ class StageStrokeMap {
         which can be a function.
         The handler returns a _off_ function for disabling this same stroke. */
         return (func)=> {
-            this.set(prop)
-            if(func) { func() }
-            let unsetHook = ()=>{
+            let unit = this.set(prop)
+            if(func) { func(unit) }
+
+            let unsetHook = (unit)=>{
                 return this.unset(prop)
             }
 
             if(func) {
-                return unsetHook()
+                return unsetHook(unit)
             }
-            return unsetHook
+
+            return unit
         }
     }
 }

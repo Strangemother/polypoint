@@ -15,6 +15,8 @@ urlpatterns = urls.paths_named(views,
     script_raw=('ScriptsRawImportView', 'script_list_raw/<str:name>/'),
     script_list=('ScriptsImportListView', 'script_list/<str:name>/'),
 
+    clone_file=('CloneFileView', 'clone/<path:path>/',),
+    rename_file=('RenameFileView', 'rename/<path:path>/',),
     file_example=('ExampleFileView', '<path:path>/'),
     file_example_html=('ExampleExtFileView', '<path:path>.html/'),
 )

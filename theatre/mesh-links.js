@@ -52,6 +52,7 @@ class MainStage extends Stage {
             dash: [5,5]
             , color: 'grey'
             , width: 2
+            , march: 1
         })
 
         let c = 1
@@ -85,6 +86,7 @@ class MainStage extends Stage {
         let mousePoint = Point.mouse.position
         mousePoint.pen.indicator(ctx, { color: 'green', width: 3})
 
+        this.stroke.step(.1)
     }
 
     drawConnections(ctx) {

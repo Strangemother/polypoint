@@ -1,4 +1,5 @@
 from pprint import pprint as pp
+import shutil
 from operator import itemgetter
 from pathlib import Path
 import markdown
@@ -13,6 +14,7 @@ from editor.views import PointSrcAssetView, TheatreSrcAssetView
 from .file_reader import imports_list
 
 from .theatre import get_theatre_list, get_metadata
+from . import forms
 
 
 class ExampleIndexTemplateView(views.ListView):
@@ -129,6 +131,69 @@ class ExampleFileView(views.TemplateView):
         ]
         # names = super().get_template_names()
         return names
+
+
+class CloneFileView(views.FormView):
+    form_class = forms.CloneFileForm
+    template_name = 'examples/clone_form.html'
+
+    def get_initial(self):
+        tp = self.get_target_path()
+
+        tp = tp.with_suffix('')
+        tp = tp.with_name(f'{tp.name}_clone')
+
+        return {
+            'new_name': str(tp)
+        }
+
+    def form_valid(self, form):
+        target = Path(settings.POLYPOINT_THEATRE_DIR)
+        orig = self.get_target_path()
+        fp = target / orig
+        if fp.exists() is False:
+            fp = fp.with_suffix('.js')
+            if fp.exists() is False:
+                raise Exception(f'file does not exist {fp}')
+
+        new_name = form.cleaned_data['new_name']
+        clean_name = Path(new_name).with_suffix('.js')
+        # Copy original file,
+        new_fp = target / clean_name
+        if new_fp.exists():
+            raise Exception(f'Target file already exists {new_fp}')
+
+        self.perform_file_action(fp, new_fp)
+        self.target_path = clean_name
+        # redirect to new.
+        return super().form_valid(form)
+
+    def perform_file_action(self, fp, new_fp):
+        shutil.copyfile(fp, new_fp)
+
+    def get_target_path(self):
+        return Path(self.kwargs.get('path'))
+
+    def get_success_url(self):
+        args = (self.target_path, )
+        # args = (self.get_target_path(), )
+        return views.reverse("examples:file_example", args=args)
+
+
+class RenameFileView(CloneFileView):
+
+    def get_initial(self):
+        tp = self.get_target_path()
+
+        tp = tp.with_suffix('')
+        tp = tp.with_name('erica-homestead')
+
+        return {
+            'new_name': str(tp)
+        }
+
+    def perform_file_action(self, fp, new_fp):
+        shutil.move(fp, new_fp)
 
 
 class ExampleExtFileView(ExampleFileView):

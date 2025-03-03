@@ -27,14 +27,11 @@ class MainStage extends Stage {
     live = true
     mounted(){
         let depth = this.depth = 1000
-        /* Generate 100 points, within a 500px box, at origin 0,0 */
-        this.points = PointList.generate.random(100, 500, this.center.subtract(300))
-        this.points.each.z = () => -900 + Math.random() * depth + 500
-
+        let z = ()=> -(depth) + Math.random() * depth + (depth * .5)
+        this.points = PointList.generate.random(100, 500, {x: 200, y: 200, z})
         this.projectionPoint = this.points.center.copy()
         this.projectionLength = 1000
-        this.perspectiveCenter = this.center.copy()
-
+        this.perspectiveCenter = this.projectionPoint.copy()
         this.rotSize = 0
         this.performSpin = false
 
@@ -53,19 +50,8 @@ class MainStage extends Stage {
                 , this.projectionLength
                 , this.perspectiveCenter
             )
-        let maxDepth = this.depth
-        let deepColor = 200
-        this.spunPoints.forEach((p, i)=>{
-            let z = p.z
-            let red = deepColor - ((z / maxDepth) * deepColor)
-            // let colorBlue = "hsl(184 50% 40%)"
-            // let colorRed = "hsl(0 66% 40%)"
-            let color = `hsl(${red} 66% 35%)`
-            p.color = color
-        })
-        // this.spunPoints.sortByZ()
+        this.spunPoints.sortByZ()
         // this.perspectiveCenter = this.spunPoints.copy().add(0, 0)
-
 
     }
 
@@ -75,25 +61,22 @@ class MainStage extends Stage {
 
     draw(ctx){
         this.clear(ctx)
-        let sv = 0.02
         if(this.performSpin){
-            sv = .2
+            this.rotSize += .2
         }
-        this.rotSize += sv
         this.step()
         // let color = '#666'
         // this.points.pen.indicators(ctx, {color})
         // this.spunPoints.pen.indicators(ctx)
         let maxDepth = this.depth
         let deepColor = 200
-
-        this.spunPoints.forEach((p, i)=>{
+        this.spunPoints.forEach((p)=>{
             let z = p.z
             let red = deepColor - ((z / maxDepth) * deepColor)
             // let colorBlue = "hsl(184 50% 40%)"
             // let colorRed = "hsl(0 66% 40%)"
-            // let color = `hsl(${red} 66% 35%)`
-            p.pen.fill(ctx, p.color)
+            let color = `hsl(${red} 66% 35%)`
+            p.pen.fill(ctx, color)
         })
     }
 }

@@ -38,6 +38,22 @@
             </div>
 
             <div class="right-panel-container">
+                <div class="editor-assist-tools">
+                    <ul class="editor-assist-list">
+                        <li class="editor-assist-item">
+                            <a href="#">
+
+                                {% link "examples:clone_file" part_name "clone" %}
+                            </a>
+                        </li>
+                        <li class="editor-assist-item">
+                            <a href="#">
+
+                                {% link "examples:rename_file" part_name "rename" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <h2>{{  metadata.title }}</h2>
 
                 {% verbatim %}
@@ -145,10 +161,13 @@
                     {% str_merge "./imports/" part_name ".html" as include_name %}
                     {% if include_name|template_exists %}
                         {% include include_name %}
-                    {% else %}
                         <div class="no-imports">
-                            <p>Default imports file "{{ part_name }}" do not exist.</p>
+                            <p>Applied imports file "{{ part_name }}".</p>
                         </div>
+                    {% else %}
+                        <!-- <div class="no-imports">
+                            <p>Imports file "{{ part_name }}" do not exist.</p>
+                        </div> -->
                     {% endif %}
 
                     {% comment %}

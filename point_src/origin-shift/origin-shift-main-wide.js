@@ -1,18 +1,23 @@
-const conf = originShiftConfigs.small({
-    rows: 20
-    , cols: 20
-    , lineWidth: 2
-    , lineColor: '#999'
-    , gap: 5
-    , pointSpread: 15
-    /* Player spot. */
-    , originColor: '#eeaadd'
-    , lineCap: 'square'
-    , drawPosition: true
-    , drawTip: false
-})
+// const conf = originShiftConfigs.small({
+//     rows: 20
+//     , cols: 20
+//     , lineWidth: 2
+//     , lineColor: '#999'
+//     , gap: 5
+//     , pointSpread: 15
+//     /* Player spot. */
+//     , originColor: '#eeaadd'
+//     , lineCap: 'square'
+//     , drawPosition: true
+//     , drawTip: false
+// })
 // const conf = originShiftConfigs.large()
-// const conf = originShiftConfigs.maze()
+const conf = originShiftConfigs.maze({
+    drawPosition: false
+    , drawTip: false
+    , rows: 20
+    , cols: 20
+})
 
 // const conf = originShiftConfigs.small() // large()
 let os = new OriginShift(conf);

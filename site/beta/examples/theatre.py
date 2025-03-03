@@ -181,7 +181,7 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
             # MyExtClass(),
             # 'myext',
             # 'path.to.my.ext:MyExtClass'
-            'meta'
+            'examples.meta2:MetaExtension'
             ]
         md = markdown.Markdown(extensions=extensions)
         html = md.convert(text_data)

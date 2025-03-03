@@ -1,0 +1,21 @@
+{% extends "docs/doc-base.html" %}
+{% load link %}
+{% block page_title %}Clone{% endblock page_title %}
+
+{% block content %}
+
+{% link.css  "examples/css/form_view.css" %}
+
+<div class="outer-block">
+    <div class="block">
+        <p>Clone this file into the theatre directory</p>
+        <form method="post">
+        {{ form }}
+        {% csrf_token %}
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -373,7 +373,7 @@ class StageRender {
         */
         const ctx = this.ctx;
 
-        for(let af of this._drawAfter) {
+        for(let af of this._drawBefore) {
             af(ctx)
         }
 

@@ -60,7 +60,25 @@ function getMethodsOf(obj){
     }
 })
 
+
 class StageEvents {
+    /* StageEvents apply `.events` to the stage.
+    If `autoListen=true` (default). any method matching `on[EventName]` is
+    hooked.
+
+        class MyStage extends Stage {
+            autoListen = true
+
+            onClick(ev){
+                // raw ev event
+            }
+        }
+
+    Standard `on` and `emit` (listen/dispatch) for events:
+
+        stage.on('eventName', stage.handle)
+
+    */
     autoListen = true
 
     constructor(stage=undefined) {
@@ -79,14 +97,14 @@ class StageEvents {
     }
 
     hook(entity) {
-        console.log('Auto listen.')
+        // console.log('Auto listen.')
         const methods = getMethodsOf(entity);
         for(let k in methods){
             // console.log('Checking', k)
             if(k.toLowerCase().startsWith('on')) {
                 let f = entity[k].bind(entity)
                 let eventName = k.slice(2).toLowerCase()
-                console.log('Autohooking event', eventName)//, f)
+                // console.log('Autohooking event', eventName)//, f)
                 this.on(eventName,f)
             }
         }
@@ -95,6 +113,10 @@ class StageEvents {
 
     on(name, handler, props) {
         return this.getEventParent().addEventListener(name, handler, props)
+    }
+
+    emit(name, detail) {
+        return this.getEventParent().dispatchEvent(new CustomEvent(name, {detail}))
     }
 
     getEventParent() {

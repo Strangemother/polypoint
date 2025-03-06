@@ -13,8 +13,9 @@ from trim import views
 from editor.views import PointSrcAssetView, TheatreSrcAssetView
 from .file_reader import imports_list
 
-from .theatre import get_theatre_list, get_metadata
+from .theatre import get_theatre_list, get_theatre_filelist, get_metadata
 from . import forms
+from . import theatre_process
 
 
 class ExampleIndexTemplateView(views.ListView):
@@ -205,3 +206,17 @@ class ExampleExtFileView(ExampleFileView):
         ]
         return names
         # names = super().get_template_names()
+        #
+
+
+class ImmediateProcessTheatreFilesView(views.FormView):
+    form_class = forms.ConfirmForm
+    template_name = 'examples/clone_form.html'
+
+    def form_valid(self, form):
+        tp = theatre_process.TheatreProcessor()
+        tp.parse_theatre(settings.POLYPOINT_THEATRE_DIR)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return views.reverse("examples:example")

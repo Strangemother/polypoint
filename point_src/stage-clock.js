@@ -13,6 +13,7 @@ Polypoint.head.deferredProp('Stage', function clock(){
     console.log('Setup clock')
     const tickClock = function(ctx) {
         let c = this.clock
+        // console.log(c.delta)
         const ts = +(new Date)
         // const ts = Performance.now()
         c.tick += 1
@@ -30,6 +31,7 @@ Polypoint.head.deferredProp('Stage', function clock(){
             , delta: (1000/60)
             , prevStamp: +(new Date)
             , get fps() {
+                // return 1000 / this.delta
                 return Math.floor(1000 / this.delta)
             }
             , splitSeconds(seconds=1, fps=this.fps) {
@@ -55,4 +57,3 @@ Polypoint.head.deferredProp('Stage', function clock(){
 
     return clock
 })
-

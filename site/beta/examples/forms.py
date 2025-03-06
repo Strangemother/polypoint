@@ -8,3 +8,7 @@ class CloneFileForm(forms.Form):
 
     class Meta:
         fields = ('new_name',)
+
+
+class ConfirmForm(forms.Form):
+    pass

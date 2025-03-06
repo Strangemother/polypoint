@@ -1,6 +1,6 @@
 /*
 ---
-title: Rotate 3D
+title: 3D Points
 files:
     ../point_src/math.js
     ../point_src/core/head.js
@@ -37,7 +37,15 @@ class MainStage extends Stage {
 
         this.rotSize = 0
         this.performSpin = false
-
+        this.zFix = false
+        let stage = this;
+        addButton('Z Fix', {
+            label: 'Z FIX'
+            , onclick(e) {
+                stage.zFix = !stage.zFix
+                e.target.text = `${this.label} (${stage.zFix})`
+            }
+        })
     }
 
     step(){
@@ -63,7 +71,7 @@ class MainStage extends Stage {
             let color = `hsl(${red} 66% 35%)`
             p.color = color
         })
-        // this.spunPoints.sortByZ()
+        this.zFix && this.spunPoints.sortByZ()
         // this.perspectiveCenter = this.spunPoints.copy().add(0, 0)
 
 

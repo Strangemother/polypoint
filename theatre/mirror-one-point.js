@@ -1,4 +1,15 @@
-
+/*
+files:
+    head
+    stroke
+    pointlist
+    point
+    mouse
+    dragging
+    ../point_src/functions/clamp.js
+    ../point_src/mirror.js
+    stage
+*/
 class MainStage extends Stage {
     canvas='playspace'
 

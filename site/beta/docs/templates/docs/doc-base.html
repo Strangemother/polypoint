@@ -18,11 +18,13 @@
     {% include "./header.html" %}
     <main>
         <header>
+            {% block header_block %}
             <h1 class="title
                         text-align-center
                         font-size-5rem">
                 {% block page_title %}{{ page_title }}{% endblock page_title %}
             </h1>
+            {% endblock header_block %}
         </header>
         {% block header_footer %}{% endblock header_footer %}
         <div class="outer-block breadcrumb-block">
@@ -50,7 +52,6 @@
                 </div>
             </div>
         </div>
-
         {% block content %} {% endblock content %}
     </main>
 

@@ -74,6 +74,7 @@ class MetaPreprocessor(Preprocessor):
         print('... Processing MetaPreprocessor.run')
         if lines and BEGIN_RE.match(lines[0]):
             v = lines.pop(0)
+
             total += len(v) + 1
         while lines:
             line = lines.pop(0)

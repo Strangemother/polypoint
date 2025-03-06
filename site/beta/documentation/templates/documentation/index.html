@@ -1,0 +1,42 @@
+{% extends "docs/doc-base.html" %}
+{% load content link markdown %}
+
+{% block page_title %}Doc{% endblock page_title %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+
+        {% markdown.file "docs" "readme.md" %}
+
+        <div class="file-list">
+
+            {% comment "What" %}
+                Expect file objects, present the object_list in a UL list.
+
+                Review `docs.view::get_src_list` for more on src_file objects.
+            {% endcomment %}
+            <ul class='files-list example-list'>
+            {% for src_file in object_list %}
+                <!-- <div>path: {{ src_file.rel_path }}</div> -->
+                <!-- <div>name: {{ src_file.rel_name }}</div> -->
+                {% if src_file.is_dir %}
+                    <li class='directory-item'>
+                        {% link "documentation:src_dir" src_file.rel_path src_file.name %}/
+                    </li>
+                {% else %}
+                    <li class='file-item'>
+                        {% link "documentation:src_file" src_file.rel_name src_file.name %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+
+{% link.css "examples/css/column-list.css" %}
+
+{% endblock content %}

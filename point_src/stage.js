@@ -142,7 +142,15 @@ class StageRender {
         canvas.height = rect.height;
         let center = this.dimensions?.center
 
-        center = center || new Point()
+        const newPoint = function(){
+            try{
+                return new Point();
+            } catch {}
+
+            return {}
+        }
+
+        center = center || newPoint()
 
         center.x = /*rect.x + */rect.width * .5
         center.y = /*rect.y + */rect.height * .5
@@ -253,7 +261,9 @@ class StageRender {
     }
 
     resize() {
-        this.dimensions = this.stickCanvasSize(this.canvas)
+        let dimensions = this.dimensions = this.stickCanvasSize(this.canvas)
+        console.log('dimensions resize')
+        this.events && this.events.emit('resize', dimensions)
         return this.dimensions
     }
 

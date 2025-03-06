@@ -1,0 +1,15 @@
+{% extends "docs/doc-base.html" %}
+{% load link markdown %}
+
+{% block page_title %}{{ path }}{% endblock page_title %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        {% markdown.file "docs" filepath %}
+    </div>
+</div>
+
+{% link.css "examples/css/column-list.css" %}
+
+{% endblock content %}

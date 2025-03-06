@@ -25,7 +25,17 @@
         <div class="horiz-stack">
             <div class="primary-panel">
                 <div class="header-tools extra-buttons font-Inter-500">
-                    <span>Extra Bits</span>
+                    {# <span>Extra Bits</span> #}
+
+                    {% verbatim %}
+                    <div id="dimensions_app" class="width-height">
+                        <span class="number width"
+                            contenteditable="true">{{ store.width }}</span>
+                        <span class="split">x</span>
+                        <span class="number height"
+                            contenteditable="true">{{ store.height }}</span>
+                    </div>
+                    {% endverbatim %}
                 </div>
                 <div class="canvas-container">
                     {% block canvas_container %}
@@ -33,7 +43,6 @@
                     {% endblock canvas_container %}
                 </div>
                 <div class="footer-tools">
-
                 </div>
             </div>
 
@@ -249,12 +258,18 @@
 {% block js %}
 
     {# <script src="https://unpkg.com/petite-vue" defer init></script> #}
+
+    <script src="../point_src/core/loader.js"></script>
+
     {% link.js "examples/js/petite-vue.iife.js" "defer" %}
+    {% link.js "examples/js/mountable.js" "defer" %}
     {% link.js "examples/js/memory-tool-app.js" %}
     {% link.js "examples/js/widget-app.js" %}
     {% link.js "examples/js/button-app.js" %}
     {% link.js "examples/js/global-error-handler.js" %}
     {% link.js "examples/js/file-view.js" %}
+    {% link.js "examples/js/dimensions-app.js" "defer" %}
+
 
     {% if metadata %}
         {% for filepath in metadata.clean_files %}

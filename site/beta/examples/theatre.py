@@ -57,6 +57,21 @@ def store_tree(filename, tree_data):
     }
 
 
+def get_theatre_filelist(relative=True):
+    """Return filepaths, rather than a list of assets.
+    """
+    parent = settings.POLYPOINT_THEATRE_DIR
+    tpath = Path(parent)
+    res = ()
+    for asset in tpath.iterdir():
+        if asset.is_file():
+            nn = asset
+            if relative:
+                nn = asset.relative_to(tpath)
+            res += ( str(nn), )
+
+    return tuple(res)
+
 def get_theatre_list(**kw):
     # get all files in the theatre dir
     # parent = settings.POLYPOINT_THEATRE_DIR
@@ -181,7 +196,8 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
             # MyExtClass(),
             # 'myext',
             # 'path.to.my.ext:MyExtClass'
-            'examples.meta2:MetaExtension'
+            'meta',
+            # 'examples.meta2:MetaExtension'
             ]
         md = markdown.Markdown(extensions=extensions)
         html = md.convert(text_data)
@@ -290,7 +306,7 @@ def clean_files_list(metadata=None, deep_include=True, files=None, rel_prefix=No
     file_ref = json.loads(files_path.read_text())
     if files is None:
         files = metadata.get('files', ())
-    print('clean_files_list', files)
+    # print('clean_files_list', files)
 
     rel_src_dir = rel_prefix
     if rel_prefix is None:

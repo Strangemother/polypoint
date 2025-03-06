@@ -10,6 +10,7 @@ app_name = 'examples'
 
 urlpatterns = urls.paths_named(views,
     example=('ExampleIndexTemplateView', '',),
+    theatre_process=('ImmediateProcessTheatreFilesView', ('process/',)),
     point_src=('PointSrcAssetView', ('point_src/<path:path>',)),
     theatre_src=('TheatreSrcAssetView', ('theatre/<path:path>',)),
     script_raw=('ScriptsRawImportView', 'script_list_raw/<str:name>/'),

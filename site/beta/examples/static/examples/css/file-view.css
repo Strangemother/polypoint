@@ -15,7 +15,7 @@ Extending the "example-base.html"
     height: 96%;
     /*box-sizing: border-box;*/
     padding: 0;
-    margin: 0.6rem 0 0 1%;
+    margin: 0rem 0 0 1%;
     border: solid 2px #111111;
     background: #080808;
     border-radius: 0.5em;
@@ -75,7 +75,7 @@ body {
 .horiz-stack .primary-panel {
     /* border: solid 1px red; */
     display: grid;
-    grid-template-rows: min-content min-content;
+    grid-template-rows: min-content auto min-content;
 }
 
 .right-panel-container {
@@ -122,6 +122,7 @@ footer.primay-status-bar {
 .extra-buttons {
     font-size: 0.9rem;
     margin-left: 1%;
+    display: flex;
 }
 
 .memory-values-container {
@@ -318,4 +319,16 @@ main.icon-pack-outlined {
 
 .info-container.font-Inter-500 {
     overflow: initial;
+}
+
+
+.width-height {/* border: solid 1px #555; *//* font-size: 12px; */font-size: 0.8em;padding: 0 0.9em;color: #525252;}
+
+.width-height:hover, .width-height:focus {
+    color: inherit;
+}
+
+.width-height .number:focus {
+    outline: none;
+    color: red;
 }

@@ -23,6 +23,8 @@ const isOuterPoint = function(p, nextPoint) {
     return calculateAngle(p, nextPoint) > 180
     // return obtuseBisect(previousPoint, p, nextPoint) > -1
 }
+
+
 class MainStage extends Stage {
     canvas = 'playspace'
 

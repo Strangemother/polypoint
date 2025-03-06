@@ -1,4 +1,5 @@
 /*
+Title: Mirror with Catenary
 files:
     ../point_src/core/head.js
     stroke
@@ -12,6 +13,13 @@ files:
     ../point_src/catenary-curve.js
     ../point_src/curve-extras.js
     ../point_src/stage.js
+
+---
+
+Mirror a point, then draw a catenary curve between the two.
+
+Any green point is draggable.
+
  */
 function reflectPoint(origin, line) {
     const [p1, p2] = line;
@@ -47,6 +55,7 @@ function reflectPoint(origin, line) {
         };
 }
 
+
 class MainStage extends Stage {
     canvas='playspace'
 
@@ -75,21 +84,21 @@ class MainStage extends Stage {
         this.other = new Point({x: 150, y:150, radius: 20})
         this.points = new PointList(_a,_b)
         this.updateReflect()
-        this.cantenary = new CantenaryCurve(this.origin, this.reflect, 500)
-        this.cantenary.restLength = 430
+        this.catenary = new CantenaryCurve(this.origin, this.reflect, 500)
+        this.catenary.restLength = 430
     }
     updateReflect() {
         this.reflect = new Point(reflectPoint(this.origin, this.points))
-        this.cantenary && (this.cantenary.b = this.reflect)
+        this.catenary && (this.catenary.b = this.reflect)
     }
 
     draw(ctx){
 
         this.clear(ctx)
 
-        this.cantenary.update(ctx, this.clock.tick)
-        this.cantenary.updateSwing(ctx, this.clock.tick)
-        this.cantenary.render(ctx)
+        this.catenary.update(ctx, this.clock.tick)
+        this.catenary.updateSwing(ctx, this.clock.tick)
+        this.catenary.render(ctx)
         this.drawCircles(ctx)
         this.drawIris(ctx)
     }
@@ -101,7 +110,7 @@ class MainStage extends Stage {
         this.origin.pen.indicator(ctx, {color:'green'})
         this.other.pen.indicator(ctx, {color:'#555'})
         this.reflect.pen.indicator(ctx, {color: '#AAA'})
-        this.points.pen.line(ctx, )
+        this.points.pen.line(ctx, {color:'green'})
 
     }
 

@@ -1,4 +1,12 @@
 
+// Solution 2
+Number.EPSILON = Math.pow(2, -52);
+Math.sign = function(x) {
+    return ((x > 0) - (x < 0)) || +x;
+};
+
+
+
 const vectorAngle = (x, y) =>{
   // vectorAngle([3, 4], [4, 3]); // 0.283794109208328
 

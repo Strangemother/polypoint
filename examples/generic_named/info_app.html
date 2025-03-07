@@ -1,0 +1,49 @@
+{% load strings link try_include %}
+<div class="info-container font-Inter-500">
+
+    {% comment %}
+        Install the import of the same filename - if it exists.
+    {% endcomment %}
+    {% str_merge "../imports/" part_name ".html" as include_name %}
+    {% if include_name|template_exists %}
+        {% include include_name %}
+        <div class="no-imports">
+            <p>Applied imports file "{{ part_name }}".</p>
+        </div>
+    {% else %}
+        <!-- <div class="no-imports">
+            <p>Imports file "{{ part_name }}" do not exist.</p>
+        </div> -->
+    {% endif %}
+
+    {% comment %}
+        Apply any custom imports from the markdown meta data (at the top
+        of a JS file.)
+    {% endcomment %}
+    {% for import_template_name in metadata.imports %}
+        {% str_merge "./imports/" import_template_name as include_name %}
+        <!-- Including import "{{include_name}}" -->
+        {% if include_name|template_exists %}
+            <!-- exists "{{include_name}}" -->
+            {% include include_name %}
+        {% else %}
+            <!-- fail "{{include_name}}" -->
+            <div class="no-imports">
+                <p>Defined imports "{{ import_template_name }}" do not exist.</p>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="markdown-container">
+
+        {% if markdown %}
+            <div class="markdown-content">
+                {{ markdown.html|safe }}
+            </div>
+        {% endif %}
+
+        {% if metadata %}
+            {% include 'docs/metadata-table.html' %}
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,20 @@
+{% verbatim %}
+<div id="widgets" class="widgets-container font-Inter-400">
+    <div class='widget-owner' v-for='item in widgets'>
+
+        <div class="floating widget" :id="item.id">
+            <h3 v-if='item.showTitle == true'>{{ item.title }}</h3>
+            <div class='widget-fields'>
+                <div class='widget-field' :class='"field-"+key' v-for='(definition, key) in item.fields'>
+                    <span class="widget-label" v-html="definition.label"></span>
+                    <span class="widget-value">
+                        {{ definition.value }}
+                    </span>
+                    <span class='widget-postfix' v-html="definition.postfix || ''"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endverbatim %}

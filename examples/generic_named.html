@@ -14,9 +14,11 @@
 {% endcomment %}
 {% load strings link try_include %}
 
+
 {% if metadata %}
     {% block title %}{{ metadata.title }}{% endblock title %}
 {% endif %}
+
 
  {% block content %}
     {% css "css/index.css" %}
@@ -26,16 +28,7 @@
             <div class="primary-panel">
                 <div class="header-tools extra-buttons font-Inter-500">
                     {# <span>Extra Bits</span> #}
-
-                    {% verbatim %}
-                    <div id="dimensions_app" class="width-height">
-                        <span class="number width"
-                            contenteditable="true">{{ store.width }}</span>
-                        <span class="split">x</span>
-                        <span class="number height"
-                            contenteditable="true">{{ store.height }}</span>
-                    </div>
-                    {% endverbatim %}
+                    {% include './generic_named/dimensions_app.html' %}
                 </div>
                 <div class="canvas-container">
                     {% block canvas_container %}
@@ -47,228 +40,55 @@
             </div>
 
             <div class="right-panel-container">
+
                 <div class="editor-assist-tools">
                     <ul class="editor-assist-list">
                         <li class="editor-assist-item">
-                            <a href="#">
-
-                                {% link "examples:clone_file" part_name "clone" %}
-                            </a>
+                            {% link "examples:clone_file" part_name "clone" %}
                         </li>
                         <li class="editor-assist-item">
-                            <a href="#">
-
-                                {% link "examples:rename_file" part_name "rename" %}
-                            </a>
+                            {% link "examples:rename_file" part_name "rename" %}
                         </li>
                     </ul>
                 </div>
                 <h2>{{  metadata.title }}</h2>
-
-                {% verbatim %}
                 <!-- anywhere on the page -->
-                <div id='mini-app'>
-
-                  <ul class='actions-container'>
-                      <li v-for='item in controls' class='action-container'>
-                            <div class="action">
-
-                                <div v-if="item.field == 'button'">
-                                   <a class='button'
-                                        href="javascript:;"
-                                        @click="clickHandler($event, item)">{{ item.label }}</a>
-                                </div>
-
-                                <div v-if="item.field == 'input'">
-                                   <label>
-                                        <span class="pseudo-label">
-                                            {{ item.label }}
-                                        </span>
-
-                                        <input
-                                            :type="item.type || 'input'"
-                                            :value="item.value"
-                                            @input="changeHandler($event, item)"
-                                            step="1" />
-                                    </label>
-                                </div>
-
-                                <div v-if="item.field == 'select'">
-                                    <label>
-                                        <span class="pseudo-label">
-                                            {{ item.label }}
-                                        </span>
-                                        <select class='select'
-                                            @change="changeHandler($event, item)">
-                                            <option v-for='option in item.options'>
-                                                {{ option }}
-                                            </option>
-                                        </select>
-                                    </label>
-                                </div>
-
-                                <div v-if="item.field == 'range'">
-                                    <label>
-                                        <span class="pseudo-label">
-                                            {{ item.label }}
-                                        </span>
-
-                                        <input
-                                            type="range"
-                                            :min="item.min!=undefined?item.min:1"
-                                            :max="item.max!=undefined?item.max:100"
-                                            :value="item.value!=undefined?item.value:10"
-                                            @input="changeHandler($event, item)"
-                                            :step="item.step!=undefined?item.step:1" />
-                                    </label>
-                                </div>
-
-
-                                <!--
-                                    Actions being:
-
-                                        button
-                                        dropdown
-                                        color
-                                        radios
-                                        text
-                                        number options
-
-                                    Basically all types
-                                -->
-                            </div>
-                      </li>
-                  </ul>
-                </div>
+                {% include './generic_named/mini_app.html' %}
 
                 <!-- An app for little cell items. -->
-                <div id="widgets" class="widgets-container font-Inter-400">
-                    <div class='widget-owner' v-for='item in widgets'>
-
-                        <div class="floating widget" :id="item.id">
-                            <h3 v-if='item.showTitle == true'>{{ item.title }}</h3>
-                            <div class='widget-fields'>
-                                <div class='widget-field' :class='"field-"+key' v-for='(definition, key) in item.fields'>
-                                    <span class="widget-label" v-html="definition.label"></span>
-                                    <span class="widget-value">
-                                        {{ definition.value }}
-                                    </span>
-                                    <span class='widget-postfix' v-html="definition.postfix || ''"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                {% endverbatim %}
-
-                <div class="info-container font-Inter-500">
-
-                    {% comment %}
-                        Install the import of the same filename - if it exists.
-                    {% endcomment %}
-                    {% str_merge "./imports/" part_name ".html" as include_name %}
-                    {% if include_name|template_exists %}
-                        {% include include_name %}
-                        <div class="no-imports">
-                            <p>Applied imports file "{{ part_name }}".</p>
-                        </div>
-                    {% else %}
-                        <!-- <div class="no-imports">
-                            <p>Imports file "{{ part_name }}" do not exist.</p>
-                        </div> -->
-                    {% endif %}
-
-                    {% comment %}
-                        Apply any custom imports from the markdown meta data (at the top
-                        of a JS file.)
-                    {% endcomment %}
-                    {% for import_template_name in metadata.imports %}
-                        {% str_merge "./imports/" import_template_name as include_name %}
-                        <!-- Including import "{{include_name}}" -->
-                        {% if include_name|template_exists %}
-                            <!-- exists "{{include_name}}" -->
-                            {% include include_name %}
-                        {% else %}
-                            <!-- fail "{{include_name}}" -->
-                            <div class="no-imports">
-                                <p>Defined imports "{{ import_template_name }}" do not exist.</p>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-
-                    <div class="markdown-container">
-
-                        {% if markdown %}
-                            <div class="markdown-content">
-                                {{ markdown.html|safe }}
-                            </div>
-                        {% endif %}
-
-                        {% if metadata %}
-                            {% include 'docs/metadata-table.html' %}
-                        {% endif %}
-                    </div>
-                </div>
+                {% include './generic_named/widgets_app.html' %}
+                {% include './generic_named/info_app.html' %}
 
                 <div class='logger' id="logging-app">
-                    <!--
-                        Logging tool
-                     -->
+                    <!-- Logging tool -->
+                     Logger
                 </div>
             </div>
         </div>
 
-        <footer class="primay-status-bar font-Inter-500">
+        {% include './generic_named/primary-status-bar.html' %}
 
-            {% comment "without-petite-vue" %}
-            <div class="memory-values-container">
-                <div class='memory-cell'>
-                    <span class="label">total</span>
-                    <span id="memory-total-value">0</span>
-                </div>
-                <div class='memory-cell'>
-                    <span class="label">used</span>
-                    <span id="memory-used-value">0</span>
-                </div>
-                <div class='memory-cell'>
-                    <span class="label">limit</span>
-                    <span id="memory-limit-value">0</span>
-                </div>
-            </div>
-            {% endcomment %}
-
-            {% verbatim %}
-            <div id="memory-values" class="memory-values-container">
-                <div class='memory-cell' v-for='item in memoryCache'>
-                    <span class="label">{{ item.label }}</span>
-                    <span class="memory-value">{{ item.value }} {{ item.postfix }}</span>
-                </div>
-            </div>
-            {% endverbatim %}
-
-            {% str_merge "../theatre/" part_name ".js" as script_name %}
-            <div>{{ script_name }}</div>
-        </footer>
     </main>
 {% endblock content %}
 
-{% load link %}
 
 {% block js %}
 
     {# <script src="https://unpkg.com/petite-vue" defer init></script> #}
 
+
+    {% link.js "examples/js/apps/early-installs-logger-app.js" %}
     <script src="../point_src/core/loader.js"></script>
 
     {% link.js "examples/js/petite-vue.iife.js" "defer" %}
     {% link.js "examples/js/mountable.js" "defer" %}
-    {% link.js "examples/js/memory-tool-app.js" %}
-    {% link.js "examples/js/widget-app.js" %}
-    {% link.js "examples/js/button-app.js" %}
+    {% link.js "examples/js/apps/memory-tool-app.js" %}
+    {% link.js "examples/js/apps/widget-app.js" %}
+    {% link.js "examples/js/apps/button-app.js" %}
     {% link.js "examples/js/global-error-handler.js" %}
-    {% link.js "examples/js/file-view.js" %}
-    {% link.js "examples/js/dimensions-app.js" "defer" %}
+    {% link.js "examples/js/apps/file-view.js" %}
+    {% link.js "examples/js/apps/dimensions-app.js" "defer" %}
+    {% link.js "examples/js/apps/installs-logger-app.js" "defer" %}
 
 
     {% if metadata %}

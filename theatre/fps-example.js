@@ -1,5 +1,5 @@
 /*
-title: Example
+title: FPS Example
 files:
     head
     pointlist
@@ -9,7 +9,6 @@ files:
     dragging
     fps
 ---
-
 */
 
 

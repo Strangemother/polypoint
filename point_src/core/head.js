@@ -284,6 +284,14 @@ This works for many mixins:
 
     const installMap = new Map;
 
+    const dispatch = function(eventType, entity) {
+        let name = `Polypoint:${eventType}`
+        let detail = {
+            entity
+        }
+        dispatchEvent(new CustomEvent(name, {detail}))
+    }
+
     /* "Install" an entity, allowing the automated mixin population
     And Polypoint calling.
 
@@ -308,7 +316,8 @@ This works for many mixins:
             name = entity.name
         }
 
-        dlog(`Installing entity "${name}"`)
+        // dlog(`Installing entity "${name}"`)
+        dispatch('install', entity)
         exposed[name] = entity;
 
         if(waiting[name] != undefined) {
@@ -442,8 +451,7 @@ This works for many mixins:
      */
     const lazyProp = function(name, propsDict) {
         dlog('lazyProp', name, Object.keys(propsDict))
-        let def = {
-        }
+        let def = {}
 
         for(let key in propsDict) {
 

@@ -1,0 +1,41 @@
+{% load strings %}
+
+<footer class="primay-status-bar font-Inter-500">
+
+    {% comment "without-petite-vue" %}
+    <div class="memory-values-container">
+        <div class='memory-cell'>
+            <span class="label">total</span>
+            <span id="memory-total-value">0</span>
+        </div>
+        <div class='memory-cell'>
+            <span class="label">used</span>
+            <span id="memory-used-value">0</span>
+        </div>
+        <div class='memory-cell'>
+            <span class="label">limit</span>
+            <span id="memory-limit-value">0</span>
+        </div>
+    </div>
+    {% endcomment %}
+
+    {% verbatim %}
+    <div id="memory-values" class="memory-values-container">
+        <div class='memory-cell' v-for='item in memoryCache'>
+            <span class="label">{{ item.label }}</span>
+            <span class="memory-value">{{ item.value }} {{ item.postfix }}</span>
+        </div>
+    </div>
+    {% endverbatim %}
+
+    {% str_merge "../theatre/" part_name ".js" as script_name %}
+    <div>{{ script_name }}</div>
+
+    <div class="spacer flex-grow-1"></div>
+
+
+    <div>
+        {# Present the installs logger UI and buttons. #}
+        {% include "./installs_logger_app.html" %}
+    </div>
+</footer>

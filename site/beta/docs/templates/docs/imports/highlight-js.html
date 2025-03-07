@@ -1,6 +1,7 @@
 {% load link %}
 
 {% css "css/default.min.css" %}
+{% css "css/docs/codeblock.css" %}
 {% css "css/atom-one-dark.min.css" %}
 
 {% js "js/highlight.min.js" %}
@@ -18,15 +19,5 @@
                           // … other options aren't changed
     });
     hljs.highlightAll();
-    console.log(hljs.listLanguages())
+    // console.log(hljs.listLanguages())
 </script>
-
-<style>
-    pre > code {
-        font-family: "Roboto Mono";
-        font-optical-sizing: auto;
-        font-weight: normal;
-        font-style: normal;
-        font-size:1rem;
-    }
-</style>

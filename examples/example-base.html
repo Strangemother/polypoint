@@ -1,9 +1,14 @@
+{% comment "What" %}
+    The base page for all example files
+{% endcomment %}
 <!DOCTYPE html>
 <html class='polypoint-demo'>
     <head>
         <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
         {% load link %}
         {% link.css "examples/css/file-view.css" %}
+
+        {% block head_js %}{% endblock head_js %}
 
         <title>{% block title %}Polypoint{% endblock title %}</title>
     </head>

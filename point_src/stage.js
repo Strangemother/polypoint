@@ -23,12 +23,6 @@ This will execute the canvas name. It provides some free tools:
 
 */
 
-// Solution 2
-Number.EPSILON = Math.pow(2, -52);
-Math.sign = function(x) {
-    return ((x > 0) - (x < 0)) || +x;
-};
-
 class Stages {
     /* A Singleton to manage global functions and data */
     loaded = false
@@ -102,6 +96,7 @@ class Stages {
         Point.mouse?.mount(canvas)
     }
 }
+
 
 stages = new Stages;
 
@@ -387,7 +382,6 @@ class StageRender {
             af(ctx)
         }
     }
-
 
     nextTick(func) {
         /* Run the given function (with context) on the next draw call.

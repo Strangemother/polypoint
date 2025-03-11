@@ -1,6 +1,4 @@
 /*
-files:
-    other.js
  */
 // moved to functions/context.js
 const saveRestoreDraw = function(ctx, position, callback) {

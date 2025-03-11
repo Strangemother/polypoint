@@ -150,7 +150,7 @@ class LineEmitter extends Emitter {
     }
 
     cachePoints(line, divider=1, pointing=90) {
-        console.log('Cache Points')
+        // console.log('Cache Points')
         this.positions = line.split(line.length * divider, pointing)
         this.lineLength = line.length
     }

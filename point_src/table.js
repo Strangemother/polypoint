@@ -117,3 +117,5 @@ class Table {
         return d
     }
 }
+
+Polypoint.head.install(Table)

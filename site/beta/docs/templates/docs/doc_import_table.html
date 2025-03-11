@@ -1,0 +1,16 @@
+{% load link %}
+<div class="doc_import-list">
+    <p>File imports discovered within the "docs_imports" meta key (including meta imports)</p>
+    <ul class="display-table">
+        {% for item in point_files %}
+        <li class="display-table-row">
+            <div class="display-table-cell">{{ item }}</div>
+            <div class="display-table-cell">
+            {% link.url 'examples:point_src' item '_' as url_link %}
+            {% link 'docs:point_src' item url_link %}
+            </div>
+            {# <script type="text/javascript" src='{{url_link}}'></script> #}
+        </li>
+        {% endfor %}
+    </ul>
+</div>

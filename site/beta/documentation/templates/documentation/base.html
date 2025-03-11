@@ -1,0 +1,14 @@
+{% extends "docs/doc-base.html" %}
+{% comment "What" %}
+    This file presents a directory within the documentation folder,
+    listing all readme files for the user to select.
+{% endcomment %}
+{% load link %}
+
+{% block page_title %}
+    {% firstof metadata.title page_title object_path  metadata.path %}
+{% endblock page_title %}
+
+{% block breadcrumbs_root_link %}
+    {% link "documentation:home" 'Docs' %}
+{% endblock breadcrumbs_root_link %}

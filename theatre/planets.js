@@ -371,7 +371,7 @@ class MainStage extends Stage {
         let p = this.dis.getPoint();
 
         if(p) {
-            this.label.text = p.name
+            this.label.text = p.name ? p.name: ''
             let stroke = this.strokes.focul()
             stroke.step()
             p.pen.circle(ctx, p.radius + 15, 'white', 2)

@@ -30,9 +30,12 @@
         <div class="outer-block breadcrumb-block">
             <div class="block crumb-info-container">
                 <div class="breadcrumb-container">
+                    {% block breadcrumbs %}
                     <ul>
                         <li>
+                            {% block breadcrumbs_root_link %}
                             {% link "docs:home" 'Docs' %}
+                            {% endblock breadcrumbs_root_link %}
                         </li>
                         {% for part in object_path.parts %}
                             <li>
@@ -40,6 +43,7 @@
                             </li>
                         {% endfor %}
                     </ul>
+                    {% endblock breadcrumbs %}
                 </div>
                 <div class="tags-container">
                     <ul>
@@ -53,6 +57,9 @@
             </div>
         </div>
         {% block content %} {% endblock content %}
+
+
+        {% include "docs/base-footer.html" %}
     </main>
 
     {% js "js/polyclass.browser-full.js" %}

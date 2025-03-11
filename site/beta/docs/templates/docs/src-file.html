@@ -28,9 +28,26 @@
     {% link.js "js/docs/methods-app.js" "defer" %}
     {% link.css "css/docs/src-file.css" %}
 
+
+    <!--
+        The doc_loader points at a waiting function from the
+        given file, design to be called when the load is complete.
+
+        Check src/point.js for more:
+
+            /*
+            title: my file
+            doc_loader: loadDocInfo
+            */
+
+            window.loadDocInfo = function() {
+                /* Return the think to resolve */
+                console.log('loadDocInfo called')
+                return Point;
+            }
+    -->
     {{ metadata.doc_loader|json_script:"doc-loader-info" }}
     <script type="text/javascript">
-
         window.LOADERS = function(){
             return JSON.parse(document.getElementById('doc-loader-info').textContent);
         }
@@ -45,25 +62,10 @@
         </div>
     {% endfor %}
 
-    {# File list of JS assets #}
+    {# File list of JS assets through the metadata of the src or markdown #}
     <div class="outer-block">
         <div class="block" id="methods">
-
-            <div class="border-solid-1px-#880000">
-                <p>File imports discovered within the "docs_imports" meta key (including meta imports)</p>
-                <ul class="display-table">
-                    {% for item in point_files %}
-                    <li class="display-table-row">
-                        <div class="display-table-cell">{{ item }}</div>
-                        <div class="display-table-cell">
-                        {% link.url 'examples:point_src' item '_' as url_link %}
-                        {% link 'docs:point_src' item url_link %}
-                        </div>
-                        {# <script type="text/javascript" src='{{url_link}}'></script> #}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
+            {% include "./doc_import_table.html" %}
         </div>
     </div>
 
@@ -207,7 +209,8 @@
 
                             </div>
 
-                            <ul class='class-methods'>
+
+                            <ul class='class-methods' data-show-inherited='false'>
                                 {% for class_method in class_info.methods %}
                                 <li class="kind-{{class_method.kind}}"
                                     data-current-class="{{class_name}}"
@@ -218,7 +221,7 @@
                                         data-ishome="false"
                                     {% endif %}
                                     data-key='{{ class_name }}-{{ class_method.method_name }}'>
-                                    <div class="signature">
+                                    <div class="signature" data-inherited="{{ class_method.class_name }}">
 
                                         <a class='anchor' name='{{ class_name }}-{{ class_method.method_name }}'></a>
                                         <div class='method-head'>

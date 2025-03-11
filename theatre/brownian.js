@@ -62,19 +62,20 @@ class MainStage extends Stage {
         let height = 512
         let margin = 10
         let maxMove = width * 0.1 * max
-        let x = width / 2
-        let y = height / 2
+        let x = width * .5
+        let y = height * .5
         let precision = 0
+        let halfPi = Math.PI / 180
 
         for (let i = 0; i < limit; i++) {
             let distance = Math.random() * maxMove
             let angle = Math.random() * 360
-            let tx = x + distance * Math.sin(Math.PI / 180 * angle);
-            let ty = y + distance * Math.cos(Math.PI / 180 * angle);
-            if (
-                tx > margin && tx < (width - margin) &&
-                ty > margin && ty < (height - margin)
-            ) {
+            let tx = x + distance * Math.sin(halfPi * angle);
+            let ty = y + distance * Math.cos(halfPi * angle);
+            if( tx > margin
+                && tx < (width - margin)
+                && ty > margin
+                && ty < (height - margin) ) {
                 x = +tx.toFixed(precision)
                 y = +ty.toFixed(precision)
             }

@@ -1,3 +1,7 @@
+title: FPS Text
+doc_imports: fps
+---
+
 # FPS
 
 Apply the FPS counter to the canvas view

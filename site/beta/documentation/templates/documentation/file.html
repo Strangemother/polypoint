@@ -1,12 +1,44 @@
-{% extends "docs/doc-base.html" %}
+{% extends "./base.html" %}
+{% comment "What" %}
+
+    Present a markdown file from the docs, rendering the markdown as readable
+    HTML:
+
+        http://localhost:8001/documentation/file/fps-text/
+
+{% endcomment %}
 {% load link markdown %}
 
-{% block page_title %}{{ path }}{% endblock page_title %}
+{% block page_title %}
+    {% firstof metadata.title page_title object_path  metadata.path path %}
+{% endblock page_title %}
 
 {% block content %}
+
+{# File list of JS assets through the metadata of the src or markdown #}
+<div class="outer-block">
+    <div class="block" id="methods">
+        {% load theatre %}
+        {% src_files metadata.doc_imports as point_files %}
+        {% include "docs/doc_import_table.html" with point_files=point_files %}
+    </div>
+</div>
+
 <div class="outer-block">
     <div class="block">
-        {% markdown.file "docs" filepath %}
+        {{ markdown_object.rendered|safe }}
+        {# {% markdown.file "docs" filepath %} #}
+    </div>
+</div>
+
+
+<div class="outer-block">
+    <div class="block">
+        <h1>Info</h1>
+        <div>keys: {{ markdown_object.keys }}</div>
+        <div>path: {{ markdown_object.path }}</div>
+        <div>exists: {{ markdown_object.exists }}</div>
+        <div>meta: {{ markdown_object.meta.keys }}</div>
     </div>
 </div>
 

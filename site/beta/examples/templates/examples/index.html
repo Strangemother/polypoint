@@ -5,7 +5,7 @@
 
         http://localhost:8000/examples/
 {% endcomment %}
-{% load link theatre %}
+{% load link theatre markdown %}
 {% block page_title %}Theatre{% endblock page_title %}
 
 {% block content %}
@@ -28,6 +28,8 @@
 
 <div class="outer-block">
     <div class="block">
+        {% markdown.file "docs" "headers/theatre.md" %}
+
         {% theatre.render_markdown "readme.md" as markdown_text %}
         <div>
             {{ markdown_text|safe }}

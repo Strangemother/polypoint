@@ -40,7 +40,6 @@
             </div>
 
             <div class="right-panel-container">
-
                 <div class="editor-assist-tools">
                     <ul class="editor-assist-list">
                         <li class="editor-assist-item">
@@ -69,6 +68,27 @@
         {% include './generic_named/primary-status-bar.html' %}
 
     </main>
+    {% verbatim %}
+        <div id="global_error_app"
+                class="error-view"
+                :class="{ show: store.hasError }">
+            <div class="panel">
+                <div class="error-message">
+                    <div class="content">
+                        <div class="message">{{ store.errorText.message }}</div>
+                        <div class="stack">
+                            <div class="text-data">{{ store.errorText.stackText }}</div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <a href="#">Understood</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endverbatim %}
+    {% link.css "examples/css/global-error-handler.css" %}
+
 {% endblock content %}
 
 
@@ -86,10 +106,10 @@
     {% link.js "examples/js/apps/widget-app.js" %}
     {% link.js "examples/js/apps/button-app.js" %}
     {% link.js "examples/js/global-error-handler.js" %}
+    {% link.js "examples/js/global-error-app.js" "defer" %}
     {% link.js "examples/js/apps/file-view.js" %}
     {% link.js "examples/js/apps/dimensions-app.js" "defer" %}
     {% link.js "examples/js/apps/installs-logger-app.js" "defer" %}
-
 
     {% if metadata %}
         {% for filepath in metadata.clean_files %}

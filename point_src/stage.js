@@ -1,8 +1,14 @@
-/* A Stage acts as a convenience tool to hoist a canvas and begin drawing.
-It's not fundamental to the drawing tools and a start requestAnimationFrame will
-work.
+/*
+files:
+    stage-resize.js
+    functions/resolve.js
+---
 
-The Stage helps manage loading and looping of content. Extend with custom functionality and run:
+A Stage acts as a convenience tool to hoist a canvas and begin drawing however
+it's not fundamental.
+
+The Stage helps manage _loading_ and _looping_ of draw functions
+Extend with your own custom functionality and run the `go()` method:
 
     class MainStage extends Stage {
         // canvas = document.getElementById('playspace');
@@ -15,91 +21,13 @@ The Stage helps manage loading and looping of content. Extend with custom functi
 
 This will execute the canvas name. It provides some free tools:
 
-+ `mount()` and `draw(ctx)` functions
-+ _load_ capture events
-+ size locking and auto resizing
-+ optional request frame loop
-+ builtin measurement tools; `center` and `dimensions`
+1. `mount()` and `draw(ctx)` functions
+2. _load_ capture events
+3. size locking and auto resizing
+4. optional request frame loop
+5. builtin measurement tools; `center` and `dimensions`
 
 */
-
-class Stages {
-    /* A Singleton to manage global functions and data */
-    loaded = false
-    canvas = undefined
-
-    constructor() {
-        this.stages = new Map
-        this.canvasMap = new Map
-    }
-
-    add(stage) {
-        this.stages.set(stage.id, stage);
-        if(!this.loaded) {
-            this.load(stage)
-            this.loaded = true
-        }
-    }
-
-    resolveNode(target, stage) {
-        /* Given a target as a string or entity, return the resolved
-        html entity.
-
-            resolveNode('myId')
-            resolveNode('#querySelector canvas')
-            resolveNode(canvas)
-        */
-
-       if(target === undefined && stage.canvas !== undefined) {
-            target = stage.canvas
-       }
-        if(target instanceof HTMLElement) {
-            return target;
-        }
-
-        let node = target
-        if(typeof(target) == "string") {
-
-            node = document.getElementById(target)
-            if(node == null) {
-                let nodes = document.querySelectorAll(target)
-                if(nodes.length == 0) {
-                    // Cannot find node;
-                    console.warn('Cannot resolve node', target)
-                    return undefined
-                }
-
-                if(nodes.length > 1) {
-                    console.warn('One canvas per stage.', target)
-                    return nodes[0]
-                }
-            }
-
-        }
-
-
-        return node;
-    }
-
-    load(stage){
-        let canvas = stage.canvas
-
-        if(!this.canvasMap.has(canvas)) {
-            //install a new canvas.
-            this.installCanvas(canvas, stage)
-        }
-
-    }
-
-    installCanvas(canvas, stage){
-        this.canvasMap.set(canvas, stage)
-        Point.mouse?.mount(canvas)
-    }
-}
-
-
-stages = new Stages;
-
 
 
 class StageRender {
@@ -110,6 +38,21 @@ class StageRender {
     debounceResizeTimeout = 100
 
     constructor(canvas, drawFunc) {
+        /*
+            Accept a `canvas` node and an optional `draw` function, prepare
+            the stage draw routine. If the `canvas` is given, immediately call
+            `this.prepare(canvas)` to initiate the layer.
+
+                new StageRender(canvas, ()=>{})
+
+            Any given `drawFunc` overrides the existing `this.stageStartDraw` method
+            and expects the _next_ method to call once complete:
+
+            The default `this.draw(ctx)` method is given`
+
+                this.stageStartDraw(this.draw)
+
+         */
         // super()
 
         drawFunc = drawFunc || ( ()=>this.stageStartDraw(this.draw))
@@ -158,20 +101,30 @@ class StageRender {
         return this.dimensions.center
     }
 
+
     prepare(target) {
         /* Perform any preparations for this stage instance to run the
           canvas tools. This includes resolving and measuring the canvas.
 
-         This will run automatically if the canvas is given in the constructor
+            class MainStage extends Stage {
+                canvas = playspace
+                prepare(target){
+                    super.prepare(target)
+                    // ...
+                }
+            }
+
+        This will run automatically if the canvas is given in the constructor
 
             new MainStage(canvas)
             // _prepared == true
 
-         Once prepared the stage is essentially ready-to-go.
+        Once prepared the stage is essentially ready-to-go.
 
             stage = new MainStage()
             stage.prepare(canvas)
             stage.update()
+
         */
 
         let id = this.id = Math.random().toString(32)
@@ -180,7 +133,7 @@ class StageRender {
         if(this.resolveCanvas) {
             canvas = this.resolveCanvas(target, this)
         } else {
-            canvas = stages.resolveNode(target, this)
+            canvas = resolveCanvas(target, this)
         }
 
         if(canvas == undefined) {
@@ -188,17 +141,19 @@ class StageRender {
         }
         // this.setupClock()
         this.canvas = canvas
+
         this.dispatch('stage:prepare', {target, id, canvas })
 
         /* Stick the shape */
         if(canvas) {
             this.resize()
         }
+
         this.loopDraw = this.loopDraw.bind(this)
         this._prepared = true;
-        this.compass = Compass.degrees()
+        // this.compass = Compass.degrees()
         this.mounted(canvas)
-        addEventListener('resize', (e)=>this.resizeHandler(e));
+        // addEventListener('resize', (e)=>this.resizeHandler(e));
 
         /* late components did not receive `stage:prepare`.
         As such, they will _announce_ */
@@ -241,25 +196,6 @@ class StageRender {
     _dispatchPrepare(data) {
         data['stage'] = this
         return {detail: data}
-    }
-
-    /* The stage naturally listens to the resize event, with a debouncer.
-    Upon resize, call stickCanvasSize, recaching the internal dimensions for
-    relative meaurements.
-    */
-    resizeHandler(event) {
-
-        if(!this.debounceResize) { return this.resize() }
-
-        if(this.resizeTimer != undefined) { clearTimeout(this.resizeTimer) }
-        this.resizeTimer = setTimeout(this.resize.bind(this), this.debounceResizeTimeout)
-    }
-
-    resize() {
-        let dimensions = this.dimensions = this.stickCanvasSize(this.canvas)
-        console.log('dimensions resize')
-        this.events && this.events.emit('resize', dimensions)
-        return this.dimensions
     }
 
     mounted(canvas) {
@@ -502,7 +438,6 @@ class StageRender {
 }
 
 
-
 class Stage extends StageRender {
 
     loaded = false
@@ -524,9 +459,11 @@ class Stage extends StageRender {
 
          Apply global hooks here.
         */
-        stages.add(this)
+        // stages.add(this)
+        this.dispatch('stage:load', {stage:this})
     }
 }
 
 
 Polypoint.head.install(Stage)
+

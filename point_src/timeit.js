@@ -22,6 +22,7 @@ to the constructor:
 class TimeIt {
     constructor(label, startNow=false) {
         this.label = label
+        this.running = startNow
         if(startNow) {
             this.start()
         }
@@ -38,12 +39,14 @@ class TimeIt {
 
     start() {
         this.timeIn = this.stamp()
+        this.running = true
         return this
     }
 
     stop() {
         if(this.timeOut != undefined) { return };
         this.timeOut = this.stamp()
+        this.running = false
         return this
     }
 
@@ -105,3 +108,6 @@ class TimeIt {
     }
 
 }
+
+
+Polypoint.head.install(TimeIt)

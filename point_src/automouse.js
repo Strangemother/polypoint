@@ -118,7 +118,7 @@ class AutoMouse {
         if(this._methods) {
             return this._methods
         }
-
+        console.log('Setting up mouse events')
         const methods = {
             mousemove: this.mousemoveHandler.bind(this)
             , mousedown: this.mousedownHandler.bind(this)
@@ -356,5 +356,23 @@ Polypoint.head.static('Point', {
     }
 })
 
-// Point.mouse = autoMouse
-Point.pointArray = pointArray
+
+
+addEventListener('stage:prepare', (e)=>{
+    /* Upon the event `stage:prepare`, create a listener to monitor
+    the system resize event. Call the stage `resizeHandler` when an event
+    occurs.
+    */
+
+    Point.mouse?.mount(e.detail.stage.canvas)
+    // this.stage.resizeHandler(e)
+});
+
+
+try{
+
+    // Point.mouse = autoMouse
+    Point.pointArray = pointArray
+} catch {
+    console.warn('pointArray is not defined')
+}

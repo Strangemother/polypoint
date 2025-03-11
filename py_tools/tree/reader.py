@@ -149,6 +149,10 @@ class Reader:
                 filepath=filename, #.relative_to(store_dir),
                 items=cut_results,
             )
+
+        if filename.parent.exists() is False:
+            # make the parent dir stack.
+            os.makedirs(filename.parent)
         ## Store it down
         content = json.dumps(res, cls=ComplexEncoder, indent=4)
         filename.write_text(content)

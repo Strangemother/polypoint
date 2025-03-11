@@ -9,6 +9,19 @@ files:
     dragging
     fps
 ---
+
+Render the "frames per second" as text. The FPS will match your screen refresh rate.
+Commonly this is 60Hz.
+
+Apply to the draw call.
+
+
+    draw(ctx) {
+        stage.fps.drawFPS(ctx)
+    }
+
+this provides a more stable method to rendering the live frames, by taking an
+average over the previous few iterations.
 */
 
 

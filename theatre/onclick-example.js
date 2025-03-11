@@ -1,10 +1,22 @@
+/*
+files:
+    head
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/compass.js
+    ../point_src/point.js
+    stage
+    mouse
+---
+
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
 
     mounted(){
         this.point = new Point(100, 100, 20)
-        this.events.wake()
+        // this.events.wake()
     }
 
     onClick(ev) {
@@ -18,3 +30,4 @@ class MainStage extends Stage {
 }
 
 stage = MainStage.go(/*{ loop: true }*/)
+

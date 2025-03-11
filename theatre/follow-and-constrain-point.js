@@ -1,4 +1,5 @@
 /*
+title: Point Follow
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -12,10 +13,11 @@ files:
     ../point_src/events.js
     ../point_src/automouse.js
     ../point_src/distances.js
+    ../point_src/functions/clamp.js
     ../point_src/constrain-distance-locked.js
     ../point_src/constrain-distance.js
-
 ---
+
 
 */
 

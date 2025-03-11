@@ -15,9 +15,8 @@ files:
     ../point_src/timeit.js
     ../point_src/iter/lerp.js
     ../point_src/random.js
+*/
 
-
- */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

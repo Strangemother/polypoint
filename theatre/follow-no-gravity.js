@@ -1,6 +1,6 @@
 /*
-
-src_dir: ../point_src/
+title: Raw Point follow (no gravity)
+sr_dir: ../point_src/
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -16,6 +16,7 @@ files:
     ../point_src/automouse.js
     ../point_src/functions/rel.js
     dragging
+---
 
  */
 

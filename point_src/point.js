@@ -14,6 +14,11 @@ const isPoint = function(value) {
 }
 
 
+const isFunction = function(value) {
+    return (typeof(value) == 'function')
+}
+
+
 const point = function(p, b) {
     if(p.constructor == Point) {
         return p

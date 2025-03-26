@@ -11,7 +11,7 @@ from collections import defaultdict
 
 from .encoder import ComplexEncoder
 from .reader import Reader
-from .convert import Convert
+from .convert import Convert, FuncConvert
 
 def run_test(tree_filepath=None, **kw):
     """
@@ -50,11 +50,12 @@ def generic_run(tree_filepath, src_dir, filepath=None, **kw):
     t.write_result(out_p, res)
 
     reader = Reader(res, out_dir, filepath, comments=t.get_comments())
-    cut_result = reader.make_docfiles()
+    cut_result, func_cut_result = reader.make_docfiles()
 
     output_dir = kw.get('output_dir')
 
     Convert().flatten(cut_result['filepath'], output_dir)
+    # FuncConvert().flatten(func_cut_result['filepath'], output_dir)
 
     return t, reader
 

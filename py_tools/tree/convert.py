@@ -25,6 +25,8 @@ from collections import defaultdict
 
 class Convert:
     global_method_index = 0
+    name_key = 'class_name'
+
     def flatten(self, data_cut_filepath, output_dir):
         """Convert data cuts into a single clean file
         returns a dict to be converted to JSON.
@@ -51,17 +53,18 @@ class Convert:
         be called the same, so do iteration instead.
         """
         info_path_parent = Path(data_cut_filepath).parent
+        refs, cross_refs = self.flatten_items(data['items'], info_path_parent)
+        return cross_refs
 
+    def flatten_items(self, items, info_path_parent):
         # Capture the references for the file.
         refs = {}
-
-
+        name_key = self.name_key
         # A dictionary to store cross reference information
         cross_refs = defaultdict(dict)
-
         # each 'item' is a reference to the file containing class data-cuts
-        for i, item in enumerate(data['items']):
-            name = item['class_name']
+        for i, item in enumerate(items):
+            name = item[name_key]
             print(name, 'extends', item['inherits'])
             k = f"{i}-{name}"
 
@@ -73,7 +76,7 @@ class Convert:
 
             cross_refs[name]['local_references'] += (k,)
 
-            cross_refs[k]['class_name'] = name
+            cross_refs[k][name_key] = name
 
             # Load the sub file of the class.
             class_cut_path = info_path_parent / rel_path
@@ -98,6 +101,7 @@ class Convert:
             refs[k] = class_reference
 
         cross_refs = dict(cross_refs)
+        return refs, cross_refs
 
         def push_chain_methods(info, current_key, all_refs):
             """Starting from a reference, loop _forward_, pushing the
@@ -273,3 +277,7 @@ class Convert:
             param.pop('coord', None)
             res += (param,)
         return res
+
+
+class FuncConvert(Convert):
+    name_key = 'method_name'

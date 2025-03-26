@@ -220,3 +220,34 @@ class ImmediateProcessTheatreFilesView(views.FormView):
 
     def get_success_url(self):
         return views.reverse("examples:example")
+
+from trim.response import content_type_response
+
+class ExampleFileImagesView(views.TemplateView):
+    template_name = 'default_template.html'
+
+    def get(self, request, *args, **kwargs):
+        print('ExampleFileImagesView')
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+    def render_to_response(self, context, **response_kwargs):
+        """
+        Return a response, using the `response_class` for this view, with a
+        template rendered with the given context.
+        Pass response_kwargs to the constructor of the response class.
+        """
+        # response_kwargs.setdefault("content_type", self.content_type)
+        path = self.kwargs.get('path')
+        root = settings.POLYPOINT_THEATRE_DIR
+        real_filepath = settings.POLYPOINT_THEATRE_DIR / 'images' / path
+
+        return content_type_response(real_filepath)
+
+        return self.response_class(
+            request=self.request,
+            template=self.get_template_names(),
+            context=context,
+            using=self.template_engine,
+            **response_kwargs,
+        )

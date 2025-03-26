@@ -1,3 +1,21 @@
+/*
+title: Flame
+files:
+    head
+    stroke
+    ../point_src/point-content.js
+    pointlist
+    point
+    ../point_src/bisector.js
+    ../point_src/functions/clamp.js
+    dragging
+    mouse
+    ../point_src/random.js
+    stage
+    ../point_src/velocity.js
+
+*/
+
 var canvas;
 
 
@@ -59,6 +77,7 @@ class MainStage extends Stage {
         //
         update(ctx, this.allPoints, this.squares);
     }
+
     onmousedown(e) {
         this.onmousemove(e);
         mouse.down = true;
@@ -502,34 +521,34 @@ const update = function (ctx, allPoints, squares) {
 
     let i = ITERATIONS;
     while (i--) {
-            allContraints.forEach((con, i) => {
-                reactor(...con, i);
-            });
+        allContraints.forEach((con, i) => {
+            reactor(...con, i);
+        });
 
-            allPoints.forEach((point, i) => {
-                const { square } = point;
+        allPoints.forEach((point, i) => {
+            const { square } = point;
 
-                const damping = 0.6;
-                const spacing = (square ? square.spacing : SPACING) / 2;
+            const damping = 0.6;
+            const spacing = (square ? square.spacing : SPACING) / 2;
 
-                if (point.pos.x < spacing) {
-                    point.force.add(new JellyVector((spacing - point.pos.x) * 1, 0));
-                    point.velocity.y *= damping;
-                } else if (point.pos.x > canvas.width - spacing) {
-                    point.force.add(new JellyVector((point.pos.x - canvas.width + spacing) * -1, 0));
-                    point.velocity.y *= damping;
-                }
+            if (point.pos.x < spacing) {
+                point.force.add(new JellyVector((spacing - point.pos.x) * 1, 0));
+                point.velocity.y *= damping;
+            } else if (point.pos.x > canvas.width - spacing) {
+                point.force.add(new JellyVector((point.pos.x - canvas.width + spacing) * -1, 0));
+                point.velocity.y *= damping;
+            }
 
-                if (point.pos.y < spacing) {
-                    point.force.add(new JellyVector(0, (spacing - point.pos.y) * 1));
-                    point.velocity.x *= damping;
-                } else if (point.pos.y > canvas.height - spacing) {
-                    point.force.add(new JellyVector(0, (point.pos.y - canvas.height + spacing) * -1));
-                    point.velocity.x *= damping;
-                }
+            if (point.pos.y < spacing) {
+                point.force.add(new JellyVector(0, (spacing - point.pos.y) * 1));
+                point.velocity.x *= damping;
+            } else if (point.pos.y > canvas.height - spacing) {
+                point.force.add(new JellyVector(0, (point.pos.y - canvas.height + spacing) * -1));
+                point.velocity.x *= damping;
+            }
 
-                  point.update();
-            });
+              point.update();
+        });
     }
 
     squares.forEach((s) => {

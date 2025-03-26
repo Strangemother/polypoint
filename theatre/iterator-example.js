@@ -1,4 +1,22 @@
-/*An iterator can automatically count between a range. */
+/*
+files:
+    ../point_src/math.js
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/events.js
+    ../point_src/automouse.js
+    ../point_src/stage.js
+    ../point_src/extras.js
+    ../point_src/iter/beta.js
+---
+
+An iterator can automatically count between a range.
+
+*/
 /* iter/beta */
 
 class MainStage extends Stage {
@@ -36,8 +54,8 @@ class MainStage extends Stage {
         let speed = .02
         let amplitude = this.amplitude
 
-        p.x = c.x + (Math.sin(this.xIter.step(speed)) * amplitude)
-        p.y = c.y + (Math.cos(this.yIter.step(speed)) * amplitude)
+        p.x = c.x + Math.sin(this.xIter.step(speed)) * amplitude
+        p.y = c.y + Math.cos(this.yIter.step(speed)) * amplitude
 
         p.rotation = this.rotIter.step(-2)
 

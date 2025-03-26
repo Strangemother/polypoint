@@ -5,6 +5,60 @@ first object to loadout: `Polypoint`.
 
 The head contains a range of hoisting functions to late-load installables.
 
+## Quick Guide
+
+Install a class:
+
+    Polypoint.head.install(PointListPen)
+
+
+Deferred prop (called once to generate):
+
+    class PointConstraints {}
+
+    Polypoint.head.deferredProp('Point',
+        function constraint() {
+            return new PointConstraints(this)
+        }
+    );
+
+
+Install Functions:
+
+    Polypoint.installFunctions('Point', {
+        track(other, settings) {
+            return constraints.distance(other, this, settings)
+        }
+
+        , leash(other, settings) {
+            return constraints.within(other, this, settings)
+        }
+    });
+
+
+Install more complex Mixins (defineProperties):
+
+    Polypoint.head.mixin('Point', {
+        isNaN: {
+            value(any=false) {
+                //...
+                return false
+            }
+            , writable: true
+        }
+        , distanceTo: {
+            value(other) {
+                return distance(this, other)
+            }
+        }
+
+        , distance2D: {
+            value(other) {
+                return distance2D(this, other)
+            }
+        }
+    })
+
 ## Usage
 
 1. Add this file
@@ -450,7 +504,9 @@ This works for many mixins:
             stage.center._pen == Pen
      */
     const lazyProp = function(name, propsDict) {
-        dlog('lazyProp', name, Object.keys(propsDict))
+        // dlog('lazyProp', name, Object.keys(propsDict))
+        dispatch('install:lazyProp', {name, propsDict})
+
         let def = {}
 
         for(let key in propsDict) {

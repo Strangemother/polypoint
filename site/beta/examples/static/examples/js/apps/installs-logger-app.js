@@ -1,5 +1,7 @@
 /* This app has a unique loading sequence, in order capture early install events
-Whilst allowing defered loading
+Whilst allowing defered loading.
+
+checkout `early-installs-logger-app.js`
 */
 
 class InstallsLoggerApp extends Mountable {
@@ -7,18 +9,18 @@ class InstallsLoggerApp extends Mountable {
     mounted(){
         this.installCache = installCache
         this.drain(installCache)
-        this.writeText('Mounted', this.installCache.cache.length, 'files')
+        this.writeText('Mounted', this.installCache.classCache.length, 'files')
     }
 
     drain(installCache) {
         /* Given the initial install object, drain and process early data. */
         let lines = []
-        installCache.cache.forEach((e, i, a)=>{
+        installCache.classCache.forEach((e, i, a)=>{
             let r = e.name
             lines.push(`<li><span>${i+1}</span> <span>${r}</span></li>`)
         })
 
-        this.$refs.textSlot.innerHTML = lines.join('')
+        this.$refs.classesTextSlot.innerHTML = lines.join('')
     }
 
     writeText(text){

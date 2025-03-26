@@ -15,13 +15,15 @@ files:
     ../point_src/functions/clamp.js
     ../point_src/curve-extras.js
     ../point_src/random.js
-    ../point_src/dragging.js
-    ../point_src/setunset.js
-    ../point_src/stroke.js
+    dragging
+    stroke
     ../point_src/functions/within.js
     ../point_src/automouse.js
     ../point_src/recttools.js
- */
+---
+
+Create a bounding box by click-dragging a selection.
+*/
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

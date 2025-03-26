@@ -1,5 +1,6 @@
 from pathlib import Path
 from .theatre import get_theatre_list, get_theatre_filelist, get_metadata
+from collections import defaultdict
 
 
 class TheatreProcessor:
@@ -13,11 +14,13 @@ class TheatreProcessor:
             data = get_metadata(target / entry)
             print(f"{i}/{l} - ", entry)
             records += (data,)
-        self.cross_process(records)
+
+        # All files are cross-referenced.
+        cross_result = self.cross_process(records)
 
     def cross_process(self, records):
         print('cross_process')
-        store = {}
+        store = defaultdict(dict)
         for record in records:
             """A Record:
 
@@ -32,6 +35,48 @@ class TheatreProcessor:
                 print('ignore', record['filepath'])
                 continue
             self.process_entry(record, store)
+        store = dict(store)
+        return store
 
     def process_entry(self, record, store):
-        import pdb; pdb.set_trace()  # breakpoint a8fba470 //
+        """Stash and store content about the record for cross referencing,
+        such as categories and tags
+        """
+        key = str(record['filepath'])
+        self.process_categories(record, store, key)
+        self.process_tags(record, store, key)
+        # cross reference imported files
+
+    def process_categories(self, record, store, key):
+        # stash the key into its categories
+        s_cats = store['categories']
+
+        cats = ()
+        keys = ('category', 'categories', )
+        # expect string, but accept many.
+        for k in keys:
+            r_cat = record.get(k, ())
+            if len(r_cat) > 0:
+                cats += tuple(r_cat)
+
+        for cat in set(cats):
+            s_cats[cat] = s_cats.get(cat, ()) + (key, )
+
+        if len(cats) == 0:
+            s_cats['no-category'] = s_cats.get('no-category', ()) + (key,)
+
+
+    def process_tags(self, record, store, key):
+        # stash the key into its tags
+        s_tags = store['tags']
+
+        tags = ()
+
+        # expect list
+        r_tags = record.get('tags', ())
+        if len(r_tags) > 0:
+            tags += tuple(r_tags)
+
+        for tag in set(tags):
+            s_tags[tag] = s_tags.get(tag, ()) + (key, )
+

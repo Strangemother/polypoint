@@ -149,7 +149,7 @@ class LineEmitter extends Emitter {
         super.wake()
     }
 
-    cachePoints(line, divider=1, pointing=90) {
+    cachePoints(line, divider=1, pointing=0) {
         // console.log('Cache Points')
         this.positions = line.split(line.length * divider, pointing)
         this.lineLength = line.length

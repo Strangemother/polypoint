@@ -1,15 +1,13 @@
 /*
-title: Point Follow
+title: Point Follow And Constrain
 files:
     ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
     ../point_src/math.js
     ../point_src/extras.js
     ../point_src/point-content.js
     ../point_src/pointlist.js
-    ../point_src/point.js
-    ../point_src/stage.js
+    point
+    stage
     ../point_src/events.js
     ../point_src/automouse.js
     ../point_src/distances.js
@@ -18,6 +16,7 @@ files:
     ../point_src/constrain-distance.js
 ---
 
+Follow the mouse position with `track`, `avoid`, and `leash`
 
 */
 
@@ -46,6 +45,8 @@ class MainStage extends Stage {
 
     draw(ctx){
         this.clear(ctx)
+        ctx.fillStyle = 'green'
+        ctx.strokeStyle = 'yellow'
 
         let mouse = Point.mouse
         let mp = mouse.position

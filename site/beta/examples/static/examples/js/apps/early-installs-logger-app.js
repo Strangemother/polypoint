@@ -6,10 +6,10 @@ This _early_ script captures events and stashes them for the installs app.
 
 
 const installCache = {
-    cache: []
-    , receivers: {
+    classCache: []
+    , classReceivers: {
         initCacher(entity) {
-            this.cache.push(entity)
+            this.classCache.push(entity)
         }
     }
 }
@@ -17,8 +17,17 @@ const installCache = {
 addEventListener('Polypoint:install', (e)=>{
     let entity = e.detail.entity
     // console.log('catch install', entity.name)
-    let installReceivers = installCache.receivers
+    let installReceivers = installCache.classReceivers
     for(let k in installReceivers) {
         installReceivers[k].call(installCache, entity)
     }
+});
+
+addEventListener('Polypoint:install:lazyProp', (e)=>{
+    let entity = e.detail.entity
+    console.log('catch install', entity)
+    // let installReceivers = installCache.receivers
+    // for(let k in installReceivers) {
+    //     installReceivers[k].call(installCache, entity)
+    // }
 });

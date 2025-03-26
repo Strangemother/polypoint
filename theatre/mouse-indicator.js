@@ -3,15 +3,10 @@
 title: Widget: Mouse Indicator
 tags: widget
 files:
-    ../point_src/math.js
     head
-    ../point_src/point-content.js
-    ../point_src/pointlistpen.js
-    ../point_src/pointlist.js
     point
     mouse
     stage
-    dragging
 ---
 
 A "widget" presents the values in a small `div` indicator, connected to the

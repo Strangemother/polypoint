@@ -64,9 +64,43 @@ class Reader:
                 comments=comments,
                 info_file=info_file,
                 # info_file_data=info_file_data,
+                filepath=info_file,
             )
 
             self.save_write_json(info_file, info_file_data)
+            cuts += (info_file_data,)
+        return self.make_func_file_cutfile(cuts)
+
+    def make_func_file_cutfile(self, cuts):
+        """_cuts_ are the result from the class_cutfile iteration.
+        Merge into one file for referencing. Later we'll cross reference all the data.
+        """
+        cut_results = ()
+
+        out_dir = self.output_dir
+        store_dir = out_dir / "data-cut"
+        filename = store_dir / f"_func_info.json"
+
+        for cut in cuts:
+            r = cut.copy()
+            r['info_path'] = r['filepath'].relative_to(store_dir)
+            r.pop('filepath', None)
+            cut_results += (r,)
+
+
+        res = dict(
+                src_file=self.filepath,
+                filepath=filename, #.relative_to(store_dir),
+                items=cut_results,
+            )
+
+        if filename.parent.exists() is False:
+            # make the parent dir stack.
+            os.makedirs(filename.parent)
+        ## Store it down
+        content = json.dumps(res, cls=ComplexEncoder, indent=4)
+        filename.write_text(content)
+        return res
 
     def make_classes_methods_docfiles(self):
         """Read the self.tree for all class definition.
@@ -221,7 +255,7 @@ class Reader:
     def make_docfiles(self):
         cut_result = self.make_classes_methods_docfiles()
         cut_result2 = self.make_functions_docfiles()
-        return cut_result
+        return cut_result, cut_result2
 
     def make_method_cutfiles(self, method_def, class_block):
         """Build the method asset for the single MethodDefinition

@@ -1,13 +1,24 @@
 /*
-    title: Coupled Lines
-    files:
-        head
-        point
-        stage
-        pointlist
-        mouse
-        dragging
-        ../point_src/bisector.js
+title: Bisector
+files:
+    head
+    point
+    stage
+    pointlist
+    mouse
+    dragging
+    ../point_src/bisector.js
+---
+
+In this example the mid-point always looks through the bisect of the two
+plot points.
+
+    let rads = acuteBisect(
+            pointA,
+            midPoint,
+            pointB
+        );
+    midPoint.radians = rads;
 */
 class MainStage extends Stage {
     canvas='playspace'

@@ -1,13 +1,10 @@
 /*
 files:
-    ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
-    ../point_src/setunset.js
-    ../point_src/stroke.js
+    head
+    point
+    stroke
     ../point_src/point-content.js
     ../point_src/pointlist.js
-    ../point_src/point.js
     ../point_src/events.js
     ../point_src/automouse.js
     ../point_src/distances.js
@@ -30,7 +27,7 @@ class MainStage extends Stage {
         this.pointA = new Point({x:200,y:300, radius:70})
         this.pointB = new Point({x:500,y:300, radius:100})
         this.dragging.addPoints(this.pointA, this.pointB)
-        this.events.wake()
+        // this.events.wake()
 
         this.lines = []
         this.rLength = 200
@@ -43,23 +40,39 @@ class MainStage extends Stage {
         let b = this.pointB;
 
         let ts = getTangents(a,b, this.rLength)
+
+        if(ts == undefined) {
+            a.pen.indicator(ctx)
+            b.pen.indicator(ctx, {color: this.pointB.color})
+            return
+        }
+
+        return this.drawArcs(ctx, ts)
+    }
+
+    drawArcs(ctx, ts){
+        let a = this.pointA;
+        let b = this.pointB;
+
+        let color = 'green'
         let [t1, t2] = ts.a
         let [t3, t4] = ts.b
 
-
-        t1.pen.fill(ctx, 'green')
-        t2.pen.fill(ctx, 'green')
-        t3.pen.fill(ctx, 'green')
-        t4.pen.fill(ctx, 'green')
+        /* Touch points. */
+        t1.pen.fill(ctx, color) // top left
+        t2.pen.fill(ctx, color) // bottom left
+        t3.pen.fill(ctx, color) // top right
+        t4.pen.fill(ctx, color) // bottom left
 
         // c.pen.circle(ctx, undefined, '#777')
         // d.pen.circle(ctx, undefined, '#777')
 
+        /* The two primary indicators. */
         a.pen.indicator(ctx)
-        b.pen.indicator(ctx, {color: this.pointB.color})
+        b.pen.indicator(ctx)
 
+        /* The straight lines to the protractor points.*/
         ts.lines.forEach(l=>l.render(ctx))
-
 
         ctx.strokeStyle = 'yellow'
         /* draw an arc, with the origin at o4,
@@ -67,6 +80,7 @@ class MainStage extends Stage {
         backward).
         get the angle of the origin to t2 (left),
         then get the angle of origin to t4 (right). */
+
         let o4 = ts.o4
             , o3 = ts.o3
             , r3 = ts.r3
@@ -110,7 +124,7 @@ let getTangents = function(a, b, rLength){
     })
 
     let o34 = getCircleCircleIntersections(c, d)
-    if(o34.length == 0) {
+    if(o34 === false || o34.length == 0) {
         return
     }
 
@@ -179,6 +193,7 @@ const twoPointsAngleRaw = function(origin, target) {
         const angle = Math.atan2(dy, dx);
         return angle
 }
+
 
 const twoPointsAngle = function(origin, target) {
     let dist = new Point(target.distance2D(origin))

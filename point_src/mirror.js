@@ -1,5 +1,27 @@
+/*
+title: Mirror
+---
+
+Reflect points with a `Mirror`.
+
+    const mirror = new Mirror(points)
+    mirror.step()
+*/
+
 
 function reflectPoint(origin, line) {
+    /* Given a point `origin`, and the two points representing a `line`,
+    return an object plotting the `origin` reflected through line.
+
+    The result can be directly cast as a point to draw:
+
+        let p = reflectPoint(
+            {x: 10, y: 20}
+            , [{x: 30, y: 50} , {x: 100, y: 100}]
+        )
+
+        let point = new Point(p)
+    */
     const [p1, p2] = line;
     const x1 = p1.x, y1 = p1.y;
     const x2 = p2.x, y2 = p2.y;
@@ -263,7 +285,6 @@ class Mirror {
        this.reflectPoints.push.apply(this.reflectPoints, arguments)
     }
 }
-
 
 
 

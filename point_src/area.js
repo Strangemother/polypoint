@@ -17,3 +17,15 @@ const circleArea = (radius, pi=Math.PI) => {
    return pi * radius * radius;
 };
 
+
+
+Polypoint.installFunctions('Point', {
+    getArea() {
+        return circleArea(this.radius)
+    }
+
+    , getCircumference() {
+        return radiusCircumference(this.radius)
+    }
+
+});

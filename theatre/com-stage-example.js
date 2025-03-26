@@ -5,7 +5,8 @@ files:
     ../point_src/pointpen.js
     ../point_src/pointdraw.js
     ../point_src/math.js
-    ../point_src/point-content.js
+    ../point_src/compass.js
+    ../point_src/center.js
     ../point_src/pointlistpen.js
     ../point_src/pointlist.js
     ../point_src/point.js
@@ -20,9 +21,10 @@ files:
     ../point_src/stroke.js
 ---
 
- */
+*/
+
+
 class MainStage extends Stage {
-    // canvas = document.getElementById('playspace');
     canvas = 'playspace'
 
     mounted(){
@@ -62,7 +64,6 @@ class MainStage extends Stage {
     }
 
     createMassPoints(){
-
         /* Call upon the list "center of mass" function */
         this.comPoint = this.randomPoints.centerOfMass()
         /* In this case we cater for mass and rotation additions */
@@ -76,7 +77,6 @@ class MainStage extends Stage {
         if(p) {
             p.pen.circle(ctx)
         }
-
     }
 
     drawView(ctx){

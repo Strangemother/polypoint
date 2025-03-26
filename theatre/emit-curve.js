@@ -78,7 +78,6 @@ class MainStage extends Stage {
     onDragEnd() {}
     onDragMove() {
         this.lineEmitter.cachePoints(this.line, .5)
-
     }
 
     draw(ctx){
@@ -92,7 +91,8 @@ class MainStage extends Stage {
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
 
-/*        this.e2.step()
+        /*
+        this.e2.step()
         this.e2.pen.indicator(ctx)
 
         es.forEach(e=>{
@@ -104,7 +104,7 @@ class MainStage extends Stage {
             e.points.pen.indicators(ctx)
             // e.points.pen.indicators(ctx)
         })
-*/
+        */
 
         this.line.render(ctx)
         // this.line.points.forEach((p)=>p.pen.indicator(ctx))

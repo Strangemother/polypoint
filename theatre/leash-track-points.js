@@ -1,4 +1,5 @@
 /*
+title: One-way Leash
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -17,7 +18,16 @@ files:
     ../point_src/setunset.js
     ../point_src/stroke.js
     ../point_src/constrain-distance.js
- */
+---
+
+A point can "track" or "leash" to another point. In this setup it works in
+one-direction. Where the _locked point_ can pull the secondary point, but will
+stay locked when pulled.
+
++ `leash()` ensures the secondary point is _within_ a set distance.
++ `track()` locks the secondary point at a target distance.
+
+*/
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
@@ -25,42 +35,10 @@ class MainStage extends Stage {
 
     mounted(){
         this.points = new PointList(
-            new Point({
-                 x: 250, y: 150
-                , radius: 10
-                , vx: 1, vy: 0
-                , mass: 2
-            })
-            , new Point({
-                 x: 400, y: 320
-                , vx: -1, vy: 0
-                , radius: 10
-                , mass: 10
-            })
-            , new Point({
-                 x: 450, y: 520
-                , vx: .4, vy: -.1
-                , radius: 8
-                , mass: 8
-            })
-            , new Point({
-                 x: 490, y: 490
-                , vx: .4, vy: -.1
-                , radius: 8
-                , mass: 8
-            })
-            // , new Point({
-            //      x: 450, y: 520
-            //     , vx: .4, vy: -.1
-            //     , radius: 8
-            //     , mass: 8
-            // })
-            // , new Point({
-            //      x: 450, y: 520
-            //     , vx: .4, vy: -.1
-            //     , radius: 8
-            //     , mass: 8
-            // })
+            new Point(250, 150, 10)
+            , new Point(400, 320, 7)
+            , new Point(450, 520,  10)
+            , new Point(490, 490,  7)
         )
 
         this.dragging.add(...this.points)
@@ -71,14 +49,16 @@ class MainStage extends Stage {
 
         let mouse = Point.mouse.position
 
+        // point[3] _tracks_ point[2]
         this.points[3].track(this.points[2], 200)
+        // point[1] _leashes to_ point[0]
         this.points[1].leash(this.points[0], 200)
 
         this.points[1].pen.indicator(ctx)
         this.points[3].pen.indicator(ctx)
 
-        this.points[2].pen.fill(ctx, '#33aadd')
         this.points[0].pen.fill(ctx, '#33aadd')
+        this.points[2].pen.fill(ctx, '#33aadd')
 
     }
 }

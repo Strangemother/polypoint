@@ -20,7 +20,52 @@ class MainStage extends Stage {
 const stage = MainStage.go()
 ```
 
-And that's it! This is now running at 60FPS.
+And that's it!
+
+## Starting a Stage
+
+The `go()` function is a convenient _static method_ to execute the Stage.
+
+Alternatively we can manually run the `loopDraw()`
+
+```js
+class MainStage extends Stage {
+
+    mounted() {
+        console.log('mounted')
+    }
+
+    draw(ctx) {
+        this.center.pen.indicators(ctx, {color:'#33aa99'})
+    }
+
+}
+
+const stage = new MainStage('playspace')
+stage.loopDraw()
+// stage.go()
+```
+
+When using the `go()` method, you can apply additional properties
+
+
+The `go()` function is a convenient _static method_ to execute the Stage.
+
+Alternatively we can manually run the `loopDraw()`
+
+```js
+class MainStage extends Stage {
+
+    draw(ctx) {
+        this.center.pen.indicators(ctx, {color:'#33aa99'})
+    }
+
+}
+
+const stage = new MainStage('playspace')
+stage.go({ loop: true })
+```
+
 
 ## For Free
 

@@ -1,13 +1,14 @@
-from django.conf import settings
-from trim import views
-from django.http import Http404
-
+import json
 from pathlib import Path
-from django.views.decorators.clickjacking import xframe_options_exempt
+from django.http import Http404
+from django.conf import settings
 from django.utils.decorators import method_decorator
+from django.views.decorators.clickjacking import xframe_options_exempt
+from trim import views
 
-# @xframe_options_exempt
 from examples import theatre
+from . import forms
+
 
 @method_decorator(xframe_options_exempt, name='dispatch')
 class IndexView(views.TemplateView):
@@ -72,7 +73,6 @@ class PointSrcAssetView(views.TemplateView):
         # response['Content-Length'] = len(content)
         return response
 
-from . import forms
 
 class TreeStorePostView(views.FormView):
     """Receive a POST of JSON content from a parser, for a file within
@@ -102,7 +102,6 @@ class TreeStorePostView(views.FormView):
         filename = self.form_filename
         return views.reverse('docs:point_src', args=(self.form_filename,))
 
-import json
 
 class TreeStorePostSuccessView(views.TemplateView):
     template_name = "editor/tree_post_succes.html"
@@ -175,3 +174,4 @@ def get_file_contents(path, root=None):
         'content': content,
         'path': path,
     }
+

@@ -67,13 +67,6 @@ class Compass {
     }
 }
 
-Polypoint.head.install(Compass)
-
-
-Polypoint.head.deferredProp('Stage', function compass(){
-    return Compass.degrees()
-})
-
 
 function radiansToDegrees(radians) {
     return radians * (180 / Math.PI);
@@ -112,4 +105,11 @@ function projectFrom(origin, distance=undefined, rotation=undefined) {
 
     return { x, y };
 }
+
+Polypoint.head.install(Compass)
+
+
+Polypoint.head.deferredProp('Stage', function compass(){
+    return Compass.degrees()
+})
 

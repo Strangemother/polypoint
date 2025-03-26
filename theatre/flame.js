@@ -1,62 +1,112 @@
 /*
 title: Flame
 files:
-    ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
-    ../point_src/setunset.js
-    ../point_src/stroke.js
+    head
+    stroke
     ../point_src/point-content.js
-    ../point_src/pointlistpen.js
-    ../point_src/pointlist.js
-    ../point_src/point.js
-    ../point_src/events.js
-    ../point_src/automouse.js
-    ../point_src/distances.js
+    pointlist
+    point
     ../point_src/bisector.js
-    ../point_src/dragging.js
     ../point_src/functions/clamp.js
-    ../point_src/stage.js
+    dragging
+    mouse
+    ../point_src/random.js
+    stage
+    ../point_src/curve-extras.js
+---
+
+A simple _flame_ or teardrop shape, using two origin points for each example.
+
+The shape of the flame is dependant upon the position, radius, and rotation of
+the origin points. The result is four points producing two curves.
 */
 
-// var gravity = {x: 0, y:-0.05}; // Gravity constant for helium balloon.
-var gravity = {x: 0, y:1}; // Gravity constant
 
 class MainStage extends Stage {
     canvas = 'playspace'
     mounted() {
         console.log('mounted')
-        // this.mouse.position.vy = this.mouse.position.vx = 0
 
-        this.pin = new Point({ x: 200, y: 200, radius: 140, vx: 0, vy: 0})
-        this.point = new Point({ x: 300, y: 100, vx: 0, vy: 0})
-        this.dragging.add(this.pin, this.point)
+        this._t = 0
+        this.curvesA = this.generateFlame(
+            new Point(120, 300, 50),
+            new Point(120, 100, 50)
+        )
+
+        this.curvesB = this.generateFlame(
+            new Point(250, 300, 80),
+            new Point(250, 100, 70),
+            1,
+        )
+
+        this.curvesC = this.generateFlame(
+            new Point(400, 300, 40),
+            new Point(400, 100, 50),
+            60,
+        )
+
+        this.curves = [
+            this.curvesA,
+            this.curvesB,
+            this.curvesC,
+        ]
+
+    }
+
+    generateFlame(a, b, tilt){
+        let plots = this.plotFlame(a, b, tilt)
+        let curves = this.createCurves(plots)
+        return curves
+    }
+
+    plotFlame(basePoint, tipPoint, tilt=30) {
+
+        /* The base point is the _foot_ of the flame.*/
+        let bRight = basePoint.copy()
+        bRight.radians = 0
+        let bLeft = bRight.copy()
+        bLeft.rotation += 180
+
+        /* the tip generates a sharp tip - to a more rounded tip. */
+        let ta = tipPoint.copy()
+        ta.rotation = this.compass.down + tilt + (random.int(-20, 20))
+        let tb = ta.copy()
+        tb.rotation -= tilt * 2
+
+        return new PointList(ta, tb, bLeft, bRight)
+    }
+
+    createCurves(plots) {
+        let curveA = new BezierCurve(plots[0], plots[2])
+        let curveB = new BezierCurve(plots[1], plots[3])
+        curveA.doTips = false;
+        curveB.doTips = false;
+        return [curveA, curveB]
     }
 
     draw(ctx) {
         this.clear(ctx);
+        // let pin = this.basePoint
+        // let tip = this.tipPoint
+        // pin.pen.indicator(ctx, {color:'red'})
+        // tip.pen.indicator(ctx, {color:'red'})
+        // this.flamePS.pen.indicator(ctx)
 
-        let pin = this.pin
-        let other = this.point
-        let settings = {
-            gravity
-            , forceMultiplier: .9
-            , dotDamping: .17
-            , damping: .98
-            , distance: pin.radius - other.radius - 2
-        }
+        // this.curveA.render(ctx, {color: 'green'})
+        // this.curvesA.forEach(c=>c.render(ctx, {color: 'orange'}))
+        this.curves.forEach((curves)=>{
+            curves.forEach(c=>c.render(ctx, {color: 'orange'}))
+        })
 
-        settings = {
-            gravity
-            , forceMultiplier: 1
-            // , dotDamping: .17
-            // , damping: .98
-            , distance: pin.radius - other.radius - 2
-        }
+        // this._t++;
 
-        pin.pen.circle(ctx, {color:'red'})
-        other.pen.indicator(ctx)
-
+        // if(this._t % 2 == 0) {
+        //     let x = random.int(120, 125)
+        //     this.curves[0] = this.generateFlame(
+        //         new Point(x, random.int(300, 303), random.int(40, 55)),
+        //         new Point(x, random.int(100, 103), random.int(100, 103))
+        //     )
+        // }
     }
 }
 

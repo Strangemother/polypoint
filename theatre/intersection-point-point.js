@@ -1,5 +1,6 @@
 /*
-
+title: Point Intersection
+category: intersection
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -22,30 +23,11 @@ files:
 
 ---
 
-Discover the intersection of two straight _lines_, the returned point
-will be the intersection of those lines.
+Discover the intersection of two points, the returned points
+are the intersection of those points.
 
-A line is a list of two points [{x:10, y:10}, {x:50, y:50}]
+    getCircleCircleIntersections(pointA, pointB)
 
-    lineA = new PointList(
-            new Point({x:406, y:76, radius: 20})
-            , new Point({x:145, y:397, radius: 20})
-        )
-
-    lineB = new PointList(
-            new Point({x:206, y:176, radius: 20})
-            , new Point({x:245, y:297, radius: 20})
-        )
-
-    checkLinesIntersection(lineA, lineB)
-
-We can project (at a length) from line a _through_ line b, essentially as a
-ray beam for a defined distance.
-
-    checkLinesIntersection(lineA, lineB, 400)
-
-When ray projecting, the _lineB_ is essentially a _direction_ rather than just
-a collision.
 */
 
 

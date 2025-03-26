@@ -1,16 +1,13 @@
 /*
-title: Follow
+title: Circle Chords
 files:
-    ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
+    head
     ../point_src/math.js
     ../point_src/extras.js
     ../point_src/point-content.js
-    ../point_src/pointlist.js
-    ../point_src/pointlistpen.js
-    ../point_src/point.js
-    ../point_src/stage.js
+    pointlist
+    point
+    stage
     mouse
     dragging
     stroke

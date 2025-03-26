@@ -72,6 +72,9 @@ class Table {
         return Object.assign(defaults, obj)
     }
 
+    getKeys() {
+        return Object.keys(this.rows)
+    }
     getRow(key) {
         let row = this.rows[key]
         return this.dataRow(row)

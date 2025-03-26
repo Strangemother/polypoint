@@ -1,9 +1,8 @@
 /*
 
 title: Plotter
-src_dir: ../point_src/
 files:
-    ../point_src/core/head.js
+    head
     point
     stage
     dragging
@@ -22,7 +21,7 @@ class MainStage extends Stage {
 
     mounted(){
         // this.dragging.add(...this.points)
-        this.events.wake()
+        // this.events.wake()
         this.points = new PointList;
     }
 

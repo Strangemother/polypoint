@@ -18,6 +18,9 @@ urlpatterns = urls.paths_named(views,
 
     clone_file=('CloneFileView', 'clone/<path:path>/',),
     rename_file=('RenameFileView', 'rename/<path:path>/',),
+    # file_example_png=('ExampleExtFileView', '<path:path>.png/'),
+    file_example_images=('ExampleFileImagesView', 'images/<path:path>/'),
     file_example=('ExampleFileView', '<path:path>/'),
     file_example_html=('ExampleExtFileView', '<path:path>.html/'),
 )
+

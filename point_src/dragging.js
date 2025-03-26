@@ -7,7 +7,7 @@ dependencies:
 
 Dragging tool performs distance tests for all applied points.
 
-    drag = new Dragging
+    const drag = new Dragging
     drag.initDragging(this)
     drag.onDragMove = this.onDragMove.bind(this)
     drag.onDragEnd = this.onDragEnd.bind(this)
@@ -18,10 +18,10 @@ Install points into the map:
 
 Upon a mouse action we can access the discovered points.
 
-        let p = drag.getPoint();
-        if(p) {
-            p.pen.circle(ctx)
-        }
+    let p = drag.getPoint();
+    if(p) {
+        p.pen.circle(ctx)
+    }
 
 */
 
@@ -106,9 +106,8 @@ class Dragging extends Distances {
         // this.nearOrigin = this.near.copy()
         if(this._near == undefined) {
             console.log('not near any point at position', this.mousedownOrigin)
-            this.callDoubleHandler('onEmptyDown', ev)
+            return this.emptyMouseDown(stage, canvas, ev)
             // this.onEmptyDown(ev)
-            return
         }
 
         let distanceValue = this.distanceValue = this._near.distance2D(this.mousedownOrigin)
@@ -123,6 +122,12 @@ class Dragging extends Distances {
             this.onDragStartHandler(ev, this._near)
         // }
 
+    }
+
+    emptyMouseDown(stage, canvas, ev) {
+        console.log('Empty click', stage, ev)
+        this.callDoubleHandler('onEmptyDown', ev)
+        stage.onEmptyDown && stage.onEmptyDown(ev)
     }
 
     getPoint(){

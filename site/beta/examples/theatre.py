@@ -49,8 +49,6 @@ def store_tree(filename, tree_data):
     # tree.prepare()
     # res = tree.parse_all()
     # reader = Reader(res, out_dir, comments=tree.get_comments())
-
-
     return {
         'save_path': save_path,
         'exists': save_path.exists(),
@@ -71,6 +69,7 @@ def get_theatre_filelist(relative=True):
             res += ( str(nn), )
 
     return tuple(res)
+
 
 def get_theatre_list(**kw):
     # get all files in the theatre dir
@@ -226,7 +225,6 @@ def destack_file_dependencies(filepaths):
     return clean_file_meta
 
 
-import json
 def clean_files_list(metadata=None, deep_include=True, files=None, rel_prefix=None):
     """Generate a clean file list given the meta data of the target.
 
@@ -393,7 +391,6 @@ def clean_files_list(metadata=None, deep_include=True, files=None, rel_prefix=No
 
     restacked = tuple({x:0 for x in restacked}.keys())
     return restacked
-
 
 
 def flatten_leaf(leaf, file_ref, src_dir=None):

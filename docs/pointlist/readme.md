@@ -1,4 +1,5 @@
-# PointList
+title: PointList
+---
 
 A `PointList` maintains many `Point` objects. It's secretly just an `Array` (with some extra function for convenience).
 
@@ -14,10 +15,19 @@ const points = new PointList(
                     new Point(700, 200),
                     // ...
                 );
+```
 
+You gain typical _array_ functionality.
+
+```js
+/* Iterate every point in the list */
 points.forEach(point=>console.log(point))
+```
 
-// _Pen_ methods exist for easy drawing:
+Plus a few poly extras, such as the `pen` tooling.
+
+```js
+/*_Pen_ methods exist for easy drawing:*/
 points.pen.indicators(ctx, {color: 'green'})
 ```
 

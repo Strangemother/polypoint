@@ -1,5 +1,12 @@
 /*
 file parser view accessories.
+
+This file parses the content within the file content node, using acorn.js
+The result is POSTed to the server through the online form.
+
+The server continues processing through further validation.
+Content is sent to editor:tree
+
 */
 
 var tree;
@@ -200,12 +207,40 @@ class TreeReader {
 
     readNode(node, index, items, ast){
         let n = node.type
+        // readNodeClassDeclaration
         let fname = `readNode${n}`
         if(this[fname] == undefined) {
+            console.log('skip', n)
             return {action: 'skipped', type: n}
+
         }
 
         return this[fname].apply(this, arguments)
+    }
+
+    readNodeFunctionDeclaration(node, index, items, ast) {
+        /* Read a function definition, e.g:
+
+            function foo(a,b){}
+
+        ---
+
+        Node:
+
+            docs/notes/acorn-function-declaration.js
+
+
+        */
+
+        const name = node.id.name
+        return {
+            name
+            , type: 'function'
+            , isAsync: node.async
+            , isExpression: node.expression
+            , start: node.start
+            , end: node.end
+        }
     }
 
     readNodeClassDeclaration(node, index, items, ast) {
@@ -244,8 +279,12 @@ class TreeReader {
     }
 
     readNodeMethodDefinition(node, index, items, parentNode, tree) {
-        /* Read a single method definition. */
+        /* Read a single method definition. e.g.
 
+            class MyClass {
+                methodDef() {} // method definition
+            }
+        */
         return {
             name: node.key.name
             , type: 'method'

@@ -341,6 +341,10 @@ class GearBox {
     }
 
     addPairGear(primary, pinion) {
+        /* A pair gear applies a primary wheel and a pinion wheen -
+        bound together at the center. When one of the gears rotates, the other
+        will also rotate at the same speed.
+        */
         this.addGear(primary)
         this.addGear(pinion)
         // this.points.push(primary, pinion)

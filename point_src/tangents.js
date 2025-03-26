@@ -146,6 +146,85 @@ function calculateAdjustedRotatedTangentLines(pointA, pointB) {
 }
 
 
+
+let arcTangents = function(a, b, rLength, add=true){
+    // https://www.youtube.com/watch?v=fVbpIwh_S6o
+    let r = rLength
+    let r1 = a.radius
+    let r2 = b.radius
+
+    // Then build the new protractor points.
+    let c = a.copy().update({
+        radius: add? r + r1: r - r1
+    })
+
+    let d = b.copy().update({
+        radius: add? r + r2: r - r2
+    })
+
+    /* The circle interections of the _outer_ protractor lines.
+    These intersections mark the position to score the arc.*/
+    let cdIntersect = getCircleCircleIntersections(c, d)
+    if(cdIntersect === false || cdIntersect.length == 0) {
+        return
+    }
+    // The two origin points.
+    let intersect0 = new Point(cdIntersect[0])
+    let intersect1 = new Point(cdIntersect[1])
+
+    let comp = function(protractorPoint, targetPoint) {
+        const angle = twoPointsAngle(protractorPoint, targetPoint)
+        let xStart = protractorPoint.x + r * Math.cos(angle)
+        let yStart = protractorPoint.y + r * Math.sin(angle)
+        let tangentPoint = new Point(xStart, yStart, 5, radiansToDegrees(angle))
+        return tangentPoint
+    }
+
+    let node00 = comp(intersect0, a)
+    let node01 = comp(intersect0, b)
+
+    let node10 = comp(intersect1, a)
+    let node11 = comp(intersect1, b)
+
+    return {
+        n: [
+            node00
+            , node01
+            , node10
+            , node11
+        ]
+        , a, b, c , d
+        , origin0: intersect0
+        , origin1: intersect1
+        , sharedRadius: r
+    }
+}
+
+
+const twoPointsAngleRaw = function(origin, target) {
+    /*given two points, return the relative angle (in radians), of target from the origin.
+    For example if the target was left of the origin, this would be a -Math.PI */
+    const { x: x1, y: y1, radius: r1 } = origin;
+    const { x: x2, y: y2, radius: r2 } = target;
+
+    // Calculate distance between centers
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    // Calculate the angle between the points
+    const angle = Math.atan2(dy, dx);
+    return angle
+}
+
+
+const twoPointsAngle = function(origin, target) {
+    let dist = new Point(target.distance2D(origin))
+    return dist.atan2()
+}
+
+
+
 class PointTangents {
 
     constructor(point) {
@@ -258,6 +337,14 @@ class PointTangents {
             ab: [tangentA1, tangentB1],
             ba: [tangentA2, tangentB2],
         };
+    }
+
+    calculateConcaveTangentArcs(pointA, pointB, length) {
+        return arcTangents(a, b, length, 0)
+    }
+
+    calculateConvexTangentArcs(pointA, pointB, length) {
+        return arcTangents(a, b, length, 1)
     }
 
     points(other) {

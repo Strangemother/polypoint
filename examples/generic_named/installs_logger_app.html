@@ -1,13 +1,21 @@
 {% load link %}
-
+{% comment "What" %}
+    The small installed components app, in the status bar.
+{% endcomment %}
 {% verbatim %}
 <div id="installs_logger_app" class="hide-panel installs-logger" ref='owner'>
     <div class="panel">
-        <h3>Installed</h3>
-        <ul ref='textSlot'>
+        <div class="installed-classes">
+            <h3>Installed Classes</h3>
+            <ul ref='classesTextSlot'></ul>
+        </div>
+        <div class="installed-lazyprops">
+            <h3>Installed Props</h3>
+            <ul ref='propsTextSlot'></ul>
+        </div>
 
-        </ul>
     </div>
+
     <a href='#' @click='togglePopup'>
         <span ref="liveText">Install Logger {{ store.words }}</span>
     </a>

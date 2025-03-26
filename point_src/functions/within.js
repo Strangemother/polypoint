@@ -67,6 +67,14 @@ function circleIntersectsLineSegment(circle, p1, p2) {
 
 
 function withinPolygon(point, polygon) {
+    /* Test if the given `point` is within the _polygon_.
+    A polygon is a _list_ of points, with each point containing `{x,y}`
+    coordinates.
+
+        const point = Point.mouse.position
+        const polygon = [{x: 10, y:20}]
+        withinPolygon(point, polygon)
+    */
     const x = point.x
         , y = point.y;
     let inside = false;
@@ -90,11 +98,21 @@ function withinPolygon(point, polygon) {
 
 
 class PointWithin {
+
     constructor(parent) {
         this.parent = parent
     }
 
     polygon(polygon) {
+        /* Test if _this_ point is within the given _polygon_.
+
+        A polygon is a _list_ of points, with each point containing `{x,y}`
+        coordinates.
+
+            let point = Point.mouse.position
+            const polygon = [{x: 10, y:20}]
+            let isInside = point.within.polygon(polygon)
+        */
         return withinPolygon(this, polygon)
     }
 }

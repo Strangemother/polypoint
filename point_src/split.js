@@ -1,6 +1,14 @@
 /*
+title: Split
 files:
     functions/clamp.js
+---
+
+_Split_ a point or a line to many smaller points.
+
+    const p = new Point({radius: 100})
+    let points = p.split(4)
+
 */
 
 /* splitToPointList(point, count).pen.indicators(ctx)*/
@@ -10,8 +18,6 @@ const splitToPointList = function(point, count, radius, rotation, angle=undefine
     p1 = p1.subtract(r)
     let _radius = radius || p1.radius
     // p1.rotation = rotation || point.rotation
-    //
-    //
     /* p1 does not recieve r.radians - use the original rads.
     rotation ==0 is falsy.*/
     let rot = rotation == undefined? point.radians: rotation
@@ -20,21 +26,6 @@ const splitToPointList = function(point, count, radius, rotation, angle=undefine
                 // splitRadius(p1, count)
             )
 }
-
-
-Polypoint.head.installFunctions('Point', {
-    /* A "split" function to divide the point circumference to many points.
-    Return a list of points.
-
-        let pointList = point.split(4)
-
-    A `point.project()` is the same as `point.split(1)`
-    */
-    split(count, angle=undefined) {
-        let point = this
-        return splitToPointList(point, count, point.radius, point.radians, angle)
-    }
-});
 
 
 const lerp = (x, y, a) => x * (1 - a) + y * a;
@@ -47,7 +38,10 @@ function bLerp(a,b,t){
 // AWESOME! https://acegikmo.com/bezier/
 // https://acegikmo.medium.com/the-ever-so-lovely-bézier-curve-eb27514da3bf
 function lerpV2(a,b,t){
-    return { x: bLerp(a.x,b.x,t), y: bLerp(a.y,b.y,t) };
+    return {
+        x: bLerp(a.x,b.x,t),
+        y: bLerp(a.y,b.y,t)
+    };
 }
 
 
@@ -74,6 +68,31 @@ function get_bezier_derivative(p0, p1, p2, p3, t) {
 
     return { dx, dy };
 }
+
+
+const lerpRadius = function(a, b, v) {
+    /* Process the width from the _first_ to the _last_ of a line.*/
+    // let av = ((asLast.radius - asFirst.radius) * (i/l))+asFirst.radius
+    return ((b - a) * v) + a
+}
+
+const radiusManual = function(a, b, i) {}
+
+
+Polypoint.head.installFunctions('Point', {
+    /* A "split" function to divide the point circumference to many points.
+    Return a list of points.
+
+        let pointList = point.split(4)
+
+    A `point.project()` is the same as `point.split(1)`
+    */
+    split(count, angle=undefined) {
+        let point = this
+        return splitToPointList(point, count, point.radius, point.radians, angle)
+    }
+});
+
 
 
 Polypoint.head.installFunctions('BezierCurve', {
@@ -235,15 +254,6 @@ Polypoint.head.installFunctions('BezierCurve', {
     }
 });
 
-
-const lerpRadius = function(a, b, v) {
-    /* Process the width from the _first_ to the _last_ of a line.*/
-    // let av = ((asLast.radius - asFirst.radius) * (i/l))+asFirst.radius
-    return ((b - a) * v) + a
-}
-
-const radiusManual = function(a, b, i) {
-}
 
 Polypoint.head.installFunctions('Line', {
 

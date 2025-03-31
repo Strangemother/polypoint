@@ -1,16 +1,116 @@
 class Gradient {
-    /* A simple gradient tool */
-    // type =
-    /*
-    createConicGradient(startAngle, x, y)
-    createLinearGradient(x0, y0, x1, y1)
-    createRadialGradient(x0, y0, r0, x1, y1, r1)
+    /* A Gradient instance can be generated once or for every draw.
+
+    Examples:
+
+    Pre-configure the origin points and the _type_
+
+        g = new Gradient(null, 'Linear', [stage.center])
+        g.addStops({
+            0: "hsl(299deg 62% 44%)",
+            1: "hsl(244deg 71% 56%)"
+        })
+
+        let canvasGradient = g.getObject(ctx)
+        ctx.fillStyle = canvasGradient
+
+    ---
+
+    The context may be given early.
+
+        g = new Gradient(ctx, 'Linear',)
+        g.addStops({
+            0: "hsl(299deg 62% 44%)",
+            1: "hsl(244deg 71% 56%)"
+        })
+        let canvasGradient = g.getObject()
+        ctx.fillStyle = canvasGradient
+
+    ---
+
+    Provide the context at the last stage.
+
+        g = new Gradient()
+        g.addStops({
+            0: "hsl(299deg 62% 44%)",
+            1: "hsl(244deg 71% 56%)"
+        })
+        g = g.conical(stage.center)
+        // draw
+        ctx.fillStyle = g.getObject(ctx)
+
+    ---
+
+    Radial gradient through two point. The same points are used as
+    color stops.
+
+        pointGradInner = primaryPoint.copy().update({
+                radius: rel(-250),
+                color:'pink'
+            })
+        pointGradOuter = primaryPoint.copy().update({
+                radius: rel(-10),
+                color: 'purple' // dark
+            })
+
+        pointGrad = (new Gradient).radial(pointGradInner, pointGradOuter)
+        pointGrad.addStops({
+            0: pointGradInner,
+            1: pointGradOuter
+        })
+        pointGrad.radial() // refresh hack.
+        let ctxPointGrad = pointGrad.getObject(ctx)
+        primaryPoint.pen.fill(ctx, ctxPointGrad)
+    ---
+
+    This base `Gradient` class covers the three core types:
+
+    + createConicGradient(startAngle, x, y)
+    + createLinearGradient(x0, y0, x1, y1)
+    + createRadialGradient(x0, y0, r0, x1, y1, r1)
+
+    ## More Info
+
+    Create a new gradient object:
+
+        let g = new Gradient()
+
+    Many _stops_ define the gradient color values. A _stop_ is a relative 1D
+    position from `0` to `1`.
+
+        g.addStops({
+            0: "hsl(299deg 62% 44%)",
+            1: "hsl(244deg 71% 56%)"
+        })
+
+    Define the type of gradient object:
+
+        let rootPoint = stage.center
+        let grad = g.linear(rootPoint)
+
+    Under the hood, this configures and refreshes `g` gradient instance. similar
+    to:
+
+        // same as above
+        g = new Gradient(null, 'Linear', [stage.center])
+
+    A canvas _gradient_ is generated when required. This Gradient class mimic
+    this:
+
+        let canvasGradient = g.getObject(ctx)
+
+    The `getObject` method returns a result from the root functions, such as
+    `createLinearGradient`
+
+
     */
 
-    constructor(ctx, type='Linear') {
+
+    constructor(ctx, type='Linear', originPoints=[]) {
         this.ctx = ctx
         this.type = type // default
         this.stopMap = new Map()
+        this.originPoints = originPoints
     }
 
     // createConicGradient(startAngle, x, y)
@@ -83,7 +183,7 @@ class Gradient {
         let outer = origins[1]
 
         if(outer == undefined) {
-            // Project 2 pointsof the radius.
+            // Project 2 points of the radius.
             // use projections as the primaries.
             [inner, outer] = inner.split(2)
         }

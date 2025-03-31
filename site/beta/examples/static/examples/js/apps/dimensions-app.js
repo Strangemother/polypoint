@@ -10,6 +10,8 @@ class DimensionsApp extends Mountable {
 
             if(stage) {
                 hookHandle()
+                // let node = document.querySelector('.border-panel')
+                // this.copyRelativeShape(node)
                 this.record(stage.dimensions)
             }
         } catch {
@@ -21,7 +23,23 @@ class DimensionsApp extends Mountable {
     }
 
     initData(){
-        return { width: 10, height: 10}
+        return { width: 10, height: 10 }
+    }
+
+    copyRelativeShape(node) {
+        let rect = node.getBoundingClientRect()
+        stage.stickCanvasSize(stage.canvas, rect);
+        stage.resize();
+    }
+
+    enterKey(e) {
+        let _type = e.currentTarget.dataset.type
+        console.log('Enter', _type)
+        e.preventDefault()
+        let v = parseInt(e.currentTarget.textContent)
+        this.store[_type] = v
+        stage.stickCanvasSize(stage.canvas, {[_type]: v})
+        stage.resize()
     }
 
     resizeEventHandler(e){

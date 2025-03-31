@@ -1,22 +1,20 @@
 /*
 title: Draw Box
 files:
-    ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
+    head
+    point
     ../point_src/extras.js
     ../point_src/math.js
     ../point_src/point-content.js
-    ../point_src/stage.js
-    ../point_src/point.js
+    stage
     ../point_src/distances.js
-    ../point_src/pointlist.js
+    pointlist
     ../point_src/events.js
-    ../point_src/functions/clamp.js
     ../point_src/curve-extras.js
-    ../point_src/random.js
     dragging
     stroke
+    ../point_src/random.js
+    ../point_src/functions/clamp.js
     ../point_src/functions/within.js
     ../point_src/automouse.js
     ../point_src/recttools.js
@@ -29,40 +27,57 @@ class MainStage extends Stage {
     canvas = 'playspace'
 
     mounted(){
+
+        /* The (soon to be) generated lines */
         this.lines = []
+
+        /* A flag for later */
         this.drawing = false
-        this.events.wake()
-        this.points = PointList.generate.random(100, [800, 600], {x: 100, y: 100})
+
+        /* A bunch of random points.*/
+        this.points = PointList.generate.random(100,
+                [800, 600],  // size
+                {x: 100, y: 100} // top left
+            )
+
+        /* Box stroke. */
         this.stroke = new Stroke({
             color: '#5555FF'
             , width: 1
             , dash: [1]
         })
 
+        /* populated when drawing */
         this.selected = new Set
         this.mouse.point.radius = 20
     }
 
-    onClick(ev) {
-    }
+    onClick(ev) {}
 
-    onDblclick(ev) {
-
-    }
+    onDblclick(ev) {}
 
     onMousedown(ev) {
+        /* On mouse down, we flag the drawing as active and store the down Point */
+        if(this.dragging.getPoint()?.uuid == 'handle'){
+            // Dragging box mode.
+            return
+        }
+
         this.drawing = true
         this.downPoint = Point.from(ev)
         // this.selectItems()
     }
 
     onMouseup(ev) {
+        /* On mouse up, flag the drawing=false, and store the up point. */
         this.drawing = false
         this.upPoint = Point.from(ev)
         // this.lines = []
     }
 
     onMousemove(ev) {
+        /* On every move, creata a draw box from the down point
+        to the mouse point, then test for selected items.*/
         if(!this.drawing) {
             return
         }
@@ -75,10 +90,16 @@ class MainStage extends Stage {
     }
 
     selectItems(a,b){
+
         let rect = twoPointsAsRectOrdered(a,b)
         let keep = new Set;
 
         let handList = new PointList(...rect)
+
+        /* For every _point_ in the list, test to see if
+        it's within the rectable polygon shape.
+        If true, store the uuid of the point.*/
+
         this.points.forEach((p)=>{
             let within = withinPolygon(p , rect)
             if(within) {
@@ -87,11 +108,17 @@ class MainStage extends Stage {
             }
         })
         this.selected = keep
+
+        /* build a handle for the center. */
         let handle = undefined
         if(keep.size > 1){
             handle = handList.centerOfMass()
+            handle.uuid = 'handle'
+            this.dragging.add(handle)
         }
+
         this.handle = handle
+
         return keep
     }
 
@@ -103,7 +130,10 @@ class MainStage extends Stage {
             let selected = this.selected.has(p.uuid)
             p.pen.fill(ctx, selected? 'green':'#880000')
         })
+        this.drawLines(ctx)
+    }
 
+    drawLines(ctx){
         if(this.downPoint && this.upPoint){
 
             // let mouseOver = withinPolygon(
@@ -117,14 +147,14 @@ class MainStage extends Stage {
                 this.mouse.point.pen.circle(ctx)
             }
 
-            this.handle?.pen.fill(ctx, '#ddd')
+            this.handle?.pen.indicator(ctx, '#ddd')
+            // this.handle?.pen.fill(ctx, '#ddd')
         }
 
         this.stroke.wrap(ctx, ()=>this.lines.forEach(l=>l.render(ctx)))
         // this.stroke.set(ctx)
         // this.lines.forEach(l=>l.render(ctx))
         // this.stroke.unset(ctx)
-
     }
 }
 

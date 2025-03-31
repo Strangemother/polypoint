@@ -17,10 +17,13 @@ class PointText {
     }
 
     getText() {
+        let p = this.point;
         return this.text
                 || this.value
-                || this.point.name
-                || this.point.uuid
+                || p.label
+                || p.value
+                || p.name
+                || p.uuid
                 ;
     }
 

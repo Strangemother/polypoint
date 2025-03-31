@@ -1,6 +1,7 @@
 /*
 ---
 title: Calculate Angles
+category: angles
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -20,7 +21,11 @@ files:
     ../point_src/stage.js
     ../point_src/text/label.js
     ../point_src/text/alpha.js
- */
+---
+
+This example presents a the angle value between two points (their rotation).
+
+*/
 
 class MainStage extends Stage {
     canvas='playspace'
@@ -45,7 +50,7 @@ class MainStage extends Stage {
     }
 
     updateText() {
-        let a = this.indicatorPoint;
+        let a = this.indicatorPoint; // looks at targetPoint
         let b = this.linePoint;
         let rot = calculateAngle360(a, b, a.rotation)
         // let rot = invertClockRotation(calculateAngle180(a, b, a.rotation))
@@ -69,7 +74,7 @@ class MainStage extends Stage {
         a.pen.line(ctx, b)
         a.lookAt(this.targetPoint)
 
-        this.targetPoint.pen.fill(ctx, '#33dd33')
+        this.targetPoint.pen.fill(ctx, '#8822cc')
         b.pen.fill(ctx, '#99ddff')
         // this.linePoint.pen.indicator(ctx, {color: this.linePoint.color})
 

@@ -74,6 +74,7 @@ class MainStage extends Stage {
             /* Manual lerping from line points. */
             a.radius = lerpRadius(asFirst.radius, asLast.radius, i/l)
             b.radius = lerpRadius(bsFirst.radius, bsLast.radius, i/l)
+            b.radians = lerpRadius(bsFirst.radians, bsLast.radians, i/l)
         }
         const radiusDistance = function(a, b, i) {
             /* Auto by distance. */
@@ -107,7 +108,6 @@ class MainStage extends Stage {
 
         this.line.points.forEach(p=>p.pen.indicator(ctx), { line:{color:'#333'}})
         this.line2.points.forEach(p=>p.pen.indicator(ctx), { line:{color:'#333'}})
-
 
         lines.forEach((l)=>{
             l.render(ctx, lc);

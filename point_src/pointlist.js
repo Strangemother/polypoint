@@ -91,7 +91,7 @@ class PointListDraw {
         // To 'close' the old drawing.
         let pointsArray = this.list
         let a = pointsArray[0]
-
+        if(!a) { return }
         ctx.beginPath();
         ctx.moveTo(a.x, a.y)
 
@@ -798,7 +798,6 @@ class PointList extends LazyAccessArray {
 
         return  pl.concat(this)
     }
-
 
     getBoundingClientRect() {
         /* return thr bounding box of the point.*/

@@ -25,7 +25,7 @@ addEventListener('Polypoint:install', (e)=>{
 
 addEventListener('Polypoint:install:lazyProp', (e)=>{
     let entity = e.detail.entity
-    console.log('catch install', entity)
+    // console.log('catch install', entity)
     // let installReceivers = installCache.receivers
     // for(let k in installReceivers) {
     //     installReceivers[k].call(installCache, entity)

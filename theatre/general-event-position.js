@@ -9,6 +9,13 @@ files:
     ../point_src/stage.js
     ../point_src/events.js
 
+Events are captured on the stage. In this example we spawn a point from the
+click event:
+
+    onClick(ev) {
+        clickPoint = Point.from(ev)
+    }
+
  */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');

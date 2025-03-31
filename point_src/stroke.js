@@ -16,7 +16,8 @@ const UNSET = {}
 
 
 const quickStroke = function(color='green', lineWidth=UNSET, f) {
-    ctx.strokeStyle = color
+
+    ctx.strokeStyle = color.call? color(): color
     if(lineWidth != UNSET) {
         ctx.lineWidth = lineWidth
     }
@@ -28,7 +29,7 @@ const quickStroke = function(color='green', lineWidth=UNSET, f) {
 
 
 const quickStrokeWithCtx = function(ctx, color='green', lineWidth=UNSET, f) {
-    ctx.strokeStyle = color
+    ctx.strokeStyle = color.call? color(): color
     if(lineWidth != UNSET) {
         ctx.lineWidth = lineWidth
     }

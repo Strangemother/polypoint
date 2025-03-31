@@ -3,6 +3,9 @@
 title: Dragging
 dependencies:
     distances.js
+files:
+    protractor.js
+    text/beta.js
 ---
 
 Dragging tool performs distance tests for all applied points.
@@ -27,7 +30,7 @@ Upon a mouse action we can access the discovered points.
 
 
 Polypoint.head.mixin('Point', {
-
+    /* Every point gains a _draggable_ property. By default `draggable=true` */
     _draggable: {
         value: true,
         writable: true
@@ -67,10 +70,16 @@ class Dragging extends Distances {
     maxWheelValue = 500
     padding = 10
 
+    /* Perform point rotation on on mouse _right_ down.
+    False disables this in favour of a contextmenu */
+    twistMouse = true
+
     constructor(stage) {
         super()
         this.stage = stage;
         this.isDragging = false
+        this.toy = new Point()
+        this.toy2 = new Point({ radius: 10})
     }
 
     initDragging(stage=this.stage){
@@ -86,6 +95,8 @@ class Dragging extends Distances {
         mouse.listen(c, 'mousemove', (c,ev)=> this.onMousemove(stage,c,ev))
         mouse.listen(c, 'mouseup', (c,ev)=> this.onMouseup(stage,c,ev))
         mouse.listen(c, 'wheel', (c,ev)=> this.onWheelInternal(stage,c,ev), {passive: true})
+        mouse.listen(c, 'contextmenu', (c,ev)=> this.onContextMenu(stage,c,ev)/*, {passive: true}*/)
+
         this._near = new Point(mouse.position);
     }
 
@@ -100,15 +111,21 @@ class Dragging extends Distances {
     onMousedown(stage, canvas, ev) {
         // register point
         // Select near
+        return this.primaryActionDown.apply(this, arguments)
+    }
+
+    primaryActionDown(stage, canvas, ev){
+        /* Capture the down event for the primary mouse button (likely button #0)*/
         this._mousedownDelta = +(new Date)
-        this.mousedownOrigin = {x:ev.x, y:ev.y}
+        this.mousedownOrigin = {x:ev.x, y:ev.y, radius: 20}
 
         // this.nearOrigin = this.near.copy()
         if(this._near == undefined) {
             console.log('not near any point at position', this.mousedownOrigin)
             return this.emptyMouseDown(stage, canvas, ev)
-            // this.onEmptyDown(ev)
         }
+
+        this.mousedownRotationTool(ev)
 
         let distanceValue = this.distanceValue = this._near.distance2D(this.mousedownOrigin)
         this.downPointDistance = new Point(distanceValue)
@@ -150,9 +167,62 @@ class Dragging extends Distances {
             return
         }
 
+        let isRightClick = this.isRightClickOkay(ev)
         // Add translation to selected
         // let v = this.nearOrigin.add(ev.x, ev.y)
-        this.onDragMoveHandler(ev)
+        if(ev.shiftKey || isRightClick){
+            this.onShiftMouseMoveHandler(ev)
+        } else {
+            this.onDragMoveHandler(ev)
+        }
+    }
+
+    isRightClickOkay(ev){
+        return (this.twistMouse && (ev.which == 3))
+    }
+
+    mousedownRotationTool(ev){
+        this.mousedownPoint = Point.from(ev)
+        this.mousedownPoint.rotation = this._near.rotation
+        this.mousedownPoint.radius = 20
+        // this.mousedownOrigin.radians = this._near.radians
+        this.mousedownOrigin.rotation = this._near.rotation
+    }
+
+    onShiftMouseMoveHandler(ev){
+        /* the point should _spin_ rather than move. */
+        // ev angle To mouse from origin angle.
+        let spinX = this._near.x // this.mousedownOrigin.x
+        let spinY = this._near.y // this.mousedownOrigin.y
+        let targetCenter = new Point(spinX, spinY);
+        let mousePos = stage.mouse.position;
+        let downPoint = this.mousedownPoint
+        // let rads= calculateAngleDiff(primaryPoint, secondaryPoint)
+
+        let rot = calculateAngle360(targetCenter, mousePos, downPoint.rotation)
+        this.toy.update({
+                x: spinX
+                , y: spinY
+                , radius: 20
+                // x: this.mousedownPoint.x
+                // , y: this.mousedownPoint.y
+
+                /* Add the original origin (the mousedown store of the target)
+                rotation, else the result starts from `0` pointing right.
+                But we want `0` to originate from the start angle (the big target) */
+                , rotation: rot + this.mousedownOrigin.rotation
+            })
+        this.toy2.update({
+                x:spinX
+                , y:spinY
+                , radius: 20
+            }).lookAt(downPoint)
+        /* We want to calculate the difference between the angle to the mousedown,
+        to the current mouse, with the _origin_ as the center of the big point. */
+        let nrot = calculateAngleDiff(this.toy, this.toy2)
+        this.toy.text.value = nrot.toFixed(0)
+        this._near.rotation = downPoint.rotation + nrot
+        // this.mousedownOrigin.radians
     }
 
     cursorChange(found) {
@@ -242,6 +312,25 @@ class Dragging extends Distances {
     onLongClick(stage, canvas, ev, delta) {
         console.log('Long Click (not dragged)', delta)
         this.callPointHandler('onLongClick', ev, this._near, delta)
+        stage.onLongClick && stage.onLongClick(ev, delta)
+
+    }
+
+    getDownTimeTaken() {
+        return +(new Date) - this._mousedownDelta
+    }
+
+    onContextMenu(stage,c,ev) {
+        // mouse.listen(c, 'contextmenu', (c,ev)=> this.onContextMenu(stage,c,ev), {passive: true})
+        let timeDown = this.getDownTimeTaken()
+
+        if(this.twistMouse) {
+            // console.log('cancel contextmenu? Time taken:', timeDown)
+            if(timeDown < 400) {
+                return
+            }
+            ev.preventDefault()
+        }
     }
 
     /* Given the EV with a {x,y}, return the distance from the origin mousedown. */
@@ -282,11 +371,32 @@ class Dragging extends Distances {
     }
 
     callPointHandler(name, ev, p=this._near, x) {
+        /* Call the method `name` on the point, with the event, _if_ the
+        point contains the method.
+
+            this.callPointHandler('onMousedown', ev, this._near)
+
+        Apply any arguments after the _point_ to the event
+
+            this.callPointHandler('onLongClick', ev, this._near, delta, { apples: 'green'})
+        */
         let args = [ev]
         if(x != undefined) {
             args = args.concat(Array.from(arguments).slice(3))
         }
         p && p[name] && p[name].apply(p, args)
+    }
+
+    drawAll(ctx) {
+        this.drawIris(ctx)
+        this.drawTwists(ctx)
+    }
+
+    drawTwists(ctx) {
+        this.toy2.pen.indicator(ctx, {color: 'black'})
+        this.toy.pen.indicator(ctx, {color: 'red'})
+        this.toy.text.label(ctx)
+        this.mousedownPoint?.pen.indicator(ctx, {color: 'blue'})
     }
 
     drawIris(ctx) {

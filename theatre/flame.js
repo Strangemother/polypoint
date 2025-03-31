@@ -28,27 +28,44 @@ class MainStage extends Stage {
         console.log('mounted')
 
         this._t = 0
-        this.curvesA = this.generateFlame(
+        let ps = this.points = new PointList(
             new Point(120, 300, 50),
-            new Point(120, 100, 50)
+            new Point(120, 100, 50),
+
+            new Point(250, 300, 80),
+            new Point(250, 100, 70),
+
+            new Point(400, 300, 40),
+            new Point(400, 100, 50),
+        )
+
+        this.curvesA = this.generateFlame(
+            ps[0],
+            ps[1]
         )
 
         this.curvesB = this.generateFlame(
-            new Point(250, 300, 80),
-            new Point(250, 100, 70),
+            ps[2],
+            ps[3],
             1,
         )
 
         this.curvesC = this.generateFlame(
-            new Point(400, 300, 40),
-            new Point(400, 100, 50),
+            ps[4],
+            ps[5],
             60,
         )
 
         this.curves = [
-            this.curvesA,
-            this.curvesB,
-            this.curvesC,
+            this.curvesA[1],
+            this.curvesB[1],
+            this.curvesC[1],
+        ]
+
+        this.plots = [
+            this.curvesA[0],
+            this.curvesB[0],
+            this.curvesC[0],
         ]
 
     }
@@ -56,7 +73,7 @@ class MainStage extends Stage {
     generateFlame(a, b, tilt){
         let plots = this.plotFlame(a, b, tilt)
         let curves = this.createCurves(plots)
-        return curves
+        return [plots, curves]
     }
 
     plotFlame(basePoint, tipPoint, tilt=30) {
@@ -94,10 +111,18 @@ class MainStage extends Stage {
 
         // this.curveA.render(ctx, {color: 'green'})
         // this.curvesA.forEach(c=>c.render(ctx, {color: 'orange'}))
+        this.plots.forEach((plots)=>{
+            // plots.forEach(c=>c.render(ctx, {color: 'orange'}))
+            plots.pen.indicator(ctx, {line: {width: 1}, color: '#222'})
+        })
+
         this.curves.forEach((curves)=>{
             curves.forEach(c=>c.render(ctx, {color: 'orange'}))
         })
 
+
+        // this.points.pen.fill(ctx, '#BBB', 2)
+        // this.points.pen.indicators(ctx,)
         // this._t++;
 
         // if(this._t % 2 == 0) {

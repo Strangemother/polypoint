@@ -1,5 +1,6 @@
 /*
 title: Chord Rect
+category: chords
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

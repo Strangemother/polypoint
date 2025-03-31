@@ -256,3 +256,28 @@ function getCircleCircleIntersections(circle1, circle2) {
 }
 
 
+class PointIntersections {
+
+    constructor(point) {
+        this.parent = point
+        /* string stuff */
+        this.gravity = {x:0, y:1}
+        this.damping =.95
+        this.dotDamping =.2
+        this.forceMultiplier =.1
+        this.forceValue =undefined
+        this.distance = 100
+    }
+
+    of(other, settings) {
+        let p = getCircleCircleIntersections(this.parent, other, settings)
+
+        return PointList.from(p).cast()
+    }
+}
+
+Polypoint.head.deferredProp('Point',
+    function intersections() {
+        return new PointIntersections(this)
+    }
+);

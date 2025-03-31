@@ -1,5 +1,6 @@
 /*
 title: Circle Chords
+category: chords
 files:
     head
     ../point_src/math.js

@@ -3,10 +3,16 @@
 {% verbatim %}
 <div id="dimensions_app" class="width-height">
     <span class="number width"
-        contenteditable="true">{{ store.width }}</span>
+        data-type='width'
+        contenteditable="true"
+        @keydown.enter='enterKey'
+        >{{ store.width }}</span>
     <span class="split">x</span>
     <span class="number height"
-        contenteditable="true">{{ store.height }}</span>
+        data-type='height'
+        contenteditable="true"
+        @keydown.enter='enterKey'
+        >{{ store.height }}</span>
 </div>
 {% endverbatim %}
 

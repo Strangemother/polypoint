@@ -87,9 +87,9 @@ Polypoint.head.installFunctions('Point', {
 
     A `point.project()` is the same as `point.split(1)`
     */
-    split(count, angle=undefined) {
+    split(count, angle=undefined, outerAngle=0) {
         let point = this
-        return splitToPointList(point, count, point.radius, point.radians, angle)
+        return splitToPointList(point, count, point.radius, point.radians + outerAngle, angle)
     }
 });
 

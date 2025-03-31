@@ -1,6 +1,7 @@
 /*
 ---
 title: Angle Values
+category: angles
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

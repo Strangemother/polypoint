@@ -1,5 +1,6 @@
 /*
 title: Two Point Circle Segment
+category: chords
 files:
     head
     ../point_src/extras.js

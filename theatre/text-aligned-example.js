@@ -40,7 +40,6 @@ class MainStage extends Stage {
         ctx.font = `400 16px inter`;
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-
     }
 
     draw(ctx){

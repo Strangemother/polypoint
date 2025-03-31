@@ -1,5 +1,5 @@
 /*
-title: SVG Path Data
+title: Char Example
 files:
     ../point_src/math.js
     ../point_src/core/head.js
@@ -19,16 +19,6 @@ files:
     ../point_src/image.js
 
 ---
-
-Load vector commands (SVG commands) as a path using `PathData`.
-
-The instance has a data and a point, used for position, scale, and rotation.
-
-    const path = new PathData("M395.065.638c-.445...")
-
-    path.position.rotation += 1
-    path.draw(ctx)
-    path.position.pen.circle(ctx)
 
 */
 

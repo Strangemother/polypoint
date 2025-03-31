@@ -152,6 +152,14 @@ class PointConstraints {
         return constraints.inverse(other, this.parent, settings)
     }
 
+    elbow(other, settings){
+        let point = this.parent;
+        /* Ensure a point stays within a distance. */
+        this.leash(other, (other.radius + point.radius) - .01)
+        /* Ensure the point binds to the edge of the target. */
+        this.avoid(other, Math.abs(other.radius - point.radius) + .01)
+    }
+
     string(other, settings){
         // Manipulate the _other_; with this entity as the origin owner.
         const c = Object.assign({

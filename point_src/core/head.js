@@ -161,6 +161,7 @@ This works for many mixins:
     var dlog = debug?console.log.bind(console): ()=>{}
 
     try{
+
         if(logger) {
             dlog = logger.create("head")
         }

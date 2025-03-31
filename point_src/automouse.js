@@ -15,11 +15,27 @@ const getLastMousePos = function(){
 
 
 class AutoMouse {
-    /*
+    /* The _AutoMouse_ class cares for much of the mouse pointer functionality
+    for a stage and the a point.
+    It's functionality is designed to hook onto preparing `stages` and their canvas.
+    It exists as a singleton `autoMouse`:
+
+        autoMouse = new AutoMouse()
+        autoMouse == stage.mouse
+        Point.mouse == stage.mouse
+
+    Initiate like this:
+
+        Point.mouse?.mount(stage.canvas)
+
+    Synonymous to:
+
         installCanvas(canvas, stage){
             this.canvasMap.set(canvas, stage)
             Point.mouse?.listen(canvas)
         }
+
+
      */
     constructor(parentClass) {
         this.parentClass = parentClass
@@ -88,7 +104,9 @@ class AutoMouse {
     get position() {
         /* The `this.position` method returns a new Point, with the mouse XY
         (from the last motion).
-        Use `this.point` for a persisent single Point instence. */
+
+        Use `this.point` for a persisent single Point instance.
+        */
         return new Point(this.mouseCache)
     }
 
@@ -338,9 +356,43 @@ class AutoMouse {
         return space
     }
 
+    speed(previous=this._speedPrevious, delta=1) {
+        /* Return the speed of the point over a delta.
+        This is a lot like the velocity functionality, but cut-down for
+        efficiency. */
+        let current = this.xy
+        if(previous == undefined) {
+            this._speedPrevious = current
+            return -1
+        }
+
+        this._speedPrevious = current
+        return this.computeSpeed(previous, current)
+    }
+
+    _moduloTicker = 0
+    modulatedSpeed(mod=15, previous=this._speedPrevious, delta=1){
+        this._moduloTicker += 1
+        let current = this.xy
+        if(this._moduloTicker % mod == 0) {
+            this._moduloTickerCompute = this.speed(previous, delta)
+            return this._moduloTickerCompute
+        }
+        this._speedPrevious = current
+        return this._moduloTickerCompute
+    }
+
+    /* CREATE use a smoothtext function
+    share for this anf fps text*/
+    computeSpeed(previous, current, delta=1) {
+        const dx = (current.x - previous.x) / delta
+        const dy = (current.y - previous.y) / delta
+        return dx * dx + dy * dy
+    }
 }
 
 Polypoint.head.install(AutoMouse)
+
 
 const autoMouse = (new AutoMouse(Point))
 

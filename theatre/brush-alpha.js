@@ -1,5 +1,8 @@
 /*
 title: Raw Brush
+categories:
+    raw
+    brush
 files:
     ../point_src/math.js
     ../point_src/core/head.js
@@ -15,6 +18,7 @@ files:
     ../point_src/random.js
     ../point_src/functions/clamp.js
     ../point_src/distances.js
+    ../point_src/split.js
     ../point_src/gradient.js
 ---
 
@@ -95,24 +99,30 @@ class MainStage extends Stage {
                 , color:"hsl(299deg 62% 44%)"
             })
 
-        let g = (new Gradient).linear(this.center)
+        let g = this.g = (new Gradient).linear(this.center.update({radius: 200}))
+
         g.addStops({
             0: "hsl(299deg 62% 44%)",
             1: "hsl(244deg 71% 56%)"
         })
         let grad = g.linear()
+    }
+
+    firstDraw(ctx) {
+        let grad = this.g.getObject(ctx)
         this.ctx.strokeStyle = grad// 'green'
+        this.ctx.fillStyle = grad// 'green'
     }
 
     draw(ctx){
         // this.clear(ctx)
+
         let pos = this.mouse.position
         brushDraw(ctx, this.mouse.isDown(0))
         mouseX = pos.x
         mouseY = pos.y
     }
 }
-
 
 ;stage = MainStage.go();
 

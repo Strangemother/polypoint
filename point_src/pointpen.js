@@ -133,7 +133,7 @@ class PointPen {
 
         let fs = fillStyle == undefined? this.fillStyle || this.point.color: getFillStyle()
 
-        ctx.fillStyle = fs
+        ctx.fillStyle = fs.call? fs(this): fs
         // ctx.lineWidth = width == undefined? 1: width
 
         ctx.fill()

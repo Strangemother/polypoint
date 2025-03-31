@@ -11,14 +11,16 @@ Extending the "example-base.html"
 
  */
 #playspace {
-    width: 97%;
-    height: 96%;
-    /*box-sizing: border-box;*/
+    width: 99%;
+    height: 99%;
+    /* box-sizing: border-box; */
     padding: 0;
-    margin: 0rem 0 0 1%;
-    border: solid 2px #111111;
+    /* margin: 0rem 0 0 1%; */
+    /* border: solid 2px #111111; */
     background: #080808;
     border-radius: 0.5em;
+    outline: solid 2px #111;
+    grid-area: 1/1/1/1;
 }
 
 html, body {
@@ -354,4 +356,21 @@ span.material-symbols-outlined {
 .header-tools.extra-buttons {
     display: inline-flex;
     align-items: center;
+}
+
+.border-panel {
+    /* border: solid 1px #8f4848; */
+    grid-area: 1/1/1/1;
+    margin: 1em 1em 1em;
+    pointer-events: none;
+    display: flex;
+}
+
+.playspace-container {
+    grid-area: 1/1/1/1;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    /* border: solid 1px red; */
+    margin: 0 1em 1em;
 }

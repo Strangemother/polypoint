@@ -1,4 +1,8 @@
 /*
+title: Grid Example
+categories:
+    grid
+    raw
 files:
     head
     point
@@ -8,7 +12,24 @@ files:
     ../point_src/math.js
     ../point_src/extras.js
     stroke
- */
+
+---
+
+A grid of points can be built through _shaping_ and existing list of points.
+
+This example doesn't use a stage, opting for a draw _canvas_ drawing, but utilising
+polypoint functions.
+
+    pointList = PointList.generate.list(100, 0)
+
+To set the position of the grid generator, we can just edit the first point:
+
+    pointList[0].set(50, 50)
+
+Then reshape internally
+
+    pointList.shape.grid(pointSpread, rowCount)
+*/
 const canvas = document.getElementById('playspace');
 const ctx = canvas.getContext('2d');
 Point.mouse.mount(canvas)

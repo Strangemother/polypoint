@@ -1,6 +1,6 @@
 /*
 title: A Grid.
-src_dir: ../point_src/
+category: grid
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -17,7 +17,13 @@ files:
     ../point_src/dragging.js
     stroke
     mouse
- */
+
+---
+
+A grid of points (also draggable)
+
+    PointList.generate.grid(100, 10, 50)
+*/
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

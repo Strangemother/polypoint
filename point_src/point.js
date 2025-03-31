@@ -408,15 +408,20 @@ class Rotation extends Positionable {
         return this.radians = this.directionTo(otherPoint)
     }
 
-    directionTo(otherPoint) {
+    directionTo(otherPoint, rotationMultiplier=undefined) {
         // Calculate the differences in x and y coordinates
         const delta = otherPoint.subtract(this);
+        if(rotationMultiplier != undefined) {
+            let normRad = this._normalizedRadians(otherPoint, rotationMultiplier)
+            return normRad
+        }
+
         // Calculate the angle in radians
         const angleRadians = delta.atan2()
         return angleRadians
     }
 
-    turnTo(otherPoint, rotationMultiplier=1){
+    _normalizedRadians(otherPoint, rotationMultiplier) {
         const delta = otherPoint.subtract(this);
         const targetRad = delta.atan2();
         const currentRad = this.radians;
@@ -429,7 +434,11 @@ class Rotation extends Positionable {
                             Math.sin(newAngleRadians),
                             Math.cos(newAngleRadians)
                         );
+        return normRad;
+    }
 
+    turnTo(otherPoint, rotationMultiplier=1){
+        let normRad = this._normalizedRadians(otherPoint, rotationMultiplier)
         this.radians = normRad;
         return normRad
     }
@@ -692,6 +701,10 @@ class Point extends Tooling {
             this._id = r = (~~(Math.random() * 10000)).toString(32)
         }
         return r
+    }
+
+    set uuid(v) {
+        this._id = v
     }
 
     get [0]() {

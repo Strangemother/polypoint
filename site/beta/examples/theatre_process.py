@@ -6,6 +6,9 @@ from collections import defaultdict
 class TheatreProcessor:
 
     def parse_theatre(self, target):
+        """Parse all the files within the target directory - assuming a
+        theatre directory.
+        """
         target = Path(target)
         items = get_theatre_filelist()
         l = len(items)
@@ -17,6 +20,7 @@ class TheatreProcessor:
 
         # All files are cross-referenced.
         cross_result = self.cross_process(records)
+        return cross_result
 
     def cross_process(self, records):
         print('cross_process')
@@ -48,6 +52,18 @@ class TheatreProcessor:
         # cross reference imported files
 
     def process_categories(self, record, store, key):
+        """Read a record for its "category" and it stack into the
+        relative store of siblings.
+
+        Synonymous to:
+
+            store['categories'][record.category] += record
+
+        If no category exists within the record, apply the record to the
+        'no-category' set.
+
+        Return Nothing, but the `store['categories']` may be updated with
+        """
         # stash the key into its categories
         s_cats = store['categories']
 

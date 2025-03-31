@@ -67,6 +67,17 @@ function getCavity(point1, midPoint, point2) {
 }
 
 function calculateAngleDiff(primaryPoint, secondaryPoint) {
+    /*
+    Given two points, return the difference between the two in _degrees_.
+
+      calculateAngleDiff(a, b)
+
+    For example if the two points are rotated antipose - pointing away -
+    direction, The result is 180.
+    If the two points are _nearly_ pointing in the same direction, we expect
+    the point to be near zero. Note this rotates around 360 degrees, so near zero
+    angles are 0/360
+    */
     // return ((b.radians - a.radians) + Math.PI2) % Math.PI2
     let rads = radiansDiff(primaryPoint.radians, secondaryPoint.radians)
     return radiansToDegrees(rads)

@@ -1,4 +1,7 @@
 /*
+title: Psuedo Blur
+category: gradient
+tags: blur
 files:
     ../point_src/math.js
     ../point_src/core/head.js

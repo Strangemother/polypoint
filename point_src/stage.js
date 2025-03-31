@@ -68,16 +68,26 @@ class StageRender {
         }
     }
 
-    stickCanvasSize(canvas){
-        let rect = canvas.getBoundingClientRect && canvas.getBoundingClientRect()
-        if(rect == undefined) {
-            rect = {
-                width: canvas.width
-                , height: canvas.height
+    stickCanvasSize(canvas, size){
+        let rect = size;
+        if(size == undefined) {
+            rect = canvas.getBoundingClientRect && canvas.getBoundingClientRect()
+            if(rect == undefined) {
+                rect = {
+                    width: canvas.width
+                    , height: canvas.height
+                }
             }
         }
-        canvas.width  = rect.width;
-        canvas.height = rect.height;
+
+        if(rect.width) {
+            canvas.width  = rect.width;
+        }
+
+        if(rect.height) {
+            canvas.height = rect.height;
+        }
+
         let center = this.dimensions?.center
 
         const newPoint = function(){
@@ -101,6 +111,10 @@ class StageRender {
         return this.dimensions.center
     }
 
+    log() {
+        console.log.apply(console, arguments)
+        // console.log.apply(console, Array.from(arguments))
+    }
 
     prepare(target) {
         /* Perform any preparations for this stage instance to run the
@@ -146,6 +160,7 @@ class StageRender {
 
         /* Stick the shape */
         if(canvas) {
+            /* stage-resize.js */
             this.resize()
         }
 
@@ -163,7 +178,7 @@ class StageRender {
     /* a given object is mounted on _this_ - such as the `mouse`.
     This may be called in response to a 'stage:prepare' event.  */
     addComponent(name, instance) {
-        console.log('Installing', name, 'to', this)
+        this.log('Installing', name, 'to', this)
         Object.defineProperty(this, name, {value: instance})
     }
 
@@ -180,15 +195,17 @@ class StageRender {
 
         let detail = this._dispatchPrepare(response)
         /* mimic an event object detail. */
-        console.log('Stage::addonAnnounceHandler', ev, d)
+        this.log('Stage::addonAnnounceHandler', ev, d)
         instance.announcementResponse(detail)
     }
 
     dispatch(name, data) {
         // this.dispatch('prepare', { target, id, stage: this, canvas })
-        console.log('Dispatch', name)
+        this.log('Dispatch', name)
         let detail = this._dispatchPrepare(data)
-        dispatchEvent(new CustomEvent(name, detail))
+        let event = new CustomEvent(name, detail);
+        dispatchEvent(event)
+        // this.events.emit(event)
     }
 
     /* Given a dictionary, return a finished dictionary, ready for event
@@ -338,7 +355,7 @@ class StageRender {
             }
 
             switchOut() {
-                console.log('doneHandler')
+                this.log('doneHandler')
                 this.v = undefined;
             }
         */
@@ -451,7 +468,7 @@ class Stage extends StageRender {
             this.loaded = true
         }
 
-        console.log('Stage Prepared')
+        this.log('Stage Prepared')
     }
 
     load() {

@@ -68,7 +68,7 @@ class MainStage extends Stage {
     onMousemove(ev) {
         let p = this.mouse.point;
         // let f = this.findNearestPoint(this.line, p)
-        let f = this.line.findNearestPoint(p)
+        let f = this.line.findPoint(p)
 
         // Update the draggable point to the projection on the line
         this.indicator.set(f)
@@ -116,7 +116,7 @@ const findNearestPoint = function(line, point) {
 
 
 Polypoint.head.installFunctions('Line', {
-    findNearestPoint(point){
+    findPoint(point){
         /* Find the point along the line of which is _closest_ to the given
         point. */
         let localCache = this._nearestPoint

@@ -16,7 +16,7 @@ class CustomEncoder(JSONEncoder):
 
 
 class Command(BaseCommand):
-    help = "Process the theatre files into a JSON info sheet."
+    help = "Process all the source files to a JSON file of references"
 
     def add_arguments(self, parser):
         parser.add_argument("dest_path", type=Path)
@@ -27,6 +27,4 @@ class Command(BaseCommand):
         s = json.dumps(res, indent=4, cls=CustomEncoder)
         dest_path = options['dest_path']
         Path(dest_path).write_text(s)
-        self.stdout.write(
-                self.style.SUCCESS('Successful')
-            )
+        self.stdout.write(self.style.SUCCESS('Successful'))

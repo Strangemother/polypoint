@@ -1,5 +1,8 @@
 /*
 title: Graph Chain Follow Points 2
+categories:
+    raw
+    graph
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

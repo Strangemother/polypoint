@@ -1,5 +1,6 @@
 /*
 title: Grid Panning
+category: grid plane
 files:
     head
     point

@@ -1,4 +1,5 @@
 /*
+category: text
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -55,7 +56,6 @@ class MainStage extends Stage {
 
         this.l.draw(ctx)
         this.l.position.pen.indicator(ctx, { color: 'orange'})
-
 
         let h = this.logo
         h.writeText(ctx)

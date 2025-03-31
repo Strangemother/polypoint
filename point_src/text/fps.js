@@ -1,15 +1,34 @@
-/* FPS Text view. With builtin debouncer and styling features.
+/*
+title: FPS
+files:
+    smooth-number.js
+---
 
-notes:
+FPS Text view. With builtin debouncer and styling features.
 
-+ Use auto mounting
-+ A tick method
-+ a nice class.
+When loaded, an instance is applied to the stage:
+
+    class FPSExample extends Stage {
+        draw(ctx){
+            this.step()
+            this.clear(ctx)
+
+            // Call the function
+            this.fps.drawFPS(ctx)
+
+            // continue drawing stuff.
+            this.center.pen.indicator(ctx, { color: 'gray', width: 1})
+            this.mouse.point.pen.indicator(ctx, { color: 'green', width: 1})
+        }
+    }
+
+It's automounted on the stage for free or you can create a new instance:
+
+    stage.fps
 */
 
 class FPS extends TextAlpha {
     color = 'green'
-
     // Higher is a longer delay between visual text updates.
     modulusRate = 10
     // Count of position to store historical fps counts.
@@ -19,52 +38,42 @@ class FPS extends TextAlpha {
 
     constructor(stage, text=undefined) {
         super()
+        this.stage = stage;
         if(text){
             this.text = text;
         }
-
         this.position = new Point(0, 0)
-        this.stage = stage;
-        let a = new Array(this.width)
-        a.fill(0)
-        this.ticks = a
+        this.smoothVal = new SmoothNumber(this.stage.clock.fps, this.width, this.modulusRate, this.fixed)
+        this.text = this.smoothVal
     }
 
-    /* Called during prep. */
     setup() {
-        this.position.x = 50
-        this.position.y = 50
+        /* Called during prep. */
+        this.position.x = 40
+        this.position.y = 30
     }
 
-    /* Update is for data. */
     update() {
-        let clock = this.stage.clock
-            , tick = clock.tick
-            , currentFPS = clock.fps
-            ;
+        /* Update is for data.
 
-        if(tick % this.modulusRate == 0) {
-            // this.text = currentFPS
-            /* A cleaner text output takes the average of a list of fps counts.*/
-            this.text = (this.ticks.reduce((a,b) => a+b) / this.width).toFixed(this.fixed)
-        }
-
-        this.inc += 1
-        if(tick % this.width == 0) {
-            this.inc = 0
-        }
-
-        this.ticks[this.inc] = currentFPS
+            drawFPS(ctx) {
+                t = new FPS(stage)
+                t.update()
+                t.draw(ctx, color)
+            }
+        */
+        this.smoothVal.pushGet(this.stage.clock.fps)
+        // this.text = this.smoothVal.pushGet(Math.round(this.stage.clock.fps)+1)
     }
 
-    /* Draw is for visual*/
     draw(ctx=this.stage.ctx, color=this.color) {
-        // Text.writeText
+        /* Draw is for visual*/
         this.writeText(color, ctx)
     }
 }
 
 Polypoint.head.install(FPS)
+
 
 class FramerateExt {
     // tools to extend the stage.

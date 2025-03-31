@@ -1,5 +1,5 @@
 /*
-title: JSON Save Restore
+title: Offscreen rendering.
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -11,6 +11,7 @@ files:
     ../point_src/pointlistpen.js
     ../point_src/point.js
     ../point_src/stage.js
+    ../point_src/offscreen.js
     mouse
     dragging
     stroke
@@ -52,7 +53,7 @@ class MainStageOffScreenNoPrimary extends Stage {
     /* In this this example, we completely ignore the _setup_ canvas,
     opting to create an offScreen canvas after the setup.
 
-    The offscreen is rendered to to the onscreen using the `copyToOnScreen`
+    The offscreen is rendered to the onscreen using the `copyToOnScreen`
     */
     // canvas = document.getElementById('playspace');
     // canvas = 'playspace'
@@ -135,30 +136,6 @@ class MainStageOffScreenContext extends Stage {
 }
 
 
-
-
-
-function createOffscreenCanvas(onScreen) {
-    // var offScreenCanvas = document.createElement('canvas');
-    const offScreenCanvas = new OffscreenCanvas(onScreen? onScreen.width: 400, onScreen? onScreen.height: 300);
-    // offScreenCanvas.width = '800';
-    // offScreenCanvas.height = '600';
-
-    // var context = offScreenCanvas.getContext("2d");
-    // context.fillStyle = '#444'; //set fill color
-    // context.fillRect(10, 10, 50, 50);
-    return offScreenCanvas; //return canvas element
-}
-
-
-function copyToOnScreen(offScreenCanvas, onScreenCanvas) {
-    // const onScreenContext = document.getElementById("playspace").getContext("2d");
-    const onScreenContext = onScreenCanvas.getContext("bitmaprenderer");
-    // const onScreenContext = document.getElementById("playspace").getContext("bitmaprenderer");
-    let offScreenBitmap = offScreenCanvas.transferToImageBitmap()
-    onScreenContext.transferFromImageBitmap(offScreenBitmap);
-}
-
-
 stage = MainStageOffScreenContext.go()//{ loop: false })
+// stage = MainStageOffScreenNoPrimary.go()//{ loop: false })
 // stage = MainStage.go()//{ loop: false })

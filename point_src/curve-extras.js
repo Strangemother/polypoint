@@ -349,6 +349,19 @@ class BezierCurve extends Line {
         saveRestoreDraw(ctx, tail, callback)
     }
 
+    // render(ctx, conf={}) {
+    //     this.start(ctx, conf)
+    //     this.draw(ctx, conf)
+    //     this.close(ctx)
+    // }
+
+    // draw(ctx, color=undefined) {
+    //     // ...
+    //     this.perform(ctx)
+    //     this.writeLine(ctx)
+    //     ;(this.doTips) && this.performDrawTips(ctx)
+    // }
+
     perform(ctx) {
         let b = this.b;
         let cps = this.getControlPoints()

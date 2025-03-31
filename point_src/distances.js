@@ -24,6 +24,15 @@ class Distances {
         }
     }
 
+    removePoints() {
+        let r = []
+        for(let p of Array.from(arguments)){
+            let u = p.uuid
+            r.push(this.points.delete(u?u:p))
+        }
+        return r
+    }
+
     setPoints() {
         this.points.clear()
         this.addPoints.apply(this, arguments)

@@ -7,6 +7,8 @@ files:
     point
     mouse
     stage
+    fps
+    ../point_src/smooth-number.js
 ---
 
 A "widget" presents the values in a small `div` indicator, connected to the
@@ -45,18 +47,27 @@ class MainStage extends Stage {
             , fields: {
                 x: { value: 0/*, postfix: 'px' */}
                 , y: { value: 0/*, postfix: 'px' */}
+                , speed: { value: 0/*, postfix: 'px' */}
             }
         })
 
         this.mouse.zIndex = 'bound'
+        this.speedNumber = new SmoothNumber()
+        this.speedNumber.modulusRate = 5
         setTimeout(this.resize.bind(this), 20)
     }
 
     step() {
-        let pos = this.mouse.position
+        let mouse = this.mouse
+        let pos = mouse.position
+        this.speedNumber.push(mouse.speed())
         updateWidgetValues('mouse',{
-                'x': ~~pos.x,
-                'y': ~~pos.y
+                'x': ~~pos.x
+                , 'y': ~~pos.y
+
+                , 'speed': Math.sqrt(this.speedNumber).toFixed(0)
+                // , 'speed': Math.sqrt(mouse.modulatedSpeed()).toFixed(0)
+                // , 'speed': mouse.speed()
             })
     }
 
@@ -80,6 +91,7 @@ class MainStage extends Stage {
     draw(ctx){
         this.step()
         this.clear(ctx)
+        this.fps.drawFPS(ctx)
         this.center.pen.indicator(ctx, { color: 'gray', width: 1})
         this.mouse.point.pen.indicator(ctx, { color: 'gray', width: 1})
         // this.mouse.position.pen.indicator(ctx, { color: 'gray', width: 1})

@@ -90,7 +90,7 @@ The mixin exposes the standard `Object.defineProperties`
 Assume many functions to install:
 
 ```js
-Polypoint.installFunctions('Point', {
+Polypoint.head.installFunctions('Point', {
     track(other, settings) {
         return constraints.distance(other, this, settings)
     }
@@ -104,7 +104,7 @@ Polypoint.installFunctions('Point', {
 Synonymous to:
 
 ```js
-Polypoint.mixin('Point', {
+Polypoint.head.mixin('Point', {
     track: {
         value(any=false) {
             // ...
@@ -123,7 +123,7 @@ Polypoint.mixin('Point', {
 Assume many correctly named functions to access values on first call.
 
 ```js
-Polypoint.lazyProp('Point', {
+Polypoint.head.lazyProp('Point', {
     pen() {
         let r = this._pen
         if(r == undefined) {

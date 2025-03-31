@@ -23,6 +23,7 @@
  {% block content %}
     {% css "css/index.css" %}
     {% include "docs/header.html" %}
+
     <main class="icon-pack-outlined">
         <div class="horiz-stack">
             <div class="primary-panel">
@@ -32,9 +33,12 @@
                     {% include './generic_named/download_image_app.html' %}
                 </div>
                 <div class="canvas-container">
-                    {% block canvas_container %}
-                    <canvas id="playspace"></canvas>
-                    {% endblock canvas_container %}
+                    <div class="playspace-container">
+                        {% block canvas_container %}
+                        <canvas id="playspace"></canvas>
+                        {% endblock canvas_container %}
+                    </div>
+                    <div class="border-panel"></div>
                 </div>
                 <div class="footer-tools">
                 </div>
@@ -59,9 +63,16 @@
                 {% include './generic_named/widgets_app.html' %}
                 {% include './generic_named/info_app.html' %}
 
-                <div class='logger' id="logging-app">
+                <div class='logger' id="logging_app">
                     <!-- Logging tool -->
                      Logger
+
+                {% verbatim %}
+                    <span ref="liveText">Install Logger {{ store.words }}</span>
+                    <ul ref='debugger_lines'>
+
+                    </ul>
+                {% endverbatim %}
                 </div>
             </div>
         </div>
@@ -99,6 +110,8 @@
     {# <script src="https://unpkg.com/petite-vue" defer init></script> #}
 
 
+    {% link.js "examples/js/apps/early-logger-app.js" %}
+
     {% link.js "examples/js/apps/early-installs-logger-app.js" %}
     <script src="../point_src/core/loader.js"></script>
 
@@ -112,6 +125,7 @@
     {% link.js "examples/js/apps/file-view.js" %}
     {% link.js "examples/js/apps/dimensions-app.js" "defer" %}
     {% link.js "examples/js/apps/installs-logger-app.js" "defer" %}
+    {% link.js "examples/js/apps/logger-app.js" "defer" %}
 
     {% if metadata %}
         {% for filepath in metadata.clean_files %}

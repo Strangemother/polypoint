@@ -1,5 +1,6 @@
 /*
 title: SVG Example
+categories: svg
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,8 +1,7 @@
 /*
 title: Raw Brush
-categories:
+categories: brush
     raw
-    brush
 files:
     ../point_src/math.js
     ../point_src/core/head.js

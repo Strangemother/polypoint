@@ -1,6 +1,6 @@
 /*
 title: Point Intersection
-category: intersection
+category: intersections
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -29,13 +29,6 @@ are the intersection of those points.
     getCircleCircleIntersections(pointA, pointB)
 
 */
-
-
-function quantizeNumber(value, quantize=1) {
-  const quantizedValue = Math.round(value / quantize) * quantize;
-  return quantizedValue;
-}
-
 
 
 class MainStage extends Stage {

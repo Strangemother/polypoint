@@ -1,4 +1,6 @@
 /*
+categories: split
+    lines
 files:
     ../point_src/math.js
     head

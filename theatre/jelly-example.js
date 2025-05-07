@@ -1,5 +1,7 @@
 /*
 title: Flame
+categories: soft-body
+    raw
 files:
     head
     stroke
@@ -100,7 +102,8 @@ class MainStage extends Stage {
 
     onmousemove(e){
         e = e.touches ? e.touches[0] : e;
-        const rect = canvas.getBoundingClientRect();
+        // const rect = canvas.getBoundingClientRect();
+        const rect = this.dimensions
         mouse.px = mouse.x;
         mouse.py = mouse.y;
         mouse.x = e.clientX - rect.left;
@@ -119,34 +122,34 @@ class JellyVector extends Vector {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
-    add (v) {
+    add(v) {
         const p = v instanceof JellyVector;
         this.x += p ? v.x : v;
         this.y += p ? v.y : v;
         return this;
     }
 
-    sub (v) {
+    sub(v) {
         const p = v instanceof JellyVector;
         this.x -= p ? v.x : v;
         this.y -= p ? v.y : v;
         return this;
     }
 
-    mul (v) {
+    mul(v) {
         const p = v instanceof JellyVector;
         this.x *= p ? v.x : v;
         this.y *= p ? v.y : v;
         return this;
     }
 
-    scale (x) {
+    scale(x) {
         this.x *= x;
         this.y *= x;
         return this;
     }
 
-    normalize () {
+    normalize() {
         const len = this.length;
         if (len > 0) {
             this.x /= len;
@@ -156,7 +159,7 @@ class JellyVector extends Vector {
         return this;
     }
 
-    distance (v) {
+    distance(v) {
         const x = this.x - v.x;
         const y = this.y - v.y;
         return Math.sqrt(x * x + y * y);

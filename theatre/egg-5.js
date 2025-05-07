@@ -1,5 +1,6 @@
 /*
 title: Circle Curve (Egg bezierFactor)
+categories: curve
 src_dir: ../point_src/
 files:
     ../point_src/math.js

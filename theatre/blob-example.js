@@ -1,23 +1,19 @@
 /*
 title: Blob
+category: soft-body
 files:
     ../point_src/math.js
-    ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
+    head
     ../point_src/point-content.js
-    ../point_src/pointlistpen.js
-    ../point_src/pointlist.js
-    ../point_src/point.js
-    ../point_src/events.js
-    ../point_src/automouse.js
-    ../point_src/stage.js
-    ../point_src/distances.js
-    ../point_src/dragging.js
+    pointlist
+    point
+    mouse
+    stage
+    dragging
     ../point_src/table.js
 
----
-
+A Soft-body block point, with options to configure how blobby it should be.
+(selection `f` is my favourite)
 */
 let canvas, ctx;
 let render, init;
@@ -53,14 +49,41 @@ const confTable = new Table(keys, {
       , 'e':     [150, .0004,  0.04, 14,]
       , 'f':     [150, .004,  0.04, 24,]
       , 'g':     [150, .0001,  0.0084, 34,]
+      , 'h':     [150, .0006,  0.0054, 34,]
+      , 'i':     [150, .0009,  0.0084, 5,]
+      , 'j':     [150, .001,  0.0054, 45,]
 })
 
 
-const settings = confTable.get('b')
+var settings = confTable.get('j')
 
-const elasticityDefault = settings.elasticity
-const frictionDefault = settings.friction
-const numPointsDefault = settings.numPoints
+// const elasticityDefault = settings.elasticity
+// const frictionDefault = settings.friction
+// const numPointsDefault = settings.numPoints
+
+
+addControl('slider', {
+    field: 'range'
+    , stage: this
+    , onchange(ev) {
+        /*slider changed. */
+        // debugger;
+        let sval = ev.currentTarget.value
+        this.stage.offset = parseFloat(sval) * .01
+    }
+})
+
+addControl('choice', {
+    field: 'select'
+    , options: confTable.getKeys()
+    , stage: this
+    , onchange(ev) {
+        let sval = ev.currentTarget.value
+        settings = confTable.get(sval)
+        console.log('change settings', sval)
+        stage.mounted()
+    }
+})
 
 
 class MyStage extends Stage {
@@ -251,7 +274,7 @@ class Blob {
         }
     }
     get numPoints() {
-        return this._points || numPointsDefault;
+        return this._points || (settings.numPoints);
     }
 
     // set radius(value) {
@@ -305,8 +328,8 @@ class BlobPoint {
         };
 
         this.acceleration = .01//Math.random()
-        this.elasticity = elasticityDefault;
-        this.friction = frictionDefault
+        this.elasticity = settings.elasticity;
+        this.friction = settings.friction
     }
 
     set acceleration(value) {

@@ -1,4 +1,7 @@
 /*
+categories: split
+    curve
+tags: ribbon
 files:
     ../point_src/math.js
     head

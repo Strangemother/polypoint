@@ -1,4 +1,5 @@
 /*
+categories: clock
 files:
     ../point_src/math.js
     ../point_src/core/head.js
@@ -65,6 +66,8 @@ class MainStage extends Stage {
 
         /* Working - no animation*/
         // point.rotation = this.hands.getSecondHand(parent.rotation, seconds)
+
+
         const ts = 1
         const tsos = (360/60) * ts
 
@@ -75,10 +78,12 @@ class MainStage extends Stage {
             let v = this._secondHandLerp.get(this.microStep)
             const nv = this.secondsDest - tsos
             // console.log(nv.toFixed(3), v.toFixed(3), (nv + v).toFixed(), this.microStep)
-            point.rotation = v + nv
+            point.rotation = (parent.rotation - ( -v + nv)) % 360
             return
         } else {
-            this.secondsDest = this.hands.getSecondHand(point.rotation, ts)
+            this.secondsDest = this.hands.getSecondHand(
+                    (parent.rotation - point.rotation) % 360,
+                ts)
         }
 
         // point.rotation = newVal
@@ -87,7 +92,7 @@ class MainStage extends Stage {
         if(lerper == undefined){
             // create / start
             this._secondHandLerp = new Value(
-                            0, // point.rotation,
+                            0, //point.rotation,
                             tsos, // newVal,
                             // elasticEaseOut
                             // quinticEaseIn
@@ -108,7 +113,6 @@ class MainStage extends Stage {
         this.microStep = 0
         this._secondHandLerp.done = false
         this._secondHandLerp.step = 1
-
 
         this.animatingSeconds = true;
         // point.rotation = this._secondHandLerp.get(this.microStep)

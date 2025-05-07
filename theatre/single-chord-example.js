@@ -32,9 +32,9 @@ class MainStage extends Stage {
         this.dragging.add(this.areaPoint, this.iPoint)
     }
 
-    onMousedown(ev) {
-        this.iPoint.rotation = random.int(180)
-    }
+    // onMousedown(ev) {
+    //     this.iPoint.rotation = random.int(180)
+    // }
 
     draw(ctx){
         this.clear(ctx)

@@ -1,4 +1,6 @@
 /*
+categories: iteration
+    mutators
 files:
     ../point_src/math.js
     ../point_src/core/head.js

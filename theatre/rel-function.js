@@ -1,5 +1,7 @@
 /*
 title: Rel Function
+categories: relative
+    functions
 files:
     head
     ../point_src/point-content.js

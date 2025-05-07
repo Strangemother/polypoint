@@ -1,6 +1,6 @@
 /*
 title: Touch Events
-tags: touch
+categories: touch
 files:
     ../point_src/math.js
     ../point_src/core/head.js
@@ -26,6 +26,7 @@ files:
     ../point_src/rotate.js
 ---
 
+Detect finger touch events.
 */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');

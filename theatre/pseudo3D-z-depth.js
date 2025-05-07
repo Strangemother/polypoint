@@ -1,6 +1,7 @@
 /*
 ---
 title: Rotate 3D
+categories: pseudo3D
 files:
     ../point_src/math.js
     ../point_src/core/head.js

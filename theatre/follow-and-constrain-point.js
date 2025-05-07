@@ -1,5 +1,6 @@
 /*
 title: Point Follow And Constrain
+categories: constraints
 files:
     ../point_src/core/head.js
     ../point_src/math.js

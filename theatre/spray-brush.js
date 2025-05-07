@@ -1,5 +1,6 @@
 /*
 title: Spray
+categories: brush
 files:
     head
     point
@@ -41,19 +42,24 @@ let keys = [
 
     /* resize the mouse based on its speed.*/
     , 'speedMouse' // : true
+    , 'speedMouseMin'
+    , 'speedMouseMax'
+    , 'minRandomColor'
 ]
 
 const confTable = new Table(keys, {
-      'a': [true, 0, 360, true, .1, 3, true, false, 2, 50, 10, true]
-      , 'b': [false, 0, 0, true, .1, 3, false, false, 5, 90, 50, false]
-      , 'c': [true, 0, 360, true, .1, 3, false, false, 2, 9, 5, true]
-      , 'd': [false, 0, 0, true, 1, 5, false, false, 2, 9, 50, false]
-      , 'e': [true, 0, 360, true, .1, 3, true, false, 2, 50, 100, false]
-      , 'f': [false, 0, 0, true, .1, 3, true, true, 2, 50, 900, true]
-      , 'g': [false, 0, 0, true, .1, 3, false, true, 2, 50, 900, true]
-})
+      'a': [true, 0, 360, true, .1, 3, true, false, 2, 50, 10, true, 3, 50, 0]
+      , 'b': [false, 0, 0, true, .1, 3, false, false, 5, 90, 50, false, 3, 50, 0]
+      , 'c': [true, 0, 360, true, .1, 3, false, false, 2, 9, 5, true, 3, 50, 0]
+      , 'd': [false, 0, 0, true, 1, 5, false, false, 2, 9, 50, false, 3, 50, 0]
+      , 'e': [true, 0, 360, true, .1, 3, true, false, 2, 50, 100, false, 3, 50, 0]
+      , 'f': [false, 0, 0, true, .1, 3, true, true, 2, 50, 900, true, 3, 50, 0]
+      , 'g': [false, 0, 0, true, .1, 3, false, true, 2, 50, 900, true, 3, 50, 0]
+      , 'h': [true, 0, 304, true, 10, 30, false, false, .1, .2, 1000, true, 3, 50, 0]
+      , 'i': [false, 0, 0, true, .1, .7, false, true, 30, 90, 300, true, 1, 8, 90]
+},)
 
-const settings = confTable.get('f')
+const settings = confTable.get('i')
 
 const _settings = {
 
@@ -151,7 +157,7 @@ class MainStage extends Stage {
         let perform = true;
 
         if(settings.speedMouse) {
-            mp.radius = clamp(this.mouse.speed(), 3, 50)
+            mp.radius = clamp(this.mouse.speed(), settings.speedMouseMin, settings.speedMouseMax)
         }
         if(last) {
             last.lookAt(mp)
@@ -199,7 +205,7 @@ class MainStage extends Stage {
         let color = random.color
         let v = this.clicker % 2
 
-        let ri = ()=>random.int(0, 100)
+        let ri = ()=>random.int(settings.minRandomColor, 100)
         let rd = ()=>random.int(0, 360)
         color = ()=>`hsl(${rd()}deg ${ri()}% ${ri()}%)`
 

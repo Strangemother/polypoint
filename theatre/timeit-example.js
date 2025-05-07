@@ -1,5 +1,7 @@
 /*
 title: TimeIt Class Example
+categories: clock
+    time
 files:
     head
     pointlist

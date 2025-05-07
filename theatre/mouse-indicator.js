@@ -23,6 +23,14 @@ Add a widget:
         }
     })
 
+Update the widget with values:
+
+    updateWidgetValues('diff', {
+        x: 10
+        , y: -20
+    })
+
+
 Raw example of updating the values within the widget:
 
     appShared.widgetsApp.widgets.example.fields.x = 100
@@ -34,6 +42,8 @@ Therefore to create a basic mouse widget:
     let pos = this.mouse.position
     widgetFields.x.value = ~~pos.x
     widgetFields.y.value = ~~pos.y
+
+This is identical to the `updateWidgetValues` call
 
  */
 class MainStage extends Stage {

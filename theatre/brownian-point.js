@@ -1,24 +1,22 @@
 /*
 title: Brownian Within a Point
-categories:
-    brownian
+categories: brownian
     random
 files:
-    ../point_src/core/head.js
-    ../point_src/point-content.js
-    pointlist
+    head
     point
     stage
     mouse
     dragging
     stroke
     ../point_src/random.js
-    ../point_src/functions/clamp.js
-
 ---
 
-Plot a random point within a circle,
+Plot a random point within a location.
 
+```
+   xy = random.within(point, max=.5)
+```
 */
 
 class MainStage extends Stage {

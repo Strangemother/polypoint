@@ -1,5 +1,6 @@
 /*
 title: Gears (Nearly)
+categories: gears
 src_dir: ../point_src/
 files:
     ../point_src/core/head.js

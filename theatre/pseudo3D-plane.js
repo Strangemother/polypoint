@@ -1,7 +1,7 @@
 /*
 ---
 title: 3D Pseudo Rotation Plane
-tags: pseudo3D
+categories: pseudo3D
 files:
     ../point_src/math.js
     ../point_src/core/head.js

@@ -1,5 +1,5 @@
 /*
-
+categories: clusters
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -91,7 +91,12 @@ class MainStage extends Stage {
 
         let c = settings.itercount
         if(c == undefined) { c = 10 }
-        simpleCluster(points, pointA, settings, {func: clusterStyleB, itercount: c});
+        simpleCluster(points, pointA, settings, {
+            func: clusterStyleB
+            , itercount: c
+            // , repulsionStrength: pointA.radius  *2 //+ settings.minDistance
+            // , minDistance: pointA.radius * 2 //+ settings.minDistance
+        });
 
         // simpleCluster(pointsB, targetPosition, {
                 // method: gravitateSquareDistance

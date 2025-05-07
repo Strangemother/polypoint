@@ -1,4 +1,6 @@
 /*
+title: Relative Forward
+categories: relative
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -13,7 +15,10 @@ files:
     ../point_src/events.js
     ../point_src/automouse.js
     ../point_src/keyboard.js
+---
 
+The point will always walk towards the plot direction, turning through
+the _shortest_ angle
 */
 const forward = function(p, turnSpeed=1, minSpeed=0, maxSpeed=1) {
     /* walk in the direction of the rotation*/
@@ -228,7 +233,8 @@ class MainStage extends Stage {
 
     mouseClick(ev) {
         console.log('mouseClick', ev)
-        this.clickPoint = new Point(ev.x, ev.y)
+        this.clickPoint = Point.from(ev)
+        // this.clickPoint = new Point(ev.x, ev.y)
         this.a.target = this.clickPoint
     }
 

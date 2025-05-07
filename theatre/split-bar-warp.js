@@ -1,4 +1,6 @@
 /*
+categories: split
+    curve
 files:
     ../point_src/math.js
     head

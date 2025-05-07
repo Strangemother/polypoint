@@ -1,5 +1,7 @@
 /*
 title: FPS Example
+categories: fps
+    text
 files:
     head
     pointlist
@@ -31,7 +33,6 @@ class MainStage extends Stage {
 
     mounted(){
         this.point = new Point({x: 250, y: 150 , radius: 20, rotation: 45})
-
         this.dragging.add(this.point)
     }
 

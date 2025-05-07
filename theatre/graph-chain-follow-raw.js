@@ -22,6 +22,9 @@ files:
 
 ---
 
+> [!NOTE]
+> V3 is better.
+
 The `followPoint` method allows a point to _follow_ another point, at a distance.
 This is a lot like constraints but with a _one to one_ relationship in a single
 direction.
@@ -184,6 +187,7 @@ class MainStage extends Stage {
 
 
 class G {
+    /* v3 is better. */
     constructor(){
         this.forward = {}
         this.reverse = {}

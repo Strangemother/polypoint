@@ -1,4 +1,5 @@
 /*
+categories: svg
 title: SVG Path Data
 files:
     ../point_src/math.js

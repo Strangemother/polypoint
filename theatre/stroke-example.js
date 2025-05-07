@@ -1,5 +1,6 @@
 /*
     title: Coupled Lines
+    categories: strokes
     files:
         ../point_src/logging/logger.js
         ../point_src/math.js

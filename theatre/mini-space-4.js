@@ -1,6 +1,8 @@
 /*
 
 src_dir: ../point_src/
+categories: gravity
+    raw
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -17,6 +19,7 @@ files:
     ../point_src/functions/rel.js
     dragging
     ../point_src/constrain-distance.js
+    ../point_src/screenwrap.js
 
  */
 // window.requestAnimFrame =
@@ -57,6 +60,8 @@ let clampMin = -10
     // , grabStrength = 6
     // , grabStrength = -2
     , asteroidCount = 200
+    ;
+
 
 class World {
 
@@ -139,13 +144,25 @@ class World {
         var _this;
         _this = this;
 
-        this.entities.forEach(function(elem, index) {
+        this.entities.forEach((elem, index) => {
             if (elem != undefined){
                 elem.run(_this);
-                elem.draw(_this.context);
+                this.draw(_this.context, elem);
             }
-        })
+        });
 
+        return true;
+    }
+
+    draw(context, p) {
+        // if (typeof context != "object" || !(context instanceof CanvasRenderingContext2D)) {
+        //     return false;
+        // }
+        context.fillStyle = p.color;
+        context.beginPath();
+        context.arc(p.x, p.y, Math.abs(p.m) / 2, 0, 2 * Math.PI, false);
+        context.fill();
+        context.closePath();
         return true;
     }
 }
@@ -162,17 +179,17 @@ class Entity extends Point {
         this.onclick = function() { };
     }
 
-    draw(context) {
-        // if (typeof context != "object" || !(context instanceof CanvasRenderingContext2D)) {
-        //     return false;
-        // }
-        context.fillStyle = this.color;
-        context.beginPath();
-        context.arc(this.x, this.y, Math.abs(this.m) / 2, 0, 2 * Math.PI, false);
-        context.fill();
-        context.closePath();
-        return true;
-    }
+    // draw(context) {
+    //     // if (typeof context != "object" || !(context instanceof CanvasRenderingContext2D)) {
+    //     //     return false;
+    //     // }
+    //     context.fillStyle = this.color;
+    //     context.beginPath();
+    //     context.arc(this.x, this.y, Math.abs(this.m) / 2, 0, 2 * Math.PI, false);
+    //     context.fill();
+    //     context.closePath();
+    //     return true;
+    // }
 }
 
 
@@ -185,6 +202,9 @@ class Planet extends Entity {
     }
 
 }
+
+
+var screenWrap
 
 
 class Asteroid extends Entity {
@@ -295,13 +315,6 @@ class Asteroid extends Entity {
 
         _this = this
 
-        if (
-            /*typeof world != "object" || !(world instanceof World)
-            || */
-            world.pause) {
-            return false
-        }
-
         len = world.entities.length
         elem = world.entities
 
@@ -313,18 +326,22 @@ class Asteroid extends Entity {
             }
 
             a = _this.r + el.r;
+            let did = screenWrap.perform(el)
+            if(did) {
+                continue;
+            }
 
             /* Boundry death */
-            if(el.x < 0
-                || el.y < 0
-                || el.x > 800
-                || el.y > 800) {
-                el.x = galaxy.plotRand(800)
-                el.y = galaxy.plotRand(600)
-                el.vx *= .5
-                el.vy *= .5
-                continue
-            }
+            // if(el.x < 0
+            //     || el.y < 0
+            //     || el.x > 800
+            //     || el.y > 800) {
+            //     el.x = galaxy.plotRand(800)
+            //     el.y = galaxy.plotRand(600)
+            //     el.vx *= .5
+            //     el.vy *= .5
+            //     continue
+            // }
 
             vdist = Utils.dist(_this, el)
 
@@ -343,6 +360,7 @@ class Asteroid extends Entity {
 
         let startIndex = this.index + 1
         // len = startIndex + 1
+
 
         /* Planet gravities. */
         // for (var i=startIndex; i < len; i++) {
@@ -391,12 +409,12 @@ class Asteroid extends Entity {
 }
 
 
-
 galaxy = new World;
 
 class MainStage extends Stage {
     canvas='playspace'
     mounted(){
+        screenWrap = new ScreenWrap([10,10], [800,800])
         galaxy.init(this.canvas);
         // this.dragging.add(...galaxy.entities)
     }

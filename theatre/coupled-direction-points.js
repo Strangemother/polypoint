@@ -1,4 +1,6 @@
-
+/*
+category: binding
+ */
 class MainStage extends Stage {
     canvas='playspace'
     // live=false

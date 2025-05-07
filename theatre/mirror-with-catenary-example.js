@@ -1,5 +1,7 @@
 /*
 Title: Mirror with Catenary
+categories: reflections
+    catenary
 files:
     ../point_src/core/head.js
     stroke
@@ -87,6 +89,7 @@ class MainStage extends Stage {
         this.catenary = new CantenaryCurve(this.origin, this.reflect, 500)
         this.catenary.restLength = 430
     }
+
     updateReflect() {
         this.reflect = new Point(reflectPoint(this.origin, this.points))
         this.catenary && (this.catenary.b = this.reflect)

@@ -1,5 +1,7 @@
 /*
 title: PNG Image
+categories: images
+    svg
 files:
     ../point_src/math.js
     ../point_src/core/head.js

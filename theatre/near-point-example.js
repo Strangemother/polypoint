@@ -1,4 +1,6 @@
-
+/*
+categories: distances
+*/
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

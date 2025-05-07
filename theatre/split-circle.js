@@ -1,4 +1,7 @@
 /*
+categories: split
+    curve
+    pseudo3D
 files:
     ../point_src/math.js
     head

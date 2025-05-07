@@ -1,6 +1,7 @@
 /*
 title: Egg 2
 src_dir: ../point_src/
+categories: binding
 files:
     ../point_src/math.js
     ../point_src/core/head.js

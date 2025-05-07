@@ -1,6 +1,7 @@
 /*
 ---
-title: Calculate Angles
+title: Timeline Example
+categories: timeline
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -17,7 +18,7 @@ files:
     ../point_src/stage.js
     ../point_src/iter/lerp.js
 
-    Run a Timeline, with key events.
+Run a Timeline, with key events.
 
  */
 

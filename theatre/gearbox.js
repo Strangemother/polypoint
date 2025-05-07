@@ -1,15 +1,14 @@
 /*
 title: Gears (Internal Wheel)
 src_dir: ../point_src/
+categories: gears
 files:
-    ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
+    head
+    point
     ../point_src/extras.js
     ../point_src/math.js
     ../point_src/point-content.js
-    ../point_src/stage.js
-    ../point_src/point.js
+    stage
     dragging
     pointlist
     mouse
@@ -34,6 +33,21 @@ class MainStage extends Stage {
     mounted(){
         this.rawPointConf = { circle: { color: 'orange', width: 1}}
         let r = this.generate()
+
+        let p = new Point(400, 400, 140)
+        p.rachet = -1
+        let pin = p.copy().update({
+            radius: p.radius * .5
+            , ratchet: -1
+        })
+        // let pin2 = p.copy().update({ radius: p.radius * .3 })
+        this.p1 = p
+        this.pin1 = pin
+        this.gearBox.addGear(p)
+        this.gearBox.addGear(pin)
+        // this.gearBox.addGear(pin2)
+        this.gearBox.bindPinionWheels(p, pin)
+        this.dragging.add(p, pin)
 
         this.dragging.add(...r)
         this.dragging.onEmptyDown = this.onEmptyDown.bind(this)
@@ -66,10 +80,22 @@ class MainStage extends Stage {
         this.clear(ctx)
 
         this.gearBox.performDraw(ctx)
+        ctx.fillStyle = 'white'
+
+
+        this.gearBox.points.forEach((p)=>{
+            let radtodeg = (p.angularVelocity / 360
+                        * 60 /*fps */
+                        // * 60 /* seconds */
+                        )
+            p.text.string(ctx, radtodeg.toFixed(2))
+        })
+
         let p = this.dragging.getPoint();
         if(p) {
             p.pen.circle(ctx)
         }
+
     }
 
 }

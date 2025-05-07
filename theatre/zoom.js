@@ -2,6 +2,7 @@
 ---
 title: Zooming Points
 src_dir: ../point_src/
+categories: scaling
 files:
     ../point_src/math.js
     ../point_src/core/head.js

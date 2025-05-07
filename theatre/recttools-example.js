@@ -1,6 +1,7 @@
 /*
 ---
 title: RectTools example
+categories: rectangles
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,6 +1,8 @@
 /*
 
 src_dir: ../point_src/
+categories: gravity
+    raw
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

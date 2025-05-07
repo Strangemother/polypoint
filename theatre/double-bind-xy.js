@@ -1,8 +1,9 @@
 /*
 title: Double Bind XY
+category: binding
 src_dir: ../point_src/
 files:
-    ../point_src/core/head.js
+    head
     point
     stage
     dragging

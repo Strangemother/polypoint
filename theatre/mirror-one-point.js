@@ -1,4 +1,5 @@
 /*
+categories: reflections
 files:
     head
     stroke

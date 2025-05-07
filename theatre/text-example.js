@@ -1,4 +1,5 @@
 /*
+categories: text
 files:
     head
     ../point_src/point-content.js

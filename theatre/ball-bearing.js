@@ -1,6 +1,7 @@
 /*
-
-src_dir: ../point_src/
+title: Ball Bearing
+categories: ball
+    constraint
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -18,7 +19,10 @@ files:
     dragging
     ../point_src/constrain-distance.js
 
- */
+
+Simulate collisions using a _string_. Here we replicate one of those
+little balls inside a circle
+*/
 
 // var gravity = {x: 0, y:-0.05}; // Gravity constant for helium balloon.
 var gravity = {x: 0, y:1}; // Gravity constant

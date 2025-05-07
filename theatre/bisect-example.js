@@ -1,5 +1,6 @@
 /*
 title: Bisector
+categories: bisect
 files:
     head
     point

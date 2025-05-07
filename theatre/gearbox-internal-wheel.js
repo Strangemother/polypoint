@@ -1,6 +1,7 @@
 /*
 title: Gears (Internal Wheel)
 src_dir: ../point_src/
+categories: gears
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

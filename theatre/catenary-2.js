@@ -1,5 +1,8 @@
 /*
-title: SVG Example
+title: Catenary Example By GPT
+categories: raw
+  broken
+  gpt
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -17,7 +20,8 @@ files:
     ../theatre/a.js
 ---
 
- */
+Spoiler. It's broke.
+*/
 
 /**
  * Simple Node/Weight definition
@@ -209,6 +213,7 @@ function main() {
     ctx.fill();
   });
 }
+
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');

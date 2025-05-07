@@ -20,6 +20,7 @@ pointlist. This is useful for timestep captures such as spline walks.
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
+    tickerInterval = 50
 
     mounted(){
         // this.dragging.add(...this.points)
@@ -27,10 +28,11 @@ class MainStage extends Stage {
         this.points = new PointList;
         this.points2 = new PointList;
         this.lastPoint = undefined;
+        this.speedNumber = new SmoothNumber(10, 10, 20)
     }
 
-    maxDistance = 2
-    projectionSpread = .3
+    maxDistance = 30
+    projectionSpread = 3
     minSpeed = 2
 
     onMousedown(ev) {
@@ -67,18 +69,18 @@ class MainStage extends Stage {
         if(this.drawingLine) {
             this.tickFunc()
         }
-
         this.moveCount += Number(this.moveCount<40)
         let sp = Math.sqrt(this.lastMouseSpeed)
         let speed = sp * (this.moveCount * .07)
-        this.mouse.point.radius = clamp(speed, 2, 40)
+        let v = this.speedNumber.pushGet(speed)
+        this.mouse.point.radius = clamp(v, 2, 40)
         this.lastMouseSpeed = this.mouse.speed()
     }
 
     startLine(point) {
         /* Start a line at a position*/
         this.line = new PointList(point)
-        this.walkTicker = setInterval(this.tickFunc.bind(this), 50)
+        this.walkTicker = setInterval(this.tickFunc.bind(this), this.tickerInterval)
     }
 
     stopLine(point) {
@@ -121,8 +123,16 @@ class MainStage extends Stage {
     draw(ctx){
         this.clear(ctx)
         // this.points.pen.line(ctx)
-        this.points.pen.line(ctx, {color: '#553366'})
-        this.points2.pen.line(ctx, {color: '#553366'})
+        this.points2.pen.quadCurve(ctx, {color: '#553366'}, 2)
+        // ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, xc, yc);
+        // this.points.pen.fill(ctx, {color: '#553366'})
+        // this.points.pen.line(ctx, {color: '#553366'})
+        ctx.strokeStyle = 'red'
+        // this.points.pen.quadCurve(ctx, {color: '#553366'}, 1)
+        this.points.pen.quadCurve(ctx, {color:undefined}, 1)
+        // this.line?.pen.line(ctx, {color: '#553366'})
+        // ctx.fill()
+        ctx.stroke()
         // this.points.pen.fill(ctx, {color: '#553366'})
         // this.points.pen.indicator(ctx, {color: '#555'})
 

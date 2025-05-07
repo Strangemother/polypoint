@@ -1,4 +1,5 @@
 /*
+categories: collisions
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -25,6 +26,7 @@ function angleToVelocity(theta, speed) {
     y: speed * Math.sin(theta)
   };
 }
+
 
 class MainStage extends Stage {
     canvas = 'playspace'

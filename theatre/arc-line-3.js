@@ -1,4 +1,5 @@
 /*
+category: arcs
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -18,7 +19,8 @@ files:
     ../point_src/bisector.js
     ../point_src/angle.js
     ../point_src/tangents.js
- */
+*/
+
 const isOuterPoint = function(p, nextPoint) {
     return calculateAngle(p, nextPoint) > 180
     // return obtuseBisect(previousPoint, p, nextPoint) > -1
@@ -53,9 +55,16 @@ class MainStage extends Stage {
         biPoints.forEach((pair, i, items)=>{
             let [a, b] = pair
             let [c, d] = items[i+1] == undefined? items[0]: items[i+1]
-            let outer = b.isOuterPoint = calculateAngle(a, d)
-
-            res.push(b.tangent.bb(d))
+            let m1 = items[i-1] == undefined? items[items.length-1]: items[i-1]
+            // let outer = a.isOuterPoint = calculateAngle(a, c)
+            let outer = acuteBisect(m1[1], items[i][1], c)
+            outer = convertAngle180Split(radiansToDegrees(outer))
+            //[a.radius, b.radius, c.radius, d.radius]
+            if(outer < 0) {
+                res.push(b.tangent.bb(d))
+            }else {
+                res.push(b.tangent.aa(d))
+            }
 
             // res.push(b.tangent.outerLines(d).b)
         })

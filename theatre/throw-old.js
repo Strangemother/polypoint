@@ -1,4 +1,5 @@
 /*
+categories: collisions
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

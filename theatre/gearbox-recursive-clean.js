@@ -1,6 +1,7 @@
 /*
 title: Gears (Nearly)
 src_dir: ../point_src/
+categories: gears
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -18,6 +19,7 @@ files:
     ../point_src/stage-clock.js
     ../point_src/touching.js
     ../point_src/coupling.js
+    ../point_src/xybind.js
     ../point_src/gearbox.js
 ---
 

@@ -1,5 +1,6 @@
 /*
 title: Offscreen rendering.
+category: offscreen
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -61,7 +62,7 @@ class MainStageOffScreenNoPrimary extends Stage {
 
     mounted(){
         this.canvas = new OffscreenCanvas(500, 400)
-        // this.offScreen = this.canvas.transferControlToOffscreen()
+        // this.offScreenCanvas = this.canvas.transferControlToOffscreen()
         this._ctx = this.canvas.getContext('2d')
         this.onScreenCanvas = document.getElementById("playspace")//.getContext("2d");
         this.point = new Point(10, 10)
@@ -77,7 +78,7 @@ class MainStageOffScreenNoPrimary extends Stage {
     // }
 
     draw(ctx){
-        var context = ctx // this.offScreen.getContext("2d");
+        var context = ctx // this.offScreenCanvas.getContext("2d");
 
         // this.clear(ctx)
 
@@ -104,8 +105,14 @@ class MainStageOffScreenContext extends Stage {
     mounted(){
         // this.canvas = new OffscreenCanvas(500, 400)
         // this.canvas = this.canvas.transferControlToOffscreen()
-        this.offScreen = new OffscreenCanvas(500, 400)
-        this._ctx = this.offScreen.getContext('2d')
+
+        /* Alternatively:
+
+            this.offScreenCanvas = new OffscreenCanvas(500, 400)
+         */
+        this.offScreenCanvas = this.offscreen.create()
+
+        this._ctx = this.offScreenCanvas.getContext('2d')
         // this.onScreenCanvas = document.getElementById("playspace")//.getContext("2d");
         this.point = new Point(10, 10)
     }
@@ -120,7 +127,7 @@ class MainStageOffScreenContext extends Stage {
     // }
 
     draw(ctx){
-        var context = this.offScreen.getContext("2d");
+        var context = this.offScreenCanvas.getContext("2d");
 
         // this.clear(ctx)
 
@@ -130,7 +137,7 @@ class MainStageOffScreenContext extends Stage {
         this.point.rotation += 1
         this.point.pen.indicator(ctx)
 
-        copyToOnScreen(this.offScreen, this.canvas)
+        copyToOnScreen(this.offScreenCanvas, this.canvas)
     }
 
 }

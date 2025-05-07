@@ -1,5 +1,7 @@
 /*
-
+categories:
+    gravity
+    raw
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -19,9 +21,11 @@ files:
     ../point_src/functions/clamp.js
     ../point_src/setunset.js
     ../point_src/stroke.js
+    ../point_src/screenwrap.js
+---
 
-
-moved to functions/springs */
+moved to functions/springs
+*/
 /**
  * @param {Point[]} points - Array of Point objects
  * @param {number} G       - Gravitational constant
@@ -87,6 +91,7 @@ class MainStage extends Stage {
     canvas = 'playspace'
 
     mounted(){
+        // this.screenWrap = new ScreenWrap()
         this.points = new PointList(
             new Point({
                  x: 150, y: 230

@@ -26,7 +26,9 @@ class MainStage extends Stage {
     canvas = 'playspace'
     mounted() {
         console.log('mounted')
-
+        this.regen()
+    }
+    regen() {
         this._t = 0
         let ps = this.points = new PointList(
             new Point(120, 300, 50),
@@ -123,8 +125,8 @@ class MainStage extends Stage {
 
         // this.points.pen.fill(ctx, '#BBB', 2)
         // this.points.pen.indicators(ctx,)
-        // this._t++;
-
+        this._t++;
+        (this._t % random.int(5,17) == 0) && this.regen()
         // if(this._t % 2 == 0) {
         //     let x = random.int(120, 125)
         //     this.curves[0] = this.generateFlame(

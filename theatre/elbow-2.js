@@ -1,6 +1,6 @@
 /*
-title: Elbow Contraints
-category: contraints
+title: Elbow Constraints
+category: constraints
 files:
     head
     point

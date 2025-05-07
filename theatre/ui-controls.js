@@ -1,6 +1,7 @@
 /*
 ---
 title: UI Controls
+categories: widgets
 files:
     ../point_src/math.js
     ../point_src/core/head.js
@@ -67,11 +68,10 @@ class MainStage extends Stage {
         addControl('slider', {
             field: 'range'
             , stage: this
-            , onchange(ev) {
+            , onchange(ev, unit) {
                 /*slider changed. */
-                // debugger;
                 let sval = ev.currentTarget.value
-                this.stage.offset = parseFloat(sval) * .01
+                unit.value = "sval"
             }
         })
 

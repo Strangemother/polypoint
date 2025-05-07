@@ -1,4 +1,5 @@
 /*
+categories: clock
 files:
     ../point_src/math.js
     ../point_src/core/head.js
@@ -241,7 +242,10 @@ class MainStage extends Stage {
         ps.forEach(function(e,i,a){
             // e.text.plain(ctx, ((psl-1 + i) % psl)+1 )
             // e.text.fill(ctx, ((psl-1 + i) % psl)+1 )
-            e.text.string(ctx, ((psl-1 + i) % psl)+1 )
+            e.rotation=p.rotation+90
+            e.text.plain(ctx, ((psl-1 + i) % psl)+1 )
+            // e.text.string(ctx, ((psl-1 + i) % psl)+1 )
+            // e.text.label(ctx, ((psl-1 + i) % psl)+1)
         })
 
         // this.line.render(ctx)

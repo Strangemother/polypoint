@@ -1,6 +1,7 @@
 /*
 ---
 title: Split
+categories: tangents
 files:
     ../point_src/math.js
     head

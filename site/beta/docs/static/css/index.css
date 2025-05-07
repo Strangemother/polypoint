@@ -170,3 +170,43 @@ main p code, main ul code, main ol code {
 .installs-logger ul li span {
     display: table-cell;
 }
+
+
+.outer-block.info-block {
+    border: solid 2px #000;
+    min-height: 51vh;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-block h2 {
+    font-size: 4rem;
+    margin: 0;
+    font-family: 'Noto Serif';
+    display: inline-flex;
+}
+
+.info-block blockquote {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 100;
+    background: none;
+    border: none;
+}
+
+.info-block .block > p {
+    font-size: 1.3rem;
+    padding: 0;
+    margin: 0;
+}
+
+.info-block .block {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-block blockquote p {
+    margin: 0;
+}

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "editor",
     "examples",
     "documentation",
+    "screenshot",
     "trim",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",

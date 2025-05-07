@@ -7,8 +7,10 @@ import markdown
 import textwrap
 import re
 import os
-from django.conf import settings
 import json
+
+
+import settings
 
 # Import from special py_tools space (will change later)
 from tree import Tree, generic_run

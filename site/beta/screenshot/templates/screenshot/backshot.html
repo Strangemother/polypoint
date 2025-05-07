@@ -1,0 +1,9 @@
+{% extends "default_template.html" %}
+{% load link static %}
+
+{% block body_class %}{{ block.super }} backshot-mode{% endblock body_class %}
+
+{% block head_css %}
+    {% css "css/backshot/backshot.css" %}
+{% endblock head_css %}
+

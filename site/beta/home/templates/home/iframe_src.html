@@ -1,4 +1,8 @@
 
 <div class="inline-iframe">
-    <iframe src="http://localhost:8001/editor/v1-micro/{{ src_partial }}" frameborder="0"></iframe>
+    {% if editor != False %}
+        <iframe src="http://localhost:8001/editor/v1-micro/{{ src_partial }}" frameborder="0"></iframe>
+    {% else %}
+        <iframe src="http://localhost:8001/editor/v1-micro-run/{{ src_partial }}?editor=0" frameborder="0"></iframe>
+    {% endif %}
 </div>

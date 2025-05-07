@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% comment "What" %}
+    The "Generic named" template extends the example base and infers the name of
+    the imports _include_ and the theatre script name.
+
+    Apply to the template file:
+
+        {% extends "./generic_named.html" %}
+
+    If the target example file is "foo-example.html", the expected imports become:
+
+        imports/foo-example.html
+        theatre/foo-example.js
+{% endcomment %}
+{% load strings link try_include %}
+<html class='polypoint-demo'>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/polyclass@latest/dist/polyclass.browser-full.js"></script>
+        {% block head_js %}{% endblock head_js %}
+        {% link.css "examples/css/micro-runonly.css" %}{% block head_css %}{% endblock head_css %}
+        <title>{% block title %}{% if metadata %}{{ metadata.title }}{% endif %}{% endblock title %}</title>
+    </head>
+    {% comment %}{{ part_name }}{% endcomment %}
+    <body polyclass class="{% block body_class %}{% endblock body_class %} font-pack-lexend+deca-500 font-lexend+deca-500 font-pack-Inter-400-500">
+    {% block content %}
+        {% block canvas_container %}<canvas id="playspace"></canvas>{% endblock canvas_container %}
+    {% endblock content %}
+    {% block js %}
+        <script src="../point_src/core/loader.js"></script>
+        {% link.js "examples/js/petite-vue.iife.js" "defer" %}
+        {% link.js "examples/js/mountable.js" "defer" %}
+        {% if metadata %}
+            {% for filepath in metadata.clean_files %}<script src={{ filepath }}></script>
+            {% endfor %}
+        {% endif %}
+    {% endblock js %}
+        {% str_merge part_name ".js" as script_name %}
+        {% block extra_js %}<script src="{% url "examples:theatre_src" script_name %}"></script>{% endblock extra_js %}
+
+    </body>
+</html>

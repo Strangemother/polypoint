@@ -36,6 +36,30 @@ const addControl = function(name, definition)  {
 }
 
 
+const addSliderControl = function(name, definition)  {
+    let d = Object.assign({
+            field: 'range'
+            , stage: this
+            , onchange(ev, unit) {
+                /*slider changed. */
+                // debugger;
+                let sval = ev.currentTarget.value
+                unit.value = ev.currentTarget.value
+            }
+        }, definition)
+
+    return addControl(name, d)
+}
+
+const addSliderControlSet = function(d) {
+    for(let k in d) {
+        addSliderControl(k, d[k])
+    }
+}
+
+
+
+
 const addExampleButton = function()  {
     let example = {
         /* An example clicky button */
@@ -120,7 +144,6 @@ const createMiniApp = function() {
             if(unit.onclick) {
                 unit.onclick(ev, unit)
             }
-
             emitEvent('polypoint:control:click', unit)
         }
 

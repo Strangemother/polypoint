@@ -3,8 +3,11 @@ ul.box-list {
     display: flex;
     /* justify-content: space-evenly; */
     list-style: none;
-    margin: 2em 0;
-    padding: 0;
+    margin: 2vh 10vh;
+    margin: 0;
+    min-height: 60vh;
+    padding: 7vh 0;
+    /* border-radius: 2em; */
     background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, #4a3fde 77%);
     -webkit-background-clip: border-box;
     -webkit-background-clip: border-area;
@@ -21,8 +24,8 @@ ul.box-list {
 
 
 li.box-item {
-    flex-basis: 18em;
-    border: solid 1px transparent;
+    flex-basis: 25em;
+    /* border: solid 1px transparent; */
     align-items: center;
     /* background: #222; */
     display: flex;
@@ -32,6 +35,7 @@ li.box-item {
     background-origin: border-box;
     background-clip: content-box;
     border-radius: 0;
+    margin: 3vh 0vw;
 }
 
 .box-item .text-container {
@@ -44,8 +48,9 @@ li.box-item {
 .box-item .text-container p {
     margin: 0;
     padding: 0;
-    font-size: 1.2em;
+    font-size: 2.1rem;
     font-weight: 100;
+    line-height: 1.3em;
 }
 
 .boxes-container {
@@ -61,5 +66,6 @@ li.box-item.filler {
     border: none;
     flex-basis: auto;
     flex-grow: 1;
-    border-radius: 0;
+    /* border-radius: 15em; */
+    margin: 3vh 3vw;
 }

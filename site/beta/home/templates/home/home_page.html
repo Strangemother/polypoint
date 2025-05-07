@@ -14,56 +14,156 @@ Delete the line below if you're just getting started and want to remove the welc
 
 {% endblock extra_css %}
 
-{% block page_title %}Poly.ink{% endblock page_title %}
+ {% block header_block %}
 
+<script src="/editor/point_src/core/loader.js"></script>
+<script src="/editor/point_src/files.js"></script>
 
+{% js "js/home/home_loads.js" %}
+{% js "js/home/home_loader.js" %}
 
-{% block header_footer %}
-<div class="quick-links">
-    <ul>
-        <li>
-            <a href="#">Getting Started</a>
-        </li>
-        <li>
-            <a href="#">Github</a>
-        </li>
-    </ul>
+{# <script src='/examples/theatre/arc-angles.js'></script> #}
+
+{% link.js "js/home/home_page.js" %}
+
+<div class="example-grid-space">
+    <div class="pinpoint-container">
+        <div class="pinpoint"></div>
+    </div>
+
+    <div class="header-block outer-block">
+        <div class="block">
+            <h1 class="title font-size-5rem">
+                {% block page_title %}Polypoint{% endblock page_title %}
+            </h1>
+            <div class="quote">
+                A Javascript library dedicated to the humble 2D point.
+            </div>
+
+            <div class="quick-links">
+                <ul>
+                    <li>
+                        <a href="#">Getting Started</a>
+                    </li>
+                    <li>
+                        <a href="#">Github</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-container">
+        <div class="demo-inner-container pinned-demo">
+            <canvas id="playspace"></canvas>
+            {% comment %}
+                <polypoint-canvas id=foo1 src='../point_src'>
+                    <load-files>
+                        head
+                        point
+                        stage
+                    </load-files>
+                </polypoint-canvas>
+             {% endcomment %}
+            {% include "./iframe_src.html" with editor=False src_partial='pseudo3D-sphere.js' %}
+        </div>
+    </div>
+
 </div>
+{% endblock header_block %}
 
-{% endblock header_footer %}
+
+{% block header_footer %}{% endblock header_footer %}
 
 
 {% block content %}
 {% link.css "css/bubble-demo.css" %}
 
 
-<div class="outer-block">
-    <div class="block">
-        {% markdown %}
-        > Polypoint.js is a library dedicated to the humble 2D point.
-
-
-        {% endmarkdown %}
-    </div>
-</div>
-
-<div class="outer-block">
+<div class="outer-block info-block">
     <div class="block">
         {% markdown %}
         # Point Centric Design
 
         Everything is a graph. from [lists](#link) to [lines](#l), [emitters](#2) to [collisions](#1), they all start and end with a [Point](#2).
+        {% endmarkdown %}
+    </div>
+</div>
+
+<div class="outer-block info-block">
+    <div class="block">
+        {% markdown %}
+        ## Pluggy
+
+        > Modularity to the bones - load methods without recompilation
+
+        Polypoint thrives on instant gratification — plugging together effortlessly. Abstract, import, rearrange; it's modularity on crack.
+        {% endmarkdown %}
+    </div>
+</div>
+
+
+<div class="outer-block info-block">
+    <div class="block">
+        {% markdown %}
+        ## No Compilation!
+
+        > Now means now. Reloads instantly
+
+        We built Polypoint raw — pure ES6, thin and immediate. Immediate mode drawing should be immediate. No loadouts, no load-times, no compilations, no modules, or hoops to jump.
+        {% endmarkdown %}
+    </div>
+</div>
+
+
+<div class="outer-block info-block">
+    <div class="block">
+        {% markdown %}
+        ## Requirements: Potato
+
+        > Designed to be thin on vintage hardware - its retro friendly.
+
+        CPU-driven, browser-born, and humble to the core. Your ancient Windows 7 machine just became relevant again.
+        {% endmarkdown %}
+    </div>
+</div>
+
+
+<div class="outer-block info-block">
+    <div class="block">
+        {% markdown %}
+
+        ## Raw Meat
+
+        > No abstractions here!.
+
+        Access the canvas as a first-class citizen. With no gatekeeping, no hidden laters, brush it aside when you don't need it.
+
+        Polypoint provides a thin abstract on-top of the canvas layer, with a wealth of functionatily to brush away the boilerplate.
+        {% endmarkdown %}
+    </div>
+</div>
+
+<div class="outer-block info-block">
+    <div class="block">
+        {% markdown %}
+
+        ## Microwave Cooking
+
+        > Less setup, more code, the same result.
+
+        One JS file, one canvas, one hot idea. Fire it up through the Theatre Suite (it's just a fancy markdown renderer), and you're instantly rendering ideas.
 
         {% endmarkdown %}
+    </div>
+</div>
+
         <!--
         Poly Point Centric Design
         PolyPoint Centric Design
         Poly PointCentric Design
         Poly Point Centric Design
         -->
-
-    </div>
-</div>
 
 
 <div class="bubble-likeness">
@@ -78,11 +178,13 @@ Delete the line below if you're just getting started and want to remove the welc
 
 {% include "./boxes.html" %}
 
+{% comment %}
 
 <div class="outer-block iframe-block">
     <div class="block">
         {% include "./iframe_src.html" with src_partial='curve-knife.js' %}
     </div>
 </div>
+{% endcomment %}
 
 {% endblock content %}

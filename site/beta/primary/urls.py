@@ -30,6 +30,7 @@ urlpatterns += includes(
                     'editor',
                     'examples',
                     'documentation',
+                    'screenshot',
                 )
 
 urlpatterns += trim_urls.paths_named(editor_views,

@@ -1,10 +1,16 @@
 from django.core.management.base import BaseCommand, CommandError
-from examples import theatre, theatre_process
 import json
 from pathlib import Path
 from django.conf import settings
 import json
 from json import JSONEncoder
+
+## Is applied in the settings.py:
+# import sys
+# # add the custom tool reference (will change later.)
+# sys.path.append(str(POLYPOINT_TOOLS))
+import theatre, theatre_process
+
 
 class CustomEncoder(JSONEncoder):
     def default(self, o):

@@ -35,6 +35,28 @@ class MicroView(IndexView):
     template_name = 'editor/micro-editor.html'
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
+class MicroRunOnlyView(IndexView):
+    template_name = 'editor/micro-runonly.html'
+
+    def get_context_data(self, **kwargs):
+        # kwargs.setdefault("view", self)
+        # if self.extra_context is not None:
+        #     kwargs.update(self.extra_context)
+        # return kwargs
+        r = super().get_context_data(**kwargs)
+        path = self.kwargs.get('path')
+        p = Path(path).with_suffix('')
+        r['part_name'] = p
+        # meta = get_metadata(path)
+
+        # r['metadata'] = meta
+        # md = meta.get('markdown', None)
+        # if md:
+            # r['markdown'] = md
+            # del meta['markdown']
+        return r
+
 class PointSrcAssetView(views.TemplateView):
     template_name = 'editor/blank.html'
 

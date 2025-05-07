@@ -221,7 +221,9 @@ class ImmediateProcessTheatreFilesView(views.FormView):
     def get_success_url(self):
         return views.reverse("examples:example")
 
+
 from trim.response import content_type_response
+
 
 class ExampleFileImagesView(views.TemplateView):
     template_name = 'default_template.html'

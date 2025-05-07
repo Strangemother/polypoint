@@ -16,7 +16,6 @@
                         <span class="pseudo-label">
                             {{ item.label }}
                         </span>
-
                         <input
                             :type="item.type || 'input'"
                             :value="item.value"
@@ -29,6 +28,7 @@
                     <label>
                         <span class="pseudo-label">
                             {{ item.label }}
+
                         </span>
                         <select class='select'
                             @change="changeHandler($event, item)">
@@ -42,16 +42,20 @@
                 <div v-if="item.field == 'range'">
                     <label>
                         <span class="pseudo-label">
-                            {{ item.label }}
+                            <div>{{ item.label }}</div>
                         </span>
+                        <div>{{ item.value }}</div>
 
-                        <input
-                            type="range"
-                            :min="item.min!=undefined?item.min:1"
-                            :max="item.max!=undefined?item.max:100"
-                            :value="item.value!=undefined?item.value:10"
-                            @input="changeHandler($event, item)"
-                            :step="item.step!=undefined?item.step:1" />
+                        <div>
+
+                            <input
+                                type="range"
+                                :min="item.min!=undefined?item.min:1"
+                                :max="item.max!=undefined?item.max:100"
+                                :value="item.value!=undefined?item.value:10"
+                                @input="changeHandler($event, item)"
+                                :step="item.step!=undefined?item.step:1" />
+                        </div>
                     </label>
                 </div>
 

@@ -1,4 +1,6 @@
-
+/*
+categories: random
+ */
 const canvas = document.getElementById('playspace');
 const ctx = canvas.getContext('2d');
 Point.mouse.listen(canvas)

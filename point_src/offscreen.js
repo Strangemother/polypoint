@@ -1,8 +1,11 @@
 /* Functions and utilities to assist with offscreen rendering */
 
-function createOffscreenCanvas(onScreen) {
+function createOffscreenCanvas(whUnit) {
+    /* Provide something with a {width, height} for size. */
     // var offScreenCanvas = document.createElement('canvas');
-    const offScreenCanvas = new OffscreenCanvas(onScreen? onScreen.width: 400, onScreen? onScreen.height: 300);
+    const offScreenCanvas = new OffscreenCanvas(
+            whUnit? whUnit.width: 400,
+            whUnit? whUnit.height: 300);
     // offScreenCanvas.width = '800';
     // offScreenCanvas.height = '600';
 
@@ -22,17 +25,25 @@ function copyToOnScreen(offScreenCanvas, onScreenCanvas) {
 }
 
 
-class PointIntersections {
+class StageOffscreenTools {
 
     constructor(point) {
         this.parent = point
-
     }
 
+    create(size) {
+        if(size == undefined) {
+            size = this.parent.dimensions
+        }
+        return createOffscreenCanvas(size)
+    }
 }
 
-Polypoint.head.deferredProp('Point',
-    function intersections() {
-        return new PointIntersections(this)
+console.log('offScreen')
+
+
+Polypoint.head.deferredProp('Stage',
+    function offscreen() {
+        return new StageOffscreenTools(this)
     }
 );

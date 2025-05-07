@@ -37,25 +37,26 @@ class Distances {
         this.points.clear()
         this.addPoints.apply(this, arguments)
     }
-    /* Return the closest point to the given point, for example the nearest
-    point to the mouse.
 
-    Return the most near point at any distance:
+    closest(point, maxDistance){
+        /* Return the closest point to the given point, for example the nearest
+        point to the mouse.
 
-        > distances.closest(mouse.position)
-        point
+        Return the most near point at any distance:
 
-    Return the most near point, also within 100px radius distance:
+            > distances.closest(mouse.position)
+            point
 
-        > distances.closest(mouse.position, 100)
+        Return the most near point, also within 100px radius distance:
 
-    Of which is the same as:
+            > distances.closest(mouse.position, 100)
 
-        // within 100px of the mouse position
-        > distances.within(100, mouse.position)
+        Of which is the same as:
+
+            // within 100px of the mouse position
+            > distances.within(100, mouse.position)
 
         */
-    closest(point, maxDistance){
         var p;
         var low = undefined;
         /* Each distance is tested against the curent _low_.

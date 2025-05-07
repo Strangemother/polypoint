@@ -2,6 +2,8 @@
 files:
     relative-xy.js
     pointcast.js
+categories: primary
+    point
 doc_readme: point/readme.md
 doc_content: point/*.md
 doc_imports: point
@@ -397,7 +399,7 @@ class Rotation extends Positionable {
         this.rotation = radiansToDegrees(angle)
     }
 
-    lookAt(otherPoint) {
+    lookAt(otherPoint, add=0, rotationMultiplier=undefined) {
         /* Rotate the point such that the angle relative to the
         `otherPoint` is `0`, essentially _looking at_ the other point.
 
@@ -405,25 +407,25 @@ class Rotation extends Positionable {
 
         Return the angle in radians.
         */
-        return this.radians = this.directionTo(otherPoint)
+        return this.radians = this.directionTo(otherPoint, rotationMultiplier, add)// + add
     }
 
-    directionTo(otherPoint, rotationMultiplier=undefined) {
+    directionTo(otherPoint, rotationMultiplier=undefined, addRad=0) {
         // Calculate the differences in x and y coordinates
         const delta = otherPoint.subtract(this);
         if(rotationMultiplier != undefined) {
-            let normRad = this._normalizedRadians(otherPoint, rotationMultiplier)
+            let normRad = this._normalizedRadians(otherPoint, rotationMultiplier, addRad)
             return normRad
         }
 
         // Calculate the angle in radians
         const angleRadians = delta.atan2()
-        return angleRadians
+        return angleRadians + addRad
     }
 
-    _normalizedRadians(otherPoint, rotationMultiplier) {
+    _normalizedRadians(otherPoint, rotationMultiplier, addRad=0) {
         const delta = otherPoint.subtract(this);
-        const targetRad = delta.atan2();
+        const targetRad = delta.atan2() + addRad;
         const currentRad = this.radians;
 
         let radDiff = targetRad - currentRad;

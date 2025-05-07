@@ -29,158 +29,7 @@ This will execute the canvas name. It provides some free tools:
 
 */
 
-
-class StageRender {
-    _drawFunc
-    _loopDraw = true
-
-    debounceResize = true
-    debounceResizeTimeout = 100
-
-    constructor(canvas, drawFunc) {
-        /*
-            Accept a `canvas` node and an optional `draw` function, prepare
-            the stage draw routine. If the `canvas` is given, immediately call
-            `this.prepare(canvas)` to initiate the layer.
-
-                new StageRender(canvas, ()=>{})
-
-            Any given `drawFunc` overrides the existing `this.stageStartDraw` method
-            and expects the _next_ method to call once complete:
-
-            The default `this.draw(ctx)` method is given`
-
-                this.stageStartDraw(this.draw)
-
-         */
-        // super()
-
-        drawFunc = drawFunc || ( ()=>this.stageStartDraw(this.draw))
-        if(drawFunc) {
-            this._drawFunc = drawFunc
-        }
-
-        this._nextTick = new Set;
-        this._drawAfter = []
-        this._drawBefore = []
-        if(canvas)  {
-            this.prepare(canvas)
-        }
-    }
-
-    stickCanvasSize(canvas, size){
-        let rect = size;
-        if(size == undefined) {
-            rect = canvas.getBoundingClientRect && canvas.getBoundingClientRect()
-            if(rect == undefined) {
-                rect = {
-                    width: canvas.width
-                    , height: canvas.height
-                }
-            }
-        }
-
-        if(rect.width) {
-            canvas.width  = rect.width;
-        }
-
-        if(rect.height) {
-            canvas.height = rect.height;
-        }
-
-        let center = this.dimensions?.center
-
-        const newPoint = function(){
-            try{
-                return new Point();
-            } catch {}
-
-            return {}
-        }
-
-        center = center || newPoint()
-
-        center.x = /*rect.x + */rect.width * .5
-        center.y = /*rect.y + */rect.height * .5
-
-        rect.center = center
-        return rect;
-    }
-
-    get center() {
-        return this.dimensions.center
-    }
-
-    log() {
-        console.log.apply(console, arguments)
-        // console.log.apply(console, Array.from(arguments))
-    }
-
-    prepare(target) {
-        /* Perform any preparations for this stage instance to run the
-          canvas tools. This includes resolving and measuring the canvas.
-
-            class MainStage extends Stage {
-                canvas = playspace
-                prepare(target){
-                    super.prepare(target)
-                    // ...
-                }
-            }
-
-        This will run automatically if the canvas is given in the constructor
-
-            new MainStage(canvas)
-            // _prepared == true
-
-        Once prepared the stage is essentially ready-to-go.
-
-            stage = new MainStage()
-            stage.prepare(canvas)
-            stage.update()
-
-        */
-
-        let id = this.id = Math.random().toString(32)
-        this.target = target
-        let canvas;
-        if(this.resolveCanvas) {
-            canvas = this.resolveCanvas(target, this)
-        } else {
-            canvas = resolveCanvas(target, this)
-        }
-
-        if(canvas == undefined) {
-            console.warn('Stage canvas is undefined through Stage.canvas')
-        }
-        // this.setupClock()
-        this.canvas = canvas
-
-        this.dispatch('stage:prepare', {target, id, canvas })
-
-        /* Stick the shape */
-        if(canvas) {
-            /* stage-resize.js */
-            this.resize()
-        }
-
-        this.loopDraw = this.loopDraw.bind(this)
-        this._prepared = true;
-        // this.compass = Compass.degrees()
-        this.mounted(canvas)
-        // addEventListener('resize', (e)=>this.resizeHandler(e));
-
-        /* late components did not receive `stage:prepare`.
-        As such, they will _announce_ */
-        addEventListener('addon:announce', (e)=>this.addonAnnounceHandler(e));
-    }
-
-    /* a given object is mounted on _this_ - such as the `mouse`.
-    This may be called in response to a 'stage:prepare' event.  */
-    addComponent(name, instance) {
-        this.log('Installing', name, 'to', this)
-        Object.defineProperty(this, name, {value: instance})
-    }
+class StageBase {
 
     /* an addon instance has anounced itself. Perform the addComponent */
     addonAnnounceHandler(ev) {
@@ -215,6 +64,145 @@ class StageRender {
         return {detail: data}
     }
 
+    /* a given object is mounted on _this_ - such as the `mouse`.
+    This may be called in response to a 'stage:prepare' event.  */
+    addComponent(name, instance) {
+        this.log('Installing', name, 'to', this)
+        Object.defineProperty(this, name, {value: instance})
+    }
+
+    log() {
+        console.log.apply(console, arguments)
+        // console.log.apply(console, Array.from(arguments))
+    }
+
+}
+
+class StageRender extends StageBase {
+    _drawFunc
+    _loopDraw = true
+
+    debounceResize = true
+    debounceResizeTimeout = 100
+
+    constructor(canvas, drawFunc) {
+        /*
+            Accept a `canvas` node and an optional `draw` function, prepare
+            the stage draw routine. If the `canvas` is given, immediately call
+            `this.prepare(canvas)` to initiate the layer.
+
+                new StageRender(canvas, ()=>{})
+
+            Any given `drawFunc` overrides the existing `this.stageStartDraw` method
+            and expects the _next_ method to call once complete:
+
+            The default `this.draw(ctx)` method is given`
+
+                this.stageStartDraw(this.draw)
+
+         */
+        super()
+
+        drawFunc = drawFunc || ( ()=>this.stageStartDraw(this.draw))
+        if(drawFunc) {
+            this._drawFunc = drawFunc
+        }
+
+        this._nextTick = new Set;
+        this._drawAfter = []
+        this._drawBefore = []
+        if(canvas)  {
+            this.prepare(canvas)
+        }
+    }
+
+    stickCanvasSize(canvas, size){
+        let rect = size
+        /* Return the result of the bounding box function, else resort
+        to the object w/h */
+        if(size == undefined) {
+            rect = (canvas.getBoundingClientRect
+                    && canvas.getBoundingClientRect()
+                    ) || { width: canvas.width, height: canvas.height }
+            /*if(rect == undefined) {
+                rect = { width: canvas.width , height: canvas.height }
+            }*/
+        }
+
+        if(rect.width) { canvas.width  = rect.width; }
+        if(rect.height) { canvas.height = rect.height; }
+
+        const newPoint = function(){
+            /* Generate a new point if the point class exists,
+            else return an object. */
+            try{ return new Point(); } catch {}
+            return {}
+        }
+
+        let center = rect.center = this.dimensions?.center || newPoint()
+
+        center.x = /*rect.x + */rect.width * .5
+        center.y = /*rect.y + */rect.height * .5
+
+        return rect;
+    }
+
+    get center() {
+        return this.dimensions.center
+    }
+
+    prepare(target) {
+        /* Perform any preparations for this stage instance to run the
+          canvas tools. This includes resolving and measuring the canvas.
+
+            class MainStage extends Stage {
+                canvas = playspace
+                prepare(target){
+                    super.prepare(target)
+                    // ...
+                }
+            }
+
+        This will run automatically if the canvas is given in the constructor
+
+            new MainStage(canvas)
+            // _prepared == true
+
+        Once prepared the stage is essentially ready-to-go.
+
+            stage = new MainStage()
+            stage.prepare(canvas)
+            stage.update()
+
+        */
+        let id = this.id = Math.random().toString(32)
+        this.target = target
+
+        /*if(this.resolveCanvas) {
+            canvas = this.resolveCanvas(target, this)
+        } else {
+            canvas = resolveCanvas(target, this)
+        }*/
+        let canvas = (this.resolveCanvas || resolveCanvas)(target, this)
+        if(canvas == undefined) {
+            console.warn('Stage canvas is undefined through Stage.canvas')
+        }
+
+        this.canvas = canvas
+
+        this.dispatch('stage:prepare', {target, id, canvas })
+
+        if(canvas) { /* Stick the shape with stage-resize.js */ this.resize() }
+        /* ensure the stage is ready to be used. */
+        this.loopDraw = this.loopDraw.bind(this)
+        this._prepared = true;
+
+        this.mounted(canvas)
+        /* late components did not receive `stage:prepare`.
+        As such, they will _announce_ */
+        addEventListener('addon:announce', (e)=>this.addonAnnounceHandler(e));
+    }
+
     mounted(canvas) {
         /* A Convenient place to perform initial work. */
     }
@@ -231,14 +219,22 @@ class StageRender {
         Call prepare() if required. If `additionalData.loop` is `true` (default)
         start the update loopDraw
         */
+
+        /* First we ensure prepare has occured */
         let _stage = new this;
         if(_stage._prepared != true) {
             _stage.prepare()
         }
+        /* Grab the look function - */
         let loop = additionalData.loop !== undefined? additionalData.loop: true
 
+        /* Perform the update loop we get _one extra_ update here before the
+        request animation occurs. Useful for ensuring _draws_ occur before
+        the first frame is required, and also the loop function
+        may not be active. */
         _stage.update()
         if(loop) {
+            /* 1ms delay for a next tick. */
             setTimeout(()=>_stage.loopDraw(), 1)
         }
 
@@ -246,6 +242,13 @@ class StageRender {
     }
 
     stageStartDraw(drawFunc){
+        /* When using the internal loop drawing the first draw call occurs
+        through this method, calling `firstDraw` once, then
+        changing the internal draw function to the typical `this.draw`
+
+        If `this.draw` is not a method, `this.update()` is called and the
+        `stopDraw` method is called.
+        */
         this.firstDraw(this.ctx)
         let _drawFunc = drawFunc  || this.draw
         if(drawFunc) {
@@ -305,7 +308,7 @@ class StageRender {
          */
 
         // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
-        let options = {
+        let options = this.contextOptions || {
             alpha: true
             , colorSpace: 'srgb'
             , desynchronized: true
@@ -317,7 +320,12 @@ class StageRender {
 
     update() {
         /*
-            inline update per draw
+            inline update per draw. For each call:
+
+            + all _drawBefore_ methods
+            + all _nextTick_ methods
+            + the `draw` method (mapped through `this._drawFunc`)
+            + all _drawAfter_ methods
         */
         const ctx = this.ctx;
 

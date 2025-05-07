@@ -115,6 +115,10 @@ class PointWithin {
         */
         return withinPolygon(this, polygon)
     }
+
+    point(other) {
+        /* Test if this point is within another point*/
+    }
 }
 
 Polypoint.head.deferredProp('Point', function within(){

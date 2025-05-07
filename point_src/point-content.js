@@ -73,22 +73,3 @@ function projectFrom(origin, distance=undefined, rotation=undefined) {
 
     return { x, y };
 }
-
-
-class XAngle extends Number {
-
-    constructor(value) {
-        super(value)
-    }
-
-    protractorRotate(deg=180) {
-        return adjustAngleToPreferredRotation(this, deg)
-    }
-
-    radToDeg() {
-        /* Assume this is a radian value and convert to degrees. */
-        return radiansToDegrees(this)
-    }
-
-}
-

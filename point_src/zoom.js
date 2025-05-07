@@ -1,6 +1,8 @@
 /*
 ---
 title: Zoom
+category: zoom
+    scale
 ---
 
 Scale a set of points in a _zooming_ method, relative to an `origin` point.

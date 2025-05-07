@@ -14,18 +14,26 @@ A Nice angle conversion utility.
 
 functions
 
-    d | deg | degrees
-    t | tau | turn
-    g | gon | grad | gradian
-    r | rad | rads | radians
-    h | hour
-    b | binary
-    compass
 
-    rpm
+    | char | short | name | long |
+    | ----- | ----- | ----- | ----- |
+    | d | deg | degrees | -- |
+    | t | tau | turn | -- |
+    | g | gon | grad | gradian |
+    | r | rad | rads | radians |
+    | h | hour | hour | -- |
+    | b | binary | binary | -- |
+
+---
+
+| compass |
+| rpm |
  */
 
-// ----- DEGREES -----
+/*
+Angle convert tools list the available types, with functions
+to convert. For example radians to degrees `AngleConvertTable.radians.degrees(rads)`
+*/
 const AngleConvertTable = {
     degrees:{
         turns: (deg) => deg / 360
@@ -148,8 +156,20 @@ let angleAliasStack = {
     // , hour: ['h', 'hour']
 }
 
-let angleConstantsMap = new Map()
 
+for (let k in AngleConvertTable) {
+    // AngleConvertTable[degrees][degrees] = v
+    AngleConvertTable[k][k] = (v) => v
+}
+
+/* Map the key value of the short name to the _long name_.
+The last key is automatically pluralised (may change.)
+
+    d => degrees
+    deg => degrees
+    rad => radians
+*/
+let angleConstantsMap = new Map()
 for(let k in angleAliasStack) {
     // let tname = [k.slice(0,1).toUpperCase(), k.slice(1)].join('')
     let name = k
@@ -178,6 +198,26 @@ for(let k in angleAliasStack) {
 // degToRad
 // radiansToDegrees
 // deg2rad
+
+class AngleNumber extends Number {
+    /* A plain number with extra tools to quickly call out the
+    common angles */
+    constructor(v, type='deg') {
+        super(v)
+        this._angleType = type
+    }
+
+    toAngle(type) {
+        let name = angleConstantsMap.get(this._angleType)
+        let typeName = angleConstantsMap.get(type)
+        let func = AngleConvertTable[name][typeName]
+        if(!func) {
+            throw Error(`No AngleConvertTable[${name}][${typeName}]`)
+        }
+        return func(this)
+    }
+}
+
 
 const generateAngleFunctions = function() {
     let res = {}

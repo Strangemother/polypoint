@@ -739,3 +739,6 @@ class CantenaryCurve extends Line {
 
 }
 
+
+class CatenaryCurve extends CantenaryCurve {
+}

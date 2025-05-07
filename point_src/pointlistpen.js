@@ -64,7 +64,7 @@ class PointListPen {
 
         */
 
-        let defaultCircleColor = '#66DD22'
+        let defaultCircleColor = 'inherit'// '#66DD22'
         let defaultLineColor = defaultCircleColor
         let def = {
             line: {/*color:'red',*/ width: 2}
@@ -77,11 +77,18 @@ class PointListPen {
         let cc = def?.circle?.color || def?.color || def?.line?.color || defaultCircleColor
         let cw = def.width || def?.circle?.width
 
+        let tryInheritColor = function(item, v) {
+            if(v == 'inherit') {
+                return item.color || undefined
+            }
+            return v
+        }
+
         let eachPoint = (item, arcDrawF) =>{
-                item.project().pen.line(ctx, item, lc, lw)
+                item.project().pen.line(ctx, item, tryInheritColor(item, lc), lw)
                 ctx.beginPath();
                 arcDrawF(item)
-                quickStrokeWithCtx(ctx, cc, cw)
+                quickStrokeWithCtx(ctx, tryInheritColor(item, cc), cw)
             }
 
         this.points(ctx, eachPoint)
@@ -109,6 +116,13 @@ class PointListPen {
         let args = arguments;
         this.points(ctx, (p)=> p.pen.circle.apply(p.pen, args))
         // return this.stroke.apply(this, arguments)
+    }
+
+
+    quadCurve(ctx, color_or_conf, loop=false, position){
+        // quickStrokeWithCtx(ctx, color_or_conf, b)
+        this.pointList.draw.quadCurve(ctx, loop, position)
+        quickStrokeWithCtx(ctx, color_or_conf)
     }
 }
 

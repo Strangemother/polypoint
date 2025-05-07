@@ -61,9 +61,6 @@ class Addon {
     /* An Addon applies some core functionality on the polypoint mixin
     such as a constructor, and destroy methods.
      */
-    constructor(parent) {
-        this.parent = parent;
-    }
 }
 
 
@@ -97,7 +94,10 @@ const impartOnRads = function(radians, direction) {
 }
 
 
-class RelativeMotion extends Addon {
+class RelativeMotion {
+    constructor(parent) {
+        this.parent = parent;
+    }
 
     _relativeMove(direction, speed=undefined, minSpeed=0, maxSpeed=1) {
         let p = this.parent
@@ -155,7 +155,7 @@ class RelativeMotion extends Addon {
 }
 
 
-Polypoint.head.lazierProp('Point',
+Polypoint.head.deferredProp('Point',
     function relative() {
         return new RelativeMotion(this)
     }

@@ -154,6 +154,11 @@ class AutoMouse {
         if(!this.canvas) {
             this.canvas = canvas
         }
+        if(!this.canvas) {
+            console.warn('automouse:mount - Cannot mouse Listeners; no canvas.')
+            return
+        }
+
         let methods = this.getListenerMethods()
         for(let k in methods) {
             let f = methods[k]

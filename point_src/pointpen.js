@@ -1,4 +1,30 @@
+/*
+title: Point Pen
+---
 
+The `pen` provides a range of methods for visibly rendering the point.
+
+Similar to how the draw tools _plot_ or _sketch_, the _pen_ renders the sketches.
+This allows you to _draw_ many things and then _pen_ the drawing.
+
+The available functions generally match the `draw` tools and in many cases use the
+sibling function from the draw tools:
+
+    let p = new Point(100, 200)
+
+    p.pen.fill('red') // Calls p.draw.arc() then ctx.fill()
+
+---
+
+When imported, the `PointPen` auto-loads into the `Point.pen`.
+
+    Polypoint.head.lazyProp('Point', {
+        pen() { return new PointPen(this) }
+    }, 'pen')
+
+    let p = new Point;
+    p.pen // new instance of PointPen
+*/
 class PointPen {
     // Draw functions for the Point.draw
     // methods.
@@ -133,7 +159,9 @@ class PointPen {
 
         let fs = fillStyle == undefined? this.fillStyle || this.point.color: getFillStyle()
 
-        ctx.fillStyle = fs.call? fs(this): fs
+        if(fs) {
+            ctx.fillStyle = fs.call? fs(this): fs
+        }
         // ctx.lineWidth = width == undefined? 1: width
 
         ctx.fill()
@@ -187,14 +215,15 @@ class PointPen {
         };
         Object.assign(def, miniConf)
 
-        let lc = def?.line?.color || def.color || defaultLineColor
+        let lc = def?.line?.color || def.color || this.point.color || defaultLineColor
         let lw = def?.line?.width || def.width
-        let cc = def?.circle?.color || def?.color || def?.line?.color || defaultCircleColor
+        let cc = def?.circle?.color || def?.color || def?.line?.color || this.point.color || defaultCircleColor
         let cw = def.width || def?.circle?.width
 
         this.point.project().pen.line(ctx, this.point, lc, lw,)
         this.circle(ctx, undefined,cc, cw,)
     }
+
 }
 
 

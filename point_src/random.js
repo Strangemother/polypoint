@@ -1,4 +1,18 @@
+/*
+title: Random
+---
 
+The _random_ class provides a range of methods for producing random values.
+
+The `random` object is instansiated for free:
+
+    const random = new Random()
+    // examples
+    random.int()
+    random.point()
+
+
+*/
 
 class Random {
 
@@ -9,7 +23,7 @@ class Random {
 
     int(min=1, max) {
         /* Generate an integer between 0 and the given min.
-            Given 1 (default), the result will be either 0 or 1
+        Given 1 (default), the result will be either 0 or 1
 
             random.int(10)
             7
@@ -27,7 +41,12 @@ class Random {
     }
 
     float(min=1, max) {
+        /* Generate a decimal number between `0` and `1`.
+        Provide a min/max to limit
 
+            random.float()
+            random.float(.2, 1)
+        */
         if(max != undefined) {
             return Math.random() * (max - min) + min;
         }
@@ -36,6 +55,7 @@ class Random {
     }
 
     string(multiplier=1, rot=32){
+        /* Return a random string */
         return this.radix(this.float(multiplier), rot).slice(2)
     }
 
@@ -82,6 +102,7 @@ class Random {
     }
 
     color(h=360, s=100, l=100) {
+        /* Return a random `hsl` color string, */
         let deg = random.int(h)
         let sat = random.int(s)
         let lig = random.int(l)

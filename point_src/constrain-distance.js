@@ -153,6 +153,8 @@ class PointConstraints {
     }
 
     elbow(other, settings){
+        /* Connect this point and another point by their _edges_. Similar to
+        _track_ at a distance, but accounting for radius. */
         let point = this.parent;
         /* Ensure a point stays within a distance. */
         this.leash(other, (other.radius + point.radius) - .01)

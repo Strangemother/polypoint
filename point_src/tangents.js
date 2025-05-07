@@ -381,20 +381,20 @@ class PointTangents {
     a(other) {
         /* return the top line tangent _start_ point */
         let v = this.calculateTangentLines(this.parent, other)
-        return v.a[0]
+        return v && v.a[0]
     }
 
     b(other){
        /* return the bottom line _start_ point */
        let v = this.calculateTangentLines(this.parent, other)
-        return v.b[0]
+        return v && v.b[0]
     }
 
     aa(other){
         /* return the _line_ of pointA (top), to pointB (top)
         Similar to `this.points(other)[0,2]` */
         let v = this.calculateTangentLines(this.parent, other)
-        return v.a
+        return v && v.a
     }
 
     bb(other){
@@ -402,20 +402,20 @@ class PointTangents {
         `this.points(other)[1,4]`
         */
         let v = this.calculateTangentLines(this.parent, other)
-        return v.b
+        return v && v.b
     }
 
     ab(other) {
         /* return the tangent line _through_ the center, similar to points [0,3]
         However the tangent points are adjusted - rotated around the radius. */
         let v = this.calculateCrossTangentLines(this.parent, other)
-        return v.ab
+        return v && v.ab
     }
 
     ba(other) {
         /* return the tangent line point A (bottom), point B (top) */
         let v = this.calculateCrossTangentLines(this.parent, other)
-        return v.ba
+        return v && v.ba
     }
 }
 

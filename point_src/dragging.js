@@ -172,6 +172,7 @@ class Dragging extends Distances {
         // let v = this.nearOrigin.add(ev.x, ev.y)
         if(ev.shiftKey || isRightClick){
             this.onShiftMouseMoveHandler(ev)
+            this.didSpin = true
         } else {
             this.onDragMoveHandler(ev)
         }
@@ -220,7 +221,7 @@ class Dragging extends Distances {
         /* We want to calculate the difference between the angle to the mousedown,
         to the current mouse, with the _origin_ as the center of the big point. */
         let nrot = calculateAngleDiff(this.toy, this.toy2)
-        this.toy.text.value = nrot.toFixed(0)
+        this.toy.text && (this.toy.text.value = nrot.toFixed(0))
         this._near.rotation = downPoint.rotation + nrot
         // this.mousedownOrigin.radians
     }
@@ -291,6 +292,7 @@ class Dragging extends Distances {
             return this.onDragEndHandler(ev)
         }
 
+
         this.onLongClick(stage, canvas, ev, delta)
     }
 
@@ -326,9 +328,17 @@ class Dragging extends Distances {
 
         if(this.twistMouse) {
             // console.log('cancel contextmenu? Time taken:', timeDown)
-            if(timeDown < 400) {
-                return
+            let distance = this.mousedownPoint?.distanceTo(ev)
+            if((distance && (distance > 10)) && timeDown > 100) {
+                ev.preventDefault()
+                return // show context
             }
+
+            if(timeDown < 300) {
+                return // allow short right click
+            }
+            // or the distance is far
+
             ev.preventDefault()
         }
     }

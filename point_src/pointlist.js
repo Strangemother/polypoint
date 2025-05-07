@@ -1,3 +1,5 @@
+
+
 const pointArray = function(count=5, distance=10) {
     let res = new PointList
     let f = (i) => point(0, distance*i);
@@ -103,13 +105,54 @@ class PointListDraw {
         }
 
         // ctx.strokeStyle = 'white'
-        // ctx.stroke()
     }
 
     /* Draw a startline lineTo through all points. */
     line(ctx) {
         return this.pointLine(ctx)
     }
+
+    quadCurve(ctx, loop=false, position){
+        let pointsArray = this.list;
+        let prevPoint = pointsArray[0];
+        position = position? position: prevPoint
+        let numPoints = pointArray.length;
+        let p0 = pointsArray[numPoints - 1] || position;
+        let _p2 = prevPoint;
+        let strength = .5
+        if(p0 ==  undefined) {return}
+        ctx.beginPath();
+        let min1 = prevPoint
+        if(loop) {
+            // ctx.moveTo(200, 200);
+            min1 = pointsArray.last()
+        }
+
+        ctx.moveTo( (p0.x + min1.x) * strength, (p0.y + min1.y) * strength );
+        // ctx.moveTo( (p0.x + prevPoint.x) * strength, (p0.y + prevPoint.y) * strength );
+        for(let i = 1; i < pointsArray.length; i++) {
+
+            let currPoint = pointsArray[i];
+            var xc = (prevPoint.x + currPoint.x) * strength;
+            var yc = (prevPoint.y + currPoint.y) * strength;
+            ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, xc, yc);
+            prevPoint = currPoint;
+        }
+
+        /* Draw to the last point. */
+        var xc = (prevPoint.x + prevPoint.x) * strength;
+        var yc = (prevPoint.y + prevPoint.y) * strength;
+
+        if(loop) {
+            xc = (prevPoint.x + _p2.x) * strength;
+            yc = (prevPoint.y + _p2.y) * strength;
+        }
+
+        if(loop!=2){
+            ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, xc, yc);
+        }
+    }
+
 }
 
 
@@ -345,7 +388,7 @@ class PointListShape {
     }
 
     radial(point, radius){
-        /* "Radial" plots thr points around the a given point.
+        /* "Radial" plots the points around the a given point.
         Unlike "circle" or "radius" of which draw from an origin,
 
         This method rotates around the origin.
@@ -354,6 +397,7 @@ class PointListShape {
         If radius is undefined, the point radius is used.
         */
        /// not implemented.
+       throw Error('NotImplemented')
     }
 
     radius(radius, pos) {
@@ -586,7 +630,8 @@ class LazyAccessArray extends Array {
     }
 
     siblings(close=false) {
-        /* Return in pairs.
+        /* Return in sibling pairs, where each node is paired with its neighbour
+        for every item. Each node appears twice:
 
             [a,b,c,d,e,f,g]
             pairs()
@@ -620,7 +665,8 @@ class LazyAccessArray extends Array {
     }
 
     pairs(close=false) {
-        /* Return in pairs.
+        /* Return in pairs, where each node is paired with its next neighour once.
+        Each node appears once:
 
             [a,b,c,d,e,f,g]
             pairs()
@@ -646,6 +692,32 @@ class LazyAccessArray extends Array {
             r.push(v)
         }
         return r
+    }
+
+    triples() {
+        /*
+        Return a list with points in triplets, where each entry has 3 points
+
+            [a,b,c,d,e,f,g]
+            triples()
+            a,b,c
+            b,c,d
+            c,d,e
+            d,e,f
+            e,f,g
+            f,g,a
+            g,a,b
+         */
+        const triples = [];
+        const len = this.length;
+        for (let i = 0; i < len; i++) {
+            triples.push(new PointList(
+                        this[i % len]
+                        , this[(i + 1) % len]
+                        , this[(i + 2) % len]
+                    ));
+        }
+        return triples;
     }
 
     get each() {

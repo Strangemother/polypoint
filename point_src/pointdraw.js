@@ -40,16 +40,48 @@ class PointDraw {
         }
     }
 
-    rect(ctx, width=this.point.radius, height) {
+    box(ctx, size=this.point.radius, width, angle){
+        /*
+            A box is a rectangle on the outside of radius.
+            If an angle is given, the box cannot be a _rect_ and returns an ngon(4).
+
+        */
+        if(angle != undefined) {
+            /* produce a ngon in the same location.*/
+            return this.ngon(ctx, 4, size * 1.4, true, width, angle)
+        }
+
+        let offset = {x: -size, y: -size}
+        return this.rect(ctx, size*2, width, offset)
+    }
+
+    // rect(ctx, width=this.point.radius, height) {
+    rect(ctx, width=this.point.radius, height, offset={x:0, y:0}) {
         // rect(x, y, width, height)
         if(height==undefined) {
             height = width
         }
-        let p = this.point
-        ctx.rect(p.x, p.y, width, height)
+        // let p = this.point
+        // ctx.rect(p.x, p.y, width, height)
+        let xy = this.point.xy
+        ctx.rect(xy.x + offset.x, xy.y + offset.y, width, height)
     }
 
     roundRect(ctx, width=this.point.radius, height, radii=[10]) {
+        /* Draw a standard `roundRect` using this point as the top left `{x,y}`
+        The default _width_ and _height_ is the _radus_ of the point, drawing
+        a round rect to the size of the point.
+
+            // ctx.roundRect(400, 150, 120, 120, [0, 30, 50, 60]);
+            // point.draw.roundRect(width, height, radii)
+            let point = new Point(400, 150, 120)
+            point.draw.roundRect(ctx)
+
+        Expanded:
+
+            point.draw.roundRect(ctx, point.radius, point.radius, [10, 30, 50, 60])
+
+        */
         // rect(x, y, width, height)
         // ctx.roundRect(400, 150, -200, 100, [0, 30, 50, 60]);
         if(height==undefined) {
@@ -58,7 +90,6 @@ class PointDraw {
         let p = this.point
         ctx.roundRect(p.x, p.y, width, height, radii)
     }
-
 
     ngon(ctx, sides, radius, fromCenter=true, angle=0) {
         /* Draw a polygon of _n_ sides, with an optional radius.
@@ -88,6 +119,7 @@ class PointDraw {
         }
         return points
     }
+
 }
 
 

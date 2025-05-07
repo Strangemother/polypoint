@@ -83,7 +83,7 @@ class SmoothNumber {
     // decimal accuracy. Generally 0 is preferred.
     fixed = 0
 
-    constructor(value=0, width=10, modulusRate=1, fixed=0) {
+    constructor(value=0, width=10, modulusRate=1, fixed=null) {
 
         this.width = width;
         this.value = value

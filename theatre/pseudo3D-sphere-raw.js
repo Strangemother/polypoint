@@ -223,6 +223,8 @@ function generateLesserGeodesicSphere(radius = 1) {
 
 
 
+
+
 function generateGeodesicSpherePoints(subdivisions = 2, radius = 1) {
   const t = (1 + Math.sqrt(5)) / 2;
 
@@ -354,6 +356,8 @@ function generateGeodesicSphereByPointCount(targetCount = 100, radius = 1) {
 }
 
 
+
+
 function generateGeodesicSphereMesh(targetCount = 100, radius = 1) {
   const t = (1 + Math.sqrt(5)) / 2;
 
@@ -421,6 +425,7 @@ function generateGeodesicSphereMesh(targetCount = 100, radius = 1) {
 }
 
 
+
 function generateLatLongSphereMesh(targetCount = 100, radius = 1) {
   // Roughly balance lat/lon based on target count
   const lonCount = Math.ceil(Math.sqrt(targetCount));
@@ -468,6 +473,9 @@ function generateLatLongSphereMesh(targetCount = 100, radius = 1) {
     triangles,
   };
 }
+
+
+
 
 
 function generateLatLongEquatorialFocusSphere(targetCount = 100, radius = 1) {
@@ -563,24 +571,10 @@ class MainStage extends Stage {
         let count = 500
         let size = 290
         /* Generate 100 points, within a 500px box, at origin 0,0 */
-        let funcs = {
-            SpherePointsFib: ()=> generateSpherePointsFib(count, size)
-            , LesserGeodesicSphere: ()=> generateLesserGeodesicSphere(150)
-            , LatLongEquatorialFocusSphere: ()=> generateLatLongEquatorialFocusSphere(30, 100).points
-            , LatLongSphereMesh: ()=> generateLatLongSphereMesh(500, 200).points
-            , GeodesicSphereMesh: ()=> generateGeodesicSphereMesh(200, 200).points
-            , GeodesicSphereByPointCount: ()=> generateGeodesicSphereByPointCount(200, 200)
-            , GeodesicSpherePoints: ()=> generateGeodesicSpherePoints(3,200).points
-            , SpherePointsLatLong: ()=> generateSpherePointsLatLong(20, 20, 250)
-            , SphereTrianglesAsPoints: ()=> generateSphereTrianglesAsPoints(20, 20, 250)
-            , SpherePointsFib: ()=> generateSpherePointsFib(count, size)
-            , SpherePointsFibMesh:()=> generateFibonacciSphereMesh(400, 200).points
-        }
         // this.points = PointList.from(generateSpherePointsFib(count, size)).cast()
         // this.points = PointList.from(generateLesserGeodesicSphere(50)).cast()
-        let func = funcs['SpherePointsLatLong']
-        let items = func()
-        this.points = PointList.from(items).cast()
+
+        this.points = PointList.from(generateFibonacciSphereMesh(400, 200).points).cast()
         // this.points = PointList.from(generateLatLongEquatorialFocusSphere(30, 100).points).cast()
         // this.points = PointList.from(generateLatLongSphereMesh(500, 200).points).cast()
         // this.points = PointList.from(generateGeodesicSphereMesh(200, 200).points).cast()
@@ -608,22 +602,20 @@ class MainStage extends Stage {
                 , z: -this.rotSize
             }
 
-        this.spunPoints = this.points.pseudo3d.orthogonal(
-        // this.spunPoints = this.points.pseudo3d.perspective(
+        this.spunPoints = this.points.pseudo3d.perspective(
                   this.spin
                 , this.projectionPoint
                 , this.projectionLength
                 , this.perspectiveCenter
             )
         let maxDepth = this.depth
-        let deepColor = 1300
+        let deepColor = 600
         this.spunPoints.forEach((p, i)=>{
             let z = p.z
             let red = deepColor - ((z / maxDepth) * deepColor)
             // let colorBlue = "hsl(184 50% 40%)"
             // let colorRed = "hsl(0 66% 40%)"
-            let l = (red) * .04
-            let color = `hsl(${red} 66% ${l}%)`
+            let color = `hsl(${red} 66% 35%)`
             p.color = color
         })
         this.zFix && this.spunPoints.sortByZ()

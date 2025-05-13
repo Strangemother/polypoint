@@ -28,7 +28,9 @@ const polypointFileAssets = function(js='') {
             `${js}text/alpha.js#text-alpha`
             , `${js}text/fps.js#text-fps`
         ]
-
+        , screenshot: [
+            `${js}/screenshot.js`
+        ]
         , capture: [
             `${js}capture/CCapture.js`
             , `${js}capture/gif.js`

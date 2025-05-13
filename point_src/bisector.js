@@ -44,6 +44,7 @@ function acuteBisect(pointA, midPoint, pointC) {
     return midPoint.directionTo(midPoint.add(mag2d))
 }
 
+
 function calculateBisector(pointA, midPoint, pointC, normalized=false) {
     /*
         // Example usage:
@@ -61,6 +62,7 @@ function calculateBisector(pointA, midPoint, pointC, normalized=false) {
     if(!normalized) { return bisector }
     return bisector.normalized()
 }
+
 
 function rawCalculateBisector(pointA, pointB, pointC) {
     /*

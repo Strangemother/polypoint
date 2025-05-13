@@ -1,10 +1,22 @@
 
 
+// let ret = document.querySelector('.playspace-container').getBoundingClientRect();
+// let retC = document.querySelector('#playspace')
+
+// retC.width = ret.width
+// retC.height = ret.height
+
 class DimensionsApp extends Mountable {
     storageName = 'dimensionsApp'
     mounted(){
         // console.log('dimensionsApp Mounted')
-        let hookHandle = ()=> stage.events.on('resize', this.resizeEventHandler.bind(this));
+        setTimeout(this.removeStick, 1)
+
+        let hookHandle = ()=> {
+            // console.log(ret);
+            // stage.resize(undefined, ret)
+            stage.events.on('resize', this.resizeEventHandler.bind(this));
+        }
 
         try{
 
@@ -22,6 +34,22 @@ class DimensionsApp extends Mountable {
         }
     }
 
+    removeStick(){
+        document.querySelector('.playspace-container').classList.remove('stick-canvas')
+    }
+
+    addStick(){
+        document.querySelector('.playspace-container').classList.add('stick-canvas')
+    }
+
+    reStick() {
+        this.addStick()
+        stage.stickCanvasSize(stage.canvas);
+
+        setTimeout(this.removeStick, 1000)
+        // stage.resize();
+    }
+
     initData(){
         return { width: 10, height: 10 }
     }
@@ -34,19 +62,21 @@ class DimensionsApp extends Mountable {
 
     enterKey(e) {
         let _type = e.currentTarget.dataset.type
-        console.log('Enter', _type)
         e.preventDefault()
         let v = parseInt(e.currentTarget.textContent)
+        console.log('Enter', _type, v)
         this.store[_type] = v
-        stage.stickCanvasSize(stage.canvas, {[_type]: v})
-        stage.resize()
+        let rect = stage.stickCanvasSize(stage.canvas, {[_type]: v})
+        stage.resize(undefined, rect)
     }
 
     resizeEventHandler(e){
+        console.log('Resuze hanlfer')
         // this.store.width = ~~e.detail.width
         // this.store.height = ~~e.detail.height
         this.record(e.detail)
         // console.log(this.store)
+        this.reStick()
     }
 
     record(dimensions){

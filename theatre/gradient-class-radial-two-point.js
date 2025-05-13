@@ -52,7 +52,7 @@ class MainStage extends Stage {
 
     draw(ctx){
         this.clear(ctx)
-        this.g.radial() // refresh hack.
+        // this.g.radial() // refresh hack.
         let grad = this.g.getObject(ctx)
 
         this.point.pen.fill(ctx, grad)

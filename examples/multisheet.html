@@ -1,0 +1,94 @@
+{% extends "./example-base.html" %}
+
+{% load link %}
+
+{% block content %}
+
+<div>
+    <script src="../theatre/multisheet-component-v2.js"></script>
+
+    <h1>Multi Sheet</h1>
+
+    A ready-to-go canvas.
+
+    <p>A json config, code slot, and text slot</p>
+
+    <polypoint-canvas>
+          <script type="application/json">
+            {
+              "width": 200
+            }
+          </script>
+
+        <script type="javascript">
+            context.beginPath();
+            context.arc(50, 50, 40, 0, 2 * Math.PI);
+            context.stroke();
+        </script>
+
+        <div slot='text'>
+            The text applied to this canvas
+        </div>
+    </polypoint-canvas>
+
+
+
+    <p>A _raw_ canvas. Just text renders as a canvas drawing</p>
+    <polypoint-canvas>
+        context.beginPath();
+        context.arc(50, 50, 40, 0, 2 * Math.PI);
+        context.stroke();
+    </polypoint-canvas>
+
+
+
+    <p>A json config and code slot</p>
+    <polypoint-canvas>
+          <script type="application/json">
+            {
+              "width": 200
+            }
+          </script>
+        <div slot="code">
+            context.beginPath();
+            context.arc(50, 50, 40, 0, 2 * Math.PI);
+            context.stroke();
+        </div>
+
+    </polypoint-canvas>
+
+
+    <p>Script block and floating text</p>
+    <polypoint-canvas>
+
+        <script type="javascript">
+            context.beginPath();
+            context.arc(50, 50, 40, 0, 2 * Math.PI);
+            context.stroke();
+        </script>
+
+        Floating text content. no config
+    </polypoint-canvas>
+
+    <hr>
+          Drawing initiated from config.
+
+    can be served by:
+
+    + web component conf
+        consider slots
+        live content (draw run.)
+
+    + A theatre file
+    + JSON
+
+The json can be served from a file, or from the backend (as id content?)
+
+    {
+        "assets": []
+        "theatre": ""
+        "onrun": "runExistingFunction"
+    }
+</div>
+
+{% endblock content %}

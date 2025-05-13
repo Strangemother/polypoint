@@ -45,6 +45,14 @@ class MainStage extends Stage {
             setTimeout(()=> URL.revokeObjectURL(anchor.href), 1000)
         })
 
+        // // cropped image
+        // const croppedUrl = await canvas.asObject("image/png", 0.9, {
+        //     x: 50,
+        //     y: 50,
+        //     width: 200,
+        //     height: 200
+        // });
+
     }
 
     draw(ctx){

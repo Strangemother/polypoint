@@ -131,7 +131,8 @@ class StageRender extends StageBase {
 
         if(rect.width) { canvas.width  = rect.width; }
         if(rect.height) { canvas.height = rect.height; }
-
+        rect.width  = canvas.width;
+        rect.height = canvas.height;
         const newPoint = function(){
             /* Generate a new point if the point class exists,
             else return an object. */
@@ -141,8 +142,8 @@ class StageRender extends StageBase {
 
         let center = rect.center = this.dimensions?.center || newPoint()
 
-        center.x = /*rect.x + */rect.width * .5
-        center.y = /*rect.y + */rect.height * .5
+        center.x = /*rect.x + */canvas.width * .5
+        center.y = /*rect.y + */canvas.height * .5
 
         return rect;
     }

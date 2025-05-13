@@ -1029,6 +1029,10 @@ class PointList extends LazyAccessArray {
     rotate(value, point) {
         /* Spin the cluster by a given rotation, around an optional anchor
         If given a single point, the rotation is used.*/
+        if(point == undefined && isPoint(value)) {
+            this.handleRotate(value)
+        }
+
         let rot = isPoint(value)? value.rotation: value
         // console.log('rotation to', rot)
         if(point == undefined) {
@@ -1043,6 +1047,17 @@ class PointList extends LazyAccessArray {
             // p.rotate(rot)
         })
         // return p
+    }
+
+    handleRotate(handlePoint) {
+        let rot = handlePoint.radians
+
+        this.forEach(target=>{
+            const res = originRotate(target, handlePoint, rot);
+            target.x = res[0]
+            target.y = res[1]
+            // p.rotate(rot)
+        })
     }
 
     lookAt(other) {

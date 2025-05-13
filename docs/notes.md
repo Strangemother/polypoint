@@ -141,8 +141,9 @@ Modulator
 
 Animator
 
+pulley info
 
-
+https://www.omnicalculator.com/physics/pulley
 
 
 

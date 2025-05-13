@@ -28,10 +28,20 @@ const loadPolypointCoreTools = function() {
         , "dragging"
         , "../point_src/functions/clamp.js"
         , "stage"
+        , "../point_src/distances.js"
+        , "../point_src/rotate.js"
+        , "../point_src/center.js"
         , "../point_src/stage-resize.js"
         , "../point_src/functions/resolve.js"
         , "../point_src/angle.js"
         , "../point_src/text/label.js"
+        // , "head"
+        // , "point"
+        // , "pointlist"
+        // , "mouse"
+        // , "stage"
+        // , "stroke"
+
     ]
 
     /* Here we automatically start with point src.*/
@@ -51,7 +61,15 @@ const polypointFundamentalsLoaded = function() {
     */
         installPolypointsLoaders()
         console.log('Point Loaded');
-        Polypoint.head.load("/examples/theatre/arc-angles.js")
+        let mainDisplay = '/examples/theatre/pseudo3D-cube-2.js';
+        // let mainDisplay = '/examples/theatre/pseudo3D-sphere.js';
+        // let mainDisplay = '/examples/theatre/pseudo3D-tetra.js';
+        // Polypoint.head.load("/examples/theatre/arc-angles.js")
+        Polypoint.head.load(mainDisplay, function(){
+            console.log('Demo loaded')
+            sendPin()
+        })
+
 
     //     ljs.load('other', function(){
     //         console.log('Stage and Other loaded.')
@@ -70,7 +88,7 @@ const installPolypointsLoaders = function(){
 }
 
 ;ljs.addAliases(primaryLoads)
-    .load('head',function(){
+    .load('head', function(){
         console.log('head Loaded');
         loadPolypointCoreTools()
     })

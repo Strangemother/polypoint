@@ -1,0 +1,29 @@
+{% extends "./example-base.html" %}
+
+{% block content %}
+    <h1>Multi Sheet</h1>
+
+    A ready-to-go canvas.
+
+    <polypoint-canvas>
+
+    </polypoint-canvas>
+
+    can be served by:
+
+    + web component conf
+        consider slots
+        live content (draw run.)
+
+    + A theatre file
+    + JSON
+
+The json can be served from a file, or from the backend (as id content?)
+
+    {
+        "assets": []
+        "theatre": ""
+        "onrun": "runExistingFunction"
+    }
+
+{% endblock content %}

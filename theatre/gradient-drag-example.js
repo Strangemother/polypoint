@@ -1,6 +1,7 @@
 /*
 title: Draggable Gradient
 category: gradient
+    raw
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -13,6 +14,9 @@ files:
     ../point_src/distances.js
     ../point_src/dragging.js
     ../point_src/stage.js
+---
+
+In this example the gradient is generated using the standard `ctx.createLinearGradient`
 */
 class MainStage extends Stage {
     canvas='playspace'

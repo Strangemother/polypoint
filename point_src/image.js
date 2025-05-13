@@ -48,6 +48,11 @@ class ImageLoader {
         this.image = img
     }
 
+    setImageData(data) {
+        // stage.offScreenCanvas.transferToImageBitmap()
+        this.imageData = data
+    }
+
     getOffscreenCanvas(width = 200, height = 300){
         let osc = new OffscreenCanvas(width, height)
         return osc

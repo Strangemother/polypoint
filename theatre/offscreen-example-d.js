@@ -18,6 +18,9 @@ files:
     dragging
     stroke
 ---
+
+convert the offscreen canvas through `transferToImageBitmap`
+and perform `drawImage(bitmap, ...)`
 */
 
 class MainStageOffScreenNoPrimary extends Stage {

@@ -18,7 +18,7 @@ files:
     stroke
 ---
 
-In this example, there is no `Stage.canvas` set.
+In this example, there is no `Stage.canvas` applied (initially).
 
 Instead an `OffscreenCanvas`  canvas is created on `mount()` stage, replacing the
 inner `stage.ctx` with the offscreen alternative.
@@ -27,6 +27,8 @@ The `draw(ctx)` context entity is the _offscreen_ canvas layer. Once everything 
 we call `copyToOnScreen(offscreenCanvas, onScreenCanvas)` to push the content into
 something visible.
 
+Fundamentally the stage works in the same manner, as with a standard canvas,
+The only change is the final `copyToOnScreen` call.
  */
 
 
@@ -45,6 +47,8 @@ class MainStageOffScreenNoPrimary extends Stage {
         // this.offScreenCanvas = this.canvas.transferControlToOffscreen()
         this._ctx = this.canvas.getContext('2d')
         this.onScreenCanvas = document.getElementById("playspace")//.getContext("2d");
+        this.onScreenCanvas.width = 500
+        this.onScreenCanvas.height = 400
         this.point = new Point(10, 10)
     }
 

@@ -4,9 +4,10 @@ ul.box-list {
     /* justify-content: space-evenly; */
     list-style: none;
     margin: 2vh 10vh;
+    padding: 0;
     margin: 0;
-    min-height: 60vh;
-    padding: 7vh 0;
+    /* min-height: 40vh; */
+    /* padding: 7vh 0; */
     /* border-radius: 2em; */
     background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, #4a3fde 77%);
     -webkit-background-clip: border-box;
@@ -35,22 +36,25 @@ li.box-item {
     background-origin: border-box;
     background-clip: content-box;
     border-radius: 0;
-    margin: 3vh 0vw;
+    margin: 4px 2px;
+    align-items: flex-start;
 }
 
 .box-item .text-container {
-    padding: 2em;
-    /* justify-content: center; */
-    /* display: flex; */
+    padding: 1rem 3em 3em;
+    justify-content: flex-start;
+    display: flex;
     /* align-items: center; */
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .box-item .text-container p {
     margin: 0;
     padding: 0;
-    font-size: 2.1rem;
+    font-size: 1.3rem;
     font-weight: 100;
-    line-height: 1.3em;
+    /* line-height: 1.3em; */
 }
 
 .boxes-container {
@@ -60,6 +64,9 @@ li.box-item {
     /* border-image: linear-gradient(296deg, hsl(299deg 62% 66%) 7%, hsl(244deg 62% 75%) 77%); */
     /* background: linear-gradient(#0a0a0a, #111111) padding-box,
               linear-gradient(to right, darkblue, darkorchid) border-box; */
+    padding: 12vh 1vw;
+    border-top: dashed 2px #333;
+    border-bottom: dashed 2px #333;
 }
 
 li.box-item.filler {
@@ -67,5 +74,13 @@ li.box-item.filler {
     flex-basis: auto;
     flex-grow: 1;
     /* border-radius: 15em; */
-    margin: 3vh 3vw;
+    margin: 0vh 2px;
+}
+
+li.box-item.filler:first-child {
+    margin-left: 0;
+}
+
+li.box-item.filler:last-child {
+    margin-right: 0;
 }

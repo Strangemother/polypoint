@@ -105,6 +105,7 @@ class Emitter extends Point {
         let fromEdge = this.fromEdge;
         let p = (fromEdge?this.project():this).copy()
         let v = this.particleSpeed //* (3 * Math.random())
+        if(isFunction(v)) {v = v()}
         let FORWARD = this.direction
         // create a vector in the direction of the nose
         // x=1 as forward is across to the right (0deg) by default.
@@ -118,7 +119,8 @@ class Emitter extends Point {
         p.update({
             age: 0
             , radius: 5// 1 + Math.random() * 10
-            , lifetime: lifetime// * Math.random()
+            , lifetime: isFunction(lifetime)?lifetime():lifetime
+            // , lifetime: lifetime// * Math.random()
             , vx: rotatedDir.x * v
             , vy: rotatedDir.y * v
         })

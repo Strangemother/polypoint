@@ -3,6 +3,69 @@
 > Polypoint is a library dedicated to the humble 2D point.
 
 
+```js
+/* Using a stage */
+let mypoint = new Point(100, 200)
+    , color = 'teal'
+    , width = 3
+    ;
+
+mypoint.radius = 50
+
+class MainStage extends Stage {
+    /* No hoops to jump - canvas context as expected. */
+    draw(ctx){
+        this.clear(ctx)                            // run clearRect(...) call.
+        mypoint.lookAt(Point.mouse.position)       // Rotate to look at the mouse
+        mypoint.pen.indicator(ctx, {color, width}) // optional drawing tools.
+    }
+}
+
+const stage = new MainStage('mycanvas')            // Or: new MainStage('mycanvas', myDrawFunc)
+stage.loopDraw()                                   // And Go!
+```
+
+
+## Pluggy
+
+> Modularity to the bones - load methods without recompilation
+
+Polypoint thrives on instant gratification — plugging together effortlessly. Abstract, import, rearrange; it's modularity on crack.
+
+
+## No Compilation!
+
+> Now means now. Reloads instantly
+
+We built Polypoint raw — pure ES6, thin and immediate. Immediate mode drawing should be immediate. No loadouts, no load-times, no compilations, no modules, or hoops to jump.
+
+
+## Requirements: Potato
+
+> Designed to be thin on vintage hardware - its retro friendly.
+
+CPU-driven, browser-born, and humble to the core. Your ancient Windows 7 machine just became relevant again.
+
+
+## Raw Meat
+
+> No abstractions here!.
+
+Access the canvas as a first-class citizen. With no gatekeeping, no hidden laters, brush it aside when you don't need it.
+
+Polypoint provides a thin abstract on-top of the canvas layer, with a wealth of functionatily to brush away the boilerplate.
+
+
+## Microwave Cooking
+
+> Less setup, more code, the same result.
+
+One JS file, one canvas, one hot idea. Fire it up through the Theatre Suite (it's just a fancy markdown renderer), and you're instantly rendering ideas.
+
+---
+
+# Poly
+
 Polypoint aims to provide a straightforward interface for working with 2D points, enabling users to engage in mathematical and creative point drawing without the complexity of traditional drawing libraries. It supports low-level context drawing, allowing users to implement their own drawing logic with ease.
 
 

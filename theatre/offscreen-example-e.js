@@ -1,5 +1,6 @@
 /*
 title: Offscreen rendering.
+category: offscreen
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -17,11 +18,10 @@ files:
     stroke
 ---
 
-Use the `copyToOnScreen` function to copy an offscreen canvas to the onscreen
-canvas.
 
-However we see when applied, offscreen canvas image is distorted due to
-a dimensions mismatch
+In this example we call `canvas.transferControlToOffscreen()` on mount and
+set the stage context to the returned offscreen canvas.
+This copies the stage dimensions is similar to `stage.offscreen.create()`.
  */
 
 class MainStageOffScreenContext extends Stage {
@@ -36,37 +36,27 @@ class MainStageOffScreenContext extends Stage {
     mounted(){
         // this.canvas = new OffscreenCanvas(500, 400)
         // this.canvas = this.canvas.transferControlToOffscreen()
-        this.offScreenCanvas = new OffscreenCanvas(500, 400)
+
+        // this.offScreenCanvas = this.offscreen.create()
+        this.offScreenCanvas = this.canvas.transferControlToOffscreen()
         this._ctx = this.offScreenCanvas.getContext('2d')
         // this.onScreenCanvas = document.getElementById("playspace")//.getContext("2d");
-        this.point = new Point(10, 10)
+        this.point = new Point(40, 40)
     }
 
-    // resolveCanvas() {}
-
-    // stickCanvasSize(canvas){
-    //     const onScreenCanvas = document.getElementById("playspace")//.getContext("2d");
-    //     onScreenCanvas.width = 300
-    //     onScreenCanvas.height = 200
-    //     return
-    // }
-
     draw(ctx){
-        var context = this.offScreenCanvas.getContext("2d");
-
         // this.clear(ctx)
-
-        context.fillStyle = '#444'; //set fill color
-        context.fillRect(10, 10, 40, 40);
-        (new Point(20,20,20)).pen.indicator(context)
-
+        ctx.fillStyle = '#444'; //set fill color
+        ctx.fillRect(10, 10, 40, 40);
+        this.mouse.point.pen.indicator(ctx)
         this.point.rotation += 1
         this.point.pen.indicator(ctx)
-
-        copyToOnScreen(this.offScreenCanvas, this.canvas)
     }
 
 }
 
 
-stage = MainStageOffScreenContext.go()
+
+stage = MainStageOffScreenContext.go()//{ loop: false })
+// stage = MainStageOffScreenNoPrimary.go()//{ loop: false })
+// stage = MainStage.go()//{ loop: false })

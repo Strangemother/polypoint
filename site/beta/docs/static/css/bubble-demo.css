@@ -22,7 +22,10 @@ main > header {
     /* justify-content: center; */
     /* min-height: 29em; */
     /* padding: 1em 0rem; */
-    background: #0a0a0a;
+    /* background: #0a0a0a; */
+    z-index: 1;
+    /* position: sticky; */
+    /* top: 0em; */
 }
 
 .bubble-canvas-container {
@@ -80,7 +83,7 @@ h1.title {
 .quick-links ul li a {
     /* color: #bfbfbf; */
     text-decoration: none;
-    /* border: dashed 1px #b32bb6; */
+    border: dashed 1px #b32bb6;
     border: solid 2px #121212;
     background: #080808;
     padding: 0.9rem 1.7rem;
@@ -90,13 +93,16 @@ h1.title {
     font-size: inherit;
     /* text-align: center; */
     color: inherit;
+    display: inline-flex;
+    /* gap: 0.5em; */
+    align-items: center;
 }
 
 header .outer-block {
     /* flex-grow: 1; */
     /* outline: solid 1px #444; */
     /* display: flex; */
-    grid-area: primary;
+    grid-area: 1/2/5/2;
 }
 
 header .block {
@@ -129,19 +135,19 @@ header .block {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     display: grid;
-    grid-auto-columns: 1fr 1fr 0fr;
+    /* grid-auto-columns: 1fr 1fr 0fr; */
     grid-template-columns: 0.3fr 1.4fr 0.3fr;
-    grid-template-rows: 75vh;
+    grid-template-rows: 83vh;
     gap: 0px 0px;
-    grid-template-areas:
-        ". primary .";
+    /* grid-template-areas:
+        ". primary ."; */
 }
 
-.demo-container {grid-area: 1/2/1/4;display: flex;user-select: none;/* background: #85303070; */pointer-events: auto;}
+.demo-container {grid-area: 1/2/5/4;display: flex;user-select: none;/* background: #85303070; */pointer-events: auto;}
 
 .demo-container canvas {
     outline: solid 1px #444;
-    width: 55%;
+    width: 100%;
     /* height: 37%; */
     /* aspect-ratio: auto; */
     /* flex-grow: 1; */
@@ -178,9 +184,10 @@ header .block {
 .pinpoint-container {
     /* outline: solid 1px red; */
     /* outline-offset: -1px; */
-    grid-area: 1/1/1/3;
+    grid-area: 1/1/4/3;
     display: flex;
     justify-content: flex-end;
+    /* justify-content: center; */
     align-items: center;
     user-select: none;
     pointer-events: none;
@@ -190,5 +197,19 @@ header .block {
     border: solid 1px;
     /* min-height: 0.4em; */
     /* min-width: .4em; */
-    margin: 0 20%;
+    margin: 9vh 20% 0;
+}
+
+.grid-footer {
+    /* border: solid 1px; */
+    min-height: 7vh;
+    grid-area: 3/1/4/4;
+    /* border-top: solid 2px #000; */
+}
+
+.grid-footer-2 {
+    /* border-top: solid 2px #000; */
+    min-height: 10vh;
+    grid-area: 4/1/4/4;
+    z-index: -1;
 }

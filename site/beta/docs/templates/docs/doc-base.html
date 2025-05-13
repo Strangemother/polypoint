@@ -16,7 +16,9 @@
                         font-pack-roboto+mono
                         font-rubik-500 letter-spacing-.1px'>
 
+    {% block navbar %}
     {% include "./header.html" %}
+    {% endblock navbar %}
     <main>
         <header>
             {% block header_block %}

@@ -40,6 +40,10 @@ Polypoint.head.mixin('Point', {
         get() {
             return this._draggable
         }
+
+        , set(v) {
+            this._draggable = false
+        }
         // value: {
         // }
     }
@@ -136,7 +140,9 @@ class Dragging extends Distances {
         // if(this.withinBufferZone(this.downPointDistance)) {
         //     this.onEdgeStartHandler(ev)
         // } else {
+        if(this._near.draggable){
             this.onDragStartHandler(ev, this._near)
+        }
         // }
 
     }

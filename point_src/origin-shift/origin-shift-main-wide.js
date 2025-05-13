@@ -1,23 +1,23 @@
-// const conf = originShiftConfigs.small({
-//     rows: 20
-//     , cols: 20
-//     , lineWidth: 2
-//     , lineColor: '#999'
-//     , gap: 5
-//     , pointSpread: 15
-//     /* Player spot. */
-//     , originColor: '#eeaadd'
-//     , lineCap: 'square'
-//     , drawPosition: true
-//     , drawTip: false
-// })
-// const conf = originShiftConfigs.large()
-const conf = originShiftConfigs.maze({
-    drawPosition: false
-    , drawTip: false
-    , rows: 20
+const conf = originShiftConfigs.small({
+    rows: 20
     , cols: 20
+    , lineWidth: 2
+    , lineColor: '#999'
+    , gap: 5
+    , pointSpread: 15
+    /* Player spot. */
+    , originColor: '#eeaadd'
+    , lineCap: 'square'
+    , drawPosition: false
+    , drawTip: false
 })
+// const conf = originShiftConfigs.large({})
+// const conf = originShiftConfigs.maze({
+//     drawPosition: false
+//     , drawTip: false
+//     , rows: 20
+//     , cols: 20
+// })
 
 // const conf = originShiftConfigs.small() // large()
 let os = new OriginShift(conf);
@@ -332,7 +332,7 @@ class MainStage extends Stage {
         // tip.pen.line(ctx, p, )
         // tip.pen.fill(ctx, '#333', 3)
         tip.pen.line(ctx, p, get('lineColor'), get('lineWidth'))
-        tip.pen.fill(ctx, undefined, 3)
+        // tip.pen.fill(ctx, undefined, 3)
     }
 
     drawPosition(ctx, p, tip, isOrigin){
@@ -341,7 +341,7 @@ class MainStage extends Stage {
 
     /* Draw the _tip_ of a projection. */
     drawTip(ctx, p, tip) {
-        tip.pen.circle(ctx, conf.tipRadius, conf.tipColor, conf.tipWidth)
+        // tip.pen.circle(ctx, conf.tipRadius, conf.tipColor, conf.tipWidth)
     }
 
     drawOriginNode(ctx) {

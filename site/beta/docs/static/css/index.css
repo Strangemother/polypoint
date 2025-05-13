@@ -15,7 +15,22 @@ main h2 {
     margin: 1rem 0rem;
 }
 
+.logo {
+    position: fixed;
+    top: 0em;
+    padding: 0;
+}
 
+.logo > a {
+    font-size: 3em;
+    /* font-family: 'Noto Serif'; */
+    font-weight: 700;
+    text-decoration: none;
+    padding: 3rem 3rem;
+    display: inline-flex;
+    /* line-height: 0.9em; */
+    color: #b32bb6;
+}
 
 header.primary {
     /* border: solid; */
@@ -37,6 +52,7 @@ header.primary ul li a {
     text-decoration: none;
     color: inherit;
     padding: 0.2em 1em;
+    padding: 0.6em 0.9em;
     display: inline-flex;
 }
 
@@ -69,7 +85,7 @@ header.primary ul li a {
   justify-self: stretch;
   align-self: center;
   grid-area: nav;
-  max-width: 1000px;
+  /* max-width: 1000px; */
 }
 
 .primary .left {grid-area: left;/* border-right: solid 1px #333; */}
@@ -173,18 +189,20 @@ main p code, main ul code, main ol code {
 
 
 .outer-block.info-block {
-    border: solid 2px #000;
-    min-height: 51vh;
+    /* border: solid 2px #000; */
+    min-height: 60vh;
     justify-content: center;
     display: flex;
     flex-direction: column;
 }
 
-.info-block h2 {
+.info-block h2, .info-block h1 {
     font-size: 4rem;
     margin: 0;
     font-family: 'Noto Serif';
     display: inline-flex;
+    line-height: 1.2em;
+    padding: 0 0 0.5em 0;
 }
 
 .info-block blockquote {
@@ -192,6 +210,7 @@ main p code, main ul code, main ol code {
     padding: 0;
     font-size: 2rem;
     font-weight: 100;
+    font-weight: 400;
     background: none;
     border: none;
 }
@@ -205,8 +224,138 @@ main p code, main ul code, main ol code {
 .info-block .block {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    flex-direction: row;
 }
 
 .info-block blockquote p {
     margin: 0;
+    line-height: 1.2;
 }
+
+
+.info-container {
+    /* border: solid 1px; */
+    flex-grow: 1;
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.info-sibling {
+    /* border: solid 1px #000; */
+    flex-grow: 1;
+    flex-basis: 50%;
+}
+
+.info {
+    flex-basis: 47%;
+    max-width: 50em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    /* gap: 1em; */
+}
+
+main .outer-block.info-block {
+    justify-content: initial;
+    flex-direction: revert;
+}
+
+.flip .info-container {
+    flex-direction: row-reverse;
+}
+
+.info > p {
+    font-size: 1.3rem;
+    color: #7c7c7c;
+    font-weight: 400;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.info > p + p {
+    /* margin: 0; */
+}
+
+
+
+.nav-container {
+    grid-area: 1/1/1/4;
+    /* background: #000; */
+}
+
+.nav-container header.primary {
+    z-index: 0;
+    position: unset;
+    background: #050005;
+    background: inherit;
+    border-bottom: solid 1px #111;
+    padding-bottom: 0em;
+}
+
+.nav-container .header-container {
+    grid-template-columns: 0.3fr 1.4fr 0.3fr;
+    margin: 2em 0px 0;
+    padding: 0.5rem 0;
+}
+
+.nav-container .primary .nav {
+    /* grid-area: primary; */
+    left: -1.3em;
+    position: relative;
+}
+
+.color-grade {
+    background: linear-gradient(155deg, #000000,#0a0a0a);
+    grid-area: 1/1/4/4;
+}
+
+main .outer-block.primary-highlight.info-block {
+    min-height: auto;
+    justify-content: center;
+    border-bottom: dashed 2px #222;
+    flex-direction: column;
+    padding-bottom: 10vh;
+}
+
+.box-item .text-container h3 {
+    font-size: 5em;
+    margin: 0;
+    font-family: 'Noto Serif';
+    /* background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%); */
+    /* -webkit-background-clip: text; */
+    background-clip: text;
+    /* -webkit-text-fill-color: transparent; */
+    /* margin: 20% 1rem; */
+    /* margin: 5% 0px; */
+}
+
+.logo > a .words {
+    max-width: 0em;
+    overflow: hidden;
+    transition: max-width 0.5s ease-out, opacity 0.4s ease-out;
+    opacity: 0;
+}
+
+.logo:hover > a .words {
+    max-width: 5em;
+    opacity: 1;
+}
+
+.quick-links a svg {
+    width: 1em;
+    height: 1em;
+    /* display: block; */
+    fill: #c7c7c7;
+    /* scale: 0.2; */
+}
+
+.quick-links a svg path {
+    /* width: 1em; */
+    /* height: 1em; */
+    scale: 0.2;
+}
+
+.quick-links ul li a.github-link {padding: 0.9rem 1.7rem 0.9rem 1.2rem;gap: 0.8em;}

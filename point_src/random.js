@@ -102,10 +102,18 @@ class Random {
     }
 
     color(h=360, s=100, l=100) {
-        /* Return a random `hsl` color string, */
-        let deg = random.int(h)
-        let sat = random.int(s)
-        let lig = random.int(l)
+        /* Return a random `hsl` color string,
+
+            random.color()
+            random.color(360, 100, 100)
+            random.color(360, [30, 100], [60,100])
+
+        */
+        let ri = random.int.bind(random)
+        let ia = Array.isArray
+        let deg = ia(h)? ri(h[0], h[1]): ri(h)
+        let sat = ia(s)? ri(s[0], s[1]): ri(s)
+        let lig = ia(l)? ri(l[0], l[1]): ri(l)
         return `hsl(${deg}deg ${sat}% ${lig}%)`
     }
 }

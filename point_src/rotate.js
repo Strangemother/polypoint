@@ -101,9 +101,21 @@ class Pseudo3d {
         this.parent = parent
     }
 
-    orthogonal(spin, center=this.parent.centerOfMass()){
+    orthogonal(spin, center=this.parent.centerOfMass(), projection=200, perspectiveCenter=undefined) {
         let spunPoints = pseudo3DRotate(this.parent, spin, center, true)
-        return PointList.from(spunPoints).map(p=>new Point(p))
+        perspectiveCenter = perspectiveCenter == undefined? center: perspectiveCenter
+        let cc = spunPoints.map(point => {
+            const factor = 1// distance / (distance + point.z);
+
+            // return {
+                point.x = (point.x * factor) + perspectiveCenter.x
+                point.y = (point.y * factor) + perspectiveCenter.y
+                // , z: (point.z ) + z
+                // , radius: point.radius * factor
+        });
+
+        // return PointList.from(spunPoints).map(p=>new Point(p))
+        return PointList.from(spunPoints).cast()
     }
 
     perspective(spin, center=this.parent.centerOfMass(), projection=200, perspectiveCenter=undefined) {

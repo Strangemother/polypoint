@@ -1,0 +1,8 @@
+to gain the _lowest_ point on a spline
+
+Take the demoninator of the tagent derivative and test it against the ground truth. Step the tangent point in the direction relatively towards the tangent plane.
+
+By performing this over a delta we can _slide_ a point along a spline to discover its optimal resting point, relative to a compass direction.
+
++ The default _down_ is the relative compass direction.
++ Using `examples/tangent-derivative` base

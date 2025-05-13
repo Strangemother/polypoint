@@ -11,20 +11,21 @@ Polypoint.head.installFunctions('Stage', {
         /* Called by the global `resize` event listener when a resize occurs.
         Perform a debounced resize event.
         */
-        if(!this.debounceResize) { return this.resize() }
+        if(!this.debounceResize) { return this.resize(event) }
 
         if(this.resizeTimer != undefined) { clearTimeout(this.resizeTimer) }
         this.resizeTimer = setTimeout(this.resize.bind(this), this.debounceResizeTimeout)
     }
 
-    , resize() {
+    , resize(event, rectSize) {
         /* Test the dimensions of the canvas and _stick_ the DOM width and height.
         Emit a resize event within the inner event framework containing
         the new cached dimesions
         */
-        let dimensions = this.dimensions = this.stickCanvasSize(this.canvas)
+        let dimensions = this.dimensions = this.stickCanvasSize(this.canvas, rectSize)
         console.log('dimensions resize event')
         this.events && this.events.emit('resize', dimensions)
+        this.onResize && this.onResize(event)
         return this.dimensions
     }
 

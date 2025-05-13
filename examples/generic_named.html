@@ -34,7 +34,7 @@
                     {% include './generic_named/download_image_app.html' %}
                 </div>
                 <div class="canvas-container">
-                    <div class="playspace-container">
+                    <div class="playspace-container stick-canvas">
                         {% block canvas_container %}
                         <canvas id="playspace"></canvas>
                         {% endblock canvas_container %}
@@ -118,15 +118,18 @@
 
     {% link.js "examples/js/petite-vue.iife.js" "defer" %}
     {% link.js "examples/js/mountable.js" "defer" %}
+
     {% link.js "examples/js/apps/memory-tool-app.js" %}
     {% link.js "examples/js/apps/widget-app.js" %}
     {% link.js "examples/js/apps/button-app.js" %}
+
     {% link.js "examples/js/global-error-handler.js" %}
     {% link.js "examples/js/global-error-app.js" "defer" %}
     {% link.js "examples/js/apps/file-view.js" %}
     {% link.js "examples/js/apps/dimensions-app.js" "defer" %}
     {% link.js "examples/js/apps/installs-logger-app.js" "defer" %}
     {% link.js "examples/js/apps/logger-app.js" "defer" %}
+    {% link.js "examples/js/apps/download-app.js" "defer" %}
 
     {% if metadata %}
         {% for filepath in metadata.clean_files %}

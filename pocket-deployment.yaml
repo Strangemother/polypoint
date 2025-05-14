@@ -1,9 +1,24 @@
+####
+#
+# Primary config. Use to associate this app with the config.
+# deployment assets exist in deployment/
+#
+#####
 # Default capture name: "pocket-deployment.yaml"
 
 # the source path to pull from
 git_url: 'git@github.com:Strangemother/polypoint.git'
 # The branch to fetch on update.
-git_branch: HEAD
+git_branch: main
 # The target directory containing the fetched source.
 # relative from this file directory
 path: .
+# the env directory, usually outside the source, relative to the
+# source code dir.
+# code dir (a sibling)
+## env_dir: ..
+# The name of the environment folder, inside env_dir
+## env_name: env
+
+# Deployment assets, relative to the project root
+## deployment_assets_dir: "deployment/"

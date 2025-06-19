@@ -94,11 +94,11 @@ class MainStage extends Stage {
             this.blast()
         }
         e3.wake()
+
         e3.lifetime = ()=>Math.random() *  e3.radius
         // e3.speed = 20
         e3.particleSpeed = ()=>1+(Math.random() * 3)
         this.e3 = e3
-
         this.dragging.add(e3)
         e3.draggable = false
     }
@@ -108,9 +108,27 @@ class MainStage extends Stage {
         this.e3.xy = [random.int(100, 800), random.int(100, 600)]
     }
 
+    drawBlast(ctx){
+        let es = [this.e3]
+        es.forEach(e=>{
+            // e.cycle()
+            e.step()
+            e.rotation += (e.speed || 0)
+            // e.lookAt(this.mouse.point)
+            e.pen.circle(ctx, undefined, e.color)
+            // e.text.fill(ctx, e.length)
+
+            e.points.forEach(p=>{
+                // ctx.beginPath()
+                p.pen.fill(ctx, e.color)
+                // ctx.stroke()
+            })
+            // e.points.pen.circle(ctx)
+        })
+    }
+
     draw(ctx){
         this.clear(ctx)
-        let es = [this.e3]
         // let es = [this.e1, this.e2, this.e3]
         this.fps.drawFPS(ctx)
 
@@ -119,23 +137,7 @@ class MainStage extends Stage {
         ctx.font = `400 16px sans-serif`;
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-
-        es.forEach(e=>{
-            // e.cycle()
-            e.step()
-            e.rotation += (e.speed || 0)
-            // e.lookAt(this.mouse.point)
-            e.pen.circle(ctx)
-            // e.text.fill(ctx, e.length)
-
-            e.points.forEach(p=>{
-                // ctx.beginPath()
-                p.pen.fill(ctx)
-                // ctx.stroke()
-            })
-            // e.points.pen.circle(ctx)
-        })
-
+        this.drawBlast(ctx)
         // this.point.pen.fill(ctx, '#880000')
     }
 }

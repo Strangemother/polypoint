@@ -20,7 +20,7 @@ A very pinnable verlet constraint chain for a rope-like catenary solution.
 */
 
 // const distance = 5;
-const gravity2D = {x:0, y:8.9};
+const gravity2D = {x:0, y:-8.9};
 const gravity = 0.35;
 const friction = 0.9;
 
@@ -34,7 +34,6 @@ class MainStage extends Stage {
         this.points.forEach((p)=>{
             p.update({vx: 0, vy:0 })
         })
-
     }
 
     /*  GPT 4.5 absolutely knocked it out the park.*/
@@ -44,22 +43,23 @@ class MainStage extends Stage {
         this.gravity = .31;
         this.gravity2D = gravity2D
 
+        let initPos = this.center.copy()
         this.points = Array.from({ length: this.numPoints }, () => ({
-            x: this.mouse.point.x,
-            y: this.mouse.point.y,
-            oldX: this.mouse.point.x,
-            oldY: this.mouse.point.y,
+            x: initPos.x,
+            y: initPos.y,
+            oldX: initPos.x,
+            oldY: initPos.y,
         }));
 
         // this.points[9].invMass = .01
         this.points = new PointList(...this.points).cast()
-        this.points.last().invMass = 2
+        this.points.last().invMass = .2
         this.dragging.add(this.points[0])
 
         this.ropeReactor = new RopeReactor()
         this.ropeReactor.mouse = this.mouse
+        this.points[0].copy(initPos.subtract(120,120))
         this.ropeReactor.pin(0)
-        this.points[0].xy = [40,40]
     }
 
     draw(ctx) {
@@ -76,18 +76,18 @@ class MainStage extends Stage {
         // this.solveConstraints1(this.points, this.segmentLength);
         // this.solveConstraints2(this.points, this.segmentLength);
         ropeReactor.solveConstraints3(this.points, this.segmentLength);
-        ctx.fillStyle = '#666'
+        ctx.fillStyle = '#999'
         ctx.font = 'normal 30px lexend deca'
         ctx.textAlign = 'center'
         // this.points.pen.indicator(ctx);
         this.points.pen.quadCurve(ctx);
-        let penUlt = this.points[this.points.length - 3]
+        let penUlt = this.points[this.points.length - 5]
         let last = this.points.last()
         this.points[0].pen.indicator(ctx)
         last.lookAt(penUlt, Math.PI *.5)
         // last.pen.indicator(ctx)
         penUlt.pen.indicator(ctx)
-        last.text.label(ctx, 'polypoint')
+        last.text.label(ctx, 'Polypoint')
     }
 
 }

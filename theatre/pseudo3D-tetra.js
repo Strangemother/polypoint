@@ -325,6 +325,7 @@ class MainStage extends Stage {
             )
         let maxDepth = this.depth
         let deepColor = 600
+        this.zFix && this.spunPoints.sortByZ()
         this.spunPoints.forEach((p, i)=>{
             let z = p.z
             let red = deepColor - ((z / maxDepth) * deepColor)
@@ -333,7 +334,6 @@ class MainStage extends Stage {
             let color = `hsl(${red} 66% 35%)`
             p.color = color
         })
-        this.zFix && this.spunPoints.sortByZ()
         // this.perspectiveCenter = this.spunPoints.copy().add(0, 0)
 
 

@@ -15,6 +15,11 @@ files:
     ../point_src/automouse.js
     ../point_src/relative.js
     ../point_src/keyboard.js
+    ../point_src/screenwrap.js
+
+The arrow keys pushes the ship in a frictionless 2D space.
+
+Keydown performs an `impartOnRads` to _push_ the ship in the pointing direction
 */
 
 // Function to convert angle to velocity vector
@@ -30,9 +35,9 @@ class MainStage extends Stage {
     canvas = 'playspace'
     mounted() {
         console.log('mounted')
+        // this.screenwrap = new ScreenWrap
         this.mouse.position.vy = this.mouse.position.vx = 0
         this.a = new Point({ x: 200, y: 200, vx: 0, vy: 0})
-
 
         this.keyboard.onKeydown(KC.UP, this.onUpKeydown.bind(this))
         this.keyboard.onKeyup(KC.UP, this.onUpKeyup.bind(this))
@@ -58,9 +63,6 @@ class MainStage extends Stage {
     performPower(){
         if(this.powerDown === true) {
             /* Applied here, bcause a spaceship only applied force when the thottle is on.*/
-            // console.log('power', this.power)
-            // this.power += .008
-            // this.impart(this.power)
             this.impart(.01)
             return
         }
@@ -100,11 +102,7 @@ class MainStage extends Stage {
     }
 
     onDownKeydown(ev) {
-        // this.speed -= .1
         this.reverseDown = true
-        // this.speed -= 1
-        // this.a.relative.backward(20)
-        // this.a.relative.forward(-20)
     }
 
     onDownKeyup(ev) {
@@ -145,8 +143,8 @@ class MainStage extends Stage {
         it's likely you'll always drift
         (in the direction of radians - like a leaky engine) */
         // this.impart(this.power)
-
         this.addMotion(a, this.speed)
+        this.screenWrap.perform(a)
         this.performPower()
     }
 

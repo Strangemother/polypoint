@@ -160,7 +160,7 @@ class MainStage extends Stage {
     canvas = 'playspace'
 
     mounted(){
-        this.screenWrap = new ScreenWrap()
+        // this.screenWrap = new ScreenWrap()
         this.screenWrap.setDimensions({top: -50, left: -50, bottom: 900, right: 900})
         this.delta = 1
         this.doClear = true

@@ -1,4 +1,5 @@
 /*
+title: CollisionBox Class
 categories: collisions
 files:
     ../point_src/core/head.js

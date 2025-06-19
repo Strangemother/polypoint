@@ -14,22 +14,20 @@ files:
 Plotting captures the XY RAD ROT of a point upon request, and stashes it in a
 pointlist. This is useful for timestep captures such as spline walks.
 
- */
-class MainStage extends Stage {
-    // canvas = document.getElementById('playspace');
-    canvas = 'playspace'
+*/
 
-    mounted(){
-        // this.dragging.add(...this.points)
-        // this.events.wake()
-        this.points = new PointList;
-    }
+class TimedPlotter {
 
     maxDistance = 50
     projectionSpread = .3
     minSpeed = 20
+    drawingLine = false
 
-    onMousedown(ev) {
+    constructor(){
+        this.points = new PointList;
+    }
+
+    start(point) {
         let delta = Infinity
         if(this.mouseUpTime) {
             delta = +(new Date) - this.mouseUpTime
@@ -46,25 +44,20 @@ class MainStage extends Stage {
         this.walkTicker = undefined
 
         this.drawingLine = true
-        this.startLine(Point.from(ev))
+        this.startLine(point)
     }
 
-    onMouseup(ev) {
+    stop(point) {
         // console.log('stop draw')
         this.drawingLine = false
-        this.stopLine(Point.from(ev))
+        this.stopLine(point)
         this.mouseUpTime = +(new Date)
-    }
-
-    onMousemove(ev) {
-        if(this.drawingLine) {
-            this.tickFunc()
-        }
     }
 
     startLine(point) {
         /* Start a line at a position*/
         this.line = new PointList(point)
+        this.step(point)
         this.walkTicker = setInterval(this.tickFunc.bind(this), 50)
     }
 
@@ -74,10 +67,10 @@ class MainStage extends Stage {
         this.walkTicker = undefined
     }
 
-    tickFunc() {
+    tickFunc(mp=undefined) {
         /* Tick event,
         if the distance is greater than the existing, add point.*/
-        let mp = this.mouse.point
+        mp = mp || this.mouse.point
         let l = this.points
         let last = l.last()
         let perform = true;
@@ -94,9 +87,41 @@ class MainStage extends Stage {
         }
     }
 
+    step(mp) {
+        if(this.drawingLine) {
+            this.tickFunc(mp)
+        }
+    }
+
+}
+
+
+class MainStage extends Stage {
+    // canvas = document.getElementById('playspace');
+    canvas = 'playspace'
+
+    mounted(){
+        this.plotter = new TimedPlotter()
+        this.plotter.mouse = this.mouse
+    }
+
+    onMousedown(ev) {
+        this.plotter.start(Point.from(ev))
+    }
+
+    onMouseup(ev) {
+        this.plotter.stop(Point.from(ev))
+    }
+
+    onMousemove(ev) {
+        let mp = this.mouse.point
+        this.plotter.step(mp)
+    }
+
     draw(ctx){
         this.clear(ctx)
-        this.points.pen.indicator(ctx, {color: '#555'})
+        this.plotter.points.pen.indicator(ctx, {color: '#555'})
+        // this.plotter.points.pen.quadCurve(ctx, {color: '#555'})
 
     }
 }

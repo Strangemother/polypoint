@@ -94,9 +94,14 @@ class MainStageOffScreenNoPrimary extends Stage {
 }
 
 class MainStageOffScreenContext extends Stage {
-    /* In this format we Install an "offscreen canvas" as the primary rendering unit.
+    /* In this format we Install an "offscreen canvas" as the primary
+    rendering unit.
 
-    the `copyToOnScreen` copies the offScreen canvas into the visible onscreen canvas.
+    the `copyToOnScreen` copies the offScreen canvas into the
+    visible onscreen canvas.
+
+    The offscreen canvas is the same size as the original, therefore no
+    scaling occurs.
     */
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
@@ -144,6 +149,6 @@ class MainStageOffScreenContext extends Stage {
 
 
 
-stage = MainStageOffScreenContext.go()//{ loop: false })
+// stage = MainStageOffScreenContext.go()//{ loop: false })
 // stage = MainStageOffScreenNoPrimary.go()//{ loop: false })
-// stage = MainStage.go()//{ loop: false })
+stage = MainStageOffScreenDirect.go()//{ loop: false })

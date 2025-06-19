@@ -11,9 +11,13 @@ files:
     ../point_src/functions/clamp.js
     ../point_src/text/beta.js
     ../point_src/functions/rel.js
-
 ---
+The _red_ gauge presents a raw `Math.random()`. The _green_ gauge presents
+a random with a calculated bias, to correct the long-term drift of a random
+function.
 
+Over time you'll see the unbiased gauge slowly drift away from a zero summation, where the
+biased gauge always tends towards zero.
  */
 
 
@@ -101,7 +105,7 @@ class MainStage extends Stage {
 
         let r2 = this.roll(b)
         b.total += r2
-        b.biasOffset += b.total * correction
+        b.biasOffset += (b.total * correction) * (Math.sqrt(correction ?? 1)*1000)
         b.rotation += (1 * r2)
     }
 

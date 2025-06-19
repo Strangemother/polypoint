@@ -54,8 +54,8 @@ class MainStage extends Stage {
             , y = 300
 
         this.points = new PointList(
-            new Point(x, y, pj)
-            , new Point(x2, y, pj)
+            new Point(x, y, pj, 90)
+            , new Point(x2, y, pj, 90)
         )
 
         this.eggPoints = new PointList(

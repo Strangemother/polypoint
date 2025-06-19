@@ -16,6 +16,7 @@ files:
     dragging
     ../point_src/table.js
     ../point_src/cluster.js
+    ../point_src/velocity.js
     stroke
     mouse
  */
@@ -27,6 +28,7 @@ points.forEach(p => {
     p.vy = 0
     p.radius = 5
 })
+
 
 class MainStage extends Stage {
 
@@ -43,7 +45,9 @@ class MainStage extends Stage {
                 // func: clusterStable
             })
 
+        points.forEach(faceVelocity)
         target.pen.indicator(ctx, {color:'red'})
+        // points.pen.lines(ctx, 'red', {color:'#33aa99'})
         points.pen.indicators(ctx, {color:'#33aa99'})
         points.centerOfMass().pen.indicator(ctx, {color: 'pink'})
     }

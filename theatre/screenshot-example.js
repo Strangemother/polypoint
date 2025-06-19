@@ -9,8 +9,9 @@ files:
     ../point_src/pointlist.js
     ../point_src/point.js
     ../point_src/stage.js
-    // ../point_src/capture/encoder.js
     ../point_src/screenshot.js
+    ../point_src/image-edge-detection.js
+    ../point_src/offscreen.js
 ---
 
 Download a screenshot of the stage using `stage.screenshot` methods.
@@ -31,6 +32,12 @@ class MainStage extends Stage {
             label: 'Download Image'
             , onclick(ev){
                 _this.screenshot.downloadImage("my-filename.jpg")
+            }
+        })
+        addButton('download-cropped', {
+            label: 'Download Cropped Image'
+            , onclick(ev){
+                _this.screenshot.downloadCroppedImage("my-filename.jpg", true)
             }
         })
     }

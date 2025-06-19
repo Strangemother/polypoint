@@ -34,8 +34,8 @@ class MainStage extends Stage {
         this.controlPointA = this.pointA.project()
         this.controlPointB = this.pointB.project()
 
-        this.dragging.add(this.pointB, this.pointA,
-                        this.controlPointA, this.controlPointB)
+        this.dragging.add(this.pointB, this.pointA,)
+                        // this.controlPointA, this.controlPointB)
 
         // this.controlPointA.onDragMove = this.updatePointsToControl.bind(this)
         // this.controlPointB.onDragMove = this.updatePointsToControl.bind(this)
@@ -56,8 +56,8 @@ class MainStage extends Stage {
             , x2 = width + x
             , y = 300
                         // x, y, width, rotation
-        this.pointA = new Point(x, y, pj)
-        this.pointB = new Point(x2, y, pj) // default rotation == 0 (looking right)
+        this.pointA = new Point(x, y, pj, 90)
+        this.pointB = new Point(x2, y, pj, 90) // default rotation == 0 (looking right)
 
         this.point0 = new Point(500, y, 100)
 
@@ -73,10 +73,10 @@ class MainStage extends Stage {
     }
 
     updatePointsToControl(){
-        this.pointA.lookAt(this.controlPointA)
-        this.pointB.lookAt(this.controlPointB)
-        this.pointA.radius = this.pointC.radius = this.pointA.distanceTo(this.controlPointA)
-        this.pointB.radius = this.pointD.radius = this.pointB.distanceTo(this.controlPointB)
+        // this.pointA.lookAt(this.controlPointA)
+        // this.pointB.lookAt(this.controlPointB)
+        this.pointC.radius = this.pointA.radius // = this.pointA.distanceTo(this.controlPointA)
+        this.pointD.radius = this.pointB.radius // = this.pointB.distanceTo(this.controlPointB)
 
         this.pointC.rotation = this.pointA.rotation + 180
         this.pointD.rotation = this.pointB.rotation + 180
@@ -99,8 +99,8 @@ class MainStage extends Stage {
 
 
         // // Nice bright control point for the bezier curve
-        this.controlPointA.pen.fill(ctx, '#33DDAA')
-        this.controlPointB.pen.fill(ctx, '#33DDAA')
+        // this.controlPointA.pen.fill(ctx, '#33DDAA')
+        // this.controlPointB.pen.fill(ctx, '#33DDAA')
 
         let lineStroke = this.lineStroke
         lineStroke.set(ctx)

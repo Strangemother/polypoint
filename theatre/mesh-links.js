@@ -1,19 +1,15 @@
 /*
 files:
     ../point_src/math.js
-    ../point_src/core/head.js
-    ../point_src/pointpen.js
-    ../point_src/pointdraw.js
+    head
     ../point_src/point-content.js
-    ../point_src/pointlist.js
-    ../point_src/point.js
-    ../point_src/events.js
-    ../point_src/automouse.js
-    ../point_src/stage.js
+    pointlist
+    point
+    mouse
+    stage
     ../point_src/extras.js
     ../point_src/random.js
-    ../point_src/setunset.js
-    ../point_src/stroke.js
+    stroke
     ../point_src/functions/clamp.js
     ../point_src/distances.js
     ../point_src/dragging.js
@@ -111,29 +107,11 @@ class MainStage extends Stage {
          */
         let s = this.stroke
         s.set(ctx)
-        let points = Array.from(pointMap.values())
-        everyEvery(points, (a,b)=> a.pen.line(ctx, b));
+        let points = PointList.from(pointMap.values())
+        points.everyEvery((a,b)=> a.pen.line(ctx, b));
         s.unset(ctx)
     }
 }
 
-/* todo: map to Pointlist.every.pair or somat. */
-const everyEvery = function(points, func) {
-    // let points = Array.from(pointMap.values())
 
-    let complete = new Set();
-
-    points.forEach((e,i,a)=>{
-        points.forEach((f,j)=> {
-            if(e.uuid == f.uuid) { return }
-            let v = e.iid + f.iid
-            if(complete.has(v)) {
-                return
-            }
-            complete.add(v)
-            // e.pen.line(ctx, f)
-            func(e,f)
-        })
-    })
-}
 stage = MainStage.go()

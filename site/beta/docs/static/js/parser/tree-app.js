@@ -8,6 +8,14 @@ let treeApp = PetiteVue.createApp({
         return tree.result.classes
     }
 
+    , getTree() {
+        return tree.result
+    }
+
+    , getTreeComments() {
+        return tree.comments
+    }
+
     , get firstClass() {
         return Object.values(this.getClasses())[0]
     }

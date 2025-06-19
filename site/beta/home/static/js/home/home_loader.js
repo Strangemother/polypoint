@@ -62,6 +62,7 @@ const polypointFundamentalsLoaded = function() {
         installPolypointsLoaders()
         console.log('Point Loaded');
         let mainDisplay = '/examples/theatre/pseudo3D-cube-2.js';
+        // let mainDisplay = '/examples/theatre/grid-flag.js';
         // let mainDisplay = '/examples/theatre/pseudo3D-sphere.js';
         // let mainDisplay = '/examples/theatre/pseudo3D-tetra.js';
         // Polypoint.head.load("/examples/theatre/arc-angles.js")

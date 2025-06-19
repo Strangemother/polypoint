@@ -1,6 +1,8 @@
 {% load link %}
 <div class="doc_import-list">
-    <p>File imports discovered within the "docs_imports" meta key (including meta imports)</p>
+    {% if point_files %}
+        <p>doc imports:</p>
+    {% endif %}
     <ul class="display-table">
         {% for item in point_files %}
         <li class="display-table-row">

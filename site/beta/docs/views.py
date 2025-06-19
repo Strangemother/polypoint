@@ -116,7 +116,6 @@ class ExampleDoc3PageView(ExamplePageView):
         return r
 
 
-
 class FileParseView(views.TemplateView):
     """Show a source presentation - reading the file meta and presenting an import."""
     template_name = 'docs/file-parser.html'

@@ -10,7 +10,7 @@ class DownloadApp extends Mountable {
 
     downloadLinkClick(e) {
         console.log('Link click')
-        let filename =  "my-filename.jpg"
+        let filename = this.getFilename()
         if(!stage?.screenshot?.downloadImage) {
             console.log('Installing screenshot')
             Polypoint.head.load('../point_src/screenshot.js', ()=>{
@@ -18,6 +18,30 @@ class DownloadApp extends Mountable {
             })
         } else {
             stage.screenshot.downloadImage(filename)
+        }
+    }
+
+    getFilename() {
+        let filename =  this.$refs.filename.value ?? "my-filename.png"
+        return filename;
+    }
+    downloadCroppedLinkClick(e) {
+
+        let filename = this.getFilename()
+        let bgColor = this.$refs.bg_check.checked? '#080808': undefined;
+        if(!stage?.screenshot?.downloadCroppedImage) {
+            console.log('Installing screenshot')
+            let files = [
+                "../point_src/screenshot.js",
+                "../point_src/image-edge-detection.js",
+                "../point_src/offscreen.js",
+            ]
+
+            Polypoint.head.load(files, ()=>{
+                stage.screenshot.downloadCroppedImage(filename, bgColor)
+            })
+        } else {
+            stage.screenshot.downloadCroppedImage(filename, bgColor)
         }
     }
 

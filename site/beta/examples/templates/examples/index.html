@@ -14,7 +14,8 @@
     <select name="orderby" id='orderby'>
         <option selected>Ordering</option>
         {% for o in view.orders %}
-            <option value="{{ o.0 }}">{{ o.1 }}</option>
+            <option value="{{ o.0 }}" {% if view.get_orderby == o.0 %}selected=selected{% endif %}>{{ o.1 }}</option>
+
         {% endfor %}
     </select>
     <div class="right">
@@ -25,6 +26,7 @@
 </div>
 {% js "examples/js/index.js" %}
 {% css "examples/css/index.css" %}
+
 
 <div class="outer-block">
     <div class="block">
@@ -39,6 +41,15 @@
 
         <ul class='example-list'>
             {% for obj in object_list %}
+            <li>
+                {% with ordering=view.get_orderby %}
+                    {% if ordering == 'name' %}
+                        {% ifchanged %}<h3>{{ obj.0.0 }}</h3>{% endifchanged %}
+                    {% elif ordering == 'modified' %}
+
+                    {% endif %}
+                {% endwith %}
+            </li>
             <li>
                 {% link "examples:file_example" obj.0 obj.0 %}
             </li>

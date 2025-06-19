@@ -68,6 +68,7 @@ Delete the line below if you're just getting started and want to remove the welc
     <div class="demo-container">
         <div class="demo-inner-container pinned-demo">
             <canvas id="playspace"></canvas>
+
             {% comment %}
                 <polypoint-canvas id=foo1 src='../point_src'>
                     <load-files>
@@ -79,6 +80,11 @@ Delete the line below if you're just getting started and want to remove the welc
             {% include "./iframe_src.html" with editor=False src_partial='pseudo3D-sphere.js' %}
              {% endcomment %}
         </div>
+    </div>
+    <div class="demo-buttons-container">
+        <a href="#" class="prev">Previous</a>
+        <a href="#" class="shuffle">shuffle</a>
+        <a href="#" class="next">Next</a>
     </div>
     <div class="grid-footer"></div>
     <div class="grid-footer-2"></div>

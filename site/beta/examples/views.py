@@ -31,6 +31,11 @@ class ExampleIndexTemplateView(views.ListView):
         )
 
     template_name = 'examples/index.html'
+
+    def get_orderby(self):
+        orderby = self.request.GET.get('orderby', None)
+        return orderby
+
     def get_queryset(self):
         """
         Return the list of items for this view.

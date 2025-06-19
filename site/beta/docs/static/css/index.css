@@ -8,7 +8,7 @@
 }
 
 main h2 {
-    background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, #4a3fde 77%);
+    background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -26,7 +26,7 @@ main h2 {
     /* font-family: 'Noto Serif'; */
     font-weight: 700;
     text-decoration: none;
-    padding: 3rem 3rem;
+    padding: 2rem 3rem;
     display: inline-flex;
     /* line-height: 0.9em; */
     color: #b32bb6;
@@ -359,3 +359,13 @@ main .outer-block.primary-highlight.info-block {
 }
 
 .quick-links ul li a.github-link {padding: 0.9rem 1.7rem 0.9rem 1.2rem;gap: 0.8em;}
+
+.demo-buttons-container {
+    grid-area: 1/3/4/2;
+    /* background: #3636367a; */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-left: 50%;
+    gap: 2em;
+}

@@ -346,17 +346,17 @@ span.material-symbols-outlined {
     color: inherit;
 }
 
-.download-image a {
+.download-content-app a {
     text-decoration: none;
     color: inherit;
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
     display: inline-flex;
     align-items: center;
     gap: 0.2em;
-    color: #555;
+    /* color: #555; */
     /* border: solid 1px; */
     padding: 2px 6px 2px 4px;
-    border-radius: 0.2em;
+    /* border-radius: 0.2em; */
 }
 
 .header-tools.extra-buttons {
@@ -396,4 +396,169 @@ polypoint-canvas {
     /* display: inline-flex; */
     min-height: 100px;
     min-width: 100px;
+}
+
+.download-image {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    /* left: 0em; */
+    background: #111;
+    padding: 0.2rem 0 0.5em 0;
+}
+
+.download-content-app {
+    position: relative;
+}
+
+.download-content-app a:hover, .download-content-app a:focus {
+    text-decoration: underline;
+    color: unset;
+}
+
+.download-content-app a.primary-link {
+    padding: 0 0.8em;
+}
+
+.crop-form label {
+    display: flex;
+    color: inherit;
+    font-size: inherit;
+    gap: 0.6em;
+    align-content: center;
+    align-items: center;
+    padding: 0 1em;
+}
+
+.download-content-app {
+    color: #555;
+    font-size: .8rem;
+    /* display: none; */
+}
+
+.download-image > a {
+    gap: 0.6em;
+    padding: 0.1em 0.5em 0.1em 1em;
+}
+
+
+
+
+
+.checkbox-wrapper .switch {
+    appearance: none;
+    background-color: #080808;
+    border-radius: 3em;
+    border-style: none;
+    flex-shrink: 0;
+    height: 1em;
+    margin: 0;
+    position: relative;
+    width: 2em;
+  }
+
+  .checkbox-wrapper .switch::before {
+    bottom: -6px;
+    content: "";
+    left: -6px;
+    position: absolute;
+    right: -6px;
+    top: -6px;
+  }
+
+  .checkbox-wrapper .switch,
+  .checkbox-wrapper .switch::after {
+    transition: all 100ms ease-out;
+  }
+
+  .checkbox-wrapper .switch::after {
+    background-color: #323232;
+    border-radius: 50%;
+    content: "";
+    height: 0.8em;
+    left: 0.1em;
+    position: absolute;
+    top: 0.1em;
+    width: 0.8em;
+  }
+
+  .checkbox-wrapper input[type=checkbox] {
+    cursor: default;
+  }
+
+  .checkbox-wrapper .switch:hover {
+    background-color: #686868;
+    transition-duration: 0s;
+  }
+
+  .checkbox-wrapper .switch:checked {
+    background-color: #a72dba;
+  }
+
+  .checkbox-wrapper .switch:checked::after {
+    background-color: #080808;
+    left: 1.1em;
+  }
+
+  .checkbox-wrapper :focus:not(.focus-visible) {
+    outline: 0;
+  }
+
+  .checkbox-wrapper .switch:checked:hover {
+    background-color: #702072;
+  }
+
+
+
+
+
+.checkbox-wrapper {
+    display: flex;
+}
+
+.crop-form {
+    padding: 0.6em 0.3em 0.3em 0em;
+    border-top: solid 1px #080808;
+    margin: 0.6em 0 0 0;
+}
+
+.download-image .left-cell {
+    flex-basis: 2em;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+}
+
+
+
+
+.download-content-app .download-image {
+    display: none;
+}
+
+.download-content-app:hover .download-image,
+.download-content-app:focus .download-image, 
+.download-content-app:focus-within .download-image{
+    display: flex;
+}
+
+.filename-input input[type="text"] {
+    background: #222;
+    border: none;
+    color: inherit;
+    font: inherit;
+    padding: 0.4em 0em .4em 1em;
+    display: inline-flex;
+    width: 1em;
+    flex-basis: 50%;
+    flex-grow: 1;
+    margin: 0 0 0.5em 0;
+}
+
+input[type="text"]:focus {
+    outline: solid 1px #000;
+}
+
+.download-image .filename-input {
+    display: flex;
 }

@@ -1,12 +1,54 @@
 {% load link %}
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=crop,download" />
+{# <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=download" /> #}
+
 {% verbatim %}
-<div id="download_image_app" class="download-image">
-    <a href="javascript:;" @click=downloadLinkClick>
+
+<div class="download-content-app" id="download_image_app" >
+    <a href="javascript:;" class="primary-link" @click=downloadLinkClick>
         <span class="material-symbols-outlined">download</span>
         <span class="label">Download</span>
     </a>
+    <div class="download-image">
+        <div class="filename-input">
+            <input type="text" ref="filename" value="{% endverbatim %}{{part_name}}{% verbatim %}.png">
+        </div>
+        <a href="javascript:;" @click=downloadLinkClick>
+            <span class="left-cell">
+                <span class="material-symbols-outlined">download</span>
+            </span>
+            <span class="right-cell">
+                <span class="label">Full</span>
+            </span>
+        </a>
+        <a href="javascript:;" @click=downloadCroppedLinkClick>
+            <span class="left-cell">
+                <span class="material-symbols-outlined">crop</span>
+            </span>
+            <span class="right-cell">
+                <span class="label">Crop</span>
+            </span>
+        </a>
+
+        <div class="crop-form">
+            <label class="background-option">
+                <span class="left-cell">
+
+                    <div class="checkbox-wrapper">
+                        <!-- <input type="checkbox" name="apply-background" checked=checked> -->
+                        <input type="checkbox"
+                            class="switch"
+                            ref='bg_check'
+                            name="apply-background"
+                            checked=checked>
+                    </div>
+                </span>
+                <span class="right-cell">
+                    <span class="label">Background</span>
+                </span>
+            </label>
+        </div>
+    </div>
 </div>
 {% endverbatim %}
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=download" />

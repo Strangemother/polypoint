@@ -181,7 +181,7 @@ class Positionable extends Relative {
         const internalValue = this._opts[key];
         let r = internalValue == undefined? defaultValue: internalValue
         r = isFunction(r)? r(this, key): r
-        let relVal = relIndex? this.getRelativeData()[relIndex]: 0
+        let relVal = relIndex != undefined? this.getRelativeData()[relIndex]: 0
         return r + relVal
     }
 
@@ -273,6 +273,7 @@ class Positionable extends Relative {
     }
 
     multiply(other) {
+
         if(typeof(other) == 'number') {
             other = point(other, other)
         }
@@ -307,52 +308,6 @@ class Positionable extends Relative {
 
     lerp = this.midpoint
 
-    randomize(px, y) {
-        /* Perform random() on the X and Y.
-
-        If a point is given, randomize to the _max_ of the given point
-        If a single number is given, assume _square_
-        If no params are given, discover the stage size.
-
-        Use `Point.random()` for the same form, as a new point
-
-            let p = new Point()
-            p.randomize(100, 400)
-            p.randomize(100) // 100, 100
-            p.randomize(new Point(100, 400)) // 100, 400
-
-        if one of the keys is undefined, no change occurs:
-
-            p.setXY(500,700)
-            p.randomize(100, undefined) // 100, 700
-            p.randomize(undefined, 400) // 500, 400
-
-            p.randomize(undefined, undefined) // 500, 700 // no change occurs.
-
-        Note; no params will randomize as much as possible (the stage size)
-
-            p.randomize() // 800, 600
-
-        Other features would be nice:
-
-        + random in rect (like stage):
-
-            p.randomize(rect|dimensions)
-
-        + Randomize other values, e.g radius, colors
-
-            p.randomize(['x', 'y', 'radius', 'mass'])
-
-            // randomize x to max 400, radius to max 50
-            p.randomize({ x: 400, radius: 50})
-
-        + In the future, the _origin_; randomize relative to a point:
-
-            p.randomize({point, relative: true})
-
-        */
-
-    }
 }
 
 
@@ -384,7 +339,7 @@ class Rotation extends Positionable {
     }
 
     get rotation() {
-        return this.getSpecial('rotation', 3, UP_DEG)
+        return this.getSpecial('rotation', 3)
     }
 
     get radians() {
@@ -412,7 +367,18 @@ class Rotation extends Positionable {
 
     directionTo(otherPoint, rotationMultiplier=undefined, addRad=0) {
         // Calculate the differences in x and y coordinates
-        const delta = otherPoint.subtract(this);
+        let delta = 0
+        try {
+            delta = otherPoint.subtract(this);
+        } catch(e) {
+            if(!isPoint(otherPoint)) {
+                otherPoint = new Point(otherPoint)
+                delta = otherPoint.subtract(this);
+            } else {
+                throw e
+            }
+
+        }
         if(rotationMultiplier != undefined) {
             let normRad = this._normalizedRadians(otherPoint, rotationMultiplier, addRad)
             return normRad

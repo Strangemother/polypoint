@@ -80,6 +80,11 @@ const polypointFileAssets = function(js='') {
             , `${js}pointdraw.js#pointdraw`
             , `${js}point.js#point`
         ]
+        , screenshot: [
+            `${js}image-edge-detection.js`
+            , `${js}offscreen.js`
+            , `${js}screenshot.js`
+        ]
         , everything: [
             'head'
             // , 'pointlist'

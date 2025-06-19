@@ -12,6 +12,14 @@ class PointDraw {
         ctx.arc(p.x, p.y, r<0?0:r, start, end, direction)
     }
 
+    ellipse(ctx, rx,ry, radians, start=0, end=Math.PI2) {
+        let p = this.point;
+        let r = radians === undefined? p.radians: radians;
+
+        ctx.ellipse(p.x, p.y, rx, ry, r, start, end)
+        // ctx.ellipse(p.x, p.y, r, start, end)
+    }
+
     circle(ctx, radius) {
         return this.arc(ctx, radius)
     }
@@ -19,6 +27,7 @@ class PointDraw {
     line(ctx, distance=this.point.radius) {
         /* draw a line from the current point position to the length of
         the given `distance`. */
+        debugger
     }
 
     hair(ctx, length) {

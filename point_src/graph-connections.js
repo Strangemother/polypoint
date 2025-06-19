@@ -164,6 +164,22 @@ class GraphConnections {
         this.forward[b].push(a)
     }
 
+    getChain(fromId, func) {
+        let g = this.forward
+
+        let entries = g[fromId]
+
+        if(entries == undefined) {
+            func(fromId, true)
+            return
+        }
+
+        for(let k of entries) {
+            func(fromId, false)
+            this.getChain(k, func)
+        }
+    }
+
     walkForward(fromId, func, previousId, count=0, maxCount) {
         let g = this.forward
         if(maxCount == undefined) { maxCount = 11 }
@@ -204,4 +220,48 @@ class GraphConnections {
         }
 
     }
+}
+
+
+class DirectionalGraphConnections extends GraphConnections {
+
+    add(a, b) {
+        /* Add forward.
+
+        this builds the following:
+
+        {
+            "0": [1 ],
+            "1": [0, 2 ],
+            "2": [1, 3, 5],
+            "3": [2, 4],
+            "4": [3 ],
+            "5": [2, 6],
+            "6": [5 ]
+        }
+
+        For connections, we walk (from a key numer) in a direction, generating pairs.
+        Some keys will fork - but that should generated the connected pair set.
+
+        e.g, pulling '3',
+
+            3 -> 2, 4
+                    4 -> [3]      <= not executed,
+                 2 -> 1, [3], 5   <= skip 3, as "2"
+                      1 -> 0, 2   <= skip 2, as "1"
+                             ...
+        */
+        if(this.forward[a] == undefined) {
+            this.forward[a] = []
+        }
+
+        this.forward[a].push(b)
+
+        // if(this.forward[b] == undefined) {
+        //     this.forward[b] = []
+        // }
+
+        // this.forward[b].push(a)
+    }
+
 }

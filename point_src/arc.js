@@ -8,13 +8,12 @@ Draw arc:
 
 a.pen.arc(ctx, b, primaryColor, size, 2, 0)
 
-
 */
 
 
 class PointArc {
-    constructor(pointpen) {
-        this.parent = pointpen.parent
+    constructor(parent) {
+        this.parent = parent
     }
 
     fromTo(fromPoint, toPoint, direction){
@@ -27,6 +26,17 @@ class PointArc {
         /* Sweep through a rad amount, e.g. PI. */
         let centerPoint = this.parent
         return arcSweep(centerPoint, radSweep, direction)
+    }
+
+    to(other, through) {
+        /*
+          stage.fromPoint.arc.to(stage.toPoint, stage.centerPoint)
+        */
+        // let xyr = getArcCenter(this.parent, through, other)
+        let xyr = getArcCenterThrough(this.parent, through, other)
+        return xyr
+        // return arcFromTo(new Point(xyr),this.parent,  other)
+        // return arcFromTo(new Point(xyr))
     }
 
     though(a, centerPoint, b) {
@@ -45,6 +55,88 @@ Polypoint.head.deferredProp('Point',
         return new PointArc(this)
     }
 );
+
+
+function getArcCenter(A, B, C) {
+    /* the circumcircle,
+    draw an arc that fits all three.
+    */
+    const D = 2 * (A.x * (B.y - C.y) +
+                   B.x * (C.y - A.y) +
+                   C.x * (A.y - B.y));
+
+    if (D === 0) return null; // points are colinear; no circle
+
+    const Ux = (
+      ((A.x ** 2 + A.y ** 2) * (B.y - C.y) +
+       (B.x ** 2 + B.y ** 2) * (C.y - A.y) +
+       (C.x ** 2 + C.y ** 2) * (A.y - B.y)) / D
+    );
+
+    const Uy = (
+      ((A.x ** 2 + A.y ** 2) * (C.x - B.x) +
+       (B.x ** 2 + B.y ** 2) * (A.x - C.x) +
+       (C.x ** 2 + C.y ** 2) * (B.x - A.x)) / D
+    );
+
+    return { x: Ux, y: Uy, radius: Math.hypot(A.x - Ux, A.y - Uy)};
+}
+
+
+/**
+ * Compute the circle through A,B,C and the angles you need
+ * so that, by swapping start/end when needed, you can always
+ * call ctx.arc(cx, cy, r, start, end) (no anticlockwise flag)
+ * and get the SHORT arc that goes through B.
+ */
+function getArcCenterThrough(A, B, C) {
+    // 1) Circum-center
+    const D = 2 * (A.x*(B.y - C.y) + B.x*(C.y - A.y) + C.x*(A.y - B.y));
+    if (D === 0) return null;  // colinear
+
+    const Ux = (
+      ((A.x*A.x + A.y*A.y)*(B.y - C.y) +
+       (B.x*B.x + B.y*B.y)*(C.y - A.y) +
+       (C.x*C.x + C.y*C.y)*(A.y - B.y)) / D
+    );
+    const Uy = (
+      ((A.x*A.x + A.y*A.y)*(C.x - B.x) +
+       (B.x*B.x + B.y*B.y)*(A.x - C.x) +
+       (C.x*C.x + C.y*C.y)*(B.x - A.x)) / D
+    );
+    const r = Math.hypot(A.x - Ux, A.y - Uy);
+
+    // 2) Angles from center to A, B, C
+    const aA = Math.atan2(A.y - Uy, A.x - Ux);
+    const aB = Math.atan2(B.y - Uy, B.x - Ux);
+    const aC = Math.atan2(C.y - Uy, C.x - Ux);
+
+    // 3) Figure out if B lies on the CCW-sweep from A to C
+    //    If it does, the minor arc is CCW; otherwise it’s CW.
+    let ccwHits;
+    if (aA < aC) {
+      ccwHits = (aA <= aB && aB <= aC);
+    } else {
+      // wrap at +π/−π
+      ccwHits = (aA <= aB || aB <= aC);
+    }
+
+    // 4) We want the MINOR arc.  If B is on the CCW sweep,
+    //    then the minor arc is CCW; else it’s CW.
+    //    Since we’re forcing `anticlockwise=false`, we’ll swap
+    //    start/end whenever it should be CCW.
+    let start = aA, end = aC;
+    if (!ccwHits) [ start, end ] = [ end, start ];
+
+    return { cx: Ux, cy: Uy, radius: r, startRadians: start, toRadians: end };
+}
+
+/** Usage:
+ *   const {cx,cy,radius,startAngle,endAngle} = getArcCenterThrough(A,B,C);
+ *   ctx.beginPath();
+ *   ctx.arc(cx, cy, radius, startAngle, endAngle);
+ *   ctx.stroke();
+ */
 
 
 
@@ -191,32 +283,32 @@ const arcFromTo = function(centerPoint, fromPoint, toPoint, direction=0){
 
 
 function findThirdPoint(A, B) {
-  const dx = B.x - A.x;
-  const dy = B.y - A.y;
-  let r1 = A.radius
-  let r2 = B.radius
-  const d = Math.hypot(dx, dy);
+    const dx = B.x - A.x;
+    const dy = B.y - A.y;
+    let r1 = A.radius
+    let r2 = B.radius
+    const d = Math.hypot(dx, dy);
 
-  // No solution if distance is too big or too small
-  if (d > r1 + r2 || d < Math.abs(r1 - r2)) return [];
+    // No solution if distance is too big or too small
+    if (d > r1 + r2 || d < Math.abs(r1 - r2)) return [];
 
-  // Midpoint between circles
-  const a = (r1**2 - r2**2 + d**2) / (2 * d);
-  const h = Math.sqrt(r1**2 - a**2);
+    // Midpoint between circles
+    const a = (r1**2 - r2**2 + d**2) / (2 * d);
+    const h = Math.sqrt(r1**2 - a**2);
 
-  // Point P, along the line from A to B
-  const px = A.x + a * dx / d;
-  const py = A.y + a * dy / d;
+    // Point P, along the line from A to B
+    const px = A.x + a * dx / d;
+    const py = A.y + a * dy / d;
 
-  // Perpendicular offsets to find the intersection points
-  const rx = -dy * (h / d);
-  const ry =  dx * (h / d);
+    // Perpendicular offsets to find the intersection points
+    const rx = -dy * (h / d);
+    const ry =  dx * (h / d);
 
-  const intersection1 = { x: px + rx, y: py + ry };
-  const intersection2 = { x: px - rx, y: py - ry };
+    const intersection1 = { x: px + rx, y: py + ry };
+    const intersection2 = { x: px - rx, y: py - ry };
 
-  // Return both possibilities
-  return [intersection1, intersection2];
+    // Return both possibilities
+    return [intersection1, intersection2];
 }
 
 

@@ -40,6 +40,7 @@ function genericFunction2(argA, argB) {
     console.log('genericFunction2')
 }
 
+
 const constStoreFunction = function(){
     /* Generic function with no arguments, stored within a const. */
 }
@@ -49,8 +50,8 @@ import('./point-content.js')
 const res = import('./point.js', { entryType: 'live'})
 
 res.then(function(m){
+    /* A comment within the `res.then` anon function */
     console.log('Imported point.js', m, m.Point)
 })
-// debugger
 
-// export default function foo(){}
+/* The last block comment at the end of the file.*/

@@ -3,7 +3,7 @@ const oo6 = 1/60
 class SimTime {
     /*
         Sim Time provides an interface for hour, minute, second
-        clock additons.
+        clock additions.
 
             let st = new SimTime(16, 30, 0)
             st.add(1) // seconds
@@ -13,11 +13,12 @@ class SimTime {
             [15, 31, 41]
 
      */
-    constructor(hour, minute, seconds=0) {
+    constructor(hour, minute, seconds=0, milliseconds=0) {
         this.innerOffset = 0
         this._hour = hour
         this._minute = minute
         this._seconds = seconds
+        this._milliseconds = milliseconds
         this._cache = this.split(this.innerOffset)
     }
 
@@ -35,11 +36,14 @@ class SimTime {
         var divisor_for_seconds = divisor_for_minutes % 60;
         var second = Math.ceil(divisor_for_seconds);
 
+        const milliseconds = Math.floor((secs % 1) * 1000);
+
         var obj = {
-             hour,
-             minute,
-             second,
-             seconds:second
+            hour
+            , minute
+            , second
+            , seconds:second
+            , milliseconds
         };
         return obj;
     }
@@ -52,8 +56,20 @@ class SimTime {
         return this._minute + this._cache.minute
     }
 
+    get sweepMinute() {
+        return this.minute + (this.seconds/60)
+    }
+
     get seconds(){
         return this._seconds + this._cache.seconds
+    }
+
+    get sweepSeconds() {
+        return this.seconds + (this.milliseconds/1000)
+    }
+
+    get milliseconds(){
+        return this._milliseconds + this._cache.milliseconds
     }
 
     set hour(v){
@@ -66,6 +82,10 @@ class SimTime {
 
     set minute(v){
         return this._minute = v
+    }
+
+    set milliseconds(v){
+        return this._millseconds = v
     }
 
 }
@@ -131,12 +151,19 @@ class Hands {
         return (initRotation + minutArc) % 360
     }
 
-    getSecondHand(initRotation=0, seconds=0) {
+    getSecondHand(initRotation=0, seconds=0, milliseconds=1, easingFunction) {
         /* The second hand only needs the current tick, and we convert it
         to a clock face rotation.  */
         let secondDecimal = seconds / 60;
         let secondArc = 360 * secondDecimal;
-        return (initRotation +  secondArc) % 360
+        let res = (initRotation +  secondArc) % 360
+
+        if(easingFunction) {
+            let easedMs = easingFunction(milliseconds * .001)
+            return this.getSecondHand(initRotation, seconds - 1 + easedMs)
+        }
+
+        return res
     }
 
     getSecondHandRad(initRadians=0, seconds=0) {
@@ -144,7 +171,7 @@ class Hands {
         to a clock face rotation.  */
         let secondDecimal = seconds / 60;
         let secondArc = (Math.PI * 2) * secondDecimal;
-        return (initRadians + secondArc)
+        return initRadians + secondArc
     }
 
 }

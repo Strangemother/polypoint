@@ -17,7 +17,9 @@ https://github.com/timohausmann/quadtree-js/blob/master/quadtree.js
 https://timohausmann.github.io/quadtree-js/dynamic.html
 
 
+---
 
+https://mammothmemory.net/index.html
 
 ---
 
@@ -54,6 +56,12 @@ then stepping _back_ into the radius of the previous point, converts it to a gho
 singleton classes for drawing tools
 
 + rather than a point spawn a new pen, use an existing one with an altered context.
+
+---
+
+nice graphic:
+
+https://youtube.com/clip/UgkxiKfkSjNHyIWjTIYc9iaOw7J6mnjGbIiB?si=KAfBn2FsmyF-WO7I
 
 ---
 

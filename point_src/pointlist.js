@@ -1,4 +1,7 @@
-
+/*
+files:
+    unpack.js
+ */
 
 const pointArray = function(count=5, distance=10) {
     let res = new PointList
@@ -272,17 +275,27 @@ class PointListGenerator {
         return this.list(count, rand)
     }
 
-    grid(count, rowCount, spread, pos) {
-        let points = this.list(count)
+    grid(pointCount, rowCount, pointSpread, gridPosition) {
+        let d = unpack0(arguments, {
+            count: null
+            , rowCount: 10
+            , spread: undefined
+            , position: undefined
+        })
+
+        let points = this.list(d.count)
+        let spread = d.spread
+        let pos = d.position
+
         if(spread==undefined) {
-            spread = count;
+            spread = d.count;
         }
 
         if(pos == undefined){
             pos = {x: spread, y: spread}
         }
 
-        this._gridTool = points.shape.grid(spread, rowCount, pos)
+        this._gridTool = points.shape.grid(spread, d.rowCount, pos)
         return points;
     }
 
@@ -576,8 +589,6 @@ class GridTools {
 
         return res.sort((a, b) => a - b);
     }
-
-
 }
 
 
@@ -1057,6 +1068,33 @@ class PointList extends LazyAccessArray {
             target.x = res[0]
             target.y = res[1]
             // p.rotate(rot)
+        })
+    }
+
+
+    everyEvery(func) {
+        /*
+        Iterate every point against every point.
+        This is useful for point to point connection
+
+            points.everyEvery(function(a,b){
+            })
+        */
+        const points = this;
+        // let points = Array.from(pointMap.values())
+        let complete = new Set();
+
+        points.forEach((e,i,a)=>{
+            points.forEach((f,j)=> {
+                if(e.uuid == f.uuid) { return }
+                let v = e.iid + f.iid
+                if(complete.has(v)) {
+                    return
+                }
+                complete.add(v)
+                // e.pen.line(ctx, f)
+                func(e,f)
+            })
         })
     }
 

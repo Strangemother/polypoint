@@ -7,6 +7,60 @@ A `Vector` is very similar to a `Point`, but is referenced within a point throug
  */
 
 
+class VelocityReactor {
+    constructor(){
+        this.tick  = 0
+    }
+
+    step() {
+        /* perform a tick for every interval, creating points, and pushing
+        existing points */
+        this.tick += 1
+
+        this.points.forEach((p)=>{
+            p.x += p.vx
+            p.y += p.vy
+        })
+    }
+
+    setAll(direction) {
+        // this.reactor.setAll(direction)
+        this.points.forEach(p=>{
+            p.velocity.set(direction.x,direction.y)
+        })
+    }
+
+    setEach(f){
+        // this.reactor.setEach((p)=>random.xy())
+        this.points.forEach(p=>{
+            let direction = f(p)
+            p.velocity.set(direction.x,direction.y)
+        })
+    }
+
+    randomize(){
+        this.setEach((p)=>random.xy.apply(random, arguments))
+    }
+}
+
+
+function faceVelocity(p) {
+    const vx = p.velocity.x;
+    const vy = p.velocity.y;
+    // skip if not moving
+    if (vx === 0 && vy === 0) return;
+
+    // atan2 gives you radians from the +x-axis, CCW positive
+    const angleRad = Math.atan2(vy, vx);
+
+    // convert to degrees
+    const angleDeg = angleRad * (180 / Math.PI);
+
+    // assign to your display object’s rotation (assuming 0° faces right)
+    p.rotation = angleDeg;
+}
+
+
 class Vector {
 
     constructor(x=0, y=0, parent=undefined) {
@@ -131,6 +185,10 @@ class Vector {
 
     //  Instance methods
     set(x, y) {
+        if(arguments.length == 1) {
+            y = x.y
+            x = x.x
+        }
         this.x = x; this.y = y;
     }
 

@@ -86,7 +86,7 @@ class OriginShift {
     move(count=1, addData) {
         for (var i = count - 1; i >= 0; i--) {
             // this.randomMove(addData)
-            this.randomMove2(addData)
+            this.randomMove(addData)
         }
     }
 

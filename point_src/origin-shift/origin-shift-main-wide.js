@@ -36,7 +36,8 @@ const addControls = function(){
         addButton('walk', {
              onclick(){
                 console.log('click')
-                stage.walk(stage.largeWalk, random.color());
+                // stage.walk(stage.largeWalk, random.color());
+                stage.walk(stage.largeWalk);
             }
         });
 
@@ -122,7 +123,7 @@ class MainStage extends Stage {
 
         this.walkers = [
             new Walker(os, 1)
-            , new Walker(os, os.pointList.length - 3)
+            // , new Walker(os, os.pointList.length - 3)
         ]
         this.paths = new Array(this.walkers.length)
 
@@ -290,6 +291,7 @@ class MainStage extends Stage {
     }
 
     walk(count=1000, color=undefined) {
+        // os.shift(count)
         os.shift(count, color? {color}: {})
         this.draw(this.ctx)
     }

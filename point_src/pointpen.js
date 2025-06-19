@@ -75,6 +75,13 @@ class PointPen {
     }
 
     line(ctx, otherPoint, color, width) {
+        let al = arguments.length
+        // let data = unpack(arguments, {
+        //             otherPoint: undefined
+        //             , color: undefined
+        //             , width: undefined
+        //         })
+
         this._quickStroke(ctx, ()=>{
             if(otherPoint == undefined){
                 otherPoint = this.point.project()
@@ -94,6 +101,22 @@ class PointPen {
             this.point.draw.arc(ctx, distance, start, end, direction)
 
         }, color, width)
+    }
+
+    ellipse(ctx, other, color, radRotation=this.point.radians, strokeWidth=1) {
+        let p = this.point
+        let start = other.start ?? 0
+        let end = other.end ?? 2 * Math.PI
+         start = start - (other.relative? 0:  p.radians)
+         end = end - (other.relative? 0:  p.radians)
+        this._quickStroke(ctx, ()=>{
+            this.point.draw.ellipse(ctx,
+                    other.width, other.height,
+                    r.radians,
+                    start,
+                    end)
+            // this.point.draw.arc(ctx, distance, start, end, direction)
+        }, color, strokeWidth)
     }
 
     stroke(ctx, radius=undefined) {

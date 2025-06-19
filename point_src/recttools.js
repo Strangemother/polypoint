@@ -1,4 +1,9 @@
 const twoPointBox = function(a, b, func) {
+    /* Given two points, return 4 lines
+
+        let lines = twoPointBox(this.squishA, this.squishB)
+        lines.forEach(l=>l.render(ctx))
+    */
     let asLine = func || function(c, d) {
         let l = new Line(c, d)
         l.doTips = false
@@ -148,7 +153,6 @@ class RectTools extends DOMRect {
         // return (cornerDistance_sq <= (p.radius^2));
     }
 }
-
 
 
 

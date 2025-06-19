@@ -1,3 +1,12 @@
+
+let tryInheritColor = function(item, v) {
+    if(v == 'inherit') {
+        return item.color || undefined
+    }
+    return v
+}
+
+
 class PointListPen {
 
     constructor(pointList) {
@@ -48,6 +57,18 @@ class PointListPen {
         // ctx.stroke()
     }
 
+    lines(ctx, color='inherit', width) {
+
+        let eachPoint = (item, arcDrawF) =>{
+                item.project().pen.line(ctx, item, tryInheritColor(item, color), width)
+                ctx.beginPath();
+                // arcDrawF(item)
+                // quickStrokeWithCtx(ctx, tryInheritColor(item, cc), cw)
+            }
+
+        this.points(ctx, eachPoint)
+    }
+
     indicator() {
         return this.indicators.apply(this, arguments)
     }
@@ -77,12 +98,6 @@ class PointListPen {
         let cc = def?.circle?.color || def?.color || def?.line?.color || defaultCircleColor
         let cw = def.width || def?.circle?.width
 
-        let tryInheritColor = function(item, v) {
-            if(v == 'inherit') {
-                return item.color || undefined
-            }
-            return v
-        }
 
         let eachPoint = (item, arcDrawF) =>{
                 item.project().pen.line(ctx, item, tryInheritColor(item, lc), lw)

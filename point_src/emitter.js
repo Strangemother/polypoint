@@ -52,7 +52,12 @@ class Emitter extends Point {
 
     wake() {
         this.points = new PointList
-        this.direction = new Point(this.direction)
+        // this.direction = new Point(this.direction)
+    }
+
+    getDirection(){
+
+        return new Point(isFunction(this.direction)? this.direction(): this.direction)
     }
 
     step() {
@@ -106,7 +111,10 @@ class Emitter extends Point {
         let p = (fromEdge?this.project():this).copy()
         let v = this.particleSpeed //* (3 * Math.random())
         if(isFunction(v)) {v = v()}
-        let FORWARD = this.direction
+
+        // let FORWARD = {x: random.float(-1,1) ,y:0} // this.direction
+        // let FORWARD =  this.direction
+        let FORWARD = this.getDirection()
         // create a vector in the direction of the nose
         // x=1 as forward is across to the right (0deg) by default.
         const rotatedDir = impartOnRads(this.radians, FORWARD)
@@ -143,7 +151,11 @@ class LineEmitter extends Emitter {
 
     radiusVariant = 2
     minSize = 5
+    maxSize = 10
     directionVariant = 5
+    baseRadius = 5
+    baseSpeed = 1
+    lifetimeVariant = 2
 
     wake() {
         this.index = 0
@@ -165,7 +177,7 @@ class LineEmitter extends Emitter {
         let p = template.copy()
         let v = this.particleSpeed //* (3 * Math.random())
 
-        let FORWARD = this.direction
+        let FORWARD = new Point(random.choice([-1, 1]), 0)// this.direction
         // create a vector in the direction of the nose
         // x=1 as forward is across to the right (0deg) by default.
         const rotatedDir = impartOnRads(p.radians, FORWARD)
@@ -177,7 +189,7 @@ class LineEmitter extends Emitter {
 
         p.update({
             age: 0
-            , radius: 5// 1 + Math.random() * 10
+            , radius: this.baseRadius// 1 + Math.random() * 10
             , lifetime: lifetime// * Math.random()
             , vx: rotatedDir.x * v
             , vy: rotatedDir.y * v
@@ -198,20 +210,26 @@ class LineEmitter extends Emitter {
     pump(point, birthIndex, birthrate) {
         let partial = birthIndex / birthrate
         let v = ((1+ partial) * (1+birthIndex)  * Math.random()) * this.directionVariant
-        let s = ((1+ partial) * (1+birthIndex)  * Math.random()) * 1
+        let s = ((1+ partial) * (1+birthIndex)  * Math.random()) * this.baseSpeed
         point.rotation += v * (Math.random()>.488? -1: 1)
 
 
-        let FORWARD = this.direction
+        // let FORWARD = this.direction
+        let FORWARD = this.getDirection()
+
         // create a vector in the direction of the nose
         // x=1 as forward is across to the right (0deg) by default.
         const rotatedDir = impartOnRads(point.radians, FORWARD)
 
         point.update({
-            radius: clamp(random.int(this.radius * this.radiusVariant), this.minSize, 10)
+            radius: clamp(
+                        random.int(this.radius * this.radiusVariant)
+                        , this.minSize
+                        , this.maxSize
+                    )
             , vx: rotatedDir.x * s
             , vy: rotatedDir.y * s
-            , lifetime: point.lifetime * (Math.random() * 2)
+            , lifetime: point.lifetime * (Math.random() * this.lifetimeVariant)
         })
 
         return point

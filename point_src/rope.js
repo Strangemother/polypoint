@@ -9,8 +9,8 @@ class RopeReactor {
     gravity = 0.35;
 
     constructor(pins={}, dynamicPins=[]) {
-        this.pinnedPositions = pins
-        this.dynamicPins = dynamicPins
+        this.pinnedPositions = pins == undefined? {}: pins
+        this.dynamicPins = dynamicPins== undefined? {}: dynamicPins
     }
 
     getPinIndicies(points) {
@@ -80,7 +80,7 @@ class RopeReactor {
         const pl = points.last()
         let endPin = this.endPin
         const pinnedPositions = {
-            0: this.mouse.point
+            // 0: this.mouse.point
             // , [~~(points.length *.5)]: this.midPin
             // , [points.length - 1]: endPin
         };

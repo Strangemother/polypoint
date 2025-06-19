@@ -371,6 +371,21 @@ class StageRender extends StageBase {
         this._nextTick.add(func)
     }
 
+    onTick(tick, func) {
+        /* modulo auto */
+        if(this._tick == undefined) {
+            this._tick = 0
+        }
+
+        this.onDrawBefore(()=> {
+            this._tick++;
+
+            if(this._tick % tick  == 0) {
+                func()
+            }
+        })
+    }
+
     onDrawAfter(func) {
         this._drawAfter.push(func)
     }

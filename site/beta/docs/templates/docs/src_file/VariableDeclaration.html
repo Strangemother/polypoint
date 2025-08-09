@@ -1,0 +1,28 @@
+{% load strings %}
+
+<div>
+
+
+    {{ item.kind }} {{ item.word }}
+    {% if item.init.raw %}
+        = {{ item.init.raw }}
+    {% else %}
+        <div class="type">
+
+        type: {{ item.init.type }}
+        {% if item.init.type %}
+            {% str_merge './' item.init.type '.html' as inc_name %}
+            {% include inc_name with item=item %}
+        {% else %}
+            init: {{ item.init }}
+        {% endif %}
+        </div>
+    {% endif %}
+
+<small>{{ item.keys }}</small>
+
+</div>
+
+{% comment %}
+
+{% endcomment %}

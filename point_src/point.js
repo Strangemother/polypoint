@@ -186,7 +186,12 @@ class Positionable extends Relative {
     }
 
     set(x, y, radius, rotation) {
-
+        /*
+            set(x, y, radius, rotation)
+            set(100)    => x,y
+            set([])     => [x,y,radius, rotation]
+            set({})     => *
+        */
         const isUndefined = function(v) {
             return v === undefined
         }
@@ -231,6 +236,7 @@ class Positionable extends Relative {
         if(!isUndefined(radius)) {
             this.radius = radius
         }
+
         if(!isUndefined(rotation)) {
             this.rotation = rotation
         }
@@ -243,6 +249,7 @@ class Positionable extends Relative {
     }
 
     subtract(other, _2=other){
+        /* "subtract" this point to the _other_ point, returning a new point. */
         if(typeof(other) == 'number') {
             other = point(other, _2)
         }
@@ -251,6 +258,7 @@ class Positionable extends Relative {
     }
 
     add(other, _b,) {
+        /* "Add" this point to the _other_ point, returning a new point. */
         other = this._cast(other, _b)
 
         return new Point(
@@ -260,6 +268,7 @@ class Positionable extends Relative {
     }
 
     divide(other) {
+        /* "Divide" this point to the _other_ point, returning a new point. */
         if(typeof(other) == 'number') {
             other = point(other, other)
         }
@@ -273,7 +282,7 @@ class Positionable extends Relative {
     }
 
     multiply(other) {
-
+        /* "Multiply" this point to the _other_ point, returning a new point. */
         if(typeof(other) == 'number') {
             other = point(other, other)
         }

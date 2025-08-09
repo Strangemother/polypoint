@@ -75,7 +75,7 @@ class AutoMouse {
     such as adding a reference to the mouse. */
     stagePrepareHandler(ev) {
         let d = ev.detail
-        console.log('AutoMouse::stagePrepareHandler', d)
+        // console.log('AutoMouse::stagePrepareHandler', d)
         return this.announcementResponse(ev, false)
     }
 
@@ -136,7 +136,7 @@ class AutoMouse {
         if(this._methods) {
             return this._methods
         }
-        console.log('Setting up mouse events')
+        // console.log('Setting up mouse events')
         const methods = {
             mousemove: this.mousemoveHandler.bind(this)
             , mousedown: this.mousedownHandler.bind(this)

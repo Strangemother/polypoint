@@ -144,8 +144,13 @@ class Reader:
                 if require_class_comment is False:
                     continue
 
-                raw_comments = self.get_class_comments(class_block, end=method_def['coord'].start,
-                                block_comments=True, single_line=False)
+                # Grab the comments within the top of the class
+                # to the first [method] (or item) definition position.
+                raw_comments = self.get_class_comments(class_block,
+                                    end=method_def['coord'].start,
+                                    block_comments=True,
+                                    single_line=False
+                                )
                 comments = self.convert_comments(raw_comments)
                 class_block['comments'] = comments
                 require_class_comment = False

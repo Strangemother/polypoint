@@ -4,7 +4,7 @@ src_dir: ../point_src/
 categories: gravity
     raw
 files:
-    ../point_src/core/head.js
+    head
     ../point_src/pointpen.js
     ../point_src/pointdraw.js
     ../point_src/extras.js

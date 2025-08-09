@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rigid Body Physics - Engines with Independent Directions</title>
+  <style>
+    body { background: #111; }
+    canvas { background: #181818; display:block; margin:30px auto; }
+  </style>
+</head>
+<body>
+<canvas id="c" width="600" height="400"></canvas>
+<script>
+// --- Minimal Point and Utility Functions ---
+function point(x, y) { return {x: x, y: y}; }
+
+// --- RigidBody with independently-rotatable engines ---
+class RigidBody {
+  constructor(engines) {
+    this.engines = engines; // Array of points with x, y, radius, rotation
+    this.velocity = point(0, 0);
+    this.angularVelocity = 0;
+    this.position = point(300, 200); // Center of mass in world coords
+    this.rotation = 0; // radians
+
+    this.updateMassProperties();
+  }
+
+  updateMassProperties() {
+    let totalMass = 0, cx = 0, cy = 0;
+    for (const p of this.engines) {
+      totalMass += p.radius;
+      cx += p.x * p.radius;
+      cy += p.y * p.radius;
+    }
+    cx /= totalMass;
+    cy /= totalMass;
+    this.com = point(cx, cy);
+    this.totalMass = totalMass;
+
+    let I = 0;
+    for (const p of this.engines) {
+      const dx = p.x - cx, dy = p.y - cy;
+      I += p.radius * (dx*dx + dy*dy);
+    }
+    this.I = I || 1;
+  }
+
+  applyForceAtEngine(force, engineIdx) {
+    const p = this.engines[engineIdx];
+    const cosA = Math.cos(this.rotation), sinA = Math.sin(this.rotation);
+    const ex = this.position.x + (p.x - this.com.x) * cosA - (p.y - this.com.y) * sinA;
+    const ey = this.position.y + (p.x - this.com.x) * sinA + (p.y - this.com.y) * cosA;
+
+    this.velocity.x += force.x / this.totalMass;
+    this.velocity.y += force.y / this.totalMass;
+
+    const rx = ex - this.position.x, ry = ey - this.position.y;
+    const torque = rx * force.y - ry * force.x;
+    this.angularVelocity += torque / this.I;
+  }
+
+  update(dt) {
+    for (let i = 0; i < this.engines.length; ++i) {
+      const engine = this.engines[i];
+      // Calculate the actual world direction of the engine's thrust:
+      // totalAngle = body.rotation + engine's local rotation
+      const totalAngle = this.rotation + (engine.rotation || 0);
+      const thrust = engine.f; // fixed per engine for demo
+      const fx = thrust * Math.sin(totalAngle);
+      const fy = -thrust * Math.cos(totalAngle);
+
+      this.applyForceAtEngine({x: fx, y: fy}, i);
+    }
+    this.position.x += this.velocity.x * dt;
+    this.position.y += this.velocity.y * dt;
+    this.rotation += this.angularVelocity * dt;
+    this.velocity.x *= 0.995;
+    this.velocity.y *= 0.995;
+    this.angularVelocity *= 0.995;
+  }
+
+  draw(ctx) {
+    // Draw engines
+    for (const p of this.engines) {
+      // Calculate each engine's rotated position
+      const dx = p.x - this.com.x, dy = p.y - this.com.y;
+      const cosA = Math.cos(this.rotation), sinA = Math.sin(this.rotation);
+      const px = this.position.x + dx * cosA - dy * sinA;
+      const py = this.position.y + dx * sinA + dy * cosA;
+
+      // Draw engine circle
+      ctx.beginPath();
+      ctx.arc(px, py, p.radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = "orange";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Draw engine thrust direction
+      const totalAngle = this.rotation + (p.rotation || 0);
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(
+        px + 24 * Math.sin(totalAngle),
+        py - 24 * Math.cos(totalAngle)
+      );
+      ctx.strokeStyle = "#0ff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Draw center of mass
+    ctx.beginPath();
+    ctx.arc(this.position.x, this.position.y, 6, 0, 2 * Math.PI);
+    ctx.fillStyle = "#0f8";
+    ctx.fill();
+
+    // Draw orientation line
+    ctx.beginPath();
+    ctx.moveTo(this.position.x, this.position.y);
+    ctx.lineTo(
+      this.position.x + 40 * Math.sin(this.rotation),
+      this.position.y - 40 * Math.cos(this.rotation)
+    );
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+}
+
+// ---- Try engines at various orientations (edit these for fun!) ----
+// Four engines at corners, all facing "outward"
+const engines = [
+  point(-60, -30), // Top left
+  point(40, -30),  // Top right
+  point(60, 50),   // Bottom right
+  point(-90, 30)   // Bottom left
+];
+
+// Assign "mass" and local thrust angle to each
+engines[0].radius = 15; engines[0].rotation = 0;           // faces "up"
+engines[1].radius = 15; engines[1].rotation = Math.PI/2;   // faces "right"
+engines[2].radius = 15; engines[2].rotation = Math.PI;     // faces "down"
+engines[3].radius = 15; engines[3].rotation = -Math.PI/2;  // faces "left"
+
+engines.forEach(p=>p.f=0)
+engines[0].f = -15;
+engines[3].f = -5;
+// Try e.g. all engines face same way for classic rocket: set all .rotation = 0
+
+const body = new RigidBody(engines);
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+function frame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  body.update(1/60);
+  body.draw(ctx);
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

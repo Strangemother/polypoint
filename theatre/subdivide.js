@@ -27,9 +27,9 @@ class MainStage extends Stage {
     canvas='playspace'
     // live=false
     live = true
-    defaultRowCount = 20
+    defaultRowCount = 10
     rowCount = 20
-    spread = 30
+    spread = 40
     mounted(){
         /*this.points = new PointList(
                 [20, 20]

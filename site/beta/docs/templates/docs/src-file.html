@@ -170,6 +170,8 @@
                 </div>
                 {% endcomment %}
 
+                {% include "./src_file/methods-list.html" %}
+
                 {% comment "what" %}
                     List of all methods, discovered automatically.
 
@@ -177,6 +179,7 @@
 
                         {% get_doc_piece 'stage/0.md' %}
                 {% endcomment %}
+
                 <div class="methods-container">
                     {% for re_path in metadata.doc_content %}
                         {% iter_doc_pieces re_path ignore_readme=True %}

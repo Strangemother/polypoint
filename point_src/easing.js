@@ -163,9 +163,9 @@ const elasticEaseIn = function(t) {
     return Math.sin(13 * Math.PI / 2 * t) * Math.pow(2, 10 * (t - 1))
 }
 
-const elasticEaseOut = function(t) {
+const elasticEaseOut = function(t, p=-10) {
 
-    return Math.sin(-13 * Math.PI / 2 * (t + 1)) * Math.pow(2, -10 * t) + 1
+    return Math.sin(-13 * Math.PI / 2 * (t + 1)) * Math.pow(2, p * t) + 1
 }
 
 const elasticEaseInOut = function(t) {

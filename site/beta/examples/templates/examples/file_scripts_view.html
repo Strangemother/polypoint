@@ -1,0 +1,12 @@
+/*
+flatfile for the following:
+
+{% for path in metadata.clean_files %}
+    {{ path }}{% endfor %}
+
+*/
+{% spaceless %}
+{{ concat_content|safe }}
+{% endspaceless %}
+
+;

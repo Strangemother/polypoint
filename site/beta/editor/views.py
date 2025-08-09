@@ -57,6 +57,7 @@ class MicroRunOnlyView(IndexView):
             # del meta['markdown']
         return r
 
+
 class PointSrcAssetView(views.TemplateView):
     template_name = 'editor/blank.html'
 

@@ -176,6 +176,23 @@ class StageScreenWrap extends ScreenWrapCull {
     }
 
     cullBox(points, deletePointFunction, topLeft=this.topLeft, bottomRight=this.bottomRight) {
+        /* Cull to a box (the screen)
+
+                this.screenWrap.cullBox(
+                        this.walkers,
+                    )
+
+        Provide a custom delete point function, accepting a point
+        and manipulating the point list.
+                this.screenWrap.cullBox(
+                        this.walkers,
+                        this.walkers.remove.bind(this.walkers)
+                    )
+
+         */
+        if(deletePointFunction == undefined) {
+            deletePointFunction = points.remove.bind(points)
+        }
         points.forEach(p=>{
             this.performCull(p, topLeft, bottomRight, deletePointFunction)
         })

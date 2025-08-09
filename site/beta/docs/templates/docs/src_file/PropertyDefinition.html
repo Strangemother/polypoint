@@ -1,0 +1,59 @@
+
+
+<div class="property method-definition">
+
+    <div class="signature" data-inherited="class_name">
+        <a class='anchor' name='class_name-{{ item.word }}'></a>
+
+        <div class='method-head'>
+            <div class="item-kind-space">
+                <span class="class-method-kind kind-method_kind">
+                    {% firstof item.kind 'kind' %}
+                </span>
+            </div>
+            {% if item.static %}static{% endif %}
+            <h3 data-kind='method_kind'
+                data-key='class_name-{{ item.word }}'
+                class="class-method-name">{{ item.word }}</h3>
+        </div>
+
+        <div class="params">
+
+            {# for param in item.params #}
+                {# <span class="name">param_name</span> #}
+                {# if param.default_value #}
+                    <span>=</span>
+                    <span class="default-value">{{ item.value.raw }}</span>
+                {# endif #}
+                <span class="comma">,</span>
+            {# endfor #}
+        </div>
+
+        <div class="method-owner-class">
+            <span class="sub-text inherits">from</span>
+            <span class="owner-class-name">class_name</span>
+        </div>
+
+    </div>
+
+     <div class="comments">
+        <div class="tiny-label">{{item.raw_comments}}</div>
+
+        <div class="comment">
+            <small>{{ item.keys }}</small>
+        </div>
+        {% for comment in item.raw_comments.header %}
+            <div class="comment">
+                {{ comment.text|safe }}
+            </div>
+        {% endfor %}
+
+        {% for comment in item.raw_comments.inner %}
+            <div class="comment">
+                {{ comment.text|safe }}
+            </div>
+        {% endfor %}
+    </div>
+
+
+</div>

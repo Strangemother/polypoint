@@ -15,12 +15,19 @@ urlpatterns = urls.paths_named(views,
     theatre_src=('TheatreSrcAssetView', ('theatre/<path:path>',)),
     script_raw=('ScriptsRawImportView', 'script_list_raw/<str:name>/'),
     script_list=('ScriptsImportListView', 'script_list/<str:name>/'),
+    image_post_form=('ImagePostFormView', 'upload/image/'),
 
     clone_file=('CloneFileView', 'clone/<path:path>/',),
     rename_file=('RenameFileView', 'rename/<path:path>/',),
     # file_example_png=('ExampleExtFileView', '<path:path>.png/'),
     file_example_images=('ExampleFileImagesView', 'images/<path:path>/'),
+
+    ## View the file-list only.
+    file_example_scrips=('ExampleFileScriptsView', 'scripts/<path:path>/'),
+
+    # Catch-all
     file_example=('ExampleFileView', '<path:path>/'),
     file_example_html=('ExampleExtFileView', '<path:path>.html/'),
+
 )
 

@@ -34,16 +34,17 @@ def store_tree(filename, tree_data):
         'filename': filename,
         'store_dt': str(datetime.now()),
     }
+
     s = json.dumps(tree_data, indent=4)
 
     if save_path.parent.exists() is False:
         os.makedirs(save_path.parent)
     save_path.write_text(s)
 
-    generic_run(save_path,
-            filepath=filename,
-            src_dir=Path(settings.POLYPOINT_SRC_DIR),
-            output_dir=Path(settings.POLYPOINT_DOCS_DIR) / 'trees/clean/')
+    # generic_run(save_path,
+    #         filepath=filename,
+    #         src_dir=Path(settings.POLYPOINT_SRC_DIR),
+    #         output_dir=Path(settings.POLYPOINT_DOCS_DIR) / 'trees/clean/')
 
     # Then lets use a tree.
     # tree = Tree(save_path, src_dir=Path(settings.POLYPOINT_SRC_DIR))
@@ -147,7 +148,7 @@ def render_markdown(path, parent, clean_meta=False, meta_keys=None):
     return res
 
 
-def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js'):
+def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js', rel_prefix=None):
     """Attempt to parse the theatre file and other config locations
     to apply _metadata_ about the theatre file to the context.
 
@@ -371,7 +372,7 @@ def clean_files_list(metadata=None, deep_include=True, files=None, rel_prefix=No
 
         # Can be checked.
         ## print('- Reading', path)
-        mets = get_metadata(path, parent=parent_src_dir)#, meta_keys=None, ensure_suffix='.js')
+        mets = get_metadata(path, parent=parent_src_dir, rel_prefix=rel_prefix)#, meta_keys=None, ensure_suffix='.js')
         files = mets['clean_files']
 
         if len(files) == 0:

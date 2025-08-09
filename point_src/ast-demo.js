@@ -2,8 +2,74 @@
 This file presents a bunch of javascript for  _tree_ convert tool tes.t
 */
 
-class ParentClass extends Array {
+    /* stackItem1 A Multiline
+        block comment
+        for stackItem1 */
+const stackItem1 = 'foo' // stackItem1 inline comment for
+    , stackItem2 = 'bar'
+    , stackItem3 = true
+    /* stackItem4 block comment for */
+    , stackItem4 = 199
+    // stackItem5 inline comment for
+    , stackItem5 = undefined
+    ;
 
+
+/* Generic function with no arguments, stored within a const. */
+const constStoreFunction = function(){
+    /* Generic function with no arguments, stored within a const. */
+            this.clear(ctx)
+        let a = this.a;
+        let b = this.b;
+        // a.rotation += .3
+        // b.rotation += .5
+
+        let primaryColor = '#CCC'
+        let secondaryColor = '#444'
+        let size = 30
+
+
+        /* Draw an arc from rotation of `a` to rotation `b` */
+        a.pen.arc(ctx, b, primaryColor, size, 2, 0)
+        a.pen.arc(ctx, b, secondaryColor, size-10, 2, 1)
+
+        b.pen.arc(ctx, a, secondaryColor, size, 2, 0)
+
+        a.pen.indicator(ctx)
+        b.pen.indicator(ctx)
+}
+
+
+/* Generic function outside with no arguments, stored within a const. */
+var varStoreFunction = function( x = 0, y = 0 ){
+    /* Generic function inside with no arguments, stored within a const. */
+}
+
+/* Generic function outside with no arguments, stored within a const. */
+let letStoreFunction = function(){
+    /* Generic function inside with no arguments, stored within a const. */
+}
+
+
+
+/* Comment outside for the class*/
+class ParentClass extends Array {
+    /* Comment inside for the class*/
+
+    otherName = 'window'
+    oneval = 1
+
+    /* Standard function type*/
+    varfunc = function(){
+        /* Standard function type*/
+    }
+
+    varfuncNamedFunc = function fred(){
+    }
+
+    /*
+    Accepts no arguments and exists on the parent.
+    */
     alphaMethod() {
         /*
         Accepts no arguments and exists on the parent.
@@ -15,7 +81,47 @@ class ParentClass extends Array {
         Accepts no arguments.
         */
     }
+
+    gammaMethod(one = null) {
+        /*
+        Parent with default arg
+        */
+    }
+
+    get parentName() {
+        return 'ParentClass';
+    }
+
+    set parentName(val) {
+        this._parentName = val;
+    }
+
+    static staticParentMethod() {
+        /*
+        Static parent method
+        */
+    }
+
+
+    [Symbol.toPrimitive](hint){
+
+        // return this.value;
+
+        let o = {
+            'number': ()=>this.value
+            , 'string': ()=> this.toString()
+            // Upon operator (+)
+            , 'default': ()=>this.value
+        }
+
+        let f = o[hint]
+        f = (f == undefined)? f=()=>this:f
+
+        return f()
+    }
+
 }
+
 
 class Primary extends ParentClass {
 
@@ -24,8 +130,37 @@ class Primary extends ParentClass {
         Accepts no arguments and overrides the parent `betaMethod`
         */
     }
-}
 
+    charlieMethod(one, two = 1, three = {}) {
+        /* docs for charlie */
+    }
+
+    deltaMethod(...args) {
+        /*
+        Variadic method using rest args
+        */
+    }
+
+    epsilonMethod({ x = 0, y = 0 } = {}) {
+        /*
+        Destructured object with defaults
+        */
+    }
+
+    get name() {
+        return 'Primary';
+    }
+
+    set name(value) {
+        this._name = value;
+    }
+
+    static staticMethod(foo = 'bar') {
+        /*
+        Static method with default arg
+        */
+    }
+}
 
 
 function genericFunction() {
@@ -40,10 +175,6 @@ function genericFunction2(argA, argB) {
     console.log('genericFunction2')
 }
 
-
-const constStoreFunction = function(){
-    /* Generic function with no arguments, stored within a const. */
-}
 
 
 import('./point-content.js')

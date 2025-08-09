@@ -244,7 +244,7 @@ asObjectUrl = async function(width, height, callback) {
     // linkObjectUrl.href = objectUrl;
     let p = asObjectUrl()
     return p.then((d)=>console.log('got data'));
-    return p//.then(console.log);
+    // return p//.then(console.log);
 }
 
 const asObject = async function(mimeType="image/jpeg", quality = 0.85) {

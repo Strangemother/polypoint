@@ -81,7 +81,7 @@ class MainStage extends Stage {
         ctx.textBaseline = 'middle'
 
         this.lineEmitter.step()
-        let pointColor = 'hsl(254deg 81% 66%)'
+        let pointColor = 'hsl(254deg 81% 36%)'
         let lineColor = 'hsl(269deg 82% 44%)'
         // pointColor = lineColor
         // let lineColor = 'hsl(299deg 62% 44%)' // light

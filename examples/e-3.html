@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spaceship Engine Physics Demo (Interactive)</title>
+  <style>
+    body { background: #111; }
+    canvas { background: #181818; display:block; margin:30px auto; }
+    .hint { color: #aaa; text-align: center; font-family: monospace; }
+  </style>
+</head>
+<body>
+<canvas id="c" width="1000" height="800"></canvas>
+<div class="hint">
+  Controls: <b>Left Arrow</b> fires left engine, <b>Right Arrow</b> fires right engine,<br>
+  <b>Both</b> for straight thrust. Refresh to reset.
+</div>
+<script>
+// --- Point utility
+function point(x, y) { return {x: x, y: y}; }
+
+// --- RigidBody class, as before, but engines can be controlled independently
+class RigidBody {
+  constructor(engines) {
+    this.engines = engines; // Array of points with x, y, radius, rotation, thrust
+    this.velocity = point(0, 0);
+    this.angularVelocity = 0;
+    this.position = point(300, 200);
+    this.rotation = 0;
+
+    this.updateMassProperties();
+  }
+
+  updateMassProperties() {
+    let totalMass = 0, cx = 0, cy = 0;
+    for (const p of this.engines) {
+      totalMass += p.radius;
+      cx += p.x * p.radius;
+      cy += p.y * p.radius;
+    }
+    cx /= totalMass;
+    cy /= totalMass;
+    this.com = point(cx, cy);
+    this.totalMass = totalMass;
+
+    let I = 0;
+    for (const p of this.engines) {
+      const dx = p.x - cx, dy = p.y - cy;
+      I += p.radius * (dx*dx + dy*dy);
+    }
+    this.I = I || 1;
+  }
+
+  applyForceAtEngine(force, engineIdx) {
+    const p = this.engines[engineIdx];
+    const cosA = Math.cos(this.rotation), sinA = Math.sin(this.rotation);
+    const ex = this.position.x + (p.x - this.com.x) * cosA - (p.y - this.com.y) * sinA;
+    const ey = this.position.y + (p.x - this.com.x) * sinA + (p.y - this.com.y) * cosA;
+
+    this.velocity.x += force.x / this.totalMass;
+    this.velocity.y += force.y / this.totalMass;
+
+    const rx = ex - this.position.x, ry = ey - this.position.y;
+    const torque = rx * force.y - ry * force.x;
+    this.angularVelocity += torque / this.I;
+  }
+
+  update(dt, controls) {
+    for (let i = 0; i < this.engines.length; ++i) {
+      const engine = this.engines[i];
+      // Only fire engine if "thrust" property is set for this frame
+      if (engine.thrust) {
+        const totalAngle = this.rotation + (engine.rotation || 0);
+        const thrust = engine.thrust;
+        const fx = thrust * Math.sin(totalAngle);
+        const fy = -thrust * Math.cos(totalAngle);
+        this.applyForceAtEngine({x: fx, y: fy}, i);
+      }
+    }
+    this.position.x += this.velocity.x * dt;
+    this.position.y += this.velocity.y * dt;
+    this.rotation += this.angularVelocity * dt;
+    this.velocity.x *= 0.995;
+    this.velocity.y *= 0.995;
+    this.angularVelocity *= 0.995;
+  }
+
+  draw(ctx) {
+    for (const p of this.engines) {
+      const dx = p.x - this.com.x, dy = p.y - this.com.y;
+      const cosA = Math.cos(this.rotation), sinA = Math.sin(this.rotation);
+      const px = this.position.x + dx * cosA - dy * sinA;
+      const py = this.position.y + dx * sinA + dy * cosA;
+
+      ctx.beginPath();
+      ctx.arc(px, py, p.radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = "orange";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      const totalAngle = this.rotation + (p.rotation || 0);
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(
+        px - 24 * Math.sin(totalAngle),
+        py + 24 * Math.cos(totalAngle)
+      );
+      ctx.strokeStyle = p.thrust ? "#ff0" : "#0ff";
+      ctx.lineWidth = p.thrust ? 3 : 1.5;
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.arc(this.position.x, this.position.y, 6, 0, 2 * Math.PI);
+    ctx.fillStyle = "#0f8";
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(this.position.x, this.position.y);
+    ctx.lineTo(
+      this.position.x + 40 * Math.sin(this.rotation),
+      this.position.y - 40 * Math.cos(this.rotation)
+    );
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+}
+
+// ---- Engines setup (two, like a lunar lander) ----
+const engines = [
+  point(-60, 25), // left engine (at rear left)
+  point(300, 25),   // right engine (at rear right)
+  point(10, 325),  // right engine (at rear right)
+];
+engines[0].radius = 16; engines[0].rotation = 0;
+engines[1].radius = 16; engines[1].rotation = 0;
+engines[2].radius = 16; engines[2].rotation = 0;
+
+// Add a "thrust" property to each engine
+engines[0].thrust = 0;
+engines[1].thrust = 0;
+engines[2].thrust = 0;
+
+const body = new RigidBody(engines);
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+// -- Input handler --
+const controls = { left: false, right: false };
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') controls.left = true;
+  if (e.key === 'ArrowRight') controls.right = true;
+});
+window.addEventListener('keyup', (e) => {
+  if (e.key === 'ArrowLeft') controls.left = false;
+  if (e.key === 'ArrowRight') controls.right = false;
+});
+
+// -- Animation loop --
+function frame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Set engine thrusts according to controls
+  engines[0].thrust = controls.left ? 60 : 0;
+  engines[2].thrust = controls.right ? 60 : 0;
+
+  body.update(1/60, controls);
+  body.draw(ctx);
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

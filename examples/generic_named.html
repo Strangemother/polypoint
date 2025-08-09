@@ -12,7 +12,7 @@
         imports/foo-example.html
         theatre/foo-example.js
 {% endcomment %}
-{% load strings link try_include %}
+{% load strings link try_include flat_file %}
 
 
 {% if metadata %}
@@ -116,9 +116,11 @@
     {% link.js "examples/js/apps/early-installs-logger-app.js" %}
     <script src="../point_src/core/loader.js"></script>
 
+    <!-- UI Application Dependencies -->
     {% link.js "examples/js/petite-vue.iife.js" "defer" %}
     {% link.js "examples/js/mountable.js" "defer" %}
 
+    <!-- UI Application things. -->
     {% link.js "examples/js/apps/memory-tool-app.js" %}
     {% link.js "examples/js/apps/widget-app.js" %}
     {% link.js "examples/js/apps/button-app.js" %}
@@ -131,11 +133,17 @@
     {% link.js "examples/js/apps/logger-app.js" "defer" %}
     {% link.js "examples/js/apps/download-app.js" "defer" %}
 
-    {% if metadata %}
-        {% for filepath in metadata.clean_files %}
-            <script src={{ filepath }}></script>
-        {% endfor %}
+
+    <!-- Metadata clean files -->
+    {% if concat_file %}
+        {% str_merge "../scripts/" part_name ".js" as script_path %}
+        <script src="{{script_path}}"></script>
+    {% else %}
+        {% if metadata %}{% for filepath in metadata.clean_files  %}
+        <script src={{ filepath }}></script>{% endfor %}
+        {% endif %}
     {% endif %}
+
 
 {% endblock js %}
 

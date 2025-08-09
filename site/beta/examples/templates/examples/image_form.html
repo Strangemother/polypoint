@@ -1,0 +1,21 @@
+{% extends "docs/doc-base.html" %}
+{% load link %}
+{% block page_title %}Image Upload{% endblock page_title %}
+
+{% block content %}
+
+{% link.css  "examples/css/form_view.css" %}
+
+<div class="outer-block">
+    <div class="block">
+        <p>Image for the example</p>
+        <form method="post" enctype='multipart/form-data'>
+        {{ form }}
+        {% csrf_token %}
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}

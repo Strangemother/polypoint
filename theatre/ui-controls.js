@@ -44,6 +44,7 @@ class MainStage extends Stage {
             , value: 'Bananana'
             , onchange(ev) {}
         })
+
         addControl('number type', {
             field: 'input'
             , value: 20

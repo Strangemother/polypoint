@@ -376,10 +376,33 @@ class PointSrcFileView(views.TemplateView):
         p = Path(path).with_suffix('.js')
         r['object_path'] = p
         r = self.markdown_and_meta(r, path)
-        return self.apply_method_docs(r, path)
+        return self.apply_method_docs_2(r, path)
+
+    def apply_method_docs_2(self, r, path):
+
+        rp = Path(path)
+        docs_parent = settings.POLYPOINT_DOCS_DIR
+
+        # target filename
+        name = rp.with_suffix('.js').name.replace('.', '-')
+        # nrp = rp.with_name(f'{name}/program.json')
+        trees_parent = docs_parent / f"trees/clean/stash" / name / 'program.json'
+
+        print('\n\ntrees_parent.exists(): ',trees_parent.exists(), trees_parent, '\n\n')
+
+        if trees_parent.exists() is False:
+            return r
+
+        prog = self.get_json(trees_parent)
+        d = prog['defs']
+        r['defs'] = d
+        return r
 
     def apply_method_docs(self, r, path):
-        """Apply the additional information for all methods for this unit,
+        """
+        old version
+
+        Apply the additional information for all methods for this unit,
         from the docs. (data-cuts)
         """
         rp = Path(path)

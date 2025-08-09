@@ -29,7 +29,7 @@ class MainStage extends Stage {
     mounted(){
         let depth = this.depth = 1000
         /* Generate 100 points, within a 500px box, at origin 0,0 */
-        this.points = PointList.generate.random(100, 500, this.center.subtract(300))
+        this.points = PointList.generate.random(100, 500, this.center.subtract(500))
         this.points.each.z = () => -900 + Math.random() * depth + 500
 
         this.projectionPoint = this.points.center.copy()

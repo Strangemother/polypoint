@@ -168,13 +168,13 @@ class TreeReader {
         let node = document.querySelectorAll(selector)[0]
         return this.parseText(node.innerText)
 
-        // let nodes = document.querySelectorAll(selector)
-        // const map = new Map()
-        nodes.forEach((n)=>{
-            const v = this.parseText(n.innerText)
-            // map.set(n, v)
-        })
-        // return map
+    //     // let nodes = document.querySelectorAll(selector)
+    //     // const map = new Map()
+    //     nodes.forEach((n)=>{
+    //         const v = this.parseText(n.innerText)
+    //         // map.set(n, v)
+    //     })
+    //     // return map
     }
 
     stashComment(block, text, start, end, startLoc, currentLoc) {

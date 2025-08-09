@@ -114,10 +114,10 @@ class MainStage extends Stage {
         let handle = undefined
         if(keep.size > 1){
             handle = handList.centerOfMass()
-            // handle.rotationSet = function(v){
-            //     let spins = selections.copy(1).handleRotate(handle)
-            //     console.log('rotation', v.toFixed())
-            // }
+            handle.rotationSet = function(v){
+                let spins = selections.copy(1).handleRotate(handle)
+                console.log('rotation', v.toFixed())
+            }
 
             handle.uuid = 'handle'
             this.dragging.add(handle)

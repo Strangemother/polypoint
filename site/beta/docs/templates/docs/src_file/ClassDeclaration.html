@@ -1,0 +1,46 @@
+{% load strings %}
+
+<div class="class-unit">
+
+<a class='anchor' name='{{ item.word }}'></a>
+
+<div class="sticky-header">
+    <div class="item-kind-space">
+        <span class="class-method-kind kind-class">{{ item.kind }}</span>
+    </div>
+    <h2 data-key='{{item.word }}'>{{item.word }}</h2>
+
+    <span class="sub-text inherits">extends</span>
+    <span class="parent-class">{{ item.parentName }}</span>
+
+</div>
+
+<div class="class-doc">
+    <div class="comments">
+        <div class="tiny-label">raw comments</div>
+        {% for comment in item.raw_comments %}
+        <div class="comment">
+            {{ comment.html|safe }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<ul class='class-methods' data-show-inherited='false'>
+    {% for sub_item in item.body %}
+        <li class="kind-method_kind">
+            {% if item.type %}
+                {% str_merge './' sub_item.type '.html' as inc_name %}
+                {% include inc_name with item=sub_item %}
+            {% else %}
+                {{ sub_item.word }}: {{ sub_item.type }}
+                {{ sub_item }}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<ul>
+</ul>
+<small>{{ item.keys }}</small>

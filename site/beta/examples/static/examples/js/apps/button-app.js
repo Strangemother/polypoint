@@ -58,8 +58,6 @@ const addSliderControlSet = function(d) {
 }
 
 
-
-
 const addExampleButton = function()  {
     let example = {
         /* An example clicky button */

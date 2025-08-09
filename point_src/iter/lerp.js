@@ -74,25 +74,26 @@ class Value {
         this.easing = easing == undefined? linear: easing
     }
 
-    width(){
-        return this.b - this.a
+    width(a=this.a, b=this.b){
+        return b - a
     }
 
-    t(v) {
-        return this.width() * v
+    t(v, a=this.a, b=this.b) {
+        return this.width(a, b) * v
     }
 
-    get(step=this.step){
+    get(step=this.step, easing=this.easing, a=this.a, b=this.b){
         /* a smoothing function */
         // console.log('Value In', step)
 
-        let mutator = this.mutate(step)
+        let mutator = this.mutate(step, easing)
+
         // console.log('Mutated', mutator)
         let done = step >= (1 - .00001)
         if(done && this.doneStop) { mutator = 1 }
-        let raw = this.t(mutator)
+        let raw = this.t(mutator, a, b)
         // console.log('Computed', raw)
-        let res = this.a + raw
+        let res = a + raw
 
         if(done == true) {
             this.emitDoneEvent(res, raw, mutator, step)
@@ -102,8 +103,17 @@ class Value {
         return res
     }
 
-    mutate(value) {
-        return this.easing(value)
+    pluck(a=this.a, b=this.b,  step=this.step, easing=this.easing) {
+        return this.get(step, easing, a, b)
+    }
+
+    mutate(value, easing) {
+        let easingUnit= (easing == undefined? this.easing: easing)
+        try{
+            return easingUnit(value)
+        }catch {
+            debugger;
+        }
     }
 
     emitDoneEvent(value, preValue, mutator, step) {
@@ -135,3 +145,110 @@ class Value {
         return r
     }
 }
+
+
+
+class PointListLerper {
+
+    constructor(pointList) {
+        this.parent = pointList
+        this.lerpKeys = ['x', 'y', 'radius', 'rotation']
+        this.currentTime = 0
+        this.seconds = 2
+    }
+
+    getCommonValue() {
+        if(this.commonValue) {
+            return this.commonValue
+        };
+
+        let commonValue = this.commonValue = new Value()
+        commonValue.doneStop = true
+        commonValue.setEasing(this.getCommonEasingFunction())
+        return commonValue
+    }
+
+    getCommonEasingFunction(){
+        /* return an easing function */
+        return quarticEaseInOut
+    }
+
+    through(a, b, settings) {
+        /* Lerp this entire pointlist from _a_ to _b_.
+        Settings can be a number or a settings object. */
+        let d = {
+            /* time taken over the deltatime  currentTime */
+            seconds: this.seconds
+            /* values on a point to lerp.*/
+            , keys: this.lerpKeys
+            , currentTime: this.currentTime
+            , easing: undefined
+            , fps: 60
+            , delay: 0
+            // , easing:
+        }
+
+        Object.assign(d, settings)
+        // d.delta = 1 / (d.fps * (d.seconds + d.delay))
+
+        let spl = 1 / (d.fps * (d.seconds + d.delay)) // d.delta
+            , lerpKeys = d.keys
+            , commonVal = this.getCommonValue()
+            , pa = a
+            , pb = b
+            /* a percent of 0 to 1.*/
+            , currentTime = d.currentTime + spl
+            // , currentTime = this.currentTime = d.currentTime + spl
+            , easingFunction = d.easing
+            ;
+
+        this.currentTime += spl
+        // this.currentTime = d.currentTime + spl
+        this.parent.forEach((p,i)=> {
+            let a = pa[i]
+            let b = pb[i]
+            let di = d[i]
+
+            if(di !=undefined
+                && (di.seconds != undefined
+                    || di.delay != undefined)
+                && di?.currentTime == undefined
+            ) {
+                /* precompute*/
+                let _seconds = di.seconds == undefined? d.seconds: di.seconds
+                let _delay = di.delay == undefined? d.delay: di.delay
+                di.currentTime = -(_delay/_seconds)
+            }
+
+            /* A custom easing function by index. */
+            let ease = di?.easing == undefined? easingFunction: di.easing;
+            var ct = di?.currentTime == undefined? currentTime: di.currentTime;
+            if(di?.seconds || di?.delay) {
+                let _seconds = di.seconds == undefined? d.seconds: di.seconds
+                let spl = 1 / (d.fps * _seconds)
+                ct = ct + spl
+                di.currentTime = ct
+            }
+
+            lerpKeys.forEach(k=>{
+                /* iterate the target values of the _current_ point.
+                Use the common Value to calculate the eased new value.*/
+                if (ct < 0) ct=0;
+                p[k] = commonVal.pluck(a[k], b[k], ct, ease)
+            })
+
+        })
+
+
+
+    }
+}
+
+Polypoint.head.install(PointListLerper)
+
+Polypoint.head.deferredProp('PointList',
+    function lerper() {
+        return new PointListLerper(this)
+    }
+);
+

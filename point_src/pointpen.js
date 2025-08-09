@@ -164,7 +164,7 @@ class PointPen {
         // }, _color , _width)
     }
 
-    fill(ctx, fillStyle, radius=undefined) {
+    fill(ctx, fillStyle=undefined, radius=undefined) {
         ctx.beginPath()
 
         this.point.draw.arc(ctx, radius)

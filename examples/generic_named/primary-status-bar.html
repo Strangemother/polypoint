@@ -1,4 +1,4 @@
-{% load strings %}
+{% load strings link %}
 
 <footer class="primay-status-bar font-Inter-500">
 
@@ -29,10 +29,11 @@
     {% endverbatim %}
 
     {% str_merge "../theatre/" part_name ".js" as script_name %}
-    <div>{{ script_name }}</div>
+    {% str_merge part_name ".js" as sim_filename %}
+    <div>{% link "editor:home" sim_filename script_name %}</div>
+
 
     <div class="spacer flex-grow-1"></div>
-
 
     <div>
         {# Present the installs logger UI and buttons. #}

@@ -7,6 +7,7 @@ import textwrap
 import re
 
 from django.http import Http404
+from django.http import JsonResponse
 from django.conf import settings
 from trim import views
 
@@ -116,11 +117,81 @@ class ExampleFileView(views.TemplateView):
         r['part_name'] = p
         meta = get_metadata(path)
 
+        # flag to call the _single file_ endpoint
+        # rather than list all files individually.
+        r['concat_file'] = True
+
         r['metadata'] = meta
         md = meta.get('markdown', None)
         if md:
             r['markdown'] = md
             del meta['markdown']
+        return r
+
+    # def get_template_names(self):
+    #     """
+    #     Return a list of template names to be used for the request. Must return
+    #     a list. May not be called if render_to_response is overridden.
+    #     """
+    #     path = self.kwargs.get('path')
+
+    #     names = [
+    #         path,
+    #         f"{path}.html",
+    #         self.template_name
+    #     ]
+    #     # names = super().get_template_names()
+    #     return names
+
+
+class ExampleFileScriptsView(views.TemplateView):
+    """Display a list of imports (files) for the given path.
+
+        http://localhost:8000/examples/scripts/graph-chain-follow-raw-2/
+
+    """
+    template_name = 'examples/file_scripts_view.html'
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        response['Content-Type'] = 'text/javascript'
+        # response['Content-Length'] = len(content)
+        return response
+
+    def get_context_data(self, **kwargs):
+        # kwargs.setdefault("view", self)
+        # if self.extra_context is not None:
+        #     kwargs.update(self.extra_context)
+        # return kwargs
+        r = super().get_context_data(**kwargs)
+        path = self.kwargs.get('path')
+        p = Path(path).with_suffix('')
+        r['part_name'] = p
+        meta = get_metadata(path)
+
+        res_strings = ('/* js output. */\n', )
+
+        target = Path(settings.POLYPOINT_THEATRE_DIR)
+        for subpath in meta['clean_files']:
+            # resolve;
+            # one file.
+
+            content = target / Path(subpath)
+
+            if not content.exists():
+                continue
+            res_strings += (content.read_text(), )
+
+        print('Concating', len(res_strings), 'files.')
+
+        r['concat_content'] = remove_comments('\n;\n;'.join(res_strings))
+
+        r['metadata'] = meta
+        md = meta.get('markdown', None)
+        if md:
+            r['markdown'] = md
+            del meta['markdown']
+
         return r
 
     def get_template_names(self):
@@ -137,6 +208,26 @@ class ExampleFileView(views.TemplateView):
         ]
         # names = super().get_template_names()
         return names
+
+
+
+import re
+
+def remove_comments(string):
+    pattern = r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)"
+    # first group captures quoted strings (double or single)
+    # second group captures comments (//single-line or /* multi-line */)
+    regex = re.compile(pattern, re.MULTILINE|re.DOTALL)
+    def _replacer(match):
+        # if the 2nd group (capturing comments) is not None,
+        # it means we have captured a non-quoted (real) comment string.
+        if match.group(2) is not None:
+            return "" # so we will return empty to remove the comment
+        else: # otherwise, we will return the 1st group
+            return match.group(1) # captured quoted-string
+    return regex.sub(_replacer, string)
+
+
 
 
 class CloneFileView(views.FormView):
@@ -258,3 +349,68 @@ class ExampleFileImagesView(views.TemplateView):
             using=self.template_engine,
             **response_kwargs,
         )
+
+
+from django.core.files.storage import default_storage
+
+from uuid import uuid4
+import os
+
+class AjaxFormMixin:
+    def form_invalid(self, form):
+        return JsonResponse({'errors': form.errors})
+
+
+class ImagePostFormView(AjaxFormMixin, views.FormView):
+    """Receive an image for the example.
+    An image may be one of a series
+    """
+    form_class = forms.ImagePostForm
+    template_name = 'examples/image_form.html'
+
+
+    def form_valid(self, form):
+        """Put the image in the correct location
+        """
+        image = form.cleaned_data['image_file']
+
+        # This will auto-save to MEDIA_ROOT/uploads/
+        filename = default_storage.save(f"uploads/{image.name}", image)
+        series = form.cleaned_data['series_index']
+        stem = form.cleaned_data['theatre_filename']
+        series_name = None
+
+        if len(series) > 0:
+            if series.isnumeric() and int(series) == 0:
+                # make new index.
+                series_name = str(uuid4())
+            else:
+                # existing series str
+                series_name = series
+
+            base = default_storage.base_location
+            out_dir = f"uploads/{stem}/{series_name}/"
+            out_path = Path(base) / out_dir
+            os.makedirs(out_path, exist_ok=True)
+
+            _, _, files = next(os.walk(out_path))
+            file_count = len(files)
+
+            filename = f"{file_count}_{image.name}"
+            out_filename = f"{out_dir}{filename}"
+        else:
+            # no series.
+            out_filename = f"uploads/{stem}/{image.name}"
+
+        filename = default_storage.save(out_filename, image)
+
+        # if a series_index
+        #   if 0, create a new one, return the index
+        #   if string, use as index.
+        #   save as index file in series foldername
+        # else
+        #   name of the file is theatre_file/image_{index}
+        return JsonResponse({'file': filename, 'series_index': series_name})
+
+    # def get_success_url(self):
+        # don't know...

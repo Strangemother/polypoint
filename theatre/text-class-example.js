@@ -1,4 +1,5 @@
 /*
+title: TextAlpha Class
 categories: text
 files:
     head
@@ -7,7 +8,7 @@ files:
     pointlist
     stage
     ../point_src/text/alpha.js
- */
+*/
 const canvas = document.getElementById('playspace');
 // const ctx = canvas.getContext('2d');
 // Point.mouse.listen(canvas)

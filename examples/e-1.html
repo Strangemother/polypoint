@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rigid Body Engine Physics Minimal Example</title>
+  <style>
+    canvas { background: #111; display:block; margin:0 auto; }
+  </style>
+</head>
+<body>
+<canvas id="c" width="1000" height="800"></canvas>
+<script>
+// --- Minimal Point and Utility Functions ---
+function point(x, y) { return {x: x, y: y}; }
+
+// --- Minimal Engine Physics Demo ---
+class RigidBody {
+  constructor(engines) {
+    this.engines = engines; // Array of points (objects with x, y, radius)
+    this.velocity = point(0, 0);
+    this.angularVelocity = 0;
+    this.position = point(300, 200); // Center of mass position (world)
+    this.rotation = 0; // radians
+
+    this.updateMassProperties();
+  }
+
+  updateMassProperties() {
+    // Center of mass and moment of inertia
+    let totalMass = 0;
+    let cx = 0, cy = 0;
+    for (const p of this.engines) {
+      totalMass += p.radius;
+      cx += p.x * p.radius;
+      cy += p.y * p.radius;
+    }
+    cx /= totalMass;
+    cy /= totalMass;
+    this.com = point(cx, cy);
+    this.totalMass = totalMass;
+
+    // Moment of inertia (around center of mass)
+    let I = 0;
+    for (const p of this.engines) {
+      const dx = p.x - cx, dy = p.y - cy;
+      I += p.radius * (dx*dx + dy*dy);
+    }
+    this.I = I || 1;
+  }
+
+  applyForceAtEngine(force, engineIdx) {
+    const p = this.engines[engineIdx];
+    // Rotate point by this.rotation, then add this.position
+    const cosA = Math.cos(this.rotation), sinA = Math.sin(this.rotation);
+    const ex = this.position.x + (p.x - this.com.x) * cosA - (p.y - this.com.y) * sinA;
+    const ey = this.position.y + (p.x - this.com.x) * sinA + (p.y - this.com.y) * cosA;
+    // World space: force = {x, y}
+
+    // Linear accel
+    this.velocity.x += force.x / this.totalMass;
+    this.velocity.y += force.y / this.totalMass;
+
+    // Torque: r × F, r = vector from COM to point (in world coords)
+    const rx = ex - this.position.x, ry = ey - this.position.y;
+    const torque = rx * force.y - ry * force.x;
+    this.angularVelocity += torque / this.I;
+  }
+
+  update(dt) {
+    // Example: fire all engines "down" in object space (y+)
+    // for (let i = 0; i < this.engines.length; ++i) {
+    //   // Each frame, fire a force out the "back" (object's local +Y axis)
+    //   // Convert to world coordinates:
+    //   const engine = this.engines[i];
+    //   const angle = this.rotation; // all engines point the same way here
+    //   let f = engine.f
+    //   const fx = 0 * Math.cos(angle) +  f * Math.sin(angle); // force.y = +f in local +Y
+    //   const fy = -f * Math.cos(angle) +  0 * Math.sin(angle);
+    //   this.applyForceAtEngine({x: fx, y: fy}, i);
+    // }
+
+    for (let i = 0; i < this.engines.length; ++i) {
+        const engine = this.engines[i];
+        const totalAngle = this.rotation + engine.rotation; // body's + engine's rotation
+        const thrust = engine.f; // Or whatever value for this engine
+
+        const fx = thrust * Math.sin(totalAngle);
+        const fy = -thrust * Math.cos(totalAngle);
+
+        this.applyForceAtEngine({x: fx, y: fy}, i);
+    }
+
+    // Update position & rotation
+    this.position.x += this.velocity.x * dt;
+    this.position.y += this.velocity.y * dt;
+    this.rotation += this.angularVelocity * dt;
+
+    // Damping to avoid runaway spin/slide
+    this.velocity.x *= 0.995;
+    this.velocity.y *= 0.995;
+    this.angularVelocity *= 0.995;
+  }
+
+  draw(ctx) {
+    // Draw engines
+    for (const p of this.engines) {
+      // Rotate engine relative to com, then draw at position
+      const dx = p.x - this.com.x, dy = p.y - this.com.y;
+      const cosA = Math.cos(this.rotation), sinA = Math.sin(this.rotation);
+      const px = this.position.x + dx * cosA - dy * sinA;
+      const py = this.position.y + dx * sinA + dy * cosA;
+      ctx.beginPath();
+      ctx.arc(px, py, p.radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = "orange";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Draw thrust direction (local +Y)
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(
+        px + 20 * Math.sin(this.rotation + p.rotation),
+        py - 20 * Math.cos(this.rotation + p.rotation)
+      );
+      ctx.strokeStyle = "#0ff";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Draw center of mass
+    ctx.beginPath();
+    ctx.arc(this.position.x, this.position.y, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = "#0f8";
+    ctx.fill();
+
+    // Draw orientation line
+    ctx.beginPath();
+    ctx.moveTo(this.position.x, this.position.y);
+    ctx.lineTo(
+      this.position.x + 40 * Math.sin(this.rotation),
+      this.position.y - 40 * Math.cos(this.rotation)
+    );
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+}
+
+// --- Main Setup ---
+const engines = [
+  point(-60, -30), // Four engines arranged in a square
+  point(60, -30),
+  point(60, 30),
+  point(-60, 30)
+];
+
+engines.forEach(e => e.radius = 15); // Give each a mass
+engines.forEach(e => e.f = 0); // Give each a mass
+
+engines[1].f = 10
+engines[3].f = 10
+
+engines[0].rotation = 0;         // forward
+engines[1].rotation = Math.PI/2; // right
+engines[2].rotation = Math.PI;   // backward
+engines[3].rotation = -Math.PI/2;// left
+
+
+const body = new RigidBody(engines);
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+function frame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  body.update(1/60);
+  body.draw(ctx);
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

@@ -41,6 +41,7 @@ class StageClock {
 
         return r
     }
+
     splitSeconds(seconds=1, fps=this.fps) {
         return 1 / (fps * seconds)
     }

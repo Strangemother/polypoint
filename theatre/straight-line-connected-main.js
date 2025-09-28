@@ -1,3 +1,25 @@
+/*
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/extras.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/stage.js
+    ../point_src/point.js
+    ../point_src/distances.js
+    ../point_src/pointlist.js
+    ../point_src/events.js
+    ../point_src/automouse.js
+    ../point_src/functions/rel.js
+    dragging
+    ../point_src/constrain-distance.js
+
+
+Simulate collisions using a _string_. Here we replicate one of those
+little balls inside a circle
+*/
 
 class Line {
     constructor(p1, p2, color='red', width=1){

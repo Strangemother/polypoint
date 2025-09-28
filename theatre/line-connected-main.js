@@ -1,3 +1,15 @@
+/*
+files:
+    head
+    point
+    pointlist
+    stage
+    mouse
+    dragging
+    stroke
+    ../point_src/catenary-curve.js
+*/
+
 /* moved to line/Line */
 class Line {
     constructor(p1, p2, color='red', width=1){
@@ -125,16 +137,16 @@ class CantenaryCurve extends Line {
 const randomPoints = PointList.generate.random(4, 200)
 
 
-const UNSET = {}
+// const UNSET = {}
 
 
-const quickStroke = function(ctx, color='green', lineWidth=UNSET) {
-    ctx.strokeStyle = color
-    if(lineWidth != UNSET) {
-        ctx.lineWidth = lineWidth
-    }
-    ctx.stroke()
-}
+// const quickStroke = function(ctx, color='green', lineWidth=UNSET) {
+//     ctx.strokeStyle = color
+//     if(lineWidth != UNSET) {
+//         ctx.lineWidth = lineWidth
+//     }
+//     ctx.stroke()
+// }
 
 
 class MainStage extends Stage {

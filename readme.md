@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="logo-1200.png" alt="Polypoint logo" width="240" />
-
 ### Polypoint.js — a tiny playground for 2D points and canvas
 
 Immediate‑mode canvas helpers for creative coding, geometry sketches, and pixel doodles. No build step. Plug in only what you need. Draw now.

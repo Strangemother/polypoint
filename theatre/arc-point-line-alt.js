@@ -1,3 +1,16 @@
+/*
+files:
+    head
+    point
+    pointlist
+    stage
+    mouse
+    dragging
+    stroke
+    ../point_src/catenary-curve.js
+    ../point_src/bisector.js
+*/
+
 const arcLine = function(ctx, points) {
     ctx.beginPath();
     // midPoint.pen.indicator(ctx)

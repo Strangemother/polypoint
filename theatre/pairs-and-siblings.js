@@ -1,6 +1,28 @@
+/*
+files:
+    head
+    stage
+    pointlist
+    point
+    mouse
+    dragging
+    ../point_src/extras.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/events.js
+    ../point_src/functions/clamp.js
+    ../point_src/dragging.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+    ../point_src/split.js
+    ../point_src/curve-extras.js
+    ../point_src/protractor.js
+    ../point_src/relative.js
+    ../point_src/automouse.js
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
-    canvas = 'canvas'
+    canvas = 'playspace'
 
     mounted(){
         this.pointA = this.center.copy().update({ radius: 100})

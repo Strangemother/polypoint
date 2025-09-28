@@ -1,4 +1,23 @@
-
+/*
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/math.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/pointlistpen.js
+    ../point_src/point.js
+    ../point_src/stage.js
+    ../others/curve_src/curve.js
+    ../point_src/extras.js
+    ../point_src/curve-extras.js
+    ../point_src/iter/alpha.js
+    ../point_src/setunset.js
+    ../point_src/stroke.js
+    ../point_src/catenary-curve.js
+    ../point_src/distances.js
+ */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

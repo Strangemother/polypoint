@@ -819,4 +819,3 @@ Polypoint.head.mixin('Point', {
         return new Point(a,b, c, d)
     }
 });
-

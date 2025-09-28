@@ -1,6 +1,14 @@
 /*
 title: Gradient
 category: gradient
+files:
+    ../point_src/core/head.js
+    ../point_src/pointpen.js
+    ../point_src/pointdraw.js
+    ../point_src/point-content.js
+    ../point_src/pointlist.js
+    ../point_src/point.js
+    ../point_src/stage.js
 */
 class MainStage extends Stage {
     canvas='playspace'

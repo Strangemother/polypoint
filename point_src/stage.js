@@ -185,8 +185,12 @@ class StageRender extends StageBase {
             canvas = resolveCanvas(target, this)
         }*/
         let canvas = (this.resolveCanvas || resolveCanvas)(target, this)
+
         if(canvas == undefined) {
-            console.warn('Stage canvas is undefined through Stage.canvas')
+            let name = target || this.canvas
+            let msg = `Stage canvas ("${name}") is undefined through Stage.canvas`
+            msg += "\nEnsure the Stage.canvas ID exists on the canvas node."
+            console.warn(msg)
         }
 
         this.canvas = canvas

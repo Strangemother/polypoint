@@ -39,17 +39,17 @@ const unpack = function(args, defaults) {
     // therefore disable for non-ctx bound functions.
     let m = {
         0: ()=> {
-            console.log('no args')
+            // console.log('no args')
             return defaults
         }
         , 1: ()=>{
             // ctx: CanvasRenderingContext2D
-            console.log('1 arg, return defaults')
+            // console.log('1 arg, return defaults')
             return defaults
         }
         , 2: ()=> {
             // ctx, def
-            console.log('2 args, return [1]')
+            // console.log('2 args, return [1]')
 
             // merge with defaults.
             return Object.assign({}, defaults, args[1])

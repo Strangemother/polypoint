@@ -5,7 +5,7 @@ This _early_ script captures events and stashes them for the installs app.
 */
 
 
-const logger = {
+var logger = {
     create(name) {
         return this.logFunc
     }

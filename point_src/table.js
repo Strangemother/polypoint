@@ -75,6 +75,7 @@ class Table {
     getKeys() {
         return Object.keys(this.rows)
     }
+
     getRow(key) {
         let row = this.rows[key]
         return this.dataRow(row)
@@ -121,4 +122,37 @@ class Table {
     }
 }
 
+class TableControls {
+    choice(opts, onchange) {
+
+        if(typeof(opts) == 'function' && onchange == null) {
+            onchange = opts
+            opts = {}
+        }
+        let o = Object.assign({
+                    field: 'select'
+                    , options: confTable.getKeys()
+                    , stage: this
+                    , onchange
+                    // , selected:'c'
+                    // (ev) {
+                    //     let sval = ev.currentTarget.value
+                    //     settings = confTable.get(sval)
+                    // }
+                }, opts);
+        return addControl('choice', o)
+
+    }
+}
+
+// p1 = (new Point()).jigger.wiggle()
+Polypoint.head.install(TableControls)
 Polypoint.head.install(Table)
+
+
+Polypoint.head.deferredProp('Table',
+    function controls() {
+        return new TableControls(this)
+    }
+);
+

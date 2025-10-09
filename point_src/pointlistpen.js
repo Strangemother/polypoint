@@ -136,8 +136,16 @@ class PointListPen {
 
     quadCurve(ctx, color_or_conf, loop=false, position){
         // quickStrokeWithCtx(ctx, color_or_conf, b)
-        this.pointList.draw.quadCurve(ctx, loop, position)
-        quickStrokeWithCtx(ctx, color_or_conf)
+        const data = unpack(arguments, {
+            color: color_or_conf,
+            lineWidth: UNSET,
+            loop,
+            position,
+        });
+
+        this.pointList.draw.quadCurve(ctx, data.loop, data.position)
+        quickStrokeWithCtx(ctx, data.color, data.lineWidth)
+        // quickStrokeWithCtx(ctx, color_or_conf)
     }
 }
 

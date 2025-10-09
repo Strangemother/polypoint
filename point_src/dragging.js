@@ -125,7 +125,7 @@ class Dragging extends Distances {
 
         // this.nearOrigin = this.near.copy()
         if(this._near == undefined) {
-            console.log('not near any point at position', this.mousedownOrigin)
+            // console.log('not near any point at position', this.mousedownOrigin)
             return this.emptyMouseDown(stage, canvas, ev)
         }
 
@@ -148,7 +148,7 @@ class Dragging extends Distances {
     }
 
     emptyMouseDown(stage, canvas, ev) {
-        console.log('Empty click', stage, ev)
+        // console.log('Empty click', stage, ev)
         this.callDoubleHandler('onEmptyDown', ev)
         stage.onEmptyDown && stage.onEmptyDown(ev)
     }

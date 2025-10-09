@@ -18,6 +18,20 @@ const addButton = function(name, definition)  {
     return addControl(name, definition)
 }
 
+const addCheckbox = function(name, definition)  {
+    /*addButton('save', {
+        label: "Save JSON"
+        , onclick(ev) {
+            console.log('Save')
+        }
+    })*/
+    if(definition.field == undefined) {
+        definition.field = 'checkbox'
+    }
+
+    return addControl(name, definition)
+}
+
 
 const addControl = function(name, definition)  {
     /*addUI('save', {
@@ -36,6 +50,7 @@ const addControl = function(name, definition)  {
 }
 
 
+
 const addSliderControl = function(name, definition)  {
     let d = Object.assign({
             field: 'range'
@@ -50,6 +65,7 @@ const addSliderControl = function(name, definition)  {
 
     return addControl(name, d)
 }
+
 
 const addSliderControlSet = function(d) {
     for(let k in d) {

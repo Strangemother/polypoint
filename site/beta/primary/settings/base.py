@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "documentation",
     "screenshot",
     "trim",
+    "trimdocs",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -89,11 +90,20 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "primary.urls"
 
+
+from trimdocs.settings.default import *
+
+# SITE_DIR = (Path(__file__).parent / '../../../../').resolve().absolute()
+
+TRIMDOCS_SRC_DOCS = SITE_DIR / 'demo-srcdocs/'
+TRIMDOCS_DEST_DOCS = SITE_DIR / "demo-build-docs/"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             os.path.join(PROJECT_DIR, "templates"),
+            TRIMDOCS_SRC_DOCS,
             POLYPOINT_EXAMPLES_DIR,
         ],
         "APP_DIRS": True,

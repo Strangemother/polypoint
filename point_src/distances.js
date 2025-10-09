@@ -19,8 +19,15 @@ class Distances {
     }
 
     addPoints() {
+
         for(let p of Array.from(arguments)){
-            this.points.set(p.uuid, p)
+            try{
+                this.points.set(p.uuid, p)
+            } catch(e) {
+                if(p === undefined) {
+                    console.error('Distances.addPoints was given an undefined object.')
+                }
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Flower!
 src_dir: ../point_src/
 categories: curve
 files:
@@ -24,17 +24,22 @@ files:
     ../point_src/stroke.js
     ../point_src/curve-extras.js
     ../point_src/split.js
+    ../point_src/gradient.js
+    ../point_src/jiggle.js
 
 ---
 
- */
+*/
+
+
 class MainStage extends Stage {
     canvas='playspace'
     live = true
 
     mounted(){
+        this.point = this.center.copy()
         this.generate()
-        this.dragging.add(...this.points)
+        this.dragging.add(this.point)
         this.lineStroke = new Stroke({
             color: '#fff'
             , width: 2
@@ -44,19 +49,20 @@ class MainStage extends Stage {
         this.events.wake()
     }
 
-    onMouseUp(){
+    onEmptyDown(){
         this.generate()
     }
+
     generate() {
 
         /* The general radius of the flower. */
-        let radius = random.int(10, 200)
+        let radius = random.int(5, 80)
         /* A count of petals. */
-        let count = random.int(3, 10)
+        let count = random.int(5, 20)
         /* The size of petals (Their point radius) */
-        let size = random.int(20, 200)
+        let size = radius * 3 // random.int(100, 200)
         /* We copy the center point to save keystrokes. */
-        let p = this.point = this.center.copy().update({radius})
+        let p = this.point.update({radius})
 
         /* Split on a point, returns many points around the radius. */
         this.points = p.split(count)
@@ -72,23 +78,50 @@ class MainStage extends Stage {
                 nextValue = 0 // wrap around.
             }
             let line = new BezierCurve(this.points[i], this.points[nextValue])
+            line.doTips = false;
             lines.push(line)
         }
 
+        this.grad = this.setupGradient(this.point,size)
+    }
+
+    setupGradient(p, size) {
+        var g = new Gradient(null, 'Linear', [p.add(size * .5), p.subtract(size * .5)])
+        g.addStops({
+            0: "hsl(244deg 71% 56%)"
+            , 1: "hsl(299deg 62% 44%)"
+        })
+        return g
     }
 
     draw(ctx){
         this.clear(ctx)
-        this.points.pen.indicator(ctx, {color: '#336600'})
+        // this.points.pen.indicator(ctx, {color: '#336600'})
+        ctx.fillStyle = this.grad.getObject(ctx)
 
         let lineStroke = this.lineStroke
         lineStroke.set(ctx)
 
+        /* In this case we don't use the l.render(ctx).
+        Instead we do the .perform(ctx) method to manally
+        open and close the path.
+
+        This ensures we draw one vector object, rather than
+        many smaller paths. */
+        this.lines[0].start(ctx)
         this.lines.forEach((l)=>{
-            l.render(ctx);
+            // l.start(ctx);
+            l.perform(ctx);
         });
 
+        ctx.fill()
+
+        this.lines[this.lines.length-1].close(ctx)
         lineStroke.unset(ctx)
+
+        /* The center point. */
+        this.point.pen.fill(ctx, 'orange')
+
 
     }
 }

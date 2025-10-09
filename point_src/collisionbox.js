@@ -1,6 +1,9 @@
 
 class CollisionBox {
-
+    /*
+    collisionBox = new CollisionBox(points)
+    collisionBox.shuffle()
+    */
     constructor(points) {
         this.points = points || new PointList;
     }

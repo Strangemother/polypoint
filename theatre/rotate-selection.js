@@ -17,6 +17,7 @@ files:
     ../point_src/functions/clamp.js
     ../point_src/functions/within.js
     ../point_src/automouse.js
+    ../point_src/windings.js
     ../point_src/recttools.js
 ---
 
@@ -105,7 +106,7 @@ class MainStage extends Stage {
             let within = withinPolygon(p , rect)
             if(within) {
                 keep.add(p.uuid)
-                selections.push(p.copy())
+                selections.push(p)
             }
         })
         this.selected = keep
@@ -115,8 +116,8 @@ class MainStage extends Stage {
         if(keep.size > 1){
             handle = handList.centerOfMass()
             handle.rotationSet = function(v){
-                let spins = selections.copy(1).handleRotate(handle)
                 console.log('rotation', v.toFixed())
+                let spins = selections.handleRotate(handle)
             }
 
             handle.uuid = 'handle'

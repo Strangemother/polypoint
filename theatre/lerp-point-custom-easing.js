@@ -23,11 +23,13 @@ The stepMotion function:
 ```js
 (t)=>stepMotion(t, .01, 0.5, .6, 8)
 ```
+
 + **t**: time delta: 0-1
 + anticipation: `.1`
 + midpoint: `.5`
 + oscilation: `.1`
 + damping: `.1`
+
 */
 
 

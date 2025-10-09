@@ -139,18 +139,18 @@ class Walker extends Point {
 
     updateWalker(max=.5) {
         this.updateLookSpace()
-        this.viewPoint.xy = random.within(this.viewSpace, max)
+        // this.viewPoint.xy = random.within(this.viewSpace, max)
     }
 
     updateLookSpace() {
-        let eyeballSpace = this.viewSpaceOffset
-        let viewSpaceSize = this.viewSpaceMultiplerSize
-        let r = this.radius * viewSpaceSize
-        this.viewSpace = this.project(
-                r
-                + this.radius
-                + eyeballSpace
-            ).update({radius: r})
+        // let eyeballSpace = this.viewSpaceOffset
+        // let viewSpaceSize = this.viewSpaceMultiplerSize
+        // let r = this.radius * viewSpaceSize
+        // this.viewSpace = this.project(
+        //         r
+        //         + this.radius
+        //         + eyeballSpace
+        //     ).update({radius: r})
     }
 }
 
@@ -160,17 +160,25 @@ const DummyBrain = {
     const [bearing, dist, touch] = inputs;
     const turn     = 0.9 * bearing;
     const throttle = 0.6 * (1 - (dist+1)/2); // farther→faster
+
+
     return [turn, throttle]; // both in [-1,1]
   }
 };
 
+
+const TrainedBrain = {
+    run(input) {
+
+    }
+}
 
 class TailWalker extends Walker {
 
     init(d) {
         super.init(d)
         this.points = PointList.generate.countOf(this.tailLength)
-        this.points.each.radius = 2
+        this.points.each.radius = this.radius * .8
         this.points.each.xy = this.xy
         this.points.unshift(this)
 
@@ -195,11 +203,13 @@ class TailWalker extends Walker {
     }
 
     updateBrain(){
+        // new BearingToFood()
+        // new DistToFood(100)
+        // new TouchFood()
         const x = this.getInputs();
         const y = this.brain.run(x);
         this.sensorString = x.map((z)=>z.toFixed(2).padStart(6)).join(', ')
         this.applyOutputs(y);
-
     }
 
     getInputs(){
@@ -213,6 +223,7 @@ class TailWalker extends Walker {
       // this.turnTo(this.viewPoint, r)
 
       const speed = this.forwardSpeed * (0.5 + 0.5 * clamp(throttle));
+      // const speed = this.forwardSpeed * (0.5 + 0.5 * clamp(throttle));
       this.relative.forward(speed);
     }
 
@@ -226,7 +237,7 @@ class Sensor {
 
 
 const sim = {
-    food: new Point(300,300, 20)
+    food: new Point(300,300, 10)
     , noise: (v=.1)=> random.float(-1, 1) * v
 }
 
@@ -235,7 +246,9 @@ class BearingToFood extends Sensor {
     read(){
         const f = sim.food; if(!f) return 0;
         const a = Math.atan2(f.y - this.h.y, f.x - this.h.x) - this.h.radians;
-        let b = (a + Math.PI) % (2*Math.PI); b = b < 0 ? b + 2*Math.PI : b; b -= Math.PI;
+        let b = (a + Math.PI) % (2*Math.PI);
+        b = b < 0 ? b + 2*Math.PI : b;
+        b -= Math.PI;
         return b / Math.PI; // [-1,1]
     }
 }
@@ -265,24 +278,26 @@ function tickWithRecorder(walker){
   const x = walker.getInputs();        // already in [-1,1]
   const y = DummyBrain.run(x);          // your current rule
   sim.samples.push({ input: x, output: y });
+
   walker.applyOutputs(y);
 }
 
 const newNet = function(){
     const net = new brain.NeuralNetwork({
         inputSize:  3,            // bearing, dist, touch
-        hiddenLayers: [5,4],        // tiny
+        hiddenLayers: [5, 7, 4],        // tiny
         outputSize: 2             // turn, throttle
     });
     return net;
 }
 
-const trainNet = function(net, samples=sim.samples, iterations=2000) {
+const trainNet = function(net, samples=sim.samples, iterations=2000, learningRate=0.01) {
+
     net.train(samples, {
       iterations: iterations,
-      learningRate: 0.01,
+      learningRate,
       errorThresh: 0.005,
-      log: false
+      log: true
     });
 }
 
@@ -291,6 +306,7 @@ class MainStage extends Stage {
     canvas = 'playspace'
 
     mounted(){
+
         // this.screenWrap = new ScreenWrap()
         this.screenWrap.setDimensions({top: -50, left: -50, bottom: 900, right: 900})
         this.delta = 1
@@ -318,28 +334,53 @@ class MainStage extends Stage {
 
         this.expertWalker = this.newWalker({
                 leashDistanceMultiplier: 1
-                , tailLength: 30
+                , tailLength: 10
                 , forwardSpeed: 1.3
                 , turnSpeed: .8
-                , radius: 1.3
+                , leashDistanceMultiplier: 3
+                , radius: 9
             })
 
         this.childWalker = this.newWalker({
                 leashDistanceMultiplier: 1
-                , tailLength: 25
+                , tailLength: 7
+                , leashDistanceMultiplier: 8
                 , forwardSpeed: 1
                 , turnSpeed: .8
                 , radius: 1
             })
         // this.childWalker.brain = newNet()
         this.walkers.push(this.expertWalker, this.childWalker)
-
+        this.recordSamples = false
+        this.trainTicker = 0
+        this.drainCount = 0
         this.dragging.add(sim.food)
     }
 
     freezeMode(){
         this.delta = .1
         this.doClear = false
+    }
+
+    startTrainChild() {
+        let net = this.net;
+        if(this.net == undefined) {
+            this.net = net = newNet()
+        }
+
+        this.recordSamples = true
+    }
+
+    stopTrainChild(){
+        this.recordSamples = false
+        this.drainSamples()
+    }
+    setChildBrain() {
+        this.childWalker.brain = this.net
+    }
+
+    unsetChildBrain() {
+        this.childWalker.brain = DummyBrain
     }
 
     newWalker(extra) {
@@ -388,14 +429,76 @@ class MainStage extends Stage {
         return p
     }
 
+    stepPerformTrainChild() {
+        if(!this.recordSamples)  {
+            return
+        }
+
+        this.trainTicker++
+        if(this.trainTicker % 5) {
+            tickWithRecorder(this.expertWalker)
+        }
+
+        if(sim.samples.length > 100) {
+            this.drainSamples()
+        }
+    }
+
+    drainSamples() {
+        console.log('Drain Train')
+        trainNet(this.net, sim.samples, 1000, .05)
+        this.onDrain && this.onDrain()
+        sim.samples = []
+        this.drainCount += 1
+    }
+
+    printExample(x){
+        x = x || this.childWalker.getInputs();
+        console.log('input ', x);
+        console.log('expert', this.expertWalker.brain.run(x))
+        console.log('result', Array.from(this.childWalker.brain.run(x)))
+    }
+
+    enableChild() {
+        /* start training.
+        Swap after drain */
+        this.onDrain = () => {
+            if(this.drainCount > 1) {
+                console.log('Switching Brain')
+                // this.childWalker.brain = this.net
+                this.setChildBrain()
+                this.onDrain = undefined
+            }
+        }
+        this.startTrainChild()
+    }
+
+    onDrain() {}
+
+
     draw(ctx) {
         this.doClear && this.clear(ctx)
+        let food = sim.food
+        let foodHit = false
+        this.stepPerformTrainChild()
+
         this.walkers.forEach(p=>{
             this.step(p, this.delta)
             this.drawPoint(ctx, p)
+            if(food.distanceTo(p) < food.radius) {
+                foodHit = true
+            }
         })
 
-        sim.food.pen.fill(ctx, 'green', 3)
+        if(foodHit) {
+            sim.food.radius *= .97
+        }
+
+        sim.food.pen.fill(ctx, foodHit? 'red': 'green')
+        if(food.radius < 5) {
+            sim.food.xy = random.point(600)
+            food.radius = random.int(7, 12)
+        }
     }
 
     drawPoint(ctx, h){
@@ -405,10 +508,12 @@ class MainStage extends Stage {
         // h.viewPoint.pen.fill(ctx, 'red', 1)
 
         ctx.lineWidth = h.radius
-        h.points?.pen.quadCurve(ctx, h.color, false)
+        h.points?.pen.indicator(ctx, h.color, false)
+        // h.points?.pen.quadCurve(ctx, h.color, false)
         // h.points?.pen.fill(ctx, '#aaa', 1)
 
-        h.pen.fill(ctx, h.color)
+        // h.pen.fill(ctx, h.color)
+        h.pen.indicator(ctx, h.color)
 
         let sws = h.screenWrapSector
         if(sws?.dirty) {

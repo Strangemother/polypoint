@@ -245,6 +245,18 @@ const bounceEaseInOut = function(t) {
 // ----
 //
 
+const multiEase = function(...functions) {
+
+    const mergeFuncs = functions
+    const stepper = function(t){
+        let r = 0
+        mergeFuncs.forEach(e=>r += e(t))
+        return r / mergeFuncs.length
+    }
+
+    return stepper
+}
+
 const easingFunctions = {
     /* A neat little collector for easing methods - built into an object.
 

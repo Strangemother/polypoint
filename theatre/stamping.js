@@ -1,3 +1,21 @@
+/*
+files:
+    head
+    ../point_src/math.js
+    ../point_src/extras.js
+    ../point_src/point-content.js
+    dragging
+    pointlist
+    point
+    stage
+    mouse
+    stroke
+    ../point_src/emitter.js
+    ../point_src/relative.js
+    ../point_src/random.js
+
+---
+*/
 
 class MainStage extends Stage {
     canvas = 'playspace'
@@ -9,18 +27,13 @@ class MainStage extends Stage {
         let e2 = new RandomPointEmitter(400,400, 60)
         // e2.direction = {x:-1, y:0} //inward.
         e2.fromEdge = true
-        e2.tickModulo = 12
-        e2.speed = 1
-        e2.birthrate = 10
+        e2.tickModulo = 1
+        e2.speed = .1
+        e2.birthrate = 20
+
         e2.wake()
         this.e2 = e2
 
-
-        // let e3 = new Emitter(500,200, 60)
-        // e3.fromEdge = true
-        // e3.tickModulo = 100
-        // e3.birthrate = 20
-        // e3.lifetime = 200
         let e3 = new PumpRandomPointEmitter(500,200, 60)
         e3.wake()
         this.e3 = e3
@@ -31,29 +44,43 @@ class MainStage extends Stage {
         this.stamp = new Stamp()
     }
 
-    draw(ctx){
-        this.clear(ctx)
-        let es = [this.e2, this.e3]
-        // let es = [this.e1, this.e2, this.e3]
-
+    firstDraw(ctx){
         ctx.fillStyle = '#EEE'
         ctx.font = `400 16px sans-serif`;
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-        this.e2.step()
-        this.e2.pen.indicator(ctx)
-        es.forEach(e=>{
-            e.step()
-            e.rotation += (e.speed || 0)
-            // e.lookAt(this.mouse.point)
-            e.pen.circle(ctx)
-            e.text.fill(ctx, e.length)
-            e.points.pen.indicators(ctx)
-            // e.points.pen.indicators(ctx)
+        ctx.strokeStyle = '#EEE'
+    }
+
+    draw(ctx){
+        this.clear(ctx)
+
+        // this.drawEmitters(ctx)
+        this.rawDrawEmitters(ctx)
+    }
+
+    rawDrawEmitters(ctx){
+        // e.pen.indicator(ctx)
+        // e.points.pen.indicators(ctx)
+
+        let e = this.e2;
+        e.step()
+        const pi2 = Math.PI2
+        e.points.forEach(p=>{
+            ctx.beginPath()
+            const opts = p._opts
+            ctx.arc(opts.x, opts.y, 5, 0, pi2)
+            ctx.stroke()
         })
+        // ctx.arc()
+    }
 
+    drawEmitters(ctx) {
 
-        // this.point.pen.fill(ctx, '#880000')
+        let e = this.e2;
+        e.step()
+        e.points.pen.stroke(ctx)
+
     }
 }
 

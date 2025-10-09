@@ -52,6 +52,7 @@ class PointListDraw {
     }
 
     quadCurve(ctx, loop=false, position){
+
         let pointsArray = this.list;
         let prevPoint = pointsArray[0];
         position = position? position: prevPoint

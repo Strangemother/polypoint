@@ -654,6 +654,11 @@ class Point extends Tooling {
         this._opts = Object.assign({relX: 0, relY: 0 }, opts)
         // set 0 or more object
         this.set.apply(this, arguments)
+        this.created()
+    }
+
+    created() {
+        // api hook for life.
     }
 
     update(data) {
@@ -736,7 +741,8 @@ class Point extends Tooling {
         if (hint === 'string') {
             return this.toString()
         }
-        return Reflect.apply(...arguments)
+        return null
+        // return Reflect.apply(...arguments)
     }
 
     toString(){

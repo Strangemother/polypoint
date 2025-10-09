@@ -119,7 +119,7 @@ class ExampleFileView(views.TemplateView):
 
         # flag to call the _single file_ endpoint
         # rather than list all files individually.
-        r['concat_file'] = True
+        r['concat_file'] = False
 
         r['metadata'] = meta
         md = meta.get('markdown', None)

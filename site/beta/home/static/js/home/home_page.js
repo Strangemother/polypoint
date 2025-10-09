@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 })
 
 let sendPin = function(){
+    /* post a message to the iframe, identifying _center_. */
     let $pin = document.querySelector(".pinpoint-container .pinpoint")
     let pin = $pin.getBoundingClientRect()
 

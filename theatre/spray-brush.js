@@ -59,7 +59,30 @@ const confTable = new Table(keys, {
       , 'i': [false, 0, 0, true, .1, .7, false, true, 30, 90, 300, true, 1, 8, 90]
 },)
 
-const settings = confTable.get('i')
+// addControl('choice', {
+//     field: 'select'
+//     , options: confTable.getKeys()
+//     , stage: this
+//     , onchange(ev) {
+//         let sval = ev.currentTarget.value
+//         settings = confTable.get(sval)
+//     }
+// })
+
+confTable.controls.choice((ev) => {
+    let sval = ev.currentTarget.value
+    settings = confTable.get(sval)
+})
+
+addButton('clear', {
+    // label: 'my button'
+    onclick(ev) {
+        console.log('clear')
+        stage.clear()
+    }
+});
+
+var settings = confTable.get('i')
 
 const _settings = {
 
@@ -85,6 +108,7 @@ const _settings = {
     /* resize the mouse based on its speed.*/
     , speedMouse: true
 }
+
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
@@ -167,7 +191,6 @@ class MainStage extends Stage {
         }
 
         if(perform){
-
             // l.push(mp.copy())
             // this.points.push(...this.brushAt(mp))
             let rv = random.int(settings.sprayDownMin,settings.sprayDownMax)

@@ -35,6 +35,7 @@ const loadPolypointCoreTools = function() {
         , "../point_src/functions/resolve.js"
         , "../point_src/angle.js"
         , "../point_src/text/label.js"
+        , "/examples/theatre/objects/tetra.js"
         // , "head"
         // , "point"
         // , "pointlist"
@@ -61,10 +62,10 @@ const polypointFundamentalsLoaded = function() {
     */
         installPolypointsLoaders()
         console.log('Point Loaded');
-        let mainDisplay = '/examples/theatre/pseudo3D-cube-2.js';
+        // let mainDisplay = '/examples/theatre/pseudo3D-cube-2.js';
         // let mainDisplay = '/examples/theatre/grid-flag.js';
         // let mainDisplay = '/examples/theatre/pseudo3D-sphere.js';
-        // let mainDisplay = '/examples/theatre/pseudo3D-tetra.js';
+        let mainDisplay = '/examples/theatre/pseudo3D-tetra.js';
         // Polypoint.head.load("/examples/theatre/arc-angles.js")
         Polypoint.head.load(mainDisplay, function(){
             console.log('Demo loaded')

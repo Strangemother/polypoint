@@ -51,7 +51,7 @@ function draw(ctx, mouse) {
 
     // rectMode(CENTER);
 
-    let range = new Rectangle(mouse.x, mouse.y, 100, 50);
+    let range = new Rectangle(mouse.x, mouse.y, 50, 50);
     let found = qtree.query(range);
 
     ctx.strokeStyle = 'green'

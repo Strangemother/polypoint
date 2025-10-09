@@ -149,7 +149,7 @@ class PointJiggler extends Jiggler {
         super(null, point)
         // this.origin = point
         // this.opts = Object.assign(this.getDefaults(), options)
-        // this.point = this.origin.copy()
+        this.point = point.copy()
     }
 }
 

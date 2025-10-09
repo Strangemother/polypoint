@@ -95,34 +95,79 @@ class TimedPlotter {
 
 }
 
+var slideSpeed = 1
+    , spinSpeed = .5
+    , maxPlotCount = 40
+    , plotModulo = 10
+    ;
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
 
     mounted(){
-        this.plotter = new TimedPlotter()
-        this.plotter.mouse = this.mouse
+        this.plotterSin = new PointList()
+        this.plotterCos = new PointList()
+        this.spinner = new Point(200, 400, 100, )
+
+        this.dragging.add(this.spinner)
     }
 
     onMousedown(ev) {
-        this.plotter.start(Point.from(ev))
+        // this.plotterSin.start(Point.from(ev))
     }
 
     onMouseup(ev) {
-        this.plotter.stop(Point.from(ev))
+        // this.plotterSin.stop(Point.from(ev))
     }
 
     onMousemove(ev) {
         let mp = this.mouse.point
-        this.plotter.step(mp)
+        // this.plotterSin.step(mp)
     }
 
     draw(ctx){
         this.clear(ctx)
-        this.plotter.points.pen.indicator(ctx, {color: '#555'})
-        // this.plotter.points.pen.quadCurve(ctx, {color: '#555'})
+        this.plotterSin.pen.indicator(ctx, {color: 'purple'})
+        this.plotterCos.pen.indicator(ctx, {color: 'lightpurple'})
 
+        // this.plotterSin.pen.line(ctx, {color: 'purple', width: 3})
+
+        let spinner = this.spinner
+        spinner.pen.indicator(ctx, {color: '#555'})
+        spinner.rotation += spinSpeed
+
+        let tip = spinner.project()
+
+        let brushTipSin = new Point(spinner.x, tip.y)
+        let brushTipCos = new Point(tip.x, spinner.y)
+
+        brushTipSin.pen.fill(ctx, {color: 'purple'})
+        brushTipCos.pen.fill(ctx, {color: '#555'})
+
+        if(spinner.rotation % plotModulo == 0) {
+            this.plotterSin.push(brushTipSin)
+            this.plotterCos.push(brushTipCos)
+        }
+
+        if(this.plotterSin.length > maxPlotCount) {
+            this.plotterSin = this.plotterSin.slice(10, )
+        }
+
+
+        if(this.plotterCos.length > maxPlotCount) {
+            this.plotterCos = this.plotterCos.slice(10, )
+        }
+
+        this.plotterSin.forEach((p)=>{
+            p.x += slideSpeed
+        })
+
+        this.plotterCos.forEach((p)=>{
+            p.y += slideSpeed
+        })
+
+        // this.plotterSin.points.pen.quadCurve(ctx, {color: '#555'})
     }
 }
 

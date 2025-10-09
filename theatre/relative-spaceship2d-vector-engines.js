@@ -408,7 +408,7 @@ class MainStage extends MainStagePlainShip {
         // applyEngineForces(ship, this.engines)
         const com = computeCenterOfMass(ship, this.engines);
         // applyEngineForcesCOM(ship, this.engines, com);
-        applyEngineForcesCOMMoI(ship, this.engines, com);
+        // applyEngineForcesCOMMoI(ship, this.engines, com);
 
         // Move ship
         // ship.x += ship.vx;

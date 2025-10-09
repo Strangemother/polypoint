@@ -9,6 +9,7 @@ A friendly, zero-setup way to show your app’s framerate on the canvas. The FPS
 Quick use:
 
 ```js
+// files: fps
 // inside your Stage.draw(ctx)
 stage.fps.drawFPS(ctx)
 ```

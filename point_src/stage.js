@@ -213,10 +213,11 @@ class StageRender extends StageBase {
     }
 
     stop(freeze=true) {
-        this._loopDraw = !freeze
-        if(!this._loopDraw) {
-            this.stopDraw()
-        }
+        return this.freeze(freeze)
+    }
+
+    ensurePrepared() {
+        if(this._prepared != true) { this.prepare() }
     }
 
     static go(additionalData={}) {
@@ -227,9 +228,33 @@ class StageRender extends StageBase {
 
         /* First we ensure prepare has occured */
         let _stage = new this;
-        if(_stage._prepared != true) {
-            _stage.prepare()
+        return _stage.go.apply(_stage, arguments)
+    }
+
+    freeze(freeze=true) {
+        this._loopDraw = !freeze
+        if(!this._loopDraw) {
+            this.stopDraw && this.stopDraw()
         }
+    }
+
+    unfreeze(timeout=0, force=false) {
+        /* 1ms delay for a next tick. */
+
+        if(this._loopDraw == true && force == false) {
+            return
+        }
+
+        this.freeze(false)
+        setTimeout(()=>this.loopDraw(), timeout)
+    }
+
+    go(additionalData={}) {
+        /* Make a copy of a new Stage.
+        Call prepare() if required. If `additionalData.loop` is `true` (default)
+        start the update loopDraw
+        */
+        this.ensurePrepared()
         /* Grab the look function - */
         let loop = additionalData.loop !== undefined? additionalData.loop: true
 
@@ -237,13 +262,13 @@ class StageRender extends StageBase {
         request animation occurs. Useful for ensuring _draws_ occur before
         the first frame is required, and also the loop function
         may not be active. */
-        _stage.update()
+        this.update()
         if(loop) {
             /* 1ms delay for a next tick. */
-            setTimeout(()=>_stage.loopDraw(), 1)
+            this.unfreeze(1,1)
         }
 
-        return _stage
+        return this
     }
 
     stageStartDraw(drawFunc){
@@ -457,7 +482,7 @@ class StageRender extends StageBase {
         this.clear(ctx)
     }
 
-    clear(ctx, fillStyle=null) {
+    clear(ctx=this.ctx, fillStyle=null) {
         /* Perform a standard 'clearRect' using the cached dimensions of the
         canvas.
 

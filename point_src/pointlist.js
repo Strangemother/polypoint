@@ -536,15 +536,19 @@ class PointList extends LazyAccessArray {
         // return p
     }
 
+    lastDiff = 0
     handleRotate(handlePoint) {
         let rot = handlePoint.radians
-
-        this.forEach(target=>{
-            const res = originRotate(target, handlePoint, rot);
+        // this.lastDiff = handlePoint.radians
+        this.forEach(target=> {
+            let diff = radiansDiff2(handlePoint.radians, this.lastDiff)
+            const res = originRotate(target, handlePoint, radiansToDegrees(diff))
+            // const res = originRotate(target, handlePoint, rot);
             target.x = res[0]
             target.y = res[1]
             // p.rotate(rot)
         })
+        this.lastDiff = handlePoint.radians
     }
 
 

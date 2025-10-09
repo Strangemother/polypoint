@@ -24,6 +24,19 @@
                     </label>
                 </div>
 
+                <div v-if="item.field == 'checkbox'">
+                   <label>
+                        <span class="pseudo-label">
+                            {{ item.label }}
+                        </span>
+                        <input
+                            :type="item.type || 'checkbox'"
+                            :value="item.value"
+                            @input="changeHandler($event, item)"
+                            :checked=item.checked />
+                    </label>
+                </div>
+
                 <div v-if="item.field == 'select'">
                     <label>
                         <span class="pseudo-label">
@@ -58,7 +71,6 @@
                         </div>
                     </label>
                 </div>
-
 
                 <!--
                     Actions being:

@@ -1,10 +1,24 @@
 /*
+title: Coupled Direction
 category: binding
- */
+files:
+    head
+    point
+    stage
+    dragging
+    pointlist
+    mouse
+---
+
+The second point will always mirror the first point
+
+*/
+
 class MainStage extends Stage {
     canvas='playspace'
     // live=false
     live = true
+
     mounted(){
         this.point = new Point(300, 400, 100)
         this.point2 = new Point(600, 400, 100)

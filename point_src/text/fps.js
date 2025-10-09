@@ -6,6 +6,14 @@ files:
 
 FPS Text view. With builtin debouncer and styling features.
 
+Quick Theatre:
+
+    files: "fps"
+
+    draw(ctx) {
+        this.fps.print(ctx)
+    }
+
 When loaded, an instance is applied to the stage:
 
     class FPSExample extends Stage {
@@ -86,6 +94,11 @@ class FramerateExt {
         let t = this.label
         t.update()
         t.draw(ctx, this.color)
+    }
+
+    print(ctx=this.label.stage) {
+        // shortcut for the drawFPS
+        return this.drawFPS(ctx)
     }
 }
 

@@ -1,6 +1,5 @@
 <div align="center">
 
-
 ### Polypoint.js — a tiny playground for 2D points and canvas
 
 Immediate‑mode canvas helpers for creative coding, geometry sketches, and pixel doodles. No build step. Plug in only what you need. Draw now.

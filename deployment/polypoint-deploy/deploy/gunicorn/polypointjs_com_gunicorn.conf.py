@@ -1,0 +1,10 @@
+bind = "0.0.0.0:8000"
+workers = 3
+user = "www-data"
+group = "www-data"
+timeout = 30
+accesslog = "/var/log/gunicorn/polypointjs_com_access.log"
+errorlog = "/var/log/gunicorn/polypointjs_com_error.log"
+loglevel = "info"
+chdir = "/path/to/polypoint/site/beta"
+module = "polypoint_beta.wsgi:application"

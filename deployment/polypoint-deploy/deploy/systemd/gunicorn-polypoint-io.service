@@ -1,0 +1,13 @@
+[Unit]
+Description=gunicorn daemon for polypoint.io
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/workspaces/polypoint/site/beta
+EnvironmentFile=/workspaces/polypoint/deploy/env/polypoint.io.env
+ExecStart=/usr/local/bin/gunicorn --access-logfile - --workers 3 --bind unix:/workspaces/polypoint/deploy/gunicorn/polypoint_io.sock polypoint_beta.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

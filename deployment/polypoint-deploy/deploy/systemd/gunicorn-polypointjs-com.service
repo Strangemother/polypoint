@@ -1,0 +1,13 @@
+[Unit]
+Description=gunicorn daemon for polypointjs.com
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/workspaces/polypoint/site/beta
+ExecStart=/workspaces/polypoint/deploy/gunicorn/start.sh polypointjs_com_gunicorn.conf.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

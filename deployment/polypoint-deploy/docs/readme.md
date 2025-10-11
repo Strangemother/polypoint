@@ -5,8 +5,8 @@ Complete step-by-step guide to deploy the Django application with Gunicorn and N
 ## Prerequisites
 
 - Ubuntu server with root access
-- SSH key setup (see [first-ssh-key-setup.md](../first-ssh-key-setup.md))
-- Site user created (see [create-site-user.md](../create-site-user.md))
+- SSH key setup: [first-ssh-key-setup.md](../first-ssh-key-setup.md)
+- Site user created: [create-site-user.md](../create-site-user.md)
 - Domain DNS pointed to server IP
 
 > **Note:** All commands below should be run on the remote server. Connect using SSH with your configured key.
@@ -18,6 +18,17 @@ Complete step-by-step guide to deploy the Django application with Gunicorn and N
 apt update
 apt install -y python3 python3-pip python3-venv nginx git
 ```
+
+### Configure firewall
+```bash
+sudo ufw allow OpenSSH
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw --force enable
+sudo ufw status
+```
+
+> **Note**: This allows SSH (22), HTTP (80), and HTTPS (443) through the firewall.
 
 ## Step 2: Deploy Application Code
 

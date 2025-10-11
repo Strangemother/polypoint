@@ -138,7 +138,6 @@ usermod -a -G www-data site
 
 # Set directory permissions for nginx access
 chmod 755 /home/site
-chmod 755 /home/site/apps
 
 # Create SSH directory for GitHub keys
 sudo -u site mkdir -p /home/site/.ssh
@@ -155,24 +154,6 @@ getent passwd site | cut -d: -f1,7
 echo "Try: su - site"
 echo "SSH should be denied from remote hosts"
 ```
-
-## Security Notes
-
-1. **Why no SSH login?**
-   - The `site` user runs the application and has sudo
-   - Direct SSH access increases attack surface
-   - Use a separate admin account for SSH
-   - Access `site` user via `su - site` from admin account
-
-2. **Why sudo access?**
-   - Needed for deployment tasks (systemctl, nginx reload, etc.)
-   - Allows the site user to manage its own services
-   - Restricted to local access only
-
-3. **Password vs Key-based auth**
-   - Password is for local `su` access only
-   - SSH key authentication is disabled for this user
-   - Use strong password and store securely
 
 ## Troubleshooting
 
@@ -223,16 +204,7 @@ sudo usermod -aG sudo site
 
 After creating the site user:
 
-1. ✅ Switch to site user: `su - site`
-2. ✅ Create apps directory: `mkdir -p ~/apps`
-3. ✅ Set up GitHub SSH keys for cloning (see [GITHUB-SSH-SETUP.md](./polypoint-deploy/GITHUB-SSH-SETUP.md))
-4. ✅ Continue with application deployment
-
-## Summary
-
-The `site` user:
-- ✅ Has sudo access for deployment
-- ✅ Cannot SSH in directly (security)
-- ✅ Has password for local `su` access
-- ✅ Runs the application services
-- ✅ Can manage systemd services and nginx
+1. Switch to site user: `su - site`
+2. Create apps directory: `mkdir -p ~/apps`
+3. Set up GitHub SSH keys for cloning (see [github-ssh-setup.md](./github-ssh-setup.md))
+4. Continue with application deployment

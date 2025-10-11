@@ -44,18 +44,19 @@ class MainStage extends Stage {
     draw(ctx){
         this.clear(ctx)
         let p = this.point
+        let ps = p.tethers.points
         if(this.clock.tick % 1 == 0) {
             p.tethers.step()
         }
 
         p.pen.indicator(ctx, {color: '#336600'})
-        p.tethers.points.forEach((tp)=>{
+        ps.forEach((tp)=>{
             p.pen.line(ctx, tp, '#880000', 2)
         });
 
         // p.tethers.points.pen.fill(ctx, '#33DDAA')
-        p.tethers.points.pen.indicator(ctx, '#33DDAA')
-        p.tethers.points.pen.quadCurve(ctx, {color: '#33DDAA', loop: true})
+        ps.pen.indicator(ctx, '#33DDAA')
+        ps.pen.quadCurve(ctx, {color: '#33DDAA', loop: true})
     }
 }
 

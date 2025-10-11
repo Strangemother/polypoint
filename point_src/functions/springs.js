@@ -144,6 +144,7 @@ class PointSpring {
     }
 
     to(other, restLength, springConstant=.6, dampingFactor=.99, lockedPoints=new Set, deltaTime=1) {
+
         return applySpringForceDistributedWithTime(this.parent, other,
              restLength, springConstant, dampingFactor, lockedPoints, deltaTime);
     }

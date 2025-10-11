@@ -10,4 +10,4 @@ cd /home/site/apps/polypoint/site/beta || exit 1
 CONFIG_PATH="/home/site/apps/polypoint/deploy/gunicorn/$1"
 
 # Start the Gunicorn server using the config file
-exec gunicorn -c "$CONFIG_PATH" polypoint_beta.wsgi:application
+exec gunicorn -c "$CONFIG_PATH" primary.wsgi:application

@@ -9,6 +9,13 @@ Complete step-by-step guide to deploy the Django application with Gunicorn and N
 - Site user created: [create-site-user.md](../create-site-user.md)
 - Domain DNS pointed to server IP
 
+Post-requisites:
+
+- Python virtual environment setup: [python-venv-setup.md](./python-venv-setup.md)
+- GitHub SSH setup: [github-ssh-setup.md](./github-ssh-setup.md)
+- Switch SSH port (optional): [switch-ssh-port.md](./switch-ssh-port.md)
+- SSL with Let's Encrypt (optional): [https-setup.md](./https-setup.md)
+
 > **Note:** All commands below should be run on the remote server. Connect using SSH with your configured key.
 
 ## Step 1: Initial Server Setup

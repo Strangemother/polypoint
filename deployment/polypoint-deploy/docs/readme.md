@@ -37,10 +37,16 @@ git clone https://github.com/Strangemother/polypoint
 cd polypoint
 ```
 
+### Set directory permissions for nginx
+```bash
+chmod 755 /home/site/apps/polypoint
+```
+
 ### Create and activate virtual environment
 Create a Python virtual environment (see [Python venv setup guide](./docs/python-venv-setup.md) for details).
 
 ```bash
+python3 -m venv .venv
 source /home/site/apps/polypoint/.venv/bin/activate
 ```
 
@@ -158,120 +164,24 @@ curl http://localhost
 curl http://polypointjs.com
 ```
 
-## Step 9: Troubleshooting
+### Setup HTTPS with Let's Encrypt
 
-### View gunicorn logs
+Install certbot:
+
 ```bash
-# Error logs
-tail -f /var/log/gunicorn/polypointjs_com_error.log
-
-# Access logs
-tail -f /var/log/gunicorn/polypointjs_com_access.log
-
-# System logs
-sudo journalctl -u gunicorn-polypointjs-com.service -f
+sudo apt install -y certbot python3-certbot-nginx
 ```
 
-### View nginx logs
+Run certbot to automatically configure SSL for your domains:
+
 ```bash
-# Error logs
-tail -f /var/log/nginx/error.log
-
-# Access logs
-tail -f /var/log/nginx/access.log
-
-# Filter for errors only
-tail -f /var/log/syslog | grep -i error
+sudo certbot --nginx -d polypointjs.com -d www.polypointjs.com -m polypoint@strangemother.com --agree-tos
 ```
 
-### Restart services
-```bash
-# Restart gunicorn
-sudo systemctl restart gunicorn-polypointjs-com.service
-
-# Restart nginx
-sudo systemctl restart nginx
-
-# Reload nginx (for config changes)
-sudo systemctl reload nginx
-```
-
-### Check socket permissions
-```bash
-ls -la /run/gunicorn/
-# Should show: srwxrwx--- 1 www-data www-data
-```
-
-If permissions are wrong:
-```bash
-sudo systemctl restart gunicorn-polypointjs-com.service
-```
-
-## Common Issues & Fixes
-
-### Issue: Permission denied connecting to socket
-**Fix:** Ensure nginx user is in the correct group
-```bash
-sudo usermod -a -G www-data site
-sudo systemctl restart gunicorn-polypointjs-com.service
-```
-
-### Issue: Static files return 404
-**Fix:** Verify static files were collected and nginx config uses `alias`
-```bash
-cd /home/site/apps/polypoint/site/beta
-source /home/site/apps/polypoint/.venv/bin/activate
-python manage.py collectstatic --noinput
-```
+Verify auto-renewal is enabled:
 
 ```bash
-sudo systemctl reload nginx
-```
-
-### Issue: Gunicorn fails to start
-**Fix:** Check the error logs
-```bash
-sudo journalctl -u gunicorn-polypointjs-com.service -n 50
-tail -f /var/log/gunicorn/polypointjs_com_error.log
-```
-
-### Issue: Wrong WSGI module
-**Fix:** Verify the Django project name matches in `start.sh`
-```bash
-# Find wsgi.py location
-find /home/site/apps/polypoint/site/beta/ -name "wsgi.py"
-# Update start.sh with correct module name (e.g., primary.wsgi:application)
-```
-
-## Updating Your Application
-
-When you make changes to your application:
-
-```bash
-# 1. Update code (git pull or copy files)
-cd /home/site/apps/polypoint
-git pull  # or copy updated files
-```
-
-```bash
-# 2. Activate virtual environment
-source /home/site/apps/polypoint/.venv/bin/activate
-```
-
-```bash
-# 3. Install any new dependencies
-pip install -r /home/site/apps/polypoint/site/beta/requirements.txt
-```
-
-```bash
-# 4. Collect static files
-cd /home/site/apps/polypoint/site/beta
-python manage.py collectstatic --noinput
-```
-
-```bash
-# 5. Restart gunicorn
-sudo systemctl restart gunicorn-polypointjs-com.service
+sudo systemctl status certbot.timer
 ```
 
 ```bash

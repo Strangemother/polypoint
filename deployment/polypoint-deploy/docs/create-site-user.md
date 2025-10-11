@@ -41,7 +41,18 @@ getent passwd site | cut -d: -f1,7
 # Expected output: site:/bin/bash
 ```
 
-## Step 4: Create SSH Directory (Optional)
+## Step 4: Set Directory Permissions for Nginx
+
+Allow nginx (www-data) to traverse the directory path to reach static files:
+
+```bash
+sudo chmod 755 /home/site
+sudo chmod 755 /home/site/apps
+```
+
+> **Note**: These permissions allow nginx to traverse directories while keeping files secure.
+
+## Step 5: Create SSH Directory (Optional)
 
 > **Note**: This step is optional. Running `ssh-keygen` later will create this directory automatically.
 
@@ -52,7 +63,7 @@ sudo -u site chmod 700 /home/site/.ssh
 
 This SSH directory is for GitHub deploy keys, not for SSH login to the server.
 
-## Step 5: Block SSH Login for Site User
+## Step 6: Block SSH Login for Site User
 
 ### Option A: Deny Site User Specifically (Recommended)
 
@@ -78,7 +89,7 @@ sudo systemctl reload ssh
 
 > **Note**: With Option B, ensure the `site` user is NOT in the `sshadmins` group.
 
-## Step 6: Verify Configuration
+## Step 7: Verify Configuration
 
 ### Test local access (should work)
 
@@ -121,6 +132,13 @@ usermod -aG sudo site
 
 # Ensure interactive shell
 usermod -s /bin/bash site
+
+# Add user to www-data group
+usermod -a -G www-data site
+
+# Set directory permissions for nginx access
+chmod 755 /home/site
+chmod 755 /home/site/apps
 
 # Create SSH directory for GitHub keys
 sudo -u site mkdir -p /home/site/.ssh

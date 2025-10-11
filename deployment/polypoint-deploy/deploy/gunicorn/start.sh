@@ -1,16 +1,10 @@
 #!/bin/bash
 
 # Navigate to the Django project directory
-cd /path/to/polypoint/site/beta
+cd /home/site/apps/polypoint/site/beta
 
 # Activate the virtual environment
-source /path/to/your/venv/bin/activate
+source /home/site/apps/polypoint/.venv/bin/activate
 
-# Start the Gunicorn server for the polypoint.io domain
-exec gunicorn polypoint_beta.wsgi:application \
-    --bind 0.0.0.0:8000 \
-    --workers 3 \
-    --timeout 30 \
-    --log-level info \
-    --access-logfile - \
-    --error-logfile -
+# Start the Gunicorn server using the config file
+exec gunicorn -c "$1" polypoint_beta.wsgi:application

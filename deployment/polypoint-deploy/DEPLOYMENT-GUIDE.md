@@ -29,6 +29,9 @@ cd ~/apps
 ```
 
 ### Clone the application
+
+see [GITHUB-SSH-SETUP.md](./GITHUB-SSH-SETUP.md)
+
 ```bash
 git clone https://github.com/Strangemother/polypoint
 cd polypoint

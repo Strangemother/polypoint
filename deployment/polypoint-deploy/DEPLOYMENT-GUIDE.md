@@ -19,18 +19,13 @@ apt update
 apt install -y python3 python3-pip python3-venv nginx git
 ```
 
-### Create application directory
-```bash
-mkdir -p /home/site/apps/polypoint
-chown -R site:site /home/site/apps/polypoint
-```
-
 ## Step 2: Deploy Application Code
 
-### Switch to site user
+### Switch to site user and create apps directory
 ```bash
 su - site
-cd /home/site/apps
+mkdir -p ~/apps
+cd ~/apps
 ```
 
 ### Clone the application
@@ -63,8 +58,7 @@ python manage.py collectstatic --noinput
 
 ### Set static file permissions
 ```bash
-sudo chown -R site:www-data /home/site/apps/polypoint/site/beta/static
-sudo chmod -R 755 /home/site/apps/polypoint/site/beta/static
+chmod -R 755 /home/site/apps/polypoint/site/beta/static
 ```
 
 ## Step 4: Setup Logging
@@ -89,8 +83,7 @@ sudo chmod +x /home/site/apps/polypoint/deployment/polypoint-deploy/deploy/gunic
 
 ### Copy systemd service file
 ```bash
-sudo cp /home/site/apps/polypoint/deployment/polypoint-deploy/deploy/systemd/gunicorn-polypointjs-com.service \
-    /etc/systemd/system/gunicorn-polypointjs-com.service
+sudo cp /home/site/apps/polypoint/deployment/polypoint-deploy/deploy/systemd/gunicorn-polypointjs-com.service /etc/systemd/system/gunicorn-polypointjs-com.service
 ```
 
 ### Enable and start the service
@@ -116,14 +109,12 @@ You should see `polypointjs.sock` with permissions `srwxrwx---`
 
 ### Copy nginx configuration
 ```bash
-sudo cp /home/site/apps/polypoint/deployment/polypoint-deploy/deploy/nginx/polypointjs.com.conf \
-    /etc/nginx/sites-available/polypointjs.com.conf
+sudo cp /home/site/apps/polypoint/deployment/polypoint-deploy/deploy/nginx/polypointjs.com.conf /etc/nginx/sites-available/polypointjs.com.conf
 ```
 
 ### Enable the site
 ```bash
-sudo ln -s /etc/nginx/sites-available/polypointjs.com.conf \
-    /etc/nginx/sites-enabled/polypointjs.com.conf
+sudo ln -s /etc/nginx/sites-available/polypointjs.com.conf /etc/nginx/sites-enabled/polypointjs.com.conf
 ```
 
 ### Remove default site (optional)

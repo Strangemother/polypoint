@@ -4,9 +4,10 @@ After=network.target
 
 [Service]
 User=site
-Group=site
+Group=www-data
 WorkingDirectory=/home/site/apps/polypoint/site/beta
 RuntimeDirectory=gunicorn
+RuntimeDirectoryMode=0775
 ExecStart=/home/site/apps/polypoint/deploy/gunicorn/start.sh \
     polypointjs_com_gunicorn.conf.py
 Restart=always

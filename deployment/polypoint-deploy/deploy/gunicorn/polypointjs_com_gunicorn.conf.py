@@ -1,7 +1,7 @@
 bind = "unix:/run/gunicorn/polypointjs.sock"
 workers = 3
 user = "site"
-group = "site"
+group = "www-data"
 umask = 0o007
 timeout = 30
 accesslog = "/var/log/gunicorn/polypointjs_com_access.log"

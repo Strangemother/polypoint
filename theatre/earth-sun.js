@@ -90,7 +90,7 @@ const planetColors = [
  */
 const planets = [
     {
-        color: "yellow"
+        color: "#d64b02"
         , diameter: 1_391_400 // km
         , name: 'Sun'
         , au: 0

@@ -320,6 +320,7 @@ class Positionable extends Relative {
 }
 
 
+
 class Rotation extends Positionable {
     set rotation(value){
         /* Set the rotation in degrees (0 to 360). If `this.modulusRotate` is

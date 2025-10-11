@@ -130,7 +130,7 @@ class World {
 
         if (n_tmp) {
             this.context.save()
-            this.context.strokeStyle = "rgb(0,0,255)"
+            this.context.strokeStyle = "rgb(20,0,255)"
             this.context.beginPath()
             this.context.moveTo(n_tmp.x, n_tmp.y)
             this.context.lineTo(n_tmp.xp, n_tmp.yp)

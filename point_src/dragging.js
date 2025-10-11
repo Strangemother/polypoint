@@ -293,7 +293,7 @@ class Dragging extends Distances {
             return this.onClickHander(stage, canvas, ev)
         }
 
-        if(!withinClickDelta) {
+        if((!withinClickDelta) || this.isDragging ) {
             // console.log('This was a drag', dis)
             return this.onDragEndHandler(ev)
         }

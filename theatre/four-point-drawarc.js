@@ -13,6 +13,7 @@ files:
     ../point_src/distances.js
     ../point_src/dragging.js
     ../point_src/functions/clamp.js
+    ../point_src/functions/springs.js
     ../point_src/stage.js
 
 */
@@ -28,7 +29,12 @@ class MainStage extends Stage {
             , this.center.add(r, 0)
             , this.center.add(0, r)
         );
+
         this.points.each.radius = 20
+        this.points.update({
+            vx: .2, vy: .1
+            , mass: 1
+        })
         this.dragging.add(...this.points)
     }
 
@@ -68,6 +74,7 @@ class MainStage extends Stage {
         this.drawCircles(ctx)
         ctx.strokeStyle = 'green'
         ctx.lineWidth = 3
+
         this.drawArcs(ctx)
         this.drawIris(ctx)
     }
@@ -79,6 +86,7 @@ class MainStage extends Stage {
             ;
 
         this.points.pen.circle(ctx, undefined, fillstyle, lineWidth)
+        this.points.spring.chain(150, 2, .3, new Set([this.points[0], this.points.last()]), .1)
         this.points[0].pen.fill(ctx, fillstyle)
     }
 
@@ -91,4 +99,4 @@ class MainStage extends Stage {
     }
 }
 
-;MainStage.go();
+;stage = MainStage.go();

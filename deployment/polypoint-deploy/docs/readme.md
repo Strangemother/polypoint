@@ -1,21 +1,25 @@
-# Django Deployment Guide - polypointjs.com
+# Django Deployment Guide
 
-Complete step-by-step guide to deploy the Django application with Gunicorn and Nginx.
+## Requisites
 
-## Prerequisites
+Prequisites:
 
 - Ubuntu server with root access
 - SSH key setup: [first-ssh-key-setup.md](../first-ssh-key-setup.md)
 - Site user created: [create-site-user.md](../create-site-user.md)
 - Domain DNS pointed to server IP
 
-Post-requisites:
+Midrequisites:
 
 - Python virtual environment setup: [python-venv-setup.md](./python-venv-setup.md)
 - GitHub SSH setup: [github-ssh-setup.md](./github-ssh-setup.md)
 - Switch SSH port (optional): [switch-ssh-port.md](./switch-ssh-port.md)
 - SSL with Let's Encrypt (optional): [https-setup.md](./https-setup.md)
 
+Post-requisites:
+
+- Application monitoring: [monitoring-setup.md](./monitoring-setup.md)
+- log rotation: [log-rotation-setup.md](./log-rotation-setup.md)
 
 ## Step 1: Initial Server Setup
 
@@ -52,7 +56,7 @@ git clone https://github.com/Strangemother/polypoint
 cd polypoint
 ```
 
----
+These extras are temporary:
 
 ```bash
 git clone https://github.com/Strangemother/django-trim
@@ -208,6 +212,10 @@ Reapply for `polypointjs.com`:
 sudo certbot --nginx --cert-name polypointjs.com --reinstall
 ```
 
+```bash
+sudo certbot --nginx -d polypointjs.com -d www.polypointjs.com -m polypoint@strangemother.com --agree-tos --reinstall
+```
+
 or for first time:
 
 ```bash
@@ -225,39 +233,6 @@ sudo systemctl status certbot.timer
 sudo systemctl reload nginx
 ```
 
-## File Locations Reference
-
-| Purpose | Location |
-|---------|----------|
-| Application Root | `/home/site/apps/polypoint/` |
-| Virtual Environment | `/home/site/apps/polypoint/.venv/` |
-| Django Project | `/home/site/apps/polypoint/site/beta/` |
-| Static Files | `/home/site/apps/polypoint/site/beta/static/` |
-| Deployment Configs | `/home/site/apps/polypoint/deployment/polypoint-deploy/deploy/` |
-| Gunicorn Socket | `/run/gunicorn/polypointjs.sock` |
-| Gunicorn Logs | `/var/log/gunicorn/` |
-| Nginx Config | `/etc/nginx/sites-available/polypointjs.com.conf` |
-| Nginx Logs | `/var/log/nginx/` |
-| Systemd Service | `/etc/systemd/system/gunicorn-polypointjs-com.service` |
-
-## Next Steps (Optional)
-
-- **HTTPS/SSL**: Set up Let's Encrypt SSL certificates with certbot
-- **Database**: Configure PostgreSQL or your preferred database
-- **Media Files**: Set up media file serving in nginx
-- **Monitoring**: Set up monitoring and alerting
-- **Backups**: Configure automated backups
-- **Firewall**: Configure UFW firewall rules
-
 ---
 
-## Key Configuration Files
-
-These files are in `/workspaces/polypoint/deployment/polypoint-deploy/deploy/`:
-
-- `gunicorn/start.sh` - Gunicorn startup script
-- `gunicorn/polypointjs_com_gunicorn.conf.py` - Gunicorn configuration
-- `systemd/gunicorn-polypointjs-com.service` - Systemd service definition
-- `nginx/polypointjs.com.conf` - Nginx server configuration
-
-Make sure these are properly configured before copying to the server.
+The site should now be live at: https://polypointjs.com

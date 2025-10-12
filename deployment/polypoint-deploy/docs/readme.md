@@ -202,6 +202,14 @@ sudo apt install -y certbot python3-certbot-nginx
 
 Run certbot to automatically configure SSL for your domains:
 
+Reapply for `polypointjs.com`:
+
+```
+sudo certbot --nginx --cert-name polypointjs.com --reinstall
+```
+
+or for first time:
+
 ```bash
 sudo certbot --nginx -d polypointjs.com -d www.polypointjs.com -m polypoint@strangemother.com --agree-tos
 ```

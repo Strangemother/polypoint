@@ -1,35 +1,35 @@
 # Django Deployment Guide
 
-## Requisites
-
-Prequisites:
+Pre-requisites:
 
 - Ubuntu server with root access
-- SSH key setup: [first-ssh-key-setup.md](../first-ssh-key-setup.md)
-- Site user created: [create-site-user.md](../create-site-user.md)
+- SSH key setup: [first-ssh-key-setup.md](./once/first-ssh-key-setup.md)
+- Site user created: [create-site-user.md](./once/create-site-user.md)
 - Domain DNS pointed to server IP
 
-Midrequisites:
+Intra-requisites:
 
-- Python virtual environment setup: [python-venv-setup.md](./python-venv-setup.md)
-- GitHub SSH setup: [github-ssh-setup.md](./github-ssh-setup.md)
+- GitHub SSH setup: [github-ssh-setup.md](./once/github-ssh-setup.md)
+- Python virtual environment setup: [python-venv-setup.md](./bits/python-venv-setup.md)
 - Switch SSH port (optional): [switch-ssh-port.md](./switch-ssh-port.md)
-- SSL with Let's Encrypt (optional): [https-setup.md](./https-setup.md)
+- SSL with Let's Encrypt (optional): [https-setup.md](./bits/https-setup.md)
 
 Post-requisites:
 
 - Application monitoring: [monitoring-setup.md](./monitoring-setup.md)
-- log rotation: [log-rotation-setup.md](./log-rotation-setup.md)
+- log rotation: [log-rotation.md](./bits/log-rotation.md)
 
 ## Step 1: Initial Server Setup
 
 ### Install required packages
+
 ```bash
 apt update
 apt install -y python3 python3-pip python3-venv nginx git
 ```
 
 ### Configure firewall
+
 ```bash
 sudo ufw allow OpenSSH
 sudo ufw allow 80/tcp
@@ -49,7 +49,7 @@ cd ~/apps
 
 ### Clone the application
 
-see [github-ssh-setup.md](./github-ssh-setup.md)
+see [github-ssh-setup.md](./once/github-ssh-setup.md)
 
 ```bash
 git clone https://github.com/Strangemother/polypoint
@@ -77,7 +77,7 @@ chmod 755 /home/site/apps/polypoint
 ```
 
 ### Create and activate virtual environment
-Create a Python virtual environment (see [Python venv setup guide](./docs/python-venv-setup.md) for details).
+Create a Python virtual environment (see [Python venv setup guide](./bits/python-venv-setup.md) for details).
 
 ```bash
 python3 -m venv .venv

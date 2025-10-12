@@ -16,7 +16,6 @@ Post-requisites:
 - Switch SSH port (optional): [switch-ssh-port.md](./switch-ssh-port.md)
 - SSL with Let's Encrypt (optional): [https-setup.md](./https-setup.md)
 
-> **Note:** All commands below should be run on the remote server. Connect using SSH with your configured key.
 
 ## Step 1: Initial Server Setup
 
@@ -35,8 +34,6 @@ sudo ufw --force enable
 sudo ufw status
 ```
 
-> **Note**: This allows SSH (22), HTTP (80), and HTTPS (443) through the firewall.
-
 ## Step 2: Deploy Application Code
 
 ### Switch to site user and create apps directory
@@ -48,12 +45,27 @@ cd ~/apps
 
 ### Clone the application
 
-see [GITHUB-SSH-SETUP.md](./GITHUB-SSH-SETUP.md)
+see [github-ssh-setup.md](./github-ssh-setup.md)
 
 ```bash
 git clone https://github.com/Strangemother/polypoint
 cd polypoint
 ```
+
+---
+
+```bash
+git clone https://github.com/Strangemother/django-trim
+git clone https://github.com/Strangemother/django-trimdocs
+cd django-trim
+pip install -e .
+cd ..
+cd django-trimdocs
+pip install -e .
+cd ..
+```
+
+---
 
 ### Set directory permissions for nginx
 ```bash
@@ -67,8 +79,6 @@ Create a Python virtual environment (see [Python venv setup guide](./docs/python
 python3 -m venv .venv
 source /home/site/apps/polypoint/.venv/bin/activate
 ```
-
-> **Note:** Ensure the virtual environment is activated before running subsequent commands.
 
 ### Install dependencies
 ```bash

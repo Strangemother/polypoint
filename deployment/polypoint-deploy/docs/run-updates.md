@@ -31,6 +31,20 @@ sudo systemctl restart gunicorn-polypointjs-com.service
 
 ---
 
+Update nginx:
+
+```bash
+# Copy the updated config with new domains
+sudo cp /home/site/apps/polypoint/deployment/polypoint-deploy/deploy/nginx/polypointjs.com.conf /etc/nginx/sites-available/polypointjs.com.conf
+
+# Test the config
+sudo nginx -t
+
+# Reload nginx
+sudo systemctl reload nginx
+```
+
+---
 
 refresh 
 

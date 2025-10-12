@@ -23,11 +23,9 @@ bash /path/to/polypoint-deploy/deploy/scripts/collectstatic.sh
 bash /path/to/polypoint-deploy/deploy/scripts/migrate.sh
 
 # Start Gunicorn services
-sudo systemctl start gunicorn-polypoint-io
 sudo systemctl start gunicorn-polypointjs-com
 
 # Enable services to start on boot
-sudo systemctl enable gunicorn-polypoint-io
 sudo systemctl enable gunicorn-polypointjs-com
 
 # Start Nginx

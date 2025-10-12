@@ -8,6 +8,12 @@ Guide to add Let's Encrypt SSL certificates for HTTPS support.
 - Domain DNS properly pointed to your server
 - Port 80 and 443 open in firewall
 
+TL;DR:
+
+```bash
+sudo certbot --nginx -d polypointjs.com -d www.polypointjs.com -d polypoint.xyz -d www.polypoint.xyz -d poly.ink -d www.poly.ink --expand
+```
+
 ## Step 1: Install Certbot
 
 ```bash

@@ -28,3 +28,33 @@ python manage.py collectstatic --noinput
 # 5. Restart gunicorn
 sudo systemctl restart gunicorn-polypointjs-com.service
 ```
+
+---
+
+Update nginx:
+
+```bash
+# Copy the updated config with new domains
+sudo cp /home/site/apps/polypoint/deployment/polypoint-deploy/deploy/nginx/polypointjs.com.conf /etc/nginx/sites-available/polypointjs.com.conf
+
+# Test the config
+sudo nginx -t
+
+# Reload nginx
+sudo systemctl reload nginx
+```
+
+---
+
+refresh 
+
+```bash
+# 3. Restart gunicorn
+sudo systemctl restart gunicorn-polypointjs-com.service
+
+# 4. Restart nginx
+sudo systemctl restart nginx
+
+# 5. Check the status
+sudo systemctl status gunicorn-polypointjs-com.service
+```

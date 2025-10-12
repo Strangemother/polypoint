@@ -6,26 +6,6 @@ tail logs:
 tail -f /var/log/syslog | grep -i error
 ```
 
-Source:
-
-```bash
-cd /home/site/apps/polypoint
-source ./.venv/bin/activate
-```
-
-Site:
-
-```bash
-/home/site/apps/polypoint/site/beta
-# manage.py 
-```
-
-Deploy Content:
-
-```bash
-/home/site/apps/polypoint/deployment/polypoint-deploy/deploy/
-```
-
 refresh 
 
 ```bash
@@ -50,7 +30,3 @@ Key issue:
 Wipe the key from remote and reconnect:
 
     ssh-keygen -R 178.128.172.154
-
-example:
-
-    gunicorn --bind 0.0.0.0:8000 myproject.wsgi:application

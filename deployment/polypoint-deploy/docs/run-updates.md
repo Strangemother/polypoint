@@ -28,3 +28,19 @@ python manage.py collectstatic --noinput
 # 5. Restart gunicorn
 sudo systemctl restart gunicorn-polypointjs-com.service
 ```
+
+---
+
+
+refresh 
+
+```bash
+# 3. Restart gunicorn
+sudo systemctl restart gunicorn-polypointjs-com.service
+
+# 4. Restart nginx
+sudo systemctl restart nginx
+
+# 5. Check the status
+sudo systemctl status gunicorn-polypointjs-com.service
+```

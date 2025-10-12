@@ -198,29 +198,35 @@ curl http://polypointjs.com
 
 ### Setup HTTPS with Let's Encrypt
 
+#### Install Certbot 
+
 Install certbot:
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
 ```
 
+#### Run Certbot
+
+First time install:
+
+```bash
+sudo certbot --nginx -d polypointjs.com -d www.polypointjs.com -m polypoint@strangemother.com --agree-tos
+```
+
 Run certbot to automatically configure SSL for your domains:
-
-Reapply for `polypointjs.com`:
-
-```
-sudo certbot --nginx --cert-name polypointjs.com --reinstall
-```
 
 ```bash
 sudo certbot --nginx -d polypointjs.com -d www.polypointjs.com -m polypoint@strangemother.com --agree-tos --reinstall
 ```
 
-or for first time:
+Or reapply for `polypointjs.com`:
 
-```bash
-sudo certbot --nginx -d polypointjs.com -d www.polypointjs.com -m polypoint@strangemother.com --agree-tos
 ```
+sudo certbot --nginx --cert-name polypointjs.com --reinstall
+```
+
+#### Verify Auto-Renewal
 
 Verify auto-renewal is enabled:
 

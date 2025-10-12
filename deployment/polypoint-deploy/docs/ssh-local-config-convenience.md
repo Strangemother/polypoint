@@ -1,5 +1,4 @@
-
-## Step 8: Update SSH Config on Local Machine (Optional)
+# Update SSH Config on Local Machine
 
 For easier connections, add to `~/.ssh/config` on your **local machine**:
 

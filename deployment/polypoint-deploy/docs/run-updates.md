@@ -1,5 +1,10 @@
 # Updating Your Application
 
++ Update Source: `sudo systemctl restart gunicorn-polypointjs-com`
++ Update nginx config: `sudo systemctl reload nginx`
+
+---
+
 When you make changes to your application:
 
 ```bash

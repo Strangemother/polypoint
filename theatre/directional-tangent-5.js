@@ -65,7 +65,7 @@ class MainStage extends Stage {
         const rearranged = orders.map((_, i) => {
             const current = orders[i];
             const next = orders[(i + 1) % orders.length];
-            return [current[1], next[0]];
+            return [current ? current[1]: next[0], next ? next[0]: current[0]];
         });
 
         return rearranged

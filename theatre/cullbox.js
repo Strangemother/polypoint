@@ -43,9 +43,9 @@ class MainStage extends Stage {
             , particleSpeed: .6
             , lifetime: 600
             , fromEdge: true
-            , tickModulo: 2
+            , tickModulo: 1
             // , speed: 100
-            , birthrate: 1
+            , birthrate: 90
             , pointLimit: 1000
         })
 
@@ -69,7 +69,7 @@ class MainStage extends Stage {
 
         let v = this.point.speed2D.absFloat()
         let vh = (v * .5)
-        this.e1.birthrate = 1 + v
+        this.e1.birthrate = 2 + v
         this.e1.particleSpeed = 1 + (vh * .2)
         this.e1.lifetime = this.e1.distanceTo(this.point) - vh
 
@@ -78,7 +78,7 @@ class MainStage extends Stage {
 
         this.screenWrap.cullBox(this.e1.points, (p)=>{
             /* Because this is an emitter, we can cheat
-            and simply _overage_ the point, The emitter will handle
+            and simply _over-age_ the point, The emitter will handle
             the rest. */
             p.age = p.lifetime + 10
 

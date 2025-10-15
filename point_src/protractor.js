@@ -24,6 +24,15 @@ function calculateAngle360(point1, point2, rotation, direction=1) {
 }
 
 /* Return a value between -180 and 180, for the angle between point A and B.
+
+We have a point, rotated to a direction, e.g. 0deg (pointing right.)
+We have another point, at a location
+
+return the angle in degrees, being the arc difference.
+Similar to a pizza slice.
+
+If we divide a circle in half the value == 180
+divide by three, and the angle == 120
 */
 function calculateAngle180(point1, point2, rotation, direction=1) {
     let angleInDegrees = calculateAngle360(point1, point2, rotation, direction)

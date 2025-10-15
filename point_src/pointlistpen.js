@@ -1,4 +1,5 @@
 
+
 let tryInheritColor = function(item, v) {
     if(v == 'inherit') {
         return item.color || undefined

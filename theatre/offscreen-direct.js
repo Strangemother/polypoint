@@ -18,6 +18,15 @@ files:
     stroke
 ---
 
+In this example we _replace the stage canvas with an OffscreenCanvas.
+Then we copy the content to the on-screen canvas
+
+    anyCanvas = #playspace
+    stage.canvas = new OffscreenCanvas(500, 400)
+    // ... draw routines to stage.ctx
+    copyToOnScreen(stage.canvas, anyCanvas)
+
+
  */
 
 

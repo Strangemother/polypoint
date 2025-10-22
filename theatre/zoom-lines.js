@@ -37,7 +37,7 @@ class MainStage extends Stage {
         this.dis.addPoints(...pointList)
 
         this.zoom = new Zoom(this, pointList)
-        // this.zoom.lens = 10
+        this.zoom.lens = -.6
         // this.zoom.add(...pointList)
 
         this.dragging.add(...pointList)
@@ -85,7 +85,7 @@ class MainStage extends Stage {
     draw(ctx){
         this.clear(ctx)
         if(this.origin){
-            this.zoom.update(this.origin, this.factor)
+            this.zoom.update3(this.origin, this.factor)
         }
 
         let mousePoint = Point.mouse.position
@@ -95,7 +95,7 @@ class MainStage extends Stage {
         let zps = this.zoom.zoomPoints
 
         this.points.forEach((p, i)=>{
-            // zps[i].pen.line(ctx, p, '#222')
+            zps[i].pen.line(ctx, p, '#222')
 
         })
 

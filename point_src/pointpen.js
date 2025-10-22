@@ -246,7 +246,6 @@ class PointPen {
         this.point.project().pen.line(ctx, this.point, lc, lw,)
         this.circle(ctx, undefined,cc, cw,)
     }
-
 }
 
 

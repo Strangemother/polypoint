@@ -5,7 +5,7 @@ class CollisionBox {
     collisionBox.shuffle()
     */
     constructor(points) {
-        this.points = points || new PointList;
+        this.points = points == undefined ? new PointList: points;
     }
 
     step(target) {

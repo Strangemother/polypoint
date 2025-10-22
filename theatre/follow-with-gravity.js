@@ -297,7 +297,7 @@ class MainStage extends Stage {
             (p, pin) => heavyStep(p, pin, gravity, .98, .2, .9)
             , (p, pin) => heavyStep(p, pin, gravity, .99)
             , (p, pin) => heavyStep(p, pin, gravity, .98, false, .1)
-            , (p, pin) => heavyStep(p, pin, gravity, .99, false)
+            , (p, pin) => heavyStep(p, pin, gravity, .99, false) // this one
             , (p, pin) => heavyStep(p, pin, gravity, false, 1)
         ]
         funcs.forEach((f, i)=> drawSet(i, f))

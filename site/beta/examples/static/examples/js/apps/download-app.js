@@ -25,11 +25,14 @@ class DownloadApp extends Mountable {
         let filename =  this.$refs.filename.value ?? "my-filename.png"
         return filename;
     }
+
     downloadCroppedLinkClick(e) {
 
         let filename = this.getFilename()
         let bgColor = this.$refs.bg_check.checked? '#080808': undefined;
-        if(!stage?.screenshot?.downloadCroppedImage) {
+        /// {"x":230,"y":100,"width":300,"height":500,"top":100,"right":511,"bottom":846.09375,"left":230}
+        let customCropDimentions = undefined;
+        if(!window?.detectEdges) {
             console.log('Installing screenshot')
             let files = [
                 "../point_src/screenshot.js",
@@ -38,10 +41,10 @@ class DownloadApp extends Mountable {
             ]
 
             Polypoint.head.load(files, ()=>{
-                stage.screenshot.downloadCroppedImage(filename, bgColor)
+                stage.screenshot.downloadCroppedImage(filename, bgColor, 10, customCropDimentions)
             })
         } else {
-            stage.screenshot.downloadCroppedImage(filename, bgColor)
+            stage.screenshot.downloadCroppedImage(filename, bgColor, 10, customCropDimentions)
         }
     }
 

@@ -28,8 +28,8 @@ addButton('button', {
     label: "Toggle Run"
     , onclick(){
         stage.buttonToggle = !stage.buttonToggle
-    }
-})
+
+}})
 
 addSliderControlSet({
     alpha: { value: 1 }

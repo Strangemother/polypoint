@@ -33,6 +33,12 @@ class RopeReactor {
             p.oldX = p.x;
             p.oldY = p.y;
 
+            if(gravity.x !== undefined) {
+                p.x += vx + gravity.x;
+                p.y += vy + gravity.y;
+                return
+            }
+
             p.x += vx;
             p.y += vy + gravity;
         });

@@ -59,6 +59,7 @@ class PointListPen {
     }
 
     lines(ctx, color='inherit', width) {
+        /* Draw a call the `pen.line`` for each point. */
 
         let eachPoint = (item, arcDrawF) =>{
                 item.project().pen.line(ctx, item, tryInheritColor(item, color), width)
@@ -133,7 +134,6 @@ class PointListPen {
         this.points(ctx, (p)=> p.pen.circle.apply(p.pen, args))
         // return this.stroke.apply(this, arguments)
     }
-
 
     quadCurve(ctx, color_or_conf, loop=false, position){
         // quickStrokeWithCtx(ctx, color_or_conf, b)

@@ -22,7 +22,7 @@ Apply a set of points to an instance of `Zoom`, then apply an update().
  */
 
 class Zoom {
-    constructor(stage, points=[], factor=1, center={x:0, y:0}, lens=0) {
+    constructor(stage, points=[], factor=1, center={x:0, y:0}, lens=1) {
         this.stage = stage
         this.points = points
         this.factor = factor
@@ -33,6 +33,50 @@ class Zoom {
 
     add(...points) {
         this.points = this.points.concat(points)
+    }
+
+    update3(center = this.center, factor = this.factor) {
+        // Lensed zoom: farther points move disproportionately more.
+        const zoomPoints   = this.getZoomPoints()
+        const originPoints = this.points
+        const lensStrength = this.lens      // e.g. 0.0 = off, 0.3 = subtle, 1.0 = chunky
+
+        // 1) Find max radius to normalize distances (so lensing is consistent).
+        let maxR = 0
+        for (let i = 0; i < originPoints.length; i++) {
+            const p = originPoints[i]
+            const dx = p.x - center.x
+            const dy = p.y - center.y
+            const r  = Math.hypot(dx, dy)
+            if (r > maxR) maxR = r
+        }
+        // Avoid div by zero if all points are at the center.
+        if (maxR === 0) maxR = 1
+
+        // 2) Apply lens curve per point.
+        for (let i = 0; i < originPoints.length; i++) {
+            const originPoint = originPoints[i]
+            const sibling     = zoomPoints[i]
+
+            const dx = originPoint.x - center.x
+            const dy = originPoint.y - center.y
+            const r  = Math.hypot(dx, dy)
+            const t  = r / maxR                   // normalized radius [0..1]
+
+            // Quadratic barrel curve: 1 + k * t^2  (k = lensStrength)
+            //  - k > 0 pushes far points further (barrel)
+            //  - k < 0 pulls far points in (pincushion)
+            const lensCurve = 1 + (lensStrength * t)
+
+            const s = factor * lensCurve          // total scale for displacement & radius
+
+            sibling.update({
+                x: center.x + dx * s,
+                y: center.y + dy * s,
+                radius: originPoint.radius * s,
+                rotation: originPoint.rotation
+            })
+        }
     }
 
     update(center=this.center, factor=this.factor) {
@@ -61,7 +105,7 @@ class Zoom {
         })
     }
 
-    update(center = this.center, factor = this.factor) {
+    update2(center = this.center, factor = this.factor) {
         // Lensed zoom: farther points move disproportionately more.
         const zoomPoints   = this.getZoomPoints()
         const originPoints = this.points
@@ -104,6 +148,7 @@ class Zoom {
             })
         }
     }
+
 
     get zoomPoints() {
         if(this._zoomPoints) {

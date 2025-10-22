@@ -86,6 +86,12 @@ class Dragging extends Distances {
         this.toy2 = new Point({ radius: 10})
     }
 
+    wake() {
+        if(this._near == undefined) {
+            this.initDragging()
+        }
+    }
+
     initDragging(stage=this.stage){
         let c = stage.canvas
             , mouse = stage.mouse

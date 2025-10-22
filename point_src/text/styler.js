@@ -133,3 +133,12 @@ class FontStyle extends SetUnset {
     }
 }
 
+
+Polypoint.head.lazierProp('Stage', function fonting() {
+    return new FontStyle()
+})
+
+Polypoint.head.lazierProp('StagePen', function fonting() {
+    return this.parent.fonting
+})
+

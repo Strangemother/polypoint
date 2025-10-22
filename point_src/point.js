@@ -196,9 +196,13 @@ class Positionable extends Relative {
             return v === undefined
         }
 
+        const ifUndefined = (v, d) => v === undefined? d: v
+
+
         if(isUndefined(y)) {
 
             if(Array.isArray(x)) {
+                this.fromArray
                 let lmap = {
                     1: () => {
                         /* An array of one
@@ -217,6 +221,7 @@ class Positionable extends Relative {
                 }
 
                 lmap[x.length]()
+
             } else if(typeof(x)=='number') {
                 y = x
                 x = x
@@ -230,14 +235,18 @@ class Positionable extends Relative {
             }
         }
 
-        this.x = isUndefined(x)? 0: x
-        this.y = isUndefined(y)? 0: y
+        /* XY Are absolutely mandatory. TODO: pickup from _defaults_ */
+        this.x = ifUndefined(x, 0)
+        this.y = ifUndefined(y, 0)
 
         if(!isUndefined(radius)) {
+            /* We don't have to worry about object.radius here
+            as that will already be set. */
             this.radius = radius
         }
 
         if(!isUndefined(rotation)) {
+            /* same as above. */
             this.rotation = rotation
         }
     }

@@ -564,3 +564,61 @@ input[type="text"]:focus {
 .download-image .filename-input {
     display: flex;
 }
+
+.manual-crop .right .label {
+    display: none;
+}
+
+.manual-crop {
+    font-size: 1.4em;
+    line-height: 0.5em;
+    display: inline-flex;
+}
+
+.manual-crop .button {
+    border: solid 1px;
+    border-radius: 0.2em;
+    padding: 0.2em;
+}
+
+.manual-crop {
+    display: inline-flex;
+    margin: 0 0em 0 0.4em;
+}
+
+.manual-crop .right-cell .button .label {
+    display: none;
+}
+
+.manual-crop .button {
+    background: #040404;
+    padding: 0.3em 0.5em;
+    font-size: 1.2em;
+    line-height: .5;
+    border-radius: 0.3em;
+}
+
+.download-image .right-cell {
+    display: flex;
+    align-items: center;
+    /* outline: solid 1px; */
+    flex-grow: 1;
+}
+
+.download-image .right-cell .label {
+    display: inline-flex;
+    flex-grow: 1;
+}
+
+.download-image .right-cell .manual-crop .button .label {
+    display: none;
+    /* border: none; */
+    /* outline: none; */
+}
+
+.download-image .right-cell .manual-crop .button {
+    border: none;
+    font-size: 1em;
+    line-height: 0.5;
+    padding: 0.2em 0.5em;
+}

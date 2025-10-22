@@ -18,6 +18,14 @@ files:
     stroke
 ---
 
+In this example generate an offscreen canvas and replace the stage `ctx`.
+Draw routines are done on the offscreen canvas, then copied to the onscreen
+canvas
+
+    offScreenCanvas = stage.offscreen.create()
+    context = offScreenCanvas.getContext("2d");
+    copyToOnScreen(offScreenCanvas, stage.canvas)
+
  */
 
 
@@ -44,7 +52,6 @@ class MainStageOffScreenContext extends Stage {
             this.offScreenCanvas = new OffscreenCanvas(500, 400)
          */
         this.offScreenCanvas = this.offscreen.create()
-
         this._ctx = this.offScreenCanvas.getContext('2d')
         // this.onScreenCanvas = document.getElementById("playspace")//.getContext("2d");
         this.point = new Point(10, 10)

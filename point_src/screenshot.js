@@ -94,14 +94,15 @@ class Screenshot {
     }
 
 
-    downloadCroppedImage(name='polypoint-screenshot.png', background=undefined, borderRadius=10){
+    downloadCroppedImage(name='polypoint-screenshot.png', background=undefined, borderRadius=10, dimensions=undefined){
         /* grab the placement, and create a new download image with cropping.*/
         if(background != undefined) {
-            return this.downloadCroppedImageAlphaComposite(name, background)
+            return this.downloadCroppedImageAlphaComposite(name, background, borderRadius, dimensions)
         }
+
         let stage = this.stage
             , ctx = stage.ctx
-            , d = stage.dimensions
+            , d = dimensions || stage.dimensions
             , w = d.width
             , h = d.height
 
@@ -110,7 +111,7 @@ class Screenshot {
         const innerPadding = 10
         let offscreen = stage.offscreen.create({
                 width: edges.width + (innerPadding * 2)
-                ,height: edges.height + (innerPadding * 2)
+                , height: edges.height + (innerPadding * 2)
             })
 
         const imageData = ctx.getImageData(
@@ -143,10 +144,11 @@ class Screenshot {
 
     }
 
-    downloadCroppedImageAlphaComposite(name='polypoint-screenshot.png', background=undefined, borderRadius=10){
+    downloadCroppedImageAlphaComposite(name='polypoint-screenshot.png',
+        background=undefined, borderRadius=10, dimensions=undefined){
         let stage = this.stage
             , ctx = stage.ctx
-            , d = stage.dimensions
+            , d = dimensions || stage.dimensions
             , w = d.width
             , h = d.height
 

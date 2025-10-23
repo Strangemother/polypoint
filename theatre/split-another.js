@@ -45,7 +45,7 @@ class MainStage extends Stage {
         
         // Physics constants
         this.gravity = 0.1
-        this.damping = 1  // Bounce damping (affects normal velocity)
+        this.damping = .2  // Bounce damping (affects normal velocity)
         this.rollingFriction = 0.98  // Rolling resistance (affects tangential velocity)
         this.dragging.add(this.ball)
     }
@@ -242,14 +242,14 @@ class MainStage extends Stage {
                 let tangentVelocity = this.ball.vx * tangentX + this.ball.vy * tangentY
                 
                 // Apply damping to normal component (bounce)
-                normalVelocity = -normalVelocity * this.damping
+                normalVelocity = -normalVelocity * this.damping 
                 
                 // Apply rolling friction to tangential component (rolling resistance)
                 tangentVelocity = tangentVelocity * this.rollingFriction
                 
                 // Reconstruct velocity from components
                 this.ball.vx = normalVelocity * normalX + tangentVelocity * tangentX
-                this.ball.vy = normalVelocity * normalY + tangentVelocity * tangentY - this.gravity
+                this.ball.vy = normalVelocity * normalY + tangentVelocity * tangentY - this.gravity - 0.1 // Small extra gravity to prevent sticking
             }
         }
         

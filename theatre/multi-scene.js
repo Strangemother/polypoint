@@ -69,3 +69,9 @@ class StageTwo extends BaseStage {
 
 ;stage1 = StageOne.go();
 ;stage2 = StageTwo.go();
+
+setTimeout(()=>{
+    console.log('Stages started:');
+    events.emit('scene:go', { stage: stage1 });
+    events.emit('scene:go', { stage: stage2, name: 'StageTwo' });
+}, 100);

@@ -31,6 +31,18 @@
     {% str_merge "../theatre/" part_name ".js" as script_name %}
     {% str_merge part_name ".js" as sim_filename %}
     <div>{% link "editor:home" sim_filename script_name %}</div>
+    <div class="scene-selector" id="scene_selector_app">
+        Selected Scene:
+        {% verbatim %}
+        <ul class="scene-list">
+            <li v-for="scene in store.scenes" :key="scene.id" class="scene-item">
+                <input type="checkbox" :id="'scene-' + scene.id" v-model="scene.selected">
+                <label :for="'scene-' + scene.id">{{ scene }}</label>
+            </li>
+        </ul>
+        {% endverbatim %}
+    </div>
+    {% link.css "examples/css/scene-selector.css" %}
 
 
     <div class="spacer flex-grow-1"></div>

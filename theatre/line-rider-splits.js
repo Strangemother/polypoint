@@ -44,9 +44,8 @@ class MainStage extends Stage {
         })
         
         // Physics constants
-        this.gravity = 0.1
-        this.damping = 1  // Bounce damping (affects normal velocity)
-        this.rollingFriction = 0.98  // Rolling resistance (affects tangential velocity)
+        this.gravity = 0.05
+        this.damping = 0.7  // Reduce bounce by 30% each collision
         this.dragging.add(this.ball)
     }
 
@@ -65,15 +64,11 @@ class MainStage extends Stage {
         normals.pen.lines(ctx, 'green', 2)
         
         // Create and draw ray projecting in direction of velocity
-        // Adaptive ray length: shorter when moving slowly or close to the curve
-        let velocityMag = Math.sqrt(this.ball.vx * this.ball.vx + this.ball.vy * this.ball.vy)
-        
-        // Base ray length on velocity magnitude, with minimum and maximum bounds
-        let baseRayLength = Math.max(this.ball.radius * 2, Math.min(100, velocityMag * 20))
-        
+        let rayLength = 100
         let rayStart = new Point(this.ball.x, this.ball.y)
         
         // Calculate ray direction from velocity (or default to downward if no velocity)
+        let velocityMag = Math.sqrt(this.ball.vx * this.ball.vx + this.ball.vy * this.ball.vy)
         let rayDirX, rayDirY
         
         if (velocityMag > 0.01) {
@@ -87,8 +82,8 @@ class MainStage extends Stage {
         }
         
         let rayEnd = new Point(
-            this.ball.x + rayDirX * baseRayLength,
-            this.ball.y + rayDirY * baseRayLength
+            this.ball.x + rayDirX * rayLength,
+            this.ball.y + rayDirY * rayLength
         )
         
         ctx.strokeStyle = 'red'
@@ -159,27 +154,20 @@ class MainStage extends Stage {
             }
         }
         
-        closestNormal.radius = clamp(closestNormal.radius,5 , closestNormal.radius)
         // Calculate average collision point from nearby normals
         let collisionPoint = null
         if (nearbyNormals.length > 0) {
-            // Sort normals by their position along the curve (by x position for horizontal-ish curves)
-            let sortedByPosition = nearbyNormals.slice().sort((a, b) => a.x - b.x)
+            // Find the two closest points to rayEnd
+            let sortedByDistance = nearbyNormals.slice().sort((a, b) => {
+                let distA = Math.abs(a.x - rayEnd.x)
+                let distB = Math.abs(b.x - rayEnd.x)
+                return distA - distB
+            })
             
-            // Find which two sequential normals the ball is between
-            let point1 = sortedByPosition[0]
-            let point2 = sortedByPosition.length > 1 ? sortedByPosition[1] : sortedByPosition[0]
+            let point1 = sortedByDistance[0]
+            let point2 = sortedByDistance.length > 1 ? sortedByDistance[1] : sortedByDistance[0]
             
-            // Find the pair of sequential points that bracket the ball's x position
-            for (let i = 0; i < sortedByPosition.length - 1; i++) {
-                if (this.ball.x >= sortedByPosition[i].x && this.ball.x <= sortedByPosition[i + 1].x) {
-                    point1 = sortedByPosition[i]
-                    point2 = sortedByPosition[i + 1]
-                    break
-                }
-            }
-            
-            // Project ball position onto the line segment between point1 and point2
+            // Project rayEnd onto the line segment between point1 and point2
             let segmentDx = point2.x - point1.x
             let segmentDy = point2.y - point1.y
             let segmentLengthSquared = segmentDx * segmentDx + segmentDy * segmentDy
@@ -187,8 +175,8 @@ class MainStage extends Stage {
             let avgX, avgY, avgRadians
             
             if (segmentLengthSquared > 0) {
-                // Calculate projection parameter t based on ball's position
-                let t = ((this.ball.x - point1.x) * segmentDx + (this.ball.y - point1.y) * segmentDy) / segmentLengthSquared
+                // Calculate projection parameter t
+                let t = ((rayEnd.x - point1.x) * segmentDx + (rayEnd.y - point1.y) * segmentDy) / segmentLengthSquared
                 t = Math.max(0, Math.min(1, t)) // Clamp to [0, 1]
                 
                 // Calculate projected point on line segment
@@ -235,21 +223,12 @@ class MainStage extends Stage {
                 this.ball.x = collisionPoint.x + normalX * this.ball.radius
                 this.ball.y = collisionPoint.y + normalY * this.ball.radius
                 
-                // Separate velocity into normal and tangential components
-                let normalVelocity = this.ball.vx * normalX + this.ball.vy * normalY
-                let tangentX = -normalY  // Perpendicular to normal
-                let tangentY = normalX
-                let tangentVelocity = this.ball.vx * tangentX + this.ball.vy * tangentY
+                // Calculate dot product of velocity and normal
+                let dotProduct = this.ball.vx * normalX + this.ball.vy * normalY
                 
-                // Apply damping to normal component (bounce)
-                normalVelocity = -normalVelocity * this.damping
-                
-                // Apply rolling friction to tangential component (rolling resistance)
-                tangentVelocity = tangentVelocity * this.rollingFriction
-                
-                // Reconstruct velocity from components
-                this.ball.vx = normalVelocity * normalX + tangentVelocity * tangentX
-                this.ball.vy = normalVelocity * normalY + tangentVelocity * tangentY - this.gravity
+                // Reflect velocity along the normal
+                this.ball.vx = (this.ball.vx - 2 * dotProduct * normalX) * this.damping
+                this.ball.vy = (this.ball.vy - 2 * dotProduct * normalY) * this.damping - this.gravity
             }
         }
         

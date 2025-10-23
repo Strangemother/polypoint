@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     "documentation",
     "screenshot",
     "trim",
-    "trimdocs",
+    # "trimdocs",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -91,7 +91,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = "primary.urls"
 
 
-from trimdocs.settings.default import *
+# from trimdocs.settings.default import *
 
 # SITE_DIR = (Path(__file__).parent / '../../../../').resolve().absolute()
 

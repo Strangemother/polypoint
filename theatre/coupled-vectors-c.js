@@ -549,11 +549,11 @@ class GamepadController {
         
         // Update triggers (buttons 6 and 7 on most controllers)
         // Some controllers report triggers as axes, others as buttons
-        if (this.gamepad.buttons[6]) {
-            this.state.leftTrigger = this.gamepad.buttons[6].value
-        }
         if (this.gamepad.buttons[7]) {
-            this.state.rightTrigger = this.gamepad.buttons[7].value
+            this.state.leftTrigger = this.gamepad.buttons[7].value
+        }
+        if (this.gamepad.buttons[6]) {
+            this.state.rightTrigger = this.gamepad.buttons[6].value
         }
         
         // Update face buttons
@@ -627,7 +627,7 @@ class MainStage extends Stage {
         // These are "virtual" mass points that don't render but affect physics
         // For a top-heavy VTOL: put heavy mass at the top
         this.massPoints = [
-            { x: 80, y: 0, mass: 50 }  // Heavy payload at the top (15 mass units)
+            { x: -60, y: 0, mass: 20 }  // Heavy payload at the top (15 mass units)
             // { x: 30, y: 0, mass: 8 },   // Additional mass slightly lower
             // , { x: 0, y: 40, mass: 20 }   // Light fuel tank at bottom (uncomment to test)
         ]
@@ -648,6 +648,7 @@ class MainStage extends Stage {
 
         this.power = 0
         this.powerDown = false
+        this.triggerForce = 0.06
 
         this.dragging.add(...this.asteroids)
         
@@ -693,12 +694,12 @@ class MainStage extends Stage {
         
         // Left trigger controls engine 'a' power (top engine)
         if (gp.leftTrigger > 0) {
-            this.a.force += gp.leftTrigger * 0.15  // Scale trigger to force
+            this.a.force += gp.leftTrigger * this.triggerForce  // Scale trigger to force
         }
         
         // Right trigger controls engine 'b' power (bottom engine)
         if (gp.rightTrigger > 0) {
-            this.b.force += gp.rightTrigger * 0.15
+            this.b.force += gp.rightTrigger * this.triggerForce
         }
         
         // Optional: Button A for engine 'c' (side thruster)
@@ -897,7 +898,7 @@ class MainStage extends Stage {
 
         // Apply force to engine 'a' to create rotation
         // Positive force pushes in the direction the engine is pointing
-        this.a.force += 0.15
+        this.a.force += this.triggerForce
     }
 
     onRightKeydown(ev) {
@@ -913,7 +914,7 @@ class MainStage extends Stage {
 
         // Apply force to engine 'b' to create rotation
         // Positive force pushes in the direction the engine is pointing
-        this.b.force += 0.15
+        this.b.force += this.triggerForce
     }
 
     updateShip(){
@@ -958,7 +959,7 @@ class MainStage extends Stage {
         
         // Apply gravity-gradient torque (makes top-heavy configurations unstable)
         // NOTE: This should use the SAME gravity value as the linear gravity below
-        const gravityStrength = 0.00
+        const gravityStrength = 0.01
         this.applyGravityGradientTorque(com, I, gravityStrength)
         
         // Apply gravity to ship (linear motion)

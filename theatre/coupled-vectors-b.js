@@ -62,12 +62,21 @@ class MainStage extends Stage {
         // Store initial offsets (in ship's local space)
         // radians is the LOCAL rotation offset (0 = forward, Math.PI/2 = right, etc.)
         this.engineOffsets = [
-            { x: 0, y: -25, radians: .0 },           // engine 'a' - top, pointing forward
-            { x: 0, y: 25, radians: 0 },            // engine 'b' - bottom, pointing forward
+            { x: 0, y: -25, radians: .10 },           // engine 'a' - top, pointing forward
+            { x: 0, y: 25, radians: -.10 },            // engine 'b' - bottom, pointing forward
             { x: 25, y: 0, radians: 0 }     // engine 'c' - right side, pointing right
         ]
         
         this.engines = [this.a, this.b, this.c]
+
+        // Add additional mass points to shift center of mass
+        // These are "virtual" mass points that don't render but affect physics
+        // For a top-heavy VTOL: put heavy mass at the top
+        this.massPoints = [
+            { x: 80, y: 0, mass: 10 }  // Heavy payload at the top (15 mass units)
+            // { x: 30, y: 0, mass: 8 },   // Additional mass slightly lower
+            // , { x: 0, y: 40, mass: 20 }   // Light fuel tank at bottom (uncomment to test)
+        ]
 
         this.asteroids = new PointList(
                 [250, 200]
@@ -114,15 +123,35 @@ class MainStage extends Stage {
     }
 
     computeCenterOfMass() {
-        /* Calculate the center of mass of the ship + engines system */
+        /* Calculate the center of mass of the ship + engines + mass points system */
         let totalMass = this.ship.mass
         let x = this.ship.x * this.ship.mass
         let y = this.ship.y * this.ship.mass
 
+        // Add engine masses
         for (let engine of this.engines) {
             totalMass += engine.mass
             x += engine.x * engine.mass
             y += engine.y * engine.mass
+        }
+
+        // Add additional mass points (e.g., payload, fuel tanks)
+        // These are in local space, so rotate them relative to ship orientation
+        const cos = Math.cos(this.ship.radians)
+        const sin = Math.sin(this.ship.radians)
+        
+        for (let massPoint of this.massPoints) {
+            // Rotate the mass point offset
+            const rotatedX = massPoint.x * cos - massPoint.y * sin
+            const rotatedY = massPoint.x * sin + massPoint.y * cos
+            
+            // Calculate world position
+            const worldX = this.ship.x + rotatedX
+            const worldY = this.ship.y + rotatedY
+            
+            totalMass += massPoint.mass
+            x += worldX * massPoint.mass
+            y += worldY * massPoint.mass
         }
 
         return {
@@ -147,7 +176,71 @@ class MainStage extends Stage {
             I += engine.mass * (dx * dx + dy * dy)
         }
 
+        // Mass point contributions (they also affect rotational inertia!)
+        const cos = Math.cos(this.ship.radians)
+        const sin = Math.sin(this.ship.radians)
+        
+        for (let massPoint of this.massPoints) {
+            // Rotate the mass point offset
+            const rotatedX = massPoint.x * cos - massPoint.y * sin
+            const rotatedY = massPoint.x * sin + massPoint.y * cos
+            
+            // Calculate world position
+            const worldX = this.ship.x + rotatedX
+            const worldY = this.ship.y + rotatedY
+            
+            const dx = worldX - com.x
+            const dy = worldY - com.y
+            I += massPoint.mass * (dx * dx + dy * dy)
+        }
+
         return I
+    }
+
+    applyGravityGradientTorque(com, I) {
+        /* Simulate gravity-gradient torque - heavier masses farther from COM 
+           create instability when not aligned with gravity */
+        const gravityStrength = 0.01  // Gravity force per unit mass
+        const cos = Math.cos(this.ship.radians)
+        const sin = Math.sin(this.ship.radians)
+        
+        let gravityTorque = 0
+        
+        // Apply gravity to each mass point and calculate resulting torque
+        for (let massPoint of this.massPoints) {
+            // Rotate mass point to world space
+            const rotatedX = massPoint.x * cos - massPoint.y * sin
+            const rotatedY = massPoint.x * sin + massPoint.y * cos
+            const worldX = this.ship.x + rotatedX
+            const worldY = this.ship.y + rotatedY
+            
+            // Gravity force on this mass point (downward)
+            const gravityForce = massPoint.mass * gravityStrength
+            
+            // Distance from COM
+            const dx = worldX - com.x
+            const dy = worldY - com.y
+            
+            // Torque = r × F (only y-component of force matters for vertical gravity)
+            gravityTorque += dx * gravityForce
+        }
+        
+        // Apply gravity torque to engines too
+        for (let engine of this.engines) {
+            const gravityForce = engine.mass * gravityStrength
+            const dx = engine.x - com.x
+            gravityTorque += dx * gravityForce
+        }
+        
+        // Ship body gravity torque
+        const gravityForce = this.ship.mass * gravityStrength
+        const dx = this.ship.x - com.x
+        gravityTorque += dx * gravityForce
+        
+        // Apply the gravity-induced torque
+        if (I > 0) {
+            this.ship.rotationSpeed += gravityTorque / I
+        }
     }
 
     applyEngineForces() {
@@ -177,8 +270,10 @@ class MainStage extends Stage {
             torqueTotal += dx * fy - dy * fx
         }
 
-        // Apply forces to ship
-        const totalMass = this.ship.mass + this.engines.reduce((sum, e) => sum + e.mass, 0)
+        // Apply forces to ship - must include ALL masses (ship + engines + mass points)
+        let totalMass = this.ship.mass + this.engines.reduce((sum, e) => sum + e.mass, 0)
+        totalMass += this.massPoints.reduce((sum, mp) => sum + mp.mass, 0)
+        
         this.ship.vx += fxTotal / totalMass
         this.ship.vy += fyTotal / totalMass
         
@@ -186,6 +281,9 @@ class MainStage extends Stage {
         if (I > 0) {
             this.ship.rotationSpeed += torqueTotal / I
         }
+        
+        // Apply gravity-gradient torque (makes top-heavy configurations unstable)
+        this.applyGravityGradientTorque(com, I)
     }
 
     addMotion(point, speed=1) {
@@ -259,7 +357,7 @@ class MainStage extends Stage {
 
         // Don't apply rotation - that's cheating. Instead, use the side engine to rotate.
         // this.ship.rotationSpeed -= 0.01
-        this.a.force -= 0.02
+        this.a.force -= 0.15
     }
 
     onRightKeydown(ev) {
@@ -274,27 +372,45 @@ class MainStage extends Stage {
         }
 
         // this.ship.rotationSpeed += 0.01
-        this.b.force -= 0.02
+        this.b.force -= 0.15
     }
 
     updateShip(){
-        // Update engine positions based on ship orientation
+        // CRITICAL FIX: Store the COM offset BEFORE updating positions
+        const comBefore = this.computeCenterOfMass()
+        const offsetBeforeX = comBefore.x - this.ship.x
+        const offsetBeforeY = comBefore.y - this.ship.y
+        
+        // Apply rotation FIRST (before updating engine positions)
+        this.ship.radians += this.ship.rotationSpeed
+        this.ship.rotation = this.ship.radians * 180 / Math.PI
+        
+        // Dampen rotation
+        // this.ship.rotationSpeed *= .99
+
+        // Update engine positions based on NEW ship orientation
+        this.updateEnginePositions()
+        
+        // Now calculate COM with new engine positions
+        const comAfter = this.computeCenterOfMass()
+        const offsetAfterX = comAfter.x - this.ship.x
+        const offsetAfterY = comAfter.y - this.ship.y
+        
+        // The ship reference point needs to move so that COM stays consistent
+        // This keeps the ship rotating around its true center of mass
+        this.ship.x += (offsetBeforeX - offsetAfterX)
+        this.ship.y += (offsetBeforeY - offsetAfterY)
+        
+        // Re-update engine positions with corrected ship position
         this.updateEnginePositions()
         
         // Apply forces from engines to ship
         this.applyEngineForces()
         
         // Apply gravity to ship
-        // this.ship.vy += .001  // Simulated gravity
+        this.ship.vy += .01  // Simulated gravity
 
-        // Apply rotation
-        this.ship.radians += this.ship.rotationSpeed
-        this.ship.rotation = this.ship.radians * 180 / Math.PI
-        
-        // Dampen rotation
-        this.ship.rotationSpeed *= .99
-
-        // Move the ship based on its velocity
+        // Move the ship based on its velocity (this moves the whole system)
         this.addMotion(this.ship, this.speed)
 
         // Screen wrap
@@ -313,7 +429,32 @@ class MainStage extends Stage {
 
         this.asteroids.pen.indicators(ctx)
 
-        // Draw the ship center (optional, for debugging)
+        // Calculate and draw the center of mass
+        const com = this.computeCenterOfMass()
+        ctx.fillStyle = '#ff0000'
+        ctx.beginPath()
+        ctx.arc(com.x, com.y, 8, 0, Math.PI * 2)
+        ctx.fill()
+        
+        // Draw mass points (visualize the payload/fuel tanks)
+        const cos = Math.cos(this.ship.radians)
+        const sin = Math.sin(this.ship.radians)
+        
+        ctx.fillStyle = '#ffff00'
+        for (let massPoint of this.massPoints) {
+            const rotatedX = massPoint.x * cos - massPoint.y * sin
+            const rotatedY = massPoint.x * sin + massPoint.y * cos
+            const worldX = this.ship.x + rotatedX
+            const worldY = this.ship.y + rotatedY
+            
+            // Size based on mass
+            const radius = Math.sqrt(massPoint.mass) * 2
+            ctx.beginPath()
+            ctx.arc(worldX, worldY, radius, 0, Math.PI * 2)
+            ctx.fill()
+        }
+
+        // Draw the ship center (green - this is the reference point, not COM)
         this.ship.pen.indicator(ctx, '#00ff00')
         
         // Draw the engines

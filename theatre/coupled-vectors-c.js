@@ -42,7 +42,7 @@ Physics Improvements (v3):
 - Documented: Complete API reference in docs/moment-of-inertia-api.md
 - Educational: Added beginner's guide in docs/moment-of-inertia-explained.md
 - Simplified: Unified body list API - all bodies treated equally, distinguished by isLocal flag
-- Extracted: calculateTotalMass(), calculateCenterOfMass(), applyEngineForces(), and applyGravityGradientTorque() as reusable standalone functions
+- Extracted: calculateTotalMass(), calculateCenterOfMass(), applyEngineForces(), applyGravityGradientTorque(), applyGamepadControls(), and updateRigidBodyPhysics() as reusable standalone functions
 */
 
 
@@ -478,6 +478,481 @@ function applyGravityGradientTorque(mainBody, bodies, centerOfMass, momentOfIner
 // GAMEPAD INTEGRATION
 // ============================================================================
 
+/**
+ * Apply gamepad controller inputs to engine controls.
+ * 
+ * WHAT THIS DOES:
+ * Maps gamepad analog sticks and triggers to engine rotation and thrust:
+ * - Left stick Y-axis: Controls top engine (a) rotation speed
+ * - Right stick Y-axis: Controls bottom engine (b) rotation speed
+ * - Left trigger: Controls top engine (a) thrust
+ * - Right trigger: Controls bottom engine (b) thrust
+ * - Button A: Side thruster (c) burst
+ * - Back button: Reset ship to center
+ * 
+ * ROTATION BEHAVIOR:
+ * When a stick is held, the engine rotation accumulates continuously, allowing
+ * the engine to spin 360+ degrees. When released, rotation stops immediately.
+ * This gives precise control over engine orientation.
+ * 
+ * DEADZONE:
+ * Small stick movements are ignored (handled by GamepadController) to prevent
+ * controller drift from causing unwanted inputs.
+ * 
+ * @param {Object} gamepadState - The gamepad state dictionary with analog values
+ * @param {Array} engines - Array of engine objects [{force, ...}, ...]
+ * @param {Array} engineOffsets - Array of engine offset configs [{radians, rotationSpeed, ...}, ...]
+ * @param {number} triggerForce - Force multiplier for trigger inputs (default: 0.06)
+ * @param {Function} resetCallback - Optional callback function to reset the ship
+ * @returns {Object} Updated input state for debugging: {rotation: [a, b], thrust: [a, b, c]}
+ * 
+ * @example
+ * const gp = gamepadController.state
+ * const engines = [engineA, engineB, engineC]
+ * const offsets = [
+ *     {radians: 0.1, rotationSpeed: 0},
+ *     {radians: -0.1, rotationSpeed: 0},
+ *     {radians: 0, rotationSpeed: 0}
+ * ]
+ * 
+ * const inputs = applyGamepadControls(gp, engines, offsets, 0.06, () => resetShip())
+ * // Stick up → engine rotates, trigger → thrust applied
+ * // inputs = {rotation: [0.05, -0.03], thrust: [0.12, 0.08, 0]}
+ */
+function applyGamepadControls(gamepadState, engines, engineOffsets, triggerForce = 0.06, resetCallback = null) {
+    const gp = gamepadState
+    
+    // Back button resets the ship to center with zero velocity
+    if (gp.buttonBack && resetCallback) {
+        resetCallback()
+        return {rotation: [0, 0], thrust: [0, 0, 0]}
+    }
+    
+    // Left stick Y-axis controls engine 'a' rotation speed (top engine)
+    // Negative Y is up on stick, so we negate for intuitive control
+    // When stick is held, rotation accumulates; when released, rotation stops
+    const leftStickInput = -gp.leftStickY
+    if (Math.abs(leftStickInput) > 0) {
+        // Apply rotation speed based on stick deflection
+        engineOffsets[0].rotationSpeed = leftStickInput * 0.05  // Rotation speed multiplier
+    } else {
+        // Stop rotation when stick is released
+        engineOffsets[0].rotationSpeed = 0
+    }
+    // Accumulate rotation
+    engineOffsets[0].radians += engineOffsets[0].rotationSpeed
+    
+    // Right stick Y-axis controls engine 'b' rotation speed (bottom engine)
+    const rightStickInput = -gp.rightStickY
+    if (Math.abs(rightStickInput) > 0) {
+        engineOffsets[1].rotationSpeed = rightStickInput * 0.05
+    } else {
+        engineOffsets[1].rotationSpeed = 0
+    }
+    // Accumulate rotation
+    engineOffsets[1].radians += engineOffsets[1].rotationSpeed
+    
+    // Left trigger controls engine 'a' power (left engine)
+    let thrustA = 0, thrustB = 0, thrustC = 0
+    if (gp.leftTrigger > 0) {
+        thrustA = gp.leftTrigger * triggerForce
+        engines[1].force += thrustA
+    }
+    
+    // Right trigger controls engine 'b' power (bottom engine)
+    if (gp.rightTrigger > 0) {
+        thrustB = gp.rightTrigger * triggerForce
+        engines[2].force += thrustB
+    }
+    
+    // Optional: Button A for engine 'c' (top thruster)
+    if (gp.buttonA) {
+        thrustC = triggerForce
+        engines[0].force += thrustC
+    }
+    
+    return {
+        rotation: [engineOffsets[0].rotationSpeed, engineOffsets[1].rotationSpeed],
+        thrust: [thrustA, thrustB, thrustC]
+    }
+}
+
+/**
+ * Update rigid body physics for a ship with coupled engines.
+ * 
+ * WHAT THIS DOES:
+ * This is the main physics simulation loop that:
+ * 1. Updates ship rotation around its center of mass
+ * 2. Applies engine forces (linear thrust and torque)
+ * 3. Applies gravity-gradient torque (top-heavy instability)
+ * 4. Moves the ship through space
+ * 5. Decays engine forces over time
+ * 
+ * THE CENTER OF MASS CHALLENGE:
+ * As the ship rotates, the center of mass (COM) position changes relative to
+ * the ship's reference point. To keep rotation smooth and physically correct,
+ * we must:
+ * - Calculate COM before rotation
+ * - Apply rotation to ship
+ * - Calculate COM after rotation
+ * - Adjust ship position so COM stays in the same world position
+ * 
+ * This prevents the ship from "wobbling" as it rotates.
+ * 
+ * OPTIMIZATION:
+ * COM and moment of inertia are calculated only 3 times per frame:
+ * - Once before rotation (to track COM offset)
+ * - Once after rotation (to correct ship position)
+ * - Once for physics calculations (forces and torques)
+ * 
+ * STANDALONE DESIGN:
+ * This function uses the standalone physics functions directly (calculateCenterOfMass,
+ * calculateMomentOfInertia, applyEngineForces, applyGravityGradientTorque) making it
+ * completely independent and reusable without requiring class method wrappers.
+ * 
+ * @param {Object} ship - Main rigid body {x, y, vx, vy, radians, rotationSpeed, mass}
+ * @param {Array} engines - Array of engines with {x, y, radians, force, mass}
+ * @param {Array} massPoints - Additional mass points [{x, y, mass}] in local space
+ * @param {Object} options - Configuration options
+ * @param {Function} options.updateEnginePositions - Callback to update engine visual positions
+ * @param {Function} options.addMotion - Callback to apply velocity (default: simple addition)
+ * @param {number} options.gravityStrength - Gravity acceleration (default: 0.01)
+ * @param {number} options.forceDecay - Engine force decay factor (default: 0.9)
+ * @param {number} options.speed - Movement speed multiplier (default: 1)
+ * @returns {Object} Physics state for debugging: {com: {x, y}, I, forces, torques}
+ * 
+ * @example
+ * // Minimal usage - only updateEnginePositions callback required
+ * const result = updateRigidBodyPhysics(ship, engines, massPoints, {
+ *     updateEnginePositions: updateEngineCallback
+ * })
+ */
+function updateRigidBodyPhysics(ship, engines, massPoints, options = {}) {
+    const {
+        updateEnginePositions,
+        addMotion = (ship, speed = 1) => {
+            ship.x += ship.vx * speed
+            ship.y += ship.vy * speed
+        },
+        gravityStrength = 0.01,
+        forceDecay = 0.9,
+        speed = 1
+    } = options
+    
+    // Helper: Combine all bodies for physics calculations
+    const getAllBodies = () => [
+        ...engines,  // World-space (already positioned)
+        ...massPoints.map(mp => ({...mp, isLocal: true}))  // Local-space (need rotation)
+    ]
+    
+    // STEP 1: Calculate COM before rotation (to track world position)
+    const comBefore = calculateCenterOfMass(ship, getAllBodies())
+    
+    // STEP 2: Apply rotation to ship
+    ship.radians += ship.rotationSpeed
+    ship.rotation = ship.radians * 180 / Math.PI
+    
+    // STEP 3: Update engine positions based on new ship orientation
+    updateEnginePositions()
+    
+    // STEP 4: Calculate COM after rotation (with new engine positions)
+    const comAfter = calculateCenterOfMass(ship, getAllBodies())
+    
+    // STEP 5: Adjust ship position so COM stays in same world position
+    // This keeps the ship rotating around its true center of mass
+    // We need to move the ship by the amount the COM moved
+    const comDeltaX = comAfter.x - comBefore.x
+    const comDeltaY = comAfter.y - comBefore.y
+    ship.x -= comDeltaX
+    ship.y -= comDeltaY
+    
+    // STEP 6: Re-update engine positions with corrected ship position
+    updateEnginePositions()
+    
+    // STEP 7: Calculate final COM and moment of inertia for physics
+    const allBodies = getAllBodies()
+    const com = calculateCenterOfMass(ship, allBodies)
+    const I = calculateMomentOfInertia(com, ship, allBodies)
+    
+    // STEP 8: Apply engine forces (linear thrust + torque)
+    const totalMass = calculateTotalMass(ship, allBodies)
+    const forceResult = applyEngineForces(ship, engines, com, totalMass, I)
+    
+    // STEP 9: Apply gravity-gradient torque (top-heavy = unstable)
+    const gravityTorque = applyGravityGradientTorque(ship, allBodies, com, I, gravityStrength)
+    
+    // STEP 10: Apply linear gravity to ship
+    ship.vy += gravityStrength
+    
+    // STEP 11: Move ship based on velocity
+    addMotion(ship, speed)
+    
+    // STEP 12: Decay engine forces over time
+    engines.forEach(e => e.force *= forceDecay)
+    
+    return {
+        com: com,
+        momentOfInertia: I,
+        forces: forceResult,
+        gravityTorque: gravityTorque
+    }
+}
+
+// ============================================================================
+// SHIP CLASS
+// ============================================================================
+
+/**
+ * Ship class representing a rigid body with coupled engines.
+ * 
+ * This extends Point to create a physics-enabled ship that:
+ * - Has mass and rotational inertia
+ * - Rotates around its center of mass
+ * - Responds to engine forces and gravity
+ * - Manages attached engines
+ */
+class Ship extends Point {
+    constructor(config = {}) {
+        super(config)
+        
+        // Physics properties
+        this.vx = config.vx || 0
+        this.vy = config.vy || 0
+        this.radians = config.radians || -Math.PI/2  // Default: pointing up
+        this.rotationSpeed = config.rotationSpeed || 0
+        this.mass = config.mass || 10
+        this.radius = config.radius || 5
+        
+        // Set rotation in degrees for Point compatibility
+        this.rotation = this.radians * 180 / Math.PI
+        
+        // Engine management
+        this.engines = []
+        this.engineOffsets = []
+    }
+    
+    /**
+     * Add an engine to the ship using relative (local-space) position.
+     * 
+     * The engine Point's x, y, and rotation are treated as RELATIVE to the ship:
+     * - x, y: Offset from ship's center in local coordinates
+     * - rotation: Rotation relative to ship's forward direction (in degrees)
+     * 
+     * The engine will be positioned in world space and moved with the ship.
+     * 
+     * @param {Point} enginePoint - The Point object with relative position (x, y, rotation)
+     * @param {number} [mass=1] - Engine mass (default: 1)
+     * @returns {Ship} Returns this for method chaining
+     * 
+     * @example
+     * const ship = new Ship({ x: 200, y: 225, radians: -Math.PI/2 })
+     * const engineA = new Point({ x: 0, y: -25, rotation: 0, radius: 10 })
+     * 
+     * ship.addEngine(engineA, 1)  // Engine at top, pointing same direction as ship
+     */
+    addEngine(enginePoint, mass = 1) {
+        // Ensure engine has required physics properties
+        enginePoint.mass = mass
+        enginePoint.force = enginePoint.force || 0
+        
+        // Convert rotation from degrees to radians if needed
+        const engineRadians = enginePoint.radians || (enginePoint.rotation * Math.PI / 180)
+        
+        // Store the RELATIVE position (already in local space)
+        const engineOffset = {
+            x: enginePoint.x,
+            y: enginePoint.y,
+            radians: engineRadians,
+            rotationSpeed: 0
+        }
+        
+        // Transform engine to world space initially
+        const cos = Math.cos(this.radians)
+        const sin = Math.sin(this.radians)
+        const rotatedX = enginePoint.x * cos - enginePoint.y * sin
+        const rotatedY = enginePoint.x * sin + enginePoint.y * cos
+        
+        enginePoint.x = this.x + rotatedX
+        enginePoint.y = this.y + rotatedY
+        enginePoint.radians = this.radians + engineRadians
+        enginePoint.rotation = enginePoint.radians * 180 / Math.PI
+        
+        this.engines.push(enginePoint)
+        this.engineOffsets.push(engineOffset)
+        
+        return this  // Allow chaining
+    }
+    
+    /**
+     * Update engine positions based on ship's current position and rotation.
+     * 
+     * This transforms each engine from local space (relative to ship) to world space
+     * by applying rotation and translation. Should be called whenever the ship moves
+     * or rotates.
+     */
+    updateEnginePositions() {
+        const cos = Math.cos(this.radians)
+        const sin = Math.sin(this.radians)
+
+        this.engines.forEach((engine, i) => {
+            const offset = this.engineOffsets[i]
+
+            // Rotate the offset by the ship's current rotation
+            const rotatedX = offset.x * cos - offset.y * sin
+            const rotatedY = offset.x * sin + offset.y * cos
+
+            // Position engine relative to ship
+            engine.x = this.x + rotatedX
+            engine.y = this.y + rotatedY
+
+            // Sync engine rotation with ship + local offset
+            engine.radians = this.radians + offset.radians
+            engine.rotation = (engine.radians * 180 / Math.PI)
+        })
+    }
+    
+    /**
+     * Reset ship to a position with zero velocity and rotation.
+     * 
+     * This resets all physics state including:
+     * - Position (x, y)
+     * - Velocity (vx, vy)
+     * - Rotation (radians, rotationSpeed)
+     * - Engine forces
+     * - Engine rotation offsets to initial values
+     * 
+     * @param {number} x - X position to reset to
+     * @param {number} y - Y position to reset to
+     * @param {number} [radians=-Math.PI/2] - Rotation in radians (default: pointing up)
+     * @returns {Ship} Returns this for method chaining
+     */
+    reset(x, y, radians = -Math.PI / 2) {
+        // Reset position and velocity
+        this.x = x
+        this.y = y
+        this.vx = 0
+        this.vy = 0
+        
+        // Reset rotation
+        this.radians = radians
+        this.rotation = radians * 180 / Math.PI
+        this.rotationSpeed = 0
+        
+        // Reset engine forces
+        this.engines.forEach(e => e.force = 0)
+        
+        // Reset engine offsets to their stored initial values
+        // (Keep the original offset positions, just reset rotation deltas)
+        this.engineOffsets.forEach(offset => {
+            offset.rotationSpeed = 0
+            // Note: offset.radians is preserved as the initial engine angle
+        })
+        
+        // Update engine positions to match new ship state
+        this.updateEnginePositions()
+        
+        return this
+    }
+    
+    /**
+     * Draw the ship and its engines to the canvas.
+     * 
+     * This renders:
+     * - Ship center point (green indicator)
+     * - All engine points with indicators
+     * - Lines connecting engines to ship center
+     * - Optional: Center of mass indicator
+     * - Optional: Mass points (cargo, fuel tanks, etc.)
+     * - Optional: Lines connecting engines to form rigid body outline
+     * 
+     * @param {CanvasRenderingContext2D} ctx - The canvas 2D context
+     * @param {Object} [options] - Drawing options
+     * @param {string} [options.shipColor='#00ff00'] - Color for ship center
+     * @param {string} [options.engineColor] - Default color for engines (uses engine defaults if not set)
+     * @param {string} [options.lineColor='purple'] - Color for lines connecting engines to ship
+     * @param {boolean} [options.drawOutline=false] - Whether to draw rigid body outline
+     * @param {string} [options.outlineColor='#ffffff44'] - Color for rigid body outline
+     * @param {Object} [options.com] - Center of mass position {x, y} (if provided, will be drawn)
+     * @param {string} [options.comColor='#ff0000'] - Color for center of mass indicator
+     * @param {number} [options.comRadius=8] - Radius of center of mass circle
+     * @param {Array} [options.massPoints] - Array of mass points to visualize [{x, y, mass}, ...]
+     * @param {string} [options.massPointColor='#ffff00'] - Color for mass point indicators
+     */
+    drawShip(ctx, options = {}) {
+        const {
+            shipColor = '#00ff00',
+            engineColor,
+            lineColor = 'purple',
+            drawOutline = false,
+            outlineColor = '#ffffff44',
+            com,
+            comColor = '#ff0000',
+            comRadius = 8,
+            massPoints,
+            massPointColor = '#ffff00'
+        } = options
+        
+        // Draw center of mass if provided
+        if (com) {
+            ctx.fillStyle = comColor
+            ctx.beginPath()
+            ctx.arc(com.x, com.y, comRadius, 0, Math.PI * 2)
+            ctx.fill()
+        }
+        
+        // Draw mass points if provided (visualize payload/fuel tanks)
+        if (massPoints && massPoints.length > 0) {
+            const cos = Math.cos(this.radians)
+            const sin = Math.sin(this.radians)
+            
+            ctx.fillStyle = massPointColor
+            for (let massPoint of massPoints) {
+                const rotatedX = massPoint.x * cos - massPoint.y * sin
+                const rotatedY = massPoint.x * sin + massPoint.y * cos
+                const worldX = this.x + rotatedX
+                const worldY = this.y + rotatedY
+                
+                // Size based on mass
+                const radius = Math.sqrt(massPoint.mass) * 2
+                ctx.beginPath()
+                ctx.arc(worldX, worldY, radius, 0, Math.PI * 2)
+                ctx.fill()
+            }
+        }
+        
+        // Draw the ship center (green - this is the reference point, not COM)
+        this.pen.indicator(ctx, shipColor)
+        
+        // Draw the engines
+        this.engines.forEach((engine, i) => {
+            // Use custom color or let engine use its default
+            if (engineColor) {
+                engine.pen.indicator(ctx, engineColor)
+            } else {
+                // Use different colors for different engines (for visual distinction)
+                const colors = [undefined, undefined, '#ff00ff']  // Purple for third engine
+                engine.pen.indicator(ctx, colors[i])
+            }
+            
+            // Draw line from engine to ship center
+            engine.pen.line(ctx, this, lineColor)
+        })
+        
+        // Optional: Draw lines connecting engines to show rigid body
+        if (drawOutline && this.engines.length > 2) {
+            ctx.strokeStyle = outlineColor
+            ctx.lineWidth = 2
+            ctx.beginPath()
+            ctx.moveTo(this.engines[0].x, this.engines[0].y)
+            for (let i = 1; i < this.engines.length; i++) {
+                ctx.lineTo(this.engines[i].x, this.engines[i].y)
+            }
+            ctx.lineTo(this.engines[0].x, this.engines[0].y)
+            ctx.stroke()
+        }
+    }
+}
+
 // Gamepad integration
 /**
  * 1. Capture first gamepad
@@ -596,39 +1071,41 @@ class MainStage extends Stage {
         // this.screenwrap = new ScreenWrap
         this.mouse.position.vy = this.mouse.position.vx = 0
         
-        // Create the virtual "ship" body (center of mass)
-        this.ship = new Point({ 
+        // Create the ship as a Ship instance
+        this.ship = new Ship({ 
             x: 200, 
             y: 225,  // midpoint between a and b
             vx: 0, 
             vy: 0, 
-            radians: -Math.PI/2,  // -90 degrees
+            radians: -Math.PI/2,  // -90 degrees (pointing up)
             rotationSpeed: 0,
             mass: 10,
             radius: 5
         })
         
-        // Create the engines with offsets from ship center
-        this.a = new Point({ x: 200, y: 200, vx: 0, vy: 0, rotation: -90, radius: 10, mass: 1, force: 0})
-        this.b = new Point({ x: 200, y: 250, vx: 0, vy: 0, rotation: -90, radius: 10, mass: 1, force: 0})
-        this.c = new Point({ x: 225, y: 225, vx: 0, vy: 0, rotation: 0, radius: 10, mass: 1, force: 0})
+        // Create engine points with RELATIVE positions (local space)
+        // These will be transformed to world space by Ship.addEngine()
+        this.a = new Point({ x: 50, y: 0, vx: 0, vy: 0, rotation: 0, radius: 10 })     // Top engine (25 units above ship center)
+        this.b = new Point({ x: 0, y: -20, vx: 0, vy: 0, rotation: 0, radius: 10 })     // Left engine (25 units left of ship center)
+        this.c = new Point({ x: 0, y: 20, vx: 0, vy: 0, rotation: 0, radius: 10 })     // Right engine (25 units right of ship center)
         
-        // Store initial offsets (in ship's local space)
-        // radians is the LOCAL rotation offset (0 = forward, Math.PI/2 = right, etc.)
-        this.engineOffsets = [
-            { x: 0, y: -25, radians: .10, rotationSpeed: 0 },           // engine 'a' - top, pointing forward
-            { x: 0, y: 25, radians: -.10, rotationSpeed: 0 },            // engine 'b' - bottom, pointing forward
-            { x: 25, y: 0, radians: 0, rotationSpeed: 0 }     // engine 'c' - right side, pointing right
-        ]
-        
-        this.engines = [this.a, this.b, this.c]
+        // Add engines to ship - addEngine transforms from relative to world space
+        this.ship
+            .addEngine(this.a, 1)   // Top engine
+            .addEngine(this.b, 1)   // Left engine
+            .addEngine(this.c, 1)   // Right engine
+            ;
+
+        // Convenience references (for backward compatibility with existing code)
+        this.engines = this.ship.engines
+        this.engineOffsets = this.ship.engineOffsets
 
         // Add additional mass points to shift center of mass
         // These are "virtual" mass points that don't render but affect physics
         // For a top-heavy VTOL: put heavy mass at the top
         this.massPoints = [
-            { x: -60, y: 0, mass: 20 }  // Heavy payload at the top (15 mass units)
-            // { x: 30, y: 0, mass: 8 },   // Additional mass slightly lower
+            { x: 60, y: 0, mass: 20 },  // Heavy payload at the top (15 mass units)
+            { x: 30, y: 0, mass: 8 },   // Additional mass slightly lower
             // , { x: 0, y: 40, mass: 20 }   // Light fuel tank at bottom (uncomment to test)
         ]
 
@@ -648,7 +1125,7 @@ class MainStage extends Stage {
 
         this.power = 0
         this.powerDown = false
-        this.triggerForce = 0.06
+        this.triggerForce = 0.26
 
         this.dragging.add(...this.asteroids)
         
@@ -657,174 +1134,22 @@ class MainStage extends Stage {
     }
 
     applyGamepadControls() {
-        /* Apply gamepad inputs to engine controls */
+        /* Apply gamepad inputs to engine controls - now a thin wrapper */
         if (!this.gamepad.connected) return
         
-        const gp = this.gamepad.state
-        
-        // Back button resets the ship to center with zero velocity
-        if (gp.buttonBack) {
-            this.resetShip()
-            return
-        }
-        
-        // Left stick Y-axis controls engine 'a' rotation speed (top engine)
-        // Negative Y is up on stick, so we negate for intuitive control
-        // When stick is held, rotation accumulates; when released, rotation stops
-        const leftStickInput = -gp.leftStickY
-        if (Math.abs(leftStickInput) > 0) {
-            // Apply rotation speed based on stick deflection
-            this.engineOffsets[0].rotationSpeed = leftStickInput * 0.05  // Rotation speed multiplier
-        } else {
-            // Stop rotation when stick is released
-            this.engineOffsets[0].rotationSpeed = 0
-        }
-        // Accumulate rotation
-        this.engineOffsets[0].radians += this.engineOffsets[0].rotationSpeed
-        
-        // Right stick Y-axis controls engine 'b' rotation speed (bottom engine)
-        const rightStickInput = -gp.rightStickY
-        if (Math.abs(rightStickInput) > 0) {
-            this.engineOffsets[1].rotationSpeed = rightStickInput * 0.05
-        } else {
-            this.engineOffsets[1].rotationSpeed = 0
-        }
-        // Accumulate rotation
-        this.engineOffsets[1].radians += this.engineOffsets[1].rotationSpeed
-        
-        // Left trigger controls engine 'a' power (top engine)
-        if (gp.leftTrigger > 0) {
-            this.a.force += gp.leftTrigger * this.triggerForce  // Scale trigger to force
-        }
-        
-        // Right trigger controls engine 'b' power (bottom engine)
-        if (gp.rightTrigger > 0) {
-            this.b.force += gp.rightTrigger * this.triggerForce
-        }
-        
-        // Optional: Button A for engine 'c' (side thruster)
-        if (gp.buttonA) {
-            this.c.force += 0.1
-        }
+        return applyGamepadControls(
+            this.gamepad.state,
+            this.engines,
+            this.ship.engineOffsets,
+            this.triggerForce,
+            () => this.resetShip()
+        )
     }
 
     resetShip() {
-        /* Reset ship to center position with zero velocity and rotation */
-        this.ship.x = this.center.x
-        this.ship.y = this.center.y
-        this.ship.vx = 0
-        this.ship.vy = 0
-        this.ship.radians = -Math.PI / 2  // Point up
-        this.ship.rotation = -90
-        this.ship.rotationSpeed = 0
-        
-        // Reset engine forces
-        this.engines.forEach(e => e.force = 0)
-        
-        // Reset engine angles and rotation speeds to default
-        this.engineOffsets[0].radians = 0.10
-        this.engineOffsets[0].rotationSpeed = 0
-        this.engineOffsets[1].radians = -0.10
-        this.engineOffsets[1].rotationSpeed = 0
-        this.engineOffsets[2].radians = 0
-        this.engineOffsets[2].rotationSpeed = 0
-        
+        /* Reset ship to center position - delegates to Ship.reset() */
+        this.ship.reset(this.center.x, this.center.y, -Math.PI / 2)
         console.log('Ship reset to center')
-    }
-
-    getTotalMass() {
-        /* Helper: Calculate total mass of the system */
-        const allBodies = [
-            ...this.engines,
-            ...this.massPoints
-        ]
-        
-        return calculateTotalMass(this.ship, allBodies)
-    }
-
-    updateEnginePositions() {
-        /* Update the visual positions of engines based on ship position and rotation */
-        const ship = this.ship
-        const cos = Math.cos(ship.radians)
-        const sin = Math.sin(ship.radians)
-
-        this.engines.forEach((engine, i) => {
-            const offset = this.engineOffsets[i]
-
-            // Rotate the offset by the ship's current rotation
-            const rotatedX = offset.x * cos - offset.y * sin
-            const rotatedY = offset.x * sin + offset.y * cos
-
-            // Position engine relative to ship
-            engine.x = ship.x + rotatedX
-            engine.y = ship.y + rotatedY
-
-            // Sync engine rotation with ship + local offset
-            engine.radians = ship.radians + offset.radians
-            engine.rotation = (engine.radians * 180 / Math.PI)
-        })
-    }
-
-    computeCenterOfMass() {
-        /* Calculate the center of mass of the ship + engines + mass points system */
-        const allBodies = [
-            ...this.engines,  // World-space (already positioned)
-            ...this.massPoints.map(mp => ({...mp, isLocal: true}))  // Local-space (need rotation)
-        ]
-        
-        return calculateCenterOfMass(this.ship, allBodies)
-    }
-
-    /**
-     * Computes the moment of inertia of the coupled system around its center of mass.
-     * 
-     * This method calculates the rotational inertia by summing contributions from:
-     * - The main ship body
-     * - All attached engines (world-space bodies)
-     * - All mass points (local-space bodies marked with isLocal)
-     * 
-     * The moment of inertia is calculated using the parallel axis theorem:
-     * I = Σ(m * r²) where r is the distance from each mass element to the center of mass.
-     * 
-     * @param {Object} com - The center of mass coordinates
-     * @param {number} com.x - X coordinate of the center of mass
-     * @param {number} com.y - Y coordinate of the center of mass
-     * @returns {number} The total moment of inertia around the center of mass
-     */
-    computeMomentOfInertia(com) {
-        // Combine all bodies into a single array
-        // Engines are in world space, mass points are in local space
-        const allBodies = [
-            ...this.engines,  // World-space (already positioned)
-            ...this.massPoints.map(mp => ({...mp, isLocal: true}))  // Local-space (need rotation)
-        ]
-        
-        return calculateMomentOfInertia(com, this.ship, allBodies)
-    }
-
-    applyGravityGradientTorque(com, I, gravityStrength = 0.01) {
-        /* Simulate gravity-gradient torque - heavier masses farther from COM 
-           create instability when not aligned with gravity.
-           
-           This torque happens because different parts of the system experience
-           gravity at different horizontal positions, creating a rotational force.
-        */
-        const allBodies = [
-            ...this.engines,  // World-space (already positioned)
-            ...this.massPoints.map(mp => ({...mp, isLocal: true}))  // Local-space (need rotation)
-        ]
-        
-        return applyGravityGradientTorque(this.ship, allBodies, com, I, gravityStrength)
-    }
-
-    applyEngineForces(com, I) {
-        /* Apply forces from each engine to the ship's linear and angular velocity 
-           
-           Takes pre-calculated COM and moment of inertia to avoid redundant calculations.
-        */
-        const totalMass = this.getTotalMass()
-        
-        return applyEngineForces(this.ship, this.engines, com, totalMass, I)
     }
 
     addMotion(point, speed=1) {
@@ -922,105 +1247,38 @@ class MainStage extends Stage {
         this.gamepad.update()
         this.applyGamepadControls()
         
-        // OPTIMIZATION: Calculate COM and inertia once at the start
-        const comBefore = this.computeCenterOfMass()
-        const offsetBeforeX = comBefore.x - this.ship.x
-        const offsetBeforeY = comBefore.y - this.ship.y
-        
-        // Apply rotation FIRST (before updating engine positions)
-        this.ship.radians += this.ship.rotationSpeed
-        this.ship.rotation = this.ship.radians * 180 / Math.PI
-        
-        // Dampen rotation
-        // this.ship.rotationSpeed *= .99
-
-        // Update engine positions based on NEW ship orientation
-        this.updateEnginePositions()
-        
-        // Now calculate COM with new engine positions
-        const comAfter = this.computeCenterOfMass()
-        const offsetAfterX = comAfter.x - this.ship.x
-        const offsetAfterY = comAfter.y - this.ship.y
-        
-        // The ship reference point needs to move so that COM stays consistent
-        // This keeps the ship rotating around its true center of mass
-        this.ship.x += (offsetBeforeX - offsetAfterX)
-        this.ship.y += (offsetBeforeY - offsetAfterY)
-        
-        // Re-update engine positions with corrected ship position
-        this.updateEnginePositions()
-        
-        // Calculate COM and moment of inertia for physics calculations
-        const com = this.computeCenterOfMass()
-        const I = this.computeMomentOfInertia(com)
-        
-        // Apply forces from engines to ship (pass COM and I to avoid recalculation)
-        this.applyEngineForces(com, I)
-        
-        // Apply gravity-gradient torque (makes top-heavy configurations unstable)
-        // NOTE: This should use the SAME gravity value as the linear gravity below
-        const gravityStrength = 0.01
-        this.applyGravityGradientTorque(com, I, gravityStrength)
-        
-        // Apply gravity to ship (linear motion)
-        // BUG FIX: This should account for total system mass
-        this.ship.vy += gravityStrength
-
-        // Move the ship based on its velocity (this moves the whole system)
-        this.addMotion(this.ship, this.speed)
+        // Run the main physics simulation
+        const result = updateRigidBodyPhysics(this.ship, this.ship.engines, this.massPoints, {
+            updateEnginePositions: () => this.ship.updateEnginePositions(),
+            addMotion: (ship, speed) => this.addMotion(ship, speed),
+            gravityStrength: 0.04,
+            forceDecay: 0.9,
+            speed: this.speed
+        })
 
         // Screen wrap
         this.screenWrap.perform(this.ship)
 
         // Apply throttle/reverse
         this.performPower()
-        
-        // Decay engine forces
-        this.engines.forEach(e => e.force *= 0.9)
+
+        return result
     }
 
     draw(ctx) {
         this.clear(ctx)
-        this.updateShip()
+        let shipData = this.updateShip()
 
         this.asteroids.pen.indicators(ctx)
 
-        // Calculate and draw the center of mass
-        const com = this.computeCenterOfMass()
-        ctx.fillStyle = '#ff0000'
-        ctx.beginPath()
-        ctx.arc(com.x, com.y, 8, 0, Math.PI * 2)
-        ctx.fill()
-        
-        // Draw mass points (visualize the payload/fuel tanks)
-        const cos = Math.cos(this.ship.radians)
-        const sin = Math.sin(this.ship.radians)
-        
-        ctx.fillStyle = '#ffff00'
-        for (let massPoint of this.massPoints) {
-            const rotatedX = massPoint.x * cos - massPoint.y * sin
-            const rotatedY = massPoint.x * sin + massPoint.y * cos
-            const worldX = this.ship.x + rotatedX
-            const worldY = this.ship.y + rotatedY
-            
-            // Size based on mass
-            const radius = Math.sqrt(massPoint.mass) * 2
-            ctx.beginPath()
-            ctx.arc(worldX, worldY, radius, 0, Math.PI * 2)
-            ctx.fill()
-        }
-
-        // Draw the ship center (green - this is the reference point, not COM)
-        this.ship.pen.indicator(ctx, '#00ff00')
-        
-        // Draw the engines
-        this.a.pen.indicator(ctx)
-        this.b.pen.indicator(ctx)
-        this.c.pen.indicator(ctx, '#ff00ff')  // Purple for the side engine
-        
-        this.a.pen.line(ctx, this.ship, 'purple')
-        this.b.pen.line(ctx, this.ship, 'purple')
-        this.c.pen.line(ctx, this.ship, 'purple')
+        // Draw the ship with COM and mass points
+        this.ship.drawShip(ctx, {
+            shipColor: '#00ff00',
+            lineColor: 'purple',
+            drawOutline: false,  // Set to true to see rigid body outline
+            com: shipData.com,   // Pass center of mass for visualization
+            massPoints: this.massPoints  // Pass mass points for visualization
+        })
         
         // Draw gamepad status indicator
         if (this.gamepad.connected) {

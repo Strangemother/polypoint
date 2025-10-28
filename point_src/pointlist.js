@@ -353,6 +353,7 @@ class PointList extends LazyAccessArray {
             this.forEach(p=>{
                 pl.push(p.copy())
             })
+            return pl
         }
 
         return  pl.concat(this)

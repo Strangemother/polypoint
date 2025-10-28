@@ -41,24 +41,24 @@ class MainStage extends Stage {
         console.log('mounted')
         // this.screenwrap = new ScreenWrap
         this.mouse.position.vy = this.mouse.position.vx = 0
-        
+
         // Create the virtual "ship" body (center of mass)
-        this.ship = new Point({ 
-            x: 200, 
+        this.ship = new Point({
+            x: 200,
             y: 225,  // midpoint between a and b
-            vx: 0, 
-            vy: 0, 
+            vx: 0,
+            vy: 0,
             radians: -Math.PI/2,  // -90 degrees
             rotationSpeed: 0,
             mass: 10,
             radius: 5
         })
-        
+
         // Create the engines with offsets from ship center
         this.a = new Point({ x: 200, y: 200, vx: 0, vy: 0, rotation: -90, radius: 10, mass: 1, force: 0})
         this.b = new Point({ x: 200, y: 250, vx: 0, vy: 0, rotation: -90, radius: 10, mass: 1, force: 0})
         this.c = new Point({ x: 225, y: 225, vx: 0, vy: 0, rotation: 0, radius: 10, mass: 1, force: 0})
-        
+
         // Store initial offsets (in ship's local space)
         // radians is the LOCAL rotation offset (0 = forward, Math.PI/2 = right, etc.)
         this.engineOffsets = [
@@ -66,7 +66,7 @@ class MainStage extends Stage {
             { x: 0, y: 25, radians: 0 },            // engine 'b' - bottom, pointing forward
             { x: 25, y: 0, radians: 0 }     // engine 'c' - right side, pointing right
         ]
-        
+
         this.engines = [this.a, this.b, this.c]
 
         this.asteroids = new PointList(
@@ -154,14 +154,14 @@ class MainStage extends Stage {
         /* Apply forces from each engine to the ship's linear and angular velocity */
         const com = this.computeCenterOfMass()
         const I = this.computeMomentOfInertia(com)
-        
+
         let fxTotal = 0
         let fyTotal = 0
         let torqueTotal = 0
 
         for (let engine of this.engines) {
             const force = engine.force
-            
+
             // Calculate force vector in the direction the engine is pointing
             const fx = Math.cos(engine.radians) * force
             const fy = Math.sin(engine.radians) * force
@@ -172,7 +172,7 @@ class MainStage extends Stage {
             // Calculate torque (rotational force) around center of mass
             const dx = engine.x - com.x
             const dy = engine.y - com.y
-            
+
             // Cross product in 2D: torque = r × F
             torqueTotal += dx * fy - dy * fx
         }
@@ -181,7 +181,7 @@ class MainStage extends Stage {
         const totalMass = this.ship.mass + this.engines.reduce((sum, e) => sum + e.mass, 0)
         this.ship.vx += fxTotal / totalMass
         this.ship.vy += fyTotal / totalMass
-        
+
         // Apply torque (with moment of inertia)
         if (I > 0) {
             this.ship.rotationSpeed += torqueTotal / I
@@ -231,7 +231,7 @@ class MainStage extends Stage {
 
         Or to rephase, imagine a engine on the back of the point - pushing _forward_.
         */
-        
+
         // Apply force to each engine individually
         this.engines.forEach(engine => {
             engine.force += speed
@@ -280,17 +280,17 @@ class MainStage extends Stage {
     updateShip(){
         // Update engine positions based on ship orientation
         this.updateEnginePositions()
-        
+
         // Apply forces from engines to ship
         this.applyEngineForces()
-        
+
         // Apply gravity to ship
         // this.ship.vy += .001  // Simulated gravity
 
         // Apply rotation
         this.ship.radians += this.ship.rotationSpeed
         this.ship.rotation = this.ship.radians * 180 / Math.PI
-        
+
         // Dampen rotation
         this.ship.rotationSpeed *= .99
 
@@ -302,7 +302,7 @@ class MainStage extends Stage {
 
         // Apply throttle/reverse
         this.performPower()
-        
+
         // Decay engine forces
         this.engines.forEach(e => e.force *= 0.9)
     }
@@ -315,12 +315,12 @@ class MainStage extends Stage {
 
         // Draw the ship center (optional, for debugging)
         this.ship.pen.indicator(ctx, '#00ff00')
-        
+
         // Draw the engines
         this.a.pen.indicator(ctx)
         this.b.pen.indicator(ctx)
         this.c.pen.indicator(ctx, '#ff00ff')  // Purple for the side engine
-        
+
         this.a.pen.line(ctx, this.ship, 'purple')
         this.b.pen.line(ctx, this.ship, 'purple')
         this.c.pen.line(ctx, this.ship, 'purple')

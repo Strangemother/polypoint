@@ -6,6 +6,26 @@ const KC = {
 }
 
 
+const KEYS = new Proxy(KC, {
+  get(target, prop) {
+    let val = target[prop]
+    if(val == undefined) {
+        val = target[prop] = this.detectStore(target, prop)
+    }
+    return val
+  }
+
+  , detectStore(target, prop) {
+        if(prop.length == 1) {
+            return [`Key${prop.toUpperCase()}`]
+        }
+
+        // console.warn('Unknown KEY', prop)
+        return [prop.toUpperCase()]
+  }
+});
+
+
 
 class StageKeyboard {
     autoListen = true
@@ -44,6 +64,11 @@ class StageKeyboard {
 
     matchCode(ev, item) {
         let code = ev.code.toLowerCase()
+        console.log('Code', code)
+        if(item.codes == undefined) {
+            console.warn('Bad Key Load', item)
+            return
+        }
 
         for (var i = item.codes.length - 1; i >= 0; i--) {
 

@@ -67,23 +67,28 @@ class MainStage extends Stage {
         this.frontWheelOffset = 15
         this.rearWheelOffset = -15
         
-        // Drifting physics parameters
-        this.frontGrip = 0.0010      // Front wheel lateral grip (REDUCED: less grip = more drift)
-        this.rearGrip = 0.000005      // Rear wheel lateral grip (HALVED: super slippery rear end)
+        // Drifting physics parameters (using 0-100 scale for easier tuning)
+        this.frontGripLevel = .10     // Front wheel lateral grip level (0-100 scale)
+        this.rearGripLevel = 0.0010     // Rear wheel lateral grip level (0-100 scale, can go very low)
+        this.frontGrip = this.frontGripLevel / 10000  // Converted to physics scale
+        this.rearGrip = this.rearGripLevel / 100000   // Converted to physics scale (more sensitive)
         this.grip = 0.99           // Overall forward grip factor (maintains speed)
+        this.lateralGripMultiplier = 0.1  // How much extra grip at high sideways speeds (higher now, throttle modulates it)
+        this.lateralGripCurve = 5       // Exponential curve for lateral grip (INCREASED: only kicks in at high speeds)
         this.braking = false
         this.driftAngle = 0        // Visual drift angle for effect
         
         // Drift enhancement
-        this.driftMultiplier = 2.5  // Amplifies lateral slip when turning at speed (INCREASED: way more sideways action)
+        this.driftMultiplier = 4.0  // Amplifies lateral slip when turning at speed (INCREASED: 2.5 → 4.0 for MORE sideways action)
         this.driftMomentum = 0      // Tracks drift state (0 = not drifting, 1 = full drift)
-        this.driftMomentumDecay = 0.985  // How slowly drift momentum fades (INCREASED: longer sustained drifts)
-        this.driftMomentumGain = 0.15   // How fast drift builds up (INCREASED: easier to initiate drifts)
+        this.driftMomentumDecay = 0.988  // How slowly drift momentum fades (INCREASED: 0.985 → 0.988 for LONGER sustained drifts)
+        this.driftMomentumGain = 0.20   // How fast drift builds up (INCREASED: 0.15 → 0.20 for easier initiation)
         
         // Weight transfer (for Scandinavian flick)
         this.weightTransfer = .8    // Current weight bias (-1 = front heavy, +1 = rear heavy)
-        this.weightTransferRate = 2.5   // CRAZY INCREASED: Weight shifts SUPER fast = INTENSE flicking action
-        this.weightTransferDecay = 0.88  // Faster return = more snappy and responsive flicks
+        this.weightTransferRate = 5.0   // MASSIVELY INCREASED: Instant, violent weight shifts
+        this.weightTransferDecay = 0.82  // Much faster return = more violent snap-back effect
+        this.weightTransferMomentum = 0  // Tracks the momentum of weight shifts for visual feedback
         
         // Steering limits (realistic car physics)
         this.maxSteeringAngle = 5.0     // Maximum rotation speed per frame in DEGREES (tighter turning)
@@ -91,8 +96,8 @@ class MainStage extends Stage {
         this.minSpeedForTurning = 0.1   // Minimum speed needed for full steering effectiveness
         
         // Speed control parameters
-        this.maxSpeed = 8            // Maximum velocity magnitude
-        this.acceleration = 0.1     // How fast to accelerate (INCREASED for better drifting)
+        this.maxSpeed = 15            // Maximum velocity magnitude
+        this.acceleration = 0.07     // How fast to accelerate (INCREASED for better drifting)
         this.speedDecay = 0.5       // Natural speed decay (higher = less friction)
         this.keyUpPressed = false
     }
@@ -173,6 +178,7 @@ class MainStage extends Stage {
         const dynamicMaxSteering = minSteeringAtStop + (1.0 - minSteeringAtStop) * speedRatio
         
         // Steering wheel input - accumulates like turning a real steering wheel
+        // IMPORTANT: Steering wheel angle can accumulate freely (for donuts from standstill)
         if(this.keyLeftPressed) {
             // Turn steering wheel left (accumulate)
             this.steeringAngle -= this.steeringRate
@@ -184,13 +190,20 @@ class MainStage extends Stage {
             this.steeringAngle *= this.steeringReturn
         }
         
-        // Clamp steering wheel angle based on current speed
-        const maxSteeringNow = this.maxSteeringInput * dynamicMaxSteering
-        this.steeringAngle = clamp(this.steeringAngle, -maxSteeringNow, maxSteeringNow)
+        // Clamp steering wheel angle to maximum (always allow full steering wheel turn)
+        // This lets you "pre-turn" the wheels while stationary for donuts
+        this.steeringAngle = clamp(this.steeringAngle, -this.maxSteeringInput, this.maxSteeringInput)
         
         // Weight transfer based on steering wheel angle change (for Scandinavian flick)
         const steeringDelta = this.steeringAngle - (this.lastSteeringAngle || 0)
-        this.weightTransfer += steeringDelta * this.weightTransferRate  // EXTREME weight shifts when flicking steering
+        
+        // Apply MASSIVE weight transfer from steering changes
+        const weightShift = steeringDelta * this.weightTransferRate
+        this.weightTransfer += weightShift
+        
+        // Track weight transfer momentum for visual feedback (how violently we're flicking)
+        this.weightTransferMomentum = Math.abs(weightShift)
+        
         this.lastSteeringAngle = this.steeringAngle
         
         // Clamp weight transfer
@@ -274,37 +287,151 @@ class MainStage extends Stage {
         
         // Dynamic grip based on braking, speed, weight transfer, AND drift momentum
         let currentGrip = this.grip
-        if (this.braking && currentSpeed > 2) {
-            currentGrip *= 0.7  // Less grip when braking at speed = more drift
+        
+        // HANDBRAKE / POWER DRIFT BRAKE (Space bar)
+        // Front-wheel drive: rear locks up, front can still power and steer
+        let handbrakeActive = false
+        if (this.braking && currentSpeed > 0.3) {  // LOWERED: 0.8 → 0.3 (works at much lower speeds)
+            handbrakeActive = true
+            
+            // DYNAMIC WEIGHT TRANSFER FROM BRAKING
+            // When you brake at speed, weight VIOLENTLY shifts forward
+            // This unloads the rear wheels → makes them super slippery
+            const brakeForce = Math.max(currentSpeed / this.maxSpeed, 0.5)  // Minimum 0.5 effect even at low speeds
+            
+            // Apply INSTANT forward weight transfer (braking physics)
+            // MASSIVELY INCREASED: 0.25 → 0.65 for dramatic weight shifts
+            this.weightTransfer -= brakeForce * 0.65  // VIOLENT weight shift forward
+            
+            // Additionally, if you're turning while braking, weight shifts laterally too
+            // This is the "throwing weight" effect you're describing
+            // MASSIVELY INCREASED: 0.3 → 0.8 for dramatic lateral throwing
+            const lateralWeightShift = this.steeringAngle * brakeForce * 0.8
+            this.weightTransfer += lateralWeightShift  // Lateral weight throw from steering
+            
+            // Add INSTANT rotation kick when handbrake is pulled while turning
+            // This makes the rear IMMEDIATELY start sliding out
+            const handbrakeRotationKick = this.steeringAngle * brakeForce * 2.5  // INSTANT rotation boost
+            this.rotationSpeed += handbrakeRotationKick
+            
+            // Forward momentum maintained (FWD keeps pulling)
+            currentGrip *= 0.98  // Almost no forward speed loss
         }
         
         // Reduce grip when drift momentum is high (keeps drift going)
         currentGrip *= (1 - this.driftMomentum * 0.15)
         
+        // SPEED-BASED DRIFT GRADIENT: The faster you go, the more tail-happy the car becomes
+        // This creates a progressive "high-speed oversteer" feeling
+        const speedDriftMultiplier = 1 + (speedRatio * speedRatio * 5.0)  // Quadratic: 1x at slow, 6x at max speed (INCREASED)
+        const speedBasedRearGripReduction = speedRatio * speedRatio * 0.88  // Lose up to 88% rear grip at max speed (INCREASED)
+        
         // Apply differential grip (front vs rear wheels)
         // Weight transfer affects grip: weight on rear = more rear grip, less front grip
-        const frontGripFactor = this.frontGrip * (1 - this.weightTransfer * 0.7)  // INCREASED weight effect
-        const rearGripFactor = this.rearGrip * (1 + this.weightTransfer * 1.2)     // INCREASED weight effect
+        // MASSIVELY increased weight effect for dramatic flicking sensation
+        // INCREASED: 0.95 → 0.98 (front can lose 98% grip), 3.0 → 5.0 (5x rear grip boost)
+        let frontGripFactor = this.frontGrip * (1 - this.weightTransfer * 0.98)  // Can nearly eliminate front grip!
+        let rearGripFactor = this.rearGrip * (1 + this.weightTransfer * 5.0)     // 5X rear grip when weight shifts back
+        
+        // Apply speed-based rear grip reduction (progressive oversteer at high speeds)
+        rearGripFactor *= (1 - speedBasedRearGripReduction)
+        
+        // HANDBRAKE EFFECT: Rear wheels LOCK UP (lose almost all grip), front stays active
+        if (handbrakeActive) {
+            // Rear wheels lose 99.99% of lateral grip (fully locked, EXTREMELY slippery)
+            // The weight transfer we just applied makes this even more dramatic
+            rearGripFactor *= .000001  // Was 0.01, now EVEN MORE slippery (99.9999% loss)
+            
+            // Front wheels: KEEP steering control + can apply power
+            // If throttle is on: front wheels spin and pull car forward (wheel spin drift)
+            // If throttle is off: front wheels just steer (traditional handbrake turn)
+            if (this.keyUpPressed) {
+                // Throttle + handbrake = front wheel spin (aggressive power drift)
+                frontGripFactor *= 1.2  // INCREASED: more front grip when powering through
+            } else {
+                // Just handbrake = full steering control, rear slides
+                frontGripFactor *= 1.5  // INCREASED: even more front grip for control
+            }
+            
+            // Note: Weight transfer was already applied above (instant from brake force)
+            // No additional gradual weight transfer needed here
+        }
+        
+        // Add instant grip loss when violently flicking (momentum-based)
+        const flickGripReduction = this.weightTransferMomentum * 0.8  // Lose grip during violent flicks
+        const effectiveFrontGrip = Math.max(0.00001, frontGripFactor * (1 - flickGripReduction))
+        const effectiveRearGrip = Math.max(0.00001, rearGripFactor * (1 - flickGripReduction * 0.5))
         
         // Drift amplification: When turning at speed, reduce rear grip even more
+        // Apply speed-based drift multiplier for progressive high-speed drifting
         const turnAmplification = Math.abs(this.steeringAngle) * currentSpeed / this.maxSpeed
         
         // Combine steering input AND drift momentum for sustained drifts
-        const driftIntensity = Math.max(turnAmplification * this.driftMultiplier, this.driftMomentum * 0.8)
-        const driftAmplfiedRearGrip = rearGripFactor * (1 - driftIntensity)
+        // Multiply by speed gradient for MORE drift at high speeds
+        const driftIntensity = Math.max(turnAmplification * this.driftMultiplier * speedDriftMultiplier, this.driftMomentum * 0.99)
+        const driftAmplfiedRearGrip = effectiveRearGrip * (1 - driftIntensity)
         
         // Average the grip factors (weighted by wheel positions)
         // Rear grip is weighted more heavily to emphasize the drift
-        const avgGripFactor = (frontGripFactor * 0.4 + Math.max(0.001, driftAmplfiedRearGrip) * 0.6)
+        const avgGripFactor = (effectiveFrontGrip * 0.4 + Math.max(0.00001, driftAmplfiedRearGrip) * 0.6)
+        
+        // CRITICAL: Speed-dependent lateral grip (realistic sideways resistance)
+        // The faster you slide sideways, the more tire resistance you encounter
+        // This creates natural J-turn behavior and prevents infinite sliding
+        const lateralSpeed = Math.abs(lateralVel)
+        const lateralSpeedRatio = Math.min(lateralSpeed / this.maxSpeed, 1.0)
+        
+        // Throttle-dependent grip: When accelerating (wheels spinning), less lateral grip
+        // When coasting (no throttle), tires bite and stop sideways motion
+        const throttleInput = this.keyUpPressed ? 1.0 : 0.0  // 1 = accelerating, 0 = coasting
+        let throttleGripReduction = throttleInput * 0.7  // Lose up to 70% lateral grip when on gas
+        
+        // HANDBRAKE OVERRIDE: When handbrake is active, rear has ZERO lateral resistance
+        // This is the key to making handbrake work - it directly reduces lateral friction
+        let handbrakeLatGripReduction = 0.0
+        if (handbrakeActive) {
+            // Handbrake locks rear wheels = massive lateral grip loss
+            handbrakeLatGripReduction = 0.85  // Lose 85% of lateral grip (rear sliding freely)
+            
+            // If also on throttle (front wheels spinning), even less lateral resistance
+            if (this.keyUpPressed) {
+                handbrakeLatGripReduction = 0.92  // Lose 92% lateral grip (full power drift)
+            }
+        }
+        
+        // Exponential increase in lateral grip as sideways speed increases
+        // Low sideways speed = low grip (free to drift)
+        // High sideways speed = high grip (tires fight back, causes J-turn)
+        // MULTIPLIED by throttle state AND handbrake state
+        const baseSpeedGrip = Math.pow(lateralSpeedRatio, this.lateralGripCurve) * this.lateralGripMultiplier
+        const throttleAndHandbrakeReduction = Math.max(throttleGripReduction, handbrakeLatGripReduction)
+        const speedDependentLateralGrip = baseSpeedGrip * (1 - throttleAndHandbrakeReduction)
         
         // Apply lateral friction to reduce sideways sliding
-        // Less friction = more drift
-        const lateralFrictionAmount = this.braking ? avgGripFactor * 0.3 : avgGripFactor
+        // HANDBRAKE OVERRIDE: Use different friction calculation when handbrake is active
+        let lateralFrictionAmount
+        if (handbrakeActive) {
+            // Handbrake mode: rear locked = very low base friction, but still some
+            // This lets the car slide sideways freely without breaking physics
+            lateralFrictionAmount = 0.05 + speedDependentLateralGrip  // Only 5% base friction when handbrake
+        } else {
+            // Normal mode: use avgGripFactor as usual
+            lateralFrictionAmount = avgGripFactor + speedDependentLateralGrip
+        }
+        
+        // Clamp to prevent negative or excessive friction
+        lateralFrictionAmount = clamp(lateralFrictionAmount, 0.01, 0.99)
         const dampedLateralVel = lateralVel * (1 - lateralFrictionAmount)
         
         // Reconstruct velocity with reduced lateral component (this creates the drift effect)
-        // Only apply grip to forward velocity when braking, otherwise maintain momentum
-        const forwardGripFactor = this.braking ? currentGrip : 1.0
+        // HANDBRAKE: Maintain forward momentum (no forward grip reduction)
+        // NORMAL BRAKING: Apply forward grip reduction
+        let forwardGripFactor = 1.0  // Default: maintain forward speed
+        if (this.braking && !handbrakeActive) {
+            // Only reduce forward speed if using normal brakes (Down arrow), NOT handbrake (Space)
+            forwardGripFactor = currentGrip
+        }
+        
         this.a.vx = forwardX * forwardVel * forwardGripFactor + rightX * dampedLateralVel
         this.a.vy = forwardY * forwardVel * forwardGripFactor + rightY * dampedLateralVel
         
@@ -402,24 +529,24 @@ class MainStage extends Stage {
         
         // Draw drift trail effect when drifting (tire smoke)
         if (Math.abs(driftFactor) > 0.5) {
-            ctx.save()
-            ctx.globalAlpha = 0.4
+            // ctx.save()
+            // ctx.globalAlpha = 0.4
             
-            // Draw smoke from rear wheels
-            const smokeOffsetX = rightX * (this.carWidth/2)
-            const smokeOffsetY = rightY * (this.carWidth/2)
-            const rearSmokeX = rearX - forwardX * 5
-            const rearSmokeY = rearY - forwardY * 5
+            // // Draw smoke from rear wheels
+            // const smokeOffsetX = rightX * (this.carWidth/2)
+            // const smokeOffsetY = rightY * (this.carWidth/2)
+            // const rearSmokeX = rearX - forwardX * 5
+            // const rearSmokeY = rearY - forwardY * 5
             
-            ctx.strokeStyle = '#95a5a6'  // Gray smoke
-            ctx.lineWidth = 4
-            ctx.beginPath()
-            ctx.arc(rearSmokeX + smokeOffsetX, rearSmokeY + smokeOffsetY, 8, 0, Math.PI * 2)
-            ctx.stroke()
-            ctx.beginPath()
-            ctx.arc(rearSmokeX - smokeOffsetX, rearSmokeY - smokeOffsetY, 8, 0, Math.PI * 2)
-            ctx.stroke()
-            ctx.restore()
+            // ctx.strokeStyle = '#95a5a6'  // Gray smoke
+            // ctx.lineWidth = 4
+            // ctx.beginPath()
+            // ctx.arc(rearSmokeX + smokeOffsetX, rearSmokeY + smokeOffsetY, 8, 0, Math.PI * 2)
+            // ctx.stroke()
+            // ctx.beginPath()
+            // ctx.arc(rearSmokeX - smokeOffsetX, rearSmokeY - smokeOffsetY, 8, 0, Math.PI * 2)
+            // ctx.stroke()
+            // ctx.restore()
         }
         
         // Draw velocity vector for debugging
@@ -430,12 +557,24 @@ class MainStage extends Stage {
         ctx.lineTo(this.a.x + this.a.vx * 5, this.a.y + this.a.vy * 5)
         ctx.stroke()
         
-        // Draw weight transfer indicator
+        // Draw ENHANCED weight transfer indicator with momentum visualization
+        // Main weight transfer indicator
         ctx.fillStyle = this.weightTransfer > 0 ? '#e74c3c' : '#3498db'
-        ctx.globalAlpha = Math.abs(this.weightTransfer) * 0.5
+        ctx.globalAlpha = Math.abs(this.weightTransfer) * 0.7  // More visible
         ctx.beginPath()
-        ctx.arc(this.a.x, this.a.y - 30, 5, 0, Math.PI * 2)
+        ctx.arc(this.a.x, this.a.y - 30, 8, 0, Math.PI * 2)  // Larger circle
         ctx.fill()
+        
+        // Flick intensity ring (shows how violently you're flicking)
+        if (this.weightTransferMomentum > 0.01) {
+            ctx.strokeStyle = '#ff0000'
+            ctx.lineWidth = 3
+            ctx.globalAlpha = Math.min(this.weightTransferMomentum * 2, 1)  // Bright red when flicking hard
+            ctx.beginPath()
+            ctx.arc(this.a.x, this.a.y - 30, 12 + this.weightTransferMomentum * 20, 0, Math.PI * 2)
+            ctx.stroke()
+        }
+        
         ctx.globalAlpha = 1
         
         this.screenWrap.perform(this.a)

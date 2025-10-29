@@ -64,7 +64,7 @@ class StageKeyboard {
 
     matchCode(ev, item) {
         let code = ev.code.toLowerCase()
-        console.log('Code', code)
+        // console.log('Code', code)
         if(item.codes == undefined) {
             console.warn('Bad Key Load', item)
             return

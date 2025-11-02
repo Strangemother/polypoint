@@ -1,18 +1,19 @@
 {% load link %}
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_selector_tool,crop,download" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_selector_tool,crop,download,upload" />
 {# <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_selector_tool" /> #}
 
 {# <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=download" /> #}
 
 {% verbatim %}
 
-<div class="download-content-app" id="download_image_app" >
+<div class="tiny-app download-content-app" id="download_image_app" >
     <a href="javascript:;" class="primary-link" @click=downloadLinkClick>
         <span class="material-symbols-outlined">download</span>
         <span class="label">Download</span>
     </a>
-    <div class="download-image">
+    
+    <div class="tiny-dropdown download-image">
         <div class="filename-input">
             <input type="text" ref="filename" value="{% endverbatim %}{{part_name}}{% verbatim %}.png">
         </div>
@@ -34,7 +35,6 @@
                     <span class="button">
                         <span class="material-symbols-outlined">arrow_selector_tool</span>
                         <span class="label">Manual</span>
-
                     </span>
                 </span>
             </span>

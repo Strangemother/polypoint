@@ -1,0 +1,36 @@
+{% load link %}
+
+{% verbatim %}
+
+<div class="tiny-app download-content-app" id="upload_image_app" >
+    <a href="javascript:;" class="primary-link">
+        <span class="material-symbols-outlined">upload</span>
+        <span class="label">Upload</span>
+    </a>
+    
+    <div class="tiny-dropdown download-image">
+        <div class="filename-input">
+            <input type="text" ref="filename" 
+                value="{% endverbatim %}{{part_name}}{% verbatim %}.png">
+        </div>
+        <a href="javascript:;">
+            <span class="left-cell">
+                <span class="material-symbols-outlined">upload</span>
+            </span>
+            <span class="right-cell">
+                <span class="label">Full</span>
+            </span>
+        </a>
+        <a href="javascript:;">
+            <span class="left-cell">
+                <span class="material-symbols-outlined">crop</span>
+            </span>
+            <span class="right-cell">
+                <span class="label">Thumbnail</span>
+            </span>
+        </a>
+        
+    </div>
+
+</div>
+{% endverbatim %}

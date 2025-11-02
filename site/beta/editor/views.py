@@ -67,7 +67,6 @@ class PointSrcAssetView(views.TemplateView):
     def get_context_data(self,**kwargs):
         kw = super().get_context_data(**kwargs)
         # kw['path'] = self.inject_requirements(get_file_contents(kwargs['path']))
-        # src_dir = settings.POLYPOINT_DEMO_DIR
         kw['path'] = get_file_contents(kwargs['path'], root=self.src_dir)
         if kw['path']['exists'] is False:
             raise Http404

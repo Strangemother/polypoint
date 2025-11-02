@@ -39,6 +39,8 @@ class ExampleIndexTemplateView(views.ListView):
         )
 
     template_name = 'examples/index.html'
+    parent_dir = settings.POLYPOINT_THEATRE_DIR
+    # parent_dir = settings.POLYPOINT_EXAMPLES_DIR
 
     def get_orderby(self):
         orderby = self.request.GET.get('orderby', None)
@@ -51,7 +53,9 @@ class ExampleIndexTemplateView(views.ListView):
         orderby = self.request.GET.get('orderby', None)
         reverse = self.request.GET.get('reverse', None) or ''
         reverse = reverse.lower().startswith('t')
-        return get_theatre_list(reverse=reverse, orderby=orderby)
+
+        return get_theatre_list(reverse=reverse, orderby=orderby,
+                                parent_dir=self.parent_dir)
 
 
 class ScriptsImportListView(views.ListView):

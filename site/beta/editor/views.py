@@ -60,9 +60,10 @@ class MicroRunOnlyView(IndexView):
 
 class PointSrcAssetView(views.TemplateView):
     template_name = 'editor/blank.html'
-    src_dir = settings.POLYPOINT_THEATRE_DIR
+    # src_dir = settings.POLYPOINT_THEATRE_DIR
     # src_dir = settings.POLYPOINT_DEMO_DIR
-    #
+    src_dir = settings.POLYPOINT_SRC_DIR
+
     def get_context_data(self,**kwargs):
         kw = super().get_context_data(**kwargs)
         # kw['path'] = self.inject_requirements(get_file_contents(kwargs['path']))
@@ -102,8 +103,6 @@ class PointSrcAssetView(views.TemplateView):
 
 
 class DemoSrcAssetView(PointSrcAssetView):
-    # template_name = 'editor/blank.html'
-    # src_dir = settings.POLYPOINT_THEATRE_DIR
     src_dir = settings.POLYPOINT_DEMO_DIR
 
 

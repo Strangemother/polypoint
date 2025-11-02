@@ -104,7 +104,12 @@ class FileView(views.TemplateView):
         if not filepath.exists():
             return r
 
-        md_text = filepath.read_text()
+
+        # CP861
+        # cp437
+        # CP1252
+        # utf-8
+        md_text = filepath.read_text(encoding='utf-8')
         r[keyname].update({
             "exists": True,
             "text": md_text,

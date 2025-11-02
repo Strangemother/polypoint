@@ -26,6 +26,7 @@ urlpatterns = urls.paths_named(views,
 
     ## View the file-list only.
     file_example_scrips=('ExampleFileScriptsView', 'scripts/<path:path>/'),
+    file_example_all=('ExampleFileScriptsAndTheatreView', 'scripts+theatre/<path:path>/'),
 
     # Catch-all
     file_example=('ExampleFileView', '<path:path>/'),

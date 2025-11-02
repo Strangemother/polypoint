@@ -1,6 +1,6 @@
 /**
  * PolypointCanvas Web Component - Basic Implementation
- * 
+ *
  * Usage:
  *   <polypoint-canvas theatre="my/theatre-file.js" width="800" height="600"></polypoint-canvas>
  *   <polypoint-canvas>context.arc(50, 50, 40, 0, 2 * Math.PI);</polypoint-canvas>
@@ -8,6 +8,8 @@
  */
 
 class PolypointCanvas extends HTMLElement {
+    defaultWidth = 300
+    defaultHeight = 150
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -36,20 +38,20 @@ class PolypointCanvas extends HTMLElement {
 
     // Initializes shadow DOM with canvas and basic styles
     mounted() {
-        const style = document.createElement('style');
-        style.textContent = ':host { display: block; } canvas { display: block; }';
-        
+        // const style = document.createElement('style');
+        // style.textContent = ':host { display: block; } canvas { display: block; }';
+
         this.canvas = document.createElement('canvas');
         this.setupCanvas();
-        
-        this.shadowRoot.append(style, this.canvas);
+
+        this.shadowRoot.append(this.canvas);
     }
 
     // Sets canvas dimensions and creates 2D context
     setupCanvas() {
-        const width = parseInt(this.getAttribute('width')) || 800;
-        const height = parseInt(this.getAttribute('height')) || 600;
-        
+        const width = parseInt(this.getAttribute('width')) || this.defaultWidth;
+        const height = parseInt(this.getAttribute('height')) || this.defaultHeight;
+
         this.canvas.width = width;
         this.canvas.height = height;
         this.context = this.canvas.getContext('2d');
@@ -58,22 +60,23 @@ class PolypointCanvas extends HTMLElement {
     // Determines whether to load theatre file or inline script
     async loadContent() {
         const theatreFile = this.getAttribute('theatre');
-        
+
         if (theatreFile) {
             this.loadTheatreFile(theatreFile);
-        } else {
-            this.loadScript();
         }
+        this.loadScript();
+
     }
 
     // Loads external theatre file as script tag in document head
     loadTheatreFile(path) {
         const script = document.createElement('script');
-        script.src = path;
+        script.src = path + '?close_scope=1';
         script.onload = () => {
-            this.dispatchEvent(new CustomEvent('theatre-loaded', { 
+            console.log('Loaded')
+            this.dispatchEvent(new CustomEvent('theatre-loaded', {
                 detail: { path },
-                bubbles: true 
+                bubbles: true
             }));
         };
         document.head.appendChild(script);
@@ -83,7 +86,6 @@ class PolypointCanvas extends HTMLElement {
     loadScript() {
         const script = this.querySelector('script[type="javascript"]');
         const code = script ? script.textContent : this.textContent.trim();
-        
         if (code) {
             const fn = new Function('canvas', 'context', code);
             fn(this.canvas, this.context);

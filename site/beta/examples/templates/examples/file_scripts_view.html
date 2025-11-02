@@ -3,10 +3,14 @@ flatfile for the following:
 
 {% for path in metadata.clean_files %}
     {{ path }}{% endfor %}
-
 */
 {% spaceless %}
-{{ concat_content|safe }}
-{% endspaceless %}
 
+{% if closed_scope %};(function(){{% endif %}
+
+{{ concat_content|safe }}
+
+{% if closed_scope %}}());{% endif %}
+
+{% endspaceless %}
 ;

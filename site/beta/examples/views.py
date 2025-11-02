@@ -175,7 +175,7 @@ class ExampleFileScriptsView(views.TemplateView):
 
     """
     template_name = 'examples/file_scripts_view.html'
-
+    include_theatre_file=False
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
         response['Content-Type'] = 'text/javascript'
@@ -206,10 +206,15 @@ class ExampleFileScriptsView(views.TemplateView):
                 continue
             res_strings += (content.read_text(), )
 
+        if self.include_theatre_file:
+            if meta['filepath_exists']:
+                content = target / meta['filepath']
+                res_strings += (content.read_text(), )
+
         print('Concating', len(res_strings), 'files.')
 
         r['concat_content'] = remove_comments('\n;\n;'.join(res_strings))
-
+        r['closed_scope'] = True
         r['metadata'] = meta
         md = meta.get('markdown', None)
         if md:
@@ -232,6 +237,10 @@ class ExampleFileScriptsView(views.TemplateView):
         ]
         # names = super().get_template_names()
         return names
+
+
+class ExampleFileScriptsAndTheatreView(ExampleFileScriptsView):
+    include_theatre_file = True
 
 
 def remove_comments(string):

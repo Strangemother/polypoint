@@ -44,7 +44,7 @@ class StageBase {
 
         let detail = this._dispatchPrepare(response)
         /* mimic an event object detail. */
-        this.log('Stage::addonAnnounceHandler', ev, d)
+        this.log('Stage::addonAnnounceHandler', ev, detail)
         instance.announcementResponse(detail)
     }
 
@@ -68,7 +68,12 @@ class StageBase {
     This may be called in response to a 'stage:prepare' event.  */
     addComponent(name, instance) {
         this.log('Installing', name, 'to', this)
-        Object.defineProperty(this, name, {value: instance})
+        try{
+
+            Object.defineProperty(this, name, {value: instance})
+        } catch {
+            console.warn('property failure', name)
+        }
     }
 
     log() {
@@ -216,8 +221,8 @@ class StageRender extends StageBase {
         return this.freeze(freeze)
     }
 
-    ensurePrepared() {
-        if(this._prepared != true) { this.prepare() }
+    ensurePrepared(canvas) {
+        if(this._prepared != true) { this.prepare(canvas) }
     }
 
     static go(additionalData={}) {
@@ -226,7 +231,6 @@ class StageRender extends StageBase {
         start the update loopDraw
         */
 
-        /* First we ensure prepare has occured */
         let _stage = new this;
         return _stage.go.apply(_stage, arguments)
     }
@@ -249,14 +253,44 @@ class StageRender extends StageBase {
         setTimeout(()=>this.loopDraw(), timeout)
     }
 
+    cleanGoConfig(info) {
+        /*
+            Return a dict, if the:
+
+            + is dict,
+            + thing is a string, assume name
+            + thing is node, assume canvas
+         */
+        if(typeof info == 'string'){
+            info = {
+                canvas: info
+            }
+        }
+
+        if(info instanceof HTMLCanvasElement){
+            info = {
+                canvas: info
+            }
+        }
+
+        /* Ensure look by default. */
+        if(info.loop === undefined){
+            info.loop = true
+        }
+
+        return info
+    }
+
     go(additionalData={}) {
         /* Make a copy of a new Stage.
         Call prepare() if required. If `additionalData.loop` is `true` (default)
         start the update loopDraw
         */
-        this.ensurePrepared()
+        let goData = this.cleanGoConfig(additionalData)
+        /* First we ensure prepare has occured */
+        this.ensurePrepared(goData.canvas)
         /* Grab the look function - */
-        let loop = additionalData.loop !== undefined? additionalData.loop: true
+        let loop = goData.loop !== undefined? goData.loop: true
 
         /* Perform the update loop we get _one extra_ update here before the
         request animation occurs. Useful for ensuring _draws_ occur before
@@ -455,7 +489,7 @@ class StageRender extends StageBase {
         Called by the `update()` method, given the context `ctx` of the
         target canvas.
 
-        Functionally this is essentially the same as running the update function
+        This is essentially the same as running the update function
         manually:
 
 

@@ -60,27 +60,26 @@ colorScheme = {
 
 class MainStage extends Stage {
     canvas = 'playspace'
-    
+
     mounted() {
         this.points = PointList.generate.list(20, new Point(40, 0), [100, 100])
         this.points.each.radius = 10
         // Define start and end colors using the scheme
-        this.startColor = colorScheme.primary[2]  
-        this.endColor = colorScheme.complement[2]    
-        
+        this.startColor = colorScheme.primary[2]
+        this.endColor = colorScheme.complement[2]
+
         this.points.forEach((p, i, a) => {
             const t = i / a.length  // Normalize to 0-1 range (9 intervals for 10 colors)
             const blended = colorBits.blend(this.startColor, this.endColor, t)
-            p.color = colorBits.format(blended)           
-        })  
-                
+            p.color = colorBits.format(blended)
+        })
+
     }
 
     draw(ctx) {
         this.clear(ctx)
         this.points.pen.fill(ctx)
-        this.point.pen.indicator(ctx)
     }
 }
 
-stage = MainStage.go()
+stage = MainStage.go({ loop: false})

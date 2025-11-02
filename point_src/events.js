@@ -56,7 +56,7 @@ function getMethodsOf(obj){
     console.log('event', stage)
     if(stage.autoEvents !== false)  {
         /* default true for event.wake() */
-        stage.events.wake()
+        stage.events?.wake()
     }
 })
 

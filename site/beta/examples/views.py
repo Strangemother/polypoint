@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from trim import views
 
-from editor.views import PointSrcAssetView, TheatreSrcAssetView
+from editor.views import PointSrcAssetView, TheatreSrcAssetView, DemoSrcAssetView
 from .file_reader import imports_list
 
 from .theatre import get_theatre_list, get_theatre_filelist, get_metadata

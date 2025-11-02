@@ -197,7 +197,8 @@ def get_theatre_file_contents(path):
 
 
 def get_file_contents(path, root=None):
-    target = (root or settings.POLYPOINT_SRC_DIR) / path
+    src_dir = settings.POLYPOINT_SRC_DIR # settings.POLYPOINT_DEMO_DIR
+    target = (root or src_dir) / path
     print('target', target)
     exists = target.exists()
     content = None

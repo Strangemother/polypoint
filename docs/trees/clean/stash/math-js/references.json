@@ -1,0 +1,697 @@
+{
+    "src_file": "math.js",
+    "references": {
+        "classes": {},
+        "functions": [
+            {
+                "name": "vectorAngle",
+                "kind": "const",
+                "line": 10,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " vectorAngle([3, 4], [4, 3]); // 0.283794109208328",
+                            "block": false,
+                            "line": 11
+                        }
+                    ]
+                },
+                "type": "arrow_function",
+                "params": [
+                    {
+                        "name": "x"
+                    },
+                    {
+                        "name": "y"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "applyAngle",
+                "kind": "const",
+                "line": 20,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " let o1 = getPointOffsetAbsolute(s.position, s.mid, offset, 1)",
+                            "block": false,
+                            "line": 24
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "s"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "drawArcThroughPoint",
+                "kind": "const",
+                "line": 56,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " let o4 = getPointOffsetAbsolute(start, mid, offset + offsetPlus, 1)",
+                            "block": false,
+                            "line": 59
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "arc"
+                    },
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    },
+                    {
+                        "name": "mid"
+                    },
+                    {
+                        "name": "offset",
+                        "default_value": 20
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "quantizeT",
+                "kind": "let",
+                "line": 75,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "s"
+                    },
+                    {
+                        "name": "t"
+                    },
+                    {
+                        "name": "rect"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "spotPlacement",
+                "kind": "const",
+                "line": 102,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " c.width = 2.5//offset * .25",
+                            "block": false,
+                            "line": 107
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "s"
+                    },
+                    {
+                        "name": "offset"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "findOffsetPoint",
+                "kind": "function",
+                "type": "function",
+                "line": 113,
+                "params": [
+                    {
+                        "name": "point1"
+                    },
+                    {
+                        "name": "point2"
+                    },
+                    {
+                        "name": "offsetDistance",
+                        "default_value": 10
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateFirstSegmentOffsetFromEndWithNeg",
+                "kind": "function",
+                "type": "function",
+                "line": 139,
+                "params": [
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateFirstSegmentOffsetFromEndWithNegY",
+                "kind": "function",
+                "type": "function",
+                "line": 178,
+                "params": [
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    },
+                    {
+                        "name": "k",
+                        "default_value": "y"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateFirstSegmentOffsetFromEndA",
+                "kind": "function",
+                "type": "function",
+                "line": 205,
+                "params": [
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    },
+                    {
+                        "name": "outputAngle",
+                        "default_value": 90
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateFirstSegmentOffsetFromEnd",
+                "kind": "function",
+                "type": "function",
+                "line": 235,
+                "params": [
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateFirstSegmentLength",
+                "kind": "function",
+                "type": "function",
+                "line": 251,
+                "params": [
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "quantizeNumber",
+                "kind": "function",
+                "type": "function",
+                "line": 264,
+                "params": [
+                    {
+                        "name": "value"
+                    },
+                    {
+                        "name": "quantize",
+                        "default_value": 1
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "findRadius",
+                "kind": "function",
+                "type": "function",
+                "line": 270,
+                "params": [
+                    {
+                        "name": "pointA"
+                    },
+                    {
+                        "name": "pointB"
+                    },
+                    {
+                        "name": "pointC"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "quantizeAngle",
+                "kind": "function",
+                "type": "function",
+                "line": 297,
+                "params": [
+                    {
+                        "name": "inputAngle"
+                    },
+                    {
+                        "name": "bisect"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateAngle",
+                "kind": "function",
+                "type": "function",
+                "line": 323,
+                "params": [
+                    {
+                        "name": "point1"
+                    },
+                    {
+                        "name": "point2"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateAngleWithRef",
+                "kind": "function",
+                "type": "function",
+                "line": 344,
+                "params": [
+                    {
+                        "name": "point1"
+                    },
+                    {
+                        "name": "point2"
+                    },
+                    {
+                        "name": "referencePoint"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateAngleWithRefNegMirror",
+                "kind": "function",
+                "type": "function",
+                "line": 368,
+                "params": [
+                    {
+                        "name": "point1"
+                    },
+                    {
+                        "name": "point2"
+                    },
+                    {
+                        "name": "referencePoint"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateAngleWithRefWithNeg",
+                "kind": "function",
+                "type": "function",
+                "line": 409,
+                "params": [
+                    {
+                        "name": "point1"
+                    },
+                    {
+                        "name": "point2"
+                    },
+                    {
+                        "name": "referencePoint"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "adjustAngleToPreferredRotation",
+                "kind": "function",
+                "type": "function",
+                "line": 450,
+                "params": [
+                    {
+                        "name": "relativeAngle"
+                    },
+                    {
+                        "name": "preferredRotation"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "findOffsetPoint",
+                "kind": "function",
+                "type": "function",
+                "line": 465,
+                "params": [
+                    {
+                        "name": "point1"
+                    },
+                    {
+                        "name": "point2"
+                    },
+                    {
+                        "name": "offsetDistance",
+                        "default_value": 10
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "getOffsetPoint",
+                "kind": "function",
+                "type": "function",
+                "line": 489,
+                "params": [
+                    {
+                        "name": "pointA"
+                    },
+                    {
+                        "name": "pointB"
+                    },
+                    {
+                        "name": "percentage"
+                    },
+                    {
+                        "name": "fromPoint"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "getPointOffsetAbsolute",
+                "kind": "function",
+                "type": "function",
+                "line": 501,
+                "params": [
+                    {
+                        "name": "pointA"
+                    },
+                    {
+                        "name": "pointB"
+                    },
+                    {
+                        "name": "distance"
+                    },
+                    {
+                        "name": "fromPoint"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "linePathArray",
+                "kind": "function",
+                "type": "function",
+                "line": 542,
+                "params": [
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    },
+                    {
+                        "name": "gap",
+                        "default_value": 10
+                    },
+                    {
+                        "name": "rotation",
+                        "default_value": 0
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "linePathArray2",
+                "kind": "function",
+                "type": "function",
+                "line": 583,
+                "params": [
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    },
+                    {
+                        "name": "gap",
+                        "default_value": 10
+                    },
+                    {
+                        "name": "rotation",
+                        "default_value": 0
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "linePathArray3",
+                "kind": "function",
+                "type": "function",
+                "line": 646,
+                "params": [
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "end"
+                    },
+                    {
+                        "name": "gap",
+                        "default_value": 10
+                    },
+                    {
+                        "name": "rotation",
+                        "default_value": 0
+                    },
+                    {
+                        "name": "offset",
+                        "default_value": 0
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "clipLineToRect",
+                "kind": "function",
+                "type": "function",
+                "line": 706,
+                "params": [
+                    {
+                        "name": "p0"
+                    },
+                    {
+                        "name": "p1"
+                    },
+                    {
+                        "name": "topLeft"
+                    },
+                    {
+                        "name": "bottomRight"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "findLineCircleIntersections",
+                "kind": "function",
+                "type": "function",
+                "line": 775,
+                "params": [
+                    {
+                        "name": "p0"
+                    },
+                    {
+                        "name": "p1"
+                    },
+                    {
+                        "name": "cx"
+                    },
+                    {
+                        "name": "cy"
+                    },
+                    {
+                        "name": "radius"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "drawGridInCircle",
+                "kind": "function",
+                "type": "function",
+                "line": 801,
+                "params": [
+                    {
+                        "name": "center"
+                    },
+                    {
+                        "name": "radius"
+                    },
+                    {
+                        "name": "gap"
+                    },
+                    {
+                        "name": "rotation"
+                    },
+                    {
+                        "name": "startOffset"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "math.js",
+        "path": "/workspaces/polypoint/point_src/math.js",
+        "size": 26535,
+        "parsed_date": "2025-11-02T21:11:37.089Z"
+    }
+}

@@ -1,0 +1,311 @@
+{
+    "src_file": "relative.js",
+    "references": {
+        "classes": {
+            "Addon": {
+                "class_name": "Addon",
+                "inherits": null,
+                "methods": [],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " An Addon applies some core functionality on the polypoint mixin\r\n    such as a constructor, and destroy methods.\r\n     ",
+                            "block": true,
+                            "line": 63
+                        }
+                    ]
+                },
+                "line": 60
+            },
+            "RelativeMotion": {
+                "class_name": "RelativeMotion",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "RelativeMotion",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 98
+                    },
+                    {
+                        "method_name": "_relativeMove",
+                        "class_name": "RelativeMotion",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "direction"
+                            },
+                            {
+                                "name": "speed",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "minSpeed",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "maxSpeed",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Normalize the direction vector",
+                                    "block": false,
+                                    "line": 104
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 102
+                    },
+                    {
+                        "method_name": "move",
+                        "class_name": "RelativeMotion",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "direction"
+                            },
+                            {
+                                "name": "speed"
+                            },
+                            {
+                                "name": "minSpeed"
+                            },
+                            {
+                                "name": "maxSpeed"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 119
+                    },
+                    {
+                        "method_name": "left",
+                        "class_name": "RelativeMotion",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "speed"
+                            },
+                            {
+                                "name": "minSpeed"
+                            },
+                            {
+                                "name": "maxSpeed"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 123
+                    },
+                    {
+                        "method_name": "right",
+                        "class_name": "RelativeMotion",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "speed"
+                            },
+                            {
+                                "name": "minSpeed"
+                            },
+                            {
+                                "name": "maxSpeed"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 130
+                    },
+                    {
+                        "method_name": "forward",
+                        "class_name": "RelativeMotion",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "speed"
+                            },
+                            {
+                                "name": "minSpeed"
+                            },
+                            {
+                                "name": "maxSpeed"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 137
+                    },
+                    {
+                        "method_name": "backward",
+                        "class_name": "RelativeMotion",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "speed"
+                            },
+                            {
+                                "name": "minSpeed"
+                            },
+                            {
+                                "name": "maxSpeed"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 144
+                    },
+                    {
+                        "method_name": "towards",
+                        "class_name": "RelativeMotion",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "turnSpeed",
+                                "default_value": 0.1
+                            },
+                            {
+                                "name": "speed"
+                            },
+                            {
+                                "name": "minSpeed"
+                            },
+                            {
+                                "name": "maxSpeed"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 151
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Normalize the direction vector",
+                            "block": false,
+                            "line": 104
+                        }
+                    ]
+                },
+                "line": 97
+            }
+        },
+        "functions": [
+            {
+                "name": "cosSin",
+                "kind": "const",
+                "line": 4,
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\nThe relative motion addon supplied `Point.relative` methods, to\r\n ",
+                            "block": true,
+                            "line": 3
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " The cosSin object is a simple helper for cos/sin of a value.\r\n\r\n        cs = cosSin(100)\r\n        cs.cos()\r\n        cs.sin()\r\n\r\n    Provide a multiplier - useful when rotating around a _point_ (such as a normalised value)\r\n\r\n        cs.sin(.4)\r\n     ",
+                            "block": true,
+                            "line": 14
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "value",
+                        "default_value": 1
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "impartOnRads",
+                "kind": "const",
+                "line": 67,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "\r\n    Push a XY in a direction relative to the radians.\r\n\r\n        const r = impartOnRads(a.radians, direction)\r\n\r\n    For example - pointing _right_ and applying the _{1,0}_ direction (denoting forward)\r\n        will push the point further right, applying _{0, 1}_ pushes the point _left_\r\n        relative to its direction.\r\n\r\n        Or to rephase, imagine a engine on the back of the point - pushing _forward_.\r\n     ",
+                            "block": true,
+                            "line": 78
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "radians"
+                    },
+                    {
+                        "name": "direction"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "relative.js",
+        "path": "/workspaces/polypoint/point_src/relative.js",
+        "size": 4920,
+        "parsed_date": "2025-11-02T21:11:39.374Z"
+    }
+}

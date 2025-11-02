@@ -1,0 +1,712 @@
+{
+    "defs": [
+        {
+            "word": "PI_180",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "BinaryExpression",
+                "operator": "/",
+                "left": {
+                    "kind": "literal",
+                    "raw": "180",
+                    "value": 180,
+                    "pos": {
+                        "start": 16,
+                        "end": 19,
+                        "loc": {
+                            "start": {
+                                "line": 1,
+                                "column": 16
+                            },
+                            "end": {
+                                "line": 1,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                "right": {
+                    "type": "MemberExpression",
+                    "object": {
+                        "type": "Identifier",
+                        "word": "Math",
+                        "pos": {
+                            "start": 22,
+                            "end": 26,
+                            "loc": {
+                                "start": {
+                                    "line": 1,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 1,
+                                    "column": 26
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "word": "PI",
+                        "pos": {
+                            "start": 27,
+                            "end": 29,
+                            "loc": {
+                                "start": {
+                                    "line": 1,
+                                    "column": 27
+                                },
+                                "end": {
+                                    "line": 1,
+                                    "column": 29
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 22,
+                        "end": 29,
+                        "loc": {
+                            "start": {
+                                "line": 1,
+                                "column": 22
+                            },
+                            "end": {
+                                "line": 1,
+                                "column": 29
+                            }
+                        }
+                    }
+                },
+                "raw": "(180 / Math.PI)",
+                "pos": {
+                    "start": 16,
+                    "end": 29,
+                    "loc": {
+                        "start": {
+                            "line": 1,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 1,
+                            "column": 29
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 0,
+                "end": 30,
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 1,
+                        "column": 30
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 0,
+            "end": 30,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 30
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "function",
+            "word": "calculateAngle360",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "point1"
+                },
+                {
+                    "name": "point2"
+                },
+                {
+                    "name": "rotation"
+                },
+                {
+                    "name": "direction",
+                    "default_value": 1
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 251,
+                "end": 268,
+                "loc": {
+                    "start": {
+                        "line": 7,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 7,
+                        "column": 26
+                    }
+                },
+                "name": "calculateAngle360",
+                "pos": {
+                    "start": 251,
+                    "end": 268,
+                    "loc": {
+                        "start": {
+                            "line": 7,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 26
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 242,
+                "end": 1009,
+                "loc": {
+                    "start": {
+                        "line": 7,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 24,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "calculateAngle180",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "point1"
+                },
+                {
+                    "name": "point2"
+                },
+                {
+                    "name": "rotation"
+                },
+                {
+                    "name": "direction",
+                    "default_value": 1
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1388,
+                "end": 1405,
+                "loc": {
+                    "start": {
+                        "line": 37,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 37,
+                        "column": 26
+                    }
+                },
+                "name": "calculateAngle180",
+                "pos": {
+                    "start": 1388,
+                    "end": 1405,
+                    "loc": {
+                        "start": {
+                            "line": 37,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 37,
+                            "column": 26
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1379,
+                "end": 1579,
+                "loc": {
+                    "start": {
+                        "line": 37,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 40,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "calculateInverseAngle180",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "point1"
+                },
+                {
+                    "name": "point2"
+                },
+                {
+                    "name": "rotation"
+                },
+                {
+                    "name": "direction",
+                    "default_value": 1
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1594,
+                "end": 1618,
+                "loc": {
+                    "start": {
+                        "line": 43,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 43,
+                        "column": 33
+                    }
+                },
+                "name": "calculateInverseAngle180",
+                "pos": {
+                    "start": 1594,
+                    "end": 1618,
+                    "loc": {
+                        "start": {
+                            "line": 43,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 43,
+                            "column": 33
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1585,
+                "end": 1784,
+                "loc": {
+                    "start": {
+                        "line": 43,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 47,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "invertClockRotation",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "angleInDegrees"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1797,
+                "end": 1816,
+                "loc": {
+                    "start": {
+                        "line": 49,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 49,
+                        "column": 28
+                    }
+                },
+                "name": "invertClockRotation",
+                "pos": {
+                    "start": 1797,
+                    "end": 1816,
+                    "loc": {
+                        "start": {
+                            "line": 49,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 49,
+                            "column": 28
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1788,
+                "end": 1898,
+                "loc": {
+                    "start": {
+                        "line": 49,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 52,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "convertAngle180Split",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "angle"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1913,
+                "end": 1933,
+                "loc": {
+                    "start": {
+                        "line": 55,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 55,
+                        "column": 29
+                    }
+                },
+                "name": "convertAngle180Split",
+                "pos": {
+                    "start": 1913,
+                    "end": 1933,
+                    "loc": {
+                        "start": {
+                            "line": 55,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 55,
+                            "column": 29
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1904,
+                "end": 2060,
+                "loc": {
+                    "start": {
+                        "line": 55,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 61,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "getCavity",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "point1"
+                },
+                {
+                    "name": "midPoint"
+                },
+                {
+                    "name": "point2"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 2073,
+                "end": 2082,
+                "loc": {
+                    "start": {
+                        "line": 63,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 63,
+                        "column": 18
+                    }
+                },
+                "name": "getCavity",
+                "pos": {
+                    "start": 2073,
+                    "end": 2082,
+                    "loc": {
+                        "start": {
+                            "line": 63,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 63,
+                            "column": 18
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 2064,
+                "end": 2508,
+                "loc": {
+                    "start": {
+                        "line": 63,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 76,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "calculateAngleDiff",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "primaryPoint"
+                },
+                {
+                    "name": "secondaryPoint"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 2521,
+                "end": 2539,
+                "loc": {
+                    "start": {
+                        "line": 78,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 78,
+                        "column": 27
+                    }
+                },
+                "name": "calculateAngleDiff",
+                "pos": {
+                    "start": 2521,
+                    "end": 2539,
+                    "loc": {
+                        "start": {
+                            "line": 78,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 78,
+                            "column": 27
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 2512,
+                "end": 3165,
+                "loc": {
+                    "start": {
+                        "line": 78,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 93,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "radiansDiff",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "primaryRads"
+                },
+                {
+                    "name": "secondaryRads"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 3178,
+                "end": 3189,
+                "loc": {
+                    "start": {
+                        "line": 95,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 95,
+                        "column": 20
+                    }
+                },
+                "name": "radiansDiff",
+                "pos": {
+                    "start": 3178,
+                    "end": 3189,
+                    "loc": {
+                        "start": {
+                            "line": 95,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 95,
+                            "column": 20
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 3169,
+                "end": 3287,
+                "loc": {
+                    "start": {
+                        "line": 95,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 97,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "calculateAngleWithRef",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "point1"
+                },
+                {
+                    "name": "point2"
+                },
+                {
+                    "name": "referencePoint"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 3300,
+                "end": 3321,
+                "loc": {
+                    "start": {
+                        "line": 99,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 99,
+                        "column": 30
+                    }
+                },
+                "name": "calculateAngleWithRef",
+                "pos": {
+                    "start": 3300,
+                    "end": 3321,
+                    "loc": {
+                        "start": {
+                            "line": 99,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 99,
+                            "column": 30
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 3291,
+                "end": 4213,
+                "loc": {
+                    "start": {
+                        "line": 99,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 120,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration"
+    ],
+    "info": {
+        "filename": "protractor.js",
+        "path": "/workspaces/polypoint/point_src/protractor.js",
+        "size": 4215,
+        "parsed_date": "2025-11-02T21:20:05.405Z"
+    }
+}

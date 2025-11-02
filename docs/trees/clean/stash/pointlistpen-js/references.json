@@ -1,0 +1,323 @@
+{
+    "src_file": "pointlistpen.js",
+    "references": {
+        "classes": {
+            "PointListPen": {
+                "class_name": "PointListPen",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointListPen",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "pointList"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 13
+                    },
+                    {
+                        "method_name": "points",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "cb"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " ctx.beginPath()",
+                                    "block": false,
+                                    "line": 19
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 17
+                    },
+                    {
+                        "method_name": "line",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "color_or_conf"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " params or dict",
+                                    "block": false,
+                                    "line": 34
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 32
+                    },
+                    {
+                        "method_name": "lines",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "inherit"
+                            },
+                            {
+                                "name": "width"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Draw a call the `pen.line`` for each point. ",
+                                    "block": true,
+                                    "line": 62
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 61
+                    },
+                    {
+                        "method_name": "indicator",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 74
+                    },
+                    {
+                        "method_name": "indicators",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "miniConf",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Synonymous to:\r\n\r\n            randomPoints.draw.points(ctx, (item, arcDraw)=>{\r\n                item.project().pen.line(ctx, item, 'red', 1)\r\n                ctx.beginPath();\r\n                arcDraw(item)\r\n                quickStroke('orange', 1)\r\n            })\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 88
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 78
+                    },
+                    {
+                        "method_name": "fill",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "fillStyle"
+                            },
+                            {
+                                "name": "radius",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.point.draw.arc(ctx, radius)",
+                                    "block": false,
+                                    "line": 120
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 114
+                    },
+                    {
+                        "method_name": "stroke",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " ctx.stroke()",
+                                    "block": false,
+                                    "line": 127
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 126
+                    },
+                    {
+                        "method_name": "circle",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "radius",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return this.stroke.apply(this, arguments)",
+                                    "block": false,
+                                    "line": 135
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 132
+                    },
+                    {
+                        "method_name": "quadCurve",
+                        "class_name": "PointListPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "color_or_conf"
+                            },
+                            {
+                                "name": "loop",
+                                "default_value": false
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " quickStrokeWithCtx(ctx, color_or_conf, b)",
+                                    "block": false,
+                                    "line": 139
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 138
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " ctx.beginPath()",
+                            "block": false,
+                            "line": 19
+                        }
+                    ]
+                },
+                "line": 11
+            }
+        },
+        "functions": [
+            {
+                "name": "tryInheritColor",
+                "kind": "let",
+                "line": 3,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "item"
+                    },
+                    {
+                        "name": "v"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "pointlistpen.js",
+        "path": "/workspaces/polypoint/point_src/pointlistpen.js",
+        "size": 4453,
+        "parsed_date": "2025-11-02T21:11:38.420Z"
+    }
+}

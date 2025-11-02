@@ -1,0 +1,573 @@
+{
+    "src_file": "ast-demo.js",
+    "references": {
+        "classes": {
+            "ParentClass": {
+                "class_name": "ParentClass",
+                "inherits": "Array",
+                "methods": [
+                    {
+                        "method_name": "alphaMethod",
+                        "class_name": "ParentClass",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "\r\n    Accepts no arguments and exists on the parent.\r\n    ",
+                                    "block": true,
+                                    "line": 83
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Accepts no arguments and exists on the parent.\r\n        ",
+                                    "block": true,
+                                    "line": 87
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 84
+                    },
+                    {
+                        "method_name": "betaMethod",
+                        "class_name": "ParentClass",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Accepts no arguments.\r\n        ",
+                                    "block": true,
+                                    "line": 93
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 90
+                    },
+                    {
+                        "method_name": "gammaMethod",
+                        "class_name": "ParentClass",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "one",
+                                "default_value": null
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Parent with default arg\r\n        ",
+                                    "block": true,
+                                    "line": 99
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 96
+                    },
+                    {
+                        "method_name": "parentName",
+                        "class_name": "ParentClass",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 102
+                    },
+                    {
+                        "method_name": "parentName",
+                        "class_name": "ParentClass",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "val"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 106
+                    },
+                    {
+                        "method_name": "staticParentMethod",
+                        "class_name": "ParentClass",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        This is the comment for the Static parent method `staticParentMethod`\r\n        ",
+                                    "block": true,
+                                    "line": 113
+                                }
+                            ]
+                        },
+                        "static": true,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 110
+                    },
+                    {
+                        "method_name": "Symbol.toPrimitive",
+                        "class_name": "ParentClass",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "hint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this is the header block comment for Symbol.toPrimitive\r\n        a very special method that converts an object to a primitive value based on the given hint.\r\n        ",
+                                    "block": true,
+                                    "line": 120
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": true,
+                        "computed": true,
+                        "line": 117
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": " Comment outside for the class ",
+                            "block": true,
+                            "line": 66
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " Comment inside for the class",
+                            "block": true,
+                            "line": 68
+                        }
+                    ]
+                },
+                "line": 67
+            },
+            "Primary": {
+                "class_name": "Primary",
+                "inherits": "ParentClass",
+                "methods": [
+                    {
+                        "method_name": "betaMethod",
+                        "class_name": "Primary",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Accepts no arguments and overrides the parent `betaMethod`\r\n        ",
+                                    "block": true,
+                                    "line": 148
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 145
+                    },
+                    {
+                        "method_name": "charlieMethod",
+                        "class_name": "Primary",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "one"
+                            },
+                            {
+                                "name": "two",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "three",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " docs for charlie ",
+                                    "block": true,
+                                    "line": 152
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 151
+                    },
+                    {
+                        "method_name": "deltaMethod",
+                        "class_name": "Primary",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "args",
+                                "is_rest": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Variadic method using rest args\r\n        ",
+                                    "block": true,
+                                    "line": 158
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 155
+                    },
+                    {
+                        "method_name": "epsilonMethod",
+                        "class_name": "Primary",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Destructured object with defaults\r\n        ",
+                                    "block": true,
+                                    "line": 164
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 161
+                    },
+                    {
+                        "method_name": "name",
+                        "class_name": "Primary",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " an inline comment for the getter `name`, set above the function",
+                                    "block": false,
+                                    "line": 167
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " an inline comment **within** the getter `name`",
+                                    "block": false,
+                                    "line": 169
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 168
+                    },
+                    {
+                        "method_name": "name",
+                        "class_name": "Primary",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 173
+                    },
+                    {
+                        "method_name": "staticMethod",
+                        "class_name": "Primary",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "foo",
+                                "default_value": "bar"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Static method with default arg\r\n        ",
+                                    "block": true,
+                                    "line": 180
+                                }
+                            ]
+                        },
+                        "static": true,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 177
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " This is the header comment for the Primary class. Just within the class declaration. \r\n\r\n    This is the Primary class which extends ParentClass.\r\n    ",
+                            "block": true,
+                            "line": 143
+                        }
+                    ]
+                },
+                "line": 139
+            }
+        },
+        "functions": [
+            {
+                "name": "constStoreFunction",
+                "kind": "const",
+                "line": 30,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " Generic function with no arguments, stored within a const. ",
+                            "block": true,
+                            "line": 29
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " Generic function with no arguments, stored within a const. ",
+                            "block": true,
+                            "line": 31
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [],
+                "async": false
+            },
+            {
+                "name": "varStoreFunction",
+                "kind": "var",
+                "line": 55,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " Generic function outside with no arguments, stored within a const. ",
+                            "block": true,
+                            "line": 54
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " Generic function inside with no arguments, stored within a const. ",
+                            "block": true,
+                            "line": 56
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "x",
+                        "default_value": 0
+                    },
+                    {
+                        "name": "y",
+                        "default_value": 0
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "letStoreFunction",
+                "kind": "let",
+                "line": 60,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " Generic function outside with no arguments, stored within a const. ",
+                            "block": true,
+                            "line": 59
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " Generic function inside with no arguments, stored within a const. ",
+                            "block": true,
+                            "line": 61
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [],
+                "async": false
+            },
+            {
+                "name": "genericFunction",
+                "kind": "function",
+                "type": "function",
+                "line": 185,
+                "params": [],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "genericFunction2",
+                "kind": "function",
+                "type": "function",
+                "line": 192,
+                "params": [
+                    {
+                        "name": "argA"
+                    },
+                    {
+                        "name": "argB"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": [
+            {
+                "name": "stackItem1",
+                "kind": "const",
+                "line": 19,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " stackItem1 A Multiline\r\n        block comment\r\n        for stackItem1 ",
+                            "block": true,
+                            "line": 18
+                        },
+                        {
+                            "text": " stackItem1 inline comment for",
+                            "block": false,
+                            "line": 19
+                        }
+                    ],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "stackItem2",
+                "kind": "const",
+                "line": 19,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " stackItem1 inline comment for",
+                            "block": false,
+                            "line": 19
+                        }
+                    ],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "stackItem3",
+                "kind": "const",
+                "line": 19,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "stackItem4",
+                "kind": "const",
+                "line": 19,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " stackItem4 block comment for ",
+                            "block": true,
+                            "line": 22
+                        }
+                    ],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "stackItem5",
+                "kind": "const",
+                "line": 19,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " stackItem5 inline comment for",
+                            "block": false,
+                            "line": 24
+                        }
+                    ],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "res",
+                "kind": "const",
+                "line": 200,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "ast-demo.js",
+        "path": "/workspaces/polypoint/point_src/ast-demo.js",
+        "size": 4795,
+        "parsed_date": "2025-11-02T21:11:32.340Z"
+    }
+}

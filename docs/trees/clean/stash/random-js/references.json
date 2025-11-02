@@ -1,0 +1,457 @@
+{
+    "src_file": "random.js",
+    "references": {
+        "classes": {
+            "Random": {
+                "class_name": "Random",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "int",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "min",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "max"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Generate an integer between 0 and the given min.\r\n        Given 1 (default), the result will be either 0 or 1\r\n\r\n            random.int(10)\r\n            7\r\n            random.int(50)\r\n            30\r\n            random.int(300)\r\n            220\r\n        ",
+                                    "block": true,
+                                    "line": 34
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 24
+                    },
+                    {
+                        "method_name": "float",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "min",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "max"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Generate a decimal number between `0` and `1`.\r\n        Provide a min/max to limit\r\n\r\n            random.float()\r\n            random.float(.2, 1)\r\n        ",
+                                    "block": true,
+                                    "line": 49
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 43
+                    },
+                    {
+                        "method_name": "callOne",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "functions"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Given many functions, call one. ",
+                                    "block": true,
+                                    "line": 58
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 57
+                    },
+                    {
+                        "method_name": "choice",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "selections"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Give many items, return one ",
+                                    "block": true,
+                                    "line": 63
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 62
+                    },
+                    {
+                        "method_name": "index",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "selections"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Given many, return an index ",
+                                    "block": true,
+                                    "line": 68
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 67
+                    },
+                    {
+                        "method_name": "string",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "multiplier",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "rot",
+                                "default_value": 32
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return a random string ",
+                                    "block": true,
+                                    "line": 73
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 72
+                    },
+                    {
+                        "method_name": "radix",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            },
+                            {
+                                "name": "rot",
+                                "default_value": 32
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "point",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "multiplier",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "method",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            return a random point(), with the X/Y values set as random*multplier\r\n         ",
+                                    "block": true,
+                                    "line": 84
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 81
+                    },
+                    {
+                        "method_name": "shuffle",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "max",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 93
+                    },
+                    {
+                        "method_name": "within",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "max",
+                                "default_value": 0.5
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return a random 2D position within the given point.\r\n\r\n            within({ x: 100, y: 100, radius: 100})\r\n            {x: 79, y: 50}\r\n        ",
+                                    "block": true,
+                                    "line": 102
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 97
+                    },
+                    {
+                        "method_name": "xy",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "multiplier",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "return two random values between 0 and 1 multiplied by the given\r\n        value `multiplier`.\r\n        This is similar to the random.point() function, except it only returns\r\n        an object of {x,y}",
+                                    "block": true,
+                                    "line": 127
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 123
+                    },
+                    {
+                        "method_name": "gaussianFloat",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "mean",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "stdev",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Standard Normal variate using Box-Muller transform.",
+                                    "block": false,
+                                    "line": 132
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 131
+                    },
+                    {
+                        "method_name": "gaussian",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "start"
+                            },
+                            {
+                                "name": "end"
+                            },
+                            {
+                                "name": "mean",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "stdev",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 143
+                    },
+                    {
+                        "method_name": "polar2D",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 147
+                    },
+                    {
+                        "method_name": "color",
+                        "class_name": "Random",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "h",
+                                "default_value": 360
+                            },
+                            {
+                                "name": "s",
+                                "default_value": 100
+                            },
+                            {
+                                "name": "l",
+                                "default_value": 100
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return a random `hsl` color string,\r\n\r\n            random.color()\r\n            random.color(360, 100, 100)\r\n            random.color(360, [30, 100], [60,100])\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 163
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 156
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " The minimum value the _point(value)_ can be, before\r\n    the automatic 'float' method is used over the 'int' method.\r\n    ",
+                            "block": true,
+                            "line": 21
+                        }
+                    ]
+                },
+                "line": 17
+            }
+        },
+        "functions": [
+            {
+                "name": "randomizePoint",
+                "kind": "const",
+                "line": 178,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Perform random() on the X and Y.\r\n\r\n    If a point is given, randomize to the _max_ of the given point\r\n    If a single number is given, assume _square_\r\n    If no params are given, discover the stage size.\r\n\r\n    Use `Point.random()` for the same form, as a new point\r\n\r\n        let p = new Point()\r\n        p.randomize(100, 400)\r\n        p.randomize(100) // 100, 100\r\n        p.randomize(new Point(100, 400)) // 100, 400\r\n\r\n    if one of the keys is undefined, no change occurs:\r\n\r\n        p.setXY(500,700)\r\n        p.randomize(100, undefined) // 100, 700\r\n        p.randomize(undefined, 400) // 500, 400\r\n\r\n        p.randomize(undefined, undefined) // 500, 700 // no change occurs.\r\n\r\n    Note; no params will randomize as much as possible (the stage size)\r\n\r\n        p.randomize() // 800, 600\r\n\r\n    Other features would be nice:\r\n\r\n    + random in rect (like stage):\r\n\r\n        p.randomize(rect|dimensions)\r\n\r\n    + Randomize other values, e.g radius, colors\r\n\r\n        p.randomize(['x', 'y', 'radius', 'mass'])\r\n\r\n        // randomize x to max 400, radius to max 50\r\n        p.randomize({ x: 400, radius: 50})\r\n\r\n    + In the future, the _origin_; randomize relative to a point:\r\n\r\n        p.randomize({point, relative: true})\r\n\r\n    ",
+                            "block": true,
+                            "line": 221
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "px"
+                    },
+                    {
+                        "name": "y"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": [
+            {
+                "name": "random",
+                "kind": "const",
+                "line": 174,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "random.js",
+        "path": "/workspaces/polypoint/point_src/random.js",
+        "size": 6312,
+        "parsed_date": "2025-11-02T21:11:38.881Z"
+    }
+}

@@ -1,0 +1,319 @@
+{
+    "defs": [
+        {
+            "word": "drawLine",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "line"
+                    }
+                ],
+                "pos": {
+                    "start": 17,
+                    "end": 228,
+                    "loc": {
+                        "start": {
+                            "line": 1,
+                            "column": 17
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Ensure the path restarts, ensuring the colors don't _bleed_ (from",
+                        "block": false,
+                        "line": 2
+                    }
+                ]
+            },
+            "pos": {
+                "start": 0,
+                "end": 228,
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 0,
+            "end": 228,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "drawPointLine",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "pointsArray"
+                    },
+                    {
+                        "name": "position"
+                    }
+                ],
+                "pos": {
+                    "start": 256,
+                    "end": 577,
+                    "loc": {
+                        "start": {
+                            "line": 10,
+                            "column": 22
+                        },
+                        "end": {
+                            "line": 22,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " To 'close' the old drawing.",
+                        "block": false,
+                        "line": 11
+                    }
+                ]
+            },
+            "pos": {
+                "start": 234,
+                "end": 577,
+                "loc": {
+                    "start": {
+                        "line": 10,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 22,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 234,
+            "end": 577,
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 0
+                },
+                "end": {
+                    "line": 22,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                    "type": "Identifier",
+                    "word": "approx_distance",
+                    "pos": {
+                        "start": 1070,
+                        "end": 1085,
+                        "loc": {
+                            "start": {
+                                "line": 55,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 55,
+                                "column": 15
+                            }
+                        }
+                    }
+                },
+                "right": {
+                    "type": "FunctionExpression",
+                    "id": null,
+                    "generator": false,
+                    "expression": false,
+                    "async": false,
+                    "params": [
+                        {
+                            "name": "dx"
+                        },
+                        {
+                            "name": "dy"
+                        }
+                    ],
+                    "pos": {
+                        "start": 1088,
+                        "end": 1464,
+                        "loc": {
+                            "start": {
+                                "line": 55,
+                                "column": 18
+                            },
+                            "end": {
+                                "line": 74,
+                                "column": 1
+                            }
+                        }
+                    }
+                },
+                "pos": {
+                    "start": 1070,
+                    "end": 1464,
+                    "loc": {
+                        "start": {
+                            "line": 55,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 74,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1070,
+                "end": 1464,
+                "loc": {
+                    "start": {
+                        "line": 55,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 74,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                    "type": "Identifier",
+                    "word": "approx_distance2",
+                    "pos": {
+                        "start": 1472,
+                        "end": 1488,
+                        "loc": {
+                            "start": {
+                                "line": 78,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 78,
+                                "column": 16
+                            }
+                        }
+                    }
+                },
+                "right": {
+                    "type": "FunctionExpression",
+                    "id": null,
+                    "generator": false,
+                    "expression": false,
+                    "async": false,
+                    "params": [
+                        {
+                            "name": "dx"
+                        },
+                        {
+                            "name": "dy"
+                        }
+                    ],
+                    "pos": {
+                        "start": 1491,
+                        "end": 1930,
+                        "loc": {
+                            "start": {
+                                "line": 78,
+                                "column": 19
+                            },
+                            "end": {
+                                "line": 96,
+                                "column": 1
+                            }
+                        }
+                    }
+                },
+                "pos": {
+                    "start": 1472,
+                    "end": 1930,
+                    "loc": {
+                        "start": {
+                            "line": 78,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 96,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1472,
+                "end": 1930,
+                "loc": {
+                    "start": {
+                        "line": 78,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 96,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "ExpressionStatement",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "extras.js",
+        "path": "/workspaces/polypoint/point_src/extras.js",
+        "size": 1932,
+        "parsed_date": "2025-11-02T21:11:35.128Z"
+    }
+}

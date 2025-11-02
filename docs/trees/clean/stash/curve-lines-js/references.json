@@ -1,0 +1,191 @@
+{
+    "src_file": "curve-lines.js",
+    "references": {
+        "classes": {
+            "XBezierCurve": {
+                "class_name": "XBezierCurve",
+                "inherits": "Line",
+                "methods": [
+                    {
+                        "method_name": "getControlPoints",
+                        "class_name": "XBezierCurve",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "A bezier requires two control points ",
+                                    "block": true,
+                                    "line": 17
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 10
+                    },
+                    {
+                        "method_name": "perform",
+                        "class_name": "XBezierCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo",
+                                    "block": false,
+                                    "line": 28
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 25
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": " requires line/Line\r\n\r\nReplaced by curve-extrs/BezierCurve ",
+                            "block": true,
+                            "line": 4
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " create(p1, p2, color='red', width=1) {",
+                            "block": false,
+                            "line": 7
+                        }
+                    ]
+                },
+                "line": 5
+            },
+            "CantenaryCurve": {
+                "class_name": "CantenaryCurve",
+                "inherits": "Line",
+                "methods": [
+                    {
+                        "method_name": "create",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "length",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "red"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 37
+                    },
+                    {
+                        "method_name": "getCurveLength",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 42
+                    },
+                    {
+                        "method_name": "getControlPoints",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 49
+                    },
+                    {
+                        "method_name": "perform",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " cpx",
+                                    "block": false,
+                                    "line": 74
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 57
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " cpx",
+                            "block": false,
+                            "line": 74
+                        }
+                    ]
+                },
+                "line": 35
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "curve-lines.js",
+        "path": "/workspaces/polypoint/point_src/curve-lines.js",
+        "size": 1918,
+        "parsed_date": "2025-11-02T21:11:34.230Z"
+    }
+}

@@ -1,0 +1,338 @@
+{
+    "src_file": "screenwrap.js",
+    "references": {
+        "classes": {
+            "ScreenWrap": {
+                "class_name": "ScreenWrap",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "ScreenWrap",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "topLeft",
+                                "default_value": "[]"
+                            },
+                            {
+                                "name": "bottomRight",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 24
+                    },
+                    {
+                        "method_name": "setDimensions",
+                        "class_name": "ScreenWrap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "dimensions"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 29
+                    },
+                    {
+                        "method_name": "perform",
+                        "class_name": "ScreenWrap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "topLeft"
+                            },
+                            {
+                                "name": "bottomRight"
+                            },
+                            {
+                                "name": "edgeMethod"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 36
+                    },
+                    {
+                        "method_name": "performWrap",
+                        "class_name": "ScreenWrap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "topLeft"
+                            },
+                            {
+                                "name": "bottomRight"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " wrap ",
+                                    "block": true,
+                                    "line": 41
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 40
+                    },
+                    {
+                        "method_name": "performMany",
+                        "class_name": "ScreenWrap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "topLeft"
+                            },
+                            {
+                                "name": "bottomRight"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 87
+                    },
+                    {
+                        "method_name": "isOutside",
+                        "class_name": "ScreenWrap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "topLeft"
+                            },
+                            {
+                                "name": "bottomRight"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 91
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " wrap ",
+                            "block": true,
+                            "line": 41
+                        }
+                    ]
+                },
+                "line": 21
+            },
+            "ScreenWrapCull": {
+                "class_name": "ScreenWrapCull",
+                "inherits": "ScreenWrap",
+                "methods": [
+                    {
+                        "method_name": "performCull",
+                        "class_name": "ScreenWrapCull",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "topLeft"
+                            },
+                            {
+                                "name": "bottomRight"
+                            },
+                            {
+                                "name": "deletePointFunction"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " wrap ",
+                                    "block": true,
+                                    "line": 108
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 107
+                    },
+                    {
+                        "method_name": "destroyPoint",
+                        "class_name": "ScreenWrapCull",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('destroyPoint')",
+                                    "block": false,
+                                    "line": 152
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 151
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Delete points from the associated points\r\n    rather than _wrapping_ the point. ",
+                            "block": true,
+                            "line": 103
+                        }
+                    ]
+                },
+                "line": 101
+            },
+            "StageScreenWrap": {
+                "class_name": "StageScreenWrap",
+                "inherits": "ScreenWrapCull",
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "StageScreenWrap",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 162
+                    },
+                    {
+                        "method_name": "copyStageDimensions",
+                        "class_name": "StageScreenWrap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "dimensions"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 171
+                    },
+                    {
+                        "method_name": "cullBox",
+                        "class_name": "StageScreenWrap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "deletePointFunction"
+                            },
+                            {
+                                "name": "topLeft"
+                            },
+                            {
+                                "name": "bottomRight"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Cull to a box (the screen)\r\n\r\n                this.screenWrap.cullBox(\r\n                        this.walkers,\r\n                    )\r\n\r\n        Provide a custom delete point function, accepting a point\r\n        and manipulating the point list.\r\n                this.screenWrap.cullBox(\r\n                        this.walkers,\r\n                        this.walkers.remove.bind(this.walkers)\r\n                    )\r\n\r\n         ",
+                                    "block": true,
+                                    "line": 192
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 178
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Cull to a box (the screen)\r\n\r\n                this.screenWrap.cullBox(\r\n                        this.walkers,\r\n                    )\r\n\r\n        Provide a custom delete point function, accepting a point\r\n        and manipulating the point list.\r\n                this.screenWrap.cullBox(\r\n                        this.walkers,\r\n                        this.walkers.remove.bind(this.walkers)\r\n                    )\r\n\r\n         ",
+                            "block": true,
+                            "line": 192
+                        }
+                    ]
+                },
+                "line": 158
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "screenwrap.js",
+        "path": "/workspaces/polypoint/point_src/screenwrap.js",
+        "size": 5184,
+        "parsed_date": "2025-11-02T21:11:39.968Z"
+    }
+}

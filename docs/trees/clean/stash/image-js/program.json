@@ -1,0 +1,1821 @@
+{
+    "defs": [
+        {
+            "word": "image",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "src"
+                    }
+                ],
+                "pos": {
+                    "start": 16,
+                    "end": 215,
+                    "loc": {
+                        "start": {
+                            "line": 2,
+                            "column": 14
+                        },
+                        "end": {
+                            "line": 11,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 2,
+                "end": 215,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 11,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 2,
+            "end": 215,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 0
+                },
+                "end": {
+                    "line": 11,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "class",
+            "word": "ImageLoader",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "path"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 583,
+                            "end": 873,
+                            "loc": {
+                                "start": {
+                                    "line": 26,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 36,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Load an _image_ (such as png) into the point position with\r\n    a given path:\r\n\r\n        point = new Point(200,200)\r\n        image = new ImageLoader(\"./images/mail.png\", point)\r\n        image.position.rotation = 30\r\n\r\n        image.draw(ctx)\r\n\r\n    The draw factors in the point radius, position, and rotation\r\n    ",
+                                "block": true,
+                                "line": 25
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 572,
+                        "end": 873,
+                        "loc": {
+                            "start": {
+                                "line": 26,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 36,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "load",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "path"
+                            }
+                        ],
+                        "pos": {
+                            "start": 885,
+                            "end": 1269,
+                            "loc": {
+                                "start": {
+                                    "line": 38,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 49,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " img.crossOrigin = 'anonymous';",
+                                "block": false,
+                                "line": 40
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 881,
+                        "end": 1269,
+                        "loc": {
+                            "start": {
+                                "line": 38,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 49,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "setImageData",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1289,
+                            "end": 1393,
+                            "loc": {
+                                "start": {
+                                    "line": 51,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 54,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " stage.offScreenCanvas.transferToImageBitmap()",
+                                "block": false,
+                                "line": 52
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1277,
+                        "end": 1393,
+                        "loc": {
+                            "start": {
+                                "line": 51,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 54,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getOffscreenCanvas",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "width",
+                                "default_value": 200
+                            },
+                            {
+                                "name": "height",
+                                "default_value": 300
+                            }
+                        ],
+                        "pos": {
+                            "start": 1419,
+                            "end": 1528,
+                            "loc": {
+                                "start": {
+                                    "line": 56,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 59,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1401,
+                        "end": 1528,
+                        "loc": {
+                            "start": {
+                                "line": 56,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 59,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getImageData",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "osc"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 200
+                            },
+                            {
+                                "name": "height",
+                                "default_value": 300
+                            }
+                        ],
+                        "pos": {
+                            "start": 1548,
+                            "end": 1780,
+                            "loc": {
+                                "start": {
+                                    "line": 61,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 66,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1536,
+                        "end": 1780,
+                        "loc": {
+                            "start": {
+                                "line": 61,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 66,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "draw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1792,
+                            "end": 2627,
+                            "loc": {
+                                "start": {
+                                    "line": 68,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 92,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " First we move to the location of which to spin.",
+                                "block": true,
+                                "line": 78
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1788,
+                        "end": 2627,
+                        "loc": {
+                            "start": {
+                                "line": 68,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 92,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "recolor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 2642,
+                            "end": 3309,
+                            "loc": {
+                                "start": {
+                                    "line": 94,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 106,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " we manipulate the pixel data here in order to make the image lighter",
+                                "block": false,
+                                "line": 96
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2635,
+                        "end": 3309,
+                        "loc": {
+                            "start": {
+                                "line": 94,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 106,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Load an _image_ (such as png) into the point position with\r\n    a given path:\r\n\r\n        point = new Point(200,200)\r\n        image = new ImageLoader(\"./images/mail.png\", point)\r\n        image.position.rotation = 30\r\n\r\n        image.draw(ctx)\r\n\r\n    The draw factors in the point radius, position, and rotation\r\n    ",
+                        "block": true,
+                        "line": 25
+                    }
+                ]
+            },
+            "pos": {
+                "start": 221,
+                "end": 3314,
+                "loc": {
+                    "start": {
+                        "line": 14,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 108,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "word": "oSepia",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "img"
+                    },
+                    {
+                        "name": "canvas"
+                    }
+                ],
+                "pos": {
+                    "start": 3335,
+                    "end": 3951,
+                    "loc": {
+                        "start": {
+                            "line": 112,
+                            "column": 13
+                        },
+                        "end": {
+                            "line": 124,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 3322,
+                "end": 3951,
+                "loc": {
+                    "start": {
+                        "line": 112,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 124,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 3322,
+            "end": 3951,
+            "loc": {
+                "start": {
+                    "line": 112,
+                    "column": 0
+                },
+                "end": {
+                    "line": 124,
+                    "column": 1
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "word": "asImageData",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "img"
+                    },
+                    {
+                        "name": "ctx"
+                    }
+                ],
+                "pos": {
+                    "start": 3980,
+                    "end": 4301,
+                    "loc": {
+                        "start": {
+                            "line": 128,
+                            "column": 21
+                        },
+                        "end": {
+                            "line": 138,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "\r\n        createImageBitmap(asImageData(stage.image.image, stage.ctx)).then(b=>{\r\n            stage.image.imageData = b;\r\n        })\r\n    ",
+                        "block": true,
+                        "line": 133
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3959,
+                "end": 4301,
+                "loc": {
+                    "start": {
+                        "line": 128,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 138,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 3959,
+            "end": 4301,
+            "loc": {
+                "start": {
+                    "line": 128,
+                    "column": 0
+                },
+                "end": {
+                    "line": 138,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "putImageData",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "imageData"
+                    }
+                ],
+                "pos": {
+                    "start": 4327,
+                    "end": 4396,
+                    "loc": {
+                        "start": {
+                            "line": 140,
+                            "column": 22
+                        },
+                        "end": {
+                            "line": 142,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4305,
+                "end": 4396,
+                "loc": {
+                    "start": {
+                        "line": 140,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 142,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4305,
+            "end": 4396,
+            "loc": {
+                "start": {
+                    "line": 140,
+                    "column": 0
+                },
+                "end": {
+                    "line": 142,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "imageDataEditor",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "img"
+                    },
+                    {
+                        "name": "func"
+                    }
+                ],
+                "pos": {
+                    "start": 4424,
+                    "end": 4577,
+                    "loc": {
+                        "start": {
+                            "line": 144,
+                            "column": 24
+                        },
+                        "end": {
+                            "line": 149,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4400,
+                "end": 4577,
+                "loc": {
+                    "start": {
+                        "line": 144,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 149,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4400,
+            "end": 4577,
+            "loc": {
+                "start": {
+                    "line": 144,
+                    "column": 0
+                },
+                "end": {
+                    "line": 149,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "sepia",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "data"
+                    }
+                ],
+                "pos": {
+                    "start": 4593,
+                    "end": 5086,
+                    "loc": {
+                        "start": {
+                            "line": 151,
+                            "column": 12
+                        },
+                        "end": {
+                            "line": 164,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4581,
+                "end": 5086,
+                "loc": {
+                    "start": {
+                        "line": 151,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 164,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4581,
+            "end": 5086,
+            "loc": {
+                "start": {
+                    "line": 151,
+                    "column": 0
+                },
+                "end": {
+                    "line": 164,
+                    "column": 1
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "word": "invert",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "data"
+                    }
+                ],
+                "pos": {
+                    "start": 5105,
+                    "end": 5329,
+                    "loc": {
+                        "start": {
+                            "line": 167,
+                            "column": 13
+                        },
+                        "end": {
+                            "line": 173,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " red",
+                        "block": false,
+                        "line": 169
+                    }
+                ]
+            },
+            "pos": {
+                "start": 5092,
+                "end": 5330,
+                "loc": {
+                    "start": {
+                        "line": 167,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 173,
+                        "column": 2
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 5092,
+            "end": 5330,
+            "loc": {
+                "start": {
+                    "line": 167,
+                    "column": 0
+                },
+                "end": {
+                    "line": 173,
+                    "column": 2
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "word": "blur",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    }
+                ],
+                "pos": {
+                    "start": 5347,
+                    "end": 6097,
+                    "loc": {
+                        "start": {
+                            "line": 176,
+                            "column": 11
+                        },
+                        "end": {
+                            "line": 197,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Copy of original data so we don\u2019t overwrite as we go",
+                        "block": false,
+                        "line": 177
+                    }
+                ]
+            },
+            "pos": {
+                "start": 5336,
+                "end": 6098,
+                "loc": {
+                    "start": {
+                        "line": 176,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 197,
+                        "column": 2
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 5336,
+            "end": 6098,
+            "loc": {
+                "start": {
+                    "line": 176,
+                    "column": 0
+                },
+                "end": {
+                    "line": 197,
+                    "column": 2
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "word": "blur2",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    },
+                    {
+                        "name": "amount",
+                        "default_value": 1
+                    }
+                ],
+                "pos": {
+                    "start": 6116,
+                    "end": 6998,
+                    "loc": {
+                        "start": {
+                            "line": 200,
+                            "column": 12
+                        },
+                        "end": {
+                            "line": 225,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " ensures odd size: 3, 5, 7...",
+                        "block": false,
+                        "line": 201
+                    }
+                ]
+            },
+            "pos": {
+                "start": 6104,
+                "end": 6999,
+                "loc": {
+                    "start": {
+                        "line": 200,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 225,
+                        "column": 2
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 6104,
+            "end": 6999,
+            "loc": {
+                "start": {
+                    "line": 200,
+                    "column": 0
+                },
+                "end": {
+                    "line": 225,
+                    "column": 2
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "word": "blur3",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    },
+                    {
+                        "name": "amount",
+                        "default_value": 1
+                    }
+                ],
+                "pos": {
+                    "start": 7017,
+                    "end": 8151,
+                    "loc": {
+                        "start": {
+                            "line": 228,
+                            "column": 12
+                        },
+                        "end": {
+                            "line": 260,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " odd grid: 3, 5, 7...",
+                        "block": false,
+                        "line": 229
+                    }
+                ]
+            },
+            "pos": {
+                "start": 7005,
+                "end": 8152,
+                "loc": {
+                    "start": {
+                        "line": 228,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 260,
+                        "column": 2
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 7005,
+            "end": 8152,
+            "loc": {
+                "start": {
+                    "line": 228,
+                    "column": 0
+                },
+                "end": {
+                    "line": 260,
+                    "column": 2
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "kind": "function",
+            "word": "blurSeparable",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "data"
+                },
+                {
+                    "name": "width"
+                },
+                {
+                    "name": "height"
+                },
+                {
+                    "name": "amount",
+                    "default_value": 1
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 8167,
+                "end": 8180,
+                "loc": {
+                    "start": {
+                        "line": 263,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 263,
+                        "column": 22
+                    }
+                },
+                "name": "blurSeparable",
+                "pos": {
+                    "start": 8167,
+                    "end": 8180,
+                    "loc": {
+                        "start": {
+                            "line": 263,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 263,
+                            "column": 22
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 8158,
+                "end": 9871,
+                "loc": {
+                    "start": {
+                        "line": 263,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 316,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "gaussianBlur",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "imageData"
+                },
+                {
+                    "name": "amount",
+                    "default_value": 1
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 9886,
+                "end": 9898,
+                "loc": {
+                    "start": {
+                        "line": 319,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 319,
+                        "column": 21
+                    }
+                },
+                "name": "gaussianBlur",
+                "pos": {
+                    "start": 9886,
+                    "end": 9898,
+                    "loc": {
+                        "start": {
+                            "line": 319,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 319,
+                            "column": 21
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 9877,
+                "end": 10370,
+                "loc": {
+                    "start": {
+                        "line": 319,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 333,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "generateGaussianKernel",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "size"
+                },
+                {
+                    "name": "sigma"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 10385,
+                "end": 10407,
+                "loc": {
+                    "start": {
+                        "line": 336,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 336,
+                        "column": 31
+                    }
+                },
+                "name": "generateGaussianKernel",
+                "pos": {
+                    "start": 10385,
+                    "end": 10407,
+                    "loc": {
+                        "start": {
+                            "line": 336,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 336,
+                            "column": 31
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 10376,
+                "end": 10877,
+                "loc": {
+                    "start": {
+                        "line": 336,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 352,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "convolve",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "data"
+                },
+                {
+                    "name": "width"
+                },
+                {
+                    "name": "height"
+                },
+                {
+                    "name": "kernel"
+                },
+                {
+                    "name": "kernelSize"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 10892,
+                "end": 10900,
+                "loc": {
+                    "start": {
+                        "line": 355,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 355,
+                        "column": 17
+                    }
+                },
+                "name": "convolve",
+                "pos": {
+                    "start": 10892,
+                    "end": 10900,
+                    "loc": {
+                        "start": {
+                            "line": 355,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 355,
+                            "column": 17
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 10883,
+                "end": 12169,
+                "loc": {
+                    "start": {
+                        "line": 355,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 395,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "gaussianWeights",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "size"
+                },
+                {
+                    "name": "sigma"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 12184,
+                "end": 12199,
+                "loc": {
+                    "start": {
+                        "line": 398,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 398,
+                        "column": 24
+                    }
+                },
+                "name": "gaussianWeights",
+                "pos": {
+                    "start": 12184,
+                    "end": 12199,
+                    "loc": {
+                        "start": {
+                            "line": 398,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 398,
+                            "column": 24
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 12175,
+                "end": 12512,
+                "loc": {
+                    "start": {
+                        "line": 398,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 410,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "blurSeparableGaussian",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "data"
+                },
+                {
+                    "name": "width"
+                },
+                {
+                    "name": "height"
+                },
+                {
+                    "name": "amount",
+                    "default_value": 1
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 12527,
+                "end": 12548,
+                "loc": {
+                    "start": {
+                        "line": 413,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 413,
+                        "column": 30
+                    }
+                },
+                "name": "blurSeparableGaussian",
+                "pos": {
+                    "start": 12527,
+                    "end": 12548,
+                    "loc": {
+                        "start": {
+                            "line": 413,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 413,
+                            "column": 30
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 12518,
+                "end": 14311,
+                "loc": {
+                    "start": {
+                        "line": 413,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 469,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "invertColors",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "data"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 14326,
+                "end": 14338,
+                "loc": {
+                    "start": {
+                        "line": 472,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 472,
+                        "column": 21
+                    }
+                },
+                "name": "invertColors",
+                "pos": {
+                    "start": 14326,
+                    "end": 14338,
+                    "loc": {
+                        "start": {
+                            "line": 472,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 472,
+                            "column": 21
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 14317,
+                "end": 14542,
+                "loc": {
+                    "start": {
+                        "line": 472,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 478,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "word": "grayscale",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "data"
+                    }
+                ],
+                "pos": {
+                    "start": 14844,
+                    "end": 15088,
+                    "loc": {
+                        "start": {
+                            "line": 486,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 493,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " red",
+                        "block": false,
+                        "line": 489
+                    }
+                ]
+            },
+            "pos": {
+                "start": 14828,
+                "end": 15089,
+                "loc": {
+                    "start": {
+                        "line": 486,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 493,
+                        "column": 2
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 14828,
+            "end": 15089,
+            "loc": {
+                "start": {
+                    "line": 486,
+                    "column": 0
+                },
+                "end": {
+                    "line": 493,
+                    "column": 2
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "kind": "class",
+            "word": "PathData",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pathData"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 15128,
+                            "end": 15527,
+                            "loc": {
+                                "start": {
+                                    "line": 497,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 508,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 15117,
+                        "end": 15527,
+                        "loc": {
+                            "start": {
+                                "line": 497,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 508,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "draw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 15539,
+                            "end": 16264,
+                            "loc": {
+                                "start": {
+                                    "line": 510,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 531,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Rescaling needs a base value (init radius) to scale from.",
+                                "block": true,
+                                "line": 515
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 15535,
+                        "end": 16264,
+                        "loc": {
+                            "start": {
+                                "line": 510,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 531,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Rescaling needs a base value (init radius) to scale from.",
+                        "block": true,
+                        "line": 515
+                    }
+                ]
+            },
+            "pos": {
+                "start": 15095,
+                "end": 16267,
+                "loc": {
+                    "start": {
+                        "line": 496,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 532,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "ClassDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "VariableDeclaration",
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "image.js",
+        "path": "/workspaces/polypoint/point_src/image.js",
+        "size": 16267,
+        "parsed_date": "2025-11-02T21:11:36.146Z"
+    }
+}

@@ -1,0 +1,1226 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "GridTools",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parent"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "pos"
+                            }
+                        ],
+                        "pos": {
+                            "start": 38,
+                            "end": 161,
+                            "loc": {
+                                "start": {
+                                    "line": 4,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 27,
+                        "end": 161,
+                        "loc": {
+                            "start": {
+                                "line": 4,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 8,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getColumn",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "index"
+                            }
+                        ],
+                        "pos": {
+                            "start": 432,
+                            "end": 843,
+                            "loc": {
+                                "start": {
+                                    "line": 17,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 31,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Return a pointlist of the items within the pseudo grid\r\n\r\n        let gridTools = new GridTools(pointList, 10)\r\n        let columnPointList = gridTools.getColumn(gridTools.width-1)\r\n        columnPointList.setMany(DOWN_DEG, 'rotation')\r\n\r\n    ",
+                                "block": true,
+                                "line": 16
+                            }
+                        ],
+                        "inner": [
+                            {
+                                "text": " allow index -1 etc, to reduce from the right. ",
+                                "block": true,
+                                "line": 19
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 423,
+                        "end": 843,
+                        "loc": {
+                            "start": {
+                                "line": 17,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 31,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getRow",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "i"
+                            }
+                        ],
+                        "pos": {
+                            "start": 857,
+                            "end": 919,
+                            "loc": {
+                                "start": {
+                                    "line": 33,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 35,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 851,
+                        "end": 919,
+                        "loc": {
+                            "start": {
+                                "line": 33,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 35,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getRect",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1001,
+                            "end": 1005,
+                            "loc": {
+                                "start": {
+                                    "line": 38,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 38,
+                                    "column": 15
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Splice a segment from the grid in the form of a rectagle",
+                                "block": true,
+                                "line": 37
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 994,
+                        "end": 1005,
+                        "loc": {
+                            "start": {
+                                "line": 38,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 38,
+                                "column": 15
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "subdivide",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "split",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "mutate",
+                                "default_value": true
+                            }
+                        ],
+                        "pos": {
+                            "start": 1022,
+                            "end": 1541,
+                            "loc": {
+                                "start": {
+                                    "line": 40,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 54,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Subdivide all cells within the grid by the given `split` integer.\r\n        This adds up to 5 points to divide a _quad_ into 4 equal quads.\r\n\r\n        if `mutate` is true, the new points are inserted into the grid, accounting\r\n        for the row count offset.\r\n\r\n        If mutate is false, return the new points.\r\n\r\n            points = PointList.generate.grid(16, 4, 50)\r\n            points.getGridTool().subdivide(1, true)\r\n            // points.length == 40\r\n        ",
+                                "block": true,
+                                "line": 52
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1013,
+                        "end": 1541,
+                        "loc": {
+                            "start": {
+                                "line": 40,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 54,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getSiblings",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "index"
+                            },
+                            {
+                                "name": "columnCount"
+                            },
+                            {
+                                "name": "rowCount"
+                            },
+                            {
+                                "name": "total"
+                            },
+                            {
+                                "name": "expand",
+                                "default_value": false
+                            }
+                        ],
+                        "pos": {
+                            "start": 1680,
+                            "end": 3095,
+                            "loc": {
+                                "start": {
+                                    "line": 61,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 100,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Given a point, or index, return the siblings of the grid\r\n\r\n        `rowCount` or `total` is required\r\n    ",
+                                "block": true,
+                                "line": 60
+                            }
+                        ],
+                        "inner": [
+                            {
+                                "text": " Up must step back as many cells as a column",
+                                "block": true,
+                                "line": 68
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1669,
+                        "end": 3095,
+                        "loc": {
+                            "start": {
+                                "line": 61,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 100,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getSiblings8",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "index"
+                            },
+                            {
+                                "name": "columnCount"
+                            },
+                            {
+                                "name": "rowCount"
+                            },
+                            {
+                                "name": "total"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3115,
+                            "end": 4582,
+                            "loc": {
+                                "start": {
+                                    "line": 102,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 133,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " If rowCount is not given, assume a square grid rowCount == columnCount",
+                                "block": false,
+                                "line": 103
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3103,
+                        "end": 4582,
+                        "loc": {
+                            "start": {
+                                "line": 102,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 133,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Return a pointlist of the items within the pseudo grid\r\n\r\n        let gridTools = new GridTools(pointList, 10)\r\n        let columnPointList = gridTools.getColumn(gridTools.width-1)\r\n        columnPointList.setMany(DOWN_DEG, 'rotation')\r\n\r\n    ",
+                        "block": true,
+                        "line": 16
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2,
+                "end": 4585,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 134,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "PointListGenerator",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4638,
+                            "end": 4688,
+                            "loc": {
+                                "start": {
+                                    "line": 140,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 143,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4627,
+                        "end": 4688,
+                        "loc": {
+                            "start": {
+                                "line": 140,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 143,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "_distanceToPointFunction",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "distance"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4720,
+                            "end": 5166,
+                            "loc": {
+                                "start": {
+                                    "line": 145,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 166,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " If the given object is a _point_, each step is\r\n            multiplied. ",
+                                "block": true,
+                                "line": 153
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4696,
+                        "end": 5166,
+                        "loc": {
+                            "start": {
+                                "line": 145,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 166,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "radius",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "count"
+                            },
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "origin"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5180,
+                            "end": 5624,
+                            "loc": {
+                                "start": {
+                                    "line": 168,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 181,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Synonymous to:\r\n\r\n            randomPoints = PointList.generate.random(pointCount)\r\n            // Alter the positions of all the points, a radius of 100, at a position\r\n            randomPoints.shape.radius(100, point(200,200))\r\n        ",
+                                "block": true,
+                                "line": 174
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5174,
+                        "end": 5624,
+                        "loc": {
+                            "start": {
+                                "line": 168,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 181,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "countOf",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "count"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5639,
+                            "end": 5976,
+                            "loc": {
+                                "start": {
+                                    "line": 183,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 193,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Genrate a count of points, without editing the values. ",
+                                "block": true,
+                                "line": 184
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5632,
+                        "end": 5976,
+                        "loc": {
+                            "start": {
+                                "line": 183,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 193,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "list",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "count",
+                                "default_value": 5
+                            },
+                            {
+                                "name": "distance",
+                                "default_value": 10
+                            },
+                            {
+                                "name": "origin",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5988,
+                            "end": 6663,
+                            "loc": {
+                                "start": {
+                                    "line": 195,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 218,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n            Generate a list of points to a _count_.\r\n\r\n            PointList.generate.list(100)\r\n\r\n        Provide an offset per step:\r\n\r\n            PointList.generate.list(100, distance=10)\r\n            PointList.generate.list(100, distance=point(10,10))\r\n\r\n        ",
+                                "block": true,
+                                "line": 206
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5984,
+                        "end": 6663,
+                        "loc": {
+                            "start": {
+                                "line": 195,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 218,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "random",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "count"
+                            },
+                            {
+                                "name": "multiplier",
+                                "default_value": 100
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": "{x: 0, y: 0, radius: 0, ...}"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6677,
+                            "end": 8265,
+                            "loc": {
+                                "start": {
+                                    "line": 220,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 270,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "Generate a set of random points\r\n\r\n            PointList.generate.random(10)\r\n\r\n        Apply a multipler and offset:\r\n\r\n            let count = 20\r\n            let multiplier = [300, 200, null, 0]\r\n            let offset = [100, 100, 10, 0]\r\n\r\n            PointList.generate.random(count, multiplier, offset)\r\n\r\n         ",
+                                "block": true,
+                                "line": 233
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 6671,
+                        "end": 8265,
+                        "loc": {
+                            "start": {
+                                "line": 220,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 270,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "grid",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pointCount"
+                            },
+                            {
+                                "name": "rowCount"
+                            },
+                            {
+                                "name": "pointSpread"
+                            },
+                            {
+                                "name": "gridPosition"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8277,
+                            "end": 8868,
+                            "loc": {
+                                "start": {
+                                    "line": 272,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 294,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 8273,
+                        "end": 8868,
+                        "loc": {
+                            "start": {
+                                "line": 272,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 294,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getGridTool",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "rowCount"
+                            },
+                            {
+                                "name": "pos"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8887,
+                            "end": 9070,
+                            "loc": {
+                                "start": {
+                                    "line": 296,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 302,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 8876,
+                        "end": 9070,
+                        "loc": {
+                            "start": {
+                                "line": 296,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 302,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " If the given object is a _point_, each step is\r\n            multiplied. ",
+                        "block": true,
+                        "line": 153
+                    }
+                ]
+            },
+            "pos": {
+                "start": 4593,
+                "end": 9073,
+                "loc": {
+                    "start": {
+                        "line": 138,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 303,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 9079,
+                "end": 9121,
+                "loc": {
+                    "start": {
+                        "line": 306,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 306,
+                        "column": 42
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 9079,
+                    "end": 9101,
+                    "loc": {
+                        "start": {
+                            "line": 306,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 306,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 9079,
+                        "end": 9093,
+                        "loc": {
+                            "start": {
+                                "line": 306,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 306,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 9079,
+                            "end": 9088,
+                            "loc": {
+                                "start": {
+                                    "line": 306,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 306,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 9079,
+                                "end": 9088,
+                                "loc": {
+                                    "start": {
+                                        "line": 306,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 306,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 9089,
+                            "end": 9093,
+                            "loc": {
+                                "start": {
+                                    "line": 306,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 306,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 9089,
+                                "end": 9093,
+                                "loc": {
+                                    "start": {
+                                        "line": 306,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 306,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 9079,
+                            "end": 9093,
+                            "loc": {
+                                "start": {
+                                    "line": 306,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 306,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 9094,
+                        "end": 9101,
+                        "loc": {
+                            "start": {
+                                "line": 306,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 306,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 9094,
+                            "end": 9101,
+                            "loc": {
+                                "start": {
+                                    "line": 306,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 306,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 9079,
+                        "end": 9101,
+                        "loc": {
+                            "start": {
+                                "line": 306,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 306,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 9102,
+                        "end": 9120,
+                        "loc": {
+                            "start": {
+                                "line": 306,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 306,
+                                "column": 41
+                            }
+                        },
+                        "name": "PointListGenerator",
+                        "pos": {
+                            "start": 9102,
+                            "end": 9120,
+                            "loc": {
+                                "start": {
+                                    "line": 306,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 306,
+                                    "column": 41
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 9079,
+                    "end": 9121,
+                    "loc": {
+                        "start": {
+                            "line": 306,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 306,
+                            "column": 42
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 9079,
+                "end": 9121,
+                "loc": {
+                    "start": {
+                        "line": 306,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 306,
+                        "column": 42
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "pointlistgenerator.js",
+        "path": "/workspaces/polypoint/point_src/pointlistgenerator.js",
+        "size": 9123,
+        "parsed_date": "2025-11-02T21:11:38.203Z"
+    }
+}

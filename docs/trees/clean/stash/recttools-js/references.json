@@ -1,0 +1,308 @@
+{
+    "src_file": "recttools.js",
+    "references": {
+        "classes": {
+            "RectTools": {
+                "class_name": "RectTools",
+                "inherits": "DOMRect",
+                "methods": [
+                    {
+                        "method_name": "has",
+                        "class_name": "RectTools",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "A Shape to assist with within/outside",
+                                    "block": true,
+                                    "line": 82
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 83
+                    },
+                    {
+                        "method_name": "contains",
+                        "class_name": "RectTools",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 92
+                    },
+                    {
+                        "method_name": "hasPoint",
+                        "class_name": "RectTools",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "testRadius",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 101
+                    },
+                    {
+                        "method_name": "containsPoint",
+                        "class_name": "RectTools",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "testRadius",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " debugger;",
+                                    "block": false,
+                                    "line": 107
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 105
+                    },
+                    {
+                        "method_name": "touchingPoint",
+                        "class_name": "RectTools",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "r"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " const r = p.radius",
+                                    "block": false,
+                                    "line": 127
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 126
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": " y: 0",
+                            "block": false,
+                            "line": 80
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": "A Shape to assist with within/outside",
+                            "block": true,
+                            "line": 82
+                        }
+                    ]
+                },
+                "line": 81
+            }
+        },
+        "functions": [
+            {
+                "name": "twoPointBox",
+                "kind": "const",
+                "line": 1,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Given two points, return 4 lines\r\n\r\n        let lines = twoPointBox(this.squishA, this.squishB)\r\n        lines.forEach(l=>l.render(ctx))\r\n    ",
+                            "block": true,
+                            "line": 6
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "func"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "disorderdTwoPointsAsRect",
+                "kind": "const",
+                "line": 26,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " x top",
+                            "block": false,
+                            "line": 29
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "twoPointsAsRectOrdered",
+                "kind": "const",
+                "line": 41,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Bottom-left corner",
+                            "block": false,
+                            "line": 48
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "hasIntersection",
+                "kind": "const",
+                "line": 157,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " bodmas",
+                            "block": false,
+                            "line": 160
+                        }
+                    ]
+                },
+                "type": "arrow_function",
+                "params": [],
+                "async": false
+            },
+            {
+                "name": "intersect",
+                "kind": "const",
+                "line": 194,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "c"
+                    },
+                    {
+                        "name": "r"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "intersects",
+                "kind": "const",
+                "line": 216,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " circleDistance.x = Math.abs(circle.x - rect.x);",
+                            "block": false,
+                            "line": 220
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "circle"
+                    },
+                    {
+                        "name": "rect"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "testRect",
+                "kind": "const",
+                "line": 240,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " r.containsPoint(new Point(20, 30)) == true",
+                            "block": false,
+                            "line": 243
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "recttools.js",
+        "path": "/workspaces/polypoint/point_src/recttools.js",
+        "size": 7015,
+        "parsed_date": "2025-11-02T21:11:39.114Z"
+    }
+}

@@ -1,0 +1,274 @@
+{
+    "src_file": "tethers-vec.js",
+    "references": {
+        "classes": {
+            "PointTethers": {
+                "class_name": "PointTethers",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointTethers",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 46
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointData"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 53
+                    },
+                    {
+                        "method_name": "onTipDragStart",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 59
+                    },
+                    {
+                        "method_name": "onTipDragMove",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 64
+                    },
+                    {
+                        "method_name": "onTipDragEnd",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 69
+                    },
+                    {
+                        "method_name": "generate",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointData"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Generate, store and return a new controller point ",
+                                    "block": true,
+                                    "line": 75
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 74
+                    },
+                    {
+                        "method_name": "push",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "controlPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 125
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "rotation"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Unless the user is in control,\r\n        Move any control point to the correct location,",
+                                    "block": true,
+                                    "line": 131
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 129
+                    },
+                    {
+                        "method_name": "compute_polar",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "controlPoint"
+                            },
+                            {
+                                "name": "primaryPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " relative polar placement ",
+                                    "block": true,
+                                    "line": 145
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 144
+                    },
+                    {
+                        "method_name": "compute_static",
+                        "class_name": "PointTethers",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "controlPoint"
+                            },
+                            {
+                                "name": "primaryPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " relative xy position ",
+                                    "block": true,
+                                    "line": 153
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 152
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Given a parent, bind a range of points by distance position.\r\n    Call _step_ when visual updates are required.\r\n\r\n        this.point = new Point(200, 200, 100)\r\n        let cp = this.point.tethers.add({ x: 100, y: 50})\r\n\r\n    Step:\r\n\r\n        this.point.tethers.step()\r\n\r\n    Render:\r\n\r\n        this.point.pen.indicator(ctx, {color: '#336600'})\r\n        this.point.tethers.points.pen.fill(ctx, '#33DDAA')\r\n    ",
+                            "block": true,
+                            "line": 44
+                        }
+                    ]
+                },
+                "line": 29
+            }
+        },
+        "functions": [
+            {
+                "name": "relPolarXY",
+                "kind": "const",
+                "line": 7,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "\r\n    get xy of the control point, relative to the {X,Y, Rot} of point A,\r\n    using distance and relative angle.\r\n     ",
+                            "block": true,
+                            "line": 11
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "primaryPoint"
+                    },
+                    {
+                        "name": "controlPoint"
+                    },
+                    {
+                        "name": "distance"
+                    },
+                    {
+                        "name": "spinRads"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "tethers-vec.js",
+        "path": "/workspaces/polypoint/point_src/tethers-vec.js",
+        "size": 4834,
+        "parsed_date": "2025-11-02T21:11:41.706Z"
+    }
+}

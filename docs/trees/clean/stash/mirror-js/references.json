@@ -1,0 +1,363 @@
+{
+    "src_file": "mirror.js",
+    "references": {
+        "classes": {
+            "Mirror": {
+                "class_name": "Mirror",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Mirror",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "points",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 156
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " iterate all the reflectPoints, and update the mirror point positions.\r\n        We avoid rewriting the points, so they're more persistent. ",
+                                    "block": true,
+                                    "line": 164
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 162
+                    },
+                    {
+                        "method_name": "reflect",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "line"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 179
+                    },
+                    {
+                        "method_name": "reflectSiblings",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "line"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 187
+                    },
+                    {
+                        "method_name": "reflectSegment",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "line"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 198
+                    },
+                    {
+                        "method_name": "clean",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Remove any old references from the mirror map;\r\n        1: Any undefined positions\r\n        2: any point greater than the reflectpointsIndex\r\n        ",
+                                    "block": true,
+                                    "line": 206
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 202
+                    },
+                    {
+                        "method_name": "getMirrorIndex",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "index"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 222
+                    },
+                    {
+                        "method_name": "draw",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 232
+                    },
+                    {
+                        "method_name": "drawLine",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 238
+                    },
+                    {
+                        "method_name": "drawPoints",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.stroke.wrap(()=>this.points.pen.stroke(ctx))",
+                                    "block": false,
+                                    "line": 247
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 242
+                    },
+                    {
+                        "method_name": "pointStroke",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 251
+                    },
+                    {
+                        "method_name": "drawPointsNew",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 265
+                    },
+                    {
+                        "method_name": "drawReflections",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 274
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "Mirror",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Synonmous to 'push', but this isn't an Array - so we avoid it\r\n\r\n            Mirror.add(point, point)\r\n        ",
+                                    "block": true,
+                                    "line": 284
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 280
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Accept two points as the primary line,\r\n    _add_ many points to 'reflect'\r\n    _collect_ the reflected points\r\n    _ and a free draw function _\r\n    ",
+                            "block": true,
+                            "line": 150
+                        }
+                    ]
+                },
+                "line": 145
+            }
+        },
+        "functions": [
+            {
+                "name": "reflectPoint",
+                "kind": "function",
+                "type": "function",
+                "line": 12,
+                "params": [
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "line"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "intersectionPoint",
+                "kind": "function",
+                "type": "function",
+                "line": 59,
+                "params": [
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "line"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "reflectPointOnSameSide",
+                "kind": "function",
+                "type": "function",
+                "line": 97,
+                "params": [
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "line"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "mirror.js",
+        "path": "/workspaces/polypoint/point_src/mirror.js",
+        "size": 8356,
+        "parsed_date": "2025-11-02T21:11:37.266Z"
+    }
+}

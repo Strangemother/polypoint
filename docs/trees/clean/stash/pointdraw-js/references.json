@@ -1,0 +1,408 @@
+{
+    "src_file": "pointdraw.js",
+    "references": {
+        "classes": {
+            "PointDraw": {
+                "class_name": "PointDraw",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointDraw",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " methods.",
+                                    "block": false,
+                                    "line": 4
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 5
+                    },
+                    {
+                        "method_name": "arc",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "radius",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "start",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "end"
+                            },
+                            {
+                                "name": "direction",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 9
+                    },
+                    {
+                        "method_name": "ellipse",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "rx"
+                            },
+                            {
+                                "name": "ry"
+                            },
+                            {
+                                "name": "radians"
+                            },
+                            {
+                                "name": "start",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "end"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " ctx.ellipse(p.x, p.y, r, start, end)",
+                                    "block": false,
+                                    "line": 20
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 15
+                    },
+                    {
+                        "method_name": "circle",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "radius"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 23
+                    },
+                    {
+                        "method_name": "line",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "distance"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " draw a line from the current point position to the length of\r\n        the given `distance`. ",
+                                    "block": true,
+                                    "line": 29
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 27
+                    },
+                    {
+                        "method_name": "hair",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "length"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " draw a line in two antipose directions. Similar to two `line` call in\r\n        opposite directions. ",
+                                    "block": true,
+                                    "line": 35
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 33
+                    },
+                    {
+                        "method_name": "crossHair",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "length"
+                            },
+                            {
+                                "name": "sqeeeze",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "rotation"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Two hair() calls in a cross formation. With a squeeze factor, 0 for\r\n        no change (cross) and 1 for full change (two lines drawn upon each other)\r\n        ",
+                                    "block": true,
+                                    "line": 41
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 38
+                    },
+                    {
+                        "method_name": "lineTo",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 44
+                    },
+                    {
+                        "method_name": "box",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "size"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "angle"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            A box is a rectangle on the outside of radius.\r\n            If an angle is given, the box cannot be a _rect_ and returns an ngon(4).\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 57
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 52
+                    },
+                    {
+                        "method_name": "rect",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "height"
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": "{x: 0, y: 0}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " rect(ctx, width=this.point.radius, height) {",
+                                    "block": false,
+                                    "line": 67
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " rect(x, y, width, height)",
+                                    "block": false,
+                                    "line": 69
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 68
+                    },
+                    {
+                        "method_name": "roundRect",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "height"
+                            },
+                            {
+                                "name": "radii",
+                                "default_value": "[]"
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": "{x: 0, y: 0}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Draw a standard `roundRect` using this point as the top left `{x,y}`\r\n        The default _width_ and _height_ is the _radus_ of the point, drawing\r\n        a round rect to the size of the point.\r\n\r\n            // ctx.roundRect(400, 150, 120, 120, [0, 30, 50, 60]);\r\n            // point.draw.roundRect(width, height, radii)\r\n            let point = new Point(400, 150, 120)\r\n            point.draw.roundRect(ctx)\r\n\r\n        Expanded:\r\n\r\n            point.draw.roundRect(ctx, point.radius, point.radius, [10, 30, 50, 60])\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 93
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 79
+                    },
+                    {
+                        "method_name": "ngon",
+                        "class_name": "PointDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "sides"
+                            },
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "fromCenter",
+                                "default_value": true
+                            },
+                            {
+                                "name": "angle",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Draw a polygon of _n_ sides, with an optional radius.\r\n\r\n                polygonPoint.radius = 20\r\n                polygonPoint.draw.ngon(ctx, 7)\r\n\r\n         ",
+                                    "block": true,
+                                    "line": 110
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 104
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Draw functions for the Point.draw",
+                            "block": false,
+                            "line": 3
+                        }
+                    ]
+                },
+                "line": 2
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "pointdraw.js",
+        "path": "/workspaces/polypoint/point_src/pointdraw.js",
+        "size": 4414,
+        "parsed_date": "2025-11-02T21:11:37.836Z"
+    }
+}

@@ -1,0 +1,181 @@
+{
+    "src_file": "jiggle.js",
+    "references": {
+        "classes": {
+            "Jiggler": {
+                "class_name": "Jiggler",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Jiggler",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "options"
+                            },
+                            {
+                                "name": "originPoint",
+                                "default_value": "{x: 0, y: 0}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Like a Vibration but more fun words.",
+                                    "block": false,
+                                    "line": 92
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 93
+                    },
+                    {
+                        "method_name": "getDefaults",
+                        "class_name": "Jiggler",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " defaults ",
+                                    "block": true,
+                                    "line": 105
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 103
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "Jiggler",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "options",
+                                "default_value": "{tick: 1}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 117
+                    },
+                    {
+                        "method_name": "getJiggle",
+                        "class_name": "Jiggler",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "lock"
+                            },
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 127
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Like a Vibration but more fun words.",
+                            "block": false,
+                            "line": 92
+                        }
+                    ]
+                },
+                "line": 91
+            },
+            "PointJiggler": {
+                "class_name": "PointJiggler",
+                "inherits": "Jiggler",
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointJiggler",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.origin = point",
+                                    "block": false,
+                                    "line": 150
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 148
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " this.origin = point",
+                            "block": false,
+                            "line": 150
+                        }
+                    ]
+                },
+                "line": 146
+            }
+        },
+        "functions": [
+            {
+                "name": "standardJiggle",
+                "kind": "const",
+                "line": 82,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "jiggler"
+                    },
+                    {
+                        "name": "options"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "jiggle.js",
+        "path": "/workspaces/polypoint/point_src/jiggle.js",
+        "size": 4100,
+        "parsed_date": "2025-11-02T21:11:36.428Z"
+    }
+}

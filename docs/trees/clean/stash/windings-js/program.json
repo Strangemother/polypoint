@@ -1,0 +1,781 @@
+{
+    "defs": [
+        {
+            "kind": "function",
+            "word": "calculateAngleDiffWrapped",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "primaryPoint"
+                },
+                {
+                    "name": "secondaryPoint"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 71,
+                "end": 96,
+                "loc": {
+                    "start": {
+                        "line": 10,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 10,
+                        "column": 34
+                    }
+                },
+                "name": "calculateAngleDiffWrapped",
+                "pos": {
+                    "start": 71,
+                    "end": 96,
+                    "loc": {
+                        "start": {
+                            "line": 10,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 10,
+                            "column": 34
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 62,
+                "end": 243,
+                "loc": {
+                    "start": {
+                        "line": 10,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 13,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "radiansDiff2",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "primaryRads"
+                },
+                {
+                    "name": "secondaryRads"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 256,
+                "end": 268,
+                "loc": {
+                    "start": {
+                        "line": 15,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 15,
+                        "column": 21
+                    }
+                },
+                "name": "radiansDiff2",
+                "pos": {
+                    "start": 256,
+                    "end": 268,
+                    "loc": {
+                        "start": {
+                            "line": 15,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 21
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 247,
+                "end": 449,
+                "loc": {
+                    "start": {
+                        "line": 15,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 19,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "class",
+            "word": "PointWinding",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 490,
+                            "end": 558,
+                            "loc": {
+                                "start": {
+                                    "line": 22,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 25,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 479,
+                        "end": 558,
+                        "loc": {
+                            "start": {
+                                "line": 22,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 25,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "reset",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 571,
+                            "end": 746,
+                            "loc": {
+                                "start": {
+                                    "line": 27,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 32,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " point.rotation",
+                                "block": false,
+                                "line": 30
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 566,
+                        "end": 746,
+                        "loc": {
+                            "start": {
+                                "line": 27,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 32,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "calculate",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 763,
+                            "end": 1585,
+                            "loc": {
+                                "start": {
+                                    "line": 34,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 59,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " if(initRad == undefined) {",
+                                "block": false,
+                                "line": 38
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 754,
+                        "end": 1585,
+                        "loc": {
+                            "start": {
+                                "line": 34,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 59,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " point.rotation",
+                        "block": false,
+                        "line": 30
+                    }
+                ]
+            },
+            "pos": {
+                "start": 453,
+                "end": 1592,
+                "loc": {
+                    "start": {
+                        "line": 21,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 62,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 1598,
+                "end": 1705,
+                "loc": {
+                    "start": {
+                        "line": 65,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 68,
+                        "column": 1
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 1598,
+                    "end": 1625,
+                    "loc": {
+                        "start": {
+                            "line": 65,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 65,
+                            "column": 27
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 1598,
+                        "end": 1612,
+                        "loc": {
+                            "start": {
+                                "line": 65,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 65,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 1598,
+                            "end": 1607,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 1598,
+                                "end": 1607,
+                                "loc": {
+                                    "start": {
+                                        "line": 65,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 65,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 1608,
+                            "end": 1612,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 1608,
+                                "end": 1612,
+                                "loc": {
+                                    "start": {
+                                        "line": 65,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 65,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 1598,
+                            "end": 1612,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 1613,
+                        "end": 1625,
+                        "loc": {
+                            "start": {
+                                "line": 65,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 65,
+                                "column": 27
+                            }
+                        },
+                        "name": "deferredProp",
+                        "pos": {
+                            "start": 1613,
+                            "end": 1625,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 27
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 1598,
+                        "end": 1625,
+                        "loc": {
+                            "start": {
+                                "line": 65,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 65,
+                                "column": 27
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 1626,
+                        "end": 1633,
+                        "loc": {
+                            "start": {
+                                "line": 65,
+                                "column": 28
+                            },
+                            "end": {
+                                "line": 65,
+                                "column": 35
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 1626,
+                            "end": 1633,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 35
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 1635,
+                        "end": 1702,
+                        "loc": {
+                            "start": {
+                                "line": 65,
+                                "column": 37
+                            },
+                            "end": {
+                                "line": 67,
+                                "column": 5
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 1644,
+                            "end": 1652,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 46
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 54
+                                }
+                            },
+                            "name": "windings",
+                            "pos": {
+                                "start": 1644,
+                                "end": 1652,
+                                "loc": {
+                                    "start": {
+                                        "line": 65,
+                                        "column": 46
+                                    },
+                                    "end": {
+                                        "line": 65,
+                                        "column": 54
+                                    }
+                                }
+                            }
+                        },
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 1655,
+                            "end": 1702,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 57
+                                },
+                                "end": {
+                                    "line": 67,
+                                    "column": 5
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 1666,
+                                    "end": 1695,
+                                    "loc": {
+                                        "start": {
+                                            "line": 66,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 66,
+                                            "column": 37
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 1673,
+                                        "end": 1695,
+                                        "loc": {
+                                            "start": {
+                                                "line": 66,
+                                                "column": 15
+                                            },
+                                            "end": {
+                                                "line": 66,
+                                                "column": 37
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 1677,
+                                            "end": 1689,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 66,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 66,
+                                                    "column": 31
+                                                }
+                                            },
+                                            "name": "PointWinding",
+                                            "pos": {
+                                                "start": 1677,
+                                                "end": 1689,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 66,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 66,
+                                                        "column": 31
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 1690,
+                                                "end": 1694,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 66,
+                                                        "column": 32
+                                                    },
+                                                    "end": {
+                                                        "line": 66,
+                                                        "column": 36
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 1690,
+                                                    "end": 1694,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 66,
+                                                            "column": 32
+                                                        },
+                                                        "end": {
+                                                            "line": 66,
+                                                            "column": 36
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 1673,
+                                            "end": 1695,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 66,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 66,
+                                                    "column": 37
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 1666,
+                                        "end": 1695,
+                                        "loc": {
+                                            "start": {
+                                                "line": 66,
+                                                "column": 8
+                                            },
+                                            "end": {
+                                                "line": 66,
+                                                "column": 37
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 1655,
+                                "end": 1702,
+                                "loc": {
+                                    "start": {
+                                        "line": 65,
+                                        "column": 57
+                                    },
+                                    "end": {
+                                        "line": 67,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 1635,
+                            "end": 1702,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 37
+                                },
+                                "end": {
+                                    "line": 67,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 1598,
+                    "end": 1705,
+                    "loc": {
+                        "start": {
+                            "line": 65,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 68,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1598,
+                "end": 1705,
+                "loc": {
+                    "start": {
+                        "line": 65,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 68,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "windings.js",
+        "path": "/workspaces/polypoint/point_src/windings.js",
+        "size": 1705,
+        "parsed_date": "2025-11-02T21:11:42.478Z"
+    }
+}

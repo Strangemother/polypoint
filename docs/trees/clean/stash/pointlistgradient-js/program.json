@@ -1,0 +1,387 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "PointListGradient",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "pos": {
+                            "start": 46,
+                            "end": 94,
+                            "loc": {
+                                "start": {
+                                    "line": 4,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 35,
+                        "end": 94,
+                        "loc": {
+                            "start": {
+                                "line": 4,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 6,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "linear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 108,
+                            "end": 1366,
+                            "loc": {
+                                "start": {
+                                    "line": 8,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 49,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " use the points to generate a gradient.\r\n\r\n        1. from start to end points\r\n        2. each position must contain a 'color'\r\n        3. Distance to each stop between 0/1\r\n        ",
+                                "block": true,
+                                "line": 14
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 102,
+                        "end": 1366,
+                        "loc": {
+                            "start": {
+                                "line": 8,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 49,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " use the points to generate a gradient.\r\n\r\n        1. from start to end points\r\n        2. each position must contain a 'color'\r\n        3. Distance to each stop between 0/1\r\n        ",
+                        "block": true,
+                        "line": 14
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2,
+                "end": 1369,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 50,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 1375,
+                "end": 1416,
+                "loc": {
+                    "start": {
+                        "line": 53,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 53,
+                        "column": 41
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 1375,
+                    "end": 1397,
+                    "loc": {
+                        "start": {
+                            "line": 53,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 53,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 1375,
+                        "end": 1389,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 53,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 1375,
+                            "end": 1384,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 1375,
+                                "end": 1384,
+                                "loc": {
+                                    "start": {
+                                        "line": 53,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 53,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 1385,
+                            "end": 1389,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 1385,
+                                "end": 1389,
+                                "loc": {
+                                    "start": {
+                                        "line": 53,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 53,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 1375,
+                            "end": 1389,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 1390,
+                        "end": 1397,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 53,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 1390,
+                            "end": 1397,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 1375,
+                        "end": 1397,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 53,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 1398,
+                        "end": 1415,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 53,
+                                "column": 40
+                            }
+                        },
+                        "name": "PointListGradient",
+                        "pos": {
+                            "start": 1398,
+                            "end": 1415,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 40
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 1375,
+                    "end": 1416,
+                    "loc": {
+                        "start": {
+                            "line": 53,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 53,
+                            "column": 41
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1375,
+                "end": 1416,
+                "loc": {
+                    "start": {
+                        "line": 53,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 53,
+                        "column": 41
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "pointlistgradient.js",
+        "path": "/workspaces/polypoint/point_src/pointlistgradient.js",
+        "size": 1418,
+        "parsed_date": "2025-11-02T21:11:38.317Z"
+    }
+}

@@ -1,0 +1,461 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "PointListShape",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "pos": {
+                            "start": 108,
+                            "end": 156,
+                            "loc": {
+                                "start": {
+                                    "line": 6,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 97,
+                        "end": 156,
+                        "loc": {
+                            "start": {
+                                "line": 6,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 8,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "length",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 174,
+                            "end": 219,
+                            "loc": {
+                                "start": {
+                                    "line": 10,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 12,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 164,
+                        "end": 219,
+                        "loc": {
+                            "start": {
+                                "line": 10,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 12,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "linear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "spread"
+                            },
+                            {
+                                "name": "keys",
+                                "default_value": "[]"
+                            },
+                            {
+                                "name": "altValue",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "altKeys",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "pos": {
+                            "start": 233,
+                            "end": 1334,
+                            "loc": {
+                                "start": {
+                                    "line": 14,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 49,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "  order the items in a flat linear list. Spread across the key axis.\r\n        If the altValue is undefined, the _other_ position key is not changed.\r\n\r\n            // Spread across X by 20 per step. Y becomes 100 for each.\r\n            pointList.shape.linear(20, 'x', 100)\r\n\r\n            // diagonal, the altValue is not useful here:\r\n            plRandom.shape.linear(20, ['x', 'y'])\r\n        ",
+                                "block": true,
+                                "line": 23
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 227,
+                        "end": 1334,
+                        "loc": {
+                            "start": {
+                                "line": 14,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 49,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "random",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "multiplier",
+                                "default_value": 100
+                            }
+                        ],
+                        "pos": {
+                            "start": 1348,
+                            "end": 1697,
+                            "loc": {
+                                "start": {
+                                    "line": 51,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 64,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " move all points to a random position within a space. ",
+                                "block": true,
+                                "line": 52
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1342,
+                        "end": 1697,
+                        "loc": {
+                            "start": {
+                                "line": 51,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 64,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "grid",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "spread"
+                            },
+                            {
+                                "name": "rowCount",
+                                "default_value": 10
+                            },
+                            {
+                                "name": "pos"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1709,
+                            "end": 2498,
+                            "loc": {
+                                "start": {
+                                    "line": 66,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 92,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Distribute across a plane, similar to linear, but with a reset\r\n        stepper.\r\n\r\n\r\n        spread of 50, with 5 per row, drawing from position[0]:\r\n            plRandom.shape.grid(50, 5);\r\n\r\n        Set the position then draw:\r\n\r\n            plRandom[0].set(50,50)\r\n            plRandom.shape.grid(50, 6);\r\n\r\n        Spread of 30, with 6 items per row, at a position:\r\n\r\n            plRandom.shape.grid(30, 6, point(100,100));\r\n\r\n        ",
+                                "block": true,
+                                "line": 83
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1705,
+                        "end": 2498,
+                        "loc": {
+                            "start": {
+                                "line": 66,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 92,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "radial",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "radius"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2512,
+                            "end": 2936,
+                            "loc": {
+                                "start": {
+                                    "line": 94,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 105,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " \"Radial\" plots the points around the a given point.\r\n        Unlike \"circle\" or \"radius\" of which draw from an origin,\r\n\r\n        This method rotates around the origin.\r\n\r\n        if the given point is undefined, the center of the point list is used.\r\n        If radius is undefined, the point radius is used.\r\n        ",
+                                "block": true,
+                                "line": 102
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2506,
+                        "end": 2936,
+                        "loc": {
+                            "start": {
+                                "line": 94,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 105,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "radius",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "pos"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2950,
+                            "end": 4350,
+                            "loc": {
+                                "start": {
+                                    "line": 107,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 147,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Return a list of points distrubuted evenly around a circle.\r\n\r\n        If the position is not given, the fist point in the array is used.\r\n        Notably this may cause the circle to _march_ for every render.\r\n\r\n            plRandom.shape.radius(50);\r\n            plRandom.shape.radius(50); // moves to the _new_ x\r\n            plRandom.shape.radius(50); // moves to the _new_ x\r\n\r\n        Apply a position to pin the circle at a location:\r\n\r\n            plRandom.shape.radius(50, point(100,100));\r\n            plRandom.shape.radius(50, point(100,100)); // does not march\r\n\r\n            // follow mouse\r\n            plRandom.shape.radius(50, Point.mouse.position);\r\n        ",
+                                "block": true,
+                                "line": 124
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2944,
+                        "end": 4350,
+                        "loc": {
+                            "start": {
+                                "line": 107,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 147,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Shape an existing Array, editing points _in place_. ",
+                        "block": true,
+                        "line": 4
+                    }
+                ]
+            },
+            "pos": {
+                "start": 4,
+                "end": 4353,
+                "loc": {
+                    "start": {
+                        "line": 3,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 148,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "pointlistshape.js",
+        "path": "/workspaces/polypoint/point_src/pointlistshape.js",
+        "size": 4355,
+        "parsed_date": "2025-11-02T21:11:38.529Z"
+    }
+}

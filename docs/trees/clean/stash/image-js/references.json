@@ -1,0 +1,683 @@
+{
+    "src_file": "image.js",
+    "references": {
+        "classes": {
+            "ImageLoader": {
+                "class_name": "ImageLoader",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "ImageLoader",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "path"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Load an _image_ (such as png) into the point position with\r\n    a given path:\r\n\r\n        point = new Point(200,200)\r\n        image = new ImageLoader(\"./images/mail.png\", point)\r\n        image.position.rotation = 30\r\n\r\n        image.draw(ctx)\r\n\r\n    The draw factors in the point radius, position, and rotation\r\n    ",
+                                    "block": true,
+                                    "line": 25
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 26
+                    },
+                    {
+                        "method_name": "load",
+                        "class_name": "ImageLoader",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "path"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " img.crossOrigin = 'anonymous';",
+                                    "block": false,
+                                    "line": 40
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 38
+                    },
+                    {
+                        "method_name": "setImageData",
+                        "class_name": "ImageLoader",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " stage.offScreenCanvas.transferToImageBitmap()",
+                                    "block": false,
+                                    "line": 52
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 51
+                    },
+                    {
+                        "method_name": "getOffscreenCanvas",
+                        "class_name": "ImageLoader",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "width",
+                                "default_value": 200
+                            },
+                            {
+                                "name": "height",
+                                "default_value": 300
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 56
+                    },
+                    {
+                        "method_name": "getImageData",
+                        "class_name": "ImageLoader",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "osc"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 200
+                            },
+                            {
+                                "name": "height",
+                                "default_value": 300
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 61
+                    },
+                    {
+                        "method_name": "draw",
+                        "class_name": "ImageLoader",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " First we move to the location of which to spin.",
+                                    "block": true,
+                                    "line": 78
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 68
+                    },
+                    {
+                        "method_name": "recolor",
+                        "class_name": "ImageLoader",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " we manipulate the pixel data here in order to make the image lighter",
+                                    "block": false,
+                                    "line": 96
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 94
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Load an _image_ (such as png) into the point position with\r\n    a given path:\r\n\r\n        point = new Point(200,200)\r\n        image = new ImageLoader(\"./images/mail.png\", point)\r\n        image.position.rotation = 30\r\n\r\n        image.draw(ctx)\r\n\r\n    The draw factors in the point radius, position, and rotation\r\n    ",
+                            "block": true,
+                            "line": 25
+                        }
+                    ]
+                },
+                "line": 14
+            },
+            "PathData": {
+                "class_name": "PathData",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PathData",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "pathData"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 497
+                    },
+                    {
+                        "method_name": "draw",
+                        "class_name": "PathData",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Rescaling needs a base value (init radius) to scale from.",
+                                    "block": true,
+                                    "line": 515
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 510
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Rescaling needs a base value (init radius) to scale from.",
+                            "block": true,
+                            "line": 515
+                        }
+                    ]
+                },
+                "line": 496
+            }
+        },
+        "functions": [
+            {
+                "name": "image",
+                "kind": "const",
+                "line": 2,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "src"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "oSepia",
+                "kind": "var",
+                "line": 112,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "img"
+                    },
+                    {
+                        "name": "canvas"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "asImageData",
+                "kind": "const",
+                "line": 128,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "\r\n        createImageBitmap(asImageData(stage.image.image, stage.ctx)).then(b=>{\r\n            stage.image.imageData = b;\r\n        })\r\n    ",
+                            "block": true,
+                            "line": 133
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "img"
+                    },
+                    {
+                        "name": "ctx"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "putImageData",
+                "kind": "const",
+                "line": 140,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "imageData"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "imageDataEditor",
+                "kind": "const",
+                "line": 144,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "img"
+                    },
+                    {
+                        "name": "func"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "sepia",
+                "kind": "var",
+                "line": 151,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "data"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "invert",
+                "kind": "var",
+                "line": 167,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " red",
+                            "block": false,
+                            "line": 169
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "data"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "blur",
+                "kind": "var",
+                "line": 176,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Copy of original data so we don\u2019t overwrite as we go",
+                            "block": false,
+                            "line": 177
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "blur2",
+                "kind": "var",
+                "line": 200,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " ensures odd size: 3, 5, 7...",
+                            "block": false,
+                            "line": 201
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    },
+                    {
+                        "name": "amount",
+                        "default_value": 1
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "blur3",
+                "kind": "var",
+                "line": 228,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " odd grid: 3, 5, 7...",
+                            "block": false,
+                            "line": 229
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    },
+                    {
+                        "name": "amount",
+                        "default_value": 1
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "blurSeparable",
+                "kind": "function",
+                "type": "function",
+                "line": 263,
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    },
+                    {
+                        "name": "amount",
+                        "default_value": 1
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "gaussianBlur",
+                "kind": "function",
+                "type": "function",
+                "line": 319,
+                "params": [
+                    {
+                        "name": "imageData"
+                    },
+                    {
+                        "name": "amount",
+                        "default_value": 1
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "generateGaussianKernel",
+                "kind": "function",
+                "type": "function",
+                "line": 336,
+                "params": [
+                    {
+                        "name": "size"
+                    },
+                    {
+                        "name": "sigma"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "convolve",
+                "kind": "function",
+                "type": "function",
+                "line": 355,
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    },
+                    {
+                        "name": "kernel"
+                    },
+                    {
+                        "name": "kernelSize"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "gaussianWeights",
+                "kind": "function",
+                "type": "function",
+                "line": 398,
+                "params": [
+                    {
+                        "name": "size"
+                    },
+                    {
+                        "name": "sigma"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "blurSeparableGaussian",
+                "kind": "function",
+                "type": "function",
+                "line": 413,
+                "params": [
+                    {
+                        "name": "data"
+                    },
+                    {
+                        "name": "width"
+                    },
+                    {
+                        "name": "height"
+                    },
+                    {
+                        "name": "amount",
+                        "default_value": 1
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "invertColors",
+                "kind": "function",
+                "type": "function",
+                "line": 472,
+                "params": [
+                    {
+                        "name": "data"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "grayscale",
+                "kind": "var",
+                "line": 486,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " red",
+                            "block": false,
+                            "line": 489
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "data"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "image.js",
+        "path": "/workspaces/polypoint/point_src/image.js",
+        "size": 16267,
+        "parsed_date": "2025-11-02T21:11:36.146Z"
+    }
+}

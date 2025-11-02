@@ -1,0 +1,1077 @@
+{
+    "defs": [
+        {
+            "word": "newPath",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "svg"
+                    },
+                    {
+                        "name": "name"
+                    }
+                ],
+                "pos": {
+                    "start": 562,
+                    "end": 962,
+                    "loc": {
+                        "start": {
+                            "line": 29,
+                            "column": 14
+                        },
+                        "end": {
+                            "line": 37,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "Create a path in SVG's namespace",
+                        "block": false,
+                        "line": 30
+                    }
+                ]
+            },
+            "pos": {
+                "start": 548,
+                "end": 962,
+                "loc": {
+                    "start": {
+                        "line": 29,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 37,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 548,
+            "end": 962,
+            "loc": {
+                "start": {
+                    "line": 29,
+                    "column": 0
+                },
+                "end": {
+                    "line": 37,
+                    "column": 1
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "word": "rand",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [],
+                "pos": {
+                    "start": 976,
+                    "end": 1036,
+                    "loc": {
+                        "start": {
+                            "line": 40,
+                            "column": 11
+                        },
+                        "end": {
+                            "line": 42,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 965,
+                "end": 1036,
+                "loc": {
+                    "start": {
+                        "line": 40,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 42,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 965,
+            "end": 1036,
+            "loc": {
+                "start": {
+                    "line": 40,
+                    "column": 0
+                },
+                "end": {
+                    "line": 42,
+                    "column": 1
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "word": "newSVG",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "id"
+                    },
+                    {
+                        "name": "parent"
+                    }
+                ],
+                "pos": {
+                    "start": 1053,
+                    "end": 1385,
+                    "loc": {
+                        "start": {
+                            "line": 46,
+                            "column": 13
+                        },
+                        "end": {
+                            "line": 56,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "let $svg = $(\"<svg/>\", )",
+                        "block": false,
+                        "line": 48
+                    }
+                ]
+            },
+            "pos": {
+                "start": 1040,
+                "end": 1385,
+                "loc": {
+                    "start": {
+                        "line": 46,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 56,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 1040,
+            "end": 1385,
+            "loc": {
+                "start": {
+                    "line": 46,
+                    "column": 0
+                },
+                "end": {
+                    "line": 56,
+                    "column": 1
+                }
+            },
+            "kind": "var"
+        },
+        {
+            "kind": "class",
+            "word": "SVGContext",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "svgName"
+                            },
+                            {
+                                "name": "containerSelector"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1423,
+                            "end": 1645,
+                            "loc": {
+                                "start": {
+                                    "line": 61,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 67,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1412,
+                        "end": 1645,
+                        "loc": {
+                            "start": {
+                                "line": 61,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 67,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "start",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1656,
+                            "end": 1974,
+                            "loc": {
+                                "start": {
+                                    "line": 69,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 82,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1651,
+                        "end": 1974,
+                        "loc": {
+                            "start": {
+                                "line": 69,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 82,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "createContext",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1993,
+                            "end": 2429,
+                            "loc": {
+                                "start": {
+                                    "line": 84,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 94,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Generate a new SVG using the internal names and append\n        the new svg to the given container.\n        If the svg exists, it's reused else a new one is created. ",
+                                "block": true,
+                                "line": 87
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1980,
+                        "end": 2429,
+                        "loc": {
+                            "start": {
+                                "line": 84,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 94,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "resetSVGsize",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "x",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "y",
+                                "default_value": 0
+                            }
+                        ],
+                        "pos": {
+                            "start": 2447,
+                            "end": 2528,
+                            "loc": {
+                                "start": {
+                                    "line": 96,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 99,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Reset the svg size to 0 0",
+                                "block": true,
+                                "line": 97
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2435,
+                        "end": 2528,
+                        "loc": {
+                            "start": {
+                                "line": 96,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 99,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "applyWindowHandlers",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 2554,
+                            "end": 2781,
+                            "loc": {
+                                "start": {
+                                    "line": 102,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 107,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Apply ready and resize handlers to the window and document\n        to call render() upon an event. ",
+                                "block": true,
+                                "line": 104
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2535,
+                        "end": 2781,
+                        "loc": {
+                            "start": {
+                                "line": 102,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 107,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "resize",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "height"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2793,
+                            "end": 3019,
+                            "loc": {
+                                "start": {
+                                    "line": 109,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 117,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2787,
+                        "end": 3019,
+                        "loc": {
+                            "start": {
+                                "line": 109,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 117,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "render",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 3031,
+                            "end": 3107,
+                            "loc": {
+                                "start": {
+                                    "line": 119,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 122,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "console.log('render pipes')",
+                                "block": false,
+                                "line": 120
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3025,
+                        "end": 3107,
+                        "loc": {
+                            "start": {
+                                "line": 119,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 122,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Generate a new SVG using the internal names and append\n        the new svg to the given container.\n        If the svg exists, it's reused else a new one is created. ",
+                        "block": true,
+                        "line": 87
+                    }
+                ]
+            },
+            "pos": {
+                "start": 1388,
+                "end": 3109,
+                "loc": {
+                    "start": {
+                        "line": 59,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 123,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "PrimaryContext",
+            "parentName": "SVGContext",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "liveResize",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "false",
+                        "value": false,
+                        "pos": {
+                            "start": 3883,
+                            "end": 3888,
+                            "loc": {
+                                "start": {
+                                    "line": 149,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 149,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 3870,
+                        "end": 3888,
+                        "loc": {
+                            "start": {
+                                "line": 149,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 149,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 3905,
+                            "end": 4045,
+                            "loc": {
+                                "start": {
+                                    "line": 151,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 156,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3894,
+                        "end": 4045,
+                        "loc": {
+                            "start": {
+                                "line": 151,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 156,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "render",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4057,
+                            "end": 4159,
+                            "loc": {
+                                "start": {
+                                    "line": 158,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 161,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " super.render()",
+                                "block": false,
+                                "line": 159
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4051,
+                        "end": 4159,
+                        "loc": {
+                            "start": {
+                                "line": 158,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 161,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "warn",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "line"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4169,
+                            "end": 4344,
+                            "loc": {
+                                "start": {
+                                    "line": 163,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 169,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4165,
+                        "end": 4344,
+                        "loc": {
+                            "start": {
+                                "line": 163,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 169,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "renderStack",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4361,
+                            "end": 4754,
+                            "loc": {
+                                "start": {
+                                    "line": 171,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 181,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "connectAll(this.containerSelector, this.svgSelector)",
+                                "block": false,
+                                "line": 172
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4350,
+                        "end": 4754,
+                        "loc": {
+                            "start": {
+                                "line": 171,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 181,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "remapNodes",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4770,
+                            "end": 4947,
+                            "loc": {
+                                "start": {
+                                    "line": 183,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 189,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4760,
+                        "end": 4947,
+                        "loc": {
+                            "start": {
+                                "line": 183,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 189,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "adaptDrawLayer",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "given",
+                                "default_value": true
+                            }
+                        ],
+                        "pos": {
+                            "start": 4967,
+                            "end": 6824,
+                            "loc": {
+                                "start": {
+                                    "line": 191,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 252,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " check if the svg is big enough to draw the path, if not, set heigh/width",
+                                "block": false,
+                                "line": 192
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4953,
+                        "end": 6824,
+                        "loc": {
+                            "start": {
+                                "line": 191,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 252,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "addItem",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "config"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6837,
+                            "end": 7311,
+                            "loc": {
+                                "start": {
+                                    "line": 254,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 274,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\n            {\n                name: 'name'\n                start: Node\n                end: Node\n            }\n         ",
+                                "block": true,
+                                "line": 261
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 6830,
+                        "end": 7311,
+                        "loc": {
+                            "start": {
+                                "line": 254,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 274,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "\n    The context acts as a simple manager for many units on an SVG.\n\n    Provde a svg name - used as an ID and a container selector. If the svgname\n    does not exist as an svg# a new one is created.\n    If the containerSelector is undefined, the newly generated svg is appended to\n    the body.\n\n    If the svg of name ID exists, it's used rather than creating, but it's still\n    moved into the container (if given)\n\n        containerSelector = '#my_container'\n        svgName = 'svg1' // note - Not a jquery selector;\n        context = new PrimaryContext(svgName, containerSelector)\n        context.start()\n\n        context.addItem({\n            name: 'bob'\n        })\n\n        context.render()\n     ",
+                        "block": true,
+                        "line": 148
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3112,
+                "end": 7314,
+                "loc": {
+                    "start": {
+                        "line": 126,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 276,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "ClassDeclaration",
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "svg.js",
+        "path": "/workspaces/polypoint/point_src/svg.js",
+        "size": 7316,
+        "parsed_date": "2025-11-02T21:11:41.312Z"
+    }
+}

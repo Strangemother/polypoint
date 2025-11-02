@@ -1,0 +1,367 @@
+{
+    "src_file": "screenshot.js",
+    "references": {
+        "classes": {
+            "Screenshot": {
+                "class_name": "Screenshot",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Screenshot",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 19
+                    },
+                    {
+                        "method_name": "_stashBlob",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "uriBlob"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 23
+                    },
+                    {
+                        "method_name": "blobURL",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "blob"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Given a _blob_ object, creaate an object url (a base 64 representation\r\n        of the blob) ",
+                                    "block": true,
+                                    "line": 29
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 27
+                    },
+                    {
+                        "method_name": "revokeURL",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "url"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Revoke an object url from memory. ",
+                                    "block": true,
+                                    "line": 34
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 33
+                    },
+                    {
+                        "method_name": "toBlob",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "callback",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Call the `canvas.toBlob` function to screenshot the canvas.\r\n        Provide a callback to override the internal onScreenshot method\r\n        capture function\r\n\r\n            toBlob(function(blob){})\r\n        ",
+                                    "block": true,
+                                    "line": 44
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 38
+                    },
+                    {
+                        "method_name": "toBlobCropped",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "crop"
+                            },
+                            {
+                                "name": "callback"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let crop = {x: 200, y:300, width: 30, height: 30}",
+                                    "block": false,
+                                    "line": 54
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 51
+                    },
+                    {
+                        "method_name": "onScreenshot",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "blob"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 60
+                    },
+                    {
+                        "method_name": "createImgElement",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " generate a new `<img>` with the src as a new blob of the canvas.\r\n        Append to the body to present.\r\n        ",
+                                    "block": true,
+                                    "line": 67
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 64
+                    },
+                    {
+                        "method_name": "downloadImage",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name",
+                                "default_value": "polypoint-screenshot.png"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Perform an image _download_ of the canvas, rendered through toBlob\r\n        This will push a new file to the client.\r\n        ",
+                                    "block": true,
+                                    "line": 80
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "downloadCroppedImage",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name",
+                                "default_value": "polypoint-screenshot.png"
+                            },
+                            {
+                                "name": "background",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "borderRadius",
+                                "default_value": 10
+                            },
+                            {
+                                "name": "dimensions",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " grab the placement, and create a new download image with cropping.",
+                                    "block": true,
+                                    "line": 98
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 97
+                    },
+                    {
+                        "method_name": "downloadCroppedImageAlphaComposite",
+                        "class_name": "Screenshot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name",
+                                "default_value": "polypoint-screenshot.png"
+                            },
+                            {
+                                "name": "background",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "borderRadius",
+                                "default_value": 10
+                            },
+                            {
+                                "name": "dimensions",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Draw background",
+                                    "block": false,
+                                    "line": 170
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 147
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\nfiles:\r\n    image-edge-detection.js\r\n    offscreen.js\r\ncategories: screenshot\r\n---\r\n\r\nVersion two supplies better functionss and clipping tech.\r\n\r\n\r\nAdd extra methods to the `Scene` to capture screenshots of the canvas.\r\n\r\n",
+                            "block": true,
+                            "line": 13
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " \"image/jpeg\"",
+                            "block": false,
+                            "line": 16
+                        }
+                    ]
+                },
+                "line": 14
+            }
+        },
+        "functions": [
+            {
+                "name": "asObject",
+                "kind": "const",
+                "line": 252,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "mimeType",
+                        "default_value": "image/jpeg"
+                    },
+                    {
+                        "name": "quality",
+                        "default_value": 0.85
+                    }
+                ],
+                "async": true
+            },
+            {
+                "name": "asObjectWithCrop",
+                "kind": "const",
+                "line": 270,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " const canvas = this;",
+                            "block": false,
+                            "line": 271
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "canvas"
+                    },
+                    {
+                        "name": "mimeType",
+                        "default_value": "image/jpeg"
+                    },
+                    {
+                        "name": "quality",
+                        "default_value": 0.85
+                    },
+                    {
+                        "name": "crop",
+                        "default_value": null
+                    }
+                ],
+                "async": true
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "screenshot.js",
+        "path": "/workspaces/polypoint/point_src/screenshot.js",
+        "size": 10020,
+        "parsed_date": "2025-11-02T21:11:39.837Z"
+    }
+}

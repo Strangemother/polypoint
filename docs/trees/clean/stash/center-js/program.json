@@ -1,0 +1,233 @@
+{
+    "defs": [
+        {
+            "word": "centerOfMass",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "ObjectExpression",
+                "properties": [
+                    [
+                        {
+                            "kind": "init",
+                            "word": "simple",
+                            "type": "Property",
+                            "method": true,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "FunctionExpression",
+                                "id": null,
+                                "generator": false,
+                                "expression": false,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "points"
+                                    },
+                                    {
+                                        "name": "origin"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 68,
+                                    "end": 727,
+                                    "loc": {
+                                        "start": {
+                                            "line": 7,
+                                            "column": 10
+                                        },
+                                        "end": {
+                                            "line": 32,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 62,
+                                "end": 727,
+                                "loc": {
+                                    "start": {
+                                        "line": 7,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 32,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "kind": "init",
+                            "word": "deep",
+                            "type": "Property",
+                            "method": true,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "FunctionExpression",
+                                "id": null,
+                                "generator": false,
+                                "expression": false,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "points"
+                                    },
+                                    {
+                                        "name": "origin"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 739,
+                                    "end": 1609,
+                                    "loc": {
+                                        "start": {
+                                            "line": 33,
+                                            "column": 10
+                                        },
+                                        "end": {
+                                            "line": 58,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 735,
+                                "end": 1609,
+                                "loc": {
+                                    "start": {
+                                        "line": 33,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 58,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "kind": "init",
+                            "word": "deepRotationAddition",
+                            "type": "Property",
+                            "method": true,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "FunctionExpression",
+                                "id": null,
+                                "generator": false,
+                                "expression": false,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "points"
+                                    },
+                                    {
+                                        "name": "origin"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 1639,
+                                    "end": 3280,
+                                    "loc": {
+                                        "start": {
+                                            "line": 60,
+                                            "column": 26
+                                        },
+                                        "end": {
+                                            "line": 110,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 1619,
+                                "end": 3280,
+                                "loc": {
+                                    "start": {
+                                        "line": 60,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 110,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                ],
+                "pos": {
+                    "start": 55,
+                    "end": 3283,
+                    "loc": {
+                        "start": {
+                            "line": 6,
+                            "column": 19
+                        },
+                        "end": {
+                            "line": 111,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Synonymous to:\r\n\r\n            let totalX = 0;\r\n            let totalY = 0;\r\n            let numPoints = points.length;\r\n\r\n            for (let i = 0; i < numPoints; i++) {\r\n                totalX += points[i].x;\r\n                totalY += points[i].y;\r\n            }\r\n\r\n            let centerX = totalX / numPoints;\r\n            let centerY = totalY / numPoints;\r\n\r\n            return point(centerX, centerY);\r\n         ",
+                        "block": true,
+                        "line": 23
+                    }
+                ]
+            },
+            "pos": {
+                "start": 36,
+                "end": 3283,
+                "loc": {
+                    "start": {
+                        "line": 6,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 111,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 36,
+            "end": 3283,
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 111,
+                    "column": 1
+                }
+            },
+            "kind": "let"
+        }
+    ],
+    "types": [
+        "VariableDeclaration"
+    ],
+    "info": {
+        "filename": "center.js",
+        "path": "/workspaces/polypoint/point_src/center.js",
+        "size": 3287,
+        "parsed_date": "2025-11-02T21:11:32.950Z"
+    }
+}

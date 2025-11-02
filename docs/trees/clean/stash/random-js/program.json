@@ -1,0 +1,1361 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "Random",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "pointIntMin",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "2",
+                        "value": 2,
+                        "pos": {
+                            "start": 421,
+                            "end": 422,
+                            "loc": {
+                                "start": {
+                                    "line": 22,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 22,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 407,
+                        "end": 422,
+                        "loc": {
+                            "start": {
+                                "line": 22,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 22,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "int",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "min",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "max"
+                            }
+                        ],
+                        "pos": {
+                            "start": 433,
+                            "end": 907,
+                            "loc": {
+                                "start": {
+                                    "line": 24,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 41,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Generate an integer between 0 and the given min.\r\n        Given 1 (default), the result will be either 0 or 1\r\n\r\n            random.int(10)\r\n            7\r\n            random.int(50)\r\n            30\r\n            random.int(300)\r\n            220\r\n        ",
+                                "block": true,
+                                "line": 34
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 430,
+                        "end": 907,
+                        "loc": {
+                            "start": {
+                                "line": 24,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 41,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "float",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "min",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "max"
+                            }
+                        ],
+                        "pos": {
+                            "start": 920,
+                            "end": 1247,
+                            "loc": {
+                                "start": {
+                                    "line": 43,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 55,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Generate a decimal number between `0` and `1`.\r\n        Provide a min/max to limit\r\n\r\n            random.float()\r\n            random.float(.2, 1)\r\n        ",
+                                "block": true,
+                                "line": 49
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 915,
+                        "end": 1247,
+                        "loc": {
+                            "start": {
+                                "line": 43,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 55,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "callOne",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "functions"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1262,
+                            "end": 1382,
+                            "loc": {
+                                "start": {
+                                    "line": 57,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 60,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Given many functions, call one. ",
+                                "block": true,
+                                "line": 58
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1255,
+                        "end": 1382,
+                        "loc": {
+                            "start": {
+                                "line": 57,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 60,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "choice",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "selections"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1396,
+                            "end": 1511,
+                            "loc": {
+                                "start": {
+                                    "line": 62,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Give many items, return one ",
+                                "block": true,
+                                "line": 63
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1390,
+                        "end": 1511,
+                        "loc": {
+                            "start": {
+                                "line": 62,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 65,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "index",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "selections"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1524,
+                            "end": 1650,
+                            "loc": {
+                                "start": {
+                                    "line": 67,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 70,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Given many, return an index ",
+                                "block": true,
+                                "line": 68
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1519,
+                        "end": 1650,
+                        "loc": {
+                            "start": {
+                                "line": 67,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 70,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "string",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "multiplier",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "rot",
+                                "default_value": 32
+                            }
+                        ],
+                        "pos": {
+                            "start": 1664,
+                            "end": 1797,
+                            "loc": {
+                                "start": {
+                                    "line": 72,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 75,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Return a random string ",
+                                "block": true,
+                                "line": 73
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1658,
+                        "end": 1797,
+                        "loc": {
+                            "start": {
+                                "line": 72,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 75,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "radix",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "v"
+                            },
+                            {
+                                "name": "rot",
+                                "default_value": 32
+                            }
+                        ],
+                        "pos": {
+                            "start": 1810,
+                            "end": 1862,
+                            "loc": {
+                                "start": {
+                                    "line": 77,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 79,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1805,
+                        "end": 1862,
+                        "loc": {
+                            "start": {
+                                "line": 77,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 79,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "point",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "multiplier",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "method",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1875,
+                            "end": 2239,
+                            "loc": {
+                                "start": {
+                                    "line": 81,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 91,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n            return a random point(), with the X/Y values set as random*multplier\r\n         ",
+                                "block": true,
+                                "line": 84
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1870,
+                        "end": 2239,
+                        "loc": {
+                            "start": {
+                                "line": 81,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 91,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "shuffle",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "max",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 2254,
+                            "end": 2331,
+                            "loc": {
+                                "start": {
+                                    "line": 93,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 95,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2247,
+                        "end": 2331,
+                        "loc": {
+                            "start": {
+                                "line": 93,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 95,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "within",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "max",
+                                "default_value": 0.5
+                            }
+                        ],
+                        "pos": {
+                            "start": 2345,
+                            "end": 3177,
+                            "loc": {
+                                "start": {
+                                    "line": 97,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 121,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Return a random 2D position within the given point.\r\n\r\n            within({ x: 100, y: 100, radius: 100})\r\n            {x: 79, y: 50}\r\n        ",
+                                "block": true,
+                                "line": 102
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2339,
+                        "end": 3177,
+                        "loc": {
+                            "start": {
+                                "line": 97,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 121,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "xy",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "multiplier",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 3187,
+                            "end": 3524,
+                            "loc": {
+                                "start": {
+                                    "line": 123,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 129,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "return two random values between 0 and 1 multiplied by the given\r\n        value `multiplier`.\r\n        This is similar to the random.point() function, except it only returns\r\n        an object of {x,y}",
+                                "block": true,
+                                "line": 127
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3185,
+                        "end": 3524,
+                        "loc": {
+                            "start": {
+                                "line": 123,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 129,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "gaussianFloat",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "mean",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "stdev",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 3545,
+                            "end": 4057,
+                            "loc": {
+                                "start": {
+                                    "line": 131,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 141,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Standard Normal variate using Box-Muller transform.",
+                                "block": false,
+                                "line": 132
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3532,
+                        "end": 4057,
+                        "loc": {
+                            "start": {
+                                "line": 131,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 141,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "gaussian",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "start"
+                            },
+                            {
+                                "name": "end"
+                            },
+                            {
+                                "name": "mean",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "stdev",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 4073,
+                            "end": 4200,
+                            "loc": {
+                                "start": {
+                                    "line": 143,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 145,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4065,
+                        "end": 4200,
+                        "loc": {
+                            "start": {
+                                "line": 143,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 145,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "polar2D",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4215,
+                            "end": 4445,
+                            "loc": {
+                                "start": {
+                                    "line": 147,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 154,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4208,
+                        "end": 4445,
+                        "loc": {
+                            "start": {
+                                "line": 147,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 154,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "color",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "h",
+                                "default_value": 360
+                            },
+                            {
+                                "name": "s",
+                                "default_value": 100
+                            },
+                            {
+                                "name": "l",
+                                "default_value": 100
+                            }
+                        ],
+                        "pos": {
+                            "start": 4458,
+                            "end": 4940,
+                            "loc": {
+                                "start": {
+                                    "line": 156,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 170,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Return a random `hsl` color string,\r\n\r\n            random.color()\r\n            random.color(360, 100, 100)\r\n            random.color(360, [30, 100], [60,100])\r\n\r\n        ",
+                                "block": true,
+                                "line": 163
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4453,
+                        "end": 4940,
+                        "loc": {
+                            "start": {
+                                "line": 156,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 170,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " The minimum value the _point(value)_ can be, before\r\n    the automatic 'float' method is used over the 'int' method.\r\n    ",
+                        "block": true,
+                        "line": 21
+                    }
+                ]
+            },
+            "pos": {
+                "start": 252,
+                "end": 4943,
+                "loc": {
+                    "start": {
+                        "line": 17,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 171,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "word": "random",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "NewExpression",
+                "callee": {
+                    "type": "Identifier",
+                    "word": "Random",
+                    "pos": {
+                        "start": 4968,
+                        "end": 4974,
+                        "loc": {
+                            "start": {
+                                "line": 174,
+                                "column": 19
+                            },
+                            "end": {
+                                "line": 174,
+                                "column": 25
+                            }
+                        }
+                    }
+                },
+                "arguments": [],
+                "pos": {
+                    "start": 4964,
+                    "end": 4976,
+                    "loc": {
+                        "start": {
+                            "line": 174,
+                            "column": 15
+                        },
+                        "end": {
+                            "line": 174,
+                            "column": 27
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4949,
+                "end": 4976,
+                "loc": {
+                    "start": {
+                        "line": 174,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 174,
+                        "column": 27
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4949,
+            "end": 4976,
+            "loc": {
+                "start": {
+                    "line": 174,
+                    "column": 0
+                },
+                "end": {
+                    "line": 174,
+                    "column": 27
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 4978,
+                "end": 5010,
+                "loc": {
+                    "start": {
+                        "line": 175,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 175,
+                        "column": 32
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 4978,
+                    "end": 5000,
+                    "loc": {
+                        "start": {
+                            "line": 175,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 175,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 4978,
+                        "end": 4992,
+                        "loc": {
+                            "start": {
+                                "line": 175,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 175,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 4978,
+                            "end": 4987,
+                            "loc": {
+                                "start": {
+                                    "line": 175,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 175,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 4978,
+                                "end": 4987,
+                                "loc": {
+                                    "start": {
+                                        "line": 175,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 175,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 4988,
+                            "end": 4992,
+                            "loc": {
+                                "start": {
+                                    "line": 175,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 175,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 4988,
+                                "end": 4992,
+                                "loc": {
+                                    "start": {
+                                        "line": 175,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 175,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 4978,
+                            "end": 4992,
+                            "loc": {
+                                "start": {
+                                    "line": 175,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 175,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 4993,
+                        "end": 5000,
+                        "loc": {
+                            "start": {
+                                "line": 175,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 175,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 4993,
+                            "end": 5000,
+                            "loc": {
+                                "start": {
+                                    "line": 175,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 175,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 4978,
+                        "end": 5000,
+                        "loc": {
+                            "start": {
+                                "line": 175,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 175,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 5001,
+                        "end": 5009,
+                        "loc": {
+                            "start": {
+                                "line": 175,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 175,
+                                "column": 31
+                            }
+                        },
+                        "value": "Random",
+                        "raw": "'Random'",
+                        "pos": {
+                            "start": 5001,
+                            "end": 5009,
+                            "loc": {
+                                "start": {
+                                    "line": 175,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 175,
+                                    "column": 31
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 4978,
+                    "end": 5010,
+                    "loc": {
+                        "start": {
+                            "line": 175,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 175,
+                            "column": 32
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 4978,
+                "end": 5010,
+                "loc": {
+                    "start": {
+                        "line": 175,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 175,
+                        "column": 32
+                    }
+                }
+            }
+        },
+        {
+            "word": "randomizePoint",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "px"
+                    },
+                    {
+                        "name": "y"
+                    }
+                ],
+                "pos": {
+                    "start": 5039,
+                    "end": 6312,
+                    "loc": {
+                        "start": {
+                            "line": 178,
+                            "column": 23
+                        },
+                        "end": {
+                            "line": 223,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Perform random() on the X and Y.\r\n\r\n    If a point is given, randomize to the _max_ of the given point\r\n    If a single number is given, assume _square_\r\n    If no params are given, discover the stage size.\r\n\r\n    Use `Point.random()` for the same form, as a new point\r\n\r\n        let p = new Point()\r\n        p.randomize(100, 400)\r\n        p.randomize(100) // 100, 100\r\n        p.randomize(new Point(100, 400)) // 100, 400\r\n\r\n    if one of the keys is undefined, no change occurs:\r\n\r\n        p.setXY(500,700)\r\n        p.randomize(100, undefined) // 100, 700\r\n        p.randomize(undefined, 400) // 500, 400\r\n\r\n        p.randomize(undefined, undefined) // 500, 700 // no change occurs.\r\n\r\n    Note; no params will randomize as much as possible (the stage size)\r\n\r\n        p.randomize() // 800, 600\r\n\r\n    Other features would be nice:\r\n\r\n    + random in rect (like stage):\r\n\r\n        p.randomize(rect|dimensions)\r\n\r\n    + Randomize other values, e.g radius, colors\r\n\r\n        p.randomize(['x', 'y', 'radius', 'mass'])\r\n\r\n        // randomize x to max 400, radius to max 50\r\n        p.randomize({ x: 400, radius: 50})\r\n\r\n    + In the future, the _origin_; randomize relative to a point:\r\n\r\n        p.randomize({point, relative: true})\r\n\r\n    ",
+                        "block": true,
+                        "line": 221
+                    }
+                ]
+            },
+            "pos": {
+                "start": 5016,
+                "end": 6312,
+                "loc": {
+                    "start": {
+                        "line": 178,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 223,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 5016,
+            "end": 6312,
+            "loc": {
+                "start": {
+                    "line": 178,
+                    "column": 0
+                },
+                "end": {
+                    "line": 223,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "VariableDeclaration",
+        "ExpressionStatement",
+        "VariableDeclaration"
+    ],
+    "info": {
+        "filename": "random.js",
+        "path": "/workspaces/polypoint/point_src/random.js",
+        "size": 6312,
+        "parsed_date": "2025-11-02T21:11:38.881Z"
+    }
+}

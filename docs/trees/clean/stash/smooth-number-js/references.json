@@ -1,0 +1,287 @@
+{
+    "src_file": "smooth-number.js",
+    "references": {
+        "classes": {
+            "SmoothNumber": {
+                "class_name": "SmoothNumber",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "SmoothNumber",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "value",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 10
+                            },
+                            {
+                                "name": "modulusRate",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "fixed",
+                                "default_value": null
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 86
+                    },
+                    {
+                        "method_name": "pushGet",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "val"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Apply a value, and return the current smooth value\r\n        This returned the cached value not a new one. ",
+                                    "block": true,
+                                    "line": 103
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 101
+                    },
+                    {
+                        "method_name": "push",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "val"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 107
+                    },
+                    {
+                        "method_name": "get",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 112
+                    },
+                    {
+                        "method_name": "Symbol.toPrimitive",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "hint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return this.value;",
+                                    "block": false,
+                                    "line": 119
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": true,
+                        "computed": true,
+                        "line": 117
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "modulusRate"
+                            },
+                            {
+                                "name": "val",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 135
+                    },
+                    {
+                        "method_name": "modUpdate",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "inc"
+                            },
+                            {
+                                "name": "modulusRate"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Perform an update  if the modulo matches,\r\n        return the value ",
+                                    "block": true,
+                                    "line": 143
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 141
+                    },
+                    {
+                        "method_name": "mutateCompute",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 153
+                    },
+                    {
+                        "method_name": "computeValue",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 159
+                    },
+                    {
+                        "method_name": "fixValue",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "r"
+                            },
+                            {
+                                "name": "fixed"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 164
+                    },
+                    {
+                        "method_name": "incrementPush",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "storeValue"
+                            },
+                            {
+                                "name": "tick",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 168
+                    },
+                    {
+                        "method_name": "reset",
+                        "class_name": "SmoothNumber",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 180
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\ntitle: Smooth Number\r\n---\r\n\r\n> The `SmoothNumber` class receives fast number updates, and returns a _averaged_ number when queried.\r\n\r\n\r\n        const smoothVal = new SmoothNumber()\r\n        speedNumber.push(stage.mouse.speed())\r\n\r\n        stage.fps.text = speedNumber\r\n\r\nA `SmoothNumber` combines a average of many values in a list, visually\r\nupdated a (Framerate) modulo speed.\r\n\r\n\r\nPush numbers into the list, to get an average over time allows for nicer-looking\r\nupdates on a fast changing number, such as the FPS.\r\n\r\n## Setup\r\n\r\nCreate a new instance of the `SmoothNumber`:\r\n\r\n    const initValue = 40\r\n        , width = 20      // how many historical points\r\n        , updateRate = 10 // every X frames\r\n        , valueFix = 0    // value.toFixed\r\n\r\n    const smoothVal = new SmoothNumber(initValue, width, updateRate, valueFix)\r\n\r\nThen we can push a value to it:\r\n\r\n    smoothVal.push(currentFPS)\r\n\r\nIt can be done many (many) times. When required, we read the number:\r\n\r\n    smoothVal.get()\r\n\r\nThis secretly returns the `smoothVal.value` - but checks to ensure the value is fresh.\r\n\r\n### Easier\r\n\r\nTo save the hassle of _pushing_ then _getting_ a number, we can do this with one call.\r\n\r\n    fpsValue = this.smoothVal.pushGet(Math.round(currentFPS)+1)\r\n\r\nThis adheres to the update-rate, so the number `fpsValue` will change slower than\r\ndirectly reading `currentFPS`.\r\n\r\nThis is nicer for humans - as most of them can't read text at 60FPS+ apparently?\r\n\r\n\r\n\r\n",
+                            "block": true,
+                            "line": 54
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " A SmoothNumber provides a nicer read-back of a number over a period\r\n    of time. Similar to the FPS counter.\r\n\r\n    Create an instance and push a number when required.\r\n    Read the _value_ through a few routines.\r\n\r\n    Create:\r\n        const initValue = 40\r\n        width = 20      // how many historical points\r\n        updateRate = 10 // every X frames\r\n        valueFix = 0    // value.toFixed\r\n        const smoothVal = new SmoothNumber(initValue, width, updateRate, valueFix)\r\n        smoothVal.push(currentFPS)\r\n\r\n    Read:\r\n\r\n        smoothVal.get()\r\n\r\n    Push + Read:\r\n\r\n        b = this.smoothVal.pushGet(Math.round(currentFPS)+1)\r\n\r\n     ",
+                            "block": true,
+                            "line": 78
+                        }
+                    ]
+                },
+                "line": 55
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "smooth-number.js",
+        "path": "/workspaces/polypoint/point_src/smooth-number.js",
+        "size": 4745,
+        "parsed_date": "2025-11-02T21:11:40.283Z"
+    }
+}

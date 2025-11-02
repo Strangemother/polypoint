@@ -1,0 +1,2548 @@
+{
+    "defs": [
+        {
+            "kind": "function",
+            "word": "calculateEdgeToEdgeLine",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "pointA"
+                },
+                {
+                    "name": "pointB"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 65,
+                "end": 88,
+                "loc": {
+                    "start": {
+                        "line": 5,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 5,
+                        "column": 32
+                    }
+                },
+                "name": "calculateEdgeToEdgeLine",
+                "pos": {
+                    "start": 65,
+                    "end": 88,
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 32
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 56,
+                "end": 781,
+                "loc": {
+                    "start": {
+                        "line": 5,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 30,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "rawCalculateAdjustedRotatedTangentLines",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "pointA"
+                },
+                {
+                    "name": "pointB"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 796,
+                "end": 835,
+                "loc": {
+                    "start": {
+                        "line": 33,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 33,
+                        "column": 48
+                    }
+                },
+                "name": "rawCalculateAdjustedRotatedTangentLines",
+                "pos": {
+                    "start": 796,
+                    "end": 835,
+                    "loc": {
+                        "start": {
+                            "line": 33,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 33,
+                            "column": 48
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 787,
+                "end": 2578,
+                "loc": {
+                    "start": {
+                        "line": 33,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 85,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "word": "halfPi",
+            "sub_type": "VariableDeclarator",
+            "init": null,
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 2584,
+                "end": 2612,
+                "loc": {
+                    "start": {
+                        "line": 88,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 88,
+                        "column": 28
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 2584,
+            "end": 2612,
+            "loc": {
+                "start": {
+                    "line": 88,
+                    "column": 0
+                },
+                "end": {
+                    "line": 88,
+                    "column": 28
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "function",
+            "word": "calculateAdjustedRotatedTangentLines",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "pointA"
+                },
+                {
+                    "name": "pointB"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 2625,
+                "end": 2661,
+                "loc": {
+                    "start": {
+                        "line": 90,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 90,
+                        "column": 45
+                    }
+                },
+                "name": "calculateAdjustedRotatedTangentLines",
+                "pos": {
+                    "start": 2625,
+                    "end": 2661,
+                    "loc": {
+                        "start": {
+                            "line": 90,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 90,
+                            "column": 45
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 2616,
+                "end": 4415,
+                "loc": {
+                    "start": {
+                        "line": 90,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 146,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "word": "arcTangents",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "rLength"
+                    },
+                    {
+                        "name": "add",
+                        "default_value": true
+                    }
+                ],
+                "pos": {
+                    "start": 4441,
+                    "end": 5968,
+                    "loc": {
+                        "start": {
+                            "line": 150,
+                            "column": 18
+                        },
+                        "end": {
+                            "line": 201,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " https://www.youtube.com/watch?v=fVbpIwh_S6o",
+                        "block": false,
+                        "line": 151
+                    }
+                ]
+            },
+            "pos": {
+                "start": 4423,
+                "end": 5968,
+                "loc": {
+                    "start": {
+                        "line": 150,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 201,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4423,
+            "end": 5968,
+            "loc": {
+                "start": {
+                    "line": 150,
+                    "column": 0
+                },
+                "end": {
+                    "line": 201,
+                    "column": 1
+                }
+            },
+            "kind": "let"
+        },
+        {
+            "word": "twoPointsAngleRaw",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "target"
+                    }
+                ],
+                "pos": {
+                    "start": 6000,
+                    "end": 6553,
+                    "loc": {
+                        "start": {
+                            "line": 204,
+                            "column": 26
+                        },
+                        "end": {
+                            "line": 218,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "given two points, return the relative angle (in radians), of target from the origin.\r\n    For example if the target was left of the origin, this would be a -Math.PI ",
+                        "block": true,
+                        "line": 206
+                    }
+                ]
+            },
+            "pos": {
+                "start": 5974,
+                "end": 6553,
+                "loc": {
+                    "start": {
+                        "line": 204,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 218,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 5974,
+            "end": 6553,
+            "loc": {
+                "start": {
+                    "line": 204,
+                    "column": 0
+                },
+                "end": {
+                    "line": 218,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "twoPointsAngle",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "target"
+                    }
+                ],
+                "pos": {
+                    "start": 6582,
+                    "end": 6689,
+                    "loc": {
+                        "start": {
+                            "line": 221,
+                            "column": 23
+                        },
+                        "end": {
+                            "line": 224,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 6559,
+                "end": 6689,
+                "loc": {
+                    "start": {
+                        "line": 221,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 224,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 6559,
+            "end": 6689,
+            "loc": {
+                "start": {
+                    "line": 221,
+                    "column": 0
+                },
+                "end": {
+                    "line": 224,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "class",
+            "word": "PointTangents",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6737,
+                            "end": 6782,
+                            "loc": {
+                                "start": {
+                                    "line": 230,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 232,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 6726,
+                        "end": 6782,
+                        "loc": {
+                            "start": {
+                                "line": 230,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 232,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "calculateTangentLines",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6811,
+                            "end": 8580,
+                            "loc": {
+                                "start": {
+                                    "line": 234,
+                                    "column": 25
+                                },
+                                "end": {
+                                    "line": 284,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Calculate distance between centers",
+                                "block": false,
+                                "line": 238
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 6790,
+                        "end": 8580,
+                        "loc": {
+                            "start": {
+                                "line": 234,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 284,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "calculateCrossTangentLines",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8614,
+                            "end": 10437,
+                            "loc": {
+                                "start": {
+                                    "line": 286,
+                                    "column": 30
+                                },
+                                "end": {
+                                    "line": 340,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Distance between centers",
+                                "block": false,
+                                "line": 290
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8588,
+                        "end": 10437,
+                        "loc": {
+                            "start": {
+                                "line": 286,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 340,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "calculateConcaveTangentArcs",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            },
+                            {
+                                "name": "length"
+                            }
+                        ],
+                        "pos": {
+                            "start": 10472,
+                            "end": 10550,
+                            "loc": {
+                                "start": {
+                                    "line": 342,
+                                    "column": 31
+                                },
+                                "end": {
+                                    "line": 344,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 10445,
+                        "end": 10550,
+                        "loc": {
+                            "start": {
+                                "line": 342,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 344,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "calculateConvexTangentArcs",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            },
+                            {
+                                "name": "length"
+                            }
+                        ],
+                        "pos": {
+                            "start": 10584,
+                            "end": 10662,
+                            "loc": {
+                                "start": {
+                                    "line": 346,
+                                    "column": 30
+                                },
+                                "end": {
+                                    "line": 348,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 10558,
+                        "end": 10662,
+                        "loc": {
+                            "start": {
+                                "line": 346,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 348,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "points",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 10676,
+                            "end": 10933,
+                            "loc": {
+                                "start": {
+                                    "line": 350,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 356,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return two points on _this_ point for the _start_ of two tangent lines\r\n            [a(top), b(top), a(bottom), b(bottom)]\r\n        ",
+                                "block": true,
+                                "line": 353
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 10670,
+                        "end": 10933,
+                        "loc": {
+                            "start": {
+                                "line": 350,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 356,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "outerLines",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 10951,
+                            "end": 11114,
+                            "loc": {
+                                "start": {
+                                    "line": 358,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 362,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return lines _a_ and _b_, each being a direct tagent ",
+                                "block": true,
+                                "line": 359
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 10941,
+                        "end": 11114,
+                        "loc": {
+                            "start": {
+                                "line": 358,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 362,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "crossLines",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 11132,
+                            "end": 11271,
+                            "loc": {
+                                "start": {
+                                    "line": 364,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 367,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return the inner tagents, point A (top), to point B (bottom), and\r\n        the antethisis. similar to [ab(), ba()]",
+                                "block": true,
+                                "line": 366
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11122,
+                        "end": 11271,
+                        "loc": {
+                            "start": {
+                                "line": 364,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 367,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "lineA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11284,
+                            "end": 11455,
+                            "loc": {
+                                "start": {
+                                    "line": 369,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 373,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return a line (two points) for the _top_ direct tagent. ",
+                                "block": true,
+                                "line": 370
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11279,
+                        "end": 11455,
+                        "loc": {
+                            "start": {
+                                "line": 369,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 373,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "lineB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11468,
+                            "end": 11642,
+                            "loc": {
+                                "start": {
+                                    "line": 375,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 379,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return a line (two points) for the _bottom_ direct tagent. ",
+                                "block": true,
+                                "line": 376
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11463,
+                        "end": 11642,
+                        "loc": {
+                            "start": {
+                                "line": 375,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 379,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "a",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11651,
+                            "end": 11816,
+                            "loc": {
+                                "start": {
+                                    "line": 381,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 385,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return the top line tangent _start_ point ",
+                                "block": true,
+                                "line": 382
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11650,
+                        "end": 11816,
+                        "loc": {
+                            "start": {
+                                "line": 381,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 385,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "b",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11825,
+                            "end": 11982,
+                            "loc": {
+                                "start": {
+                                    "line": 387,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 391,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return the bottom line _start_ point ",
+                                "block": true,
+                                "line": 388
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11824,
+                        "end": 11982,
+                        "loc": {
+                            "start": {
+                                "line": 387,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 391,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "aa",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11992,
+                            "end": 12208,
+                            "loc": {
+                                "start": {
+                                    "line": 393,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 398,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return the _line_ of pointA (top), to pointB (top)\r\n        Similar to `this.points(other)[0,2]` ",
+                                "block": true,
+                                "line": 395
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11990,
+                        "end": 12208,
+                        "loc": {
+                            "start": {
+                                "line": 393,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 398,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "bb",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 12218,
+                            "end": 12438,
+                            "loc": {
+                                "start": {
+                                    "line": 400,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 406,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return the antipose parallel tangent to aa(), similar to\r\n        `this.points(other)[1,4]`\r\n        ",
+                                "block": true,
+                                "line": 403
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 12216,
+                        "end": 12438,
+                        "loc": {
+                            "start": {
+                                "line": 400,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 406,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "ab",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 12448,
+                            "end": 12722,
+                            "loc": {
+                                "start": {
+                                    "line": 408,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 413,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return the tangent line _through_ the center, similar to points [0,3]\r\n        However the tangent points are adjusted - rotated around the radius. ",
+                                "block": true,
+                                "line": 410
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 12446,
+                        "end": 12722,
+                        "loc": {
+                            "start": {
+                                "line": 408,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 413,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "ba",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "pos": {
+                            "start": 12732,
+                            "end": 12914,
+                            "loc": {
+                                "start": {
+                                    "line": 415,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 419,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return the tangent line point A (bottom), point B (top) ",
+                                "block": true,
+                                "line": 416
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 12730,
+                        "end": 12914,
+                        "loc": {
+                            "start": {
+                                "line": 415,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 419,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Calculate distance between centers",
+                        "block": false,
+                        "line": 238
+                    }
+                ]
+            },
+            "pos": {
+                "start": 6697,
+                "end": 12917,
+                "loc": {
+                    "start": {
+                        "line": 228,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 420,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 12923,
+                "end": 13149,
+                "loc": {
+                    "start": {
+                        "line": 423,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 432,
+                        "column": 2
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 12923,
+                    "end": 12946,
+                    "loc": {
+                        "start": {
+                            "line": 423,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 423,
+                            "column": 23
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 12923,
+                        "end": 12937,
+                        "loc": {
+                            "start": {
+                                "line": 423,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 423,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 12923,
+                            "end": 12932,
+                            "loc": {
+                                "start": {
+                                    "line": 423,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 423,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 12923,
+                                "end": 12932,
+                                "loc": {
+                                    "start": {
+                                        "line": 423,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 423,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 12933,
+                            "end": 12937,
+                            "loc": {
+                                "start": {
+                                    "line": 423,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 423,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 12933,
+                                "end": 12937,
+                                "loc": {
+                                    "start": {
+                                        "line": 423,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 423,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 12923,
+                            "end": 12937,
+                            "loc": {
+                                "start": {
+                                    "line": 423,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 423,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 12938,
+                        "end": 12946,
+                        "loc": {
+                            "start": {
+                                "line": 423,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 423,
+                                "column": 23
+                            }
+                        },
+                        "name": "lazyProp",
+                        "pos": {
+                            "start": 12938,
+                            "end": 12946,
+                            "loc": {
+                                "start": {
+                                    "line": 423,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 423,
+                                    "column": 23
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 12923,
+                        "end": 12946,
+                        "loc": {
+                            "start": {
+                                "line": 423,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 423,
+                                "column": 23
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 12947,
+                        "end": 12954,
+                        "loc": {
+                            "start": {
+                                "line": 423,
+                                "column": 24
+                            },
+                            "end": {
+                                "line": 423,
+                                "column": 31
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 12947,
+                            "end": 12954,
+                            "loc": {
+                                "start": {
+                                    "line": 423,
+                                    "column": 24
+                                },
+                                "end": {
+                                    "line": 423,
+                                    "column": 31
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "ObjectExpression",
+                        "start": 12956,
+                        "end": 13148,
+                        "loc": {
+                            "start": {
+                                "line": 423,
+                                "column": 33
+                            },
+                            "end": {
+                                "line": 432,
+                                "column": 1
+                            }
+                        },
+                        "properties": [
+                            {
+                                "type": "Property",
+                                "start": 12963,
+                                "end": 13145,
+                                "loc": {
+                                    "start": {
+                                        "line": 424,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 431,
+                                        "column": 5
+                                    }
+                                },
+                                "method": true,
+                                "shorthand": false,
+                                "computed": false,
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 12963,
+                                    "end": 12970,
+                                    "loc": {
+                                        "start": {
+                                            "line": 424,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 424,
+                                            "column": 11
+                                        }
+                                    },
+                                    "name": "tangent",
+                                    "pos": {
+                                        "start": 12963,
+                                        "end": 12970,
+                                        "loc": {
+                                            "start": {
+                                                "line": 424,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 424,
+                                                "column": 11
+                                            }
+                                        }
+                                    }
+                                },
+                                "value": {
+                                    "type": "FunctionExpression",
+                                    "start": 12970,
+                                    "end": 13145,
+                                    "loc": {
+                                        "start": {
+                                            "line": 424,
+                                            "column": 11
+                                        },
+                                        "end": {
+                                            "line": 431,
+                                            "column": 5
+                                        }
+                                    },
+                                    "id": null,
+                                    "expression": false,
+                                    "generator": false,
+                                    "async": false,
+                                    "params": [],
+                                    "body": {
+                                        "type": "BlockStatement",
+                                        "start": 12973,
+                                        "end": 13145,
+                                        "loc": {
+                                            "start": {
+                                                "line": 424,
+                                                "column": 14
+                                            },
+                                            "end": {
+                                                "line": 431,
+                                                "column": 5
+                                            }
+                                        },
+                                        "body": [
+                                            {
+                                                "type": "VariableDeclaration",
+                                                "start": 12984,
+                                                "end": 13006,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 425,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 425,
+                                                        "column": 30
+                                                    }
+                                                },
+                                                "declarations": [
+                                                    {
+                                                        "type": "VariableDeclarator",
+                                                        "start": 12988,
+                                                        "end": 13006,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 425,
+                                                                "column": 12
+                                                            },
+                                                            "end": {
+                                                                "line": 425,
+                                                                "column": 30
+                                                            }
+                                                        },
+                                                        "id": {
+                                                            "type": "Identifier",
+                                                            "start": 12988,
+                                                            "end": 12989,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 425,
+                                                                    "column": 12
+                                                                },
+                                                                "end": {
+                                                                    "line": 425,
+                                                                    "column": 13
+                                                                }
+                                                            },
+                                                            "name": "r",
+                                                            "pos": {
+                                                                "start": 12988,
+                                                                "end": 12989,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 425,
+                                                                        "column": 12
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 425,
+                                                                        "column": 13
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "init": {
+                                                            "type": "MemberExpression",
+                                                            "start": 12992,
+                                                            "end": 13006,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 425,
+                                                                    "column": 16
+                                                                },
+                                                                "end": {
+                                                                    "line": 425,
+                                                                    "column": 30
+                                                                }
+                                                            },
+                                                            "object": {
+                                                                "type": "ThisExpression",
+                                                                "start": 12992,
+                                                                "end": 12996,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 425,
+                                                                        "column": 16
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 425,
+                                                                        "column": 20
+                                                                    }
+                                                                },
+                                                                "pos": {
+                                                                    "start": 12992,
+                                                                    "end": 12996,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 425,
+                                                                            "column": 16
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 425,
+                                                                            "column": 20
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "property": {
+                                                                "type": "Identifier",
+                                                                "start": 12997,
+                                                                "end": 13006,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 425,
+                                                                        "column": 21
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 425,
+                                                                        "column": 30
+                                                                    }
+                                                                },
+                                                                "name": "_tangents",
+                                                                "pos": {
+                                                                    "start": 12997,
+                                                                    "end": 13006,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 425,
+                                                                            "column": 21
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 425,
+                                                                            "column": 30
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "computed": false,
+                                                            "optional": false,
+                                                            "pos": {
+                                                                "start": 12992,
+                                                                "end": 13006,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 425,
+                                                                        "column": 16
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 425,
+                                                                        "column": 30
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "pos": {
+                                                            "start": 12988,
+                                                            "end": 13006,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 425,
+                                                                    "column": 12
+                                                                },
+                                                                "end": {
+                                                                    "line": 425,
+                                                                    "column": 30
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "kind": "let",
+                                                "pos": {
+                                                    "start": 12984,
+                                                    "end": 13006,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 425,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 425,
+                                                            "column": 30
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "IfStatement",
+                                                "start": 13016,
+                                                "end": 13120,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 426,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 429,
+                                                        "column": 9
+                                                    }
+                                                },
+                                                "test": {
+                                                    "type": "BinaryExpression",
+                                                    "start": 13019,
+                                                    "end": 13033,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 426,
+                                                            "column": 11
+                                                        },
+                                                        "end": {
+                                                            "line": 426,
+                                                            "column": 25
+                                                        }
+                                                    },
+                                                    "left": {
+                                                        "type": "Identifier",
+                                                        "start": 13019,
+                                                        "end": 13020,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 426,
+                                                                "column": 11
+                                                            },
+                                                            "end": {
+                                                                "line": 426,
+                                                                "column": 12
+                                                            }
+                                                        },
+                                                        "name": "r",
+                                                        "pos": {
+                                                            "start": 13019,
+                                                            "end": 13020,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 426,
+                                                                    "column": 11
+                                                                },
+                                                                "end": {
+                                                                    "line": 426,
+                                                                    "column": 12
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "operator": "==",
+                                                    "right": {
+                                                        "type": "Identifier",
+                                                        "start": 13024,
+                                                        "end": 13033,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 426,
+                                                                "column": 16
+                                                            },
+                                                            "end": {
+                                                                "line": 426,
+                                                                "column": 25
+                                                            }
+                                                        },
+                                                        "name": "undefined",
+                                                        "pos": {
+                                                            "start": 13024,
+                                                            "end": 13033,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 426,
+                                                                    "column": 16
+                                                                },
+                                                                "end": {
+                                                                    "line": 426,
+                                                                    "column": 25
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "pos": {
+                                                        "start": 13019,
+                                                        "end": 13033,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 426,
+                                                                "column": 11
+                                                            },
+                                                            "end": {
+                                                                "line": 426,
+                                                                "column": 25
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "consequent": {
+                                                    "type": "BlockStatement",
+                                                    "start": 13035,
+                                                    "end": 13120,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 426,
+                                                            "column": 27
+                                                        },
+                                                        "end": {
+                                                            "line": 429,
+                                                            "column": 9
+                                                        }
+                                                    },
+                                                    "body": [
+                                                        {
+                                                            "type": "ExpressionStatement",
+                                                            "start": 13050,
+                                                            "end": 13077,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 427,
+                                                                    "column": 12
+                                                                },
+                                                                "end": {
+                                                                    "line": 427,
+                                                                    "column": 39
+                                                                }
+                                                            },
+                                                            "expression": {
+                                                                "type": "AssignmentExpression",
+                                                                "start": 13050,
+                                                                "end": 13077,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 427,
+                                                                        "column": 12
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 427,
+                                                                        "column": 39
+                                                                    }
+                                                                },
+                                                                "operator": "=",
+                                                                "left": {
+                                                                    "type": "Identifier",
+                                                                    "start": 13050,
+                                                                    "end": 13051,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 427,
+                                                                            "column": 12
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 427,
+                                                                            "column": 13
+                                                                        }
+                                                                    },
+                                                                    "name": "r",
+                                                                    "pos": {
+                                                                        "start": 13050,
+                                                                        "end": 13051,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 427,
+                                                                                "column": 12
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 427,
+                                                                                "column": 13
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "right": {
+                                                                    "type": "NewExpression",
+                                                                    "start": 13054,
+                                                                    "end": 13077,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 427,
+                                                                            "column": 16
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 427,
+                                                                            "column": 39
+                                                                        }
+                                                                    },
+                                                                    "callee": {
+                                                                        "type": "Identifier",
+                                                                        "start": 13058,
+                                                                        "end": 13071,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 427,
+                                                                                "column": 20
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 427,
+                                                                                "column": 33
+                                                                            }
+                                                                        },
+                                                                        "name": "PointTangents",
+                                                                        "pos": {
+                                                                            "start": 13058,
+                                                                            "end": 13071,
+                                                                            "loc": {
+                                                                                "start": {
+                                                                                    "line": 427,
+                                                                                    "column": 20
+                                                                                },
+                                                                                "end": {
+                                                                                    "line": 427,
+                                                                                    "column": 33
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "arguments": [
+                                                                        {
+                                                                            "type": "ThisExpression",
+                                                                            "start": 13072,
+                                                                            "end": 13076,
+                                                                            "loc": {
+                                                                                "start": {
+                                                                                    "line": 427,
+                                                                                    "column": 34
+                                                                                },
+                                                                                "end": {
+                                                                                    "line": 427,
+                                                                                    "column": 38
+                                                                                }
+                                                                            },
+                                                                            "pos": {
+                                                                                "start": 13072,
+                                                                                "end": 13076,
+                                                                                "loc": {
+                                                                                    "start": {
+                                                                                        "line": 427,
+                                                                                        "column": 34
+                                                                                    },
+                                                                                    "end": {
+                                                                                        "line": 427,
+                                                                                        "column": 38
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "pos": {
+                                                                        "start": 13054,
+                                                                        "end": 13077,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 427,
+                                                                                "column": 16
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 427,
+                                                                                "column": 39
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "pos": {
+                                                                    "start": 13050,
+                                                                    "end": 13077,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 427,
+                                                                            "column": 12
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 427,
+                                                                            "column": 39
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "pos": {
+                                                                "start": 13050,
+                                                                "end": 13077,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 427,
+                                                                        "column": 12
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 427,
+                                                                        "column": 39
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "ExpressionStatement",
+                                                            "start": 13091,
+                                                            "end": 13109,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 428,
+                                                                    "column": 12
+                                                                },
+                                                                "end": {
+                                                                    "line": 428,
+                                                                    "column": 30
+                                                                }
+                                                            },
+                                                            "expression": {
+                                                                "type": "AssignmentExpression",
+                                                                "start": 13091,
+                                                                "end": 13109,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 428,
+                                                                        "column": 12
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 428,
+                                                                        "column": 30
+                                                                    }
+                                                                },
+                                                                "operator": "=",
+                                                                "left": {
+                                                                    "type": "MemberExpression",
+                                                                    "start": 13091,
+                                                                    "end": 13105,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 428,
+                                                                            "column": 12
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 428,
+                                                                            "column": 26
+                                                                        }
+                                                                    },
+                                                                    "object": {
+                                                                        "type": "ThisExpression",
+                                                                        "start": 13091,
+                                                                        "end": 13095,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 428,
+                                                                                "column": 12
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 428,
+                                                                                "column": 16
+                                                                            }
+                                                                        },
+                                                                        "pos": {
+                                                                            "start": 13091,
+                                                                            "end": 13095,
+                                                                            "loc": {
+                                                                                "start": {
+                                                                                    "line": 428,
+                                                                                    "column": 12
+                                                                                },
+                                                                                "end": {
+                                                                                    "line": 428,
+                                                                                    "column": 16
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "property": {
+                                                                        "type": "Identifier",
+                                                                        "start": 13096,
+                                                                        "end": 13105,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 428,
+                                                                                "column": 17
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 428,
+                                                                                "column": 26
+                                                                            }
+                                                                        },
+                                                                        "name": "_tangents",
+                                                                        "pos": {
+                                                                            "start": 13096,
+                                                                            "end": 13105,
+                                                                            "loc": {
+                                                                                "start": {
+                                                                                    "line": 428,
+                                                                                    "column": 17
+                                                                                },
+                                                                                "end": {
+                                                                                    "line": 428,
+                                                                                    "column": 26
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "computed": false,
+                                                                    "optional": false,
+                                                                    "pos": {
+                                                                        "start": 13091,
+                                                                        "end": 13105,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 428,
+                                                                                "column": 12
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 428,
+                                                                                "column": 26
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "right": {
+                                                                    "type": "Identifier",
+                                                                    "start": 13108,
+                                                                    "end": 13109,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 428,
+                                                                            "column": 29
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 428,
+                                                                            "column": 30
+                                                                        }
+                                                                    },
+                                                                    "name": "r",
+                                                                    "pos": {
+                                                                        "start": 13108,
+                                                                        "end": 13109,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 428,
+                                                                                "column": 29
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 428,
+                                                                                "column": 30
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "pos": {
+                                                                    "start": 13091,
+                                                                    "end": 13109,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 428,
+                                                                            "column": 12
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 428,
+                                                                            "column": 30
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "pos": {
+                                                                "start": 13091,
+                                                                "end": 13109,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 428,
+                                                                        "column": 12
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 428,
+                                                                        "column": 30
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "pos": {
+                                                        "start": 13035,
+                                                        "end": 13120,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 426,
+                                                                "column": 27
+                                                            },
+                                                            "end": {
+                                                                "line": 429,
+                                                                "column": 9
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "alternate": null,
+                                                "pos": {
+                                                    "start": 13016,
+                                                    "end": 13120,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 426,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 429,
+                                                            "column": 9
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "ReturnStatement",
+                                                "start": 13130,
+                                                "end": 13138,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 430,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 430,
+                                                        "column": 16
+                                                    }
+                                                },
+                                                "argument": {
+                                                    "type": "Identifier",
+                                                    "start": 13137,
+                                                    "end": 13138,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 430,
+                                                            "column": 15
+                                                        },
+                                                        "end": {
+                                                            "line": 430,
+                                                            "column": 16
+                                                        }
+                                                    },
+                                                    "name": "r",
+                                                    "pos": {
+                                                        "start": 13137,
+                                                        "end": 13138,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 430,
+                                                                "column": 15
+                                                            },
+                                                            "end": {
+                                                                "line": 430,
+                                                                "column": 16
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 13130,
+                                                    "end": 13138,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 430,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 430,
+                                                            "column": 16
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 12973,
+                                            "end": 13145,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 424,
+                                                    "column": 14
+                                                },
+                                                "end": {
+                                                    "line": 431,
+                                                    "column": 5
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 12970,
+                                        "end": 13145,
+                                        "loc": {
+                                            "start": {
+                                                "line": 424,
+                                                "column": 11
+                                            },
+                                            "end": {
+                                                "line": 431,
+                                                "column": 5
+                                            }
+                                        }
+                                    }
+                                },
+                                "kind": "init",
+                                "pos": {
+                                    "start": 12963,
+                                    "end": 13145,
+                                    "loc": {
+                                        "start": {
+                                            "line": 424,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 431,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "pos": {
+                            "start": 12956,
+                            "end": 13148,
+                            "loc": {
+                                "start": {
+                                    "line": 423,
+                                    "column": 33
+                                },
+                                "end": {
+                                    "line": 432,
+                                    "column": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 12923,
+                    "end": 13149,
+                    "loc": {
+                        "start": {
+                            "line": 423,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 432,
+                            "column": 2
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 12923,
+                "end": 13149,
+                "loc": {
+                    "start": {
+                        "line": 423,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 432,
+                        "column": 2
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "VariableDeclaration",
+        "FunctionDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "tangents.js",
+        "path": "/workspaces/polypoint/point_src/tangents.js",
+        "size": 13151,
+        "parsed_date": "2025-11-02T21:11:41.544Z"
+    }
+}

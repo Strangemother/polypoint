@@ -1,0 +1,194 @@
+{
+    "src_file": "zoom.js",
+    "references": {
+        "classes": {
+            "Zoom": {
+                "class_name": "Zoom",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Zoom",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "points",
+                                "default_value": "[]"
+                            },
+                            {
+                                "name": "factor",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "center",
+                                "default_value": "{x: 0, y: 0}"
+                            },
+                            {
+                                "name": "lens",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 25
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "Zoom",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points",
+                                "is_rest": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 34
+                    },
+                    {
+                        "method_name": "update3",
+                        "class_name": "Zoom",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "center"
+                            },
+                            {
+                                "name": "factor"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Lensed zoom: farther points move disproportionately more.",
+                                    "block": false,
+                                    "line": 39
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 38
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "Zoom",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "center"
+                            },
+                            {
+                                "name": "factor"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " move and scale all items relative to the factor and center.",
+                                    "block": false,
+                                    "line": 83
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 82
+                    },
+                    {
+                        "method_name": "update2",
+                        "class_name": "Zoom",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "center"
+                            },
+                            {
+                                "name": "factor"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Lensed zoom: farther points move disproportionately more.",
+                                    "block": false,
+                                    "line": 109
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 108
+                    },
+                    {
+                        "method_name": "zoomPoints",
+                        "class_name": "Zoom",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 153
+                    },
+                    {
+                        "method_name": "getZoomPoints",
+                        "class_name": "Zoom",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 161
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Lensed zoom: farther points move disproportionately more.",
+                            "block": false,
+                            "line": 39
+                        }
+                    ]
+                },
+                "line": 24
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "zoom.js",
+        "path": "/workspaces/polypoint/point_src/zoom.js",
+        "size": 5980,
+        "parsed_date": "2025-11-02T21:11:42.715Z"
+    }
+}

@@ -1,0 +1,291 @@
+{
+    "src_file": "distances.js",
+    "references": {
+        "classes": {
+            "Distances": {
+                "class_name": "Distances",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Distances",
+                        "kind": "constructor",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 17
+                    },
+                    {
+                        "method_name": "addPoints",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 21
+                    },
+                    {
+                        "method_name": "removePoints",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 34
+                    },
+                    {
+                        "method_name": "setPoints",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 43
+                    },
+                    {
+                        "method_name": "closest",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "maxDistance"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return the closest point to the given point, for example the nearest\r\n        point to the mouse.\r\n\r\n        Return the most near point at any distance:\r\n\r\n            > distances.closest(mouse.position)\r\n            point\r\n\r\n        Return the most near point, also within 100px radius distance:\r\n\r\n            > distances.closest(mouse.position, 100)\r\n\r\n        Of which is the same as:\r\n\r\n            // within 100px of the mouse position\r\n            > distances.within(100, mouse.position)\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 66
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 48
+                    },
+                    {
+                        "method_name": "intersect",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "padding"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "\r\n        Check if a point _intersects_ another point, returning the interecting\r\n        top point.\r\n\r\n            > intersect(mouse)\r\n            point  // a point under the mouse.\r\n\r\n        To _pad_ the overlap distance, provide an addition padding value:\r\n\r\n            > intersect(mouse, 10) // add 10px around the perimeter\r\n            point\r\n\r\n        Useful if the intersection point has a radius:\r\n\r\n            > intersect(mouse, mouse.radius) // add 10px around the perimeter\r\n\r\n        This is the same as calling `closest()`, with the second arg as a function\r\n        for radius testing.\r\n     ",
+                                    "block": true,
+                                    "line": 116
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 117
+                    },
+                    {
+                        "method_name": "within",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "maxDistance"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Return a point within the max distance set\r\n\r\n        // return the closest point within 100px (radius) from the mouse position\r\n        > distances.within(100, this.mouse.position)\r\n        point\r\n\r\n    For a _list_ of points, use `near`.\r\n\r\n        near(point, distance=point.radius)\r\n        [point, ...]\r\n\r\n    ",
+                                    "block": true,
+                                    "line": 132
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " Each distance is tested against the curent _low_.\r\n        If the distance `v` is less than `low`, store `p`.\r\n\r\n        In the first iteration, `setterFunc`, does not do a test, and replaces\r\n        _itself_, with a testing function.\r\n\r\n        This ensures we don't need to check for the first `undefined` .\r\n        ",
+                                    "block": true,
+                                    "line": 148
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 133
+                    },
+                    {
+                        "method_name": "near",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "distance"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Return a list of points near the the given point at a given distance.",
+                                    "block": true,
+                                    "line": 170
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " if(distance == undefined) {",
+                                    "block": false,
+                                    "line": 173
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 171
+                    },
+                    {
+                        "method_name": "each",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "caller"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 189
+                    },
+                    {
+                        "method_name": "keep",
+                        "class_name": "Distances",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "caller"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 193
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\nTrack the distances between given points.\r\n\r\n    const d = new Distances;\r\n    d.addPoints(...points);\r\n\r\n    const near = d.closest(Point.mouse.position)\r\n\r\n---\r\n\r\n{% load content %}\r\n<pre>{% code_content \"events/mypoint-stage.js\" %}</pre>\r\n\r\n",
+                            "block": true,
+                            "line": 14
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " Return the closest point to the given point, for example the nearest\r\n        point to the mouse.\r\n\r\n        Return the most near point at any distance:\r\n\r\n            > distances.closest(mouse.position)\r\n            point\r\n\r\n        Return the most near point, also within 100px radius distance:\r\n\r\n            > distances.closest(mouse.position, 100)\r\n\r\n        Of which is the same as:\r\n\r\n            // within 100px of the mouse position\r\n            > distances.within(100, mouse.position)\r\n\r\n        ",
+                            "block": true,
+                            "line": 66
+                        }
+                    ]
+                },
+                "line": 15
+            }
+        },
+        "functions": [
+            {
+                "name": "distance",
+                "kind": "function",
+                "type": "function",
+                "line": 249,
+                "params": [
+                    {
+                        "name": "xy1"
+                    },
+                    {
+                        "name": "xy2"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "distance2D",
+                "kind": "function",
+                "type": "function",
+                "line": 254,
+                "params": [
+                    {
+                        "name": "xy1"
+                    },
+                    {
+                        "name": "xy2"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "distances.js",
+        "path": "/workspaces/polypoint/point_src/distances.js",
+        "size": 7428,
+        "parsed_date": "2025-11-02T21:11:34.448Z"
+    }
+}

@@ -1,0 +1,817 @@
+{
+    "defs": [
+        {
+            "word": "twoPointBox",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "func"
+                    }
+                ],
+                "pos": {
+                    "start": 20,
+                    "end": 598,
+                    "loc": {
+                        "start": {
+                            "line": 1,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 23,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Given two points, return 4 lines\r\n\r\n        let lines = twoPointBox(this.squishA, this.squishB)\r\n        lines.forEach(l=>l.render(ctx))\r\n    ",
+                        "block": true,
+                        "line": 6
+                    }
+                ]
+            },
+            "pos": {
+                "start": 0,
+                "end": 598,
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 23,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 0,
+            "end": 598,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 23,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "disorderdTwoPointsAsRect",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    }
+                ],
+                "pos": {
+                    "start": 637,
+                    "end": 945,
+                    "loc": {
+                        "start": {
+                            "line": 26,
+                            "column": 33
+                        },
+                        "end": {
+                            "line": 38,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " x top",
+                        "block": false,
+                        "line": 29
+                    }
+                ]
+            },
+            "pos": {
+                "start": 604,
+                "end": 945,
+                "loc": {
+                    "start": {
+                        "line": 26,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 38,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 604,
+            "end": 945,
+            "loc": {
+                "start": {
+                    "line": 26,
+                    "column": 0
+                },
+                "end": {
+                    "line": 38,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "twoPointsAsRectOrdered",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    }
+                ],
+                "pos": {
+                    "start": 982,
+                    "end": 1385,
+                    "loc": {
+                        "start": {
+                            "line": 41,
+                            "column": 31
+                        },
+                        "end": {
+                            "line": 53,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Bottom-left corner",
+                        "block": false,
+                        "line": 48
+                    }
+                ]
+            },
+            "pos": {
+                "start": 951,
+                "end": 1385,
+                "loc": {
+                    "start": {
+                        "line": 41,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 53,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 951,
+            "end": 1385,
+            "loc": {
+                "start": {
+                    "line": 41,
+                    "column": 0
+                },
+                "end": {
+                    "line": 53,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "class",
+            "word": "RectTools",
+            "parentName": "DOMRect",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "method",
+                    "word": "has",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1906,
+                            "end": 2078,
+                            "loc": {
+                                "start": {
+                                    "line": 83,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 90,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": "A Shape to assist with within/outside",
+                                "block": true,
+                                "line": 82
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1903,
+                        "end": 2078,
+                        "loc": {
+                            "start": {
+                                "line": 83,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 90,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "contains",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 2094,
+                            "end": 2271,
+                            "loc": {
+                                "start": {
+                                    "line": 92,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 99,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2086,
+                        "end": 2271,
+                        "loc": {
+                            "start": {
+                                "line": 92,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 99,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "hasPoint",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "testRadius",
+                                "default_value": false
+                            }
+                        ],
+                        "pos": {
+                            "start": 2287,
+                            "end": 2367,
+                            "loc": {
+                                "start": {
+                                    "line": 101,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 103,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2279,
+                        "end": 2367,
+                        "loc": {
+                            "start": {
+                                "line": 101,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 103,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "containsPoint",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "testRadius",
+                                "default_value": true
+                            }
+                        ],
+                        "pos": {
+                            "start": 2388,
+                            "end": 2898,
+                            "loc": {
+                                "start": {
+                                    "line": 105,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 124,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " debugger;",
+                                "block": false,
+                                "line": 107
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2375,
+                        "end": 2898,
+                        "loc": {
+                            "start": {
+                                "line": 105,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 124,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "touchingPoint",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "r"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2919,
+                            "end": 3734,
+                            "loc": {
+                                "start": {
+                                    "line": 126,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 152,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " const r = p.radius",
+                                "block": false,
+                                "line": 127
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2906,
+                        "end": 3734,
+                        "loc": {
+                            "start": {
+                                "line": 126,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 152,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [
+                    {
+                        "text": " y: 0",
+                        "block": false,
+                        "line": 80
+                    }
+                ],
+                "inner": [
+                    {
+                        "text": "A Shape to assist with within/outside",
+                        "block": true,
+                        "line": 82
+                    }
+                ]
+            },
+            "pos": {
+                "start": 1817,
+                "end": 3737,
+                "loc": {
+                    "start": {
+                        "line": 81,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 153,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "word": "hasIntersection",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "ArrowFunctionExpression",
+                "expression": false,
+                "async": false,
+                "params": [],
+                "pos": {
+                    "start": 3769,
+                    "end": 4637,
+                    "loc": {
+                        "start": {
+                            "line": 157,
+                            "column": 24
+                        },
+                        "end": {
+                            "line": 190,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " bodmas",
+                        "block": false,
+                        "line": 160
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3745,
+                "end": 4638,
+                "loc": {
+                    "start": {
+                        "line": 157,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 190,
+                        "column": 2
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 3745,
+            "end": 4638,
+            "loc": {
+                "start": {
+                    "line": 157,
+                    "column": 0
+                },
+                "end": {
+                    "line": 190,
+                    "column": 2
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "intersect",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "c"
+                    },
+                    {
+                        "name": "r"
+                    }
+                ],
+                "pos": {
+                    "start": 4664,
+                    "end": 5353,
+                    "loc": {
+                        "start": {
+                            "line": 194,
+                            "column": 18
+                        },
+                        "end": {
+                            "line": 213,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4646,
+                "end": 5353,
+                "loc": {
+                    "start": {
+                        "line": 194,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 213,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4646,
+            "end": 5353,
+            "loc": {
+                "start": {
+                    "line": 194,
+                    "column": 0
+                },
+                "end": {
+                    "line": 213,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "intersects",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "circle"
+                    },
+                    {
+                        "name": "rect"
+                    }
+                ],
+                "pos": {
+                    "start": 5378,
+                    "end": 6159,
+                    "loc": {
+                        "start": {
+                            "line": 216,
+                            "column": 19
+                        },
+                        "end": {
+                            "line": 236,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " circleDistance.x = Math.abs(circle.x - rect.x);",
+                        "block": false,
+                        "line": 220
+                    }
+                ]
+            },
+            "pos": {
+                "start": 5359,
+                "end": 6159,
+                "loc": {
+                    "start": {
+                        "line": 216,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 236,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 5359,
+            "end": 6159,
+            "loc": {
+                "start": {
+                    "line": 216,
+                    "column": 0
+                },
+                "end": {
+                    "line": 236,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "testRect",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [],
+                "pos": {
+                    "start": 6184,
+                    "end": 7015,
+                    "loc": {
+                        "start": {
+                            "line": 240,
+                            "column": 17
+                        },
+                        "end": {
+                            "line": 266,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " r.containsPoint(new Point(20, 30)) == true",
+                        "block": false,
+                        "line": 243
+                    }
+                ]
+            },
+            "pos": {
+                "start": 6167,
+                "end": 7015,
+                "loc": {
+                    "start": {
+                        "line": 240,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 266,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 6167,
+            "end": 7015,
+            "loc": {
+                "start": {
+                    "line": 240,
+                    "column": 0
+                },
+                "end": {
+                    "line": 266,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "ClassDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration"
+    ],
+    "info": {
+        "filename": "recttools.js",
+        "path": "/workspaces/polypoint/point_src/recttools.js",
+        "size": 7015,
+        "parsed_date": "2025-11-02T21:11:39.114Z"
+    }
+}

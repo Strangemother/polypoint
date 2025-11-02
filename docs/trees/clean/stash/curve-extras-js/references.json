@@ -1,0 +1,1412 @@
+{
+    "src_file": "curve-extras.js",
+    "references": {
+        "classes": {
+            "Line": {
+                "class_name": "Line",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Line",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "p1"
+                            },
+                            {
+                                "name": "p2"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "red"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " new Line([90, 130], [200, 300], 420)",
+                                    "block": false,
+                                    "line": 36
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 35
+                    },
+                    {
+                        "method_name": "[computed_Literal]",
+                        "class_name": "Line",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": true,
+                        "line": 40
+                    },
+                    {
+                        "method_name": "[computed_Literal]",
+                        "class_name": "Line",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": true,
+                        "line": 44
+                    },
+                    {
+                        "method_name": "last",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 48
+                    },
+                    {
+                        "method_name": "first",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 52
+                    },
+                    {
+                        "method_name": "length",
+                        "class_name": "Line",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 56
+                    },
+                    {
+                        "method_name": "points",
+                        "class_name": "Line",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 60
+                    },
+                    {
+                        "method_name": "create",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p1"
+                            },
+                            {
+                                "name": "p2"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "red"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 64
+                    },
+                    {
+                        "method_name": "render",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "conf",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 71
+                    },
+                    {
+                        "method_name": "start",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "draw",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 83
+                    },
+                    {
+                        "method_name": "performDrawTips",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 103
+                    },
+                    {
+                        "method_name": "performTipA",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Apply a tip at point A, (the first position).\r\n\r\n    The Tip is a point, with some styling with an ngon.\r\n    ",
+                                    "block": true,
+                                    "line": 111
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 112
+                    },
+                    {
+                        "method_name": "writeLineTip",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tip"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 123
+                    },
+                    {
+                        "method_name": "drawPolyTipA",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Rotate this _end point_ to look directly at, then perform a 180,\r\n        allowing Polypoint to offset the calculation ",
+                                    "block": true,
+                                    "line": 138
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 134
+                    },
+                    {
+                        "method_name": "_ctx_fill",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Make a fancy Fill thing.",
+                                    "block": false,
+                                    "line": 158
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 157
+                    },
+                    {
+                        "method_name": "drawLineTipA",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 163
+                    },
+                    {
+                        "method_name": "performTipB",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 172
+                    },
+                    {
+                        "method_name": "drawPolyTipB",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " || this.b)",
+                                    "block": false,
+                                    "line": 184
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 183
+                    },
+                    {
+                        "method_name": "drawLineTipB",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Look at the target point. ",
+                                    "block": true,
+                                    "line": 227
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 223
+                    },
+                    {
+                        "method_name": "writeLine",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 235
+                    },
+                    {
+                        "method_name": "perform",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 239
+                    },
+                    {
+                        "method_name": "close",
+                        "class_name": "Line",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 244
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " new Line([90, 130], [200, 300], 420)",
+                            "block": false,
+                            "line": 36
+                        }
+                    ]
+                },
+                "line": 30
+            },
+            "BezierCurve": {
+                "class_name": "BezierCurve",
+                "inherits": "Line",
+                "methods": [
+                    {
+                        "method_name": "getControlPoints",
+                        "class_name": "BezierCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "useCache"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let midDistance = a.distanceTo(b)*.5",
+                                    "block": false,
+                                    "line": 267
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 257
+                    },
+                    {
+                        "method_name": "points",
+                        "class_name": "BezierCurve",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 284
+                    },
+                    {
+                        "method_name": "drawLineTipA",
+                        "class_name": "BezierCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let target = this.b.copy()",
+                                    "block": false,
+                                    "line": 293
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 289
+                    },
+                    {
+                        "method_name": "drawPolyTipA",
+                        "class_name": "BezierCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Rotate this _end point_ to look directly at, then perform a 180,\r\n        allowing Polypoint to offset the calculation ",
+                                    "block": true,
+                                    "line": 302
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 298
+                    },
+                    {
+                        "method_name": "drawLineTipB",
+                        "class_name": "BezierCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let tail = s.copy()",
+                                    "block": false,
+                                    "line": 324
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 321
+                    },
+                    {
+                        "method_name": "drawPolyTipB",
+                        "class_name": "BezierCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " it's likely the original point, therefore we ensure it's new. ",
+                                    "block": true,
+                                    "line": 334
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 333
+                    },
+                    {
+                        "method_name": "perform",
+                        "class_name": "BezierCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo",
+                                    "block": false,
+                                    "line": 368
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 365
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " create(p1, p2, color='red', width=1) {",
+                            "block": false,
+                            "line": 254
+                        }
+                    ]
+                },
+                "line": 252
+            },
+            "QuadraticCurve": {
+                "class_name": "QuadraticCurve",
+                "inherits": "Line",
+                "methods": [
+                    {
+                        "method_name": "getControlPoints",
+                        "class_name": "QuadraticCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "useCache"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let midDistance = a.distanceTo(b)*.5",
+                                    "block": false,
+                                    "line": 389
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 379
+                    },
+                    {
+                        "method_name": "points",
+                        "class_name": "QuadraticCurve",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 402
+                    },
+                    {
+                        "method_name": "perform",
+                        "class_name": "QuadraticCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " https://developer.mozilla.org/",
+                                    "block": false,
+                                    "line": 409
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 406
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " A Quad line control point is A.project() ",
+                            "block": true,
+                            "line": 377
+                        }
+                    ]
+                },
+                "line": 376
+            },
+            "CantenaryCurve": {
+                "class_name": "CantenaryCurve",
+                "inherits": "Line",
+                "methods": [
+                    {
+                        "method_name": "create",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "length",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "red"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Length elasticity when oscillating ",
+                                    "block": true,
+                                    "line": 435
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 432
+                    },
+                    {
+                        "method_name": "points",
+                        "class_name": "CantenaryCurve",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 439
+                    },
+                    {
+                        "method_name": "length",
+                        "class_name": "CantenaryCurve",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 443
+                    },
+                    {
+                        "method_name": "restart",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 447
+                    },
+                    {
+                        "method_name": "restLength",
+                        "class_name": "CantenaryCurve",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 453
+                    },
+                    {
+                        "method_name": "stretchMultiplier",
+                        "class_name": "CantenaryCurve",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 459
+                    },
+                    {
+                        "method_name": "getCurveLength",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 463
+                    },
+                    {
+                        "method_name": "getControlPoints",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 471
+                    },
+                    {
+                        "method_name": "getCachedCurve",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 475
+                    },
+                    {
+                        "method_name": "draw",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 486
+                    },
+                    {
+                        "method_name": "perform",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " cpx",
+                                    "block": false,
+                                    "line": 514
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 497
+                    },
+                    {
+                        "method_name": "performTipB",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.writeLineTipB(ctx, res)",
+                                    "block": false,
+                                    "line": 536
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 529
+                    },
+                    {
+                        "method_name": "drawLineTipB",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " First we grab the cached _curve_ of this line instance. ",
+                                    "block": true,
+                                    "line": 542
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 540
+                    },
+                    {
+                        "method_name": "writeLineTipB",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tip"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 556
+                    },
+                    {
+                        "method_name": "drawTipA",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 577
+                    },
+                    {
+                        "method_name": "drawPolyTipA",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " First we grab the cached _curve_ of this line instance. ",
+                                    "block": true,
+                                    "line": 581
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 580
+                    },
+                    {
+                        "method_name": "drawLineTipA",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " First we grab the cached _curve_ of this line instance. ",
+                                    "block": true,
+                                    "line": 613
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 611
+                    },
+                    {
+                        "method_name": "drawTipB",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return this.drawPolyTipB(ctx, result, position)",
+                                    "block": false,
+                                    "line": 628
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 626
+                    },
+                    {
+                        "method_name": "drawPolyTipB",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " || this.b)",
+                                    "block": false,
+                                    "line": 632
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 631
+                    },
+                    {
+                        "method_name": "writeLineTip",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tip"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 673
+                    },
+                    {
+                        "method_name": "writePolyTipB",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Make a fancy Fill thing.",
+                                    "block": false,
+                                    "line": 686
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 685
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tick"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 691
+                    },
+                    {
+                        "method_name": "updateSwing",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tick"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " How much _left and right_ can the line swing. ",
+                                    "block": true,
+                                    "line": 710
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 707
+                    },
+                    {
+                        "method_name": "clear",
+                        "class_name": "CantenaryCurve",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 736
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " When sine bouncing, reduce over time to stop the motion.\r\n    0 would turn of motion, 1 would bounce forever very quickly.",
+                            "block": true,
+                            "line": 427
+                        }
+                    ]
+                },
+                "line": 419
+            },
+            "CatenaryCurve": {
+                "class_name": "CatenaryCurve",
+                "inherits": "CantenaryCurve",
+                "methods": [],
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "line": 743
+            }
+        },
+        "functions": [
+            {
+                "name": "saveRestoreDraw",
+                "kind": "const",
+                "line": 4,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " moved to functions/context.js",
+                            "block": false,
+                            "line": 3
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": "\r\n        + `save()` the context\r\n        + translate and rotate to `position``\r\n        + run the function\r\n        + Restore.\r\n     ",
+                            "block": true,
+                            "line": 10
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "position"
+                    },
+                    {
+                        "name": "callback"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "curve-extras.js",
+        "path": "/workspaces/polypoint/point_src/curve-extras.js",
+        "size": 20054,
+        "parsed_date": "2025-11-02T21:11:33.968Z"
+    }
+}

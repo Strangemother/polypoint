@@ -1,0 +1,366 @@
+{
+    "defs": [
+        {
+            "kind": "function",
+            "word": "bisectAll",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "items"
+                },
+                {
+                    "name": "direction",
+                    "default_value": "obtuse"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 245,
+                "end": 254,
+                "loc": {
+                    "start": {
+                        "line": 7,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 7,
+                        "column": 18
+                    }
+                },
+                "name": "bisectAll",
+                "pos": {
+                    "start": 245,
+                    "end": 254,
+                    "loc": {
+                        "start": {
+                            "line": 7,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 18
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 236,
+                "end": 801,
+                "loc": {
+                    "start": {
+                        "line": 7,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 25,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "obtuseBisect",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "pointA"
+                },
+                {
+                    "name": "midPoint"
+                },
+                {
+                    "name": "pointC"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 923,
+                "end": 935,
+                "loc": {
+                    "start": {
+                        "line": 30,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 30,
+                        "column": 21
+                    }
+                },
+                "name": "obtuseBisect",
+                "pos": {
+                    "start": 923,
+                    "end": 935,
+                    "loc": {
+                        "start": {
+                            "line": 30,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 30,
+                            "column": 21
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 914,
+                "end": 1118,
+                "loc": {
+                    "start": {
+                        "line": 30,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 34,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "acuteBisect",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "pointA"
+                },
+                {
+                    "name": "midPoint"
+                },
+                {
+                    "name": "pointC"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1133,
+                "end": 1144,
+                "loc": {
+                    "start": {
+                        "line": 37,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 37,
+                        "column": 20
+                    }
+                },
+                "name": "acuteBisect",
+                "pos": {
+                    "start": 1133,
+                    "end": 1144,
+                    "loc": {
+                        "start": {
+                            "line": 37,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 37,
+                            "column": 20
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1124,
+                "end": 1513,
+                "loc": {
+                    "start": {
+                        "line": 37,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 45,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "calculateBisector",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "pointA"
+                },
+                {
+                    "name": "midPoint"
+                },
+                {
+                    "name": "pointC"
+                },
+                {
+                    "name": "normalized",
+                    "default_value": false
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1528,
+                "end": 1545,
+                "loc": {
+                    "start": {
+                        "line": 48,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 48,
+                        "column": 26
+                    }
+                },
+                "name": "calculateBisector",
+                "pos": {
+                    "start": 1528,
+                    "end": 1545,
+                    "loc": {
+                        "start": {
+                            "line": 48,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 48,
+                            "column": 26
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1519,
+                "end": 2171,
+                "loc": {
+                    "start": {
+                        "line": 48,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 64,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "rawCalculateBisector",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "pointA"
+                },
+                {
+                    "name": "pointB"
+                },
+                {
+                    "name": "pointC"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 2186,
+                "end": 2206,
+                "loc": {
+                    "start": {
+                        "line": 67,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 67,
+                        "column": 29
+                    }
+                },
+                "name": "rawCalculateBisector",
+                "pos": {
+                    "start": 2186,
+                    "end": 2206,
+                    "loc": {
+                        "start": {
+                            "line": 67,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 67,
+                            "column": 29
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 2177,
+                "end": 3532,
+                "loc": {
+                    "start": {
+                        "line": 67,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 101,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "class",
+            "word": "PointBisect",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Bisect tools for a single point ",
+                        "block": true,
+                        "line": 105
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3538,
+                "end": 3605,
+                "loc": {
+                    "start": {
+                        "line": 104,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 107,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "bisector.js",
+        "path": "/workspaces/polypoint/point_src/bisector.js",
+        "size": 3605,
+        "parsed_date": "2025-11-02T21:11:32.603Z"
+    }
+}

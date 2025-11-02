@@ -1,0 +1,253 @@
+{
+    "src_file": "rope.js",
+    "references": {
+        "classes": {
+            "RopeReactor": {
+                "class_name": "RopeReactor",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "RopeReactor",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "pins",
+                                "default_value": "{}"
+                            },
+                            {
+                                "name": "dynamicPins",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 11
+                    },
+                    {
+                        "method_name": "getPinIndicies",
+                        "class_name": "RopeReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 16
+                    },
+                    {
+                        "method_name": "applyPhysics",
+                        "class_name": "RopeReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "gravity"
+                            },
+                            {
+                                "name": "pinnedIndices"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 22
+                    },
+                    {
+                        "method_name": "applyPhysics2",
+                        "class_name": "RopeReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "gravity2D"
+                            },
+                            {
+                                "name": "pinnedIndices"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 47
+                    },
+                    {
+                        "method_name": "solveConstraints1",
+                        "class_name": "RopeReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "segmentLength"
+                            },
+                            {
+                                "name": "iterations",
+                                "default_value": 5
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 60
+                    },
+                    {
+                        "method_name": "solveConstraints2",
+                        "class_name": "RopeReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "segmentLength"
+                            },
+                            {
+                                "name": "iterations",
+                                "default_value": 5
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " 0: this.mouse.point",
+                                    "block": false,
+                                    "line": 89
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 85
+                    },
+                    {
+                        "method_name": "pin",
+                        "class_name": "RopeReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "index"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " pin an internal index item, to the XY given.\r\n        ",
+                                    "block": true,
+                                    "line": 131
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 129
+                    },
+                    {
+                        "method_name": "getPins",
+                        "class_name": "RopeReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 139
+                    },
+                    {
+                        "method_name": "solveConstraints3",
+                        "class_name": "RopeReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "segmentLength"
+                            },
+                            {
+                                "name": "iterations",
+                                "default_value": 5
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " prevent NaN",
+                                    "block": false,
+                                    "line": 160
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 150
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " 0: this.mouse.point",
+                            "block": false,
+                            "line": 89
+                        }
+                    ]
+                },
+                "line": 7
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "rope.js",
+        "path": "/workspaces/polypoint/point_src/rope.js",
+        "size": 6240,
+        "parsed_date": "2025-11-02T21:11:39.488Z"
+    }
+}

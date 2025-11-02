@@ -1,0 +1,210 @@
+{
+    "src_file": "timeit.js",
+    "references": {
+        "classes": {
+            "TimeIt": {
+                "class_name": "TimeIt",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "TimeIt",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "label"
+                            },
+                            {
+                                "name": "startNow",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 23
+                    },
+                    {
+                        "method_name": "stringLabel",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 31
+                    },
+                    {
+                        "method_name": "stamp",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 36
+                    },
+                    {
+                        "method_name": "start",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 40
+                    },
+                    {
+                        "method_name": "stop",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 46
+                    },
+                    {
+                        "method_name": "timeTaken",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 53
+                    },
+                    {
+                        "method_name": "reset",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 67
+                    },
+                    {
+                        "method_name": "value",
+                        "class_name": "TimeIt",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 73
+                    },
+                    {
+                        "method_name": "runningString",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "toString",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 89
+                    },
+                    {
+                        "method_name": "Symbol.toPrimitive",
+                        "class_name": "TimeIt",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "hint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return this.value;",
+                                    "block": false,
+                                    "line": 95
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": true,
+                        "computed": true,
+                        "line": 93
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\n---\r\ntitle: TimeIt Class\r\n---\r\nThe TimeIt entity provides _time taken_ tests for running code.\r\n\r\n    const timeit = new TimeIt('my label')\r\n    timeit.start()\r\n    // ... insert delay ...\r\n    timeit.stop()\r\n    timeit.timeTaken()\r\n    // TimeIt(\"my label\") complete 100ms\r\n\r\nThis can be reduced to two statements, by assigning a `startNow` bool\r\nto the constructor:\r\n\r\n    const timeit = new TimeIt('my label', true)\r\n    console.log(timeit.stop().toString())\r\n    // TimeIt(\"my label\") complete 2002ms\r\n\r\n ",
+                            "block": true,
+                            "line": 21
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " return this.value;",
+                            "block": false,
+                            "line": 95
+                        }
+                    ]
+                },
+                "line": 22
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "timeit.js",
+        "path": "/workspaces/polypoint/point_src/timeit.js",
+        "size": 2349,
+        "parsed_date": "2025-11-02T21:11:41.922Z"
+    }
+}

@@ -1,0 +1,447 @@
+{
+    "src_file": "emitter.js",
+    "references": {
+        "classes": {
+            "Emitter": {
+                "class_name": "Emitter",
+                "inherits": "Point",
+                "methods": [
+                    {
+                        "method_name": "wake",
+                        "class_name": "Emitter",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.direction = new Point(this.direction)",
+                                    "block": false,
+                                    "line": 55
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 53
+                    },
+                    {
+                        "method_name": "getDirection",
+                        "class_name": "Emitter",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 58
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "Emitter",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " perform a tick for every interval, creating points, and pushing\r\n        existing points ",
+                                    "block": true,
+                                    "line": 65
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 63
+                    },
+                    {
+                        "method_name": "cycle",
+                        "class_name": "Emitter",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Perform a task of one step, involving birthing, and killing\r\n        points, selecting and rotation lerp points.",
+                                    "block": true,
+                                    "line": 82
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 80
+                    },
+                    {
+                        "method_name": "pump",
+                        "class_name": "Emitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "birthIndex"
+                            },
+                            {
+                                "name": "birthrate"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 102
+                    },
+                    {
+                        "method_name": "newPoint",
+                        "class_name": "Emitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "birthPartial"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return a _ready to go_ point, using the local attributes\r\n        as a template to produce the new point.\r\n\r\n        This should include speed and any variants. ",
+                                    "block": true,
+                                    "line": 109
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 105
+                    },
+                    {
+                        "method_name": "offsetSpawnedPoint",
+                        "class_name": "Emitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " debugger",
+                                    "block": false,
+                                    "line": 141
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 139
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Every step performs a tick, used as the internal clock for\r\n    generate and stepping ",
+                            "block": true,
+                            "line": 20
+                        }
+                    ]
+                },
+                "line": 17
+            },
+            "LineEmitter": {
+                "class_name": "LineEmitter",
+                "inherits": "Emitter",
+                "methods": [
+                    {
+                        "method_name": "wake",
+                        "class_name": "LineEmitter",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 160
+                    },
+                    {
+                        "method_name": "cachePoints",
+                        "class_name": "LineEmitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "line"
+                            },
+                            {
+                                "name": "divider",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "pointing",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('Cache Points')",
+                                    "block": false,
+                                    "line": 167
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 166
+                    },
+                    {
+                        "method_name": "newPoint",
+                        "class_name": "LineEmitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "birthPartial"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "* (3 * Math.random())",
+                                    "block": false,
+                                    "line": 178
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 172
+                    },
+                    {
+                        "method_name": "getChoice",
+                        "class_name": "LineEmitter",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let choice = (this.index++) % this.positions.length",
+                                    "block": false,
+                                    "line": 202
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 201
+                    },
+                    {
+                        "method_name": "pump",
+                        "class_name": "LineEmitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "birthIndex"
+                            },
+                            {
+                                "name": "birthrate"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let FORWARD = this.direction",
+                                    "block": false,
+                                    "line": 217
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 210
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " console.log('Cache Points')",
+                            "block": false,
+                            "line": 167
+                        }
+                    ]
+                },
+                "line": 150
+            },
+            "RandomPointEmitter": {
+                "class_name": "RandomPointEmitter",
+                "inherits": "Emitter",
+                "methods": [
+                    {
+                        "method_name": "pump",
+                        "class_name": "RandomPointEmitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "birthIndex"
+                            },
+                            {
+                                "name": "birthrate"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 251
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Per birth, how much should the radius vary for each point.\r\n    from the minSize to the max (point radius) ",
+                            "block": true,
+                            "line": 244
+                        }
+                    ]
+                },
+                "line": 241
+            },
+            "PumpRandomPointEmitter": {
+                "class_name": "PumpRandomPointEmitter",
+                "inherits": "RandomPointEmitter",
+                "methods": [],
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "line": 261
+            },
+            "DirectionalPointEmitter": {
+                "class_name": "DirectionalPointEmitter",
+                "inherits": "RandomPointEmitter",
+                "methods": [
+                    {
+                        "method_name": "stepDirection",
+                        "class_name": "DirectionalPointEmitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "multplier"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 283
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "DirectionalPointEmitter",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "direction"
+                            },
+                            {
+                                "name": "speedFloat"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.birthrate = vh * .3",
+                                    "block": false,
+                                    "line": 297
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 287
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "  speed = 100",
+                            "block": false,
+                            "line": 278
+                        }
+                    ]
+                },
+                "line": 272
+            },
+            "TrailPointEmitter": {
+                "class_name": "TrailPointEmitter",
+                "inherits": "DirectionalPointEmitter",
+                "methods": [],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " tickModulo = 5",
+                            "block": false,
+                            "line": 310
+                        }
+                    ]
+                },
+                "line": 308
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "emitter.js",
+        "path": "/workspaces/polypoint/point_src/emitter.js",
+        "size": 9126,
+        "parsed_date": "2025-11-02T21:11:34.858Z"
+    }
+}

@@ -1,0 +1,1149 @@
+{
+    "src_file": "dragging.js",
+    "references": {
+        "classes": {
+            "Dragging": {
+                "class_name": "Dragging",
+                "inherits": "Distances",
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Dragging",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 81
+                    },
+                    {
+                        "method_name": "wake",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 89
+                    },
+                    {
+                        "method_name": "initDragging",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": ", {passive: true}",
+                                    "block": true,
+                                    "line": 108
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 95
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 113
+                    },
+                    {
+                        "method_name": "set",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "many"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 117
+                    },
+                    {
+                        "method_name": "onMousedown",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " register point",
+                                    "block": false,
+                                    "line": 122
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 121
+                    },
+                    {
+                        "method_name": "primaryActionDown",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Capture the down event for the primary mouse button (likely button #0)",
+                                    "block": true,
+                                    "line": 128
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 127
+                    },
+                    {
+                        "method_name": "emptyMouseDown",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('Empty click', stage, ev)",
+                                    "block": false,
+                                    "line": 157
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 156
+                    },
+                    {
+                        "method_name": "getPoint",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return the point previously discovered.",
+                                    "block": true,
+                                    "line": 163
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 162
+                    },
+                    {
+                        "method_name": "onMousemove",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " present the possible nearest",
+                                    "block": false,
+                                    "line": 169
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 167
+                    },
+                    {
+                        "method_name": "isRightClickOkay",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 193
+                    },
+                    {
+                        "method_name": "mousedownRotationTool",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.mousedownOrigin.radians = this._near.radians",
+                                    "block": false,
+                                    "line": 201
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 197
+                    },
+                    {
+                        "method_name": "onShiftMouseMoveHandler",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " the point should _spin_ rather than move. ",
+                                    "block": true,
+                                    "line": 206
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 205
+                    },
+                    {
+                        "method_name": "cursorChange",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "found"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " perform cursor magic ",
+                                    "block": true,
+                                    "line": 244
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 241
+                    },
+                    {
+                        "method_name": "_emitCursorHover",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('enable hover')",
+                                    "block": false,
+                                    "line": 264
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 262
+                    },
+                    {
+                        "method_name": "_emitCursorRelease",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('disable hover', id)",
+                                    "block": false,
+                                    "line": 271
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 268
+                    },
+                    {
+                        "method_name": "onMouseup",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('Click Speed =', delta, 'distance', dis, 'is click:', isClick)",
+                                    "block": false,
+                                    "line": 287
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 275
+                    },
+                    {
+                        "method_name": "onWheelInternal",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.onWheel(ev, n)",
+                                    "block": false,
+                                    "line": 322
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 311
+                    },
+                    {
+                        "method_name": "onLongClick",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "delta"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 326
+                    },
+                    {
+                        "method_name": "getDownTimeTaken",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 333
+                    },
+                    {
+                        "method_name": "onContextMenu",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "c"
+                            },
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " mouse.listen(c, 'contextmenu', (c,ev)=> this.onContextMenu(stage,c,ev), {passive: true})",
+                                    "block": false,
+                                    "line": 338
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 337
+                    },
+                    {
+                        "method_name": "dragDistance",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Given the EV with a {x,y}, return the distance from the origin mousedown. ",
+                                    "block": true,
+                                    "line": 358
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 359
+                    },
+                    {
+                        "method_name": "onClickHander",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('That was a click not a drag...')",
+                                    "block": false,
+                                    "line": 369
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 368
+                    },
+                    {
+                        "method_name": "callDoubleHandler",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "x"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Given a function name shared by this instance, and the point,\r\n        call the function with the event and arguments.\r\n\r\n            callDoubleHandler('onClick', ev, point, ...)\r\n\r\n        The function name must exist on this instance, optional on the point.\r\n        ",
+                                    "block": true,
+                                    "line": 385
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 378
+                    },
+                    {
+                        "method_name": "callPointHandler",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "x"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Call the method `name` on the point, with the event, _if_ the\r\n        point contains the method.\r\n\r\n            this.callPointHandler('onMousedown', ev, this._near)\r\n\r\n        Apply any arguments after the _point_ to the event\r\n\r\n            this.callPointHandler('onLongClick', ev, this._near, delta, { apples: 'green'})\r\n        ",
+                                    "block": true,
+                                    "line": 404
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 395
+                    },
+                    {
+                        "method_name": "drawAll",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 412
+                    },
+                    {
+                        "method_name": "drawTwists",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 417
+                    },
+                    {
+                        "method_name": "drawIris",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " The dynamic highlighter. ",
+                                    "block": true,
+                                    "line": 425
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 424
+                    },
+                    {
+                        "method_name": "onWheelEmpty",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 432
+                    },
+                    {
+                        "method_name": "onEmptyDown",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 433
+                    },
+                    {
+                        "method_name": "onClick",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 434
+                    },
+                    {
+                        "method_name": "onDragStart",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 435
+                    },
+                    {
+                        "method_name": "onDragMove",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 436
+                    },
+                    {
+                        "method_name": "onDragEnd",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 437
+                    },
+                    {
+                        "method_name": "onWheel",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 438
+                    },
+                    {
+                        "method_name": "onEdgeStart",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 440
+                    },
+                    {
+                        "method_name": "onEdgeMove",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('onEdgeMove')",
+                                    "block": false,
+                                    "line": 445
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 444
+                    },
+                    {
+                        "method_name": "onEdgeEnd",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 448
+                    },
+                    {
+                        "method_name": "onDragMoveHandler",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 452
+                    },
+                    {
+                        "method_name": "onDragStartHandler",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "p"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.onDragStart(ev, p)",
+                                    "block": false,
+                                    "line": 466
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 464
+                    },
+                    {
+                        "method_name": "onEdgeStartHandler",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 470
+                    },
+                    {
+                        "method_name": "withinBufferZone",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "distancePoint"
+                            },
+                            {
+                                "name": "buffer"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " distance",
+                                    "block": false,
+                                    "line": 477
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 476
+                    },
+                    {
+                        "method_name": "onDragEndHandler",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.onDragEnd(ev)",
+                                    "block": false,
+                                    "line": 485
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 482
+                    },
+                    {
+                        "method_name": "applyXY",
+                        "class_name": "Dragging",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "x"
+                            },
+                            {
+                                "name": "y"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 495
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " click Down<>Up ms delta,",
+                            "block": true,
+                            "line": 71
+                        }
+                    ]
+                },
+                "line": 69
+            },
+            "CursorStack": {
+                "class_name": "CursorStack",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "CursorStack",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.current = 'default'",
+                                    "block": false,
+                                    "line": 509
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 508
+                    },
+                    {
+                        "method_name": "set",
+                        "class_name": "CursorStack",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "parallelUnset"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('set cursor')",
+                                    "block": false,
+                                    "line": 516
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 515
+                    },
+                    {
+                        "method_name": "setMouseIcon",
+                        "class_name": "CursorStack",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "icon"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 529
+                    },
+                    {
+                        "method_name": "unset",
+                        "class_name": "CursorStack",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "uuid"
+                            },
+                            {
+                                "name": "perform",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('unset cursor', uuid)",
+                                    "block": false,
+                                    "line": 534
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 533
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "stash and pop cursor states.\r\n        id = cursor.set(name)\r\n        cursor.unset(id)\r\n    ",
+                            "block": true,
+                            "line": 506
+                        }
+                    ]
+                },
+                "line": 502
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "dragging.js",
+        "path": "/workspaces/polypoint/point_src/dragging.js",
+        "size": 16660,
+        "parsed_date": "2025-11-02T21:11:34.581Z"
+    }
+}

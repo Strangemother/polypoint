@@ -1,0 +1,424 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "XBezierCurve",
+            "parentName": "Line",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "method",
+                    "word": "getControlPoints",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 183,
+                            "end": 542,
+                            "loc": {
+                                "start": {
+                                    "line": 10,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 23,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "A bezier requires two control points ",
+                                "block": true,
+                                "line": 17
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 167,
+                        "end": 542,
+                        "loc": {
+                            "start": {
+                                "line": 10,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 23,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "perform",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 557,
+                            "end": 838,
+                            "loc": {
+                                "start": {
+                                    "line": 25,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 31,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo",
+                                "block": false,
+                                "line": 28
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 550,
+                        "end": 838,
+                        "loc": {
+                            "start": {
+                                "line": 25,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 31,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [
+                    {
+                        "text": " requires line/Line\r\n\r\nReplaced by curve-extrs/BezierCurve ",
+                        "block": true,
+                        "line": 4
+                    }
+                ],
+                "inner": [
+                    {
+                        "text": " create(p1, p2, color='red', width=1) {",
+                        "block": false,
+                        "line": 7
+                    }
+                ]
+            },
+            "pos": {
+                "start": 67,
+                "end": 841,
+                "loc": {
+                    "start": {
+                        "line": 5,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 32,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "CantenaryCurve",
+            "parentName": "Line",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "method",
+                    "word": "create",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "length",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "red"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 896,
+                            "end": 1021,
+                            "loc": {
+                                "start": {
+                                    "line": 37,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 40,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 890,
+                        "end": 1021,
+                        "loc": {
+                            "start": {
+                                "line": 37,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 40,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getCurveLength",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1043,
+                            "end": 1186,
+                            "loc": {
+                                "start": {
+                                    "line": 42,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 48,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1029,
+                        "end": 1186,
+                        "loc": {
+                            "start": {
+                                "line": 42,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 48,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getControlPoints",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1208,
+                            "end": 1350,
+                            "loc": {
+                                "start": {
+                                    "line": 49,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 55,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1192,
+                        "end": 1350,
+                        "loc": {
+                            "start": {
+                                "line": 49,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 55,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "perform",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1365,
+                            "end": 1913,
+                            "loc": {
+                                "start": {
+                                    "line": 57,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 80,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " cpx",
+                                "block": false,
+                                "line": 74
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1358,
+                        "end": 1913,
+                        "loc": {
+                            "start": {
+                                "line": 57,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 80,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " cpx",
+                        "block": false,
+                        "line": 74
+                    }
+                ]
+            },
+            "pos": {
+                "start": 847,
+                "end": 1916,
+                "loc": {
+                    "start": {
+                        "line": 35,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 81,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "curve-lines.js",
+        "path": "/workspaces/polypoint/point_src/curve-lines.js",
+        "size": 1918,
+        "parsed_date": "2025-11-02T21:11:34.230Z"
+    }
+}

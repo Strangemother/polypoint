@@ -1,0 +1,418 @@
+{
+    "src_file": "setunset.js",
+    "references": {
+        "classes": {
+            "SetUnset": {
+                "class_name": "SetUnset",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "SetUnset",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Perform _stroke_ with styling and stoking; but with a convenient\r\n    on/off without using the context switcher. ",
+                                    "block": true,
+                                    "line": 44
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 45
+                    },
+                    {
+                        "method_name": "onCreate",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "cachedData"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 54
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Apply changes for the persistent info",
+                                    "block": true,
+                                    "line": 59
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 58
+                    },
+                    {
+                        "method_name": "getOpts",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 65
+                    },
+                    {
+                        "method_name": "prepare",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            when _settings_ to the ctx\r\n            + first check if its a raw prop,\r\n            + else then resolve from the map.\r\n            + keep the last value\r\n            + Apply through the given function\r\n            + accept a optional return function, to call during unset.\r\n\r\n            Therefore the stroker has a _state_\r\n            This should occur _early_ such that the _set_ here runs a chain of\r\n            on/off functions in a map.\r\n\r\n            Which means:\r\n\r\n            1. for each key resolve ctx (real prop map key), on method, off method\r\n            2. store those until _set_\r\n            3. iter on map; calling each func with the ctx and the value\r\n            4. iter off map, calling each with the stored value, reapplying in the func.\r\n\r\n         ",
+                                    "block": true,
+                                    "line": 107
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 87
+                    },
+                    {
+                        "method_name": "genericKeyApply",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "newValue"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Receive a ctx key property (e.g. lineWidth) and apply the newValue\r\n\r\n        Return the previously applied value and a function to remove reverse change.\r\n         ",
+                                    "block": true,
+                                    "line": 172
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 168
+                    },
+                    {
+                        "method_name": "genericKeyRemove",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "newValue"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        the newValue given is the original value applied to this key, before\r\n        the change occured (the cached value). Therefore the _remove_ is\r\n        identical to the _apply_.\r\n        ",
+                                    "block": true,
+                                    "line": 183
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 178
+                    },
+                    {
+                        "method_name": "functionKeyApply",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "assignment"
+                            },
+                            {
+                                "name": "newValue"
+                            },
+                            {
+                                "name": "key"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Call upon the `aasignment` function, with the key and value.\r\n        This expects a {f: function,v: value} response ",
+                                    "block": true,
+                                    "line": 189
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 187
+                    },
+                    {
+                        "method_name": "set",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Iter all the assignments,\r\n            functionally calling each ",
+                                    "block": true,
+                                    "line": 214
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 203
+                    },
+                    {
+                        "method_name": "getCacheBeforeApply",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 223
+                    },
+                    {
+                        "method_name": "unset",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Remove any currently applied styles, by reading the\r\n        cache and performing the reverse. ",
+                                    "block": true,
+                                    "line": 229
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 227
+                    },
+                    {
+                        "method_name": "draw",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " a start but probably more dynamic. ",
+                                    "block": true,
+                                    "line": 250
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 249
+                    },
+                    {
+                        "method_name": "wrap",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "settings"
+                            },
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Wrap the call with a start stop\r\n\r\n            wrap(ctx, ()=>{})\r\n            wrap(ctx, settings, ()=>{})\r\n        ",
+                                    "block": true,
+                                    "line": 258
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 253
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " A _step_ is required when integrating moving values, such as the\r\n        dash offset animation. ",
+                                    "block": true,
+                                    "line": 271
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 269
+                    },
+                    {
+                        "method_name": "off",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "setDisable",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " undo any _on_ and _pause_ the _on_ function",
+                                    "block": false,
+                                    "line": 294
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 293
+                    },
+                    {
+                        "method_name": "on",
+                        "class_name": "SetUnset",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "setEnable",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 298
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\n    The \"Set Unset\" tool acts similar to the _ctx.save()_ method, by applying\r\n    changes to the context, and then _unsetting_ after usage.\r\n\r\n    This allows the _switching_ of a property of the context with `set` and `unset`\r\n    values previously assigned to changed properties are reapplied - essentially _wrapping_\r\n    some drawing with context changes.\r\n\r\n        su = new SetUnset({\r\n            lineWidth: 10\r\n        })\r\n\r\n        // lineWidth == ...\r\n        su.set(ctx)\r\n        // lineWidth == 10\r\n        su.unset(ctx)\r\n        // lineWidth == ...\r\n\r\n    Implement shortcuts:\r\n\r\n        class Stroke extends SetUnset {\r\n            getOpts() {\r\n                let supported = new Set([\r\n                    , \"lineWidth\"\r\n                ])\r\n\r\n                let map = {\r\n                    color: 'strokeStyle'\r\n                }\r\n                let functional = {\r\n                    dash: 'lineDashKeyApply'\r\n                }\r\n                return [supported, map, functional]\r\n            }\r\n        }\r\n\r\n        st = new Stroke({\r\n            color: 'red'\r\n        })\r\n ",
+                            "block": true,
+                            "line": 40
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " Perform _stroke_ with styling and stoking; but with a convenient\r\n    on/off without using the context switcher. ",
+                            "block": true,
+                            "line": 44
+                        }
+                    ]
+                },
+                "line": 41
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "setunset.js",
+        "path": "/workspaces/polypoint/point_src/setunset.js",
+        "size": 8774,
+        "parsed_date": "2025-11-02T21:11:40.121Z"
+    }
+}

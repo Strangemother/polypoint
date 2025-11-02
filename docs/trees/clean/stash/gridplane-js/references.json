@@ -1,0 +1,229 @@
+{
+    "src_file": "gridplane.js",
+    "references": {
+        "classes": {
+            "GridPlane": {
+                "class_name": "GridPlane",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "GridPlane",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "dimensions"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 3
+                    },
+                    {
+                        "method_name": "mounted",
+                        "class_name": "GridPlane",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pin"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 7
+                    },
+                    {
+                        "method_name": "trackDown",
+                        "class_name": "GridPlane",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "evPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.panning.startTime = +(new Date)",
+                                    "block": false,
+                                    "line": 40
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 33
+                    },
+                    {
+                        "method_name": "trackUp",
+                        "class_name": "GridPlane",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "evPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " p.endTime = +(new Date)",
+                                    "block": false,
+                                    "line": 51
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 46
+                    },
+                    {
+                        "method_name": "panPlane",
+                        "class_name": "GridPlane",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " The sensitivity of the panning after the touch is complete. ",
+                                    "block": true,
+                                    "line": 57
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 56
+                    },
+                    {
+                        "method_name": "updatePanning",
+                        "class_name": "GridPlane",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "_other"
+                            },
+                            {
+                                "name": "panTick"
+                            },
+                            {
+                                "name": "panSensitivity"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('tick', this.panning.tick)",
+                                    "block": false,
+                                    "line": 83
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "updateSpeed",
+                        "class_name": "GridPlane",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "speed"
+                            },
+                            {
+                                "name": "speedReduction"
+                            },
+                            {
+                                "name": "pullReduction"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 93
+                    },
+                    {
+                        "method_name": "drawLines",
+                        "class_name": "GridPlane",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "boxWidth",
+                                "default_value": 20
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": "{x: 0, y: 0, skew: 40}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Box for contained. ",
+                                    "block": true,
+                                    "line": 131
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 104
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " this.panning.startTime = +(new Date)",
+                            "block": false,
+                            "line": 40
+                        }
+                    ]
+                },
+                "line": 2
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "gridplane.js",
+        "path": "/workspaces/polypoint/point_src/gridplane.js",
+        "size": 5666,
+        "parsed_date": "2025-11-02T21:11:35.908Z"
+    }
+}

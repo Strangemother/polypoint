@@ -1,0 +1,326 @@
+{
+    "src_file": "events.js",
+    "references": {
+        "classes": {
+            "Events": {
+                "class_name": "Events",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Events",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "parent",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 3
+                    },
+                    {
+                        "method_name": "emit",
+                        "class_name": "Events",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "detail"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 7
+                    },
+                    {
+                        "method_name": "on",
+                        "class_name": "Events",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "handler"
+                            },
+                            {
+                                "name": "props"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 11
+                    },
+                    {
+                        "method_name": "getParent",
+                        "class_name": "Events",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 15
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "line": 2
+            },
+            "StageEvents": {
+                "class_name": "StageEvents",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "StageEvents",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 84
+                    },
+                    {
+                        "method_name": "wake",
+                        "class_name": "StageEvents",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 89
+                    },
+                    {
+                        "method_name": "getAutoListen",
+                        "class_name": "StageEvents",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 95
+                    },
+                    {
+                        "method_name": "hook",
+                        "class_name": "StageEvents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "entity"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('Auto listen.')",
+                                    "block": false,
+                                    "line": 100
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 99
+                    },
+                    {
+                        "method_name": "on",
+                        "class_name": "StageEvents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "handler"
+                            },
+                            {
+                                "name": "props"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 114
+                    },
+                    {
+                        "method_name": "emit",
+                        "class_name": "StageEvents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "detail"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 118
+                    },
+                    {
+                        "method_name": "getEventParent",
+                        "class_name": "StageEvents",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 122
+                    },
+                    {
+                        "method_name": "receiverFunction",
+                        "class_name": "StageEvents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "prop"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('prop', prop, handler)",
+                                    "block": false,
+                                    "line": 128
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 126
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " StageEvents apply `.events` to the stage.\r\n    If `autoListen=true` (default). any method matching `on[EventName]` is\r\n    hooked.\r\n\r\n        class MyStage extends Stage {\r\n            autoListen = true\r\n\r\n            onClick(ev){\r\n                // raw ev event\r\n            }\r\n        }\r\n\r\n    Standard `on` and `emit` (listen/dispatch) for events:\r\n\r\n        stage.on('eventName', stage.handle)\r\n\r\n    ",
+                            "block": true,
+                            "line": 81
+                        }
+                    ]
+                },
+                "line": 64
+            }
+        },
+        "functions": [
+            {
+                "name": "getMethodsOf",
+                "kind": "function",
+                "type": "function",
+                "line": 46,
+                "params": [
+                    {
+                        "name": "obj"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "stageHandler",
+                "kind": "const",
+                "line": 135,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " debugger;",
+                            "block": false,
+                            "line": 139
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "parent"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": [
+            {
+                "name": "events",
+                "kind": "const",
+                "line": 21,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "events.js",
+        "path": "/workspaces/polypoint/point_src/events.js",
+        "size": 3918,
+        "parsed_date": "2025-11-02T21:11:35.014Z"
+    }
+}

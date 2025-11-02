@@ -1,0 +1,138 @@
+{
+    "src_file": "cluster.js",
+    "references": {
+        "classes": {},
+        "functions": [
+            {
+                "name": "simpleCluster",
+                "kind": "const",
+                "line": 7,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " the simpleCluster function quickly initiates _clustering_ on a collection\r\n    of points, using optional settings.\r\n\r\n    Example:\r\n\r\n        simpleCluster(points, pointA, settings, {func: clusterStyleB, itercount: c});\r\n\r\n    Synonymous to:\r\n\r\n        let c = settings.itercount\r\n        if(c == undefined) { c = 10 }\r\n        for (var i = 0; i < c; i++) {\r\n            clusterStyleB(points, pointA, settings);\r\n            // clusterStable(points, pointA, settings);\r\n        }\r\n    ",
+                            "block": true,
+                            "line": 23
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "points"
+                    },
+                    {
+                        "name": "targetPosition"
+                    },
+                    {
+                        "name": "settings"
+                    },
+                    {
+                        "name": "opts"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "clusterStyleB",
+                "kind": "function",
+                "type": "function",
+                "line": 49,
+                "params": [
+                    {
+                        "name": "items"
+                    },
+                    {
+                        "name": "focul"
+                    },
+                    {
+                        "name": "settings"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "limitSpeed",
+                "kind": "function",
+                "type": "function",
+                "line": 145,
+                "params": [
+                    {
+                        "name": "minVelocity"
+                    },
+                    {
+                        "name": "maxVelocity"
+                    },
+                    {
+                        "name": "item"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "clusterStable",
+                "kind": "function",
+                "type": "function",
+                "line": 162,
+                "params": [
+                    {
+                        "name": "items"
+                    },
+                    {
+                        "name": "focul"
+                    },
+                    {
+                        "name": "settings"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "gravitateSquareDistance",
+                "kind": "function",
+                "type": "function",
+                "line": 222,
+                "params": [
+                    {
+                        "name": "items"
+                    },
+                    {
+                        "name": "focul"
+                    },
+                    {
+                        "name": "settings"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "cluster.js",
+        "path": "/workspaces/polypoint/point_src/cluster.js",
+        "size": 8503,
+        "parsed_date": "2025-11-02T21:11:33.285Z"
+    }
+}

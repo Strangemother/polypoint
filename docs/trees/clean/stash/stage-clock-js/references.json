@@ -1,0 +1,123 @@
+{
+    "src_file": "stage-clock.js",
+    "references": {
+        "classes": {
+            "StageClock": {
+                "class_name": "StageClock",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "StageClock",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log(c.delta)",
+                                    "block": false,
+                                    "line": 24
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 21
+                    },
+                    {
+                        "method_name": "fps",
+                        "class_name": "StageClock",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return 1000 / this.delta",
+                                    "block": false,
+                                    "line": 39
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 38
+                    },
+                    {
+                        "method_name": "splitSeconds",
+                        "class_name": "StageClock",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "seconds",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "fps"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 45
+                    },
+                    {
+                        "method_name": "frameStepValue",
+                        "class_name": "StageClock",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "seconds",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            Derive the correct value to add per frame, to ensure a count\r\n            the total value at the target count of seconds is equal to 1.\r\n\r\n            let v = frameStepValue(3)\r\n            // 0.005\r\n\r\n            // Add this value per frame\r\n            total += v\r\n            // At 3 seconds, this total == 1\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 61
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 49
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " The default delta is _one frame_ at 60fps.\r\n    This is later updated - but is required early for mounted _fps_ tests.",
+                            "block": true,
+                            "line": 17
+                        }
+                    ]
+                },
+                "line": 13
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "stage-clock.js",
+        "path": "/workspaces/polypoint/point_src/stage-clock.js",
+        "size": 3165,
+        "parsed_date": "2025-11-02T21:11:40.634Z"
+    }
+}

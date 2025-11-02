@@ -1,0 +1,546 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "Coupling",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 377,
+                            "end": 418,
+                            "loc": {
+                                "start": {
+                                    "line": 19,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 21,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 366,
+                        "end": 418,
+                        "loc": {
+                            "start": {
+                                "line": 19,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 21,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "couple",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "offset"
+                            },
+                            {
+                                "name": "keys",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "pos": {
+                            "start": 432,
+                            "end": 1551,
+                            "loc": {
+                                "start": {
+                                    "line": 23,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 56,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n        Couple two points, binding the x,y,radius,rotation\r\n        Apply a relative offset to update the values between binding changes\r\n\r\n        when a side is manipulated, the _other_ side is updated.\r\n        If B is the altered value, the relativeOffset is applied inversly.\r\n\r\n        Apply a function to the relative offset key to capture live change.s\r\n        ",
+                                "block": true,
+                                "line": 32
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 426,
+                        "end": 1551,
+                        "loc": {
+                            "start": {
+                                "line": 23,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 56,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "step",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1563,
+                            "end": 3608,
+                            "loc": {
+                                "start": {
+                                    "line": 58,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 115,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Perform a single _step_ of the coupling test,\r\n        if either side of the connection has changed, bubble the update\r\n        to its sibling - through the relative conversion. ",
+                                "block": true,
+                                "line": 61
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1559,
+                        "end": 3608,
+                        "loc": {
+                            "start": {
+                                "line": 58,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 115,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "hasChanged",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "aCache"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3626,
+                            "end": 4519,
+                            "loc": {
+                                "start": {
+                                    "line": 117,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 145,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Given an object and its _cache_, test each key in the _cache_\r\n        and return a Set of changed keys\r\n\r\n            hasChanged({foo: 20, bar: 10}, {foo: 10, bar: 10})\r\n            ['foo']\r\n\r\n        The return keys are values that do not match _a_.\r\n        If the cache is flagged _dirty_, all keys are returned.\r\n\r\n            hasChanged({foo: 20, bar:10}, {foo: 20, bar: 10, dirty: true})\r\n            ['foo', 'bar']\r\n\r\n        If no changes are detected `undefined` is returned.\r\n\r\n            if(this.hasChanged({}, {})) {\r\n                // is not called.\r\n            }\r\n        ",
+                                "block": true,
+                                "line": 135
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3616,
+                        "end": 4519,
+                        "loc": {
+                            "start": {
+                                "line": 117,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 145,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [
+                    {
+                        "text": "\r\n---\r\ntitle: Coupling\r\n---\r\n\r\nBind the values of a point with another point.\r\nProvide a relative offset object.\r\n\r\n    coupling = new Coupling()\r\n    coupling.couple(a, b, { x: 10, y: 10})\r\n\r\nBoth points are reative to their coupled position:\r\n\r\n    // Dragging either point will result in constant coupling.\r\n    dragging.add(a, b)\r\n ",
+                        "block": true,
+                        "line": 16
+                    }
+                ],
+                "inner": [
+                    {
+                        "text": "\r\n        Couple two points, binding the x,y,radius,rotation\r\n        Apply a relative offset to update the values between binding changes\r\n\r\n        when a side is manipulated, the _other_ side is updated.\r\n        If B is the altered value, the relativeOffset is applied inversly.\r\n\r\n        Apply a function to the relative offset key to capture live change.s\r\n        ",
+                        "block": true,
+                        "line": 32
+                    }
+                ]
+            },
+            "pos": {
+                "start": 342,
+                "end": 4524,
+                "loc": {
+                    "start": {
+                        "line": 17,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 147,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "LockedCoupling",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4571,
+                            "end": 4612,
+                            "loc": {
+                                "start": {
+                                    "line": 152,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 154,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4560,
+                        "end": 4612,
+                        "loc": {
+                            "start": {
+                                "line": 152,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 154,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "couple",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "offset"
+                            },
+                            {
+                                "name": "keys",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4626,
+                            "end": 5860,
+                            "loc": {
+                                "start": {
+                                    "line": 156,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 194,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n        Couple two points, binding the x,y,radius,rotation\r\n        Apply a relative offset to update the values between binding changes\r\n\r\n        when a side is manipulated, the _other_ side is updated.\r\n        If B is the altered value, the relativeOffset is applied inversly.\r\n\r\n        Apply a function to the relative offset key to capture live change.s\r\n        ",
+                                "block": true,
+                                "line": 165
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4620,
+                        "end": 5860,
+                        "loc": {
+                            "start": {
+                                "line": 156,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 194,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "step",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 5872,
+                            "end": 7257,
+                            "loc": {
+                                "start": {
+                                    "line": 196,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 236,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Install the current primary value into its cache.\r\n                and apply the value to the second entity, also applying\r\n                its new value to its cache,\r\n                ",
+                                "block": true,
+                                "line": 207
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5868,
+                        "end": 7257,
+                        "loc": {
+                            "start": {
+                                "line": 196,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 236,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "hasChanged",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "aCache"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7275,
+                            "end": 8382,
+                            "loc": {
+                                "start": {
+                                    "line": 238,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 273,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Given an object and its _cache_, test each key in the _cache_\r\n        and return a Set of changed keys\r\n\r\n            hasChanged({foo: 20, bar: 10}, {foo: 10, bar: 10})\r\n            ['foo']\r\n\r\n        The return keys are values that do not match _a_.\r\n        If the cache is flagged _dirty_, all keys are returned.\r\n\r\n            hasChanged({foo: 20, bar:10}, {foo: 20, bar: 10, dirty: true})\r\n            ['foo', 'bar']\r\n\r\n        If no changes are detected `undefined` is returned.\r\n\r\n            if(this.hasChanged({}, {})) {\r\n                // is not called.\r\n            }\r\n        ",
+                                "block": true,
+                                "line": 256
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 7265,
+                        "end": 8382,
+                        "loc": {
+                            "start": {
+                                "line": 238,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 273,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "\r\n        Couple two points, binding the x,y,radius,rotation\r\n        Apply a relative offset to update the values between binding changes\r\n\r\n        when a side is manipulated, the _other_ side is updated.\r\n        If B is the altered value, the relativeOffset is applied inversly.\r\n\r\n        Apply a function to the relative offset key to capture live change.s\r\n        ",
+                        "block": true,
+                        "line": 165
+                    }
+                ]
+            },
+            "pos": {
+                "start": 4530,
+                "end": 8387,
+                "loc": {
+                    "start": {
+                        "line": 150,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 275,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "coupling.js",
+        "path": "/workspaces/polypoint/point_src/coupling.js",
+        "size": 8387,
+        "parsed_date": "2025-11-02T21:11:33.845Z"
+    }
+}

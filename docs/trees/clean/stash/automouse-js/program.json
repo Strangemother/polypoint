@@ -1,0 +1,3072 @@
+{
+    "defs": [
+        {
+            "word": "getLastMousePos",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [],
+                "pos": {
+                    "start": 252,
+                    "end": 308,
+                    "loc": {
+                        "start": {
+                            "line": 12,
+                            "column": 24
+                        },
+                        "end": {
+                            "line": 14,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 228,
+                "end": 308,
+                "loc": {
+                    "start": {
+                        "line": 12,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 14,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 228,
+            "end": 308,
+            "loc": {
+                "start": {
+                    "line": 12,
+                    "column": 0
+                },
+                "end": {
+                    "line": 14,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "class",
+            "word": "AutoMouse",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parentClass"
+                            }
+                        ],
+                        "pos": {
+                            "start": 946,
+                            "end": 1415,
+                            "loc": {
+                                "start": {
+                                    "line": 40,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 55,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " The _AutoMouse_ class cares for much of the mouse pointer functionality\r\n    for a stage and the a point.\r\n    It's functionality is designed to hook onto preparing `stages` and their canvas.\r\n    It exists as a singleton `autoMouse`:\r\n\r\n        autoMouse = new AutoMouse()\r\n        autoMouse == stage.mouse\r\n        Point.mouse == stage.mouse\r\n\r\n    Initiate like this:\r\n\r\n        Point.mouse?.mount(stage.canvas)\r\n\r\n    Synonymous to:\r\n\r\n        installCanvas(canvas, stage){\r\n            this.canvasMap.set(canvas, stage)\r\n            Point.mouse?.listen(canvas)\r\n        }\r\n\r\n\r\n     ",
+                                "block": true,
+                                "line": 39
+                            }
+                        ],
+                        "inner": [
+                            {
+                                "text": " a reference of clicks",
+                                "block": false,
+                                "line": 43
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 935,
+                        "end": 1415,
+                        "loc": {
+                            "start": {
+                                "line": 40,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 55,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "_announce",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1432,
+                            "end": 1881,
+                            "loc": {
+                                "start": {
+                                    "line": 57,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 72,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Wait for a stage prep event. ",
+                                "block": true,
+                                "line": 59
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1423,
+                        "end": 1881,
+                        "loc": {
+                            "start": {
+                                "line": 57,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 72,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "stagePrepareHandler",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2034,
+                            "end": 2188,
+                            "loc": {
+                                "start": {
+                                    "line": 76,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 80,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " The given event has a stage ready for mounting. Perform any changes,\r\n    such as adding a reference to the mouse. ",
+                                "block": true,
+                                "line": 75
+                            }
+                        ],
+                        "inner": [
+                            {
+                                "text": " console.log('AutoMouse::stagePrepareHandler', d)",
+                                "block": false,
+                                "line": 78
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2015,
+                        "end": 2188,
+                        "loc": {
+                            "start": {
+                                "line": 76,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 80,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "announcementResponse",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "log",
+                                "default_value": true
+                            }
+                        ],
+                        "pos": {
+                            "start": 2216,
+                            "end": 2434,
+                            "loc": {
+                                "start": {
+                                    "line": 82,
+                                    "column": 24
+                                },
+                                "end": {
+                                    "line": 89,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2196,
+                        "end": 2434,
+                        "loc": {
+                            "start": {
+                                "line": 82,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 89,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getMousePos",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2453,
+                            "end": 2674,
+                            "loc": {
+                                "start": {
+                                    "line": 91,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 98,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2442,
+                        "end": 2674,
+                        "loc": {
+                            "start": {
+                                "line": 91,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 98,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "xy",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 2688,
+                            "end": 2731,
+                            "loc": {
+                                "start": {
+                                    "line": 100,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 102,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2682,
+                        "end": 2731,
+                        "loc": {
+                            "start": {
+                                "line": 100,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 102,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "position",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 2751,
+                            "end": 2995,
+                            "loc": {
+                                "start": {
+                                    "line": 104,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 111,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " The `this.position` method returns a new Point, with the mouse XY\r\n        (from the last motion).\r\n\r\n        Use `this.point` for a persisent single Point instance.\r\n        ",
+                                "block": true,
+                                "line": 109
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2739,
+                        "end": 2995,
+                        "loc": {
+                            "start": {
+                                "line": 104,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 111,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "point",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 3012,
+                            "end": 3203,
+                            "loc": {
+                                "start": {
+                                    "line": 113,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 119,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n        Return a persistent _point_, of which is updated rather than replaced\r\n        when the mouse state changes.\r\n         ",
+                                "block": true,
+                                "line": 117
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3003,
+                        "end": 3203,
+                        "loc": {
+                            "start": {
+                                "line": 113,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 119,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getBoundingClientRect",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3418,
+                            "end": 3565,
+                            "loc": {
+                                "start": {
+                                    "line": 128,
+                                    "column": 25
+                                },
+                                "end": {
+                                    "line": 133,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3397,
+                        "end": 3565,
+                        "loc": {
+                            "start": {
+                                "line": 128,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 133,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getListenerMethods",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 3591,
+                            "end": 4072,
+                            "loc": {
+                                "start": {
+                                    "line": 135,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 149,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " console.log('Setting up mouse events')",
+                                "block": false,
+                                "line": 139
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3573,
+                        "end": 4072,
+                        "loc": {
+                            "start": {
+                                "line": 135,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 149,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "mount",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4085,
+                            "end": 4723,
+                            "loc": {
+                                "start": {
+                                    "line": 151,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 173,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Call upon `mount` to initate listening of all events on a canvas. ",
+                                "block": true,
+                                "line": 152
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4080,
+                        "end": 4723,
+                        "loc": {
+                            "start": {
+                                "line": 151,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 173,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "listen",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "eventName"
+                            },
+                            {
+                                "name": "handler"
+                            },
+                            {
+                                "name": "opts"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4737,
+                            "end": 4882,
+                            "loc": {
+                                "start": {
+                                    "line": 175,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 178,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4731,
+                        "end": 4882,
+                        "loc": {
+                            "start": {
+                                "line": 175,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 178,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "mousemoveHandler",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4906,
+                            "end": 7099,
+                            "loc": {
+                                "start": {
+                                    "line": 180,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 245,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " let bound = this.getBoundingClientRect();",
+                                "block": false,
+                                "line": 181
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4890,
+                        "end": 7099,
+                        "loc": {
+                            "start": {
+                                "line": 180,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 245,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "callHandlers",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7119,
+                            "end": 7312,
+                            "loc": {
+                                "start": {
+                                    "line": 247,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 253,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 7107,
+                        "end": 7312,
+                        "loc": {
+                            "start": {
+                                "line": 247,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 253,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "mousedownHandler",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7336,
+                            "end": 7570,
+                            "loc": {
+                                "start": {
+                                    "line": 255,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 261,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 7320,
+                        "end": 7570,
+                        "loc": {
+                            "start": {
+                                "line": 255,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 261,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "mouseupHandler",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7592,
+                            "end": 7825,
+                            "loc": {
+                                "start": {
+                                    "line": 263,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 269,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 7578,
+                        "end": 7825,
+                        "loc": {
+                            "start": {
+                                "line": 263,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 269,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "applyPositionIncrement",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "space"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7855,
+                            "end": 8043,
+                            "loc": {
+                                "start": {
+                                    "line": 271,
+                                    "column": 26
+                                },
+                                "end": {
+                                    "line": 278,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 7833,
+                        "end": 8043,
+                        "loc": {
+                            "start": {
+                                "line": 271,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 278,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "wheelHandler",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8063,
+                            "end": 8717,
+                            "loc": {
+                                "start": {
+                                    "line": 280,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 301,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 8051,
+                        "end": 8717,
+                        "loc": {
+                            "start": {
+                                "line": 280,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 301,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "isDown",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "index"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8731,
+                            "end": 8833,
+                            "loc": {
+                                "start": {
+                                    "line": 303,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 307,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 8725,
+                        "end": 8833,
+                        "loc": {
+                            "start": {
+                                "line": 303,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 307,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "wheelSize",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "abs",
+                                "default_value": false
+                            }
+                        ],
+                        "pos": {
+                            "start": 8850,
+                            "end": 9043,
+                            "loc": {
+                                "start": {
+                                    "line": 309,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 314,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "(v * v)",
+                                "block": false,
+                                "line": 311
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8841,
+                        "end": 9043,
+                        "loc": {
+                            "start": {
+                                "line": 309,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 314,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "clampWheelSize",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "min"
+                            },
+                            {
+                                "name": "max"
+                            },
+                            {
+                                "name": "abs",
+                                "default_value": false
+                            }
+                        ],
+                        "pos": {
+                            "start": 9458,
+                            "end": 9682,
+                            "loc": {
+                                "start": {
+                                    "line": 330,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 338,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": "\r\n    A function to help clamp the wheel scroll within a range. By using this\r\n    function, the wheel value doesn't exceed the clamp.\r\n\r\n\r\n        let size = mouse.clampWheelSize(5, 20)\r\n\r\n    The same can be done with the clamp function\r\n\r\n        let size = clamp(mouse.wheelSize(), 30, 300)\r\n\r\n    but when the wheel exceeds the clamp, it'll scroll into an unused range.\r\n\r\n     ",
+                                "block": true,
+                                "line": 329
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 9444,
+                        "end": 9682,
+                        "loc": {
+                            "start": {
+                                "line": 330,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 338,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "on",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "handler"
+                            },
+                            {
+                                "name": "opts"
+                            }
+                        ],
+                        "pos": {
+                            "start": 9694,
+                            "end": 10057,
+                            "loc": {
+                                "start": {
+                                    "line": 341,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 351,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 9692,
+                        "end": 10057,
+                        "loc": {
+                            "start": {
+                                "line": 341,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 351,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getActionSpace",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "defaults",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "pos": {
+                            "start": 10079,
+                            "end": 10334,
+                            "loc": {
+                                "start": {
+                                    "line": 353,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 362,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 10065,
+                        "end": 10334,
+                        "loc": {
+                            "start": {
+                                "line": 353,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 362,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "speed",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "previous"
+                            },
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 10347,
+                            "end": 10787,
+                            "loc": {
+                                "start": {
+                                    "line": 364,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 376,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Return the speed of the point over a delta.\r\n        This is a lot like the velocity functionality, but cut-down for\r\n        efficiency. ",
+                                "block": true,
+                                "line": 367
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 10342,
+                        "end": 10787,
+                        "loc": {
+                            "start": {
+                                "line": 364,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 376,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "_moduloTicker",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "0",
+                        "value": 0,
+                        "pos": {
+                            "start": 10811,
+                            "end": 10812,
+                            "loc": {
+                                "start": {
+                                    "line": 378,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 378,
+                                    "column": 21
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10795,
+                        "end": 10812,
+                        "loc": {
+                            "start": {
+                                "line": 378,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 378,
+                                "column": 21
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "modulatedSpeed",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "mod",
+                                "default_value": 15
+                            },
+                            {
+                                "name": "previous"
+                            },
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 10832,
+                            "end": 11203,
+                            "loc": {
+                                "start": {
+                                    "line": 379,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 388,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 10818,
+                        "end": 11203,
+                        "loc": {
+                            "start": {
+                                "line": 379,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 388,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "computeSpeed",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "previous"
+                            },
+                            {
+                                "name": "current"
+                            },
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 11299,
+                            "end": 11476,
+                            "loc": {
+                                "start": {
+                                    "line": 392,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 396,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " CREATE use a smoothtext function\r\n    share for this anf fps text",
+                                "block": true,
+                                "line": 391
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11287,
+                        "end": 11476,
+                        "loc": {
+                            "start": {
+                                "line": 392,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 396,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " The _AutoMouse_ class cares for much of the mouse pointer functionality\r\n    for a stage and the a point.\r\n    It's functionality is designed to hook onto preparing `stages` and their canvas.\r\n    It exists as a singleton `autoMouse`:\r\n\r\n        autoMouse = new AutoMouse()\r\n        autoMouse == stage.mouse\r\n        Point.mouse == stage.mouse\r\n\r\n    Initiate like this:\r\n\r\n        Point.mouse?.mount(stage.canvas)\r\n\r\n    Synonymous to:\r\n\r\n        installCanvas(canvas, stage){\r\n            this.canvasMap.set(canvas, stage)\r\n            Point.mouse?.listen(canvas)\r\n        }\r\n\r\n\r\n     ",
+                        "block": true,
+                        "line": 39
+                    }
+                ]
+            },
+            "pos": {
+                "start": 314,
+                "end": 11479,
+                "loc": {
+                    "start": {
+                        "line": 17,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 397,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 11483,
+                "end": 11516,
+                "loc": {
+                    "start": {
+                        "line": 399,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 399,
+                        "column": 33
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 11483,
+                    "end": 11505,
+                    "loc": {
+                        "start": {
+                            "line": 399,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 399,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 11483,
+                        "end": 11497,
+                        "loc": {
+                            "start": {
+                                "line": 399,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 399,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 11483,
+                            "end": 11492,
+                            "loc": {
+                                "start": {
+                                    "line": 399,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 399,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 11483,
+                                "end": 11492,
+                                "loc": {
+                                    "start": {
+                                        "line": 399,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 399,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 11493,
+                            "end": 11497,
+                            "loc": {
+                                "start": {
+                                    "line": 399,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 399,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 11493,
+                                "end": 11497,
+                                "loc": {
+                                    "start": {
+                                        "line": 399,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 399,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 11483,
+                            "end": 11497,
+                            "loc": {
+                                "start": {
+                                    "line": 399,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 399,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 11498,
+                        "end": 11505,
+                        "loc": {
+                            "start": {
+                                "line": 399,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 399,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 11498,
+                            "end": 11505,
+                            "loc": {
+                                "start": {
+                                    "line": 399,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 399,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 11483,
+                        "end": 11505,
+                        "loc": {
+                            "start": {
+                                "line": 399,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 399,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 11506,
+                        "end": 11515,
+                        "loc": {
+                            "start": {
+                                "line": 399,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 399,
+                                "column": 32
+                            }
+                        },
+                        "name": "AutoMouse",
+                        "pos": {
+                            "start": 11506,
+                            "end": 11515,
+                            "loc": {
+                                "start": {
+                                    "line": 399,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 399,
+                                    "column": 32
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 11483,
+                    "end": 11516,
+                    "loc": {
+                        "start": {
+                            "line": 399,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 399,
+                            "column": 33
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 11483,
+                "end": 11516,
+                "loc": {
+                    "start": {
+                        "line": 399,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 399,
+                        "column": 33
+                    }
+                }
+            }
+        },
+        {
+            "word": "autoMouse",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "NewExpression",
+                "callee": {
+                    "type": "Identifier",
+                    "word": "AutoMouse",
+                    "pos": {
+                        "start": 11545,
+                        "end": 11554,
+                        "loc": {
+                            "start": {
+                                "line": 402,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 402,
+                                "column": 32
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "word": "Point",
+                        "pos": {
+                            "start": 11555,
+                            "end": 11560,
+                            "loc": {
+                                "start": {
+                                    "line": 402,
+                                    "column": 33
+                                },
+                                "end": {
+                                    "line": 402,
+                                    "column": 38
+                                }
+                            }
+                        }
+                    }
+                ],
+                "pos": {
+                    "start": 11541,
+                    "end": 11561,
+                    "loc": {
+                        "start": {
+                            "line": 402,
+                            "column": 19
+                        },
+                        "end": {
+                            "line": 402,
+                            "column": 39
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 11522,
+                "end": 11562,
+                "loc": {
+                    "start": {
+                        "line": 402,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 402,
+                        "column": 40
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 11522,
+            "end": 11562,
+            "loc": {
+                "start": {
+                    "line": 402,
+                    "column": 0
+                },
+                "end": {
+                    "line": 402,
+                    "column": 40
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 11616,
+                "end": 11793,
+                "loc": {
+                    "start": {
+                        "line": 407,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 414,
+                        "column": 2
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 11616,
+                    "end": 11637,
+                    "loc": {
+                        "start": {
+                            "line": 407,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 407,
+                            "column": 21
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 11616,
+                        "end": 11630,
+                        "loc": {
+                            "start": {
+                                "line": 407,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 407,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 11616,
+                            "end": 11625,
+                            "loc": {
+                                "start": {
+                                    "line": 407,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 407,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 11616,
+                                "end": 11625,
+                                "loc": {
+                                    "start": {
+                                        "line": 407,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 407,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 11626,
+                            "end": 11630,
+                            "loc": {
+                                "start": {
+                                    "line": 407,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 407,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 11626,
+                                "end": 11630,
+                                "loc": {
+                                    "start": {
+                                        "line": 407,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 407,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 11616,
+                            "end": 11630,
+                            "loc": {
+                                "start": {
+                                    "line": 407,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 407,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 11631,
+                        "end": 11637,
+                        "loc": {
+                            "start": {
+                                "line": 407,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 407,
+                                "column": 21
+                            }
+                        },
+                        "name": "static",
+                        "pos": {
+                            "start": 11631,
+                            "end": 11637,
+                            "loc": {
+                                "start": {
+                                    "line": 407,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 407,
+                                    "column": 21
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 11616,
+                        "end": 11637,
+                        "loc": {
+                            "start": {
+                                "line": 407,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 407,
+                                "column": 21
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 11638,
+                        "end": 11645,
+                        "loc": {
+                            "start": {
+                                "line": 407,
+                                "column": 22
+                            },
+                            "end": {
+                                "line": 407,
+                                "column": 29
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 11638,
+                            "end": 11645,
+                            "loc": {
+                                "start": {
+                                    "line": 407,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 407,
+                                    "column": 29
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "ObjectExpression",
+                        "start": 11647,
+                        "end": 11792,
+                        "loc": {
+                            "start": {
+                                "line": 407,
+                                "column": 31
+                            },
+                            "end": {
+                                "line": 414,
+                                "column": 1
+                            }
+                        },
+                        "properties": [
+                            {
+                                "type": "Property",
+                                "start": 11654,
+                                "end": 11789,
+                                "loc": {
+                                    "start": {
+                                        "line": 408,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 413,
+                                        "column": 5
+                                    }
+                                },
+                                "method": false,
+                                "shorthand": false,
+                                "computed": false,
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 11654,
+                                    "end": 11659,
+                                    "loc": {
+                                        "start": {
+                                            "line": 408,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 408,
+                                            "column": 9
+                                        }
+                                    },
+                                    "name": "mouse",
+                                    "pos": {
+                                        "start": 11654,
+                                        "end": 11659,
+                                        "loc": {
+                                            "start": {
+                                                "line": 408,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 408,
+                                                "column": 9
+                                            }
+                                        }
+                                    }
+                                },
+                                "value": {
+                                    "type": "ObjectExpression",
+                                    "start": 11661,
+                                    "end": 11789,
+                                    "loc": {
+                                        "start": {
+                                            "line": 408,
+                                            "column": 11
+                                        },
+                                        "end": {
+                                            "line": 413,
+                                            "column": 5
+                                        }
+                                    },
+                                    "properties": [
+                                        {
+                                            "type": "Property",
+                                            "start": 11672,
+                                            "end": 11688,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 409,
+                                                    "column": 8
+                                                },
+                                                "end": {
+                                                    "line": 409,
+                                                    "column": 24
+                                                }
+                                            },
+                                            "method": false,
+                                            "shorthand": false,
+                                            "computed": false,
+                                            "key": {
+                                                "type": "Identifier",
+                                                "start": 11672,
+                                                "end": 11677,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 409,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 409,
+                                                        "column": 13
+                                                    }
+                                                },
+                                                "name": "value",
+                                                "pos": {
+                                                    "start": 11672,
+                                                    "end": 11677,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 409,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 409,
+                                                            "column": 13
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "value": {
+                                                "type": "Identifier",
+                                                "start": 11679,
+                                                "end": 11688,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 409,
+                                                        "column": 15
+                                                    },
+                                                    "end": {
+                                                        "line": 409,
+                                                        "column": 24
+                                                    }
+                                                },
+                                                "name": "autoMouse",
+                                                "pos": {
+                                                    "start": 11679,
+                                                    "end": 11688,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 409,
+                                                            "column": 15
+                                                        },
+                                                        "end": {
+                                                            "line": 409,
+                                                            "column": 24
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "kind": "init",
+                                            "pos": {
+                                                "start": 11672,
+                                                "end": 11688,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 409,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 409,
+                                                        "column": 24
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 11661,
+                                        "end": 11789,
+                                        "loc": {
+                                            "start": {
+                                                "line": 408,
+                                                "column": 11
+                                            },
+                                            "end": {
+                                                "line": 413,
+                                                "column": 5
+                                            }
+                                        }
+                                    }
+                                },
+                                "kind": "init",
+                                "pos": {
+                                    "start": 11654,
+                                    "end": 11789,
+                                    "loc": {
+                                        "start": {
+                                            "line": 408,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 413,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "pos": {
+                            "start": 11647,
+                            "end": 11792,
+                            "loc": {
+                                "start": {
+                                    "line": 407,
+                                    "column": 31
+                                },
+                                "end": {
+                                    "line": 414,
+                                    "column": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 11616,
+                    "end": 11793,
+                    "loc": {
+                        "start": {
+                            "line": 407,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 414,
+                            "column": 2
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 11616,
+                "end": 11793,
+                "loc": {
+                    "start": {
+                        "line": 407,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 414,
+                        "column": 2
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 11801,
+                "end": 12095,
+                "loc": {
+                    "start": {
+                        "line": 418,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 426,
+                        "column": 2
+                    }
+                },
+                "callee": {
+                    "type": "Identifier",
+                    "start": 11801,
+                    "end": 11817,
+                    "loc": {
+                        "start": {
+                            "line": 418,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 418,
+                            "column": 16
+                        }
+                    },
+                    "name": "addEventListener",
+                    "pos": {
+                        "start": 11801,
+                        "end": 11817,
+                        "loc": {
+                            "start": {
+                                "line": 418,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 418,
+                                "column": 16
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 11818,
+                        "end": 11833,
+                        "loc": {
+                            "start": {
+                                "line": 418,
+                                "column": 17
+                            },
+                            "end": {
+                                "line": 418,
+                                "column": 32
+                            }
+                        },
+                        "value": "stage:prepare",
+                        "raw": "'stage:prepare'",
+                        "pos": {
+                            "start": 11818,
+                            "end": 11833,
+                            "loc": {
+                                "start": {
+                                    "line": 418,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 418,
+                                    "column": 32
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "ArrowFunctionExpression",
+                        "start": 11835,
+                        "end": 12094,
+                        "loc": {
+                            "start": {
+                                "line": 418,
+                                "column": 34
+                            },
+                            "end": {
+                                "line": 426,
+                                "column": 1
+                            }
+                        },
+                        "id": null,
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "type": "Identifier",
+                                "start": 11836,
+                                "end": 11837,
+                                "loc": {
+                                    "start": {
+                                        "line": 418,
+                                        "column": 35
+                                    },
+                                    "end": {
+                                        "line": 418,
+                                        "column": 36
+                                    }
+                                },
+                                "name": "e",
+                                "pos": {
+                                    "start": 11836,
+                                    "end": 11837,
+                                    "loc": {
+                                        "start": {
+                                            "line": 418,
+                                            "column": 35
+                                        },
+                                        "end": {
+                                            "line": 418,
+                                            "column": 36
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 11840,
+                            "end": 12094,
+                            "loc": {
+                                "start": {
+                                    "line": 418,
+                                    "column": 39
+                                },
+                                "end": {
+                                    "line": 426,
+                                    "column": 1
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ExpressionStatement",
+                                    "start": 12014,
+                                    "end": 12055,
+                                    "loc": {
+                                        "start": {
+                                            "line": 424,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 424,
+                                            "column": 45
+                                        }
+                                    },
+                                    "expression": {
+                                        "type": "ChainExpression",
+                                        "start": 12014,
+                                        "end": 12055,
+                                        "loc": {
+                                            "start": {
+                                                "line": 424,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 424,
+                                                "column": 45
+                                            }
+                                        },
+                                        "expression": {
+                                            "type": "CallExpression",
+                                            "start": 12014,
+                                            "end": 12055,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 424,
+                                                    "column": 4
+                                                },
+                                                "end": {
+                                                    "line": 424,
+                                                    "column": 45
+                                                }
+                                            },
+                                            "callee": {
+                                                "type": "MemberExpression",
+                                                "start": 12014,
+                                                "end": 12032,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 424,
+                                                        "column": 4
+                                                    },
+                                                    "end": {
+                                                        "line": 424,
+                                                        "column": 22
+                                                    }
+                                                },
+                                                "object": {
+                                                    "type": "MemberExpression",
+                                                    "start": 12014,
+                                                    "end": 12025,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 424,
+                                                            "column": 4
+                                                        },
+                                                        "end": {
+                                                            "line": 424,
+                                                            "column": 15
+                                                        }
+                                                    },
+                                                    "object": {
+                                                        "type": "Identifier",
+                                                        "start": 12014,
+                                                        "end": 12019,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 424,
+                                                                "column": 4
+                                                            },
+                                                            "end": {
+                                                                "line": 424,
+                                                                "column": 9
+                                                            }
+                                                        },
+                                                        "name": "Point",
+                                                        "pos": {
+                                                            "start": 12014,
+                                                            "end": 12019,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 424,
+                                                                    "column": 4
+                                                                },
+                                                                "end": {
+                                                                    "line": 424,
+                                                                    "column": 9
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "property": {
+                                                        "type": "Identifier",
+                                                        "start": 12020,
+                                                        "end": 12025,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 424,
+                                                                "column": 10
+                                                            },
+                                                            "end": {
+                                                                "line": 424,
+                                                                "column": 15
+                                                            }
+                                                        },
+                                                        "name": "mouse",
+                                                        "pos": {
+                                                            "start": 12020,
+                                                            "end": 12025,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 424,
+                                                                    "column": 10
+                                                                },
+                                                                "end": {
+                                                                    "line": 424,
+                                                                    "column": 15
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "computed": false,
+                                                    "optional": false,
+                                                    "pos": {
+                                                        "start": 12014,
+                                                        "end": 12025,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 424,
+                                                                "column": 4
+                                                            },
+                                                            "end": {
+                                                                "line": 424,
+                                                                "column": 15
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "property": {
+                                                    "type": "Identifier",
+                                                    "start": 12027,
+                                                    "end": 12032,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 424,
+                                                            "column": 17
+                                                        },
+                                                        "end": {
+                                                            "line": 424,
+                                                            "column": 22
+                                                        }
+                                                    },
+                                                    "name": "mount",
+                                                    "pos": {
+                                                        "start": 12027,
+                                                        "end": 12032,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 424,
+                                                                "column": 17
+                                                            },
+                                                            "end": {
+                                                                "line": 424,
+                                                                "column": 22
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "computed": false,
+                                                "optional": true,
+                                                "pos": {
+                                                    "start": 12014,
+                                                    "end": 12032,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 424,
+                                                            "column": 4
+                                                        },
+                                                        "end": {
+                                                            "line": 424,
+                                                            "column": 22
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "arguments": [
+                                                {
+                                                    "type": "MemberExpression",
+                                                    "start": 12033,
+                                                    "end": 12054,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 424,
+                                                            "column": 23
+                                                        },
+                                                        "end": {
+                                                            "line": 424,
+                                                            "column": 44
+                                                        }
+                                                    },
+                                                    "object": {
+                                                        "type": "MemberExpression",
+                                                        "start": 12033,
+                                                        "end": 12047,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 424,
+                                                                "column": 23
+                                                            },
+                                                            "end": {
+                                                                "line": 424,
+                                                                "column": 37
+                                                            }
+                                                        },
+                                                        "object": {
+                                                            "type": "MemberExpression",
+                                                            "start": 12033,
+                                                            "end": 12041,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 424,
+                                                                    "column": 23
+                                                                },
+                                                                "end": {
+                                                                    "line": 424,
+                                                                    "column": 31
+                                                                }
+                                                            },
+                                                            "object": {
+                                                                "type": "Identifier",
+                                                                "start": 12033,
+                                                                "end": 12034,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 424,
+                                                                        "column": 23
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 424,
+                                                                        "column": 24
+                                                                    }
+                                                                },
+                                                                "name": "e",
+                                                                "pos": {
+                                                                    "start": 12033,
+                                                                    "end": 12034,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 424,
+                                                                            "column": 23
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 424,
+                                                                            "column": 24
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "property": {
+                                                                "type": "Identifier",
+                                                                "start": 12035,
+                                                                "end": 12041,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 424,
+                                                                        "column": 25
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 424,
+                                                                        "column": 31
+                                                                    }
+                                                                },
+                                                                "name": "detail",
+                                                                "pos": {
+                                                                    "start": 12035,
+                                                                    "end": 12041,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 424,
+                                                                            "column": 25
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 424,
+                                                                            "column": 31
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "computed": false,
+                                                            "optional": false,
+                                                            "pos": {
+                                                                "start": 12033,
+                                                                "end": 12041,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 424,
+                                                                        "column": 23
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 424,
+                                                                        "column": 31
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "property": {
+                                                            "type": "Identifier",
+                                                            "start": 12042,
+                                                            "end": 12047,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 424,
+                                                                    "column": 32
+                                                                },
+                                                                "end": {
+                                                                    "line": 424,
+                                                                    "column": 37
+                                                                }
+                                                            },
+                                                            "name": "stage",
+                                                            "pos": {
+                                                                "start": 12042,
+                                                                "end": 12047,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 424,
+                                                                        "column": 32
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 424,
+                                                                        "column": 37
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "computed": false,
+                                                        "optional": false,
+                                                        "pos": {
+                                                            "start": 12033,
+                                                            "end": 12047,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 424,
+                                                                    "column": 23
+                                                                },
+                                                                "end": {
+                                                                    "line": 424,
+                                                                    "column": 37
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "property": {
+                                                        "type": "Identifier",
+                                                        "start": 12048,
+                                                        "end": 12054,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 424,
+                                                                "column": 38
+                                                            },
+                                                            "end": {
+                                                                "line": 424,
+                                                                "column": 44
+                                                            }
+                                                        },
+                                                        "name": "canvas",
+                                                        "pos": {
+                                                            "start": 12048,
+                                                            "end": 12054,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 424,
+                                                                    "column": 38
+                                                                },
+                                                                "end": {
+                                                                    "line": 424,
+                                                                    "column": 44
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "computed": false,
+                                                    "optional": false,
+                                                    "pos": {
+                                                        "start": 12033,
+                                                        "end": 12054,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 424,
+                                                                "column": 23
+                                                            },
+                                                            "end": {
+                                                                "line": 424,
+                                                                "column": 44
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                            "optional": false,
+                                            "pos": {
+                                                "start": 12014,
+                                                "end": 12055,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 424,
+                                                        "column": 4
+                                                    },
+                                                    "end": {
+                                                        "line": 424,
+                                                        "column": 45
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "pos": {
+                                            "start": 12014,
+                                            "end": 12055,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 424,
+                                                    "column": 4
+                                                },
+                                                "end": {
+                                                    "line": 424,
+                                                    "column": 45
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 12014,
+                                        "end": 12055,
+                                        "loc": {
+                                            "start": {
+                                                "line": 424,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 424,
+                                                "column": 45
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 11840,
+                                "end": 12094,
+                                "loc": {
+                                    "start": {
+                                        "line": 418,
+                                        "column": 39
+                                    },
+                                    "end": {
+                                        "line": 426,
+                                        "column": 1
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 11835,
+                            "end": 12094,
+                            "loc": {
+                                "start": {
+                                    "line": 418,
+                                    "column": 34
+                                },
+                                "end": {
+                                    "line": 426,
+                                    "column": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 11801,
+                    "end": 12095,
+                    "loc": {
+                        "start": {
+                            "line": 418,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 426,
+                            "column": 2
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 11801,
+                "end": 12096,
+                "loc": {
+                    "start": {
+                        "line": 418,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 426,
+                        "column": 3
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement",
+        "VariableDeclaration",
+        "ExpressionStatement",
+        "ExpressionStatement",
+        "TryStatement"
+    ],
+    "info": {
+        "filename": "automouse.js",
+        "path": "/workspaces/polypoint/point_src/automouse.js",
+        "size": 12238,
+        "parsed_date": "2025-11-02T21:11:32.457Z"
+    }
+}

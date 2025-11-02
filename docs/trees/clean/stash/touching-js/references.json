@@ -1,0 +1,125 @@
+{
+    "src_file": "touching.js",
+    "references": {
+        "classes": {},
+        "functions": [
+            {
+                "name": "pointToPointContact",
+                "kind": "const",
+                "line": 6,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "pointToPointContactEdge",
+                "kind": "const",
+                "line": 13,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " distance test for edges.",
+                            "block": false,
+                            "line": 20
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "edgeLimit",
+                        "default_value": "undefined"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "pointToPointContactEdgeIncludeInterals",
+                "kind": "const",
+                "line": 28,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " distance test for edges.",
+                            "block": false,
+                            "line": 49
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "edgeLimit",
+                        "default_value": "undefined"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "pointToManyContact",
+                "kind": "const",
+                "line": 62,
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\nGiven a point, and another list of points,\r\nreturn any points _touching_ the target point.\r\n",
+                            "block": true,
+                            "line": 61
+                        }
+                    ],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "many"
+                    },
+                    {
+                        "name": "excludeTarget",
+                        "default_value": true
+                    },
+                    {
+                        "name": "edgeLimit",
+                        "default_value": "undefined"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "touching.js",
+        "path": "/workspaces/polypoint/point_src/touching.js",
+        "size": 2239,
+        "parsed_date": "2025-11-02T21:11:42.028Z"
+    }
+}

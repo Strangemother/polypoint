@@ -1,0 +1,330 @@
+{
+    "defs": [
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                    "type": "MemberExpression",
+                    "object": {
+                        "type": "Identifier",
+                        "word": "Math",
+                        "pos": {
+                            "start": 48,
+                            "end": 52,
+                            "loc": {
+                                "start": {
+                                    "line": 6,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 4
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "word": "PI2",
+                        "pos": {
+                            "start": 53,
+                            "end": 56,
+                            "loc": {
+                                "start": {
+                                    "line": 6,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 8
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 48,
+                        "end": 56,
+                        "loc": {
+                            "start": {
+                                "line": 6,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 6,
+                                "column": 8
+                            }
+                        }
+                    }
+                },
+                "right": null,
+                "pos": {
+                    "start": 48,
+                    "end": 70,
+                    "loc": {
+                        "start": {
+                            "line": 6,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 6,
+                            "column": 22
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 48,
+                "end": 70,
+                "loc": {
+                    "start": {
+                        "line": 6,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 6,
+                        "column": 22
+                    }
+                }
+            }
+        },
+        {
+            "word": "polyGen",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "count"
+                    },
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "radius"
+                    }
+                ],
+                "pos": {
+                    "start": 244,
+                    "end": 546,
+                    "loc": {
+                        "start": {
+                            "line": 16,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 30,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [
+                    {
+                        "text": " PolyGen v3.1 | MIT License | git.io/fjq8z ",
+                        "block": true,
+                        "line": 15
+                    }
+                ],
+                "inner": []
+            },
+            "pos": {
+                "start": 228,
+                "end": 546,
+                "loc": {
+                    "start": {
+                        "line": 16,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 30,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 228,
+            "end": 546,
+            "loc": {
+                "start": {
+                    "line": 16,
+                    "column": 0
+                },
+                "end": {
+                    "line": 30,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "getPolyDistributedPoints",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "count"
+                    },
+                    {
+                        "name": "pos"
+                    },
+                    {
+                        "name": "radius"
+                    },
+                    {
+                        "name": "rads",
+                        "default_value": 0
+                    },
+                    {
+                        "name": "angle"
+                    }
+                ],
+                "pos": {
+                    "start": 585,
+                    "end": 1179,
+                    "loc": {
+                        "start": {
+                            "line": 33,
+                            "column": 33
+                        },
+                        "end": {
+                            "line": 55,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Return a list of points distrubuted evenly around a circle.\r\n     ",
+                        "block": true,
+                        "line": 35
+                    }
+                ]
+            },
+            "pos": {
+                "start": 552,
+                "end": 1179,
+                "loc": {
+                    "start": {
+                        "line": 33,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 55,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 552,
+            "end": 1179,
+            "loc": {
+                "start": {
+                    "line": 33,
+                    "column": 0
+                },
+                "end": {
+                    "line": 55,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "function",
+            "word": "projectFrom",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "origin"
+                },
+                {
+                    "name": "distance",
+                    "default_value": "undefined"
+                },
+                {
+                    "name": "rotation",
+                    "default_value": "undefined"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1194,
+                "end": 1205,
+                "loc": {
+                    "start": {
+                        "line": 58,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 58,
+                        "column": 20
+                    }
+                },
+                "name": "projectFrom",
+                "pos": {
+                    "start": 1194,
+                    "end": 1205,
+                    "loc": {
+                        "start": {
+                            "line": 58,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 58,
+                            "column": 20
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1185,
+                "end": 1723,
+                "loc": {
+                    "start": {
+                        "line": 58,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 75,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        }
+    ],
+    "types": [
+        "ExpressionStatement",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "FunctionDeclaration"
+    ],
+    "info": {
+        "filename": "point-content.js",
+        "path": "/workspaces/polypoint/point_src/point-content.js",
+        "size": 1725,
+        "parsed_date": "2025-11-02T21:11:37.479Z"
+    }
+}

@@ -1,0 +1,2932 @@
+{
+    "defs": [
+        {
+            "word": "constraints",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "ObjectExpression",
+                "properties": [
+                    [
+                        {
+                            "kind": "init",
+                            "word": "lte",
+                            "type": "Property",
+                            "method": false,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "ArrowFunctionExpression",
+                                "expression": true,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "a"
+                                    },
+                                    {
+                                        "name": "b"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 34,
+                                    "end": 50,
+                                    "loc": {
+                                        "start": {
+                                            "line": 3,
+                                            "column": 9
+                                        },
+                                        "end": {
+                                            "line": 3,
+                                            "column": 25
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 29,
+                                "end": 50,
+                                "loc": {
+                                    "start": {
+                                        "line": 3,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 3,
+                                        "column": 25
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "kind": "init",
+                            "word": "gt",
+                            "type": "Property",
+                            "method": false,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "ArrowFunctionExpression",
+                                "expression": true,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "a"
+                                    },
+                                    {
+                                        "name": "b"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 62,
+                                    "end": 77,
+                                    "loc": {
+                                        "start": {
+                                            "line": 4,
+                                            "column": 10
+                                        },
+                                        "end": {
+                                            "line": 4,
+                                            "column": 25
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 58,
+                                "end": 77,
+                                "loc": {
+                                    "start": {
+                                        "line": 4,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 4,
+                                        "column": 25
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "kind": "init",
+                            "word": "any",
+                            "type": "Property",
+                            "method": false,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "ArrowFunctionExpression",
+                                "expression": true,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "a"
+                                    },
+                                    {
+                                        "name": "b"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 90,
+                                    "end": 104,
+                                    "loc": {
+                                        "start": {
+                                            "line": 5,
+                                            "column": 11
+                                        },
+                                        "end": {
+                                            "line": 5,
+                                            "column": 25
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 85,
+                                "end": 104,
+                                "loc": {
+                                    "start": {
+                                        "line": 5,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 5,
+                                        "column": 25
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "kind": "init",
+                            "word": "_ifDistance",
+                            "type": "Property",
+                            "method": false,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "FunctionExpression",
+                                "id": null,
+                                "generator": false,
+                                "expression": false,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "pointA"
+                                    },
+                                    {
+                                        "name": "pointB"
+                                    },
+                                    {
+                                        "name": "maxDistance"
+                                    },
+                                    {
+                                        "name": "action",
+                                        "default_value": "gt"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 127,
+                                    "end": 740,
+                                    "loc": {
+                                        "start": {
+                                            "line": 7,
+                                            "column": 19
+                                        },
+                                        "end": {
+                                            "line": 26,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 114,
+                                "end": 740,
+                                "loc": {
+                                    "start": {
+                                        "line": 7,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 26,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "kind": "init",
+                            "word": "distance",
+                            "type": "Property",
+                            "method": true,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "FunctionExpression",
+                                "id": null,
+                                "generator": false,
+                                "expression": false,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "pointA"
+                                    },
+                                    {
+                                        "name": "pointB"
+                                    },
+                                    {
+                                        "name": "maxDistance"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 758,
+                                    "end": 868,
+                                    "loc": {
+                                        "start": {
+                                            "line": 28,
+                                            "column": 14
+                                        },
+                                        "end": {
+                                            "line": 30,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 750,
+                                "end": 868,
+                                "loc": {
+                                    "start": {
+                                        "line": 28,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 30,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "kind": "init",
+                            "word": "within",
+                            "type": "Property",
+                            "method": true,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "FunctionExpression",
+                                "id": null,
+                                "generator": false,
+                                "expression": false,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "pointA"
+                                    },
+                                    {
+                                        "name": "pointB"
+                                    },
+                                    {
+                                        "name": "maxDistance"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 884,
+                                    "end": 993,
+                                    "loc": {
+                                        "start": {
+                                            "line": 32,
+                                            "column": 12
+                                        },
+                                        "end": {
+                                            "line": 34,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 878,
+                                "end": 993,
+                                "loc": {
+                                    "start": {
+                                        "line": 32,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 34,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "kind": "init",
+                            "word": "inverse",
+                            "type": "Property",
+                            "method": true,
+                            "shorthand": false,
+                            "computed": false,
+                            "value": {
+                                "type": "FunctionExpression",
+                                "id": null,
+                                "generator": false,
+                                "expression": false,
+                                "async": false,
+                                "params": [
+                                    {
+                                        "name": "pointA"
+                                    },
+                                    {
+                                        "name": "pointB"
+                                    },
+                                    {
+                                        "name": "maxDistance"
+                                    }
+                                ],
+                                "pos": {
+                                    "start": 1010,
+                                    "end": 1320,
+                                    "loc": {
+                                        "start": {
+                                            "line": 36,
+                                            "column": 13
+                                        },
+                                        "end": {
+                                            "line": 44,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            "pos": {
+                                "start": 1003,
+                                "end": 1320,
+                                "loc": {
+                                    "start": {
+                                        "line": 36,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 44,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                ],
+                "pos": {
+                    "start": 22,
+                    "end": 1325,
+                    "loc": {
+                        "start": {
+                            "line": 2,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 46,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Same as:\r\n\r\n            const ratio = maxDistance / distance;\r\n                pointB.x = pointA.x - d2d.x * ratio;\r\n                pointB.y = pointA.y - d2d.y * ratio;\r\n            ",
+                        "block": true,
+                        "line": 19
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2,
+                "end": 1325,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 46,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 2,
+            "end": 1325,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 0
+                },
+                "end": {
+                    "line": 46,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "stringAttach",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "followPoint"
+                    },
+                    {
+                        "name": "originPoint"
+                    },
+                    {
+                        "name": "settings"
+                    }
+                ],
+                "pos": {
+                    "start": 1352,
+                    "end": 3788,
+                    "loc": {
+                        "start": {
+                            "line": 49,
+                            "column": 21
+                        },
+                        "end": {
+                            "line": 119,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Apply gravity to the follow point's vertical velocity",
+                        "block": false,
+                        "line": 50
+                    }
+                ]
+            },
+            "pos": {
+                "start": 1331,
+                "end": 3789,
+                "loc": {
+                    "start": {
+                        "line": 49,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 119,
+                        "column": 2
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 1331,
+            "end": 3789,
+            "loc": {
+                "start": {
+                    "line": 49,
+                    "column": 0
+                },
+                "end": {
+                    "line": 119,
+                    "column": 2
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "class",
+            "word": "PointConstraints",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3840,
+                            "end": 4103,
+                            "loc": {
+                                "start": {
+                                    "line": 125,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 134,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " string stuff ",
+                                "block": true,
+                                "line": 127
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3829,
+                        "end": 4103,
+                        "loc": {
+                            "start": {
+                                "line": 125,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 134,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "track",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4213,
+                            "end": 4360,
+                            "loc": {
+                                "start": {
+                                    "line": 138,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 141,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Track another point using IK - this point follows the _other_ at a\r\n    set distance. ",
+                                "block": true,
+                                "line": 137
+                            }
+                        ],
+                        "inner": [
+                            {
+                                "text": " return followPoint(other, this, settings)",
+                                "block": false,
+                                "line": 139
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4208,
+                        "end": 4360,
+                        "loc": {
+                            "start": {
+                                "line": 138,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 141,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "leash",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4486,
+                            "end": 4577,
+                            "loc": {
+                                "start": {
+                                    "line": 145,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 147,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Track another point using constraints. This point follows the other\r\n    point at a distance or less. ",
+                                "block": true,
+                                "line": 144
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4481,
+                        "end": 4577,
+                        "loc": {
+                            "start": {
+                                "line": 145,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 147,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "avoid",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4750,
+                            "end": 4842,
+                            "loc": {
+                                "start": {
+                                    "line": 151,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 153,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Ensure this point does not overlap the _other_ point. If an overlap\r\n    occurs, this point is moved. Fundamentally this is the antethsis of leash().",
+                                "block": true,
+                                "line": 150
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4745,
+                        "end": 4842,
+                        "loc": {
+                            "start": {
+                                "line": 151,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 153,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "elbow",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4855,
+                            "end": 5310,
+                            "loc": {
+                                "start": {
+                                    "line": 155,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 163,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Connect this point and another point by their _edges_. Similar to\r\n        _track_ at a distance, but accounting for radius. ",
+                                "block": true,
+                                "line": 157
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4850,
+                        "end": 5310,
+                        "loc": {
+                            "start": {
+                                "line": 155,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 163,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "string",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5324,
+                            "end": 5782,
+                            "loc": {
+                                "start": {
+                                    "line": 165,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 176,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Manipulate the _other_; with this entity as the origin owner.",
+                                "block": false,
+                                "line": 166
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5318,
+                        "end": 5782,
+                        "loc": {
+                            "start": {
+                                "line": 165,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 176,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " string stuff ",
+                        "block": true,
+                        "line": 127
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3795,
+                "end": 5785,
+                "loc": {
+                    "start": {
+                        "line": 122,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 177,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 5789,
+                "end": 5907,
+                "loc": {
+                    "start": {
+                        "line": 179,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 183,
+                        "column": 1
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 5789,
+                    "end": 5816,
+                    "loc": {
+                        "start": {
+                            "line": 179,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 179,
+                            "column": 27
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 5789,
+                        "end": 5803,
+                        "loc": {
+                            "start": {
+                                "line": 179,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 179,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 5789,
+                            "end": 5798,
+                            "loc": {
+                                "start": {
+                                    "line": 179,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 179,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 5789,
+                                "end": 5798,
+                                "loc": {
+                                    "start": {
+                                        "line": 179,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 179,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 5799,
+                            "end": 5803,
+                            "loc": {
+                                "start": {
+                                    "line": 179,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 179,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 5799,
+                                "end": 5803,
+                                "loc": {
+                                    "start": {
+                                        "line": 179,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 179,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 5789,
+                            "end": 5803,
+                            "loc": {
+                                "start": {
+                                    "line": 179,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 179,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 5804,
+                        "end": 5816,
+                        "loc": {
+                            "start": {
+                                "line": 179,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 179,
+                                "column": 27
+                            }
+                        },
+                        "name": "deferredProp",
+                        "pos": {
+                            "start": 5804,
+                            "end": 5816,
+                            "loc": {
+                                "start": {
+                                    "line": 179,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 179,
+                                    "column": 27
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 5789,
+                        "end": 5816,
+                        "loc": {
+                            "start": {
+                                "line": 179,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 179,
+                                "column": 27
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 5817,
+                        "end": 5824,
+                        "loc": {
+                            "start": {
+                                "line": 179,
+                                "column": 28
+                            },
+                            "end": {
+                                "line": 179,
+                                "column": 35
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 5817,
+                            "end": 5824,
+                            "loc": {
+                                "start": {
+                                    "line": 179,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 179,
+                                    "column": 35
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 5831,
+                        "end": 5904,
+                        "loc": {
+                            "start": {
+                                "line": 180,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 182,
+                                "column": 5
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 5840,
+                            "end": 5850,
+                            "loc": {
+                                "start": {
+                                    "line": 180,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 180,
+                                    "column": 23
+                                }
+                            },
+                            "name": "constraint",
+                            "pos": {
+                                "start": 5840,
+                                "end": 5850,
+                                "loc": {
+                                    "start": {
+                                        "line": 180,
+                                        "column": 13
+                                    },
+                                    "end": {
+                                        "line": 180,
+                                        "column": 23
+                                    }
+                                }
+                            }
+                        },
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 5853,
+                            "end": 5904,
+                            "loc": {
+                                "start": {
+                                    "line": 180,
+                                    "column": 26
+                                },
+                                "end": {
+                                    "line": 182,
+                                    "column": 5
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 5864,
+                                    "end": 5897,
+                                    "loc": {
+                                        "start": {
+                                            "line": 181,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 181,
+                                            "column": 41
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 5871,
+                                        "end": 5897,
+                                        "loc": {
+                                            "start": {
+                                                "line": 181,
+                                                "column": 15
+                                            },
+                                            "end": {
+                                                "line": 181,
+                                                "column": 41
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 5875,
+                                            "end": 5891,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 181,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 181,
+                                                    "column": 35
+                                                }
+                                            },
+                                            "name": "PointConstraints",
+                                            "pos": {
+                                                "start": 5875,
+                                                "end": 5891,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 181,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 181,
+                                                        "column": 35
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 5892,
+                                                "end": 5896,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 181,
+                                                        "column": 36
+                                                    },
+                                                    "end": {
+                                                        "line": 181,
+                                                        "column": 40
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 5892,
+                                                    "end": 5896,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 181,
+                                                            "column": 36
+                                                        },
+                                                        "end": {
+                                                            "line": 181,
+                                                            "column": 40
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 5871,
+                                            "end": 5897,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 181,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 181,
+                                                    "column": 41
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 5864,
+                                        "end": 5897,
+                                        "loc": {
+                                            "start": {
+                                                "line": 181,
+                                                "column": 8
+                                            },
+                                            "end": {
+                                                "line": 181,
+                                                "column": 41
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 5853,
+                                "end": 5904,
+                                "loc": {
+                                    "start": {
+                                        "line": 180,
+                                        "column": 26
+                                    },
+                                    "end": {
+                                        "line": 182,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 5831,
+                            "end": 5904,
+                            "loc": {
+                                "start": {
+                                    "line": 180,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 182,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 5789,
+                    "end": 5907,
+                    "loc": {
+                        "start": {
+                            "line": 179,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 183,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 5789,
+                "end": 5908,
+                "loc": {
+                    "start": {
+                        "line": 179,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 183,
+                        "column": 2
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 5914,
+                "end": 6680,
+                "loc": {
+                    "start": {
+                        "line": 186,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 205,
+                        "column": 2
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 5914,
+                    "end": 5945,
+                    "loc": {
+                        "start": {
+                            "line": 186,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 186,
+                            "column": 31
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 5914,
+                        "end": 5928,
+                        "loc": {
+                            "start": {
+                                "line": 186,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 186,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 5914,
+                            "end": 5923,
+                            "loc": {
+                                "start": {
+                                    "line": 186,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 186,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 5914,
+                                "end": 5923,
+                                "loc": {
+                                    "start": {
+                                        "line": 186,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 186,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 5924,
+                            "end": 5928,
+                            "loc": {
+                                "start": {
+                                    "line": 186,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 186,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 5924,
+                                "end": 5928,
+                                "loc": {
+                                    "start": {
+                                        "line": 186,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 186,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 5914,
+                            "end": 5928,
+                            "loc": {
+                                "start": {
+                                    "line": 186,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 186,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 5929,
+                        "end": 5945,
+                        "loc": {
+                            "start": {
+                                "line": 186,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 186,
+                                "column": 31
+                            }
+                        },
+                        "name": "installFunctions",
+                        "pos": {
+                            "start": 5929,
+                            "end": 5945,
+                            "loc": {
+                                "start": {
+                                    "line": 186,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 186,
+                                    "column": 31
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 5914,
+                        "end": 5945,
+                        "loc": {
+                            "start": {
+                                "line": 186,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 186,
+                                "column": 31
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 5946,
+                        "end": 5953,
+                        "loc": {
+                            "start": {
+                                "line": 186,
+                                "column": 32
+                            },
+                            "end": {
+                                "line": 186,
+                                "column": 39
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 5946,
+                            "end": 5953,
+                            "loc": {
+                                "start": {
+                                    "line": 186,
+                                    "column": 32
+                                },
+                                "end": {
+                                    "line": 186,
+                                    "column": 39
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "ObjectExpression",
+                        "start": 5955,
+                        "end": 6679,
+                        "loc": {
+                            "start": {
+                                "line": 186,
+                                "column": 41
+                            },
+                            "end": {
+                                "line": 205,
+                                "column": 1
+                            }
+                        },
+                        "properties": [
+                            {
+                                "type": "Property",
+                                "start": 6059,
+                                "end": 6204,
+                                "loc": {
+                                    "start": {
+                                        "line": 189,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 192,
+                                        "column": 5
+                                    }
+                                },
+                                "method": true,
+                                "shorthand": false,
+                                "computed": false,
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 6059,
+                                    "end": 6064,
+                                    "loc": {
+                                        "start": {
+                                            "line": 189,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 189,
+                                            "column": 9
+                                        }
+                                    },
+                                    "name": "track",
+                                    "pos": {
+                                        "start": 6059,
+                                        "end": 6064,
+                                        "loc": {
+                                            "start": {
+                                                "line": 189,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 189,
+                                                "column": 9
+                                            }
+                                        }
+                                    }
+                                },
+                                "value": {
+                                    "type": "FunctionExpression",
+                                    "start": 6064,
+                                    "end": 6204,
+                                    "loc": {
+                                        "start": {
+                                            "line": 189,
+                                            "column": 9
+                                        },
+                                        "end": {
+                                            "line": 192,
+                                            "column": 5
+                                        }
+                                    },
+                                    "id": null,
+                                    "expression": false,
+                                    "generator": false,
+                                    "async": false,
+                                    "params": [
+                                        {
+                                            "type": "Identifier",
+                                            "start": 6065,
+                                            "end": 6070,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 189,
+                                                    "column": 10
+                                                },
+                                                "end": {
+                                                    "line": 189,
+                                                    "column": 15
+                                                }
+                                            },
+                                            "name": "other",
+                                            "pos": {
+                                                "start": 6065,
+                                                "end": 6070,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 189,
+                                                        "column": 10
+                                                    },
+                                                    "end": {
+                                                        "line": 189,
+                                                        "column": 15
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "Identifier",
+                                            "start": 6072,
+                                            "end": 6080,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 189,
+                                                    "column": 17
+                                                },
+                                                "end": {
+                                                    "line": 189,
+                                                    "column": 25
+                                                }
+                                            },
+                                            "name": "settings",
+                                            "pos": {
+                                                "start": 6072,
+                                                "end": 6080,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 189,
+                                                        "column": 17
+                                                    },
+                                                    "end": {
+                                                        "line": 189,
+                                                        "column": 25
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "body": {
+                                        "type": "BlockStatement",
+                                        "start": 6082,
+                                        "end": 6204,
+                                        "loc": {
+                                            "start": {
+                                                "line": 189,
+                                                "column": 27
+                                            },
+                                            "end": {
+                                                "line": 192,
+                                                "column": 5
+                                            }
+                                        },
+                                        "body": [
+                                            {
+                                                "type": "ReturnStatement",
+                                                "start": 6147,
+                                                "end": 6197,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 191,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 191,
+                                                        "column": 58
+                                                    }
+                                                },
+                                                "argument": {
+                                                    "type": "CallExpression",
+                                                    "start": 6154,
+                                                    "end": 6197,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 191,
+                                                            "column": 15
+                                                        },
+                                                        "end": {
+                                                            "line": 191,
+                                                            "column": 58
+                                                        }
+                                                    },
+                                                    "callee": {
+                                                        "type": "MemberExpression",
+                                                        "start": 6154,
+                                                        "end": 6174,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 191,
+                                                                "column": 15
+                                                            },
+                                                            "end": {
+                                                                "line": 191,
+                                                                "column": 35
+                                                            }
+                                                        },
+                                                        "object": {
+                                                            "type": "Identifier",
+                                                            "start": 6154,
+                                                            "end": 6165,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 191,
+                                                                    "column": 15
+                                                                },
+                                                                "end": {
+                                                                    "line": 191,
+                                                                    "column": 26
+                                                                }
+                                                            },
+                                                            "name": "constraints",
+                                                            "pos": {
+                                                                "start": 6154,
+                                                                "end": 6165,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 191,
+                                                                        "column": 15
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 191,
+                                                                        "column": 26
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "property": {
+                                                            "type": "Identifier",
+                                                            "start": 6166,
+                                                            "end": 6174,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 191,
+                                                                    "column": 27
+                                                                },
+                                                                "end": {
+                                                                    "line": 191,
+                                                                    "column": 35
+                                                                }
+                                                            },
+                                                            "name": "distance",
+                                                            "pos": {
+                                                                "start": 6166,
+                                                                "end": 6174,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 191,
+                                                                        "column": 27
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 191,
+                                                                        "column": 35
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "computed": false,
+                                                        "optional": false,
+                                                        "pos": {
+                                                            "start": 6154,
+                                                            "end": 6174,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 191,
+                                                                    "column": 15
+                                                                },
+                                                                "end": {
+                                                                    "line": 191,
+                                                                    "column": 35
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "arguments": [
+                                                        {
+                                                            "type": "Identifier",
+                                                            "start": 6175,
+                                                            "end": 6180,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 191,
+                                                                    "column": 36
+                                                                },
+                                                                "end": {
+                                                                    "line": 191,
+                                                                    "column": 41
+                                                                }
+                                                            },
+                                                            "name": "other",
+                                                            "pos": {
+                                                                "start": 6175,
+                                                                "end": 6180,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 191,
+                                                                        "column": 36
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 191,
+                                                                        "column": 41
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "ThisExpression",
+                                                            "start": 6182,
+                                                            "end": 6186,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 191,
+                                                                    "column": 43
+                                                                },
+                                                                "end": {
+                                                                    "line": 191,
+                                                                    "column": 47
+                                                                }
+                                                            },
+                                                            "pos": {
+                                                                "start": 6182,
+                                                                "end": 6186,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 191,
+                                                                        "column": 43
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 191,
+                                                                        "column": 47
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "Identifier",
+                                                            "start": 6188,
+                                                            "end": 6196,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 191,
+                                                                    "column": 49
+                                                                },
+                                                                "end": {
+                                                                    "line": 191,
+                                                                    "column": 57
+                                                                }
+                                                            },
+                                                            "name": "settings",
+                                                            "pos": {
+                                                                "start": 6188,
+                                                                "end": 6196,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 191,
+                                                                        "column": 49
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 191,
+                                                                        "column": 57
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "optional": false,
+                                                    "pos": {
+                                                        "start": 6154,
+                                                        "end": 6197,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 191,
+                                                                "column": 15
+                                                            },
+                                                            "end": {
+                                                                "line": 191,
+                                                                "column": 58
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 6147,
+                                                    "end": 6197,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 191,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 191,
+                                                            "column": 58
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 6082,
+                                            "end": 6204,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 189,
+                                                    "column": 27
+                                                },
+                                                "end": {
+                                                    "line": 192,
+                                                    "column": 5
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 6064,
+                                        "end": 6204,
+                                        "loc": {
+                                            "start": {
+                                                "line": 189,
+                                                "column": 9
+                                            },
+                                            "end": {
+                                                "line": 192,
+                                                "column": 5
+                                            }
+                                        }
+                                    }
+                                },
+                                "kind": "init",
+                                "pos": {
+                                    "start": 6059,
+                                    "end": 6204,
+                                    "loc": {
+                                        "start": {
+                                            "line": 189,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 192,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "Property",
+                                "start": 6327,
+                                "end": 6416,
+                                "loc": {
+                                    "start": {
+                                        "line": 196,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 198,
+                                        "column": 5
+                                    }
+                                },
+                                "method": true,
+                                "shorthand": false,
+                                "computed": false,
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 6327,
+                                    "end": 6332,
+                                    "loc": {
+                                        "start": {
+                                            "line": 196,
+                                            "column": 6
+                                        },
+                                        "end": {
+                                            "line": 196,
+                                            "column": 11
+                                        }
+                                    },
+                                    "name": "leash",
+                                    "pos": {
+                                        "start": 6327,
+                                        "end": 6332,
+                                        "loc": {
+                                            "start": {
+                                                "line": 196,
+                                                "column": 6
+                                            },
+                                            "end": {
+                                                "line": 196,
+                                                "column": 11
+                                            }
+                                        }
+                                    }
+                                },
+                                "value": {
+                                    "type": "FunctionExpression",
+                                    "start": 6332,
+                                    "end": 6416,
+                                    "loc": {
+                                        "start": {
+                                            "line": 196,
+                                            "column": 11
+                                        },
+                                        "end": {
+                                            "line": 198,
+                                            "column": 5
+                                        }
+                                    },
+                                    "id": null,
+                                    "expression": false,
+                                    "generator": false,
+                                    "async": false,
+                                    "params": [
+                                        {
+                                            "type": "Identifier",
+                                            "start": 6333,
+                                            "end": 6338,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 196,
+                                                    "column": 12
+                                                },
+                                                "end": {
+                                                    "line": 196,
+                                                    "column": 17
+                                                }
+                                            },
+                                            "name": "other",
+                                            "pos": {
+                                                "start": 6333,
+                                                "end": 6338,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 196,
+                                                        "column": 12
+                                                    },
+                                                    "end": {
+                                                        "line": 196,
+                                                        "column": 17
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "Identifier",
+                                            "start": 6340,
+                                            "end": 6348,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 196,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 196,
+                                                    "column": 27
+                                                }
+                                            },
+                                            "name": "settings",
+                                            "pos": {
+                                                "start": 6340,
+                                                "end": 6348,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 196,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 196,
+                                                        "column": 27
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "body": {
+                                        "type": "BlockStatement",
+                                        "start": 6350,
+                                        "end": 6416,
+                                        "loc": {
+                                            "start": {
+                                                "line": 196,
+                                                "column": 29
+                                            },
+                                            "end": {
+                                                "line": 198,
+                                                "column": 5
+                                            }
+                                        },
+                                        "body": [
+                                            {
+                                                "type": "ReturnStatement",
+                                                "start": 6361,
+                                                "end": 6409,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 197,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 197,
+                                                        "column": 56
+                                                    }
+                                                },
+                                                "argument": {
+                                                    "type": "CallExpression",
+                                                    "start": 6368,
+                                                    "end": 6409,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 197,
+                                                            "column": 15
+                                                        },
+                                                        "end": {
+                                                            "line": 197,
+                                                            "column": 56
+                                                        }
+                                                    },
+                                                    "callee": {
+                                                        "type": "MemberExpression",
+                                                        "start": 6368,
+                                                        "end": 6386,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 197,
+                                                                "column": 15
+                                                            },
+                                                            "end": {
+                                                                "line": 197,
+                                                                "column": 33
+                                                            }
+                                                        },
+                                                        "object": {
+                                                            "type": "Identifier",
+                                                            "start": 6368,
+                                                            "end": 6379,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 197,
+                                                                    "column": 15
+                                                                },
+                                                                "end": {
+                                                                    "line": 197,
+                                                                    "column": 26
+                                                                }
+                                                            },
+                                                            "name": "constraints",
+                                                            "pos": {
+                                                                "start": 6368,
+                                                                "end": 6379,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 197,
+                                                                        "column": 15
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 197,
+                                                                        "column": 26
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "property": {
+                                                            "type": "Identifier",
+                                                            "start": 6380,
+                                                            "end": 6386,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 197,
+                                                                    "column": 27
+                                                                },
+                                                                "end": {
+                                                                    "line": 197,
+                                                                    "column": 33
+                                                                }
+                                                            },
+                                                            "name": "within",
+                                                            "pos": {
+                                                                "start": 6380,
+                                                                "end": 6386,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 197,
+                                                                        "column": 27
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 197,
+                                                                        "column": 33
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "computed": false,
+                                                        "optional": false,
+                                                        "pos": {
+                                                            "start": 6368,
+                                                            "end": 6386,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 197,
+                                                                    "column": 15
+                                                                },
+                                                                "end": {
+                                                                    "line": 197,
+                                                                    "column": 33
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "arguments": [
+                                                        {
+                                                            "type": "Identifier",
+                                                            "start": 6387,
+                                                            "end": 6392,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 197,
+                                                                    "column": 34
+                                                                },
+                                                                "end": {
+                                                                    "line": 197,
+                                                                    "column": 39
+                                                                }
+                                                            },
+                                                            "name": "other",
+                                                            "pos": {
+                                                                "start": 6387,
+                                                                "end": 6392,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 197,
+                                                                        "column": 34
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 197,
+                                                                        "column": 39
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "ThisExpression",
+                                                            "start": 6394,
+                                                            "end": 6398,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 197,
+                                                                    "column": 41
+                                                                },
+                                                                "end": {
+                                                                    "line": 197,
+                                                                    "column": 45
+                                                                }
+                                                            },
+                                                            "pos": {
+                                                                "start": 6394,
+                                                                "end": 6398,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 197,
+                                                                        "column": 41
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 197,
+                                                                        "column": 45
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "Identifier",
+                                                            "start": 6400,
+                                                            "end": 6408,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 197,
+                                                                    "column": 47
+                                                                },
+                                                                "end": {
+                                                                    "line": 197,
+                                                                    "column": 55
+                                                                }
+                                                            },
+                                                            "name": "settings",
+                                                            "pos": {
+                                                                "start": 6400,
+                                                                "end": 6408,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 197,
+                                                                        "column": 47
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 197,
+                                                                        "column": 55
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "optional": false,
+                                                    "pos": {
+                                                        "start": 6368,
+                                                        "end": 6409,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 197,
+                                                                "column": 15
+                                                            },
+                                                            "end": {
+                                                                "line": 197,
+                                                                "column": 56
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 6361,
+                                                    "end": 6409,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 197,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 197,
+                                                            "column": 56
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 6350,
+                                            "end": 6416,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 196,
+                                                    "column": 29
+                                                },
+                                                "end": {
+                                                    "line": 198,
+                                                    "column": 5
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 6332,
+                                        "end": 6416,
+                                        "loc": {
+                                            "start": {
+                                                "line": 196,
+                                                "column": 11
+                                            },
+                                            "end": {
+                                                "line": 198,
+                                                "column": 5
+                                            }
+                                        }
+                                    }
+                                },
+                                "kind": "init",
+                                "pos": {
+                                    "start": 6327,
+                                    "end": 6416,
+                                    "loc": {
+                                        "start": {
+                                            "line": 196,
+                                            "column": 6
+                                        },
+                                        "end": {
+                                            "line": 198,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "Property",
+                                "start": 6586,
+                                "end": 6676,
+                                "loc": {
+                                    "start": {
+                                        "line": 202,
+                                        "column": 6
+                                    },
+                                    "end": {
+                                        "line": 204,
+                                        "column": 5
+                                    }
+                                },
+                                "method": true,
+                                "shorthand": false,
+                                "computed": false,
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 6586,
+                                    "end": 6591,
+                                    "loc": {
+                                        "start": {
+                                            "line": 202,
+                                            "column": 6
+                                        },
+                                        "end": {
+                                            "line": 202,
+                                            "column": 11
+                                        }
+                                    },
+                                    "name": "avoid",
+                                    "pos": {
+                                        "start": 6586,
+                                        "end": 6591,
+                                        "loc": {
+                                            "start": {
+                                                "line": 202,
+                                                "column": 6
+                                            },
+                                            "end": {
+                                                "line": 202,
+                                                "column": 11
+                                            }
+                                        }
+                                    }
+                                },
+                                "value": {
+                                    "type": "FunctionExpression",
+                                    "start": 6591,
+                                    "end": 6676,
+                                    "loc": {
+                                        "start": {
+                                            "line": 202,
+                                            "column": 11
+                                        },
+                                        "end": {
+                                            "line": 204,
+                                            "column": 5
+                                        }
+                                    },
+                                    "id": null,
+                                    "expression": false,
+                                    "generator": false,
+                                    "async": false,
+                                    "params": [
+                                        {
+                                            "type": "Identifier",
+                                            "start": 6592,
+                                            "end": 6597,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 202,
+                                                    "column": 12
+                                                },
+                                                "end": {
+                                                    "line": 202,
+                                                    "column": 17
+                                                }
+                                            },
+                                            "name": "other",
+                                            "pos": {
+                                                "start": 6592,
+                                                "end": 6597,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 202,
+                                                        "column": 12
+                                                    },
+                                                    "end": {
+                                                        "line": 202,
+                                                        "column": 17
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "Identifier",
+                                            "start": 6599,
+                                            "end": 6607,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 202,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 202,
+                                                    "column": 27
+                                                }
+                                            },
+                                            "name": "settings",
+                                            "pos": {
+                                                "start": 6599,
+                                                "end": 6607,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 202,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 202,
+                                                        "column": 27
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "body": {
+                                        "type": "BlockStatement",
+                                        "start": 6609,
+                                        "end": 6676,
+                                        "loc": {
+                                            "start": {
+                                                "line": 202,
+                                                "column": 29
+                                            },
+                                            "end": {
+                                                "line": 204,
+                                                "column": 5
+                                            }
+                                        },
+                                        "body": [
+                                            {
+                                                "type": "ReturnStatement",
+                                                "start": 6620,
+                                                "end": 6669,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 203,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 203,
+                                                        "column": 57
+                                                    }
+                                                },
+                                                "argument": {
+                                                    "type": "CallExpression",
+                                                    "start": 6627,
+                                                    "end": 6669,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 203,
+                                                            "column": 15
+                                                        },
+                                                        "end": {
+                                                            "line": 203,
+                                                            "column": 57
+                                                        }
+                                                    },
+                                                    "callee": {
+                                                        "type": "MemberExpression",
+                                                        "start": 6627,
+                                                        "end": 6646,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 203,
+                                                                "column": 15
+                                                            },
+                                                            "end": {
+                                                                "line": 203,
+                                                                "column": 34
+                                                            }
+                                                        },
+                                                        "object": {
+                                                            "type": "Identifier",
+                                                            "start": 6627,
+                                                            "end": 6638,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 203,
+                                                                    "column": 15
+                                                                },
+                                                                "end": {
+                                                                    "line": 203,
+                                                                    "column": 26
+                                                                }
+                                                            },
+                                                            "name": "constraints",
+                                                            "pos": {
+                                                                "start": 6627,
+                                                                "end": 6638,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 203,
+                                                                        "column": 15
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 203,
+                                                                        "column": 26
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "property": {
+                                                            "type": "Identifier",
+                                                            "start": 6639,
+                                                            "end": 6646,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 203,
+                                                                    "column": 27
+                                                                },
+                                                                "end": {
+                                                                    "line": 203,
+                                                                    "column": 34
+                                                                }
+                                                            },
+                                                            "name": "inverse",
+                                                            "pos": {
+                                                                "start": 6639,
+                                                                "end": 6646,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 203,
+                                                                        "column": 27
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 203,
+                                                                        "column": 34
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "computed": false,
+                                                        "optional": false,
+                                                        "pos": {
+                                                            "start": 6627,
+                                                            "end": 6646,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 203,
+                                                                    "column": 15
+                                                                },
+                                                                "end": {
+                                                                    "line": 203,
+                                                                    "column": 34
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "arguments": [
+                                                        {
+                                                            "type": "Identifier",
+                                                            "start": 6647,
+                                                            "end": 6652,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 203,
+                                                                    "column": 35
+                                                                },
+                                                                "end": {
+                                                                    "line": 203,
+                                                                    "column": 40
+                                                                }
+                                                            },
+                                                            "name": "other",
+                                                            "pos": {
+                                                                "start": 6647,
+                                                                "end": 6652,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 203,
+                                                                        "column": 35
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 203,
+                                                                        "column": 40
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "ThisExpression",
+                                                            "start": 6654,
+                                                            "end": 6658,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 203,
+                                                                    "column": 42
+                                                                },
+                                                                "end": {
+                                                                    "line": 203,
+                                                                    "column": 46
+                                                                }
+                                                            },
+                                                            "pos": {
+                                                                "start": 6654,
+                                                                "end": 6658,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 203,
+                                                                        "column": 42
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 203,
+                                                                        "column": 46
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "Identifier",
+                                                            "start": 6660,
+                                                            "end": 6668,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 203,
+                                                                    "column": 48
+                                                                },
+                                                                "end": {
+                                                                    "line": 203,
+                                                                    "column": 56
+                                                                }
+                                                            },
+                                                            "name": "settings",
+                                                            "pos": {
+                                                                "start": 6660,
+                                                                "end": 6668,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 203,
+                                                                        "column": 48
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 203,
+                                                                        "column": 56
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "optional": false,
+                                                    "pos": {
+                                                        "start": 6627,
+                                                        "end": 6669,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 203,
+                                                                "column": 15
+                                                            },
+                                                            "end": {
+                                                                "line": 203,
+                                                                "column": 57
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 6620,
+                                                    "end": 6669,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 203,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 203,
+                                                            "column": 57
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 6609,
+                                            "end": 6676,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 202,
+                                                    "column": 29
+                                                },
+                                                "end": {
+                                                    "line": 204,
+                                                    "column": 5
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 6591,
+                                        "end": 6676,
+                                        "loc": {
+                                            "start": {
+                                                "line": 202,
+                                                "column": 11
+                                            },
+                                            "end": {
+                                                "line": 204,
+                                                "column": 5
+                                            }
+                                        }
+                                    }
+                                },
+                                "kind": "init",
+                                "pos": {
+                                    "start": 6586,
+                                    "end": 6676,
+                                    "loc": {
+                                        "start": {
+                                            "line": 202,
+                                            "column": 6
+                                        },
+                                        "end": {
+                                            "line": 204,
+                                            "column": 5
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "pos": {
+                            "start": 5955,
+                            "end": 6679,
+                            "loc": {
+                                "start": {
+                                    "line": 186,
+                                    "column": 41
+                                },
+                                "end": {
+                                    "line": 205,
+                                    "column": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 5914,
+                    "end": 6680,
+                    "loc": {
+                        "start": {
+                            "line": 186,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 205,
+                            "column": 2
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 5914,
+                "end": 6680,
+                "loc": {
+                    "start": {
+                        "line": 186,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 205,
+                        "column": 2
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "constrain-distance.js",
+        "path": "/workspaces/polypoint/point_src/constrain-distance.js",
+        "size": 8276,
+        "parsed_date": "2025-11-02T21:11:33.727Z"
+    }
+}

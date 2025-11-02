@@ -1,0 +1,273 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "CollisionBox",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "points"
+                            }
+                        ],
+                        "pos": {
+                            "start": 128,
+                            "end": 213,
+                            "loc": {
+                                "start": {
+                                    "line": 7,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 9,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": "\r\n    collisionBox = new CollisionBox(points)\r\n    collisionBox.shuffle()\r\n    ",
+                                "block": true,
+                                "line": 6
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 117,
+                        "end": 213,
+                        "loc": {
+                            "start": {
+                                "line": 7,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 9,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "step",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "target"
+                            }
+                        ],
+                        "pos": {
+                            "start": 225,
+                            "end": 286,
+                            "loc": {
+                                "start": {
+                                    "line": 11,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 13,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 221,
+                        "end": 286,
+                        "loc": {
+                            "start": {
+                                "line": 11,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 13,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "shuffle",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "points"
+                            }
+                        ],
+                        "pos": {
+                            "start": 301,
+                            "end": 883,
+                            "loc": {
+                                "start": {
+                                    "line": 15,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 33,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 294,
+                        "end": 883,
+                        "loc": {
+                            "start": {
+                                "line": 15,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 33,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "resolveCollision",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p1"
+                            },
+                            {
+                                "name": "p2"
+                            },
+                            {
+                                "name": "p1Static",
+                                "default_value": false
+                            },
+                            {
+                                "name": "p2Static",
+                                "default_value": false
+                            }
+                        ],
+                        "pos": {
+                            "start": 907,
+                            "end": 1644,
+                            "loc": {
+                                "start": {
+                                    "line": 35,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 56,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 891,
+                        "end": 1644,
+                        "loc": {
+                            "start": {
+                                "line": 35,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 56,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "\r\n    collisionBox = new CollisionBox(points)\r\n    collisionBox.shuffle()\r\n    ",
+                        "block": true,
+                        "line": 6
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2,
+                "end": 1649,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 58,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "collisionbox.js",
+        "path": "/workspaces/polypoint/point_src/collisionbox.js",
+        "size": 1655,
+        "parsed_date": "2025-11-02T21:11:33.402Z"
+    }
+}

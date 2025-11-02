@@ -1,0 +1,1817 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "PointArc",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "pos": {
+                            "start": 166,
+                            "end": 213,
+                            "loc": {
+                                "start": {
+                                    "line": 15,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 17,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 155,
+                        "end": 213,
+                        "loc": {
+                            "start": {
+                                "line": 15,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 17,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "fromTo",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "fromPoint"
+                            },
+                            {
+                                "name": "toPoint"
+                            },
+                            {
+                                "name": "direction"
+                            }
+                        ],
+                        "pos": {
+                            "start": 227,
+                            "end": 450,
+                            "loc": {
+                                "start": {
+                                    "line": 19,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 23,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Point as _center_, arc from A, to B, at a distance c.radius ",
+                                "block": true,
+                                "line": 20
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 221,
+                        "end": 450,
+                        "loc": {
+                            "start": {
+                                "line": 19,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 23,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "sweep",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "radSweep"
+                            },
+                            {
+                                "name": "direction",
+                                "default_value": 0
+                            }
+                        ],
+                        "pos": {
+                            "start": 463,
+                            "end": 652,
+                            "loc": {
+                                "start": {
+                                    "line": 25,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 29,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Sweep through a rad amount, e.g. PI. ",
+                                "block": true,
+                                "line": 26
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 458,
+                        "end": 652,
+                        "loc": {
+                            "start": {
+                                "line": 25,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 29,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "to",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "through"
+                            }
+                        ],
+                        "pos": {
+                            "start": 662,
+                            "end": 1041,
+                            "loc": {
+                                "start": {
+                                    "line": 31,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 40,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n          stage.fromPoint.arc.to(stage.toPoint, stage.centerPoint)\r\n        ",
+                                "block": true,
+                                "line": 34
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 660,
+                        "end": 1041,
+                        "loc": {
+                            "start": {
+                                "line": 31,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 40,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "though",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "centerPoint"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1055,
+                            "end": 1154,
+                            "loc": {
+                                "start": {
+                                    "line": 42,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 44,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " An arc from A to B through _c_, the radius is evaluated ",
+                                "block": true,
+                                "line": 43
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1049,
+                        "end": 1154,
+                        "loc": {
+                            "start": {
+                                "line": 42,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 44,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "radial",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "radius"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1168,
+                            "end": 1298,
+                            "loc": {
+                                "start": {
+                                    "line": 46,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 49,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " from _this_ A (typically center), to B `other`, drawing an\r\n        arc of a given radius. ",
+                                "block": true,
+                                "line": 48
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1162,
+                        "end": 1298,
+                        "loc": {
+                            "start": {
+                                "line": 46,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 49,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Point as _center_, arc from A, to B, at a distance c.radius ",
+                        "block": true,
+                        "line": 20
+                    }
+                ]
+            },
+            "pos": {
+                "start": 133,
+                "end": 1301,
+                "loc": {
+                    "start": {
+                        "line": 14,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 50,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 1307,
+                "end": 1410,
+                "loc": {
+                    "start": {
+                        "line": 53,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 57,
+                        "column": 1
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 1307,
+                    "end": 1334,
+                    "loc": {
+                        "start": {
+                            "line": 53,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 53,
+                            "column": 27
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 1307,
+                        "end": 1321,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 53,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 1307,
+                            "end": 1316,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 1307,
+                                "end": 1316,
+                                "loc": {
+                                    "start": {
+                                        "line": 53,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 53,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 1317,
+                            "end": 1321,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 1317,
+                                "end": 1321,
+                                "loc": {
+                                    "start": {
+                                        "line": 53,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 53,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 1307,
+                            "end": 1321,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 1322,
+                        "end": 1334,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 53,
+                                "column": 27
+                            }
+                        },
+                        "name": "deferredProp",
+                        "pos": {
+                            "start": 1322,
+                            "end": 1334,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 27
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 1307,
+                        "end": 1334,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 53,
+                                "column": 27
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 1335,
+                        "end": 1342,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 28
+                            },
+                            "end": {
+                                "line": 53,
+                                "column": 35
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 1335,
+                            "end": 1342,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 53,
+                                    "column": 35
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 1349,
+                        "end": 1407,
+                        "loc": {
+                            "start": {
+                                "line": 54,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 56,
+                                "column": 5
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 1358,
+                            "end": 1361,
+                            "loc": {
+                                "start": {
+                                    "line": 54,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 54,
+                                    "column": 16
+                                }
+                            },
+                            "name": "arc",
+                            "pos": {
+                                "start": 1358,
+                                "end": 1361,
+                                "loc": {
+                                    "start": {
+                                        "line": 54,
+                                        "column": 13
+                                    },
+                                    "end": {
+                                        "line": 54,
+                                        "column": 16
+                                    }
+                                }
+                            }
+                        },
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 1364,
+                            "end": 1407,
+                            "loc": {
+                                "start": {
+                                    "line": 54,
+                                    "column": 19
+                                },
+                                "end": {
+                                    "line": 56,
+                                    "column": 5
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 1375,
+                                    "end": 1400,
+                                    "loc": {
+                                        "start": {
+                                            "line": 55,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 55,
+                                            "column": 33
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 1382,
+                                        "end": 1400,
+                                        "loc": {
+                                            "start": {
+                                                "line": 55,
+                                                "column": 15
+                                            },
+                                            "end": {
+                                                "line": 55,
+                                                "column": 33
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 1386,
+                                            "end": 1394,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 55,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 55,
+                                                    "column": 27
+                                                }
+                                            },
+                                            "name": "PointArc",
+                                            "pos": {
+                                                "start": 1386,
+                                                "end": 1394,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 55,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 55,
+                                                        "column": 27
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 1395,
+                                                "end": 1399,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 55,
+                                                        "column": 28
+                                                    },
+                                                    "end": {
+                                                        "line": 55,
+                                                        "column": 32
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 1395,
+                                                    "end": 1399,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 55,
+                                                            "column": 28
+                                                        },
+                                                        "end": {
+                                                            "line": 55,
+                                                            "column": 32
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 1382,
+                                            "end": 1400,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 55,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 55,
+                                                    "column": 33
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 1375,
+                                        "end": 1400,
+                                        "loc": {
+                                            "start": {
+                                                "line": 55,
+                                                "column": 8
+                                            },
+                                            "end": {
+                                                "line": 55,
+                                                "column": 33
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 1364,
+                                "end": 1407,
+                                "loc": {
+                                    "start": {
+                                        "line": 54,
+                                        "column": 19
+                                    },
+                                    "end": {
+                                        "line": 56,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 1349,
+                            "end": 1407,
+                            "loc": {
+                                "start": {
+                                    "line": 54,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 56,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 1307,
+                    "end": 1410,
+                    "loc": {
+                        "start": {
+                            "line": 53,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 57,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1307,
+                "end": 1411,
+                "loc": {
+                    "start": {
+                        "line": 53,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 57,
+                        "column": 2
+                    }
+                }
+            }
+        },
+        {
+            "kind": "function",
+            "word": "getArcCenter",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "A"
+                },
+                {
+                    "name": "B"
+                },
+                {
+                    "name": "C"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1426,
+                "end": 1438,
+                "loc": {
+                    "start": {
+                        "line": 60,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 60,
+                        "column": 21
+                    }
+                },
+                "name": "getArcCenter",
+                "pos": {
+                    "start": 1426,
+                    "end": 1438,
+                    "loc": {
+                        "start": {
+                            "line": 60,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 60,
+                            "column": 21
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1417,
+                "end": 2120,
+                "loc": {
+                    "start": {
+                        "line": 60,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 83,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "getArcCenterThrough",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "A"
+                },
+                {
+                    "name": "B"
+                },
+                {
+                    "name": "C"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 2380,
+                "end": 2399,
+                "loc": {
+                    "start": {
+                        "line": 92,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 92,
+                        "column": 28
+                    }
+                },
+                "name": "getArcCenterThrough",
+                "pos": {
+                    "start": 2380,
+                    "end": 2399,
+                    "loc": {
+                        "start": {
+                            "line": 92,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 92,
+                            "column": 28
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 2371,
+                "end": 3787,
+                "loc": {
+                    "start": {
+                        "line": 92,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 132,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "getRadiusPlot",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "A"
+                },
+                {
+                    "name": "B"
+                },
+                {
+                    "name": "radius"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 3996,
+                "end": 4009,
+                "loc": {
+                    "start": {
+                        "line": 143,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 143,
+                        "column": 22
+                    }
+                },
+                "name": "getRadiusPlot",
+                "pos": {
+                    "start": 3996,
+                    "end": 4009,
+                    "loc": {
+                        "start": {
+                            "line": 143,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 143,
+                            "column": 22
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 3987,
+                "end": 4624,
+                "loc": {
+                    "start": {
+                        "line": 143,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 171,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "word": "penArcPlot",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "arcPlot"
+                    },
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "color",
+                        "default_value": "red"
+                    },
+                    {
+                        "name": "width",
+                        "default_value": 2
+                    }
+                ],
+                "pos": {
+                    "start": 4651,
+                    "end": 4934,
+                    "loc": {
+                        "start": {
+                            "line": 175,
+                            "column": 19
+                        },
+                        "end": {
+                            "line": 185,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4632,
+                "end": 4934,
+                "loc": {
+                    "start": {
+                        "line": 175,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 185,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4632,
+            "end": 4934,
+            "loc": {
+                "start": {
+                    "line": 175,
+                    "column": 0
+                },
+                "end": {
+                    "line": 185,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "drawArcPlot",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "arcPlot"
+                    },
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "color",
+                        "default_value": "red"
+                    },
+                    {
+                        "name": "width",
+                        "default_value": 2
+                    }
+                ],
+                "pos": {
+                    "start": 4960,
+                    "end": 5177,
+                    "loc": {
+                        "start": {
+                            "line": 188,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 194,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4940,
+                "end": 5177,
+                "loc": {
+                    "start": {
+                        "line": 188,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 194,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4940,
+            "end": 5177,
+            "loc": {
+                "start": {
+                    "line": 188,
+                    "column": 0
+                },
+                "end": {
+                    "line": 194,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "class",
+            "word": "ArcPlot",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "method",
+                    "word": "fromTo",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "centerPoint"
+                            },
+                            {
+                                "name": "fromPoint"
+                            },
+                            {
+                                "name": "toPoint"
+                            },
+                            {
+                                "name": "direction"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5212,
+                            "end": 5334,
+                            "loc": {
+                                "start": {
+                                    "line": 199,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 201,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 5206,
+                        "end": 5334,
+                        "loc": {
+                            "start": {
+                                "line": 199,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 201,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "sweep",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "centerPoint"
+                            },
+                            {
+                                "name": "radSweep"
+                            },
+                            {
+                                "name": "direction",
+                                "default_value": 0
+                            }
+                        ],
+                        "pos": {
+                            "start": 5347,
+                            "end": 5458,
+                            "loc": {
+                                "start": {
+                                    "line": 203,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 205,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 5342,
+                        "end": 5458,
+                        "loc": {
+                            "start": {
+                                "line": 203,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 205,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "though",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "centerPoint"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5472,
+                            "end": 5502,
+                            "loc": {
+                                "start": {
+                                    "line": 207,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 209,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 5466,
+                        "end": 5502,
+                        "loc": {
+                            "start": {
+                                "line": 207,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 209,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 5183,
+                "end": 5505,
+                "loc": {
+                    "start": {
+                        "line": 197,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 210,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "word": "getArcPlotAngle",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "arcPlot"
+                    },
+                    {
+                        "name": "direction",
+                        "default_value": 1
+                    }
+                ],
+                "pos": {
+                    "start": 5535,
+                    "end": 6016,
+                    "loc": {
+                        "start": {
+                            "line": 213,
+                            "column": 24
+                        },
+                        "end": {
+                            "line": 228,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Given an arcplot object return the angle difference between\r\n    the two arc points.\r\n\r\n    For example if the two items are pointing directly away from each other,\r\n    the result is 180 (degrees)\r\n    ",
+                        "block": true,
+                        "line": 219
+                    }
+                ]
+            },
+            "pos": {
+                "start": 5511,
+                "end": 6016,
+                "loc": {
+                    "start": {
+                        "line": 213,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 228,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 5511,
+            "end": 6016,
+            "loc": {
+                "start": {
+                    "line": 213,
+                    "column": 0
+                },
+                "end": {
+                    "line": 228,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "arcSweep",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "centerPoint"
+                    },
+                    {
+                        "name": "radSweep"
+                    },
+                    {
+                        "name": "direction",
+                        "default_value": 0
+                    }
+                ],
+                "pos": {
+                    "start": 6037,
+                    "end": 6696,
+                    "loc": {
+                        "start": {
+                            "line": 230,
+                            "column": 17
+                        },
+                        "end": {
+                            "line": 253,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Draw an arc as a _sweep_, using the center point initial direction\r\n    and a angle to sweep through.\r\n\r\n    Draw a 1/4 pie arc\r\n\r\n        let arcPlot = arcSweep(centerPoint, Math.PI * .5)\r\n    ",
+                        "block": true,
+                        "line": 237
+                    }
+                ]
+            },
+            "pos": {
+                "start": 6020,
+                "end": 6696,
+                "loc": {
+                    "start": {
+                        "line": 230,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 253,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 6020,
+            "end": 6696,
+            "loc": {
+                "start": {
+                    "line": 230,
+                    "column": 0
+                },
+                "end": {
+                    "line": 253,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "arcFromTo",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "centerPoint"
+                    },
+                    {
+                        "name": "fromPoint"
+                    },
+                    {
+                        "name": "toPoint"
+                    },
+                    {
+                        "name": "direction",
+                        "default_value": 0
+                    }
+                ],
+                "pos": {
+                    "start": 6720,
+                    "end": 7536,
+                    "loc": {
+                        "start": {
+                            "line": 256,
+                            "column": 18
+                        },
+                        "end": {
+                            "line": 280,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " An arc, starting at `fromPoint`, ending at `toPoint`, the origin center,\r\n    at a distance from the center, equal to the center point radius.\r\n\r\n        let arcPlot = arcFromTo(centerPoint, fromPoint, toPoint)\r\n        penArcPlot(arcPlot, ctx, 'orange')\r\n\r\n    the  _from_ or _to_ point may be at any distance from the center point.\r\n    ",
+                        "block": true,
+                        "line": 264
+                    }
+                ]
+            },
+            "pos": {
+                "start": 6702,
+                "end": 7536,
+                "loc": {
+                    "start": {
+                        "line": 256,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 280,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 6702,
+            "end": 7536,
+            "loc": {
+                "start": {
+                    "line": 256,
+                    "column": 0
+                },
+                "end": {
+                    "line": 280,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "function",
+            "word": "findThirdPoint",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "A"
+                },
+                {
+                    "name": "B"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 7555,
+                "end": 7569,
+                "loc": {
+                    "start": {
+                        "line": 285,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 285,
+                        "column": 23
+                    }
+                },
+                "name": "findThirdPoint",
+                "pos": {
+                    "start": 7555,
+                    "end": 7569,
+                    "loc": {
+                        "start": {
+                            "line": 285,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 285,
+                            "column": 23
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 7546,
+                "end": 8387,
+                "loc": {
+                    "start": {
+                        "line": 285,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 312,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "findRadius",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "pointA"
+                },
+                {
+                    "name": "pointB"
+                },
+                {
+                    "name": "pointC"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 8402,
+                "end": 8412,
+                "loc": {
+                    "start": {
+                        "line": 315,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 315,
+                        "column": 19
+                    }
+                },
+                "name": "findRadius",
+                "pos": {
+                    "start": 8402,
+                    "end": 8412,
+                    "loc": {
+                        "start": {
+                            "line": 315,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 315,
+                            "column": 19
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 8393,
+                "end": 8996,
+                "loc": {
+                    "start": {
+                        "line": 315,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 335,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "arcPlotTo",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "center"
+                },
+                {
+                    "name": "start"
+                },
+                {
+                    "name": "sweepDegrees"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 9011,
+                "end": 9020,
+                "loc": {
+                    "start": {
+                        "line": 338,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 338,
+                        "column": 18
+                    }
+                },
+                "name": "arcPlotTo",
+                "pos": {
+                    "start": 9011,
+                    "end": 9020,
+                    "loc": {
+                        "start": {
+                            "line": 338,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 338,
+                            "column": 18
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 9002,
+                "end": 9418,
+                "loc": {
+                    "start": {
+                        "line": 338,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 349,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ExpressionStatement",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "ClassDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration"
+    ],
+    "info": {
+        "filename": "arc.js",
+        "path": "/workspaces/polypoint/point_src/arc.js",
+        "size": 9420,
+        "parsed_date": "2025-11-02T21:11:32.119Z"
+    }
+}

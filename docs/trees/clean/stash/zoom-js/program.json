@@ -1,0 +1,445 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "Zoom",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "points",
+                                "default_value": "[]"
+                            },
+                            {
+                                "name": "factor",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "center",
+                                "default_value": "{x: 0, y: 0}"
+                            },
+                            {
+                                "name": "lens",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 539,
+                            "end": 790,
+                            "loc": {
+                                "start": {
+                                    "line": 25,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 32,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 528,
+                        "end": 790,
+                        "loc": {
+                            "start": {
+                                "line": 25,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 32,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "add",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "points",
+                                "is_rest": true
+                            }
+                        ],
+                        "pos": {
+                            "start": 801,
+                            "end": 871,
+                            "loc": {
+                                "start": {
+                                    "line": 34,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 36,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 798,
+                        "end": 871,
+                        "loc": {
+                            "start": {
+                                "line": 34,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 36,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "update3",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "center"
+                            },
+                            {
+                                "name": "factor"
+                            }
+                        ],
+                        "pos": {
+                            "start": 886,
+                            "end": 2654,
+                            "loc": {
+                                "start": {
+                                    "line": 38,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 80,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Lensed zoom: farther points move disproportionately more.",
+                                "block": false,
+                                "line": 39
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 879,
+                        "end": 2654,
+                        "loc": {
+                            "start": {
+                                "line": 38,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 80,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "update",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "center"
+                            },
+                            {
+                                "name": "factor"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2668,
+                            "end": 3719,
+                            "loc": {
+                                "start": {
+                                    "line": 82,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 106,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " move and scale all items relative to the factor and center.",
+                                "block": false,
+                                "line": 83
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2662,
+                        "end": 3719,
+                        "loc": {
+                            "start": {
+                                "line": 82,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 106,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "update2",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "center"
+                            },
+                            {
+                                "name": "factor"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3734,
+                            "end": 5506,
+                            "loc": {
+                                "start": {
+                                    "line": 108,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 150,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Lensed zoom: farther points move disproportionately more.",
+                                "block": false,
+                                "line": 109
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3727,
+                        "end": 5506,
+                        "loc": {
+                            "start": {
+                                "line": 108,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 150,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "zoomPoints",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 5530,
+                            "end": 5658,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 159,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 5516,
+                        "end": 5658,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 159,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getZoomPoints",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 5679,
+                            "end": 5975,
+                            "loc": {
+                                "start": {
+                                    "line": 161,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 173,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 5666,
+                        "end": 5975,
+                        "loc": {
+                            "start": {
+                                "line": 161,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 173,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Lensed zoom: farther points move disproportionately more.",
+                        "block": false,
+                        "line": 39
+                    }
+                ]
+            },
+            "pos": {
+                "start": 510,
+                "end": 5978,
+                "loc": {
+                    "start": {
+                        "line": 24,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 174,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "zoom.js",
+        "path": "/workspaces/polypoint/point_src/zoom.js",
+        "size": 5980,
+        "parsed_date": "2025-11-02T21:11:42.715Z"
+    }
+}

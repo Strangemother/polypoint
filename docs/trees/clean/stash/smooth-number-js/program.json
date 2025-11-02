@@ -1,0 +1,828 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "SmoothNumber",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "modulusRate",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "1",
+                        "value": 1,
+                        "pos": {
+                            "start": 2241,
+                            "end": 2242,
+                            "loc": {
+                                "start": {
+                                    "line": 80,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 80,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 2227,
+                        "end": 2242,
+                        "loc": {
+                            "start": {
+                                "line": 80,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 80,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "width",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "20",
+                        "value": 20,
+                        "pos": {
+                            "start": 2314,
+                            "end": 2316,
+                            "loc": {
+                                "start": {
+                                    "line": 82,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 82,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 2306,
+                        "end": 2316,
+                        "loc": {
+                            "start": {
+                                "line": 82,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 82,
+                                "column": 14
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "fixed",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "0",
+                        "value": 0,
+                        "pos": {
+                            "start": 2382,
+                            "end": 2383,
+                            "loc": {
+                                "start": {
+                                    "line": 84,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 84,
+                                    "column": 13
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 2374,
+                        "end": 2383,
+                        "loc": {
+                            "start": {
+                                "line": 84,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 84,
+                                "column": 13
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "value",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 10
+                            },
+                            {
+                                "name": "modulusRate",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "fixed",
+                                "default_value": null
+                            }
+                        ],
+                        "pos": {
+                            "start": 2402,
+                            "end": 2719,
+                            "loc": {
+                                "start": {
+                                    "line": 86,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 98,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2391,
+                        "end": 2719,
+                        "loc": {
+                            "start": {
+                                "line": 86,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 98,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "pushGet",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "val"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2736,
+                            "end": 2922,
+                            "loc": {
+                                "start": {
+                                    "line": 101,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 105,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Apply a value, and return the current smooth value\r\n        This returned the cached value not a new one. ",
+                                "block": true,
+                                "line": 103
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2729,
+                        "end": 2922,
+                        "loc": {
+                            "start": {
+                                "line": 101,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 105,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "push",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "val"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2934,
+                            "end": 3014,
+                            "loc": {
+                                "start": {
+                                    "line": 107,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 110,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2930,
+                        "end": 3014,
+                        "loc": {
+                            "start": {
+                                "line": 107,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 110,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "get",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 3025,
+                            "end": 3119,
+                            "loc": {
+                                "start": {
+                                    "line": 112,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 115,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3022,
+                        "end": 3119,
+                        "loc": {
+                            "start": {
+                                "line": 112,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 115,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "Symbol.toPrimitive",
+                    "static": false,
+                    "computed": true,
+                    "is_symbol": true,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "hint"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3147,
+                            "end": 3506,
+                            "loc": {
+                                "start": {
+                                    "line": 117,
+                                    "column": 24
+                                },
+                                "end": {
+                                    "line": 132,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return this.value;",
+                                "block": false,
+                                "line": 119
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3127,
+                        "end": 3506,
+                        "loc": {
+                            "start": {
+                                "line": 117,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 132,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "update",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "modulusRate"
+                            },
+                            {
+                                "name": "val",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 3522,
+                            "end": 3675,
+                            "loc": {
+                                "start": {
+                                    "line": 135,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 139,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3516,
+                        "end": 3675,
+                        "loc": {
+                            "start": {
+                                "line": 135,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 139,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "modUpdate",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "inc"
+                            },
+                            {
+                                "name": "modulusRate"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3692,
+                            "end": 4064,
+                            "loc": {
+                                "start": {
+                                    "line": 141,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 151,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Perform an update  if the modulo matches,\r\n        return the value ",
+                                "block": true,
+                                "line": 143
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3683,
+                        "end": 4064,
+                        "loc": {
+                            "start": {
+                                "line": 141,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 151,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "mutateCompute",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4085,
+                            "end": 4188,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 157,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4072,
+                        "end": 4188,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 157,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "computeValue",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4208,
+                            "end": 4315,
+                            "loc": {
+                                "start": {
+                                    "line": 159,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 162,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4196,
+                        "end": 4315,
+                        "loc": {
+                            "start": {
+                                "line": 159,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 162,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "fixValue",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "r"
+                            },
+                            {
+                                "name": "fixed"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4331,
+                            "end": 4409,
+                            "loc": {
+                                "start": {
+                                    "line": 164,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 166,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4323,
+                        "end": 4409,
+                        "loc": {
+                            "start": {
+                                "line": 164,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 166,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "incrementPush",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "storeValue"
+                            },
+                            {
+                                "name": "tick",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 4430,
+                            "end": 4658,
+                            "loc": {
+                                "start": {
+                                    "line": 168,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 178,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4417,
+                        "end": 4658,
+                        "loc": {
+                            "start": {
+                                "line": 168,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 178,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "reset",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4671,
+                            "end": 4738,
+                            "loc": {
+                                "start": {
+                                    "line": 180,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 182,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4666,
+                        "end": 4738,
+                        "loc": {
+                            "start": {
+                                "line": 180,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 182,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [
+                    {
+                        "text": "\r\ntitle: Smooth Number\r\n---\r\n\r\n> The `SmoothNumber` class receives fast number updates, and returns a _averaged_ number when queried.\r\n\r\n\r\n        const smoothVal = new SmoothNumber()\r\n        speedNumber.push(stage.mouse.speed())\r\n\r\n        stage.fps.text = speedNumber\r\n\r\nA `SmoothNumber` combines a average of many values in a list, visually\r\nupdated a (Framerate) modulo speed.\r\n\r\n\r\nPush numbers into the list, to get an average over time allows for nicer-looking\r\nupdates on a fast changing number, such as the FPS.\r\n\r\n## Setup\r\n\r\nCreate a new instance of the `SmoothNumber`:\r\n\r\n    const initValue = 40\r\n        , width = 20      // how many historical points\r\n        , updateRate = 10 // every X frames\r\n        , valueFix = 0    // value.toFixed\r\n\r\n    const smoothVal = new SmoothNumber(initValue, width, updateRate, valueFix)\r\n\r\nThen we can push a value to it:\r\n\r\n    smoothVal.push(currentFPS)\r\n\r\nIt can be done many (many) times. When required, we read the number:\r\n\r\n    smoothVal.get()\r\n\r\nThis secretly returns the `smoothVal.value` - but checks to ensure the value is fresh.\r\n\r\n### Easier\r\n\r\nTo save the hassle of _pushing_ then _getting_ a number, we can do this with one call.\r\n\r\n    fpsValue = this.smoothVal.pushGet(Math.round(currentFPS)+1)\r\n\r\nThis adheres to the update-rate, so the number `fpsValue` will change slower than\r\ndirectly reading `currentFPS`.\r\n\r\nThis is nicer for humans - as most of them can't read text at 60FPS+ apparently?\r\n\r\n\r\n\r\n",
+                        "block": true,
+                        "line": 54
+                    }
+                ],
+                "inner": [
+                    {
+                        "text": " A SmoothNumber provides a nicer read-back of a number over a period\r\n    of time. Similar to the FPS counter.\r\n\r\n    Create an instance and push a number when required.\r\n    Read the _value_ through a few routines.\r\n\r\n    Create:\r\n        const initValue = 40\r\n        width = 20      // how many historical points\r\n        updateRate = 10 // every X frames\r\n        valueFix = 0    // value.toFixed\r\n        const smoothVal = new SmoothNumber(initValue, width, updateRate, valueFix)\r\n        smoothVal.push(currentFPS)\r\n\r\n    Read:\r\n\r\n        smoothVal.get()\r\n\r\n    Push + Read:\r\n\r\n        b = this.smoothVal.pushGet(Math.round(currentFPS)+1)\r\n\r\n     ",
+                        "block": true,
+                        "line": 78
+                    }
+                ]
+            },
+            "pos": {
+                "start": 1476,
+                "end": 4741,
+                "loc": {
+                    "start": {
+                        "line": 55,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 183,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "smooth-number.js",
+        "path": "/workspaces/polypoint/point_src/smooth-number.js",
+        "size": 4745,
+        "parsed_date": "2025-11-02T21:11:40.283Z"
+    }
+}

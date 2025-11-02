@@ -1,0 +1,1197 @@
+{
+    "defs": [
+        {
+            "word": "denomText",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "kind": "literal",
+                "raw": "'nothing'",
+                "value": "nothing",
+                "pos": {
+                    "start": 18,
+                    "end": 27,
+                    "loc": {
+                        "start": {
+                            "line": 2,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 2,
+                            "column": 25
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 2,
+                "end": 27,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 2,
+                        "column": 25
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 2,
+            "end": 27,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 0
+                },
+                "end": {
+                    "line": 2,
+                    "column": 25
+                }
+            },
+            "kind": "let"
+        },
+        {
+            "word": "checkLinesIntersection",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "line"
+                    },
+                    {
+                        "name": "otherLine"
+                    },
+                    {
+                        "name": "length"
+                    }
+                ],
+                "pos": {
+                    "start": 64,
+                    "end": 1666,
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 31
+                        },
+                        "end": {
+                            "line": 57,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Normalize the direction vector (end - start) and apply the length",
+                        "block": false,
+                        "line": 10
+                    }
+                ]
+            },
+            "pos": {
+                "start": 33,
+                "end": 1666,
+                "loc": {
+                    "start": {
+                        "line": 5,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 57,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 33,
+            "end": 1666,
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 57,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "getDotProduct",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "px"
+                    },
+                    {
+                        "name": "py"
+                    },
+                    {
+                        "name": "x1"
+                    },
+                    {
+                        "name": "y1"
+                    },
+                    {
+                        "name": "x2"
+                    },
+                    {
+                        "name": "y2"
+                    }
+                ],
+                "pos": {
+                    "start": 1694,
+                    "end": 1789,
+                    "loc": {
+                        "start": {
+                            "line": 60,
+                            "column": 22
+                        },
+                        "end": {
+                            "line": 62,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 1672,
+                "end": 1789,
+                "loc": {
+                    "start": {
+                        "line": 60,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 62,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 1672,
+            "end": 1789,
+            "loc": {
+                "start": {
+                    "line": 60,
+                    "column": 0
+                },
+                "end": {
+                    "line": 62,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "getDenominator",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "x1"
+                    },
+                    {
+                        "name": "y1"
+                    },
+                    {
+                        "name": "x2"
+                    },
+                    {
+                        "name": "y2"
+                    },
+                    {
+                        "name": "x3"
+                    },
+                    {
+                        "name": "y3"
+                    },
+                    {
+                        "name": "x4"
+                    },
+                    {
+                        "name": "y4"
+                    }
+                ],
+                "pos": {
+                    "start": 1818,
+                    "end": 1923,
+                    "loc": {
+                        "start": {
+                            "line": 65,
+                            "column": 23
+                        },
+                        "end": {
+                            "line": 67,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 1795,
+                "end": 1923,
+                "loc": {
+                    "start": {
+                        "line": 65,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 67,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 1795,
+            "end": 1923,
+            "loc": {
+                "start": {
+                    "line": 65,
+                    "column": 0
+                },
+                "end": {
+                    "line": 67,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "checkPointIntersectionOccured",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "line"
+                    },
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "radius",
+                        "default_value": 5
+                    },
+                    {
+                        "name": "length",
+                        "default_value": 400
+                    }
+                ],
+                "pos": {
+                    "start": 1967,
+                    "end": 3129,
+                    "loc": {
+                        "start": {
+                            "line": 70,
+                            "column": 38
+                        },
+                        "end": {
+                            "line": 101,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Normalize the direction vector (end - start) and apply the length",
+                        "block": false,
+                        "line": 74
+                    }
+                ]
+            },
+            "pos": {
+                "start": 1929,
+                "end": 3129,
+                "loc": {
+                    "start": {
+                        "line": 70,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 101,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 1929,
+            "end": 3129,
+            "loc": {
+                "start": {
+                    "line": 70,
+                    "column": 0
+                },
+                "end": {
+                    "line": 101,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "checkPointIntersectionWithin",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "line"
+                    },
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "radius",
+                        "default_value": 5
+                    },
+                    {
+                        "name": "length",
+                        "default_value": 400
+                    }
+                ],
+                "pos": {
+                    "start": 3172,
+                    "end": 4533,
+                    "loc": {
+                        "start": {
+                            "line": 104,
+                            "column": 37
+                        },
+                        "end": {
+                            "line": 138,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Normalize the direction vector (end - start) and apply the length",
+                        "block": false,
+                        "line": 108
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3135,
+                "end": 4533,
+                "loc": {
+                    "start": {
+                        "line": 104,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 138,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 3135,
+            "end": 4533,
+            "loc": {
+                "start": {
+                    "line": 104,
+                    "column": 0
+                },
+                "end": {
+                    "line": 138,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "checkPointIntersectionEdge",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "line"
+                    },
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "radius"
+                    },
+                    {
+                        "name": "length",
+                        "default_value": "undefined"
+                    }
+                ],
+                "pos": {
+                    "start": 4574,
+                    "end": 6747,
+                    "loc": {
+                        "start": {
+                            "line": 141,
+                            "column": 35
+                        },
+                        "end": {
+                            "line": 210,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Normalize the direction vector (end - start) and apply the length",
+                        "block": false,
+                        "line": 145
+                    }
+                ]
+            },
+            "pos": {
+                "start": 4539,
+                "end": 6747,
+                "loc": {
+                    "start": {
+                        "line": 141,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 210,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4539,
+            "end": 6747,
+            "loc": {
+                "start": {
+                    "line": 141,
+                    "column": 0
+                },
+                "end": {
+                    "line": 210,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "function",
+            "word": "getCircleCircleIntersections",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "circle1"
+                },
+                {
+                    "name": "circle2"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 6762,
+                "end": 6790,
+                "loc": {
+                    "start": {
+                        "line": 213,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 213,
+                        "column": 37
+                    }
+                },
+                "name": "getCircleCircleIntersections",
+                "pos": {
+                    "start": 6762,
+                    "end": 6790,
+                    "loc": {
+                        "start": {
+                            "line": 213,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 213,
+                            "column": 37
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 6753,
+                "end": 8238,
+                "loc": {
+                    "start": {
+                        "line": 213,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 256,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "class",
+            "word": "PointIntersections",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8289,
+                            "end": 8552,
+                            "loc": {
+                                "start": {
+                                    "line": 261,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 270,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " string stuff ",
+                                "block": true,
+                                "line": 263
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8278,
+                        "end": 8552,
+                        "loc": {
+                            "start": {
+                                "line": 261,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 270,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "of",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8562,
+                            "end": 8707,
+                            "loc": {
+                                "start": {
+                                    "line": 272,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 276,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 8560,
+                        "end": 8707,
+                        "loc": {
+                            "start": {
+                                "line": 272,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 276,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " string stuff ",
+                        "block": true,
+                        "line": 263
+                    }
+                ]
+            },
+            "pos": {
+                "start": 8244,
+                "end": 8710,
+                "loc": {
+                    "start": {
+                        "line": 259,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 277,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 8714,
+                "end": 8837,
+                "loc": {
+                    "start": {
+                        "line": 279,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 283,
+                        "column": 1
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 8714,
+                    "end": 8741,
+                    "loc": {
+                        "start": {
+                            "line": 279,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 279,
+                            "column": 27
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 8714,
+                        "end": 8728,
+                        "loc": {
+                            "start": {
+                                "line": 279,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 279,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 8714,
+                            "end": 8723,
+                            "loc": {
+                                "start": {
+                                    "line": 279,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 279,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 8714,
+                                "end": 8723,
+                                "loc": {
+                                    "start": {
+                                        "line": 279,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 279,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 8724,
+                            "end": 8728,
+                            "loc": {
+                                "start": {
+                                    "line": 279,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 279,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 8724,
+                                "end": 8728,
+                                "loc": {
+                                    "start": {
+                                        "line": 279,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 279,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 8714,
+                            "end": 8728,
+                            "loc": {
+                                "start": {
+                                    "line": 279,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 279,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 8729,
+                        "end": 8741,
+                        "loc": {
+                            "start": {
+                                "line": 279,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 279,
+                                "column": 27
+                            }
+                        },
+                        "name": "deferredProp",
+                        "pos": {
+                            "start": 8729,
+                            "end": 8741,
+                            "loc": {
+                                "start": {
+                                    "line": 279,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 279,
+                                    "column": 27
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 8714,
+                        "end": 8741,
+                        "loc": {
+                            "start": {
+                                "line": 279,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 279,
+                                "column": 27
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 8742,
+                        "end": 8749,
+                        "loc": {
+                            "start": {
+                                "line": 279,
+                                "column": 28
+                            },
+                            "end": {
+                                "line": 279,
+                                "column": 35
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 8742,
+                            "end": 8749,
+                            "loc": {
+                                "start": {
+                                    "line": 279,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 279,
+                                    "column": 35
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 8756,
+                        "end": 8834,
+                        "loc": {
+                            "start": {
+                                "line": 280,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 282,
+                                "column": 5
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 8765,
+                            "end": 8778,
+                            "loc": {
+                                "start": {
+                                    "line": 280,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 280,
+                                    "column": 26
+                                }
+                            },
+                            "name": "intersections",
+                            "pos": {
+                                "start": 8765,
+                                "end": 8778,
+                                "loc": {
+                                    "start": {
+                                        "line": 280,
+                                        "column": 13
+                                    },
+                                    "end": {
+                                        "line": 280,
+                                        "column": 26
+                                    }
+                                }
+                            }
+                        },
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 8781,
+                            "end": 8834,
+                            "loc": {
+                                "start": {
+                                    "line": 280,
+                                    "column": 29
+                                },
+                                "end": {
+                                    "line": 282,
+                                    "column": 5
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 8792,
+                                    "end": 8827,
+                                    "loc": {
+                                        "start": {
+                                            "line": 281,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 281,
+                                            "column": 43
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 8799,
+                                        "end": 8827,
+                                        "loc": {
+                                            "start": {
+                                                "line": 281,
+                                                "column": 15
+                                            },
+                                            "end": {
+                                                "line": 281,
+                                                "column": 43
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 8803,
+                                            "end": 8821,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 281,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 281,
+                                                    "column": 37
+                                                }
+                                            },
+                                            "name": "PointIntersections",
+                                            "pos": {
+                                                "start": 8803,
+                                                "end": 8821,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 281,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 281,
+                                                        "column": 37
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 8822,
+                                                "end": 8826,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 281,
+                                                        "column": 38
+                                                    },
+                                                    "end": {
+                                                        "line": 281,
+                                                        "column": 42
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 8822,
+                                                    "end": 8826,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 281,
+                                                            "column": 38
+                                                        },
+                                                        "end": {
+                                                            "line": 281,
+                                                            "column": 42
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 8799,
+                                            "end": 8827,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 281,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 281,
+                                                    "column": 43
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 8792,
+                                        "end": 8827,
+                                        "loc": {
+                                            "start": {
+                                                "line": 281,
+                                                "column": 8
+                                            },
+                                            "end": {
+                                                "line": 281,
+                                                "column": 43
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 8781,
+                                "end": 8834,
+                                "loc": {
+                                    "start": {
+                                        "line": 280,
+                                        "column": 29
+                                    },
+                                    "end": {
+                                        "line": 282,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 8756,
+                            "end": 8834,
+                            "loc": {
+                                "start": {
+                                    "line": 280,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 282,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 8714,
+                    "end": 8837,
+                    "loc": {
+                        "start": {
+                            "line": 279,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 283,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 8714,
+                "end": 8838,
+                "loc": {
+                    "start": {
+                        "line": 279,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 283,
+                        "column": 2
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "FunctionDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "intersections.js",
+        "path": "/workspaces/polypoint/point_src/intersections.js",
+        "size": 8840,
+        "parsed_date": "2025-11-02T21:11:36.303Z"
+    }
+}

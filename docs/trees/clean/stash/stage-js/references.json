@@ -1,0 +1,818 @@
+{
+    "src_file": "stage.js",
+    "references": {
+        "classes": {
+            "StageBase": {
+                "class_name": "StageBase",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "addonAnnounceHandler",
+                        "class_name": "StageBase",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " an addon instance has anounced itself. Perform the addComponent ",
+                                    "block": true,
+                                    "line": 34
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " this.dispatch('stage:prepare', {target, id, canvas })",
+                                    "block": false,
+                                    "line": 38
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 35
+                    },
+                    {
+                        "method_name": "dispatch",
+                        "class_name": "StageBase",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.dispatch('prepare', { target, id, stage: this, canvas })",
+                                    "block": false,
+                                    "line": 52
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 51
+                    },
+                    {
+                        "method_name": "_dispatchPrepare",
+                        "class_name": "StageBase",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Given a dictionary, return a finished dictionary, ready for event\r\n    dispatch ",
+                                    "block": true,
+                                    "line": 61
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 62
+                    },
+                    {
+                        "method_name": "addComponent",
+                        "class_name": "StageBase",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "instance"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " a given object is mounted on _this_ - such as the `mouse`.\r\n    This may be called in response to a 'stage:prepare' event.  ",
+                                    "block": true,
+                                    "line": 68
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 69
+                    },
+                    {
+                        "method_name": "log",
+                        "class_name": "StageBase",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log.apply(console, Array.from(arguments))",
+                                    "block": false,
+                                    "line": 81
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 79
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " an addon instance has anounced itself. Perform the addComponent ",
+                            "block": true,
+                            "line": 34
+                        }
+                    ]
+                },
+                "line": 32
+            },
+            "StageRender": {
+                "class_name": "StageRender",
+                "inherits": "StageBase",
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "StageRender",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "drawFunc"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            Accept a `canvas` node and an optional `draw` function, prepare\r\n            the stage draw routine. If the `canvas` is given, immediately call\r\n            `this.prepare(canvas)` to initiate the layer.\r\n\r\n                new StageRender(canvas, ()=>{})\r\n\r\n            Any given `drawFunc` overrides the existing `this.stageStartDraw` method\r\n            and expects the _next_ method to call once complete:\r\n\r\n            The default `this.draw(ctx)` method is given`\r\n\r\n                this.stageStartDraw(this.draw)\r\n\r\n         ",
+                                    "block": true,
+                                    "line": 108
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 93
+                    },
+                    {
+                        "method_name": "stickCanvasSize",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "size"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return the result of the bounding box function, else resort\r\n        to the object w/h ",
+                                    "block": true,
+                                    "line": 127
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 124
+                    },
+                    {
+                        "method_name": "center",
+                        "class_name": "StageRender",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 156
+                    },
+                    {
+                        "method_name": "prepare",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "target"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Perform any preparations for this stage instance to run the\r\n          canvas tools. This includes resolving and measuring the canvas.\r\n\r\n            class MainStage extends Stage {\r\n                canvas = playspace\r\n                prepare(target){\r\n                    super.prepare(target)\r\n                    // ...\r\n                }\r\n            }\r\n\r\n        This will run automatically if the canvas is given in the constructor\r\n\r\n            new MainStage(canvas)\r\n            // _prepared == true\r\n\r\n        Once prepared the stage is essentially ready-to-go.\r\n\r\n            stage = new MainStage()\r\n            stage.prepare(canvas)\r\n            stage.update()\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 183
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 160
+                    },
+                    {
+                        "method_name": "mounted",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " A Convenient place to perform initial work. ",
+                                    "block": true,
+                                    "line": 217
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 216
+                    },
+                    {
+                        "method_name": "stop",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "freeze",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 220
+                    },
+                    {
+                        "method_name": "ensurePrepared",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 224
+                    },
+                    {
+                        "method_name": "go",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "additionalData",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Make a copy of a new Stage.\r\n        Call prepare() if required. If `additionalData.loop` is `true` (default)\r\n        start the update loopDraw\r\n        ",
+                                    "block": true,
+                                    "line": 232
+                                }
+                            ]
+                        },
+                        "static": true,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 228
+                    },
+                    {
+                        "method_name": "freeze",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "freeze",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 238
+                    },
+                    {
+                        "method_name": "unfreeze",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "timeout",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "force",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " 1ms delay for a next tick. ",
+                                    "block": true,
+                                    "line": 246
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 245
+                    },
+                    {
+                        "method_name": "cleanGoConfig",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "info"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            Return a dict, if the:\r\n\r\n            + is dict,\r\n            + thing is a string, assume name\r\n            + thing is node, assume canvas\r\n         ",
+                                    "block": true,
+                                    "line": 263
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 256
+                    },
+                    {
+                        "method_name": "go",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "additionalData",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Make a copy of a new Stage.\r\n        Call prepare() if required. If `additionalData.loop` is `true` (default)\r\n        start the update loopDraw\r\n        ",
+                                    "block": true,
+                                    "line": 288
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 284
+                    },
+                    {
+                        "method_name": "stageStartDraw",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "drawFunc"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " When using the internal loop drawing the first draw call occurs\r\n        through this method, calling `firstDraw` once, then\r\n        changing the internal draw function to the typical `this.draw`\r\n\r\n        If `this.draw` is not a method, `this.update()` is called and the\r\n        `stopDraw` method is called.\r\n        ",
+                                    "block": true,
+                                    "line": 315
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 308
+                    },
+                    {
+                        "method_name": "loopDraw",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " A helper function to apply this stage to the animation frame,\r\n        calling `update()` for every frame.\r\n\r\n        Call once to start the loop.\r\n\r\n                stage = new MainStage()\r\n                stage.prepare(canvas)\r\n                stage.loopDraw()\r\n        ",
+                                    "block": true,
+                                    "line": 336
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 327
+                    },
+                    {
+                        "method_name": "ctx",
+                        "class_name": "StageRender",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return the cached context object of the current canvas.\r\n        ",
+                                    "block": true,
+                                    "line": 343
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 341
+                    },
+                    {
+                        "method_name": "getContext",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "type",
+                                "default_value": "2d"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        + `alpha`:\r\n                A boolean value that indicates if the canvas contains an alpha\r\n                channel. If set to false, the browser now knows that the\r\n                backdrop is always opaque, which can speed up drawing of\r\n                transparent content and images.\r\n\r\n        + `colorSpace` Optional:\r\n                Specifies the color space of the rendering context.\r\n                Possible values are:\r\n\r\n                    \"srgb\" selects the sRGB color space. (default value)\r\n                    \"display-p3\" selects the display-p3 color space.\r\n\r\n        + `desynchronized`:\r\n                A boolean value that hints the user agent to reduce the\r\n                latency by desynchronizing the canvas paint cycle from the\r\n                event loop.\r\n\r\n        + `willReadFrequently`:\r\n                A boolean value that indicates whether or not a lot of\r\n                read-back operations are planned. This will force the use of\r\n                a software (instead of hardware accelerated) 2D canvas and\r\n                can save memory when calling getImageData() frequently.\r\n         ",
+                                    "block": true,
+                                    "line": 372
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 347
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            inline update per draw. For each call:\r\n\r\n            + all _drawBefore_ methods\r\n            + all _nextTick_ methods\r\n            + the `draw` method (mapped through `this._drawFunc`)\r\n            + all _drawAfter_ methods\r\n        ",
+                                    "block": true,
+                                    "line": 393
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 385
+                    },
+                    {
+                        "method_name": "nextTick",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Run the given function (with context) on the next draw call.\r\n        This function is very similar to `onDrawBefore`, but only runs _once_.\r\n\r\n            stage.nextTick(function(ctx){\r\n                // run next time.\r\n                stage.runCustomRender(ctx)\r\n            })\r\n\r\n        This is useful for performing clearups, or running routines on\r\n        single action:\r\n\r\n            let v = this.v = new Value(this.p.radius, width, easing)\r\n            v.doneHandler = ()=>{\r\n                // st.switchOut()\r\n                this.nextTick(this.switchOut.bind(this))\r\n            }\r\n\r\n            switchOut() {\r\n                this.log('doneHandler')\r\n                this.v = undefined;\r\n            }\r\n        ",
+                                    "block": true,
+                                    "line": 433
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 411
+                    },
+                    {
+                        "method_name": "onTick",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "tick"
+                            },
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " modulo auto ",
+                                    "block": true,
+                                    "line": 438
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 437
+                    },
+                    {
+                        "method_name": "onDrawAfter",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 452
+                    },
+                    {
+                        "method_name": "offDrawAfter",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 456
+                    },
+                    {
+                        "method_name": "onDrawBefore",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 461
+                    },
+                    {
+                        "method_name": "offDrawBefore",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 465
+                    },
+                    {
+                        "method_name": "firstDraw",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " The `firstDraw(ctx)` method us used _once_ when drawing starts.\r\n        This occurs before the first `update()` call is performed.\r\n\r\n        This is useful if you're setting context arguments - but only need to\r\n        set them once.\r\n\r\n            class Main extends Stage {\r\n                firstDraw(ctx) {\r\n                    ctx.fillStyle = '#ccc'\r\n                    ctx.font = 'normal 1em arial'\r\n                }\r\n            }\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 484
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 470
+                    },
+                    {
+                        "method_name": "draw",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " The primary rendering function to override.\r\n        Called by the `update()` method, given the context `ctx` of the\r\n        target canvas.\r\n\r\n        This is essentially the same as running the update function\r\n        manually:\r\n\r\n\r\n            const ctx = canvas.getContext('2d');\r\n            const stage = new MainStage()\r\n\r\n            stage.prepare(canvas)\r\n\r\n            function draw() {\r\n\r\n                // or: stage.clear(ctx)\r\n                ctx.clearRect(0, 0, canvas.width, canvas.height);\r\n\r\n                // Run the draw routines\r\n                stage.draw(ctx)\r\n\r\n                // And rinse repeat.\r\n                requestAnimationFrame(draw);\r\n\r\n            }\r\n\r\n            draw()\r\n        ",
+                                    "block": true,
+                                    "line": 515
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 487
+                    },
+                    {
+                        "method_name": "clear",
+                        "class_name": "StageRender",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "fillStyle",
+                                "default_value": null
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Perform a standard 'clearRect' using the cached dimensions of the\r\n        canvas.\r\n\r\n            stage.clear(ctx)\r\n\r\n        Synonymous to:\r\n\r\n            const ctx = canvas.getContext('2d');\r\n            ctx.clearRect(0, 0, canvas.width, canvas.height);\r\n\r\n        Apply an optional flood fillStyle:\r\n\r\n            stage.clear(ctx, '#000')\r\n        ",
+                                    "block": true,
+                                    "line": 533
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 519
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "\r\n            Accept a `canvas` node and an optional `draw` function, prepare\r\n            the stage draw routine. If the `canvas` is given, immediately call\r\n            `this.prepare(canvas)` to initiate the layer.\r\n\r\n                new StageRender(canvas, ()=>{})\r\n\r\n            Any given `drawFunc` overrides the existing `this.stageStartDraw` method\r\n            and expects the _next_ method to call once complete:\r\n\r\n            The default `this.draw(ctx)` method is given`\r\n\r\n                this.stageStartDraw(this.draw)\r\n\r\n         ",
+                            "block": true,
+                            "line": 108
+                        }
+                    ]
+                },
+                "line": 86
+            },
+            "Stage": {
+                "class_name": "Stage",
+                "inherits": "StageRender",
+                "methods": [
+                    {
+                        "method_name": "prepare",
+                        "class_name": "Stage",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "target"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 550
+                    },
+                    {
+                        "method_name": "load",
+                        "class_name": "Stage",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Called once by the prepare() method, to act as a first-time\r\n         loader for the stage.\r\n\r\n         Apply global hooks here.\r\n        ",
+                                    "block": true,
+                                    "line": 566
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 561
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Called once by the prepare() method, to act as a first-time\r\n         loader for the stage.\r\n\r\n         Apply global hooks here.\r\n        ",
+                            "block": true,
+                            "line": 566
+                        }
+                    ]
+                },
+                "line": 546
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "stage.js",
+        "path": "/workspaces/polypoint/point_src/stage.js",
+        "size": 16403,
+        "parsed_date": "2025-11-02T21:11:40.863Z"
+    }
+}

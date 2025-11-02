@@ -1,0 +1,300 @@
+{
+    "defs": [
+        {
+            "word": "followPoint",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "pointA"
+                    },
+                    {
+                        "name": "pointB"
+                    },
+                    {
+                        "name": "followDistance"
+                    }
+                ],
+                "pos": {
+                    "start": 20,
+                    "end": 570,
+                    "loc": {
+                        "start": {
+                            "line": 1,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Calculate the distance between pointA and pointB",
+                        "block": false,
+                        "line": 2
+                    }
+                ]
+            },
+            "pos": {
+                "start": 0,
+                "end": 570,
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 15,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 0,
+            "end": 570,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 15,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "lerp",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "ArrowFunctionExpression",
+                "expression": true,
+                "async": false,
+                "params": [
+                    {
+                        "name": "x"
+                    },
+                    {
+                        "name": "y"
+                    },
+                    {
+                        "name": "a"
+                    }
+                ],
+                "pos": {
+                    "start": 587,
+                    "end": 619,
+                    "loc": {
+                        "start": {
+                            "line": 17,
+                            "column": 13
+                        },
+                        "end": {
+                            "line": 17,
+                            "column": 45
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 574,
+                "end": 620,
+                "loc": {
+                    "start": {
+                        "line": 17,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 17,
+                        "column": 46
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 574,
+            "end": 620,
+            "loc": {
+                "start": {
+                    "line": 17,
+                    "column": 0
+                },
+                "end": {
+                    "line": 17,
+                    "column": 46
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "invlerp",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "ArrowFunctionExpression",
+                "expression": true,
+                "async": false,
+                "params": [
+                    {
+                        "name": "x"
+                    },
+                    {
+                        "name": "y"
+                    },
+                    {
+                        "name": "a"
+                    }
+                ],
+                "pos": {
+                    "start": 714,
+                    "end": 751,
+                    "loc": {
+                        "start": {
+                            "line": 19,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 19,
+                            "column": 53
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [
+                    {
+                        "text": " const clamp = (a, min = 0, max = 1) => Math.min(max, Math.max(min, a));",
+                        "block": false,
+                        "line": 18
+                    }
+                ],
+                "inner": []
+            },
+            "pos": {
+                "start": 698,
+                "end": 752,
+                "loc": {
+                    "start": {
+                        "line": 19,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 19,
+                        "column": 54
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 698,
+            "end": 752,
+            "loc": {
+                "start": {
+                    "line": 19,
+                    "column": 0
+                },
+                "end": {
+                    "line": 19,
+                    "column": 54
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "range",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "ArrowFunctionExpression",
+                "expression": true,
+                "async": false,
+                "params": [
+                    {
+                        "name": "x1"
+                    },
+                    {
+                        "name": "y1"
+                    },
+                    {
+                        "name": "x2"
+                    },
+                    {
+                        "name": "y2"
+                    },
+                    {
+                        "name": "a"
+                    }
+                ],
+                "pos": {
+                    "start": 768,
+                    "end": 823,
+                    "loc": {
+                        "start": {
+                            "line": 20,
+                            "column": 14
+                        },
+                        "end": {
+                            "line": 20,
+                            "column": 69
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 754,
+                "end": 824,
+                "loc": {
+                    "start": {
+                        "line": 20,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 20,
+                        "column": 70
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 754,
+            "end": 824,
+            "loc": {
+                "start": {
+                    "line": 20,
+                    "column": 0
+                },
+                "end": {
+                    "line": 20,
+                    "column": 70
+                }
+            },
+            "kind": "const"
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration"
+    ],
+    "info": {
+        "filename": "constrain-distance-locked.js",
+        "path": "/workspaces/polypoint/point_src/constrain-distance-locked.js",
+        "size": 830,
+        "parsed_date": "2025-11-02T21:11:33.622Z"
+    }
+}

@@ -1,0 +1,271 @@
+{
+    "src_file": "gradient.js",
+    "references": {
+        "classes": {
+            "Gradient": {
+                "class_name": "Gradient",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Gradient",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "type",
+                                "default_value": "Linear"
+                            },
+                            {
+                                "name": "originPoints",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " default",
+                                    "block": false,
+                                    "line": 111
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 109
+                    },
+                    {
+                        "method_name": "conic",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " conic({radians, x, y} = point) {",
+                                    "block": false,
+                                    "line": 117
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 118
+                    },
+                    {
+                        "method_name": "linear",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " linear({x0, y0}=pointA, {x1, y1}=pointB)",
+                                    "block": false,
+                                    "line": 128
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 129
+                    },
+                    {
+                        "method_name": "radial",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " radial({x0, y0, r0}=pointA, {x1, y1, r1}=pointB)",
+                                    "block": false,
+                                    "line": 139
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 140
+                    },
+                    {
+                        "method_name": "getObject",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " build.",
+                                    "block": false,
+                                    "line": 156
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 149
+                    },
+                    {
+                        "method_name": "installStops",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "gradient"
+                            },
+                            {
+                                "name": "stopMap"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Given a canvas graident object, apply the stops from the _points_ within\r\n        this instance.",
+                                    "block": true,
+                                    "line": 172
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 170
+                    },
+                    {
+                        "method_name": "generateLinearArgs",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " createLinearGradient(x0, y0, x1, y1)",
+                                    "block": false,
+                                    "line": 179
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 178
+                    },
+                    {
+                        "method_name": "generateConicArgs",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " createConicGradient(startAngle, x, y)",
+                                    "block": false,
+                                    "line": 198
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 197
+                    },
+                    {
+                        "method_name": "generateRadialArgs",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " createRadialGradient(x0, y0, r0, x1, y1, r1)",
+                                    "block": false,
+                                    "line": 206
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 205
+                    },
+                    {
+                        "method_name": "addStops",
+                        "class_name": "Gradient",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "dict"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 224
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " A Gradient instance can be generated once or for every draw.\r\n\r\n    Examples:\r\n\r\n    Pre-configure the origin points and the _type_\r\n\r\n        g = new Gradient(null, 'Linear', [stage.center])\r\n        g.addStops({\r\n            0: \"hsl(299deg 62% 44%)\",\r\n            1: \"hsl(244deg 71% 56%)\"\r\n        })\r\n\r\n        let canvasGradient = g.getObject(ctx)\r\n        ctx.fillStyle = canvasGradient\r\n\r\n    ---\r\n\r\n    The context may be given early.\r\n\r\n        g = new Gradient(ctx, 'Linear',)\r\n        g.addStops({\r\n            0: \"hsl(299deg 62% 44%)\",\r\n            1: \"hsl(244deg 71% 56%)\"\r\n        })\r\n        let canvasGradient = g.getObject()\r\n        ctx.fillStyle = canvasGradient\r\n\r\n    ---\r\n\r\n    Provide the context at the last stage.\r\n\r\n        g = new Gradient()\r\n        g.addStops({\r\n            0: \"hsl(299deg 62% 44%)\",\r\n            1: \"hsl(244deg 71% 56%)\"\r\n        })\r\n        g = g.conical(stage.center)\r\n        // draw\r\n        ctx.fillStyle = g.getObject(ctx)\r\n\r\n    ---\r\n\r\n    Radial gradient through two point. The same points are used as\r\n    color stops.\r\n\r\n        pointGradInner = primaryPoint.copy().update({\r\n                radius: rel(-250),\r\n                color:'pink'\r\n            })\r\n        pointGradOuter = primaryPoint.copy().update({\r\n                radius: rel(-10),\r\n                color: 'purple' // dark\r\n            })\r\n\r\n        pointGrad = (new Gradient).radial(pointGradInner, pointGradOuter)\r\n        pointGrad.addStops({\r\n            0: pointGradInner,\r\n            1: pointGradOuter\r\n        })\r\n        pointGrad.radial() // refresh hack.\r\n        let ctxPointGrad = pointGrad.getObject(ctx)\r\n        primaryPoint.pen.fill(ctx, ctxPointGrad)\r\n    ---\r\n\r\n    This base `Gradient` class covers the three core types:\r\n\r\n    + createConicGradient(startAngle, x, y)\r\n    + createLinearGradient(x0, y0, x1, y1)\r\n    + createRadialGradient(x0, y0, r0, x1, y1, r1)\r\n\r\n    ## More Info\r\n\r\n    Create a new gradient object:\r\n\r\n        let g = new Gradient()\r\n\r\n    Many _stops_ define the gradient color values. A _stop_ is a relative 1D\r\n    position from `0` to `1`.\r\n\r\n        g.addStops({\r\n            0: \"hsl(299deg 62% 44%)\",\r\n            1: \"hsl(244deg 71% 56%)\"\r\n        })\r\n\r\n    Define the type of gradient object:\r\n\r\n        let rootPoint = stage.center\r\n        let grad = g.linear(rootPoint)\r\n\r\n    Under the hood, this configures and refreshes `g` gradient instance. similar\r\n    to:\r\n\r\n        // same as above\r\n        g = new Gradient(null, 'Linear', [stage.center])\r\n\r\n    A canvas _gradient_ is generated when required. This Gradient class mimic\r\n    this:\r\n\r\n        let canvasGradient = g.getObject(ctx)\r\n\r\n    The `getObject` method returns a result from the root functions, such as\r\n    `createLinearGradient`\r\n\r\n\r\n    ",
+                            "block": true,
+                            "line": 106
+                        }
+                    ]
+                },
+                "line": 1
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "gradient.js",
+        "path": "/workspaces/polypoint/point_src/gradient.js",
+        "size": 6173,
+        "parsed_date": "2025-11-02T21:11:35.457Z"
+    }
+}

@@ -1,0 +1,880 @@
+{
+    "defs": [
+        {
+            "kind": "function",
+            "word": "createOffscreenCanvas",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "whUnit"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 77,
+                "end": 98,
+                "loc": {
+                    "start": {
+                        "line": 3,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 3,
+                        "column": 30
+                    }
+                },
+                "name": "createOffscreenCanvas",
+                "pos": {
+                    "start": 77,
+                    "end": 98,
+                    "loc": {
+                        "start": {
+                            "line": 3,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 30
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 68,
+                "end": 654,
+                "loc": {
+                    "start": {
+                        "line": 3,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 16,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "copyToOnScreen",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "offScreenCanvas"
+                },
+                {
+                    "name": "onScreenCanvas"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 669,
+                "end": 683,
+                "loc": {
+                    "start": {
+                        "line": 19,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 19,
+                        "column": 23
+                    }
+                },
+                "name": "copyToOnScreen",
+                "pos": {
+                    "start": 669,
+                    "end": 683,
+                    "loc": {
+                        "start": {
+                            "line": 19,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 19,
+                            "column": 23
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 660,
+                "end": 1111,
+                "loc": {
+                    "start": {
+                        "line": 19,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 25,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "class",
+            "word": "StageOffscreenTools",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1163,
+                            "end": 1208,
+                            "loc": {
+                                "start": {
+                                    "line": 30,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 32,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1152,
+                        "end": 1208,
+                        "loc": {
+                            "start": {
+                                "line": 30,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 32,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "create",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "size"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1222,
+                            "end": 1368,
+                            "loc": {
+                                "start": {
+                                    "line": 34,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 39,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1216,
+                        "end": 1368,
+                        "loc": {
+                            "start": {
+                                "line": 34,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 39,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 1117,
+                "end": 1371,
+                "loc": {
+                    "start": {
+                        "line": 28,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 40,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 1375,
+                "end": 1399,
+                "loc": {
+                    "start": {
+                        "line": 42,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 42,
+                        "column": 24
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 1375,
+                    "end": 1386,
+                    "loc": {
+                        "start": {
+                            "line": 42,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 42,
+                            "column": 11
+                        }
+                    },
+                    "object": {
+                        "type": "Identifier",
+                        "start": 1375,
+                        "end": 1382,
+                        "loc": {
+                            "start": {
+                                "line": 42,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 42,
+                                "column": 7
+                            }
+                        },
+                        "name": "console",
+                        "pos": {
+                            "start": 1375,
+                            "end": 1382,
+                            "loc": {
+                                "start": {
+                                    "line": 42,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 42,
+                                    "column": 7
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 1383,
+                        "end": 1386,
+                        "loc": {
+                            "start": {
+                                "line": 42,
+                                "column": 8
+                            },
+                            "end": {
+                                "line": 42,
+                                "column": 11
+                            }
+                        },
+                        "name": "log",
+                        "pos": {
+                            "start": 1383,
+                            "end": 1386,
+                            "loc": {
+                                "start": {
+                                    "line": 42,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 42,
+                                    "column": 11
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 1375,
+                        "end": 1386,
+                        "loc": {
+                            "start": {
+                                "line": 42,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 42,
+                                "column": 11
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 1387,
+                        "end": 1398,
+                        "loc": {
+                            "start": {
+                                "line": 42,
+                                "column": 12
+                            },
+                            "end": {
+                                "line": 42,
+                                "column": 23
+                            }
+                        },
+                        "value": "offScreen",
+                        "raw": "'offScreen'",
+                        "pos": {
+                            "start": 1387,
+                            "end": 1398,
+                            "loc": {
+                                "start": {
+                                    "line": 42,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 42,
+                                    "column": 23
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 1375,
+                    "end": 1399,
+                    "loc": {
+                        "start": {
+                            "line": 42,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 42,
+                            "column": 24
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1375,
+                "end": 1399,
+                "loc": {
+                    "start": {
+                        "line": 42,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 42,
+                        "column": 24
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 1405,
+                "end": 1525,
+                "loc": {
+                    "start": {
+                        "line": 45,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 49,
+                        "column": 1
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 1405,
+                    "end": 1432,
+                    "loc": {
+                        "start": {
+                            "line": 45,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 45,
+                            "column": 27
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 1405,
+                        "end": 1419,
+                        "loc": {
+                            "start": {
+                                "line": 45,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 45,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 1405,
+                            "end": 1414,
+                            "loc": {
+                                "start": {
+                                    "line": 45,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 45,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 1405,
+                                "end": 1414,
+                                "loc": {
+                                    "start": {
+                                        "line": 45,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 45,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 1415,
+                            "end": 1419,
+                            "loc": {
+                                "start": {
+                                    "line": 45,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 45,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 1415,
+                                "end": 1419,
+                                "loc": {
+                                    "start": {
+                                        "line": 45,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 45,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 1405,
+                            "end": 1419,
+                            "loc": {
+                                "start": {
+                                    "line": 45,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 45,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 1420,
+                        "end": 1432,
+                        "loc": {
+                            "start": {
+                                "line": 45,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 45,
+                                "column": 27
+                            }
+                        },
+                        "name": "deferredProp",
+                        "pos": {
+                            "start": 1420,
+                            "end": 1432,
+                            "loc": {
+                                "start": {
+                                    "line": 45,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 45,
+                                    "column": 27
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 1405,
+                        "end": 1432,
+                        "loc": {
+                            "start": {
+                                "line": 45,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 45,
+                                "column": 27
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 1433,
+                        "end": 1440,
+                        "loc": {
+                            "start": {
+                                "line": 45,
+                                "column": 28
+                            },
+                            "end": {
+                                "line": 45,
+                                "column": 35
+                            }
+                        },
+                        "value": "Stage",
+                        "raw": "'Stage'",
+                        "pos": {
+                            "start": 1433,
+                            "end": 1440,
+                            "loc": {
+                                "start": {
+                                    "line": 45,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 45,
+                                    "column": 35
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 1447,
+                        "end": 1522,
+                        "loc": {
+                            "start": {
+                                "line": 46,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 48,
+                                "column": 5
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 1456,
+                            "end": 1465,
+                            "loc": {
+                                "start": {
+                                    "line": 46,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 46,
+                                    "column": 22
+                                }
+                            },
+                            "name": "offscreen",
+                            "pos": {
+                                "start": 1456,
+                                "end": 1465,
+                                "loc": {
+                                    "start": {
+                                        "line": 46,
+                                        "column": 13
+                                    },
+                                    "end": {
+                                        "line": 46,
+                                        "column": 22
+                                    }
+                                }
+                            }
+                        },
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 1468,
+                            "end": 1522,
+                            "loc": {
+                                "start": {
+                                    "line": 46,
+                                    "column": 25
+                                },
+                                "end": {
+                                    "line": 48,
+                                    "column": 5
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 1479,
+                                    "end": 1515,
+                                    "loc": {
+                                        "start": {
+                                            "line": 47,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 47,
+                                            "column": 44
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 1486,
+                                        "end": 1515,
+                                        "loc": {
+                                            "start": {
+                                                "line": 47,
+                                                "column": 15
+                                            },
+                                            "end": {
+                                                "line": 47,
+                                                "column": 44
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 1490,
+                                            "end": 1509,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 47,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 47,
+                                                    "column": 38
+                                                }
+                                            },
+                                            "name": "StageOffscreenTools",
+                                            "pos": {
+                                                "start": 1490,
+                                                "end": 1509,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 47,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 47,
+                                                        "column": 38
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 1510,
+                                                "end": 1514,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 47,
+                                                        "column": 39
+                                                    },
+                                                    "end": {
+                                                        "line": 47,
+                                                        "column": 43
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 1510,
+                                                    "end": 1514,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 47,
+                                                            "column": 39
+                                                        },
+                                                        "end": {
+                                                            "line": 47,
+                                                            "column": 43
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 1486,
+                                            "end": 1515,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 47,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 47,
+                                                    "column": 44
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 1479,
+                                        "end": 1515,
+                                        "loc": {
+                                            "start": {
+                                                "line": 47,
+                                                "column": 8
+                                            },
+                                            "end": {
+                                                "line": 47,
+                                                "column": 44
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 1468,
+                                "end": 1522,
+                                "loc": {
+                                    "start": {
+                                        "line": 46,
+                                        "column": 25
+                                    },
+                                    "end": {
+                                        "line": 48,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 1447,
+                            "end": 1522,
+                            "loc": {
+                                "start": {
+                                    "line": 46,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 48,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 1405,
+                    "end": 1525,
+                    "loc": {
+                        "start": {
+                            "line": 45,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 49,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1405,
+                "end": 1526,
+                "loc": {
+                    "start": {
+                        "line": 45,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 49,
+                        "column": 2
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "offscreen.js",
+        "path": "/workspaces/polypoint/point_src/offscreen.js",
+        "size": 1528,
+        "parsed_date": "2025-11-02T21:11:37.380Z"
+    }
+}

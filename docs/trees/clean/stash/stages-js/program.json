@@ -1,0 +1,488 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "Stages",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "loaded",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "false",
+                        "value": false,
+                        "pos": {
+                            "start": 92,
+                            "end": 97,
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 83,
+                        "end": 97,
+                        "loc": {
+                            "start": {
+                                "line": 5,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 5,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "canvas",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "type": "Identifier",
+                        "word": "undefined",
+                        "pos": {
+                            "start": 112,
+                            "end": 121,
+                            "loc": {
+                                "start": {
+                                    "line": 6,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 103,
+                        "end": 121,
+                        "loc": {
+                            "start": {
+                                "line": 6,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 6,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 140,
+                            "end": 290,
+                            "loc": {
+                                "start": {
+                                    "line": 8,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 13,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 129,
+                        "end": 290,
+                        "loc": {
+                            "start": {
+                                "line": 8,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 13,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "add",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "pos": {
+                            "start": 301,
+                            "end": 515,
+                            "loc": {
+                                "start": {
+                                    "line": 15,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 22,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 298,
+                        "end": 515,
+                        "loc": {
+                            "start": {
+                                "line": 15,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 22,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "resolveNode",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "pos": {
+                            "start": 534,
+                            "end": 825,
+                            "loc": {
+                                "start": {
+                                    "line": 24,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 33,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Given a target as a string or entity, return the resolved\r\n        html entity.\r\n\r\n            resolveNode('myId')\r\n            resolveNode('#querySelector canvas')\r\n            resolveNode(canvas)\r\n        ",
+                                "block": true,
+                                "line": 31
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 523,
+                        "end": 825,
+                        "loc": {
+                            "start": {
+                                "line": 24,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 33,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "load",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "pos": {
+                            "start": 837,
+                            "end": 1029,
+                            "loc": {
+                                "start": {
+                                    "line": 35,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 43,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "install a new canvas.",
+                                "block": false,
+                                "line": 39
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 833,
+                        "end": 1029,
+                        "loc": {
+                            "start": {
+                                "line": 35,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 43,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "installCanvas",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1050,
+                            "end": 1152,
+                            "loc": {
+                                "start": {
+                                    "line": 45,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 48,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1037,
+                        "end": 1152,
+                        "loc": {
+                            "start": {
+                                "line": 45,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 48,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " A Singleton to manage global functions and data ",
+                        "block": true,
+                        "line": 4
+                    }
+                ]
+            },
+            "pos": {
+                "start": 4,
+                "end": 1155,
+                "loc": {
+                    "start": {
+                        "line": 3,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 49,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                    "type": "Identifier",
+                    "word": "stages",
+                    "pos": {
+                        "start": 1161,
+                        "end": 1167,
+                        "loc": {
+                            "start": {
+                                "line": 52,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 52,
+                                "column": 6
+                            }
+                        }
+                    }
+                },
+                "right": {
+                    "type": "NewExpression",
+                    "callee": {
+                        "type": "Identifier",
+                        "word": "Stages",
+                        "pos": {
+                            "start": 1174,
+                            "end": 1180,
+                            "loc": {
+                                "start": {
+                                    "line": 52,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 52,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "arguments": [],
+                    "pos": {
+                        "start": 1170,
+                        "end": 1180,
+                        "loc": {
+                            "start": {
+                                "line": 52,
+                                "column": 9
+                            },
+                            "end": {
+                                "line": 52,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                "pos": {
+                    "start": 1161,
+                    "end": 1180,
+                    "loc": {
+                        "start": {
+                            "line": 52,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 52,
+                            "column": 19
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1161,
+                "end": 1181,
+                "loc": {
+                    "start": {
+                        "line": 52,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 52,
+                        "column": 20
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "stages.js",
+        "path": "/workspaces/polypoint/point_src/stages.js",
+        "size": 1185,
+        "parsed_date": "2025-11-02T21:11:41.079Z"
+    }
+}

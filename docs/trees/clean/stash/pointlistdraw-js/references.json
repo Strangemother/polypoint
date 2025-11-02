@@ -1,0 +1,223 @@
+{
+    "src_file": "pointlistdraw.js",
+    "references": {
+        "classes": {
+            "PointListDraw": {
+                "class_name": "PointListDraw",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointListDraw",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "list"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 4
+                    },
+                    {
+                        "method_name": "horizonLine",
+                        "class_name": "PointListDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Ensure the path restarts, ensuring the colors don't _bleed_ (from",
+                                    "block": false,
+                                    "line": 9
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 8
+                    },
+                    {
+                        "method_name": "stroke",
+                        "class_name": "PointListDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " ctx.stroke()",
+                                    "block": false,
+                                    "line": 19
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 18
+                    },
+                    {
+                        "method_name": "circle",
+                        "class_name": "PointListDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "radius",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return this.stroke.apply(this, arguments)",
+                                    "block": false,
+                                    "line": 27
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 24
+                    },
+                    {
+                        "method_name": "pointLine",
+                        "class_name": "PointListDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "position"
+                            },
+                            {
+                                "name": "eachFunc"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Draw this list as a pointline, provide an init position for an offset. ",
+                                    "block": true,
+                                    "line": 30
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " To 'close' the old drawing.",
+                                    "block": false,
+                                    "line": 32
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 31
+                    },
+                    {
+                        "method_name": "line",
+                        "class_name": "PointListDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Draw a startline lineTo through all points. ",
+                                    "block": true,
+                                    "line": 49
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 50
+                    },
+                    {
+                        "method_name": "quadCurve",
+                        "class_name": "PointListDraw",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "loop",
+                                "default_value": false
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " ctx.moveTo(200, 200);",
+                                    "block": false,
+                                    "line": 67
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 54
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Ensure the path restarts, ensuring the colors don't _bleed_ (from",
+                            "block": false,
+                            "line": 9
+                        }
+                    ]
+                },
+                "line": 2
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "pointlistdraw.js",
+        "path": "/workspaces/polypoint/point_src/pointlistdraw.js",
+        "size": 2946,
+        "parsed_date": "2025-11-02T21:11:38.090Z"
+    }
+}

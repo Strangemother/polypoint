@@ -1,0 +1,471 @@
+{
+    "defs": [
+        {
+            "kind": "function",
+            "word": "getNeighboursRect",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "index"
+                },
+                {
+                    "name": "rowCount"
+                },
+                {
+                    "name": "columnCount"
+                },
+                {
+                    "name": "rowWidth"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 217,
+                "end": 234,
+                "loc": {
+                    "start": {
+                        "line": 9,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 9,
+                        "column": 26
+                    }
+                },
+                "name": "getNeighboursRect",
+                "pos": {
+                    "start": 217,
+                    "end": 234,
+                    "loc": {
+                        "start": {
+                            "line": 9,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 9,
+                            "column": 26
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 208,
+                "end": 1241,
+                "loc": {
+                    "start": {
+                        "line": 9,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 41,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "getNeighbours",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "index"
+                },
+                {
+                    "name": "rowWidth"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1256,
+                "end": 1269,
+                "loc": {
+                    "start": {
+                        "line": 44,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 44,
+                        "column": 22
+                    }
+                },
+                "name": "getNeighbours",
+                "pos": {
+                    "start": 1256,
+                    "end": 1269,
+                    "loc": {
+                        "start": {
+                            "line": 44,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 44,
+                            "column": 22
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1247,
+                "end": 2042,
+                "loc": {
+                    "start": {
+                        "line": 44,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 70,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "word": "arrayMatch",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "ArrowFunctionExpression",
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    }
+                ],
+                "pos": {
+                    "start": 2067,
+                    "end": 2174,
+                    "loc": {
+                        "start": {
+                            "line": 73,
+                            "column": 19
+                        },
+                        "end": {
+                            "line": 76,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 2048,
+                "end": 2174,
+                "loc": {
+                    "start": {
+                        "line": 73,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 76,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 2048,
+            "end": 2174,
+            "loc": {
+                "start": {
+                    "line": 73,
+                    "column": 0
+                },
+                "end": {
+                    "line": 76,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "runTests",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [],
+                "pos": {
+                    "start": 2197,
+                    "end": 2655,
+                    "loc": {
+                        "start": {
+                            "line": 79,
+                            "column": 17
+                        },
+                        "end": {
+                            "line": 90,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 2180,
+                "end": 2655,
+                "loc": {
+                    "start": {
+                        "line": 79,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 90,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 2180,
+            "end": 2655,
+            "loc": {
+                "start": {
+                    "line": 79,
+                    "column": 0
+                },
+                "end": {
+                    "line": 90,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "runOne",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "index"
+                    },
+                    {
+                        "name": "expected"
+                    },
+                    {
+                        "name": "extra",
+                        "default_value": ""
+                    }
+                ],
+                "pos": {
+                    "start": 2676,
+                    "end": 3017,
+                    "loc": {
+                        "start": {
+                            "line": 93,
+                            "column": 15
+                        },
+                        "end": {
+                            "line": 102,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 2661,
+                "end": 3017,
+                "loc": {
+                    "start": {
+                        "line": 93,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 102,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 2661,
+            "end": 3017,
+            "loc": {
+                "start": {
+                    "line": 93,
+                    "column": 0
+                },
+                "end": {
+                    "line": 102,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "runRectTests",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [],
+                "pos": {
+                    "start": 3044,
+                    "end": 3744,
+                    "loc": {
+                        "start": {
+                            "line": 105,
+                            "column": 21
+                        },
+                        "end": {
+                            "line": 125,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " First row ",
+                        "block": true,
+                        "line": 107
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3023,
+                "end": 3744,
+                "loc": {
+                    "start": {
+                        "line": 105,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 125,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 3023,
+            "end": 3744,
+            "loc": {
+                "start": {
+                    "line": 105,
+                    "column": 0
+                },
+                "end": {
+                    "line": 125,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "runRectOne",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "shape"
+                    },
+                    {
+                        "name": "index"
+                    },
+                    {
+                        "name": "expected"
+                    },
+                    {
+                        "name": "extra",
+                        "default_value": ""
+                    }
+                ],
+                "pos": {
+                    "start": 3767,
+                    "end": 4144,
+                    "loc": {
+                        "start": {
+                            "line": 127,
+                            "column": 19
+                        },
+                        "end": {
+                            "line": 136,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 3748,
+                "end": 4144,
+                "loc": {
+                    "start": {
+                        "line": 127,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 136,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 3748,
+            "end": 4144,
+            "loc": {
+                "start": {
+                    "line": 127,
+                    "column": 0
+                },
+                "end": {
+                    "line": 136,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        }
+    ],
+    "types": [
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration"
+    ],
+    "info": {
+        "filename": "grid-get-siblings.js",
+        "path": "/workspaces/polypoint/point_src/grid-get-siblings.js",
+        "size": 4148,
+        "parsed_date": "2025-11-02T21:11:35.798Z"
+    }
+}

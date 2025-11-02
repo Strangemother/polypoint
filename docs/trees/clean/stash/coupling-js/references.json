@@ -1,0 +1,245 @@
+{
+    "src_file": "coupling.js",
+    "references": {
+        "classes": {
+            "Coupling": {
+                "class_name": "Coupling",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Coupling",
+                        "kind": "constructor",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 19
+                    },
+                    {
+                        "method_name": "couple",
+                        "class_name": "Coupling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "offset"
+                            },
+                            {
+                                "name": "keys",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Couple two points, binding the x,y,radius,rotation\r\n        Apply a relative offset to update the values between binding changes\r\n\r\n        when a side is manipulated, the _other_ side is updated.\r\n        If B is the altered value, the relativeOffset is applied inversly.\r\n\r\n        Apply a function to the relative offset key to capture live change.s\r\n        ",
+                                    "block": true,
+                                    "line": 32
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 23
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "Coupling",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Perform a single _step_ of the coupling test,\r\n        if either side of the connection has changed, bubble the update\r\n        to its sibling - through the relative conversion. ",
+                                    "block": true,
+                                    "line": 61
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 58
+                    },
+                    {
+                        "method_name": "hasChanged",
+                        "class_name": "Coupling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "aCache"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Given an object and its _cache_, test each key in the _cache_\r\n        and return a Set of changed keys\r\n\r\n            hasChanged({foo: 20, bar: 10}, {foo: 10, bar: 10})\r\n            ['foo']\r\n\r\n        The return keys are values that do not match _a_.\r\n        If the cache is flagged _dirty_, all keys are returned.\r\n\r\n            hasChanged({foo: 20, bar:10}, {foo: 20, bar: 10, dirty: true})\r\n            ['foo', 'bar']\r\n\r\n        If no changes are detected `undefined` is returned.\r\n\r\n            if(this.hasChanged({}, {})) {\r\n                // is not called.\r\n            }\r\n        ",
+                                    "block": true,
+                                    "line": 135
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 117
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\n---\r\ntitle: Coupling\r\n---\r\n\r\nBind the values of a point with another point.\r\nProvide a relative offset object.\r\n\r\n    coupling = new Coupling()\r\n    coupling.couple(a, b, { x: 10, y: 10})\r\n\r\nBoth points are reative to their coupled position:\r\n\r\n    // Dragging either point will result in constant coupling.\r\n    dragging.add(a, b)\r\n ",
+                            "block": true,
+                            "line": 16
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": "\r\n        Couple two points, binding the x,y,radius,rotation\r\n        Apply a relative offset to update the values between binding changes\r\n\r\n        when a side is manipulated, the _other_ side is updated.\r\n        If B is the altered value, the relativeOffset is applied inversly.\r\n\r\n        Apply a function to the relative offset key to capture live change.s\r\n        ",
+                            "block": true,
+                            "line": 32
+                        }
+                    ]
+                },
+                "line": 17
+            },
+            "LockedCoupling": {
+                "class_name": "LockedCoupling",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "LockedCoupling",
+                        "kind": "constructor",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 152
+                    },
+                    {
+                        "method_name": "couple",
+                        "class_name": "LockedCoupling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "offset"
+                            },
+                            {
+                                "name": "keys",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Couple two points, binding the x,y,radius,rotation\r\n        Apply a relative offset to update the values between binding changes\r\n\r\n        when a side is manipulated, the _other_ side is updated.\r\n        If B is the altered value, the relativeOffset is applied inversly.\r\n\r\n        Apply a function to the relative offset key to capture live change.s\r\n        ",
+                                    "block": true,
+                                    "line": 165
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 156
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "LockedCoupling",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Install the current primary value into its cache.\r\n                and apply the value to the second entity, also applying\r\n                its new value to its cache,\r\n                ",
+                                    "block": true,
+                                    "line": 207
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 196
+                    },
+                    {
+                        "method_name": "hasChanged",
+                        "class_name": "LockedCoupling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "aCache"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Given an object and its _cache_, test each key in the _cache_\r\n        and return a Set of changed keys\r\n\r\n            hasChanged({foo: 20, bar: 10}, {foo: 10, bar: 10})\r\n            ['foo']\r\n\r\n        The return keys are values that do not match _a_.\r\n        If the cache is flagged _dirty_, all keys are returned.\r\n\r\n            hasChanged({foo: 20, bar:10}, {foo: 20, bar: 10, dirty: true})\r\n            ['foo', 'bar']\r\n\r\n        If no changes are detected `undefined` is returned.\r\n\r\n            if(this.hasChanged({}, {})) {\r\n                // is not called.\r\n            }\r\n        ",
+                                    "block": true,
+                                    "line": 256
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 238
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "\r\n        Couple two points, binding the x,y,radius,rotation\r\n        Apply a relative offset to update the values between binding changes\r\n\r\n        when a side is manipulated, the _other_ side is updated.\r\n        If B is the altered value, the relativeOffset is applied inversly.\r\n\r\n        Apply a function to the relative offset key to capture live change.s\r\n        ",
+                            "block": true,
+                            "line": 165
+                        }
+                    ]
+                },
+                "line": 150
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "coupling.js",
+        "path": "/workspaces/polypoint/point_src/coupling.js",
+        "size": 8387,
+        "parsed_date": "2025-11-02T21:11:33.845Z"
+    }
+}

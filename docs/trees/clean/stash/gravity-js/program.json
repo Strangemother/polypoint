@@ -1,0 +1,172 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "GravityReactor",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "gravityPoint"
+                            },
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "lockedPoints",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "pos": {
+                            "start": 259,
+                            "end": 425,
+                            "loc": {
+                                "start": {
+                                    "line": 10,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 14,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " The reactor updates a point list, pulling all items in a direction\r\n    provide a point as the directions for gravity. 0,0 for no gravity.",
+                                "block": true,
+                                "line": 9
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 248,
+                        "end": 425,
+                        "loc": {
+                            "start": {
+                                "line": 10,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 14,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "step",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "lockedPoints"
+                            }
+                        ],
+                        "pos": {
+                            "start": 437,
+                            "end": 750,
+                            "loc": {
+                                "start": {
+                                    "line": 16,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 25,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Apply gravity",
+                                "block": false,
+                                "line": 17
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 433,
+                        "end": 750,
+                        "loc": {
+                            "start": {
+                                "line": 16,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 25,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " The reactor updates a point list, pulling all items in a direction\r\n    provide a point as the directions for gravity. 0,0 for no gravity.",
+                        "block": true,
+                        "line": 9
+                    }
+                ]
+            },
+            "pos": {
+                "start": 71,
+                "end": 753,
+                "loc": {
+                    "start": {
+                        "line": 7,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 26,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "gravity.js",
+        "path": "/workspaces/polypoint/point_src/gravity.js",
+        "size": 753,
+        "parsed_date": "2025-11-02T21:11:35.693Z"
+    }
+}

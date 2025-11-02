@@ -1,0 +1,2497 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "Emitter",
+            "parentName": "Point",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "tick",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "0",
+                        "value": 0,
+                        "pos": {
+                            "start": 534,
+                            "end": 535,
+                            "loc": {
+                                "start": {
+                                    "line": 21,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 21,
+                                    "column": 12
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 527,
+                        "end": 535,
+                        "loc": {
+                            "start": {
+                                "line": 21,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 21,
+                                "column": 12
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "tickModulo",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "20",
+                        "value": 20,
+                        "pos": {
+                            "start": 596,
+                            "end": 598,
+                            "loc": {
+                                "start": {
+                                    "line": 24,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 24,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 583,
+                        "end": 598,
+                        "loc": {
+                            "start": {
+                                "line": 24,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 24,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "particleSpeed",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "2",
+                        "value": 2,
+                        "pos": {
+                            "start": 670,
+                            "end": 671,
+                            "loc": {
+                                "start": {
+                                    "line": 27,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 27,
+                                    "column": 21
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 654,
+                        "end": 671,
+                        "loc": {
+                            "start": {
+                                "line": 27,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 27,
+                                "column": 21
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "birthrate",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "1",
+                        "value": 1,
+                        "pos": {
+                            "start": 738,
+                            "end": 739,
+                            "loc": {
+                                "start": {
+                                    "line": 30,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 30,
+                                    "column": 17
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 726,
+                        "end": 739,
+                        "loc": {
+                            "start": {
+                                "line": 30,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 30,
+                                "column": 17
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "lifetime",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "type": "Identifier",
+                        "word": "undefined",
+                        "pos": {
+                            "start": 1112,
+                            "end": 1121,
+                            "loc": {
+                                "start": {
+                                    "line": 42,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 42,
+                                    "column": 24
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 1101,
+                        "end": 1121,
+                        "loc": {
+                            "start": {
+                                "line": 42,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 42,
+                                "column": 24
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "fromEdge",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "false",
+                        "value": false,
+                        "pos": {
+                            "start": 1190,
+                            "end": 1195,
+                            "loc": {
+                                "start": {
+                                    "line": 45,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 45,
+                                    "column": 20
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 1179,
+                        "end": 1195,
+                        "loc": {
+                            "start": {
+                                "line": 45,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 45,
+                                "column": 20
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "direction",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "type": "ObjectExpression",
+                        "properties": [
+                            [
+                                {
+                                    "kind": "init",
+                                    "word": "x",
+                                    "type": "Property",
+                                    "method": false,
+                                    "shorthand": false,
+                                    "computed": false,
+                                    "value": {
+                                        "kind": "literal",
+                                        "raw": "1",
+                                        "value": 1,
+                                        "pos": {
+                                            "start": 1318,
+                                            "end": 1319,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 49,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 49,
+                                                    "column": 20
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 1316,
+                                        "end": 1319,
+                                        "loc": {
+                                            "start": {
+                                                "line": 49,
+                                                "column": 17
+                                            },
+                                            "end": {
+                                                "line": 49,
+                                                "column": 20
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            [
+                                {
+                                    "kind": "init",
+                                    "word": "y",
+                                    "type": "Property",
+                                    "method": false,
+                                    "shorthand": false,
+                                    "computed": false,
+                                    "value": {
+                                        "kind": "literal",
+                                        "raw": "0",
+                                        "value": 0,
+                                        "pos": {
+                                            "start": 1323,
+                                            "end": 1324,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 49,
+                                                    "column": 24
+                                                },
+                                                "end": {
+                                                    "line": 49,
+                                                    "column": 25
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 1321,
+                                        "end": 1324,
+                                        "loc": {
+                                            "start": {
+                                                "line": 49,
+                                                "column": 22
+                                            },
+                                            "end": {
+                                                "line": 49,
+                                                "column": 25
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        ],
+                        "pos": {
+                            "start": 1315,
+                            "end": 1325,
+                            "loc": {
+                                "start": {
+                                    "line": 49,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 49,
+                                    "column": 26
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 1303,
+                        "end": 1325,
+                        "loc": {
+                            "start": {
+                                "line": 49,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 49,
+                                "column": 26
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "pointLimit",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "2000",
+                        "value": 2000,
+                        "pos": {
+                            "start": 1346,
+                            "end": 1350,
+                            "loc": {
+                                "start": {
+                                    "line": 51,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 51,
+                                    "column": 21
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 1333,
+                        "end": 1350,
+                        "loc": {
+                            "start": {
+                                "line": 51,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 51,
+                                "column": 21
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "wake",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1362,
+                            "end": 1465,
+                            "loc": {
+                                "start": {
+                                    "line": 53,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 56,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " this.direction = new Point(this.direction)",
+                                "block": false,
+                                "line": 55
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1358,
+                        "end": 1465,
+                        "loc": {
+                            "start": {
+                                "line": 53,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 56,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getDirection",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1485,
+                            "end": 1585,
+                            "loc": {
+                                "start": {
+                                    "line": 58,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 61,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1473,
+                        "end": 1585,
+                        "loc": {
+                            "start": {
+                                "line": 58,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 61,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "step",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1597,
+                            "end": 2031,
+                            "loc": {
+                                "start": {
+                                    "line": 63,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 78,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " perform a tick for every interval, creating points, and pushing\r\n        existing points ",
+                                "block": true,
+                                "line": 65
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1593,
+                        "end": 2031,
+                        "loc": {
+                            "start": {
+                                "line": 63,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 78,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "cycle",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 2044,
+                            "end": 2721,
+                            "loc": {
+                                "start": {
+                                    "line": 80,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 100,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Perform a task of one step, involving birthing, and killing\r\n        points, selecting and rotation lerp points.",
+                                "block": true,
+                                "line": 82
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2039,
+                        "end": 2721,
+                        "loc": {
+                            "start": {
+                                "line": 80,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 100,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "pump",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "birthIndex"
+                            },
+                            {
+                                "name": "birthrate"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2733,
+                            "end": 2768,
+                            "loc": {
+                                "start": {
+                                    "line": 102,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 103,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2729,
+                        "end": 2768,
+                        "loc": {
+                            "start": {
+                                "line": 102,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 103,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "newPoint",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "birthPartial"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2784,
+                            "end": 3972,
+                            "loc": {
+                                "start": {
+                                    "line": 105,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 137,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Return a _ready to go_ point, using the local attributes\r\n        as a template to produce the new point.\r\n\r\n        This should include speed and any variants. ",
+                                "block": true,
+                                "line": 109
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2776,
+                        "end": 3972,
+                        "loc": {
+                            "start": {
+                                "line": 105,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 137,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "offsetSpawnedPoint",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3998,
+                            "end": 4294,
+                            "loc": {
+                                "start": {
+                                    "line": 139,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 146,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " debugger",
+                                "block": false,
+                                "line": 141
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3980,
+                        "end": 4294,
+                        "loc": {
+                            "start": {
+                                "line": 139,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 146,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Every step performs a tick, used as the internal clock for\r\n    generate and stepping ",
+                        "block": true,
+                        "line": 20
+                    }
+                ]
+            },
+            "pos": {
+                "start": 393,
+                "end": 4297,
+                "loc": {
+                    "start": {
+                        "line": 17,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 147,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "LineEmitter",
+            "parentName": "Emitter",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "radiusVariant",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "2",
+                        "value": 2,
+                        "pos": {
+                            "start": 4362,
+                            "end": 4363,
+                            "loc": {
+                                "start": {
+                                    "line": 152,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 152,
+                                    "column": 21
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 4346,
+                        "end": 4363,
+                        "loc": {
+                            "start": {
+                                "line": 152,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 152,
+                                "column": 21
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "minSize",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "5",
+                        "value": 5,
+                        "pos": {
+                            "start": 4379,
+                            "end": 4380,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 153,
+                                    "column": 15
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 4369,
+                        "end": 4380,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 153,
+                                "column": 15
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "maxSize",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "10",
+                        "value": 10,
+                        "pos": {
+                            "start": 4396,
+                            "end": 4398,
+                            "loc": {
+                                "start": {
+                                    "line": 154,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 154,
+                                    "column": 16
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 4386,
+                        "end": 4398,
+                        "loc": {
+                            "start": {
+                                "line": 154,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 154,
+                                "column": 16
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "directionVariant",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "5",
+                        "value": 5,
+                        "pos": {
+                            "start": 4423,
+                            "end": 4424,
+                            "loc": {
+                                "start": {
+                                    "line": 155,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 155,
+                                    "column": 24
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 4404,
+                        "end": 4424,
+                        "loc": {
+                            "start": {
+                                "line": 155,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 155,
+                                "column": 24
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "baseRadius",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "5",
+                        "value": 5,
+                        "pos": {
+                            "start": 4443,
+                            "end": 4444,
+                            "loc": {
+                                "start": {
+                                    "line": 156,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 156,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 4430,
+                        "end": 4444,
+                        "loc": {
+                            "start": {
+                                "line": 156,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 156,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "baseSpeed",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "1",
+                        "value": 1,
+                        "pos": {
+                            "start": 4462,
+                            "end": 4463,
+                            "loc": {
+                                "start": {
+                                    "line": 157,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 157,
+                                    "column": 17
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 4450,
+                        "end": 4463,
+                        "loc": {
+                            "start": {
+                                "line": 157,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 157,
+                                "column": 17
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "lifetimeVariant",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "2",
+                        "value": 2,
+                        "pos": {
+                            "start": 4487,
+                            "end": 4488,
+                            "loc": {
+                                "start": {
+                                    "line": 158,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 158,
+                                    "column": 23
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 4469,
+                        "end": 4488,
+                        "loc": {
+                            "start": {
+                                "line": 158,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 158,
+                                "column": 23
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "wake",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4500,
+                            "end": 4586,
+                            "loc": {
+                                "start": {
+                                    "line": 160,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 164,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4496,
+                        "end": 4586,
+                        "loc": {
+                            "start": {
+                                "line": 160,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 164,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "cachePoints",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "line"
+                            },
+                            {
+                                "name": "divider",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "pointing",
+                                "default_value": 0
+                            }
+                        ],
+                        "pos": {
+                            "start": 4605,
+                            "end": 4792,
+                            "loc": {
+                                "start": {
+                                    "line": 166,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 170,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " console.log('Cache Points')",
+                                "block": false,
+                                "line": 167
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4594,
+                        "end": 4792,
+                        "loc": {
+                            "start": {
+                                "line": 166,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 170,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "newPoint",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "birthPartial"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4808,
+                            "end": 5709,
+                            "loc": {
+                                "start": {
+                                    "line": 172,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 199,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "* (3 * Math.random())",
+                                "block": false,
+                                "line": 178
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4800,
+                        "end": 5709,
+                        "loc": {
+                            "start": {
+                                "line": 172,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 199,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getChoice",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 5726,
+                            "end": 5996,
+                            "loc": {
+                                "start": {
+                                    "line": 201,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 208,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " let choice = (this.index++) % this.positions.length",
+                                "block": false,
+                                "line": 202
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5717,
+                        "end": 5996,
+                        "loc": {
+                            "start": {
+                                "line": 201,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 208,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "pump",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "birthIndex"
+                            },
+                            {
+                                "name": "birthrate"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6008,
+                            "end": 7022,
+                            "loc": {
+                                "start": {
+                                    "line": 210,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 236,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " let FORWARD = this.direction",
+                                "block": false,
+                                "line": 217
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 6004,
+                        "end": 7022,
+                        "loc": {
+                            "start": {
+                                "line": 210,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 236,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " console.log('Cache Points')",
+                        "block": false,
+                        "line": 167
+                    }
+                ]
+            },
+            "pos": {
+                "start": 4303,
+                "end": 7027,
+                "loc": {
+                    "start": {
+                        "line": 150,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 238,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "RandomPointEmitter",
+            "parentName": "Emitter",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "radiusVariant",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": ".1",
+                        "value": 0.1,
+                        "pos": {
+                            "start": 7217,
+                            "end": 7219,
+                            "loc": {
+                                "start": {
+                                    "line": 245,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 245,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7201,
+                        "end": 7219,
+                        "loc": {
+                            "start": {
+                                "line": 245,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 245,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "directionVariant",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "1",
+                        "value": 1,
+                        "pos": {
+                            "start": 7333,
+                            "end": 7334,
+                            "loc": {
+                                "start": {
+                                    "line": 247,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 247,
+                                    "column": 24
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7314,
+                        "end": 7334,
+                        "loc": {
+                            "start": {
+                                "line": 247,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 247,
+                                "column": 24
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "minSize",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "2",
+                        "value": 2,
+                        "pos": {
+                            "start": 7383,
+                            "end": 7384,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 15
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7373,
+                        "end": 7384,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 15
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "pump",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "birthIndex"
+                            },
+                            {
+                                "name": "birthrate"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7396,
+                            "end": 7702,
+                            "loc": {
+                                "start": {
+                                    "line": 251,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 256,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 7392,
+                        "end": 7702,
+                        "loc": {
+                            "start": {
+                                "line": 251,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 256,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Per birth, how much should the radius vary for each point.\r\n    from the minSize to the max (point radius) ",
+                        "block": true,
+                        "line": 244
+                    }
+                ]
+            },
+            "pos": {
+                "start": 7033,
+                "end": 7707,
+                "loc": {
+                    "start": {
+                        "line": 241,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 258,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "PumpRandomPointEmitter",
+            "parentName": "RandomPointEmitter",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "fromEdge",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 7787,
+                            "end": 7791,
+                            "loc": {
+                                "start": {
+                                    "line": 262,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 262,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7776,
+                        "end": 7791,
+                        "loc": {
+                            "start": {
+                                "line": 262,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 262,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "tickModulo",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "90",
+                        "value": 90,
+                        "pos": {
+                            "start": 7810,
+                            "end": 7812,
+                            "loc": {
+                                "start": {
+                                    "line": 263,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 263,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7797,
+                        "end": 7812,
+                        "loc": {
+                            "start": {
+                                "line": 263,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 263,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "birthrate",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "50",
+                        "value": 50,
+                        "pos": {
+                            "start": 7830,
+                            "end": 7832,
+                            "loc": {
+                                "start": {
+                                    "line": 264,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 264,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7818,
+                        "end": 7832,
+                        "loc": {
+                            "start": {
+                                "line": 264,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 264,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "lifetime",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "300",
+                        "value": 300,
+                        "pos": {
+                            "start": 7849,
+                            "end": 7852,
+                            "loc": {
+                                "start": {
+                                    "line": 265,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 265,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7838,
+                        "end": 7852,
+                        "loc": {
+                            "start": {
+                                "line": 265,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 265,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "radiusVariant",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": ".1",
+                        "value": 0.1,
+                        "pos": {
+                            "start": 7874,
+                            "end": 7876,
+                            "loc": {
+                                "start": {
+                                    "line": 266,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 266,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7858,
+                        "end": 7876,
+                        "loc": {
+                            "start": {
+                                "line": 266,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 266,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "directionVariant",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "360",
+                        "value": 360,
+                        "pos": {
+                            "start": 7901,
+                            "end": 7904,
+                            "loc": {
+                                "start": {
+                                    "line": 267,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 267,
+                                    "column": 26
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7882,
+                        "end": 7904,
+                        "loc": {
+                            "start": {
+                                "line": 267,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 267,
+                                "column": 26
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "minSize",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "2",
+                        "value": 2,
+                        "pos": {
+                            "start": 7920,
+                            "end": 7921,
+                            "loc": {
+                                "start": {
+                                    "line": 268,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 268,
+                                    "column": 15
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7910,
+                        "end": 7921,
+                        "loc": {
+                            "start": {
+                                "line": 268,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 268,
+                                "column": 15
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 7713,
+                "end": 7924,
+                "loc": {
+                    "start": {
+                        "line": 261,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 269,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "DirectionalPointEmitter",
+            "parentName": "RandomPointEmitter",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "directionVariant",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": ".05",
+                        "value": 0.05,
+                        "pos": {
+                            "start": 8013,
+                            "end": 8016,
+                            "loc": {
+                                "start": {
+                                    "line": 273,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 273,
+                                    "column": 26
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 7994,
+                        "end": 8016,
+                        "loc": {
+                            "start": {
+                                "line": 273,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 273,
+                                "column": 26
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "particleSpeed",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": ".6",
+                        "value": 0.6,
+                        "pos": {
+                            "start": 8038,
+                            "end": 8040,
+                            "loc": {
+                                "start": {
+                                    "line": 274,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 274,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 8022,
+                        "end": 8040,
+                        "loc": {
+                            "start": {
+                                "line": 274,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 274,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "lifetime",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "200",
+                        "value": 200,
+                        "pos": {
+                            "start": 8057,
+                            "end": 8060,
+                            "loc": {
+                                "start": {
+                                    "line": 275,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 275,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 8046,
+                        "end": 8060,
+                        "loc": {
+                            "start": {
+                                "line": 275,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 275,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "fromEdge",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 8077,
+                            "end": 8081,
+                            "loc": {
+                                "start": {
+                                    "line": 276,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 276,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 8066,
+                        "end": 8081,
+                        "loc": {
+                            "start": {
+                                "line": 276,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 276,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "tickModulo",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "5",
+                        "value": 5,
+                        "pos": {
+                            "start": 8100,
+                            "end": 8101,
+                            "loc": {
+                                "start": {
+                                    "line": 277,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 277,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 8087,
+                        "end": 8101,
+                        "loc": {
+                            "start": {
+                                "line": 277,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 277,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "birthrate",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": ".1",
+                        "value": 0.1,
+                        "pos": {
+                            "start": 8140,
+                            "end": 8142,
+                            "loc": {
+                                "start": {
+                                    "line": 279,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 279,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 8128,
+                        "end": 8142,
+                        "loc": {
+                            "start": {
+                                "line": 279,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 279,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "pointLimit",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "1000",
+                        "value": 1000,
+                        "pos": {
+                            "start": 8161,
+                            "end": 8165,
+                            "loc": {
+                                "start": {
+                                    "line": 280,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 280,
+                                    "column": 21
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 8148,
+                        "end": 8165,
+                        "loc": {
+                            "start": {
+                                "line": 280,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 280,
+                                "column": 21
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "invert",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "false",
+                        "value": false,
+                        "pos": {
+                            "start": 8182,
+                            "end": 8187,
+                            "loc": {
+                                "start": {
+                                    "line": 282,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 282,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 8173,
+                        "end": 8187,
+                        "loc": {
+                            "start": {
+                                "line": 282,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 282,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "stepDirection",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "multplier"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8206,
+                            "end": 8275,
+                            "loc": {
+                                "start": {
+                                    "line": 283,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 285,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 8193,
+                        "end": 8275,
+                        "loc": {
+                            "start": {
+                                "line": 283,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 285,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "step",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "direction"
+                            },
+                            {
+                                "name": "speedFloat"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8287,
+                            "end": 9011,
+                            "loc": {
+                                "start": {
+                                    "line": 287,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 304,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " this.birthrate = vh * .3",
+                                "block": false,
+                                "line": 297
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8283,
+                        "end": 9011,
+                        "loc": {
+                            "start": {
+                                "line": 287,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 304,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "  speed = 100",
+                        "block": false,
+                        "line": 278
+                    }
+                ]
+            },
+            "pos": {
+                "start": 7930,
+                "end": 9014,
+                "loc": {
+                    "start": {
+                        "line": 272,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 305,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "TrailPointEmitter",
+            "parentName": "DirectionalPointEmitter",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "invert",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 9092,
+                            "end": 9096,
+                            "loc": {
+                                "start": {
+                                    "line": 309,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 309,
+                                    "column": 17
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 9083,
+                        "end": 9096,
+                        "loc": {
+                            "start": {
+                                "line": 309,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 309,
+                                "column": 17
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " tickModulo = 5",
+                        "block": false,
+                        "line": 310
+                    }
+                ]
+            },
+            "pos": {
+                "start": 9020,
+                "end": 9122,
+                "loc": {
+                    "start": {
+                        "line": 308,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 311,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "emitter.js",
+        "path": "/workspaces/polypoint/point_src/emitter.js",
+        "size": 9126,
+        "parsed_date": "2025-11-02T21:11:34.858Z"
+    }
+}

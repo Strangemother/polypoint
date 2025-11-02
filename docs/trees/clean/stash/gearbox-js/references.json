@@ -1,0 +1,658 @@
+{
+    "src_file": "gearbox.js",
+    "references": {
+        "classes": {
+            "GearBox": {
+                "class_name": "GearBox",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "GearBox",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "points"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " For xy bound wheels ",
+                                    "block": true,
+                                    "line": 7
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 4
+                    },
+                    {
+                        "method_name": "performDraw",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 15
+                    },
+                    {
+                        "method_name": "bindPinionWheels",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "large"
+                            },
+                            {
+                                "name": "pinion"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " pinion.parentWheel = large",
+                                    "block": false,
+                                    "line": 22
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 20
+                    },
+                    {
+                        "method_name": "ensureDoubleBound",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            Iterate the bindmap, ensuring the XY of a pair match -\r\n         ",
+                                    "block": true,
+                                    "line": 35
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 32
+                    },
+                    {
+                        "method_name": "performStep",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " previous break-early",
+                                    "block": false,
+                                    "line": 48
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 42
+                    },
+                    {
+                        "method_name": "pushVelocities",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ps"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Iterate all the points, applying the angular velocity\r\n        given in the compute steps.\r\n        ",
+                                    "block": true,
+                                    "line": 63
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 60
+                    },
+                    {
+                        "method_name": "recursiveSpinTouchMap",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "tick"
+                            },
+                            {
+                                "name": "touchMap"
+                            },
+                            {
+                                "name": "ps"
+                            },
+                            {
+                                "name": "maxCount",
+                                "default_value": 5
+                            },
+                            {
+                                "name": "currentCount",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " nothing to do.",
+                                    "block": false,
+                                    "line": 84
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 82
+                    },
+                    {
+                        "method_name": "spinChildren",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "touchMap"
+                            },
+                            {
+                                "name": "allGears"
+                            },
+                            {
+                                "name": "hitTick"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        An entry in the touch map:\r\n\r\n            origin: [touchPoint, ...]\r\n\r\n            the touch points is not rotated yet, and should receive the\r\n            rotation of the origin.\r\n\r\n            Returned is a new touchmap, where each touchPoint is the origin\r\n            and the touches are next gears - devoid of the origin.\r\n        ",
+                                    "block": true,
+                                    "line": 109
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 98
+                    },
+                    {
+                        "method_name": "spinGears",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "allGears"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Filter touching.\r\n        store as descendant.\r\n        Loop each descendant\r\n        store descendant.\r\n        If already visited - raise error\r\n        ",
+                                    "block": true,
+                                    "line": 216
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 210
+                    },
+                    {
+                        "method_name": "getTouching",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "motors"
+                            },
+                            {
+                                "name": "allGears"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " For each item, we store its _next_ items.",
+                                    "block": false,
+                                    "line": 226
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 224
+                    },
+                    {
+                        "method_name": "getSingleTouching",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "allGears"
+                            },
+                            {
+                                "name": "exceptPoint",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return a list of all touching points for this target,\r\n        except the exceptPoint",
+                                    "block": true,
+                                    "line": 242
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 240
+                    },
+                    {
+                        "method_name": "appendMap",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "map"
+                            },
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "pointList"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 247
+                    },
+                    {
+                        "method_name": "wheelWheel",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "parentOriginPoint"
+                            },
+                            {
+                                "name": "boundReceiverPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        The parentOriginPoint was rotated by the origin, the bound point should receive its rotation\r\n        being an inner wheel of the parentOriginPoint\r\n         ",
+                                    "block": true,
+                                    "line": 261
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 257
+                    },
+                    {
+                        "method_name": "doubleTouchCV",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "touchPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Angular velocity it given by a previous, and now this.",
+                                    "block": false,
+                                    "line": 273
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 272
+                    },
+                    {
+                        "method_name": "isMotor",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 299
+                    },
+                    {
+                        "method_name": "drawView",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Draw a circle at the origin points ",
+                                    "block": true,
+                                    "line": 310
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 309
+                    },
+                    {
+                        "method_name": "addGear",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "angularVelocity",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 336
+                    },
+                    {
+                        "method_name": "addPairGear",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "primary"
+                            },
+                            {
+                                "name": "pinion"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " A pair gear applies a primary wheel and a pinion wheen -\r\n        bound together at the center. When one of the gears rotates, the other\r\n        will also rotate at the same speed.\r\n        ",
+                                    "block": true,
+                                    "line": 347
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 343
+                    },
+                    {
+                        "method_name": "gearWheel",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "receiverPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n         A Gear defines a point edge meeting another point edge.\r\n         Calculate and apply the angularVelocity using the origin and receiver radius.\r\n\r\n         Note the originPoint.angularVelocity must exist.\r\n        ",
+                                    "block": true,
+                                    "line": 360
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 354
+                    },
+                    {
+                        "method_name": "internalWheel",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "receiverPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n         A Gear defines a point edge meeting another point edge.\r\n         Calculate and apply the angularVelocity using the origin and receiver radius.\r\n\r\n         Note the originPoint.angularVelocity must exist.\r\n        ",
+                                    "block": true,
+                                    "line": 378
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 372
+                    },
+                    {
+                        "method_name": "calculateReceiverVelocity",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "receiverPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 390
+                    },
+                    {
+                        "method_name": "ratchetAllowed",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "parentOriginPoint"
+                            },
+                            {
+                                "name": "boundReceiverPoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Ratcheting ensures the boundReceiverPoint can (and is) being spun\r\n        in the ratchet direction `-1, 0, 1,` left, both, right respectively.\r\n\r\n        If pass, return True:\r\n\r\n            + If ratcheting == undefined, assume 0\r\n            + if 0; both directions\r\n            + if -1 ratchet and angularVelocity < 0; ratchet left\r\n            + if 1 ratchet and angularVelocity > 0; ratchet right\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 405
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 394
+                    },
+                    {
+                        "method_name": "createGear",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 414
+                    },
+                    {
+                        "method_name": "createReductionGear",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 420
+                    },
+                    {
+                        "method_name": "createInternalGear",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 427
+                    },
+                    {
+                        "method_name": "createMotor",
+                        "class_name": "GearBox",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 433
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " For xy bound wheels ",
+                            "block": true,
+                            "line": 7
+                        }
+                    ]
+                },
+                "line": 2
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "gearbox.js",
+        "path": "/workspaces/polypoint/point_src/gearbox.js",
+        "size": 14698,
+        "parsed_date": "2025-11-02T21:11:35.334Z"
+    }
+}

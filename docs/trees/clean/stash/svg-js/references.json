@@ -1,0 +1,392 @@
+{
+    "src_file": "svg.js",
+    "references": {
+        "classes": {
+            "SVGContext": {
+                "class_name": "SVGContext",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "SVGContext",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "svgName"
+                            },
+                            {
+                                "name": "containerSelector"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 61
+                    },
+                    {
+                        "method_name": "start",
+                        "class_name": "SVGContext",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 69
+                    },
+                    {
+                        "method_name": "createContext",
+                        "class_name": "SVGContext",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Generate a new SVG using the internal names and append\n        the new svg to the given container.\n        If the svg exists, it's reused else a new one is created. ",
+                                    "block": true,
+                                    "line": 87
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 84
+                    },
+                    {
+                        "method_name": "resetSVGsize",
+                        "class_name": "SVGContext",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "x",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "y",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Reset the svg size to 0 0",
+                                    "block": true,
+                                    "line": 97
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 96
+                    },
+                    {
+                        "method_name": "applyWindowHandlers",
+                        "class_name": "SVGContext",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Apply ready and resize handlers to the window and document\n        to call render() upon an event. ",
+                                    "block": true,
+                                    "line": 104
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 102
+                    },
+                    {
+                        "method_name": "resize",
+                        "class_name": "SVGContext",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "height"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 109
+                    },
+                    {
+                        "method_name": "render",
+                        "class_name": "SVGContext",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "console.log('render pipes')",
+                                    "block": false,
+                                    "line": 120
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 119
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Generate a new SVG using the internal names and append\n        the new svg to the given container.\n        If the svg exists, it's reused else a new one is created. ",
+                            "block": true,
+                            "line": 87
+                        }
+                    ]
+                },
+                "line": 59
+            },
+            "PrimaryContext": {
+                "class_name": "PrimaryContext",
+                "inherits": "SVGContext",
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PrimaryContext",
+                        "kind": "constructor",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 151
+                    },
+                    {
+                        "method_name": "render",
+                        "class_name": "PrimaryContext",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " super.render()",
+                                    "block": false,
+                                    "line": 159
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 158
+                    },
+                    {
+                        "method_name": "warn",
+                        "class_name": "PrimaryContext",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "line"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 163
+                    },
+                    {
+                        "method_name": "renderStack",
+                        "class_name": "PrimaryContext",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "connectAll(this.containerSelector, this.svgSelector)",
+                                    "block": false,
+                                    "line": 172
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 171
+                    },
+                    {
+                        "method_name": "remapNodes",
+                        "class_name": "PrimaryContext",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 183
+                    },
+                    {
+                        "method_name": "adaptDrawLayer",
+                        "class_name": "PrimaryContext",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "given",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " check if the svg is big enough to draw the path, if not, set heigh/width",
+                                    "block": false,
+                                    "line": 192
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 191
+                    },
+                    {
+                        "method_name": "addItem",
+                        "class_name": "PrimaryContext",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "config"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\n            {\n                name: 'name'\n                start: Node\n                end: Node\n            }\n         ",
+                                    "block": true,
+                                    "line": 261
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 254
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "\n    The context acts as a simple manager for many units on an SVG.\n\n    Provde a svg name - used as an ID and a container selector. If the svgname\n    does not exist as an svg# a new one is created.\n    If the containerSelector is undefined, the newly generated svg is appended to\n    the body.\n\n    If the svg of name ID exists, it's used rather than creating, but it's still\n    moved into the container (if given)\n\n        containerSelector = '#my_container'\n        svgName = 'svg1' // note - Not a jquery selector;\n        context = new PrimaryContext(svgName, containerSelector)\n        context.start()\n\n        context.addItem({\n            name: 'bob'\n        })\n\n        context.render()\n     ",
+                            "block": true,
+                            "line": 148
+                        }
+                    ]
+                },
+                "line": 126
+            }
+        },
+        "functions": [
+            {
+                "name": "newPath",
+                "kind": "var",
+                "line": 29,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Create a path in SVG's namespace",
+                            "block": false,
+                            "line": 30
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "svg"
+                    },
+                    {
+                        "name": "name"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "rand",
+                "kind": "var",
+                "line": 40,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [],
+                "async": false
+            },
+            {
+                "name": "newSVG",
+                "kind": "var",
+                "line": 46,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "let $svg = $(\"<svg/>\", )",
+                            "block": false,
+                            "line": 48
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "id"
+                    },
+                    {
+                        "name": "parent"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "svg.js",
+        "path": "/workspaces/polypoint/point_src/svg.js",
+        "size": 7316,
+        "parsed_date": "2025-11-02T21:11:41.312Z"
+    }
+}

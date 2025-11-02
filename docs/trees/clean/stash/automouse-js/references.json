@@ -1,0 +1,662 @@
+{
+    "src_file": "automouse.js",
+    "references": {
+        "classes": {
+            "AutoMouse": {
+                "class_name": "AutoMouse",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "AutoMouse",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "parentClass"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " The _AutoMouse_ class cares for much of the mouse pointer functionality\r\n    for a stage and the a point.\r\n    It's functionality is designed to hook onto preparing `stages` and their canvas.\r\n    It exists as a singleton `autoMouse`:\r\n\r\n        autoMouse = new AutoMouse()\r\n        autoMouse == stage.mouse\r\n        Point.mouse == stage.mouse\r\n\r\n    Initiate like this:\r\n\r\n        Point.mouse?.mount(stage.canvas)\r\n\r\n    Synonymous to:\r\n\r\n        installCanvas(canvas, stage){\r\n            this.canvasMap.set(canvas, stage)\r\n            Point.mouse?.listen(canvas)\r\n        }\r\n\r\n\r\n     ",
+                                    "block": true,
+                                    "line": 39
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " a reference of clicks",
+                                    "block": false,
+                                    "line": 43
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 40
+                    },
+                    {
+                        "method_name": "_announce",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Wait for a stage prep event. ",
+                                    "block": true,
+                                    "line": 59
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 57
+                    },
+                    {
+                        "method_name": "stagePrepareHandler",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " The given event has a stage ready for mounting. Perform any changes,\r\n    such as adding a reference to the mouse. ",
+                                    "block": true,
+                                    "line": 75
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " console.log('AutoMouse::stagePrepareHandler', d)",
+                                    "block": false,
+                                    "line": 78
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 76
+                    },
+                    {
+                        "method_name": "announcementResponse",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "log",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 82
+                    },
+                    {
+                        "method_name": "getMousePos",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 91
+                    },
+                    {
+                        "method_name": "xy",
+                        "class_name": "AutoMouse",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 100
+                    },
+                    {
+                        "method_name": "position",
+                        "class_name": "AutoMouse",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " The `this.position` method returns a new Point, with the mouse XY\r\n        (from the last motion).\r\n\r\n        Use `this.point` for a persisent single Point instance.\r\n        ",
+                                    "block": true,
+                                    "line": 109
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 104
+                    },
+                    {
+                        "method_name": "point",
+                        "class_name": "AutoMouse",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Return a persistent _point_, of which is updated rather than replaced\r\n        when the mouse state changes.\r\n         ",
+                                    "block": true,
+                                    "line": 117
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 113
+                    },
+                    {
+                        "method_name": "getBoundingClientRect",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 128
+                    },
+                    {
+                        "method_name": "getListenerMethods",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('Setting up mouse events')",
+                                    "block": false,
+                                    "line": 139
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 135
+                    },
+                    {
+                        "method_name": "mount",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Call upon `mount` to initate listening of all events on a canvas. ",
+                                    "block": true,
+                                    "line": 152
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 151
+                    },
+                    {
+                        "method_name": "listen",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "eventName"
+                            },
+                            {
+                                "name": "handler"
+                            },
+                            {
+                                "name": "opts"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 175
+                    },
+                    {
+                        "method_name": "mousemoveHandler",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let bound = this.getBoundingClientRect();",
+                                    "block": false,
+                                    "line": 181
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 180
+                    },
+                    {
+                        "method_name": "callHandlers",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 247
+                    },
+                    {
+                        "method_name": "mousedownHandler",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 255
+                    },
+                    {
+                        "method_name": "mouseupHandler",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 263
+                    },
+                    {
+                        "method_name": "applyPositionIncrement",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "space"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 271
+                    },
+                    {
+                        "method_name": "wheelHandler",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "event"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 280
+                    },
+                    {
+                        "method_name": "isDown",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "index"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 303
+                    },
+                    {
+                        "method_name": "wheelSize",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "abs",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "(v * v)",
+                                    "block": false,
+                                    "line": 311
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 309
+                    },
+                    {
+                        "method_name": "clampWheelSize",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "min"
+                            },
+                            {
+                                "name": "max"
+                            },
+                            {
+                                "name": "abs",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "\r\n    A function to help clamp the wheel scroll within a range. By using this\r\n    function, the wheel value doesn't exceed the clamp.\r\n\r\n\r\n        let size = mouse.clampWheelSize(5, 20)\r\n\r\n    The same can be done with the clamp function\r\n\r\n        let size = clamp(mouse.wheelSize(), 30, 300)\r\n\r\n    but when the wheel exceeds the clamp, it'll scroll into an unused range.\r\n\r\n     ",
+                                    "block": true,
+                                    "line": 329
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 330
+                    },
+                    {
+                        "method_name": "on",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "handler"
+                            },
+                            {
+                                "name": "opts"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 341
+                    },
+                    {
+                        "method_name": "getActionSpace",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "defaults",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 353
+                    },
+                    {
+                        "method_name": "speed",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "previous"
+                            },
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return the speed of the point over a delta.\r\n        This is a lot like the velocity functionality, but cut-down for\r\n        efficiency. ",
+                                    "block": true,
+                                    "line": 367
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 364
+                    },
+                    {
+                        "method_name": "modulatedSpeed",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "mod",
+                                "default_value": 15
+                            },
+                            {
+                                "name": "previous"
+                            },
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 379
+                    },
+                    {
+                        "method_name": "computeSpeed",
+                        "class_name": "AutoMouse",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "previous"
+                            },
+                            {
+                                "name": "current"
+                            },
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " CREATE use a smoothtext function\r\n    share for this anf fps text",
+                                    "block": true,
+                                    "line": 391
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 392
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " The _AutoMouse_ class cares for much of the mouse pointer functionality\r\n    for a stage and the a point.\r\n    It's functionality is designed to hook onto preparing `stages` and their canvas.\r\n    It exists as a singleton `autoMouse`:\r\n\r\n        autoMouse = new AutoMouse()\r\n        autoMouse == stage.mouse\r\n        Point.mouse == stage.mouse\r\n\r\n    Initiate like this:\r\n\r\n        Point.mouse?.mount(stage.canvas)\r\n\r\n    Synonymous to:\r\n\r\n        installCanvas(canvas, stage){\r\n            this.canvasMap.set(canvas, stage)\r\n            Point.mouse?.listen(canvas)\r\n        }\r\n\r\n\r\n     ",
+                            "block": true,
+                            "line": 39
+                        }
+                    ]
+                },
+                "line": 17
+            }
+        },
+        "functions": [
+            {
+                "name": "getLastMousePos",
+                "kind": "const",
+                "line": 12,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [],
+                "async": false
+            }
+        ],
+        "constants": [
+            {
+                "name": "autoMouse",
+                "kind": "const",
+                "line": 402,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "automouse.js",
+        "path": "/workspaces/polypoint/point_src/automouse.js",
+        "size": 12238,
+        "parsed_date": "2025-11-02T21:11:32.457Z"
+    }
+}

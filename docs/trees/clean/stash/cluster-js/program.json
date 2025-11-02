@@ -1,0 +1,346 @@
+{
+    "defs": [
+        {
+            "word": "simpleCluster",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "points"
+                    },
+                    {
+                        "name": "targetPosition"
+                    },
+                    {
+                        "name": "settings"
+                    },
+                    {
+                        "name": "opts"
+                    }
+                ],
+                "pos": {
+                    "start": 139,
+                    "end": 1362,
+                    "loc": {
+                        "start": {
+                            "line": 7,
+                            "column": 22
+                        },
+                        "end": {
+                            "line": 46,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " the simpleCluster function quickly initiates _clustering_ on a collection\r\n    of points, using optional settings.\r\n\r\n    Example:\r\n\r\n        simpleCluster(points, pointA, settings, {func: clusterStyleB, itercount: c});\r\n\r\n    Synonymous to:\r\n\r\n        let c = settings.itercount\r\n        if(c == undefined) { c = 10 }\r\n        for (var i = 0; i < c; i++) {\r\n            clusterStyleB(points, pointA, settings);\r\n            // clusterStable(points, pointA, settings);\r\n        }\r\n    ",
+                        "block": true,
+                        "line": 23
+                    }
+                ]
+            },
+            "pos": {
+                "start": 117,
+                "end": 1362,
+                "loc": {
+                    "start": {
+                        "line": 7,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 46,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 117,
+            "end": 1362,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 46,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "function",
+            "word": "clusterStyleB",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "items"
+                },
+                {
+                    "name": "focul"
+                },
+                {
+                    "name": "settings"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 1377,
+                "end": 1390,
+                "loc": {
+                    "start": {
+                        "line": 49,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 49,
+                        "column": 22
+                    }
+                },
+                "name": "clusterStyleB",
+                "pos": {
+                    "start": 1377,
+                    "end": 1390,
+                    "loc": {
+                        "start": {
+                            "line": 49,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 49,
+                            "column": 22
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1368,
+                "end": 4207,
+                "loc": {
+                    "start": {
+                        "line": 49,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 142,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "limitSpeed",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "minVelocity"
+                },
+                {
+                    "name": "maxVelocity"
+                },
+                {
+                    "name": "item"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 4222,
+                "end": 4232,
+                "loc": {
+                    "start": {
+                        "line": 145,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 145,
+                        "column": 19
+                    }
+                },
+                "name": "limitSpeed",
+                "pos": {
+                    "start": 4222,
+                    "end": 4232,
+                    "loc": {
+                        "start": {
+                            "line": 145,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 145,
+                            "column": 19
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 4213,
+                "end": 4664,
+                "loc": {
+                    "start": {
+                        "line": 145,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 159,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "clusterStable",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "items"
+                },
+                {
+                    "name": "focul"
+                },
+                {
+                    "name": "settings"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 4679,
+                "end": 4692,
+                "loc": {
+                    "start": {
+                        "line": 162,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 162,
+                        "column": 22
+                    }
+                },
+                "name": "clusterStable",
+                "pos": {
+                    "start": 4679,
+                    "end": 4692,
+                    "loc": {
+                        "start": {
+                            "line": 162,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 162,
+                            "column": 22
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 4670,
+                "end": 6548,
+                "loc": {
+                    "start": {
+                        "line": 162,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 219,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "gravitateSquareDistance",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "items"
+                },
+                {
+                    "name": "focul"
+                },
+                {
+                    "name": "settings"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 6563,
+                "end": 6586,
+                "loc": {
+                    "start": {
+                        "line": 222,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 222,
+                        "column": 32
+                    }
+                },
+                "name": "gravitateSquareDistance",
+                "pos": {
+                    "start": 6563,
+                    "end": 6586,
+                    "loc": {
+                        "start": {
+                            "line": 222,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 222,
+                            "column": 32
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 6554,
+                "end": 8499,
+                "loc": {
+                    "start": {
+                        "line": 222,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 279,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration"
+    ],
+    "info": {
+        "filename": "cluster.js",
+        "path": "/workspaces/polypoint/point_src/cluster.js",
+        "size": 8503,
+        "parsed_date": "2025-11-02T21:11:33.285Z"
+    }
+}

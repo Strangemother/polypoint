@@ -1,0 +1,253 @@
+{
+    "src_file": "table.js",
+    "references": {
+        "classes": {
+            "Table": {
+                "class_name": "Table",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Table",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "keys"
+                            },
+                            {
+                                "name": "rows"
+                            },
+                            {
+                                "name": "cached",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 51
+                    },
+                    {
+                        "method_name": "get",
+                        "class_name": "Table",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "defaults",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 59
+                    },
+                    {
+                        "method_name": "getKeys",
+                        "class_name": "Table",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 75
+                    },
+                    {
+                        "method_name": "getRow",
+                        "class_name": "Table",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 79
+                    },
+                    {
+                        "method_name": "cache",
+                        "class_name": "Table",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 84
+                    },
+                    {
+                        "method_name": "create",
+                        "class_name": "Table",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "rows"
+                            },
+                            {
+                                "name": "keys"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 88
+                    },
+                    {
+                        "method_name": "rowsFromDict",
+                        "class_name": "Table",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "rows"
+                            },
+                            {
+                                "name": "keys"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 95
+                    },
+                    {
+                        "method_name": "rowsFromArray",
+                        "class_name": "Table",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "rows"
+                            },
+                            {
+                                "name": "keys"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 104
+                    },
+                    {
+                        "method_name": "dataRow",
+                        "class_name": "Table",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "row"
+                            },
+                            {
+                                "name": "keys"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 114
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\n---\r\ntitle: Table\r\n---\r\n\r\nGenerate a nested set of objects, given a set of _rows_ and a set of _headers_.\r\n\r\n\r\n    let keys = [\r\n        \"minDistance\"\r\n        , \"attractionStrength\"\r\n        , \"repulsionStrength\"\r\n        , \"damping\"\r\n        , \"minVelocity\"\r\n        , \"maxVelocity\"\r\n        , \"itercount\"\r\n        , \"method\"\r\n    ]\r\n\r\n    const confTable = new Table(keys, {\r\n          'default': [30,  0.004, 200, 0.60,  0.1,  5]\r\n        , 'alt':     [90,  0.002, 100, 0.66,  0.08, 5]\r\n        , 'gas':     [100, 0.001, 800, 0.974, 0.1,  9,  1]\r\n        , 'stable':  [100, 0.001, 80,  0.974, 0.01, 9,  1]\r\n        , 'blob':    [90,  0.002, 100, 0.95,  0.1,  20, 1, 'springy']\r\n    })\r\n\r\n    const settings = confTable.get('blob')\r\n    {\r\n        minDistance: 90\r\n        , attractionStrength: 0.002\r\n        , repulsionStrength: 100\r\n        , damping: 0.95\r\n        , minVelocity: 0.1\r\n        , maxVelocity: 20\r\n        , itercount: 1\r\n        , method: 'springy'\r\n    }\r\n\r\n\r\nThe `get` method returns an object, with the keys given. If a property from the\r\nrow does not exist, the keypair is not assigned to the result.\r\n\r\nWe can provide defaults for missing keys:\r\n\r\n```js\r\nconfTable.get('default', { method: 'egg' })\r\n```\r\n",
+                            "block": true,
+                            "line": 49
+                        }
+                    ],
+                    "inner": []
+                },
+                "line": 50
+            },
+            "TableControls": {
+                "class_name": "TableControls",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "choice",
+                        "class_name": "TableControls",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "opts"
+                            },
+                            {
+                                "name": "onchange"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " , selected:'c'",
+                                    "block": false,
+                                    "line": 137
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 126
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " , selected:'c'",
+                            "block": false,
+                            "line": 137
+                        }
+                    ]
+                },
+                "line": 125
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "table.js",
+        "path": "/workspaces/polypoint/point_src/table.js",
+        "size": 3773,
+        "parsed_date": "2025-11-02T21:11:41.426Z"
+    }
+}

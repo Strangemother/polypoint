@@ -1,0 +1,91 @@
+{
+    "src_file": "gravity.js",
+    "references": {
+        "classes": {
+            "GravityReactor": {
+                "class_name": "GravityReactor",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "GravityReactor",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "gravityPoint"
+                            },
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "lockedPoints",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " The reactor updates a point list, pulling all items in a direction\r\n    provide a point as the directions for gravity. 0,0 for no gravity.",
+                                    "block": true,
+                                    "line": 9
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 10
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "GravityReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "lockedPoints"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Apply gravity",
+                                    "block": false,
+                                    "line": 17
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 16
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " The reactor updates a point list, pulling all items in a direction\r\n    provide a point as the directions for gravity. 0,0 for no gravity.",
+                            "block": true,
+                            "line": 9
+                        }
+                    ]
+                },
+                "line": 7
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "gravity.js",
+        "path": "/workspaces/polypoint/point_src/gravity.js",
+        "size": 753,
+        "parsed_date": "2025-11-02T21:11:35.693Z"
+    }
+}

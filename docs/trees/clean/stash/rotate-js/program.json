@@ -1,0 +1,877 @@
+{
+    "defs": [
+        {
+            "kind": "function",
+            "word": "pseudo3DRotate",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "points"
+                },
+                {
+                    "name": "rotationAngles"
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "offset",
+                    "default_value": true
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 9,
+                "end": 23,
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 1,
+                        "column": 23
+                    }
+                },
+                "name": "pseudo3DRotate",
+                "pos": {
+                    "start": 9,
+                    "end": 23,
+                    "loc": {
+                        "start": {
+                            "line": 1,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 1,
+                            "column": 23
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 0,
+                "end": 2109,
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 63,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "pseudo3DRotatePerspective",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "rotatedPoints"
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "distance"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 2124,
+                "end": 2149,
+                "loc": {
+                    "start": {
+                        "line": 66,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 66,
+                        "column": 34
+                    }
+                },
+                "name": "pseudo3DRotatePerspective",
+                "pos": {
+                    "start": 2124,
+                    "end": 2149,
+                    "loc": {
+                        "start": {
+                            "line": 66,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 66,
+                            "column": 34
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 2115,
+                "end": 2713,
+                "loc": {
+                    "start": {
+                        "line": 66,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 81,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "function",
+            "word": "pseudo3DRotatePerspectiveInPlace",
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [
+                {
+                    "name": "rotatedPoints"
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "distance"
+                }
+            ],
+            "id": {
+                "type": "Identifier",
+                "start": 2730,
+                "end": 2762,
+                "loc": {
+                    "start": {
+                        "line": 85,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 85,
+                        "column": 41
+                    }
+                },
+                "name": "pseudo3DRotatePerspectiveInPlace",
+                "pos": {
+                    "start": 2730,
+                    "end": 2762,
+                    "loc": {
+                        "start": {
+                            "line": 85,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 85,
+                            "column": 41
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 2721,
+                "end": 3200,
+                "loc": {
+                    "start": {
+                        "line": 85,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 95,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "FunctionDeclaration"
+        },
+        {
+            "kind": "class",
+            "word": "Pseudo3d",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3241,
+                            "end": 3288,
+                            "loc": {
+                                "start": {
+                                    "line": 100,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 102,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3230,
+                        "end": 3288,
+                        "loc": {
+                            "start": {
+                                "line": 100,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 102,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "orthogonal",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "spin"
+                            },
+                            {
+                                "name": "center"
+                            },
+                            {
+                                "name": "projection",
+                                "default_value": 200
+                            },
+                            {
+                                "name": "perspectiveCenter",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3306,
+                            "end": 4058,
+                            "loc": {
+                                "start": {
+                                    "line": 104,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 119,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " distance / (distance + point.z);",
+                                "block": false,
+                                "line": 108
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3296,
+                        "end": 4058,
+                        "loc": {
+                            "start": {
+                                "line": 104,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 119,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "perspective",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "spin"
+                            },
+                            {
+                                "name": "center"
+                            },
+                            {
+                                "name": "projection",
+                                "default_value": 200
+                            },
+                            {
+                                "name": "perspectiveCenter",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4077,
+                            "end": 4662,
+                            "loc": {
+                                "start": {
+                                    "line": 121,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 131,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " let spunPoints = pseudo3DRotateOrig(this.parent, spin, center, false)",
+                                "block": false,
+                                "line": 123
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4066,
+                        "end": 4662,
+                        "loc": {
+                            "start": {
+                                "line": 121,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 131,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " distance / (distance + point.z);",
+                        "block": false,
+                        "line": 108
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3208,
+                "end": 4665,
+                "loc": {
+                    "start": {
+                        "line": 99,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 132,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 4669,
+                "end": 4765,
+                "loc": {
+                    "start": {
+                        "line": 134,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 136,
+                        "column": 2
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 4669,
+                    "end": 4696,
+                    "loc": {
+                        "start": {
+                            "line": 134,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 134,
+                            "column": 27
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 4669,
+                        "end": 4683,
+                        "loc": {
+                            "start": {
+                                "line": 134,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 134,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 4669,
+                            "end": 4678,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 134,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 4669,
+                                "end": 4678,
+                                "loc": {
+                                    "start": {
+                                        "line": 134,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 134,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 4679,
+                            "end": 4683,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 134,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 4679,
+                                "end": 4683,
+                                "loc": {
+                                    "start": {
+                                        "line": 134,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 134,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 4669,
+                            "end": 4683,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 134,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 4684,
+                        "end": 4696,
+                        "loc": {
+                            "start": {
+                                "line": 134,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 134,
+                                "column": 27
+                            }
+                        },
+                        "name": "deferredProp",
+                        "pos": {
+                            "start": 4684,
+                            "end": 4696,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 134,
+                                    "column": 27
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 4669,
+                        "end": 4696,
+                        "loc": {
+                            "start": {
+                                "line": 134,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 134,
+                                "column": 27
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 4697,
+                        "end": 4708,
+                        "loc": {
+                            "start": {
+                                "line": 134,
+                                "column": 28
+                            },
+                            "end": {
+                                "line": 134,
+                                "column": 39
+                            }
+                        },
+                        "value": "PointList",
+                        "raw": "'PointList'",
+                        "pos": {
+                            "start": 4697,
+                            "end": 4708,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 134,
+                                    "column": 39
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 4710,
+                        "end": 4764,
+                        "loc": {
+                            "start": {
+                                "line": 134,
+                                "column": 41
+                            },
+                            "end": {
+                                "line": 136,
+                                "column": 1
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 4719,
+                            "end": 4727,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 50
+                                },
+                                "end": {
+                                    "line": 134,
+                                    "column": 58
+                                }
+                            },
+                            "name": "pseudo3d",
+                            "pos": {
+                                "start": 4719,
+                                "end": 4727,
+                                "loc": {
+                                    "start": {
+                                        "line": 134,
+                                        "column": 50
+                                    },
+                                    "end": {
+                                        "line": 134,
+                                        "column": 58
+                                    }
+                                }
+                            }
+                        },
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 4729,
+                            "end": 4764,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 60
+                                },
+                                "end": {
+                                    "line": 136,
+                                    "column": 1
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 4736,
+                                    "end": 4761,
+                                    "loc": {
+                                        "start": {
+                                            "line": 135,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 135,
+                                            "column": 29
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 4743,
+                                        "end": 4761,
+                                        "loc": {
+                                            "start": {
+                                                "line": 135,
+                                                "column": 11
+                                            },
+                                            "end": {
+                                                "line": 135,
+                                                "column": 29
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 4747,
+                                            "end": 4755,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 135,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 135,
+                                                    "column": 23
+                                                }
+                                            },
+                                            "name": "Pseudo3d",
+                                            "pos": {
+                                                "start": 4747,
+                                                "end": 4755,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 135,
+                                                        "column": 15
+                                                    },
+                                                    "end": {
+                                                        "line": 135,
+                                                        "column": 23
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 4756,
+                                                "end": 4760,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 135,
+                                                        "column": 24
+                                                    },
+                                                    "end": {
+                                                        "line": 135,
+                                                        "column": 28
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 4756,
+                                                    "end": 4760,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 135,
+                                                            "column": 24
+                                                        },
+                                                        "end": {
+                                                            "line": 135,
+                                                            "column": 28
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 4743,
+                                            "end": 4761,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 135,
+                                                    "column": 11
+                                                },
+                                                "end": {
+                                                    "line": 135,
+                                                    "column": 29
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 4736,
+                                        "end": 4761,
+                                        "loc": {
+                                            "start": {
+                                                "line": 135,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 135,
+                                                "column": 29
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 4729,
+                                "end": 4764,
+                                "loc": {
+                                    "start": {
+                                        "line": 134,
+                                        "column": 60
+                                    },
+                                    "end": {
+                                        "line": 136,
+                                        "column": 1
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 4710,
+                            "end": 4764,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 41
+                                },
+                                "end": {
+                                    "line": 136,
+                                    "column": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 4669,
+                    "end": 4765,
+                    "loc": {
+                        "start": {
+                            "line": 134,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 136,
+                            "column": 2
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 4669,
+                "end": 4765,
+                "loc": {
+                    "start": {
+                        "line": 134,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 136,
+                        "column": 2
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "FunctionDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "rotate.js",
+        "path": "/workspaces/polypoint/point_src/rotate.js",
+        "size": 4765,
+        "parsed_date": "2025-11-02T21:11:39.609Z"
+    }
+}

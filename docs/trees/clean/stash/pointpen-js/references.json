@@ -1,0 +1,541 @@
+{
+    "src_file": "pointpen.js",
+    "references": {
+        "classes": {
+            "PointPen": {
+                "class_name": "PointPen",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointPen",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " methods.",
+                                    "block": false,
+                                    "line": 30
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 31
+                    },
+                    {
+                        "method_name": "_quickStroke",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "f"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "open",
+                                "default_value": true
+                            },
+                            {
+                                "name": "close",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " if(width != undefined && ctx.lineWidth == undefined) {",
+                                    "block": false,
+                                    "line": 47
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 35
+                    },
+                    {
+                        "method_name": "ngon",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "sides"
+                            },
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "fromCenter",
+                                "default_value": true
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "angle",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "open",
+                                "default_value": true
+                            },
+                            {
+                                "name": "close",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 64
+                    },
+                    {
+                        "method_name": "circleGon",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "lod",
+                                "default_value": 0.3
+                            },
+                            {
+                                "name": "fromCenter",
+                                "default_value": true
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "open",
+                                "default_value": true
+                            },
+                            {
+                                "name": "close",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 71
+                    },
+                    {
+                        "method_name": "line",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let data = unpack(arguments, {",
+                                    "block": false,
+                                    "line": 79
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "arc",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "distance"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "direction",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " draw.arc(ctx, radius=undefined, start=0, end=Math.PI2, direction=1)",
+                                    "block": false,
+                                    "line": 94
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 93
+                    },
+                    {
+                        "method_name": "ellipse",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "radRotation"
+                            },
+                            {
+                                "name": "strokeWidth",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.point.draw.arc(ctx, distance, start, end, direction)",
+                                    "block": false,
+                                    "line": 118
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 106
+                    },
+                    {
+                        "method_name": "stroke",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "radius",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 122
+                    },
+                    {
+                        "method_name": "circle",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "radius_or_conf",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "An arc, but complete with begin path and stoking ",
+                                    "block": true,
+                                    "line": 129
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 128
+                    },
+                    {
+                        "method_name": "fill",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "fillStyle",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "radius",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " ctx.lineWidth = width == undefined? 1: width",
+                                    "block": false,
+                                    "line": 188
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 167
+                    },
+                    {
+                        "method_name": "box",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "size"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "angle"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            A box is a rectangle on the outside of radius.\r\n            If an angle is given, the box cannot be a _rect_ and returns an ngon(4).\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 198
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 193
+                    },
+                    {
+                        "method_name": "rect",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "height"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "strokeWidth"
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": "{x: 0, y: 0}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.point.draw.pen(ctx, width, height)",
+                                    "block": false,
+                                    "line": 214
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 207
+                    },
+                    {
+                        "method_name": "roundRect",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "height"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "strokeWidth"
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": "{x: 0, y: 0}"
+                            },
+                            {
+                                "name": "radii",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " roundRect(x, y, width, height, radii)",
+                                    "block": false,
+                                    "line": 225
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 218
+                    },
+                    {
+                        "method_name": "indicator",
+                        "class_name": "PointPen",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "miniConf",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Synonymous to:\r\n\r\n            weightedComPoint.project().pen.line(ctx, weightedComPoint, 'red', 2)\r\n            weightedComPoint.pen.circle(ctx, undefined, 'yellow', 1)\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 237
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 230
+                    }
+                ],
+                "comments": {
+                    "header": [
+                        {
+                            "text": "\r\ntitle: Point Pen\r\n---\r\n\r\nThe `pen` provides a range of methods for visibly rendering the point.\r\n\r\nSimilar to how the draw tools _plot_ or _sketch_, the _pen_ renders the sketches.\r\nThis allows you to _draw_ many things and then _pen_ the drawing.\r\n\r\nThe available functions generally match the `draw` tools and in many cases use the\r\nsibling function from the draw tools:\r\n\r\n    let p = new Point(100, 200)\r\n\r\n    p.pen.fill('red') // Calls p.draw.arc() then ctx.fill()\r\n\r\n---\r\n\r\nWhen imported, the `PointPen` auto-loads into the `Point.pen`.\r\n\r\n    Polypoint.head.lazyProp('Point', {\r\n        pen() { return new PointPen(this) }\r\n    }, 'pen')\r\n\r\n    let p = new Point;\r\n    p.pen // new instance of PointPen\r\n",
+                            "block": true,
+                            "line": 27
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " Draw functions for the Point.draw",
+                            "block": false,
+                            "line": 29
+                        }
+                    ]
+                },
+                "line": 28
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "pointpen.js",
+        "path": "/workspaces/polypoint/point_src/pointpen.js",
+        "size": 8824,
+        "parsed_date": "2025-11-02T21:11:38.640Z"
+    }
+}

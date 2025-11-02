@@ -1,0 +1,843 @@
+{
+    "src_file": "pointlist.js",
+    "references": {
+        "classes": {
+            "LazyAccessArray": {
+                "class_name": "LazyAccessArray",
+                "inherits": "Array",
+                "methods": [
+                    {
+                        "method_name": "draw",
+                        "class_name": "LazyAccessArray",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 79
+                    },
+                    {
+                        "method_name": "pen",
+                        "class_name": "LazyAccessArray",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return (this._pen || (this._pen = new C(this)))",
+                                    "block": false,
+                                    "line": 92
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 85
+                    },
+                    {
+                        "method_name": "gradient",
+                        "class_name": "LazyAccessArray",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 95
+                    },
+                    {
+                        "method_name": "generate",
+                        "class_name": "LazyAccessArray",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 103
+                    },
+                    {
+                        "method_name": "shape",
+                        "class_name": "LazyAccessArray",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 111
+                    },
+                    {
+                        "method_name": "siblings",
+                        "class_name": "LazyAccessArray",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "close",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return in sibling pairs, where each node is paired with its neighbour\r\n        for every item. Each node appears twice:\r\n\r\n            [a,b,c,d,e,f,g]\r\n            pairs()\r\n            a,b\r\n            b,c\r\n            c,d\r\n            d,e\r\n            e,f\r\n            f,g\r\n\r\n        example:\r\n\r\n            myitems.siblings().map(pair=>[pair[0].uuid, pair[1].uuid]);\r\n        ",
+                                    "block": true,
+                                    "line": 135
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 119
+                    },
+                    {
+                        "method_name": "pairs",
+                        "class_name": "LazyAccessArray",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "close",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return in pairs, where each node is paired with its next neighour once.\r\n        Each node appears once:\r\n\r\n            [a,b,c,d,e,f,g]\r\n            pairs()\r\n            a,b\r\n            c,d\r\n            e,f\r\n\r\n        example:\r\n\r\n            myitems.pairs().map((b)=>b[0].uuid);\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 168
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 154
+                    },
+                    {
+                        "method_name": "triples",
+                        "class_name": "LazyAccessArray",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Return a list with points in triplets, where each entry has 3 points\r\n\r\n            [a,b,c,d,e,f,g]\r\n            triples()\r\n            a,b,c\r\n            b,c,d\r\n            c,d,e\r\n            d,e,f\r\n            e,f,g\r\n            f,g,a\r\n            g,a,b\r\n         ",
+                                    "block": true,
+                                    "line": 197
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 184
+                    },
+                    {
+                        "method_name": "each",
+                        "class_name": "LazyAccessArray",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            The _each_ unit is a special accessor for the points, allowing\r\n            the generic editing of points for all items in the array.\r\n\r\n            Access a function on every point:\r\n\r\n                points.each.rotate(10)\r\n                points.each.rotate(10)\r\n\r\n            set a value on every point\r\n\r\n                points.each.rotation = 50\r\n\r\n         ",
+                                    "block": true,
+                                    "line": 224
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 210
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " drawClass = undefined",
+                            "block": false,
+                            "line": 73
+                        }
+                    ]
+                },
+                "line": 71
+            },
+            "PointList": {
+                "class_name": "PointList",
+                "inherits": "LazyAccessArray",
+                "methods": [
+                    {
+                        "method_name": "first",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 328
+                    },
+                    {
+                        "method_name": "last",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 332
+                    },
+                    {
+                        "method_name": "copy",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "deep",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Copy:\r\n\r\n            stage.points.copy() == stage.points\r\n            false\r\n            stage.points.copy()[0] == stage.points[0]\r\n            true\r\n\r\n        Deep Copy:\r\n\r\n            stage.points.copy(true) == stage.points\r\n            false\r\n            stage.points.copy(true)[0] == stage.points[0]\r\n            false\r\n        ",
+                                    "block": true,
+                                    "line": 350
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 336
+                    },
+                    {
+                        "method_name": "getBoundingClientRect",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return thr bounding box of the point.",
+                                    "block": true,
+                                    "line": 363
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 362
+                    },
+                    {
+                        "method_name": "getSize",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Return the width/height of the pointlist, discovering the _min_\r\n        and _max_ points to determin a rectangle ",
+                                    "block": true,
+                                    "line": 369
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 367
+                    },
+                    {
+                        "method_name": "cast",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "type",
+                                "default_value": "Point"
+                            },
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " mutate each point with the given.\r\n        Similar to map(p=>new Cast(p))\r\n        ",
+                                    "block": true,
+                                    "line": 398
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 395
+                    },
+                    {
+                        "method_name": "centerOfMass",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "type",
+                                "default_value": "simple"
+                            },
+                            {
+                                "name": "origin"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 407
+                    },
+                    {
+                        "method_name": "center",
+                        "class_name": "PointList",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " let z = size.z * .5",
+                                    "block": false,
+                                    "line": 415
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 411
+                    },
+                    {
+                        "method_name": "setX",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "key",
+                                "default_value": "x"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 419
+                    },
+                    {
+                        "method_name": "setY",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "key",
+                                "default_value": "y"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 423
+                    },
+                    {
+                        "method_name": "setData",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 427
+                    },
+                    {
+                        "method_name": "getById",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "id"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 433
+                    },
+                    {
+                        "method_name": "getByName",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 441
+                    },
+                    {
+                        "method_name": "getByKey",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 445
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 453
+                    },
+                    {
+                        "method_name": "setMany",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "key"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Set the X value for all points within the list\r\n        accepts undefined, number, point[x], function ",
+                                    "block": true,
+                                    "line": 461
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 459
+                    },
+                    {
+                        "method_name": "keyMany",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Set the X value for all points within the list\r\n        accepts undefined, number, point[x], function ",
+                                    "block": true,
+                                    "line": 481
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 479
+                    },
+                    {
+                        "method_name": "cleanArray",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "fix",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 501
+                    },
+                    {
+                        "method_name": "offset",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " p.copy(p.add(value))",
+                                    "block": false,
+                                    "line": 512
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 507
+                    },
+                    {
+                        "method_name": "rotate",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Spin the cluster by a given rotation, around an optional anchor\r\n        If given a single point, the rotation is used.",
+                                    "block": true,
+                                    "line": 519
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 517
+                    },
+                    {
+                        "method_name": "handleRotate",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "handlePoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.lastDiff = handlePoint.radians",
+                                    "block": false,
+                                    "line": 543
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 541
+                    },
+                    {
+                        "method_name": "everyEvery",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n        Iterate every point against every point.\r\n        This is useful for point to point connection\r\n\r\n            points.everyEvery(function(a,b){\r\n            })\r\n        ",
+                                    "block": true,
+                                    "line": 563
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 556
+                    },
+                    {
+                        "method_name": "lookAt",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 582
+                    },
+                    {
+                        "method_name": "grow",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " shift the points within the list as per a growth method.\r\n        If is a list of 2, the line will extend,\r\n        If more than 2, the points will push away from the origin point.\r\n        If the origin is undefined, the COM is used.",
+                                    "block": true,
+                                    "line": 590
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 586
+                    },
+                    {
+                        "method_name": "sortByRadius",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 593
+                    },
+                    {
+                        "method_name": "sortByZ",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 597
+                    },
+                    {
+                        "method_name": "remove",
+                        "class_name": "PointList",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "item"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Remove an item. but this does perform a splice\r\n        so it may be costly.",
+                                    "block": true,
+                                    "line": 603
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 601
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Copy:\r\n\r\n            stage.points.copy() == stage.points\r\n            false\r\n            stage.points.copy()[0] == stage.points[0]\r\n            true\r\n\r\n        Deep Copy:\r\n\r\n            stage.points.copy(true) == stage.points\r\n            false\r\n            stage.points.copy(true)[0] == stage.points[0]\r\n            false\r\n        ",
+                            "block": true,
+                            "line": 350
+                        }
+                    ]
+                },
+                "line": 326
+            }
+        },
+        "functions": [
+            {
+                "name": "pointArray",
+                "kind": "const",
+                "line": 10,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "count",
+                        "default_value": 5
+                    },
+                    {
+                        "name": "distance",
+                        "default_value": 10
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "asPoints",
+                "kind": "const",
+                "line": 26,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "items"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "originRotate",
+                "kind": "function",
+                "type": "function",
+                "line": 35,
+                "params": [
+                    {
+                        "name": "target"
+                    },
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "theta"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "pointlist.js",
+        "path": "/workspaces/polypoint/point_src/pointlist.js",
+        "size": 16007,
+        "parsed_date": "2025-11-02T21:11:37.957Z"
+    }
+}

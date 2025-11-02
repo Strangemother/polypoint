@@ -1,0 +1,4457 @@
+{
+    "defs": [
+        {
+            "word": "saveRestoreDraw",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "position"
+                    },
+                    {
+                        "name": "callback"
+                    }
+                ],
+                "pos": {
+                    "start": 67,
+                    "end": 763,
+                    "loc": {
+                        "start": {
+                            "line": 4,
+                            "column": 24
+                        },
+                        "end": {
+                            "line": 27,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [
+                    {
+                        "text": " moved to functions/context.js",
+                        "block": false,
+                        "line": 3
+                    }
+                ],
+                "inner": [
+                    {
+                        "text": "\r\n        + `save()` the context\r\n        + translate and rotate to `position``\r\n        + run the function\r\n        + Restore.\r\n     ",
+                        "block": true,
+                        "line": 10
+                    }
+                ]
+            },
+            "pos": {
+                "start": 43,
+                "end": 763,
+                "loc": {
+                    "start": {
+                        "line": 4,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 27,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 43,
+            "end": 763,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 0
+                },
+                "end": {
+                    "line": 27,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "kind": "class",
+            "word": "Line",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "doTips",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 796,
+                            "end": 800,
+                            "loc": {
+                                "start": {
+                                    "line": 31,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 31,
+                                    "column": 17
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 787,
+                        "end": 800,
+                        "loc": {
+                            "start": {
+                                "line": 31,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 31,
+                                "column": 17
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "doBeginPath",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 820,
+                            "end": 824,
+                            "loc": {
+                                "start": {
+                                    "line": 32,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 32,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 806,
+                        "end": 824,
+                        "loc": {
+                            "start": {
+                                "line": 32,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 32,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "doClosePath",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 844,
+                            "end": 848,
+                            "loc": {
+                                "start": {
+                                    "line": 33,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 33,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 830,
+                        "end": 848,
+                        "loc": {
+                            "start": {
+                                "line": 33,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 33,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p1"
+                            },
+                            {
+                                "name": "p2"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "red"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 867,
+                            "end": 998,
+                            "loc": {
+                                "start": {
+                                    "line": 35,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 38,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " new Line([90, 130], [200, 300], 420)",
+                                "block": false,
+                                "line": 36
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 856,
+                        "end": 998,
+                        "loc": {
+                            "start": {
+                                "line": 35,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 38,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "[computed_Literal]",
+                    "static": false,
+                    "computed": true,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1013,
+                            "end": 1047,
+                            "loc": {
+                                "start": {
+                                    "line": 40,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 42,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1006,
+                        "end": 1047,
+                        "loc": {
+                            "start": {
+                                "line": 40,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 42,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "[computed_Literal]",
+                    "static": false,
+                    "computed": true,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1062,
+                            "end": 1096,
+                            "loc": {
+                                "start": {
+                                    "line": 44,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 46,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1055,
+                        "end": 1096,
+                        "loc": {
+                            "start": {
+                                "line": 44,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 46,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "last",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1108,
+                            "end": 1142,
+                            "loc": {
+                                "start": {
+                                    "line": 48,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 50,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1104,
+                        "end": 1142,
+                        "loc": {
+                            "start": {
+                                "line": 48,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 50,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "first",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1155,
+                            "end": 1189,
+                            "loc": {
+                                "start": {
+                                    "line": 52,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 54,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1150,
+                        "end": 1189,
+                        "loc": {
+                            "start": {
+                                "line": 52,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 54,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "length",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1207,
+                            "end": 1259,
+                            "loc": {
+                                "start": {
+                                    "line": 56,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 58,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1197,
+                        "end": 1259,
+                        "loc": {
+                            "start": {
+                                "line": 56,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 58,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "points",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1277,
+                            "end": 1321,
+                            "loc": {
+                                "start": {
+                                    "line": 60,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 62,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1267,
+                        "end": 1321,
+                        "loc": {
+                            "start": {
+                                "line": 60,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 62,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "create",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p1"
+                            },
+                            {
+                                "name": "p2"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "red"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 1335,
+                            "end": 1486,
+                            "loc": {
+                                "start": {
+                                    "line": 64,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 69,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1329,
+                        "end": 1486,
+                        "loc": {
+                            "start": {
+                                "line": 64,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 69,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "render",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "conf",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1500,
+                            "end": 1609,
+                            "loc": {
+                                "start": {
+                                    "line": 71,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 75,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1494,
+                        "end": 1609,
+                        "loc": {
+                            "start": {
+                                "line": 71,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 75,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "start",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1622,
+                            "end": 1739,
+                            "loc": {
+                                "start": {
+                                    "line": 77,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 81,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1617,
+                        "end": 1739,
+                        "loc": {
+                            "start": {
+                                "line": 77,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 81,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "draw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1751,
+                            "end": 2257,
+                            "loc": {
+                                "start": {
+                                    "line": 83,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 101,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1747,
+                        "end": 2257,
+                        "loc": {
+                            "start": {
+                                "line": 83,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 101,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "performDrawTips",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2280,
+                            "end": 2379,
+                            "loc": {
+                                "start": {
+                                    "line": 103,
+                                    "column": 19
+                                },
+                                "end": {
+                                    "line": 106,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2265,
+                        "end": 2379,
+                        "loc": {
+                            "start": {
+                                "line": 103,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 106,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "performTipA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2519,
+                            "end": 2768,
+                            "loc": {
+                                "start": {
+                                    "line": 112,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 121,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Apply a tip at point A, (the first position).\r\n\r\n    The Tip is a point, with some styling with an ngon.\r\n    ",
+                                "block": true,
+                                "line": 111
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2508,
+                        "end": 2768,
+                        "loc": {
+                            "start": {
+                                "line": 112,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 121,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "writeLineTip",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tip"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2788,
+                            "end": 3012,
+                            "loc": {
+                                "start": {
+                                    "line": 123,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 132,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2776,
+                        "end": 3012,
+                        "loc": {
+                            "start": {
+                                "line": 123,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 132,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawPolyTipA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3032,
+                            "end": 3695,
+                            "loc": {
+                                "start": {
+                                    "line": 134,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 155,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Rotate this _end point_ to look directly at, then perform a 180,\r\n        allowing Polypoint to offset the calculation ",
+                                "block": true,
+                                "line": 138
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3020,
+                        "end": 3695,
+                        "loc": {
+                            "start": {
+                                "line": 134,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 155,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "_ctx_fill",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3712,
+                            "end": 3818,
+                            "loc": {
+                                "start": {
+                                    "line": 157,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 161,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Make a fancy Fill thing.",
+                                "block": false,
+                                "line": 158
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3703,
+                        "end": 3818,
+                        "loc": {
+                            "start": {
+                                "line": 157,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 161,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawLineTipA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3838,
+                            "end": 4026,
+                            "loc": {
+                                "start": {
+                                    "line": 163,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 170,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3826,
+                        "end": 4026,
+                        "loc": {
+                            "start": {
+                                "line": 163,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 170,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "performTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4045,
+                            "end": 4266,
+                            "loc": {
+                                "start": {
+                                    "line": 172,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 180,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4034,
+                        "end": 4266,
+                        "loc": {
+                            "start": {
+                                "line": 172,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 180,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawPolyTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4288,
+                            "end": 5577,
+                            "loc": {
+                                "start": {
+                                    "line": 183,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 221,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " || this.b)",
+                                "block": false,
+                                "line": 184
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4276,
+                        "end": 5577,
+                        "loc": {
+                            "start": {
+                                "line": 183,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 221,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawLineTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5597,
+                            "end": 5889,
+                            "loc": {
+                                "start": {
+                                    "line": 223,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 233,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Look at the target point. ",
+                                "block": true,
+                                "line": 227
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5585,
+                        "end": 5889,
+                        "loc": {
+                            "start": {
+                                "line": 223,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 233,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "writeLine",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5906,
+                            "end": 5942,
+                            "loc": {
+                                "start": {
+                                    "line": 235,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 237,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 5897,
+                        "end": 5942,
+                        "loc": {
+                            "start": {
+                                "line": 235,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 237,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "perform",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5957,
+                            "end": 6028,
+                            "loc": {
+                                "start": {
+                                    "line": 239,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 242,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 5950,
+                        "end": 6028,
+                        "loc": {
+                            "start": {
+                                "line": 239,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 242,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "close",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6041,
+                            "end": 6100,
+                            "loc": {
+                                "start": {
+                                    "line": 244,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 246,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 6036,
+                        "end": 6100,
+                        "loc": {
+                            "start": {
+                                "line": 244,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 246,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " new Line([90, 130], [200, 300], 420)",
+                        "block": false,
+                        "line": 36
+                    }
+                ]
+            },
+            "pos": {
+                "start": 769,
+                "end": 6103,
+                "loc": {
+                    "start": {
+                        "line": 30,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 247,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 6107,
+                "end": 6135,
+                "loc": {
+                    "start": {
+                        "line": 249,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 249,
+                        "column": 28
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 6107,
+                    "end": 6129,
+                    "loc": {
+                        "start": {
+                            "line": 249,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 249,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 6107,
+                        "end": 6121,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 6107,
+                            "end": 6116,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 6107,
+                                "end": 6116,
+                                "loc": {
+                                    "start": {
+                                        "line": 249,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 249,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 6117,
+                            "end": 6121,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 6117,
+                                "end": 6121,
+                                "loc": {
+                                    "start": {
+                                        "line": 249,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 249,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 6107,
+                            "end": 6121,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 6122,
+                        "end": 6129,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 6122,
+                            "end": 6129,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 6107,
+                        "end": 6129,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 6130,
+                        "end": 6134,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 27
+                            }
+                        },
+                        "name": "Line",
+                        "pos": {
+                            "start": 6130,
+                            "end": 6134,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 27
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 6107,
+                    "end": 6135,
+                    "loc": {
+                        "start": {
+                            "line": 249,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 249,
+                            "column": 28
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 6107,
+                "end": 6135,
+                "loc": {
+                    "start": {
+                        "line": 249,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 249,
+                        "column": 28
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "BezierCurve",
+            "parentName": "Line",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "useCache",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "false",
+                        "value": false,
+                        "pos": {
+                            "start": 6249,
+                            "end": 6254,
+                            "loc": {
+                                "start": {
+                                    "line": 256,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 256,
+                                    "column": 20
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 6238,
+                        "end": 6254,
+                        "loc": {
+                            "start": {
+                                "line": 256,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 256,
+                                "column": 20
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getControlPoints",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "useCache"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6276,
+                            "end": 6960,
+                            "loc": {
+                                "start": {
+                                    "line": 257,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 282,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " let midDistance = a.distanceTo(b)*.5",
+                                "block": false,
+                                "line": 267
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 6260,
+                        "end": 6960,
+                        "loc": {
+                            "start": {
+                                "line": 257,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 282,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "points",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 6978,
+                            "end": 7034,
+                            "loc": {
+                                "start": {
+                                    "line": 284,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 286,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 6968,
+                        "end": 7034,
+                        "loc": {
+                            "start": {
+                                "line": 284,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 286,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawLineTipA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7056,
+                            "end": 7292,
+                            "loc": {
+                                "start": {
+                                    "line": 289,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 296,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " let target = this.b.copy()",
+                                "block": false,
+                                "line": 293
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 7044,
+                        "end": 7292,
+                        "loc": {
+                            "start": {
+                                "line": 289,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 296,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawPolyTipA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7312,
+                            "end": 7994,
+                            "loc": {
+                                "start": {
+                                    "line": 298,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 319,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Rotate this _end point_ to look directly at, then perform a 180,\r\n        allowing Polypoint to offset the calculation ",
+                                "block": true,
+                                "line": 302
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 7300,
+                        "end": 7994,
+                        "loc": {
+                            "start": {
+                                "line": 298,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 319,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawLineTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8014,
+                            "end": 8352,
+                            "loc": {
+                                "start": {
+                                    "line": 321,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 331,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " let tail = s.copy()",
+                                "block": false,
+                                "line": 324
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8002,
+                        "end": 8352,
+                        "loc": {
+                            "start": {
+                                "line": 321,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 331,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawPolyTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8372,
+                            "end": 8916,
+                            "loc": {
+                                "start": {
+                                    "line": 333,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 350,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " it's likely the original point, therefore we ensure it's new. ",
+                                "block": true,
+                                "line": 334
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8360,
+                        "end": 8916,
+                        "loc": {
+                            "start": {
+                                "line": 333,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 350,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "perform",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 9255,
+                            "end": 9536,
+                            "loc": {
+                                "start": {
+                                    "line": 365,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 371,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo",
+                                "block": false,
+                                "line": 368
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 9248,
+                        "end": 9536,
+                        "loc": {
+                            "start": {
+                                "line": 365,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 371,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " create(p1, p2, color='red', width=1) {",
+                        "block": false,
+                        "line": 254
+                    }
+                ]
+            },
+            "pos": {
+                "start": 6141,
+                "end": 9539,
+                "loc": {
+                    "start": {
+                        "line": 252,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 372,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "QuadraticCurve",
+            "parentName": "Line",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "useCache",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "false",
+                        "value": false,
+                        "pos": {
+                            "start": 9651,
+                            "end": 9656,
+                            "loc": {
+                                "start": {
+                                    "line": 378,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 378,
+                                    "column": 20
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 9640,
+                        "end": 9656,
+                        "loc": {
+                            "start": {
+                                "line": 378,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 378,
+                                "column": 20
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getControlPoints",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "useCache"
+                            }
+                        ],
+                        "pos": {
+                            "start": 9678,
+                            "end": 10233,
+                            "loc": {
+                                "start": {
+                                    "line": 379,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 400,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " let midDistance = a.distanceTo(b)*.5",
+                                "block": false,
+                                "line": 389
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 9662,
+                        "end": 10233,
+                        "loc": {
+                            "start": {
+                                "line": 379,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 400,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "points",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 10251,
+                            "end": 10307,
+                            "loc": {
+                                "start": {
+                                    "line": 402,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 404,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 10241,
+                        "end": 10307,
+                        "loc": {
+                            "start": {
+                                "line": 402,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 404,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "perform",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 10322,
+                            "end": 10581,
+                            "loc": {
+                                "start": {
+                                    "line": 406,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 412,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " https://developer.mozilla.org/",
+                                "block": false,
+                                "line": 409
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 10315,
+                        "end": 10581,
+                        "loc": {
+                            "start": {
+                                "line": 406,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 412,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " A Quad line control point is A.project() ",
+                        "block": true,
+                        "line": 377
+                    }
+                ]
+            },
+            "pos": {
+                "start": 9547,
+                "end": 10584,
+                "loc": {
+                    "start": {
+                        "line": 376,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 413,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 10590,
+                "end": 10625,
+                "loc": {
+                    "start": {
+                        "line": 416,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 416,
+                        "column": 35
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 10590,
+                    "end": 10612,
+                    "loc": {
+                        "start": {
+                            "line": 416,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 416,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 10590,
+                        "end": 10604,
+                        "loc": {
+                            "start": {
+                                "line": 416,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 416,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 10590,
+                            "end": 10599,
+                            "loc": {
+                                "start": {
+                                    "line": 416,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 416,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 10590,
+                                "end": 10599,
+                                "loc": {
+                                    "start": {
+                                        "line": 416,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 416,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 10600,
+                            "end": 10604,
+                            "loc": {
+                                "start": {
+                                    "line": 416,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 416,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 10600,
+                                "end": 10604,
+                                "loc": {
+                                    "start": {
+                                        "line": 416,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 416,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 10590,
+                            "end": 10604,
+                            "loc": {
+                                "start": {
+                                    "line": 416,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 416,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 10605,
+                        "end": 10612,
+                        "loc": {
+                            "start": {
+                                "line": 416,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 416,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 10605,
+                            "end": 10612,
+                            "loc": {
+                                "start": {
+                                    "line": 416,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 416,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 10590,
+                        "end": 10612,
+                        "loc": {
+                            "start": {
+                                "line": 416,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 416,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 10613,
+                        "end": 10624,
+                        "loc": {
+                            "start": {
+                                "line": 416,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 416,
+                                "column": 34
+                            }
+                        },
+                        "name": "BezierCurve",
+                        "pos": {
+                            "start": 10613,
+                            "end": 10624,
+                            "loc": {
+                                "start": {
+                                    "line": 416,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 416,
+                                    "column": 34
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 10590,
+                    "end": 10625,
+                    "loc": {
+                        "start": {
+                            "line": 416,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 416,
+                            "column": 35
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 10590,
+                "end": 10625,
+                "loc": {
+                    "start": {
+                        "line": 416,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 416,
+                        "column": 35
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "CantenaryCurve",
+            "parentName": "Line",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "doTips",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 10683,
+                            "end": 10687,
+                            "loc": {
+                                "start": {
+                                    "line": 421,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 421,
+                                    "column": 17
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10674,
+                        "end": 10687,
+                        "loc": {
+                            "start": {
+                                "line": 421,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 421,
+                                "column": 17
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "sine",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "1",
+                        "value": 1,
+                        "pos": {
+                            "start": 10700,
+                            "end": 10701,
+                            "loc": {
+                                "start": {
+                                    "line": 422,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 422,
+                                    "column": 12
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10693,
+                        "end": 10701,
+                        "loc": {
+                            "start": {
+                                "line": 422,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 422,
+                                "column": 12
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "bounceRate",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": ".1",
+                        "value": 0.1,
+                        "pos": {
+                            "start": 10720,
+                            "end": 10722,
+                            "loc": {
+                                "start": {
+                                    "line": 423,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 423,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10707,
+                        "end": 10722,
+                        "loc": {
+                            "start": {
+                                "line": 423,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 423,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "_oneReducer",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "1",
+                        "value": 1,
+                        "pos": {
+                            "start": 10742,
+                            "end": 10743,
+                            "loc": {
+                                "start": {
+                                    "line": 424,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 424,
+                                    "column": 19
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10728,
+                        "end": 10743,
+                        "loc": {
+                            "start": {
+                                "line": 424,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 424,
+                                "column": 19
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "stable",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "false",
+                        "value": false,
+                        "pos": {
+                            "start": 10758,
+                            "end": 10763,
+                            "loc": {
+                                "start": {
+                                    "line": 425,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 425,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10749,
+                        "end": 10763,
+                        "loc": {
+                            "start": {
+                                "line": 425,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 425,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "reductionRate",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": ".999",
+                        "value": 0.999,
+                        "pos": {
+                            "start": 10918,
+                            "end": 10922,
+                            "loc": {
+                                "start": {
+                                    "line": 428,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 428,
+                                    "column": 24
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10902,
+                        "end": 10922,
+                        "loc": {
+                            "start": {
+                                "line": 428,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 428,
+                                "column": 24
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "swingDegrees",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "20",
+                        "value": 20,
+                        "pos": {
+                            "start": 10943,
+                            "end": 10945,
+                            "loc": {
+                                "start": {
+                                    "line": 429,
+                                    "column": 19
+                                },
+                                "end": {
+                                    "line": 429,
+                                    "column": 21
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10928,
+                        "end": 10945,
+                        "loc": {
+                            "start": {
+                                "line": 429,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 429,
+                                "column": 21
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "elasticity",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": ".09",
+                        "value": 0.09,
+                        "pos": {
+                            "start": 10964,
+                            "end": 10967,
+                            "loc": {
+                                "start": {
+                                    "line": 430,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 430,
+                                    "column": 20
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 10951,
+                        "end": 10967,
+                        "loc": {
+                            "start": {
+                                "line": 430,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 430,
+                                "column": 20
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "create",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "length",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "red"
+                            },
+                            {
+                                "name": "width",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 10981,
+                            "end": 11193,
+                            "loc": {
+                                "start": {
+                                    "line": 432,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 437,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Length elasticity when oscillating ",
+                                "block": true,
+                                "line": 435
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 10975,
+                        "end": 11193,
+                        "loc": {
+                            "start": {
+                                "line": 432,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 437,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "points",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 11211,
+                            "end": 11267,
+                            "loc": {
+                                "start": {
+                                    "line": 439,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 441,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11201,
+                        "end": 11267,
+                        "loc": {
+                            "start": {
+                                "line": 439,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 441,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "set",
+                    "word": "length",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11285,
+                            "end": 11365,
+                            "loc": {
+                                "start": {
+                                    "line": 443,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 446,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11275,
+                        "end": 11365,
+                        "loc": {
+                            "start": {
+                                "line": 443,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 446,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "restart",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 11378,
+                            "end": 11512,
+                            "loc": {
+                                "start": {
+                                    "line": 447,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 451,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11371,
+                        "end": 11512,
+                        "loc": {
+                            "start": {
+                                "line": 447,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 451,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "set",
+                    "word": "restLength",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11534,
+                            "end": 11654,
+                            "loc": {
+                                "start": {
+                                    "line": 453,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 457,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11520,
+                        "end": 11654,
+                        "loc": {
+                            "start": {
+                                "line": 453,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 457,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "set",
+                    "word": "stretchMultiplier",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11683,
+                            "end": 11737,
+                            "loc": {
+                                "start": {
+                                    "line": 459,
+                                    "column": 25
+                                },
+                                "end": {
+                                    "line": 461,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11662,
+                        "end": 11737,
+                        "loc": {
+                            "start": {
+                                "line": 459,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 461,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getCurveLength",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11759,
+                            "end": 11903,
+                            "loc": {
+                                "start": {
+                                    "line": 463,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 469,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11745,
+                        "end": 11903,
+                        "loc": {
+                            "start": {
+                                "line": 463,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 469,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getControlPoints",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 11927,
+                            "end": 11976,
+                            "loc": {
+                                "start": {
+                                    "line": 471,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 473,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11911,
+                        "end": 11976,
+                        "loc": {
+                            "start": {
+                                "line": 471,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 473,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getCachedCurve",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 11998,
+                            "end": 12258,
+                            "loc": {
+                                "start": {
+                                    "line": 475,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 484,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11984,
+                        "end": 12258,
+                        "loc": {
+                            "start": {
+                                "line": 475,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 484,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "draw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "color",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "pos": {
+                            "start": 12270,
+                            "end": 12629,
+                            "loc": {
+                                "start": {
+                                    "line": 486,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 495,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 12266,
+                        "end": 12629,
+                        "loc": {
+                            "start": {
+                                "line": 486,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 495,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "perform",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "pos": {
+                            "start": 12644,
+                            "end": 13238,
+                            "loc": {
+                                "start": {
+                                    "line": 497,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 522,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " cpx",
+                                "block": false,
+                                "line": 514
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 12637,
+                        "end": 13238,
+                        "loc": {
+                            "start": {
+                                "line": 497,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 522,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "performTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13391,
+                            "end": 13657,
+                            "loc": {
+                                "start": {
+                                    "line": 529,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 538,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " this.writeLineTipB(ctx, res)",
+                                "block": false,
+                                "line": 536
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 13380,
+                        "end": 13657,
+                        "loc": {
+                            "start": {
+                                "line": 529,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 538,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawLineTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13677,
+                            "end": 14195,
+                            "loc": {
+                                "start": {
+                                    "line": 540,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 554,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " First we grab the cached _curve_ of this line instance. ",
+                                "block": true,
+                                "line": 542
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 13665,
+                        "end": 14195,
+                        "loc": {
+                            "start": {
+                                "line": 540,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 554,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "writeLineTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tip"
+                            }
+                        ],
+                        "pos": {
+                            "start": 14216,
+                            "end": 14441,
+                            "loc": {
+                                "start": {
+                                    "line": 556,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 565,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 14203,
+                        "end": 14441,
+                        "loc": {
+                            "start": {
+                                "line": 556,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 565,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawTipA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 14747,
+                            "end": 14779,
+                            "loc": {
+                                "start": {
+                                    "line": 577,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 578,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 14739,
+                        "end": 14779,
+                        "loc": {
+                            "start": {
+                                "line": 577,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 578,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawPolyTipA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 14799,
+                            "end": 15953,
+                            "loc": {
+                                "start": {
+                                    "line": 580,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 609,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " First we grab the cached _curve_ of this line instance. ",
+                                "block": true,
+                                "line": 581
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 14787,
+                        "end": 15953,
+                        "loc": {
+                            "start": {
+                                "line": 580,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 609,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawLineTipA",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 15973,
+                            "end": 16493,
+                            "loc": {
+                                "start": {
+                                    "line": 611,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 624,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " First we grab the cached _curve_ of this line instance. ",
+                                "block": true,
+                                "line": 613
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 15961,
+                        "end": 16493,
+                        "loc": {
+                            "start": {
+                                "line": 611,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 624,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 16509,
+                            "end": 16658,
+                            "loc": {
+                                "start": {
+                                    "line": 626,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 629,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return this.drawPolyTipB(ctx, result, position)",
+                                "block": false,
+                                "line": 628
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 16501,
+                        "end": 16658,
+                        "loc": {
+                            "start": {
+                                "line": 626,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 629,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawPolyTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "result"
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 16678,
+                            "end": 18117,
+                            "loc": {
+                                "start": {
+                                    "line": 631,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 671,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " || this.b)",
+                                "block": false,
+                                "line": 632
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 16666,
+                        "end": 18117,
+                        "loc": {
+                            "start": {
+                                "line": 631,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 671,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "writeLineTip",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tip"
+                            }
+                        ],
+                        "pos": {
+                            "start": 18137,
+                            "end": 18363,
+                            "loc": {
+                                "start": {
+                                    "line": 673,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 683,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 18125,
+                        "end": 18363,
+                        "loc": {
+                            "start": {
+                                "line": 673,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 683,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "writePolyTipB",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 18384,
+                            "end": 18490,
+                            "loc": {
+                                "start": {
+                                    "line": 685,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 689,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Make a fancy Fill thing.",
+                                "block": false,
+                                "line": 686
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 18371,
+                        "end": 18490,
+                        "loc": {
+                            "start": {
+                                "line": 685,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 689,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "update",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tick"
+                            }
+                        ],
+                        "pos": {
+                            "start": 18504,
+                            "end": 18886,
+                            "loc": {
+                                "start": {
+                                    "line": 691,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 705,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 18498,
+                        "end": 18886,
+                        "loc": {
+                            "start": {
+                                "line": 691,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 705,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "updateSwing",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "tick"
+                            }
+                        ],
+                        "pos": {
+                            "start": 18905,
+                            "end": 19930,
+                            "loc": {
+                                "start": {
+                                    "line": 707,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 734,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " How much _left and right_ can the line swing. ",
+                                "block": true,
+                                "line": 710
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 18894,
+                        "end": 19930,
+                        "loc": {
+                            "start": {
+                                "line": 707,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 734,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "clear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 19943,
+                            "end": 19996,
+                            "loc": {
+                                "start": {
+                                    "line": 736,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 738,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 19938,
+                        "end": 19996,
+                        "loc": {
+                            "start": {
+                                "line": 736,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 738,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " When sine bouncing, reduce over time to stop the motion.\r\n    0 would turn of motion, 1 would bounce forever very quickly.",
+                        "block": true,
+                        "line": 427
+                    }
+                ]
+            },
+            "pos": {
+                "start": 10631,
+                "end": 20001,
+                "loc": {
+                    "start": {
+                        "line": 419,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 740,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "CatenaryCurve",
+            "parentName": "CantenaryCurve",
+            "type": "ClassDeclaration",
+            "body": [],
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 20007,
+                "end": 20054,
+                "loc": {
+                    "start": {
+                        "line": 743,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 744,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement",
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement",
+        "ClassDeclaration",
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "curve-extras.js",
+        "path": "/workspaces/polypoint/point_src/curve-extras.js",
+        "size": 20054,
+        "parsed_date": "2025-11-02T21:11:33.968Z"
+    }
+}

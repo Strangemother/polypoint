@@ -1,0 +1,624 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "Gradient",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "type",
+                                "default_value": "Linear"
+                            },
+                            {
+                                "name": "originPoints",
+                                "default_value": "[]"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2828,
+                            "end": 3011,
+                            "loc": {
+                                "start": {
+                                    "line": 109,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 114,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " default",
+                                "block": false,
+                                "line": 111
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2817,
+                        "end": 3011,
+                        "loc": {
+                            "start": {
+                                "line": 109,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 114,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "conic",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3111,
+                            "end": 3317,
+                            "loc": {
+                                "start": {
+                                    "line": 118,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 125,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " conic({radians, x, y} = point) {",
+                                "block": false,
+                                "line": 117
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3106,
+                        "end": 3317,
+                        "loc": {
+                            "start": {
+                                "line": 118,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 125,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "linear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3425,
+                            "end": 3641,
+                            "loc": {
+                                "start": {
+                                    "line": 129,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 136,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " linear({x0, y0}=pointA, {x1, y1}=pointB)",
+                                "block": false,
+                                "line": 128
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3419,
+                        "end": 3641,
+                        "loc": {
+                            "start": {
+                                "line": 129,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 136,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "radial",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3765,
+                            "end": 3981,
+                            "loc": {
+                                "start": {
+                                    "line": 140,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 147,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " radial({x0, y0, r0}=pointA, {x1, y1, r1}=pointB)",
+                                "block": false,
+                                "line": 139
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3759,
+                        "end": 3981,
+                        "loc": {
+                            "start": {
+                                "line": 140,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 147,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getObject",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3998,
+                            "end": 4542,
+                            "loc": {
+                                "start": {
+                                    "line": 149,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 168,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " build.",
+                                "block": false,
+                                "line": 156
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3989,
+                        "end": 4542,
+                        "loc": {
+                            "start": {
+                                "line": 149,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 168,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "installStops",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "gradient"
+                            },
+                            {
+                                "name": "stopMap"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4562,
+                            "end": 4821,
+                            "loc": {
+                                "start": {
+                                    "line": 170,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 176,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Given a canvas graident object, apply the stops from the _points_ within\r\n        this instance.",
+                                "block": true,
+                                "line": 172
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4550,
+                        "end": 4821,
+                        "loc": {
+                            "start": {
+                                "line": 170,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 176,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "generateLinearArgs",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4847,
+                            "end": 5297,
+                            "loc": {
+                                "start": {
+                                    "line": 178,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 195,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " createLinearGradient(x0, y0, x1, y1)",
+                                "block": false,
+                                "line": 179
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4829,
+                        "end": 5297,
+                        "loc": {
+                            "start": {
+                                "line": 178,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 195,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "generateConicArgs",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 5322,
+                            "end": 5483,
+                            "loc": {
+                                "start": {
+                                    "line": 197,
+                                    "column": 21
+                                },
+                                "end": {
+                                    "line": 203,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " createConicGradient(startAngle, x, y)",
+                                "block": false,
+                                "line": 198
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5305,
+                        "end": 5483,
+                        "loc": {
+                            "start": {
+                                "line": 197,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 203,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "generateRadialArgs",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 5509,
+                            "end": 6044,
+                            "loc": {
+                                "start": {
+                                    "line": 205,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 222,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " createRadialGradient(x0, y0, r0, x1, y1, r1)",
+                                "block": false,
+                                "line": 206
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5491,
+                        "end": 6044,
+                        "loc": {
+                            "start": {
+                                "line": 205,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 222,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "addStops",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "dict"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6060,
+                            "end": 6166,
+                            "loc": {
+                                "start": {
+                                    "line": 224,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 228,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 6052,
+                        "end": 6166,
+                        "loc": {
+                            "start": {
+                                "line": 224,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 228,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " A Gradient instance can be generated once or for every draw.\r\n\r\n    Examples:\r\n\r\n    Pre-configure the origin points and the _type_\r\n\r\n        g = new Gradient(null, 'Linear', [stage.center])\r\n        g.addStops({\r\n            0: \"hsl(299deg 62% 44%)\",\r\n            1: \"hsl(244deg 71% 56%)\"\r\n        })\r\n\r\n        let canvasGradient = g.getObject(ctx)\r\n        ctx.fillStyle = canvasGradient\r\n\r\n    ---\r\n\r\n    The context may be given early.\r\n\r\n        g = new Gradient(ctx, 'Linear',)\r\n        g.addStops({\r\n            0: \"hsl(299deg 62% 44%)\",\r\n            1: \"hsl(244deg 71% 56%)\"\r\n        })\r\n        let canvasGradient = g.getObject()\r\n        ctx.fillStyle = canvasGradient\r\n\r\n    ---\r\n\r\n    Provide the context at the last stage.\r\n\r\n        g = new Gradient()\r\n        g.addStops({\r\n            0: \"hsl(299deg 62% 44%)\",\r\n            1: \"hsl(244deg 71% 56%)\"\r\n        })\r\n        g = g.conical(stage.center)\r\n        // draw\r\n        ctx.fillStyle = g.getObject(ctx)\r\n\r\n    ---\r\n\r\n    Radial gradient through two point. The same points are used as\r\n    color stops.\r\n\r\n        pointGradInner = primaryPoint.copy().update({\r\n                radius: rel(-250),\r\n                color:'pink'\r\n            })\r\n        pointGradOuter = primaryPoint.copy().update({\r\n                radius: rel(-10),\r\n                color: 'purple' // dark\r\n            })\r\n\r\n        pointGrad = (new Gradient).radial(pointGradInner, pointGradOuter)\r\n        pointGrad.addStops({\r\n            0: pointGradInner,\r\n            1: pointGradOuter\r\n        })\r\n        pointGrad.radial() // refresh hack.\r\n        let ctxPointGrad = pointGrad.getObject(ctx)\r\n        primaryPoint.pen.fill(ctx, ctxPointGrad)\r\n    ---\r\n\r\n    This base `Gradient` class covers the three core types:\r\n\r\n    + createConicGradient(startAngle, x, y)\r\n    + createLinearGradient(x0, y0, x1, y1)\r\n    + createRadialGradient(x0, y0, r0, x1, y1, r1)\r\n\r\n    ## More Info\r\n\r\n    Create a new gradient object:\r\n\r\n        let g = new Gradient()\r\n\r\n    Many _stops_ define the gradient color values. A _stop_ is a relative 1D\r\n    position from `0` to `1`.\r\n\r\n        g.addStops({\r\n            0: \"hsl(299deg 62% 44%)\",\r\n            1: \"hsl(244deg 71% 56%)\"\r\n        })\r\n\r\n    Define the type of gradient object:\r\n\r\n        let rootPoint = stage.center\r\n        let grad = g.linear(rootPoint)\r\n\r\n    Under the hood, this configures and refreshes `g` gradient instance. similar\r\n    to:\r\n\r\n        // same as above\r\n        g = new Gradient(null, 'Linear', [stage.center])\r\n\r\n    A canvas _gradient_ is generated when required. This Gradient class mimic\r\n    this:\r\n\r\n        let canvasGradient = g.getObject(ctx)\r\n\r\n    The `getObject` method returns a result from the root functions, such as\r\n    `createLinearGradient`\r\n\r\n\r\n    ",
+                        "block": true,
+                        "line": 106
+                    }
+                ]
+            },
+            "pos": {
+                "start": 0,
+                "end": 6169,
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 229,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "gradient.js",
+        "path": "/workspaces/polypoint/point_src/gradient.js",
+        "size": 6173,
+        "parsed_date": "2025-11-02T21:11:35.457Z"
+    }
+}

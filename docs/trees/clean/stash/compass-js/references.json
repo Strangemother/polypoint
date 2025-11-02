@@ -1,0 +1,365 @@
+{
+    "src_file": "compass.js",
+    "references": {
+        "classes": {
+            "Compass": {
+                "class_name": "Compass",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Compass",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "setup",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 20
+                    },
+                    {
+                        "method_name": "setDeg",
+                        "class_name": "Compass",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 24
+                    },
+                    {
+                        "method_name": "setRad",
+                        "class_name": "Compass",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 28
+                    },
+                    {
+                        "method_name": "degrees",
+                        "class_name": "Compass",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": true,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 32
+                    },
+                    {
+                        "method_name": "rad",
+                        "class_name": "Compass",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": true,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 38
+                    },
+                    {
+                        "method_name": "get",
+                        "class_name": "Compass",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 42
+                    },
+                    {
+                        "method_name": "right",
+                        "class_name": "Compass",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 46
+                    },
+                    {
+                        "method_name": "down",
+                        "class_name": "Compass",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 50
+                    },
+                    {
+                        "method_name": "left",
+                        "class_name": "Compass",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 54
+                    },
+                    {
+                        "method_name": "up",
+                        "class_name": "Compass",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 58
+                    },
+                    {
+                        "method_name": "conv",
+                        "class_name": "Compass",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 62
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "line": 18
+            }
+        },
+        "functions": [
+            {
+                "name": "radiansToDegrees",
+                "kind": "function",
+                "type": "function",
+                "line": 71,
+                "params": [
+                    {
+                        "name": "radians"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "radiansToTau",
+                "kind": "const",
+                "line": 76,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "\r\n        let radians = Math.PI; // 1/2 TAU\r\n        console.log(radiansToTau(radians)); // Outputs: 0.5\r\n    ",
+                            "block": true,
+                            "line": 80
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "radians"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "degToRad",
+                "kind": "const",
+                "line": 85,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "value"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "projectFrom",
+                "kind": "function",
+                "type": "function",
+                "line": 90,
+                "params": [
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "distance",
+                        "default_value": "undefined"
+                    },
+                    {
+                        "name": "rotation",
+                        "default_value": "undefined"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": [
+            {
+                "name": "TAU",
+                "kind": "const",
+                "line": 5,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "RIGHT",
+                "kind": "const",
+                "line": 7,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "DOWN",
+                "kind": "const",
+                "line": 8,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "LEFT",
+                "kind": "const",
+                "line": 9,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "UP",
+                "kind": "const",
+                "line": 10,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "RIGHT_DEG",
+                "kind": "const",
+                "line": 12,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "DOWN_DEG",
+                "kind": "const",
+                "line": 13,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "LEFT_DEG",
+                "kind": "const",
+                "line": 14,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "UP_DEG",
+                "kind": "const",
+                "line": 15,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "compass.js",
+        "path": "/workspaces/polypoint/point_src/compass.js",
+        "size": 2189,
+        "parsed_date": "2025-11-02T21:11:33.509Z"
+    }
+}

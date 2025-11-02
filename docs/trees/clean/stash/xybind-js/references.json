@@ -1,0 +1,407 @@
+{
+    "src_file": "xybind.js",
+    "references": {
+        "classes": {
+            "XYBindMap": {
+                "class_name": "XYBindMap",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "XYBindMap",
+                        "kind": "constructor",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 7
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 12
+                    },
+                    {
+                        "method_name": "updateFunction",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 16
+                    },
+                    {
+                        "method_name": "childToParentUpdate",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "parent"
+                            },
+                            {
+                                "name": "opts"
+                            },
+                            {
+                                "name": "d"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('primary drag')",
+                                    "block": false,
+                                    "line": 22
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 20
+                    },
+                    {
+                        "method_name": "lockedPosition",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "parent"
+                            },
+                            {
+                                "name": "opts"
+                            },
+                            {
+                                "name": "d"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " position is locked (reverse) ",
+                                    "block": true,
+                                    "line": 57
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 56
+                    },
+                    {
+                        "method_name": "relockingPosition",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "parent"
+                            },
+                            {
+                                "name": "opts"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Dragging a relative control point. ",
+                                    "block": true,
+                                    "line": 78
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "smoothUpdateFunction",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " If _bindingSettings are defined, the lock step will\r\n        pre-lock the control point.",
+                                    "block": true,
+                                    "line": 101
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 95
+                    },
+                    {
+                        "method_name": "pairTest",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "vChildren"
+                            },
+                            {
+                                "name": "kOwner"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 148
+                    },
+                    {
+                        "method_name": "pairTestSingle",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "vChild"
+                            },
+                            {
+                                "name": "kOwner"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Iterate the bindmap, ensuring the XY of a pair match\r\n        Propagate the changed value (dirty) to the unchanges value. ",
+                                    "block": true,
+                                    "line": 154
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 152
+                    },
+                    {
+                        "method_name": "connect",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "parent"
+                            },
+                            {
+                                "name": "child"
+                            },
+                            {
+                                "name": "childPositionSettings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " child.parentWheel = parent",
+                                    "block": false,
+                                    "line": 215
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 214
+                    },
+                    {
+                        "method_name": "safeMapAppend",
+                        "class_name": "XYBindMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "bindMap"
+                            },
+                            {
+                                "name": "parent"
+                            },
+                            {
+                                "name": "child"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 229
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " console.log('primary drag')",
+                            "block": false,
+                            "line": 22
+                        }
+                    ]
+                },
+                "line": 6
+            },
+            "PointXYBind": {
+                "class_name": "PointXYBind",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointXYBind",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 250
+                    },
+                    {
+                        "method_name": "connectTo",
+                        "class_name": "PointXYBind",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "opts",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 255
+                    },
+                    {
+                        "method_name": "follow",
+                        "class_name": "PointXYBind",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "opts",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 260
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "line": 249
+            }
+        },
+        "functions": [],
+        "constants": [
+            {
+                "name": "defaultRad",
+                "kind": "let",
+                "line": 3,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " Works.",
+                            "block": false,
+                            "line": 2
+                        }
+                    ],
+                    "inner": []
+                },
+                "type": "constant"
+            },
+            {
+                "name": "globalXYBind",
+                "kind": "let",
+                "line": 242,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "xybind.js",
+        "path": "/workspaces/polypoint/point_src/xybind.js",
+        "size": 9084,
+        "parsed_date": "2025-11-02T21:11:42.592Z"
+    }
+}

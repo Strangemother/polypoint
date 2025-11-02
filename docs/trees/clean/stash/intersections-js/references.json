@@ -1,0 +1,303 @@
+{
+    "src_file": "intersections.js",
+    "references": {
+        "classes": {
+            "PointIntersections": {
+                "class_name": "PointIntersections",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointIntersections",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " string stuff ",
+                                    "block": true,
+                                    "line": 263
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 261
+                    },
+                    {
+                        "method_name": "of",
+                        "class_name": "PointIntersections",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 272
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " string stuff ",
+                            "block": true,
+                            "line": 263
+                        }
+                    ]
+                },
+                "line": 259
+            }
+        },
+        "functions": [
+            {
+                "name": "checkLinesIntersection",
+                "kind": "const",
+                "line": 5,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Normalize the direction vector (end - start) and apply the length",
+                            "block": false,
+                            "line": 10
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "line"
+                    },
+                    {
+                        "name": "otherLine"
+                    },
+                    {
+                        "name": "length"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "getDotProduct",
+                "kind": "const",
+                "line": 60,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "px"
+                    },
+                    {
+                        "name": "py"
+                    },
+                    {
+                        "name": "x1"
+                    },
+                    {
+                        "name": "y1"
+                    },
+                    {
+                        "name": "x2"
+                    },
+                    {
+                        "name": "y2"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "getDenominator",
+                "kind": "const",
+                "line": 65,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "x1"
+                    },
+                    {
+                        "name": "y1"
+                    },
+                    {
+                        "name": "x2"
+                    },
+                    {
+                        "name": "y2"
+                    },
+                    {
+                        "name": "x3"
+                    },
+                    {
+                        "name": "y3"
+                    },
+                    {
+                        "name": "x4"
+                    },
+                    {
+                        "name": "y4"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "checkPointIntersectionOccured",
+                "kind": "const",
+                "line": 70,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Normalize the direction vector (end - start) and apply the length",
+                            "block": false,
+                            "line": 74
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "line"
+                    },
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "radius",
+                        "default_value": 5
+                    },
+                    {
+                        "name": "length",
+                        "default_value": 400
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "checkPointIntersectionWithin",
+                "kind": "const",
+                "line": 104,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Normalize the direction vector (end - start) and apply the length",
+                            "block": false,
+                            "line": 108
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "line"
+                    },
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "radius",
+                        "default_value": 5
+                    },
+                    {
+                        "name": "length",
+                        "default_value": 400
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "checkPointIntersectionEdge",
+                "kind": "const",
+                "line": 141,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Normalize the direction vector (end - start) and apply the length",
+                            "block": false,
+                            "line": 145
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "line"
+                    },
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "radius"
+                    },
+                    {
+                        "name": "length",
+                        "default_value": "undefined"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "getCircleCircleIntersections",
+                "kind": "function",
+                "type": "function",
+                "line": 213,
+                "params": [
+                    {
+                        "name": "circle1"
+                    },
+                    {
+                        "name": "circle2"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": [
+            {
+                "name": "denomText",
+                "kind": "let",
+                "line": 2,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "intersections.js",
+        "path": "/workspaces/polypoint/point_src/intersections.js",
+        "size": 8840,
+        "parsed_date": "2025-11-02T21:11:36.303Z"
+    }
+}

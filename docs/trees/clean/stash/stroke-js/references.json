@@ -1,0 +1,497 @@
+{
+    "src_file": "stroke.js",
+    "references": {
+        "classes": {
+            "Stroke": {
+                "class_name": "Stroke",
+                "inherits": "SetUnset",
+                "methods": [
+                    {
+                        "method_name": "getOpts",
+                        "class_name": "Stroke",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " ctx properties of which don't need map adapting, ",
+                                    "block": true,
+                                    "line": 46
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 45
+                    },
+                    {
+                        "method_name": "march",
+                        "class_name": "Stroke",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Performing a dashoffset (if applied)\r\n\r\n        This is simply a more specific _step_ function\r\n        ",
+                                    "block": true,
+                                    "line": 82
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 78
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "Stroke",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "delta",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 90
+                    },
+                    {
+                        "method_name": "marchKeyPrepare",
+                        "class_name": "Stroke",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return this.marchKeyApply.apply(this, arguments)",
+                                    "block": false,
+                                    "line": 98
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 94
+                    },
+                    {
+                        "method_name": "marchKeyStep",
+                        "class_name": "Stroke",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ref"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 101
+                    },
+                    {
+                        "method_name": "marchKeyApply",
+                        "class_name": "Stroke",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "newValue"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " The given key should be the \"march\" param, and the value applied\r\n        within the setup. Apply marching ants by applying the internal stepper\r\n        value as the lineDashOffset.\r\n        ",
+                                    "block": true,
+                                    "line": 109
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 105
+                    },
+                    {
+                        "method_name": "lineDashKeyApply",
+                        "class_name": "Stroke",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "newValue"
+                            },
+                            {
+                                "name": "k"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 119
+                    },
+                    {
+                        "method_name": "lineDashKeyRemove",
+                        "class_name": "Stroke",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "cachedValue"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " To remove the line dash we call setLineDash with the inverse of the\r\n        previously applied value `cachedValue`. ",
+                                    "block": true,
+                                    "line": 135
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 133
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " ctx properties of which don't need map adapting, ",
+                            "block": true,
+                            "line": 46
+                        }
+                    ]
+                },
+                "line": 43
+            },
+            "StageStrokeMap": {
+                "class_name": "StageStrokeMap",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "StageStrokeMap",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 192
+                    },
+                    {
+                        "method_name": "get",
+                        "class_name": "StageStrokeMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 197
+                    },
+                    {
+                        "method_name": "has",
+                        "class_name": "StageStrokeMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 201
+                    },
+                    {
+                        "method_name": "create",
+                        "class_name": "StageStrokeMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 205
+                    },
+                    {
+                        "method_name": "set",
+                        "class_name": "StageStrokeMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 211
+                    },
+                    {
+                        "method_name": "unset",
+                        "class_name": "StageStrokeMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 217
+                    },
+                    {
+                        "method_name": "remove",
+                        "class_name": "StageStrokeMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 223
+                    },
+                    {
+                        "method_name": "delete",
+                        "class_name": "StageStrokeMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "name"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 229
+                    },
+                    {
+                        "method_name": "propHook",
+                        "class_name": "StageStrokeMap",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "prop"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Given a name (and potentially options), return a handler of\r\n        which can be a function.\r\n        The handler returns a _off_ function for disabling this same stroke. ",
+                                    "block": true,
+                                    "line": 236
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 233
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "\r\n     Create and and manage Strokes, using a name.\r\n\r\n        const fooStroke = stage.strokes.create('foo',{\r\n                        dash: [3,3]\r\n                        , color: 'grey'\r\n                        , width: 2\r\n                    })\r\n\r\n    Call set to apply, unset to unapply:\r\n\r\n        fooStroke.set(ctx)\r\n        fooStroke.set()\r\n\r\n        fooStroke.set(ctx)\r\n        fooStroke.unset()\r\n\r\n    Fetch the same stroker:\r\n\r\n        let fooStroke = stage.strokes.get('fooStroke')\r\n\r\n    Or call the stroke object directly:\r\n\r\n        stage.strokes.fooStroke.set()\r\n        stage.strokes.fooStroke.unset()\r\n\r\n    Call 'set' on the stroke object to perform the same as above:\r\n\r\n        stage.strokes.set('line')\r\n        stage.line.render(ctx)\r\n        stage.strokes.unset('line')\r\n\r\n    Run in place, immediately enabling the stroke styles:\r\n\r\n        let off = stage.strokes.line()\r\n        stage.line.render(ctx)\r\n        off()\r\n\r\n    Or for less code, provide a function to the immediate caller, to run inline:\r\n\r\n        // set 'line'\r\n        // run the given function\r\n        // unset 'line'\r\n        stage.strokes.line(()=>stage.line.render(ctx))\r\n\r\n     ",
+                            "block": true,
+                            "line": 189
+                        }
+                    ]
+                },
+                "line": 143
+            }
+        },
+        "functions": [
+            {
+                "name": "quickStroke",
+                "kind": "const",
+                "line": 18,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "color",
+                        "default_value": "green"
+                    },
+                    {
+                        "name": "lineWidth",
+                        "default_value": "UNSET"
+                    },
+                    {
+                        "name": "f"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "quickStrokeWithCtx",
+                "kind": "const",
+                "line": 31,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "color",
+                        "default_value": "green"
+                    },
+                    {
+                        "name": "lineWidth",
+                        "default_value": "UNSET"
+                    },
+                    {
+                        "name": "f"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "example",
+                "kind": "const",
+                "line": 295,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " ctx identical",
+                            "block": false,
+                            "line": 300
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [],
+                "async": false
+            }
+        ],
+        "constants": [
+            {
+                "name": "UNSET",
+                "kind": "const",
+                "line": 15,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "object",
+                "properties": []
+            }
+        ]
+    },
+    "info": {
+        "filename": "stroke.js",
+        "path": "/workspaces/polypoint/point_src/stroke.js",
+        "size": 8262,
+        "parsed_date": "2025-11-02T21:11:41.182Z"
+    }
+}

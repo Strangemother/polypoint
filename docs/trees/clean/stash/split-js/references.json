@@ -1,0 +1,232 @@
+{
+    "src_file": "split.js",
+    "references": {
+        "classes": {},
+        "functions": [
+            {
+                "name": "splitToPointList",
+                "kind": "const",
+                "line": 15,
+                "comments": {
+                    "header": [
+                        {
+                            "text": " splitToPointList(point, count).pen.indicators(ctx)",
+                            "block": true,
+                            "line": 14
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": " p1.rotation = rotation || point.rotation",
+                            "block": false,
+                            "line": 20
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "count"
+                    },
+                    {
+                        "name": "radius"
+                    },
+                    {
+                        "name": "rotation"
+                    },
+                    {
+                        "name": "angle",
+                        "default_value": "undefined"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "lerp",
+                "kind": "const",
+                "line": 31,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "arrow_function",
+                "params": [
+                    {
+                        "name": "x"
+                    },
+                    {
+                        "name": "y"
+                    },
+                    {
+                        "name": "a"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "bLerp",
+                "kind": "function",
+                "type": "function",
+                "line": 34,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "t"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "lerpV2",
+                "kind": "function",
+                "type": "function",
+                "line": 40,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "t"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "get_bezier_point",
+                "kind": "function",
+                "type": "function",
+                "line": 48,
+                "params": [
+                    {
+                        "name": "p0"
+                    },
+                    {
+                        "name": "p1"
+                    },
+                    {
+                        "name": "p2"
+                    },
+                    {
+                        "name": "p3"
+                    },
+                    {
+                        "name": "t"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "get_bezier_derivative",
+                "kind": "function",
+                "type": "function",
+                "line": 58,
+                "params": [
+                    {
+                        "name": "p0"
+                    },
+                    {
+                        "name": "p1"
+                    },
+                    {
+                        "name": "p2"
+                    },
+                    {
+                        "name": "p3"
+                    },
+                    {
+                        "name": "t"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "lerpRadius",
+                "kind": "const",
+                "line": 73,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Process the width from the _first_ to the _last_ of a line.",
+                            "block": true,
+                            "line": 74
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "v"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "radiusManual",
+                "kind": "const",
+                "line": 79,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "i"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "split.js",
+        "path": "/workspaces/polypoint/point_src/split.js",
+        "size": 8662,
+        "parsed_date": "2025-11-02T21:11:40.433Z"
+    }
+}

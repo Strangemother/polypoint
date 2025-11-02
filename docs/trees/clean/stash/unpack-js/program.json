@@ -1,0 +1,590 @@
+{
+    "defs": [
+        {
+            "word": "unpack",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "args"
+                    },
+                    {
+                        "name": "defaults"
+                    }
+                ],
+                "pos": {
+                    "start": 277,
+                    "end": 2306,
+                    "loc": {
+                        "start": {
+                            "line": 15,
+                            "column": 15
+                        },
+                        "end": {
+                            "line": 88,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [
+                    {
+                        "text": "\r\n\r\nReasoning\r\n\r\nto receive inline or dict based args - because inline is nice but unwieldy,\r\nas such - also allow dicts.\r\n\r\nThis allows for more complex options; later.\r\nAlso then we can process inline args with a dict.\r\nAnd rearrange them later.\r\n\r\n\r\n\r\n ",
+                        "block": true,
+                        "line": 14
+                    }
+                ],
+                "inner": [
+                    {
+                        "text": " read the args object into a dictionary (if required)\r\n     use the `defaults` as as the defaults\r\n\r\n    return an object. If args match an object, return\r\n    with updates.\r\n\r\n    one arg may be just a context.\r\n    or an object of properties\r\n    two args may be context and object.\r\n    or context and prop\r\n\r\n        let data = unpack(arguments, {\r\n                otherPoint: undefined\r\n                , color: undefined\r\n                , width: undefined\r\n            })\r\n\r\n     Note, proxies are slower than objects\r\n            https://www.measurethat.net/Benchmarks/Show/6274/4/access-to-proxy-vs-object\r\n    ",
+                        "block": true,
+                        "line": 35
+                    }
+                ]
+            },
+            "pos": {
+                "start": 262,
+                "end": 2306,
+                "loc": {
+                    "start": {
+                        "line": 15,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 88,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 262,
+            "end": 2306,
+            "loc": {
+                "start": {
+                    "line": 15,
+                    "column": 0
+                },
+                "end": {
+                    "line": 88,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "unpack0",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "args"
+                    },
+                    {
+                        "name": "defaults"
+                    }
+                ],
+                "pos": {
+                    "start": 2326,
+                    "end": 4222,
+                    "loc": {
+                        "start": {
+                            "line": 90,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 158,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " read the args object into a dictionary (if required)\r\n     use the `defaults` as as the defaults\r\n\r\n    return an object. If args match an object, return\r\n    with updates.\r\n\r\n    one arg may be just a context.\r\n    or an object of properties\r\n    two args may be context and object.\r\n    or context and prop\r\n\r\n        let data = unpack(arguments, {\r\n                otherPoint: undefined\r\n                , color: undefined\r\n                , width: undefined\r\n            })\r\n\r\n     Note, proxies are slower than objects\r\n            https://www.measurethat.net/Benchmarks/Show/6274/4/access-to-proxy-vs-object\r\n    ",
+                        "block": true,
+                        "line": 110
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2310,
+                "end": 4222,
+                "loc": {
+                    "start": {
+                        "line": 90,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 158,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 2310,
+            "end": 4222,
+            "loc": {
+                "start": {
+                    "line": 90,
+                    "column": 0
+                },
+                "end": {
+                    "line": 158,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "NULLY",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "kind": "literal",
+                "raw": "null",
+                "value": null,
+                "pos": {
+                    "start": 4240,
+                    "end": 4244,
+                    "loc": {
+                        "start": {
+                            "line": 160,
+                            "column": 14
+                        },
+                        "end": {
+                            "line": 160,
+                            "column": 18
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4226,
+                "end": 4244,
+                "loc": {
+                    "start": {
+                        "line": 160,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 160,
+                        "column": 18
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4226,
+            "end": 4244,
+            "loc": {
+                "start": {
+                    "line": 160,
+                    "column": 0
+                },
+                "end": {
+                    "line": 160,
+                    "column": 18
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "runUnpack",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [],
+                "pos": {
+                    "start": 4266,
+                    "end": 4314,
+                    "loc": {
+                        "start": {
+                            "line": 162,
+                            "column": 18
+                        },
+                        "end": {
+                            "line": 164,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": []
+            },
+            "pos": {
+                "start": 4248,
+                "end": 4314,
+                "loc": {
+                    "start": {
+                        "line": 162,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 164,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4248,
+            "end": 4314,
+            "loc": {
+                "start": {
+                    "line": 162,
+                    "column": 0
+                },
+                "end": {
+                    "line": 164,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "callRunUnpackLarge",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [],
+                "pos": {
+                    "start": 4347,
+                    "end": 6615,
+                    "loc": {
+                        "start": {
+                            "line": 167,
+                            "column": 27
+                        },
+                        "end": {
+                            "line": 255,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Use the runUnpackLarge ",
+                        "block": true,
+                        "line": 168
+                    }
+                ]
+            },
+            "pos": {
+                "start": 4320,
+                "end": 6615,
+                "loc": {
+                    "start": {
+                        "line": 167,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 255,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 4320,
+            "end": 6615,
+            "loc": {
+                "start": {
+                    "line": 167,
+                    "column": 0
+                },
+                "end": {
+                    "line": 255,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "assert",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "expr"
+                    }
+                ],
+                "pos": {
+                    "start": 6636,
+                    "end": 6763,
+                    "loc": {
+                        "start": {
+                            "line": 258,
+                            "column": 15
+                        },
+                        "end": {
+                            "line": 265,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " good",
+                        "block": false,
+                        "line": 260
+                    }
+                ]
+            },
+            "pos": {
+                "start": 6621,
+                "end": 6763,
+                "loc": {
+                    "start": {
+                        "line": 258,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 265,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 6621,
+            "end": 6763,
+            "loc": {
+                "start": {
+                    "line": 258,
+                    "column": 0
+                },
+                "end": {
+                    "line": 265,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "runUnpackLarge",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "sides"
+                    },
+                    {
+                        "name": "radius"
+                    },
+                    {
+                        "name": "fromCenter",
+                        "default_value": true
+                    },
+                    {
+                        "name": "color"
+                    },
+                    {
+                        "name": "width",
+                        "default_value": 1
+                    },
+                    {
+                        "name": "angle",
+                        "default_value": 0
+                    },
+                    {
+                        "name": "open",
+                        "default_value": true
+                    },
+                    {
+                        "name": "close",
+                        "default_value": true
+                    }
+                ],
+                "pos": {
+                    "start": 6792,
+                    "end": 7366,
+                    "loc": {
+                        "start": {
+                            "line": 268,
+                            "column": 23
+                        },
+                        "end": {
+                            "line": 283,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " This example receives many args. Same rules apply",
+                        "block": true,
+                        "line": 270
+                    }
+                ]
+            },
+            "pos": {
+                "start": 6769,
+                "end": 7366,
+                "loc": {
+                    "start": {
+                        "line": 268,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 283,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 6769,
+            "end": 7366,
+            "loc": {
+                "start": {
+                    "line": 268,
+                    "column": 0
+                },
+                "end": {
+                    "line": 283,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        },
+        {
+            "word": "runUnpackArgsDefault",
+            "sub_type": "VariableDeclarator",
+            "init": {
+                "type": "FunctionExpression",
+                "id": null,
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "otherPoint",
+                        "default_value": "{}"
+                    },
+                    {
+                        "name": "color",
+                        "default_value": "red"
+                    },
+                    {
+                        "name": "width",
+                        "default_value": 1
+                    }
+                ],
+                "pos": {
+                    "start": 7405,
+                    "end": 8775,
+                    "loc": {
+                        "start": {
+                            "line": 288,
+                            "column": 29
+                        },
+                        "end": {
+                            "line": 335,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "\r\n        Unpack with defaults from the args. But the args is still applied.\r\n\r\n    return defaults (otherPoint, color, width)\r\n\r\n        d = runUnpackArgsDefault(stage.ctx);\r\n\r\n    apply/override a config\r\n        d = runUnpackArgsDefault(stage.ctx, { color: 'green' });\r\n\r\n    extend defaults\r\n        d = runUnpackArgsDefault(stage.ctx, { up: true });\r\n\r\n    Be careful of the above (for this args defaults), as `otherPoint` is\r\n    recast as the given object, therefore the `{ otherPoint }` default return,\r\n    will return the config object, not the first default property:\r\n\r\n        # bad:\r\n        const runUnpackArgsDefault = function(ctx, otherPoint={}, color='red', width=1) {\r\n            let data = unpack(arguments, {\r\n                otherPoint\r\n                , color\r\n                , width\r\n            })\r\n        }\r\n\r\n        # good:\r\n        const runUnpackArgsDefault = function(ctx, otherPoint={}, color='red', width=1) {\r\n            let data = unpack(arguments, {\r\n                otherPoint: {} // altDefault\r\n                , color\r\n                , width\r\n            })\r\n        }\r\n\r\n\r\n\r\n\r\n    ",
+                        "block": true,
+                        "line": 327
+                    }
+                ]
+            },
+            "pos": {
+                "start": 7376,
+                "end": 8775,
+                "loc": {
+                    "start": {
+                        "line": 288,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 335,
+                        "column": 1
+                    }
+                }
+            },
+            "type": "VariableDeclaration",
+            "start": 7376,
+            "end": 8775,
+            "loc": {
+                "start": {
+                    "line": 288,
+                    "column": 0
+                },
+                "end": {
+                    "line": 335,
+                    "column": 1
+                }
+            },
+            "kind": "const"
+        }
+    ],
+    "types": [
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration",
+        "VariableDeclaration"
+    ],
+    "info": {
+        "filename": "unpack.js",
+        "path": "/workspaces/polypoint/point_src/unpack.js",
+        "size": 8777,
+        "parsed_date": "2025-11-02T21:11:42.139Z"
+    }
+}

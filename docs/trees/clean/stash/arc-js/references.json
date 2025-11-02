@@ -1,0 +1,556 @@
+{
+    "src_file": "arc.js",
+    "references": {
+        "classes": {
+            "PointArc": {
+                "class_name": "PointArc",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointArc",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 15
+                    },
+                    {
+                        "method_name": "fromTo",
+                        "class_name": "PointArc",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "fromPoint"
+                            },
+                            {
+                                "name": "toPoint"
+                            },
+                            {
+                                "name": "direction"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Point as _center_, arc from A, to B, at a distance c.radius ",
+                                    "block": true,
+                                    "line": 20
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 19
+                    },
+                    {
+                        "method_name": "sweep",
+                        "class_name": "PointArc",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "radSweep"
+                            },
+                            {
+                                "name": "direction",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Sweep through a rad amount, e.g. PI. ",
+                                    "block": true,
+                                    "line": 26
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 25
+                    },
+                    {
+                        "method_name": "to",
+                        "class_name": "PointArc",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "through"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n          stage.fromPoint.arc.to(stage.toPoint, stage.centerPoint)\r\n        ",
+                                    "block": true,
+                                    "line": 34
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 31
+                    },
+                    {
+                        "method_name": "though",
+                        "class_name": "PointArc",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "centerPoint"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " An arc from A to B through _c_, the radius is evaluated ",
+                                    "block": true,
+                                    "line": 43
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 42
+                    },
+                    {
+                        "method_name": "radial",
+                        "class_name": "PointArc",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "radius"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " from _this_ A (typically center), to B `other`, drawing an\r\n        arc of a given radius. ",
+                                    "block": true,
+                                    "line": 48
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 46
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Point as _center_, arc from A, to B, at a distance c.radius ",
+                            "block": true,
+                            "line": 20
+                        }
+                    ]
+                },
+                "line": 14
+            },
+            "ArcPlot": {
+                "class_name": "ArcPlot",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "fromTo",
+                        "class_name": "ArcPlot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "centerPoint"
+                            },
+                            {
+                                "name": "fromPoint"
+                            },
+                            {
+                                "name": "toPoint"
+                            },
+                            {
+                                "name": "direction"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 199
+                    },
+                    {
+                        "method_name": "sweep",
+                        "class_name": "ArcPlot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "centerPoint"
+                            },
+                            {
+                                "name": "radSweep"
+                            },
+                            {
+                                "name": "direction",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 203
+                    },
+                    {
+                        "method_name": "though",
+                        "class_name": "ArcPlot",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "centerPoint"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 207
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "line": 197
+            }
+        },
+        "functions": [
+            {
+                "name": "getArcCenter",
+                "kind": "function",
+                "type": "function",
+                "line": 60,
+                "params": [
+                    {
+                        "name": "A"
+                    },
+                    {
+                        "name": "B"
+                    },
+                    {
+                        "name": "C"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "getArcCenterThrough",
+                "kind": "function",
+                "type": "function",
+                "line": 92,
+                "params": [
+                    {
+                        "name": "A"
+                    },
+                    {
+                        "name": "B"
+                    },
+                    {
+                        "name": "C"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "getRadiusPlot",
+                "kind": "function",
+                "type": "function",
+                "line": 143,
+                "params": [
+                    {
+                        "name": "A"
+                    },
+                    {
+                        "name": "B"
+                    },
+                    {
+                        "name": "radius"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "penArcPlot",
+                "kind": "const",
+                "line": 175,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "arcPlot"
+                    },
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "color",
+                        "default_value": "red"
+                    },
+                    {
+                        "name": "width",
+                        "default_value": 2
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "drawArcPlot",
+                "kind": "const",
+                "line": 188,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "arcPlot"
+                    },
+                    {
+                        "name": "ctx"
+                    },
+                    {
+                        "name": "color",
+                        "default_value": "red"
+                    },
+                    {
+                        "name": "width",
+                        "default_value": 2
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "getArcPlotAngle",
+                "kind": "const",
+                "line": 213,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Given an arcplot object return the angle difference between\r\n    the two arc points.\r\n\r\n    For example if the two items are pointing directly away from each other,\r\n    the result is 180 (degrees)\r\n    ",
+                            "block": true,
+                            "line": 219
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "arcPlot"
+                    },
+                    {
+                        "name": "direction",
+                        "default_value": 1
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "arcSweep",
+                "kind": "const",
+                "line": 230,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Draw an arc as a _sweep_, using the center point initial direction\r\n    and a angle to sweep through.\r\n\r\n    Draw a 1/4 pie arc\r\n\r\n        let arcPlot = arcSweep(centerPoint, Math.PI * .5)\r\n    ",
+                            "block": true,
+                            "line": 237
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "centerPoint"
+                    },
+                    {
+                        "name": "radSweep"
+                    },
+                    {
+                        "name": "direction",
+                        "default_value": 0
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "arcFromTo",
+                "kind": "const",
+                "line": 256,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " An arc, starting at `fromPoint`, ending at `toPoint`, the origin center,\r\n    at a distance from the center, equal to the center point radius.\r\n\r\n        let arcPlot = arcFromTo(centerPoint, fromPoint, toPoint)\r\n        penArcPlot(arcPlot, ctx, 'orange')\r\n\r\n    the  _from_ or _to_ point may be at any distance from the center point.\r\n    ",
+                            "block": true,
+                            "line": 264
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "centerPoint"
+                    },
+                    {
+                        "name": "fromPoint"
+                    },
+                    {
+                        "name": "toPoint"
+                    },
+                    {
+                        "name": "direction",
+                        "default_value": 0
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "findThirdPoint",
+                "kind": "function",
+                "type": "function",
+                "line": 285,
+                "params": [
+                    {
+                        "name": "A"
+                    },
+                    {
+                        "name": "B"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "findRadius",
+                "kind": "function",
+                "type": "function",
+                "line": 315,
+                "params": [
+                    {
+                        "name": "pointA"
+                    },
+                    {
+                        "name": "pointB"
+                    },
+                    {
+                        "name": "pointC"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "arcPlotTo",
+                "kind": "function",
+                "type": "function",
+                "line": 338,
+                "params": [
+                    {
+                        "name": "center"
+                    },
+                    {
+                        "name": "start"
+                    },
+                    {
+                        "name": "sweepDegrees"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "arc.js",
+        "path": "/workspaces/polypoint/point_src/arc.js",
+        "size": 9420,
+        "parsed_date": "2025-11-02T21:11:32.119Z"
+    }
+}

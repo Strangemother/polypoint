@@ -1,0 +1,2399 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "StageBase",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "method",
+                    "word": "addonAnnounceHandler",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "pos": {
+                            "start": 887,
+                            "end": 1373,
+                            "loc": {
+                                "start": {
+                                    "line": 35,
+                                    "column": 24
+                                },
+                                "end": {
+                                    "line": 49,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " an addon instance has anounced itself. Perform the addComponent ",
+                                "block": true,
+                                "line": 34
+                            }
+                        ],
+                        "inner": [
+                            {
+                                "text": " this.dispatch('stage:prepare', {target, id, canvas })",
+                                "block": false,
+                                "line": 38
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 867,
+                        "end": 1373,
+                        "loc": {
+                            "start": {
+                                "line": 35,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 49,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "dispatch",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1389,
+                            "end": 1688,
+                            "loc": {
+                                "start": {
+                                    "line": 51,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 58,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " this.dispatch('prepare', { target, id, stage: this, canvas })",
+                                "block": false,
+                                "line": 52
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1381,
+                        "end": 1688,
+                        "loc": {
+                            "start": {
+                                "line": 51,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 58,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "_dispatchPrepare",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1803,
+                            "end": 1879,
+                            "loc": {
+                                "start": {
+                                    "line": 62,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Given a dictionary, return a finished dictionary, ready for event\r\n    dispatch ",
+                                "block": true,
+                                "line": 61
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1787,
+                        "end": 1879,
+                        "loc": {
+                            "start": {
+                                "line": 62,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 65,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "addComponent",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "name"
+                            },
+                            {
+                                "name": "instance"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2034,
+                            "end": 2273,
+                            "loc": {
+                                "start": {
+                                    "line": 69,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 77,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " a given object is mounted on _this_ - such as the `mouse`.\r\n    This may be called in response to a 'stage:prepare' event.  ",
+                                "block": true,
+                                "line": 68
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2022,
+                        "end": 2273,
+                        "loc": {
+                            "start": {
+                                "line": 69,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 77,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "log",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 2284,
+                            "end": 2404,
+                            "loc": {
+                                "start": {
+                                    "line": 79,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 82,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " console.log.apply(console, Array.from(arguments))",
+                                "block": false,
+                                "line": 81
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2281,
+                        "end": 2404,
+                        "loc": {
+                            "start": {
+                                "line": 79,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 82,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " an addon instance has anounced itself. Perform the addComponent ",
+                        "block": true,
+                        "line": 34
+                    }
+                ]
+            },
+            "pos": {
+                "start": 767,
+                "end": 2409,
+                "loc": {
+                    "start": {
+                        "line": 32,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 84,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "StageRender",
+            "parentName": "StageBase",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "_drawFunc",
+                    "computed": false,
+                    "static": false,
+                    "value": null,
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 2456,
+                        "end": 2465,
+                        "loc": {
+                            "start": {
+                                "line": 87,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 87,
+                                "column": 13
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "_loopDraw",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 2483,
+                            "end": 2487,
+                            "loc": {
+                                "start": {
+                                    "line": 88,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 88,
+                                    "column": 20
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 2471,
+                        "end": 2487,
+                        "loc": {
+                            "start": {
+                                "line": 88,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 88,
+                                "column": 20
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "debounceResize",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "true",
+                        "value": true,
+                        "pos": {
+                            "start": 2512,
+                            "end": 2516,
+                            "loc": {
+                                "start": {
+                                    "line": 90,
+                                    "column": 21
+                                },
+                                "end": {
+                                    "line": 90,
+                                    "column": 25
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 2495,
+                        "end": 2516,
+                        "loc": {
+                            "start": {
+                                "line": 90,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 90,
+                                "column": 25
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "property",
+                    "word": "debounceResizeTimeout",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "100",
+                        "value": 100,
+                        "pos": {
+                            "start": 2546,
+                            "end": 2549,
+                            "loc": {
+                                "start": {
+                                    "line": 91,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 91,
+                                    "column": 31
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 2522,
+                        "end": 2549,
+                        "loc": {
+                            "start": {
+                                "line": 91,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 91,
+                                "column": 31
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "drawFunc"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2568,
+                            "end": 3483,
+                            "loc": {
+                                "start": {
+                                    "line": 93,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 122,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n            Accept a `canvas` node and an optional `draw` function, prepare\r\n            the stage draw routine. If the `canvas` is given, immediately call\r\n            `this.prepare(canvas)` to initiate the layer.\r\n\r\n                new StageRender(canvas, ()=>{})\r\n\r\n            Any given `drawFunc` overrides the existing `this.stageStartDraw` method\r\n            and expects the _next_ method to call once complete:\r\n\r\n            The default `this.draw(ctx)` method is given`\r\n\r\n                this.stageStartDraw(this.draw)\r\n\r\n         ",
+                                "block": true,
+                                "line": 108
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2557,
+                        "end": 3483,
+                        "loc": {
+                            "start": {
+                                "line": 93,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 122,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "stickCanvasSize",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "size"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3506,
+                            "end": 4625,
+                            "loc": {
+                                "start": {
+                                    "line": 124,
+                                    "column": 19
+                                },
+                                "end": {
+                                    "line": 154,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Return the result of the bounding box function, else resort\r\n        to the object w/h ",
+                                "block": true,
+                                "line": 127
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3491,
+                        "end": 4625,
+                        "loc": {
+                            "start": {
+                                "line": 124,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 154,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "center",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4643,
+                            "end": 4693,
+                            "loc": {
+                                "start": {
+                                    "line": 156,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 158,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 4633,
+                        "end": 4693,
+                        "loc": {
+                            "start": {
+                                "line": 156,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 158,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "prepare",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "target"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4708,
+                            "end": 6575,
+                            "loc": {
+                                "start": {
+                                    "line": 160,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 214,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Perform any preparations for this stage instance to run the\r\n          canvas tools. This includes resolving and measuring the canvas.\r\n\r\n            class MainStage extends Stage {\r\n                canvas = playspace\r\n                prepare(target){\r\n                    super.prepare(target)\r\n                    // ...\r\n                }\r\n            }\r\n\r\n        This will run automatically if the canvas is given in the constructor\r\n\r\n            new MainStage(canvas)\r\n            // _prepared == true\r\n\r\n        Once prepared the stage is essentially ready-to-go.\r\n\r\n            stage = new MainStage()\r\n            stage.prepare(canvas)\r\n            stage.update()\r\n\r\n        ",
+                                "block": true,
+                                "line": 183
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4701,
+                        "end": 6575,
+                        "loc": {
+                            "start": {
+                                "line": 160,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 214,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "mounted",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6590,
+                            "end": 6666,
+                            "loc": {
+                                "start": {
+                                    "line": 216,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 218,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " A Convenient place to perform initial work. ",
+                                "block": true,
+                                "line": 217
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 6583,
+                        "end": 6666,
+                        "loc": {
+                            "start": {
+                                "line": 216,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 218,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "stop",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "freeze",
+                                "default_value": true
+                            }
+                        ],
+                        "pos": {
+                            "start": 6678,
+                            "end": 6736,
+                            "loc": {
+                                "start": {
+                                    "line": 220,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 222,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 6674,
+                        "end": 6736,
+                        "loc": {
+                            "start": {
+                                "line": 220,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 222,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "ensurePrepared",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6758,
+                            "end": 6836,
+                            "loc": {
+                                "start": {
+                                    "line": 224,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 226,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 6744,
+                        "end": 6836,
+                        "loc": {
+                            "start": {
+                                "line": 224,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 226,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "go",
+                    "static": true,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "additionalData",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6853,
+                            "end": 7135,
+                            "loc": {
+                                "start": {
+                                    "line": 228,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 236,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Make a copy of a new Stage.\r\n        Call prepare() if required. If `additionalData.loop` is `true` (default)\r\n        start the update loopDraw\r\n        ",
+                                "block": true,
+                                "line": 232
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 6844,
+                        "end": 7135,
+                        "loc": {
+                            "start": {
+                                "line": 228,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 236,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "freeze",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "freeze",
+                                "default_value": true
+                            }
+                        ],
+                        "pos": {
+                            "start": 7149,
+                            "end": 7293,
+                            "loc": {
+                                "start": {
+                                    "line": 238,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 243,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 7143,
+                        "end": 7293,
+                        "loc": {
+                            "start": {
+                                "line": 238,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 243,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "unfreeze",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "timeout",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "force",
+                                "default_value": false
+                            }
+                        ],
+                        "pos": {
+                            "start": 7309,
+                            "end": 7553,
+                            "loc": {
+                                "start": {
+                                    "line": 245,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 254,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " 1ms delay for a next tick. ",
+                                "block": true,
+                                "line": 246
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 7301,
+                        "end": 7553,
+                        "loc": {
+                            "start": {
+                                "line": 245,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 254,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "cleanGoConfig",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "info"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7574,
+                            "end": 8153,
+                            "loc": {
+                                "start": {
+                                    "line": 256,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 282,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n            Return a dict, if the:\r\n\r\n            + is dict,\r\n            + thing is a string, assume name\r\n            + thing is node, assume canvas\r\n         ",
+                                "block": true,
+                                "line": 263
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 7561,
+                        "end": 8153,
+                        "loc": {
+                            "start": {
+                                "line": 256,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 282,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "go",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "additionalData",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8163,
+                            "end": 9024,
+                            "loc": {
+                                "start": {
+                                    "line": 284,
+                                    "column": 6
+                                },
+                                "end": {
+                                    "line": 306,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Make a copy of a new Stage.\r\n        Call prepare() if required. If `additionalData.loop` is `true` (default)\r\n        start the update loopDraw\r\n        ",
+                                "block": true,
+                                "line": 288
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8161,
+                        "end": 9024,
+                        "loc": {
+                            "start": {
+                                "line": 284,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 306,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "stageStartDraw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "drawFunc"
+                            }
+                        ],
+                        "pos": {
+                            "start": 9046,
+                            "end": 9631,
+                            "loc": {
+                                "start": {
+                                    "line": 308,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 325,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " When using the internal loop drawing the first draw call occurs\r\n        through this method, calling `firstDraw` once, then\r\n        changing the internal draw function to the typical `this.draw`\r\n\r\n        If `this.draw` is not a method, `this.update()` is called and the\r\n        `stopDraw` method is called.\r\n        ",
+                                "block": true,
+                                "line": 315
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 9032,
+                        "end": 9631,
+                        "loc": {
+                            "start": {
+                                "line": 308,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 325,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "loopDraw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 9647,
+                            "end": 10033,
+                            "loc": {
+                                "start": {
+                                    "line": 327,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 339,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " A helper function to apply this stage to the animation frame,\r\n        calling `update()` for every frame.\r\n\r\n        Call once to start the loop.\r\n\r\n                stage = new MainStage()\r\n                stage.prepare(canvas)\r\n                stage.loopDraw()\r\n        ",
+                                "block": true,
+                                "line": 336
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 9639,
+                        "end": 10033,
+                        "loc": {
+                            "start": {
+                                "line": 327,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 339,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "get",
+                    "word": "ctx",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 10048,
+                            "end": 10211,
+                            "loc": {
+                                "start": {
+                                    "line": 341,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 345,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Return the cached context object of the current canvas.\r\n        ",
+                                "block": true,
+                                "line": 343
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 10041,
+                        "end": 10211,
+                        "loc": {
+                            "start": {
+                                "line": 341,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 345,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getContext",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "canvas"
+                            },
+                            {
+                                "name": "type",
+                                "default_value": "2d"
+                            }
+                        ],
+                        "pos": {
+                            "start": 10229,
+                            "end": 11754,
+                            "loc": {
+                                "start": {
+                                    "line": 347,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 383,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n        + `alpha`:\r\n                A boolean value that indicates if the canvas contains an alpha\r\n                channel. If set to false, the browser now knows that the\r\n                backdrop is always opaque, which can speed up drawing of\r\n                transparent content and images.\r\n\r\n        + `colorSpace` Optional:\r\n                Specifies the color space of the rendering context.\r\n                Possible values are:\r\n\r\n                    \"srgb\" selects the sRGB color space. (default value)\r\n                    \"display-p3\" selects the display-p3 color space.\r\n\r\n        + `desynchronized`:\r\n                A boolean value that hints the user agent to reduce the\r\n                latency by desynchronizing the canvas paint cycle from the\r\n                event loop.\r\n\r\n        + `willReadFrequently`:\r\n                A boolean value that indicates whether or not a lot of\r\n                read-back operations are planned. This will force the use of\r\n                a software (instead of hardware accelerated) 2D canvas and\r\n                can save memory when calling getImageData() frequently.\r\n         ",
+                                "block": true,
+                                "line": 372
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 10219,
+                        "end": 11754,
+                        "loc": {
+                            "start": {
+                                "line": 347,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 383,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "update",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 11768,
+                            "end": 12377,
+                            "loc": {
+                                "start": {
+                                    "line": 385,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 409,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n            inline update per draw. For each call:\r\n\r\n            + all _drawBefore_ methods\r\n            + all _nextTick_ methods\r\n            + the `draw` method (mapped through `this._drawFunc`)\r\n            + all _drawAfter_ methods\r\n        ",
+                                "block": true,
+                                "line": 393
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11762,
+                        "end": 12377,
+                        "loc": {
+                            "start": {
+                                "line": 385,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 409,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "nextTick",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "pos": {
+                            "start": 12393,
+                            "end": 13182,
+                            "loc": {
+                                "start": {
+                                    "line": 411,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 435,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Run the given function (with context) on the next draw call.\r\n        This function is very similar to `onDrawBefore`, but only runs _once_.\r\n\r\n            stage.nextTick(function(ctx){\r\n                // run next time.\r\n                stage.runCustomRender(ctx)\r\n            })\r\n\r\n        This is useful for performing clearups, or running routines on\r\n        single action:\r\n\r\n            let v = this.v = new Value(this.p.radius, width, easing)\r\n            v.doneHandler = ()=>{\r\n                // st.switchOut()\r\n                this.nextTick(this.switchOut.bind(this))\r\n            }\r\n\r\n            switchOut() {\r\n                this.log('doneHandler')\r\n                this.v = undefined;\r\n            }\r\n        ",
+                                "block": true,
+                                "line": 433
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 12385,
+                        "end": 13182,
+                        "loc": {
+                            "start": {
+                                "line": 411,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 435,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "onTick",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "tick"
+                            },
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13196,
+                            "end": 13481,
+                            "loc": {
+                                "start": {
+                                    "line": 437,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 450,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " modulo auto ",
+                                "block": true,
+                                "line": 438
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 13190,
+                        "end": 13481,
+                        "loc": {
+                            "start": {
+                                "line": 437,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 450,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "onDrawAfter",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13500,
+                            "end": 13551,
+                            "loc": {
+                                "start": {
+                                    "line": 452,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 454,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 13489,
+                        "end": 13551,
+                        "loc": {
+                            "start": {
+                                "line": 452,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 454,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "offDrawAfter",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13571,
+                            "end": 13671,
+                            "loc": {
+                                "start": {
+                                    "line": 456,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 459,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 13559,
+                        "end": 13671,
+                        "loc": {
+                            "start": {
+                                "line": 456,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 459,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "onDrawBefore",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13691,
+                            "end": 13743,
+                            "loc": {
+                                "start": {
+                                    "line": 461,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 463,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 13679,
+                        "end": 13743,
+                        "loc": {
+                            "start": {
+                                "line": 461,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 463,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "offDrawBefore",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13764,
+                            "end": 13866,
+                            "loc": {
+                                "start": {
+                                    "line": 465,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 468,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 13751,
+                        "end": 13866,
+                        "loc": {
+                            "start": {
+                                "line": 465,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 468,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "firstDraw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13883,
+                            "end": 14365,
+                            "loc": {
+                                "start": {
+                                    "line": 470,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 485,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " The `firstDraw(ctx)` method us used _once_ when drawing starts.\r\n        This occurs before the first `update()` call is performed.\r\n\r\n        This is useful if you're setting context arguments - but only need to\r\n        set them once.\r\n\r\n            class Main extends Stage {\r\n                firstDraw(ctx) {\r\n                    ctx.fillStyle = '#ccc'\r\n                    ctx.font = 'normal 1em arial'\r\n                }\r\n            }\r\n\r\n        ",
+                                "block": true,
+                                "line": 484
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 13874,
+                        "end": 14365,
+                        "loc": {
+                            "start": {
+                                "line": 470,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 485,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "draw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 14377,
+                            "end": 15150,
+                            "loc": {
+                                "start": {
+                                    "line": 487,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 517,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " The primary rendering function to override.\r\n        Called by the `update()` method, given the context `ctx` of the\r\n        target canvas.\r\n\r\n        This is essentially the same as running the update function\r\n        manually:\r\n\r\n\r\n            const ctx = canvas.getContext('2d');\r\n            const stage = new MainStage()\r\n\r\n            stage.prepare(canvas)\r\n\r\n            function draw() {\r\n\r\n                // or: stage.clear(ctx)\r\n                ctx.clearRect(0, 0, canvas.width, canvas.height);\r\n\r\n                // Run the draw routines\r\n                stage.draw(ctx)\r\n\r\n                // And rinse repeat.\r\n                requestAnimationFrame(draw);\r\n\r\n            }\r\n\r\n            draw()\r\n        ",
+                                "block": true,
+                                "line": 515
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 14373,
+                        "end": 15150,
+                        "loc": {
+                            "start": {
+                                "line": 487,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 517,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "clear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "fillStyle",
+                                "default_value": null
+                            }
+                        ],
+                        "pos": {
+                            "start": 15163,
+                            "end": 15840,
+                            "loc": {
+                                "start": {
+                                    "line": 519,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 541,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Perform a standard 'clearRect' using the cached dimensions of the\r\n        canvas.\r\n\r\n            stage.clear(ctx)\r\n\r\n        Synonymous to:\r\n\r\n            const ctx = canvas.getContext('2d');\r\n            ctx.clearRect(0, 0, canvas.width, canvas.height);\r\n\r\n        Apply an optional flood fillStyle:\r\n\r\n            stage.clear(ctx, '#000')\r\n        ",
+                                "block": true,
+                                "line": 533
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 15158,
+                        "end": 15840,
+                        "loc": {
+                            "start": {
+                                "line": 519,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 541,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "\r\n            Accept a `canvas` node and an optional `draw` function, prepare\r\n            the stage draw routine. If the `canvas` is given, immediately call\r\n            `this.prepare(canvas)` to initiate the layer.\r\n\r\n                new StageRender(canvas, ()=>{})\r\n\r\n            Any given `drawFunc` overrides the existing `this.stageStartDraw` method\r\n            and expects the _next_ method to call once complete:\r\n\r\n            The default `this.draw(ctx)` method is given`\r\n\r\n                this.stageStartDraw(this.draw)\r\n\r\n         ",
+                        "block": true,
+                        "line": 108
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2413,
+                "end": 15843,
+                "loc": {
+                    "start": {
+                        "line": 86,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 542,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "Stage",
+            "parentName": "StageRender",
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "property",
+                    "word": "loaded",
+                    "computed": false,
+                    "static": false,
+                    "value": {
+                        "kind": "literal",
+                        "raw": "false",
+                        "value": false,
+                        "pos": {
+                            "start": 15901,
+                            "end": 15906,
+                            "loc": {
+                                "start": {
+                                    "line": 548,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 548,
+                                    "column": 18
+                                }
+                            }
+                        }
+                    },
+                    "type": "PropertyDefinition",
+                    "pos": {
+                        "start": 15892,
+                        "end": 15906,
+                        "loc": {
+                            "start": {
+                                "line": 548,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 548,
+                                "column": 18
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "prepare",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "target"
+                            }
+                        ],
+                        "pos": {
+                            "start": 15921,
+                            "end": 16105,
+                            "loc": {
+                                "start": {
+                                    "line": 550,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 559,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 15914,
+                        "end": 16105,
+                        "loc": {
+                            "start": {
+                                "line": 550,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 559,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "load",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 16117,
+                            "end": 16361,
+                            "loc": {
+                                "start": {
+                                    "line": 561,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 569,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Called once by the prepare() method, to act as a first-time\r\n         loader for the stage.\r\n\r\n         Apply global hooks here.\r\n        ",
+                                "block": true,
+                                "line": 566
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 16113,
+                        "end": 16361,
+                        "loc": {
+                            "start": {
+                                "line": 561,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 569,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Called once by the prepare() method, to act as a first-time\r\n         loader for the stage.\r\n\r\n         Apply global hooks here.\r\n        ",
+                        "block": true,
+                        "line": 566
+                    }
+                ]
+            },
+            "pos": {
+                "start": 15851,
+                "end": 16364,
+                "loc": {
+                    "start": {
+                        "line": 546,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 570,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 16370,
+                "end": 16399,
+                "loc": {
+                    "start": {
+                        "line": 573,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 573,
+                        "column": 29
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 16370,
+                    "end": 16392,
+                    "loc": {
+                        "start": {
+                            "line": 573,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 573,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 16370,
+                        "end": 16384,
+                        "loc": {
+                            "start": {
+                                "line": 573,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 573,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 16370,
+                            "end": 16379,
+                            "loc": {
+                                "start": {
+                                    "line": 573,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 573,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 16370,
+                                "end": 16379,
+                                "loc": {
+                                    "start": {
+                                        "line": 573,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 573,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 16380,
+                            "end": 16384,
+                            "loc": {
+                                "start": {
+                                    "line": 573,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 573,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 16380,
+                                "end": 16384,
+                                "loc": {
+                                    "start": {
+                                        "line": 573,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 573,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 16370,
+                            "end": 16384,
+                            "loc": {
+                                "start": {
+                                    "line": 573,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 573,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 16385,
+                        "end": 16392,
+                        "loc": {
+                            "start": {
+                                "line": 573,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 573,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 16385,
+                            "end": 16392,
+                            "loc": {
+                                "start": {
+                                    "line": 573,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 573,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 16370,
+                        "end": 16392,
+                        "loc": {
+                            "start": {
+                                "line": 573,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 573,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 16393,
+                        "end": 16398,
+                        "loc": {
+                            "start": {
+                                "line": 573,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 573,
+                                "column": 28
+                            }
+                        },
+                        "name": "Stage",
+                        "pos": {
+                            "start": 16393,
+                            "end": 16398,
+                            "loc": {
+                                "start": {
+                                    "line": 573,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 573,
+                                    "column": 28
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 16370,
+                    "end": 16399,
+                    "loc": {
+                        "start": {
+                            "line": 573,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 573,
+                            "column": 29
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 16370,
+                "end": 16399,
+                "loc": {
+                    "start": {
+                        "line": 573,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 573,
+                        "column": 29
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "stage.js",
+        "path": "/workspaces/polypoint/point_src/stage.js",
+        "size": 16403,
+        "parsed_date": "2025-11-02T21:11:40.863Z"
+    }
+}

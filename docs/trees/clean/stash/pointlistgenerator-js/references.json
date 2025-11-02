@@ -1,0 +1,455 @@
+{
+    "src_file": "pointlistgenerator.js",
+    "references": {
+        "classes": {
+            "GridTools": {
+                "class_name": "GridTools",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "GridTools",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "parent"
+                            },
+                            {
+                                "name": "width"
+                            },
+                            {
+                                "name": "pos"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 4
+                    },
+                    {
+                        "method_name": "getColumn",
+                        "class_name": "GridTools",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "index"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Return a pointlist of the items within the pseudo grid\r\n\r\n        let gridTools = new GridTools(pointList, 10)\r\n        let columnPointList = gridTools.getColumn(gridTools.width-1)\r\n        columnPointList.setMany(DOWN_DEG, 'rotation')\r\n\r\n    ",
+                                    "block": true,
+                                    "line": 16
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " allow index -1 etc, to reduce from the right. ",
+                                    "block": true,
+                                    "line": 19
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 17
+                    },
+                    {
+                        "method_name": "getRow",
+                        "class_name": "GridTools",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "i"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 33
+                    },
+                    {
+                        "method_name": "getRect",
+                        "class_name": "GridTools",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Splice a segment from the grid in the form of a rectagle",
+                                    "block": true,
+                                    "line": 37
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 38
+                    },
+                    {
+                        "method_name": "subdivide",
+                        "class_name": "GridTools",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "split",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "mutate",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Subdivide all cells within the grid by the given `split` integer.\r\n        This adds up to 5 points to divide a _quad_ into 4 equal quads.\r\n\r\n        if `mutate` is true, the new points are inserted into the grid, accounting\r\n        for the row count offset.\r\n\r\n        If mutate is false, return the new points.\r\n\r\n            points = PointList.generate.grid(16, 4, 50)\r\n            points.getGridTool().subdivide(1, true)\r\n            // points.length == 40\r\n        ",
+                                    "block": true,
+                                    "line": 52
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 40
+                    },
+                    {
+                        "method_name": "getSiblings",
+                        "class_name": "GridTools",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "index"
+                            },
+                            {
+                                "name": "columnCount"
+                            },
+                            {
+                                "name": "rowCount"
+                            },
+                            {
+                                "name": "total"
+                            },
+                            {
+                                "name": "expand",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Given a point, or index, return the siblings of the grid\r\n\r\n        `rowCount` or `total` is required\r\n    ",
+                                    "block": true,
+                                    "line": 60
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " Up must step back as many cells as a column",
+                                    "block": true,
+                                    "line": 68
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 61
+                    },
+                    {
+                        "method_name": "getSiblings8",
+                        "class_name": "GridTools",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "index"
+                            },
+                            {
+                                "name": "columnCount"
+                            },
+                            {
+                                "name": "rowCount"
+                            },
+                            {
+                                "name": "total"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " If rowCount is not given, assume a square grid rowCount == columnCount",
+                                    "block": false,
+                                    "line": 103
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 102
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Return a pointlist of the items within the pseudo grid\r\n\r\n        let gridTools = new GridTools(pointList, 10)\r\n        let columnPointList = gridTools.getColumn(gridTools.width-1)\r\n        columnPointList.setMany(DOWN_DEG, 'rotation')\r\n\r\n    ",
+                            "block": true,
+                            "line": 16
+                        }
+                    ]
+                },
+                "line": 2
+            },
+            "PointListGenerator": {
+                "class_name": "PointListGenerator",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointListGenerator",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "parent"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 140
+                    },
+                    {
+                        "method_name": "_distanceToPointFunction",
+                        "class_name": "PointListGenerator",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "distance"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " If the given object is a _point_, each step is\r\n            multiplied. ",
+                                    "block": true,
+                                    "line": 153
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 145
+                    },
+                    {
+                        "method_name": "radius",
+                        "class_name": "PointListGenerator",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "count"
+                            },
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "origin"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Synonymous to:\r\n\r\n            randomPoints = PointList.generate.random(pointCount)\r\n            // Alter the positions of all the points, a radius of 100, at a position\r\n            randomPoints.shape.radius(100, point(200,200))\r\n        ",
+                                    "block": true,
+                                    "line": 174
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 168
+                    },
+                    {
+                        "method_name": "countOf",
+                        "class_name": "PointListGenerator",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "count"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Genrate a count of points, without editing the values. ",
+                                    "block": true,
+                                    "line": 184
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 183
+                    },
+                    {
+                        "method_name": "list",
+                        "class_name": "PointListGenerator",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "count",
+                                "default_value": 5
+                            },
+                            {
+                                "name": "distance",
+                                "default_value": 10
+                            },
+                            {
+                                "name": "origin",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\r\n            Generate a list of points to a _count_.\r\n\r\n            PointList.generate.list(100)\r\n\r\n        Provide an offset per step:\r\n\r\n            PointList.generate.list(100, distance=10)\r\n            PointList.generate.list(100, distance=point(10,10))\r\n\r\n        ",
+                                    "block": true,
+                                    "line": 206
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 195
+                    },
+                    {
+                        "method_name": "random",
+                        "class_name": "PointListGenerator",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "count"
+                            },
+                            {
+                                "name": "multiplier",
+                                "default_value": 100
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": "{x: 0, y: 0, radius: 0, ...}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Generate a set of random points\r\n\r\n            PointList.generate.random(10)\r\n\r\n        Apply a multipler and offset:\r\n\r\n            let count = 20\r\n            let multiplier = [300, 200, null, 0]\r\n            let offset = [100, 100, 10, 0]\r\n\r\n            PointList.generate.random(count, multiplier, offset)\r\n\r\n         ",
+                                    "block": true,
+                                    "line": 233
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 220
+                    },
+                    {
+                        "method_name": "grid",
+                        "class_name": "PointListGenerator",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointCount"
+                            },
+                            {
+                                "name": "rowCount"
+                            },
+                            {
+                                "name": "pointSpread"
+                            },
+                            {
+                                "name": "gridPosition"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 272
+                    },
+                    {
+                        "method_name": "getGridTool",
+                        "class_name": "PointListGenerator",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "rowCount"
+                            },
+                            {
+                                "name": "pos"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 296
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " If the given object is a _point_, each step is\r\n            multiplied. ",
+                            "block": true,
+                            "line": 153
+                        }
+                    ]
+                },
+                "line": 138
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "pointlistgenerator.js",
+        "path": "/workspaces/polypoint/point_src/pointlistgenerator.js",
+        "size": 9123,
+        "parsed_date": "2025-11-02T21:11:38.203Z"
+    }
+}

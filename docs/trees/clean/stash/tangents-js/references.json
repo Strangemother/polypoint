@@ -1,0 +1,560 @@
+{
+    "src_file": "tangents.js",
+    "references": {
+        "classes": {
+            "PointTangents": {
+                "class_name": "PointTangents",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointTangents",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 230
+                    },
+                    {
+                        "method_name": "calculateTangentLines",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Calculate distance between centers",
+                                    "block": false,
+                                    "line": 238
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 234
+                    },
+                    {
+                        "method_name": "calculateCrossTangentLines",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Distance between centers",
+                                    "block": false,
+                                    "line": 290
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 286
+                    },
+                    {
+                        "method_name": "calculateConcaveTangentArcs",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            },
+                            {
+                                "name": "length"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 342
+                    },
+                    {
+                        "method_name": "calculateConvexTangentArcs",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "pointA"
+                            },
+                            {
+                                "name": "pointB"
+                            },
+                            {
+                                "name": "length"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 346
+                    },
+                    {
+                        "method_name": "points",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return two points on _this_ point for the _start_ of two tangent lines\r\n            [a(top), b(top), a(bottom), b(bottom)]\r\n        ",
+                                    "block": true,
+                                    "line": 353
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 350
+                    },
+                    {
+                        "method_name": "outerLines",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return lines _a_ and _b_, each being a direct tagent ",
+                                    "block": true,
+                                    "line": 359
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 358
+                    },
+                    {
+                        "method_name": "crossLines",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return the inner tagents, point A (top), to point B (bottom), and\r\n        the antethisis. similar to [ab(), ba()]",
+                                    "block": true,
+                                    "line": 366
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 364
+                    },
+                    {
+                        "method_name": "lineA",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return a line (two points) for the _top_ direct tagent. ",
+                                    "block": true,
+                                    "line": 370
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 369
+                    },
+                    {
+                        "method_name": "lineB",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return a line (two points) for the _bottom_ direct tagent. ",
+                                    "block": true,
+                                    "line": 376
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 375
+                    },
+                    {
+                        "method_name": "a",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return the top line tangent _start_ point ",
+                                    "block": true,
+                                    "line": 382
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 381
+                    },
+                    {
+                        "method_name": "b",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return the bottom line _start_ point ",
+                                    "block": true,
+                                    "line": 388
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 387
+                    },
+                    {
+                        "method_name": "aa",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return the _line_ of pointA (top), to pointB (top)\r\n        Similar to `this.points(other)[0,2]` ",
+                                    "block": true,
+                                    "line": 395
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 393
+                    },
+                    {
+                        "method_name": "bb",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return the antipose parallel tangent to aa(), similar to\r\n        `this.points(other)[1,4]`\r\n        ",
+                                    "block": true,
+                                    "line": 403
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 400
+                    },
+                    {
+                        "method_name": "ab",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return the tangent line _through_ the center, similar to points [0,3]\r\n        However the tangent points are adjusted - rotated around the radius. ",
+                                    "block": true,
+                                    "line": 410
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 408
+                    },
+                    {
+                        "method_name": "ba",
+                        "class_name": "PointTangents",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return the tangent line point A (bottom), point B (top) ",
+                                    "block": true,
+                                    "line": 416
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 415
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Calculate distance between centers",
+                            "block": false,
+                            "line": 238
+                        }
+                    ]
+                },
+                "line": 228
+            }
+        },
+        "functions": [
+            {
+                "name": "calculateEdgeToEdgeLine",
+                "kind": "function",
+                "type": "function",
+                "line": 5,
+                "params": [
+                    {
+                        "name": "pointA"
+                    },
+                    {
+                        "name": "pointB"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "rawCalculateAdjustedRotatedTangentLines",
+                "kind": "function",
+                "type": "function",
+                "line": 33,
+                "params": [
+                    {
+                        "name": "pointA"
+                    },
+                    {
+                        "name": "pointB"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "calculateAdjustedRotatedTangentLines",
+                "kind": "function",
+                "type": "function",
+                "line": 90,
+                "params": [
+                    {
+                        "name": "pointA"
+                    },
+                    {
+                        "name": "pointB"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "arcTangents",
+                "kind": "let",
+                "line": 150,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " https://www.youtube.com/watch?v=fVbpIwh_S6o",
+                            "block": false,
+                            "line": 151
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "rLength"
+                    },
+                    {
+                        "name": "add",
+                        "default_value": true
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "twoPointsAngleRaw",
+                "kind": "const",
+                "line": 204,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "given two points, return the relative angle (in radians), of target from the origin.\r\n    For example if the target was left of the origin, this would be a -Math.PI ",
+                            "block": true,
+                            "line": 206
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "target"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "twoPointsAngle",
+                "kind": "const",
+                "line": 221,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "origin"
+                    },
+                    {
+                        "name": "target"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": [
+            {
+                "name": "halfPi",
+                "kind": "const",
+                "line": 88,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "tangents.js",
+        "path": "/workspaces/polypoint/point_src/tangents.js",
+        "size": 13151,
+        "parsed_date": "2025-11-02T21:11:41.544Z"
+    }
+}

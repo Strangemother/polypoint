@@ -1,0 +1,244 @@
+{
+    "src_file": "constrain-distance.js",
+    "references": {
+        "classes": {
+            "PointConstraints": {
+                "class_name": "PointConstraints",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointConstraints",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " string stuff ",
+                                    "block": true,
+                                    "line": 127
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 125
+                    },
+                    {
+                        "method_name": "track",
+                        "class_name": "PointConstraints",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Track another point using IK - this point follows the _other_ at a\r\n    set distance. ",
+                                    "block": true,
+                                    "line": 137
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": " return followPoint(other, this, settings)",
+                                    "block": false,
+                                    "line": 139
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 138
+                    },
+                    {
+                        "method_name": "leash",
+                        "class_name": "PointConstraints",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Track another point using constraints. This point follows the other\r\n    point at a distance or less. ",
+                                    "block": true,
+                                    "line": 144
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 145
+                    },
+                    {
+                        "method_name": "avoid",
+                        "class_name": "PointConstraints",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": " Ensure this point does not overlap the _other_ point. If an overlap\r\n    occurs, this point is moved. Fundamentally this is the antethsis of leash().",
+                                    "block": true,
+                                    "line": 150
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 151
+                    },
+                    {
+                        "method_name": "elbow",
+                        "class_name": "PointConstraints",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Connect this point and another point by their _edges_. Similar to\r\n        _track_ at a distance, but accounting for radius. ",
+                                    "block": true,
+                                    "line": 157
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 155
+                    },
+                    {
+                        "method_name": "string",
+                        "class_name": "PointConstraints",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Manipulate the _other_; with this entity as the origin owner.",
+                                    "block": false,
+                                    "line": 166
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 165
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " string stuff ",
+                            "block": true,
+                            "line": 127
+                        }
+                    ]
+                },
+                "line": 122
+            }
+        },
+        "functions": [
+            {
+                "name": "stringAttach",
+                "kind": "const",
+                "line": 49,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Apply gravity to the follow point's vertical velocity",
+                            "block": false,
+                            "line": 50
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "followPoint"
+                    },
+                    {
+                        "name": "originPoint"
+                    },
+                    {
+                        "name": "settings"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": [
+            {
+                "name": "constraints",
+                "kind": "const",
+                "line": 2,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Same as:\r\n\r\n            const ratio = maxDistance / distance;\r\n                pointB.x = pointA.x - d2d.x * ratio;\r\n                pointB.y = pointA.y - d2d.y * ratio;\r\n            ",
+                            "block": true,
+                            "line": 19
+                        }
+                    ]
+                },
+                "type": "object",
+                "properties": []
+            }
+        ]
+    },
+    "info": {
+        "filename": "constrain-distance.js",
+        "path": "/workspaces/polypoint/point_src/constrain-distance.js",
+        "size": 8276,
+        "parsed_date": "2025-11-02T21:11:33.727Z"
+    }
+}

@@ -1,0 +1,289 @@
+{
+    "src_file": "keyboard.js",
+    "references": {
+        "classes": {
+            "StageKeyboard": {
+                "class_name": "StageKeyboard",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "StageKeyboard",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 33
+                    },
+                    {
+                        "method_name": "wake",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 40
+                    },
+                    {
+                        "method_name": "stageKeydownHandler",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 47
+                    },
+                    {
+                        "method_name": "genericHandler",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('YEY!')",
+                                    "block": false,
+                                    "line": 59
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 56
+                    },
+                    {
+                        "method_name": "matchCode",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            },
+                            {
+                                "name": "item"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " console.log('Code', code)",
+                                    "block": false,
+                                    "line": 67
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 65
+                    },
+                    {
+                        "method_name": "stageKeyupHandler",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ev"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 83
+                    },
+                    {
+                        "method_name": "getEventParent",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "this.stage.canvas",
+                                    "block": false,
+                                    "line": 93
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 92
+                    },
+                    {
+                        "method_name": "receiverFunction",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "prop"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Unknoen prop call. ",
+                                    "block": true,
+                                    "line": 97
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 96
+                    },
+                    {
+                        "method_name": "onKeydown",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "codes"
+                            },
+                            {
+                                "name": "handler"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 104
+                    },
+                    {
+                        "method_name": "onKeyup",
+                        "class_name": "StageKeyboard",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "codes"
+                            },
+                            {
+                                "name": "handler"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 108
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " console.log('YEY!')",
+                            "block": false,
+                            "line": 59
+                        }
+                    ]
+                },
+                "line": 30
+            }
+        },
+        "functions": [
+            {
+                "name": "keyboardHandler",
+                "kind": "const",
+                "line": 117,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " return target[prop].apply(target, arguments)",
+                            "block": false,
+                            "line": 123
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "parent"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": [
+            {
+                "name": "KC",
+                "kind": "const",
+                "line": 1,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "object",
+                "properties": []
+            },
+            {
+                "name": "KEYS",
+                "kind": "const",
+                "line": 9,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " console.warn('Unknown KEY', prop)",
+                            "block": false,
+                            "line": 23
+                        }
+                    ]
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "keyboard.js",
+        "path": "/workspaces/polypoint/point_src/keyboard.js",
+        "size": 3224,
+        "parsed_date": "2025-11-02T21:11:36.670Z"
+    }
+}

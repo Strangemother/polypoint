@@ -1,0 +1,967 @@
+{
+    "src_file": "velocity.js",
+    "references": {
+        "classes": {
+            "VelocityReactor": {
+                "class_name": "VelocityReactor",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "VelocityReactor",
+                        "kind": "constructor",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 11
+                    },
+                    {
+                        "method_name": "step",
+                        "class_name": "VelocityReactor",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " perform a tick for every interval, creating points, and pushing\r\n        existing points ",
+                                    "block": true,
+                                    "line": 17
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 15
+                    },
+                    {
+                        "method_name": "setAll",
+                        "class_name": "VelocityReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "direction"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.reactor.setAll(direction)",
+                                    "block": false,
+                                    "line": 27
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 26
+                    },
+                    {
+                        "method_name": "setEach",
+                        "class_name": "VelocityReactor",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "f"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " this.reactor.setEach((p)=>random.xy())",
+                                    "block": false,
+                                    "line": 34
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 33
+                    },
+                    {
+                        "method_name": "randomize",
+                        "class_name": "VelocityReactor",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 41
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " perform a tick for every interval, creating points, and pushing\r\n        existing points ",
+                            "block": true,
+                            "line": 17
+                        }
+                    ]
+                },
+                "line": 10
+            },
+            "Vector": {
+                "class_name": "Vector",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Vector",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "x",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "y",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "parent",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 66
+                    },
+                    {
+                        "method_name": "len",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "x"
+                            },
+                            {
+                                "name": "y"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "  Static methods",
+                                    "block": false,
+                                    "line": 72
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": true,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 73
+                    },
+                    {
+                        "method_name": "angle",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "x"
+                            },
+                            {
+                                "name": "y"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": true,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "getClass",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 81
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 85
+                    },
+                    {
+                        "method_name": "sub",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 90
+                    },
+                    {
+                        "method_name": "mul",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 95
+                    },
+                    {
+                        "method_name": "div",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 100
+                    },
+                    {
+                        "method_name": "scale",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "coef"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 105
+                    },
+                    {
+                        "method_name": "mutableSet",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 110
+                    },
+                    {
+                        "method_name": "mutableAdd",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 116
+                    },
+                    {
+                        "method_name": "mutableSub",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 122
+                    },
+                    {
+                        "method_name": "mutableMul",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 128
+                    },
+                    {
+                        "method_name": "mutableDiv",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 134
+                    },
+                    {
+                        "method_name": "mutableScale",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "coef"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 140
+                    },
+                    {
+                        "method_name": "equals",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 146
+                    },
+                    {
+                        "method_name": "epsilonEquals",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            },
+                            {
+                                "name": "epsilon"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 150
+                    },
+                    {
+                        "method_name": "length",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 154
+                    },
+                    {
+                        "method_name": "length2",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 158
+                    },
+                    {
+                        "method_name": "dist",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 162
+                    },
+                    {
+                        "method_name": "dist2",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 166
+                    },
+                    {
+                        "method_name": "normal",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 172
+                    },
+                    {
+                        "method_name": "dot",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 178
+                    },
+                    {
+                        "method_name": "det",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 182
+                    },
+                    {
+                        "method_name": "set",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "x"
+                            },
+                            {
+                                "name": "y"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "  Instance methods",
+                                    "block": false,
+                                    "line": 186
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 187
+                    },
+                    {
+                        "method_name": "copy",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 195
+                    },
+                    {
+                        "method_name": "len",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 200
+                    },
+                    {
+                        "method_name": "angle",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 204
+                    },
+                    {
+                        "method_name": "angleWith",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 211
+                    },
+                    {
+                        "method_name": "angle2",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "vLeft"
+                            },
+                            {
+                                "name": "vRight"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 215
+                    },
+                    {
+                        "method_name": "rotate",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "origin"
+                            },
+                            {
+                                "name": "theta"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 219
+                    },
+                    {
+                        "method_name": "mutableRotate",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "r"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 227
+                    },
+                    {
+                        "method_name": "toString",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 236
+                    },
+                    {
+                        "method_name": "setLen",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "l"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 240
+                    },
+                    {
+                        "method_name": "normalize",
+                        "class_name": "Vector",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 253
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "  Static methods",
+                            "block": false,
+                            "line": 72
+                        }
+                    ]
+                },
+                "line": 64
+            },
+            "PointSpeed": {
+                "class_name": "PointSpeed",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointSpeed",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 266
+                    },
+                    {
+                        "method_name": "xy",
+                        "class_name": "PointSpeed",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 270
+                    },
+                    {
+                        "method_name": "xy",
+                        "class_name": "PointSpeed",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Likely override with a custom value. ",
+                                    "block": true,
+                                    "line": 292
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 291
+                    },
+                    {
+                        "method_name": "absolute",
+                        "class_name": "PointSpeed",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "multplier",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 296
+                    },
+                    {
+                        "method_name": "float",
+                        "class_name": "PointSpeed",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "multplier",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 300
+                    },
+                    {
+                        "method_name": "absFloat",
+                        "class_name": "PointSpeed",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "multplier",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 304
+                    },
+                    {
+                        "method_name": "direction",
+                        "class_name": "PointSpeed",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "multplier",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " return an angle representing the direction.",
+                                    "block": false,
+                                    "line": 309
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 308
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Likely override with a custom value. ",
+                            "block": true,
+                            "line": 292
+                        }
+                    ]
+                },
+                "line": 265
+            }
+        },
+        "functions": [
+            {
+                "name": "faceVelocity",
+                "kind": "function",
+                "type": "function",
+                "line": 47,
+                "params": [
+                    {
+                        "name": "p"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": []
+    },
+    "info": {
+        "filename": "velocity.js",
+        "path": "/workspaces/polypoint/point_src/velocity.js",
+        "size": 7394,
+        "parsed_date": "2025-11-02T21:11:42.258Z"
+    }
+}

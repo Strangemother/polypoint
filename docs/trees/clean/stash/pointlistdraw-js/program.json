@@ -1,0 +1,706 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "PointListDraw",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "list"
+                            }
+                        ],
+                        "pos": {
+                            "start": 42,
+                            "end": 84,
+                            "loc": {
+                                "start": {
+                                    "line": 4,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 31,
+                        "end": 84,
+                        "loc": {
+                            "start": {
+                                "line": 4,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 6,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "horizonLine",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 103,
+                            "end": 373,
+                            "loc": {
+                                "start": {
+                                    "line": 8,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 16,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Ensure the path restarts, ensuring the colors don't _bleed_ (from",
+                                "block": false,
+                                "line": 9
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 92,
+                        "end": 373,
+                        "loc": {
+                            "start": {
+                                "line": 8,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 16,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "stroke",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 387,
+                            "end": 525,
+                            "loc": {
+                                "start": {
+                                    "line": 18,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 22,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " ctx.stroke()",
+                                "block": false,
+                                "line": 19
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 381,
+                        "end": 525,
+                        "loc": {
+                            "start": {
+                                "line": 18,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 22,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "circle",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "radius",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "color"
+                            },
+                            {
+                                "name": "width"
+                            }
+                        ],
+                        "pos": {
+                            "start": 539,
+                            "end": 738,
+                            "loc": {
+                                "start": {
+                                    "line": 24,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 28,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return this.stroke.apply(this, arguments)",
+                                "block": false,
+                                "line": 27
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 533,
+                        "end": 738,
+                        "loc": {
+                            "start": {
+                                "line": 24,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 28,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "pointLine",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "position"
+                            },
+                            {
+                                "name": "eachFunc"
+                            }
+                        ],
+                        "pos": {
+                            "start": 837,
+                            "end": 1321,
+                            "loc": {
+                                "start": {
+                                    "line": 31,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 47,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Draw this list as a pointline, provide an init position for an offset. ",
+                                "block": true,
+                                "line": 30
+                            }
+                        ],
+                        "inner": [
+                            {
+                                "text": " To 'close' the old drawing.",
+                                "block": false,
+                                "line": 32
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 828,
+                        "end": 1321,
+                        "loc": {
+                            "start": {
+                                "line": 31,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 47,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "line",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1388,
+                            "end": 1438,
+                            "loc": {
+                                "start": {
+                                    "line": 50,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 52,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [
+                            {
+                                "text": " Draw a startline lineTo through all points. ",
+                                "block": true,
+                                "line": 49
+                            }
+                        ],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1384,
+                        "end": 1438,
+                        "loc": {
+                            "start": {
+                                "line": 50,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 52,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "quadCurve",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "loop",
+                                "default_value": false
+                            },
+                            {
+                                "name": "position"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1455,
+                            "end": 2896,
+                            "loc": {
+                                "start": {
+                                    "line": 54,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 94,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " ctx.moveTo(200, 200);",
+                                "block": false,
+                                "line": 67
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1446,
+                        "end": 2896,
+                        "loc": {
+                            "start": {
+                                "line": 54,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 94,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " Ensure the path restarts, ensuring the colors don't _bleed_ (from",
+                        "block": false,
+                        "line": 9
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2,
+                "end": 2901,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 96,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 2907,
+                "end": 2944,
+                "loc": {
+                    "start": {
+                        "line": 99,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 99,
+                        "column": 37
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 2907,
+                    "end": 2929,
+                    "loc": {
+                        "start": {
+                            "line": 99,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 99,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 2907,
+                        "end": 2921,
+                        "loc": {
+                            "start": {
+                                "line": 99,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 99,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 2907,
+                            "end": 2916,
+                            "loc": {
+                                "start": {
+                                    "line": 99,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 99,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 2907,
+                                "end": 2916,
+                                "loc": {
+                                    "start": {
+                                        "line": 99,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 99,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 2917,
+                            "end": 2921,
+                            "loc": {
+                                "start": {
+                                    "line": 99,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 99,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 2917,
+                                "end": 2921,
+                                "loc": {
+                                    "start": {
+                                        "line": 99,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 99,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 2907,
+                            "end": 2921,
+                            "loc": {
+                                "start": {
+                                    "line": 99,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 99,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 2922,
+                        "end": 2929,
+                        "loc": {
+                            "start": {
+                                "line": 99,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 99,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 2922,
+                            "end": 2929,
+                            "loc": {
+                                "start": {
+                                    "line": 99,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 99,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 2907,
+                        "end": 2929,
+                        "loc": {
+                            "start": {
+                                "line": 99,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 99,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 2930,
+                        "end": 2943,
+                        "loc": {
+                            "start": {
+                                "line": 99,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 99,
+                                "column": 36
+                            }
+                        },
+                        "name": "PointListDraw",
+                        "pos": {
+                            "start": 2930,
+                            "end": 2943,
+                            "loc": {
+                                "start": {
+                                    "line": 99,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 99,
+                                    "column": 36
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 2907,
+                    "end": 2944,
+                    "loc": {
+                        "start": {
+                            "line": 99,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 99,
+                            "column": 37
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 2907,
+                "end": 2944,
+                "loc": {
+                    "start": {
+                        "line": 99,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 99,
+                        "column": 37
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "pointlistdraw.js",
+        "path": "/workspaces/polypoint/point_src/pointlistdraw.js",
+        "size": 2946,
+        "parsed_date": "2025-11-02T21:11:38.090Z"
+    }
+}

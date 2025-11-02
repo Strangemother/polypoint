@@ -1,0 +1,1555 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "GearBox",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "points"
+                            }
+                        ],
+                        "pos": {
+                            "start": 36,
+                            "end": 326,
+                            "loc": {
+                                "start": {
+                                    "line": 4,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 13,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " For xy bound wheels ",
+                                "block": true,
+                                "line": 7
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 25,
+                        "end": 326,
+                        "loc": {
+                            "start": {
+                                "line": 4,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 13,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "performDraw",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 345,
+                            "end": 415,
+                            "loc": {
+                                "start": {
+                                    "line": 15,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 18,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 334,
+                        "end": 415,
+                        "loc": {
+                            "start": {
+                                "line": 15,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 18,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "bindPinionWheels",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "large"
+                            },
+                            {
+                                "name": "pinion"
+                            }
+                        ],
+                        "pos": {
+                            "start": 439,
+                            "end": 748,
+                            "loc": {
+                                "start": {
+                                    "line": 20,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 30,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " pinion.parentWheel = large",
+                                "block": false,
+                                "line": 22
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 423,
+                        "end": 748,
+                        "loc": {
+                            "start": {
+                                "line": 20,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 30,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "ensureDoubleBound",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 773,
+                            "end": 925,
+                            "loc": {
+                                "start": {
+                                    "line": 32,
+                                    "column": 21
+                                },
+                                "end": {
+                                    "line": 40,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n            Iterate the bindmap, ensuring the XY of a pair match -\r\n         ",
+                                "block": true,
+                                "line": 35
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 756,
+                        "end": 925,
+                        "loc": {
+                            "start": {
+                                "line": 32,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 40,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "performStep",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 944,
+                            "end": 1438,
+                            "loc": {
+                                "start": {
+                                    "line": 42,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 58,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " previous break-early",
+                                "block": false,
+                                "line": 48
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 933,
+                        "end": 1438,
+                        "loc": {
+                            "start": {
+                                "line": 42,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 58,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "pushVelocities",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ps"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1460,
+                            "end": 2145,
+                            "loc": {
+                                "start": {
+                                    "line": 60,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 80,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Iterate all the points, applying the angular velocity\r\n        given in the compute steps.\r\n        ",
+                                "block": true,
+                                "line": 63
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1446,
+                        "end": 2145,
+                        "loc": {
+                            "start": {
+                                "line": 60,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 80,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "recursiveSpinTouchMap",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "tick"
+                            },
+                            {
+                                "name": "touchMap"
+                            },
+                            {
+                                "name": "ps"
+                            },
+                            {
+                                "name": "maxCount",
+                                "default_value": 5
+                            },
+                            {
+                                "name": "currentCount",
+                                "default_value": 0
+                            }
+                        ],
+                        "pos": {
+                            "start": 2174,
+                            "end": 2651,
+                            "loc": {
+                                "start": {
+                                    "line": 82,
+                                    "column": 25
+                                },
+                                "end": {
+                                    "line": 96,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " nothing to do.",
+                                "block": false,
+                                "line": 84
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2153,
+                        "end": 2651,
+                        "loc": {
+                            "start": {
+                                "line": 82,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 96,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "spinChildren",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "touchMap"
+                            },
+                            {
+                                "name": "allGears"
+                            },
+                            {
+                                "name": "hitTick"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2671,
+                            "end": 6848,
+                            "loc": {
+                                "start": {
+                                    "line": 98,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 208,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n        An entry in the touch map:\r\n\r\n            origin: [touchPoint, ...]\r\n\r\n            the touch points is not rotated yet, and should receive the\r\n            rotation of the origin.\r\n\r\n            Returned is a new touchmap, where each touchPoint is the origin\r\n            and the touches are next gears - devoid of the origin.\r\n        ",
+                                "block": true,
+                                "line": 109
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2659,
+                        "end": 6848,
+                        "loc": {
+                            "start": {
+                                "line": 98,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 208,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "spinGears",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "allGears"
+                            }
+                        ],
+                        "pos": {
+                            "start": 6865,
+                            "end": 7311,
+                            "loc": {
+                                "start": {
+                                    "line": 210,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 222,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "Filter touching.\r\n        store as descendant.\r\n        Loop each descendant\r\n        store descendant.\r\n        If already visited - raise error\r\n        ",
+                                "block": true,
+                                "line": 216
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 6856,
+                        "end": 7311,
+                        "loc": {
+                            "start": {
+                                "line": 210,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 222,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getTouching",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "motors"
+                            },
+                            {
+                                "name": "allGears"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7330,
+                            "end": 7733,
+                            "loc": {
+                                "start": {
+                                    "line": 224,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 238,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " For each item, we store its _next_ items.",
+                                "block": false,
+                                "line": 226
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 7319,
+                        "end": 7733,
+                        "loc": {
+                            "start": {
+                                "line": 224,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 238,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "getSingleTouching",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "target"
+                            },
+                            {
+                                "name": "allGears"
+                            },
+                            {
+                                "name": "exceptPoint",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "pos": {
+                            "start": 7758,
+                            "end": 8033,
+                            "loc": {
+                                "start": {
+                                    "line": 240,
+                                    "column": 21
+                                },
+                                "end": {
+                                    "line": 245,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " return a list of all touching points for this target,\r\n        except the exceptPoint",
+                                "block": true,
+                                "line": 242
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 7741,
+                        "end": 8033,
+                        "loc": {
+                            "start": {
+                                "line": 240,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 245,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "appendMap",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "map"
+                            },
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "pointList"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8050,
+                            "end": 8312,
+                            "loc": {
+                                "start": {
+                                    "line": 247,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 255,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 8041,
+                        "end": 8312,
+                        "loc": {
+                            "start": {
+                                "line": 247,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 255,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "wheelWheel",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parentOriginPoint"
+                            },
+                            {
+                                "name": "boundReceiverPoint"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8330,
+                            "end": 8851,
+                            "loc": {
+                                "start": {
+                                    "line": 257,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 269,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n        The parentOriginPoint was rotated by the origin, the bound point should receive its rotation\r\n        being an inner wheel of the parentOriginPoint\r\n         ",
+                                "block": true,
+                                "line": 261
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8320,
+                        "end": 8851,
+                        "loc": {
+                            "start": {
+                                "line": 257,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 269,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "doubleTouchCV",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "touchPoint"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8874,
+                            "end": 9764,
+                            "loc": {
+                                "start": {
+                                    "line": 272,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 296,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Angular velocity it given by a previous, and now this.",
+                                "block": false,
+                                "line": 273
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8861,
+                        "end": 9764,
+                        "loc": {
+                            "start": {
+                                "line": 272,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 296,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "isMotor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 9781,
+                            "end": 9935,
+                            "loc": {
+                                "start": {
+                                    "line": 299,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 306,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 9774,
+                        "end": 9935,
+                        "loc": {
+                            "start": {
+                                "line": 299,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 306,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "drawView",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 9953,
+                            "end": 11002,
+                            "loc": {
+                                "start": {
+                                    "line": 309,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 334,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Draw a circle at the origin points ",
+                                "block": true,
+                                "line": 310
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 9945,
+                        "end": 11002,
+                        "loc": {
+                            "start": {
+                                "line": 309,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 334,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "addGear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p"
+                            },
+                            {
+                                "name": "angularVelocity",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 11017,
+                            "end": 11170,
+                            "loc": {
+                                "start": {
+                                    "line": 336,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 341,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 11010,
+                        "end": 11170,
+                        "loc": {
+                            "start": {
+                                "line": 336,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 341,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "addPairGear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "primary"
+                            },
+                            {
+                                "name": "pinion"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11189,
+                            "end": 11576,
+                            "loc": {
+                                "start": {
+                                    "line": 343,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 352,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " A pair gear applies a primary wheel and a pinion wheen -\r\n        bound together at the center. When one of the gears rotates, the other\r\n        will also rotate at the same speed.\r\n        ",
+                                "block": true,
+                                "line": 347
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11178,
+                        "end": 11576,
+                        "loc": {
+                            "start": {
+                                "line": 343,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 352,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "gearWheel",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "receiverPoint"
+                            }
+                        ],
+                        "pos": {
+                            "start": 11593,
+                            "end": 12305,
+                            "loc": {
+                                "start": {
+                                    "line": 354,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 370,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n         A Gear defines a point edge meeting another point edge.\r\n         Calculate and apply the angularVelocity using the origin and receiver radius.\r\n\r\n         Note the originPoint.angularVelocity must exist.\r\n        ",
+                                "block": true,
+                                "line": 360
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 11584,
+                        "end": 12305,
+                        "loc": {
+                            "start": {
+                                "line": 354,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 370,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "internalWheel",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "receiverPoint"
+                            }
+                        ],
+                        "pos": {
+                            "start": 12326,
+                            "end": 13035,
+                            "loc": {
+                                "start": {
+                                    "line": 372,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 388,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "\r\n         A Gear defines a point edge meeting another point edge.\r\n         Calculate and apply the angularVelocity using the origin and receiver radius.\r\n\r\n         Note the originPoint.angularVelocity must exist.\r\n        ",
+                                "block": true,
+                                "line": 378
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 12313,
+                        "end": 13035,
+                        "loc": {
+                            "start": {
+                                "line": 372,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 388,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "calculateReceiverVelocity",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "receiverPoint"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13068,
+                            "end": 13195,
+                            "loc": {
+                                "start": {
+                                    "line": 390,
+                                    "column": 29
+                                },
+                                "end": {
+                                    "line": 392,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 13043,
+                        "end": 13195,
+                        "loc": {
+                            "start": {
+                                "line": 390,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 392,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "ratchetAllowed",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "parentOriginPoint"
+                            },
+                            {
+                                "name": "boundReceiverPoint"
+                            }
+                        ],
+                        "pos": {
+                            "start": 13217,
+                            "end": 14053,
+                            "loc": {
+                                "start": {
+                                    "line": 394,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 412,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Ratcheting ensures the boundReceiverPoint can (and is) being spun\r\n        in the ratchet direction `-1, 0, 1,` left, both, right respectively.\r\n\r\n        If pass, return True:\r\n\r\n            + If ratcheting == undefined, assume 0\r\n            + if 0; both directions\r\n            + if -1 ratchet and angularVelocity < 0; ratchet left\r\n            + if 1 ratchet and angularVelocity > 0; ratchet right\r\n\r\n        ",
+                                "block": true,
+                                "line": 405
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 13203,
+                        "end": 14053,
+                        "loc": {
+                            "start": {
+                                "line": 394,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 412,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "createGear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "pos": {
+                            "start": 14071,
+                            "end": 14168,
+                            "loc": {
+                                "start": {
+                                    "line": 414,
+                                    "column": 14
+                                },
+                                "end": {
+                                    "line": 418,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 14061,
+                        "end": 14168,
+                        "loc": {
+                            "start": {
+                                "line": 414,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 418,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "createReductionGear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "pos": {
+                            "start": 14195,
+                            "end": 14370,
+                            "loc": {
+                                "start": {
+                                    "line": 420,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 425,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 14176,
+                        "end": 14370,
+                        "loc": {
+                            "start": {
+                                "line": 420,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 425,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "createInternalGear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "pos": {
+                            "start": 14396,
+                            "end": 14522,
+                            "loc": {
+                                "start": {
+                                    "line": 427,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 431,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 14378,
+                        "end": 14522,
+                        "loc": {
+                            "start": {
+                                "line": 427,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 431,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "createMotor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "options"
+                            }
+                        ],
+                        "pos": {
+                            "start": 14541,
+                            "end": 14691,
+                            "loc": {
+                                "start": {
+                                    "line": 433,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 439,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 14530,
+                        "end": 14691,
+                        "loc": {
+                            "start": {
+                                "line": 433,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 439,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " For xy bound wheels ",
+                        "block": true,
+                        "line": 7
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2,
+                "end": 14694,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 440,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "gearbox.js",
+        "path": "/workspaces/polypoint/point_src/gearbox.js",
+        "size": 14698,
+        "parsed_date": "2025-11-02T21:11:35.334Z"
+    }
+}

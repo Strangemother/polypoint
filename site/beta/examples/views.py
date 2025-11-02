@@ -39,6 +39,11 @@ class ExampleIndexTemplateView(views.ListView):
         )
 
     template_name = 'examples/index.html'
+
+    """The directory to list,
+        POLYPOINT_THEATRE_DIR: 'theatre/*.js' dir
+        POLYPOINT_EXAMPLES_DIR: 'examples/*.html' dir
+    """
     parent_dir = settings.POLYPOINT_THEATRE_DIR
     # parent_dir = settings.POLYPOINT_EXAMPLES_DIR
 

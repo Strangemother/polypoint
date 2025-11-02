@@ -60,7 +60,14 @@ class MicroRunOnlyView(IndexView):
 
 class PointSrcAssetView(views.TemplateView):
     template_name = 'editor/blank.html'
-    # src_dir = settings.POLYPOINT_THEATRE_DIR
+
+    """
+    Change this to resolve files in an alternative directory
+
+        POLYPOINT_DEMO_DIR: 'demos/'
+        POLYPOINT_SRC_DIR: 'point_src/'
+
+    """
     # src_dir = settings.POLYPOINT_DEMO_DIR
     src_dir = settings.POLYPOINT_SRC_DIR
 
@@ -75,10 +82,8 @@ class PointSrcAssetView(views.TemplateView):
 
     def inject_requirements(self, obj):
         extra = 'window \n\n'
-        src_dir = Path(settings.POLYPOINT_SRC_DIR)
-        # src_dir = Path(settings.POLYPOINT_DEMO_DIR)
 
-        data = theatre.get_metadata(obj['path'], parent=src_dir)
+        data = theatre.get_metadata(obj['path'], parent=self.src_dir)
         files = data.get('files', ())
 
         file_contents = ()
@@ -195,7 +200,7 @@ def get_theatre_file_contents(path):
 
 
 def get_file_contents(path, root=None):
-    src_dir = settings.POLYPOINT_SRC_DIR # settings.POLYPOINT_DEMO_DIR
+    src_dir = settings.POLYPOINT_SRC_DIR
     target = (root or src_dir) / path
     print('target', target)
     exists = target.exists()

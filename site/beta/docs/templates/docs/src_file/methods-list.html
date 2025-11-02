@@ -1,22 +1,24 @@
 {% load strings %}
 <h1>Method List</h1>
 
-<ul>
+<ul class='defs-list'>
     {% for item in defs %}
-    <li>{{ item.type }}
+    <li class='def-item'>
+        <div class="raw-type">{{ item.type }}</div>
         {% if item.type %}
             {% str_merge './' item.type '.html' as inc_name %}
             {% include inc_name with item=item %}
         {% else %}
-            <p>{{ item.word }}: {{ item.type }}</p>
+            Missing type: <p>{{ item.word }}: {{ item.type }}</p>
             {{ item }}
         {% endif %}
     </li>
     {% endfor %}
 </ul>
 
-<div class="methods-container">
+{% comment "old version" %}
 
+<div class="methods-container display-none">
     <div class="classes-container">
         <div class="class-unit">
             <a class='anchor' name='class_name'></a>
@@ -113,3 +115,4 @@
         </div>
     </div>
 </div>
+{% endcomment %}

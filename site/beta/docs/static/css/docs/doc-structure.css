@@ -165,7 +165,9 @@ a.prop-item:hover, a.prop-item:focus {
     text-decoration: underline;
 }
 
-h3.class-method-name {
+h3.class-method-name, 
+h3.function-name,
+h3.variable-name {
     font-size: inherit;
     margin: 0;
     padding: 0 0.2em 0 0em;
@@ -173,7 +175,9 @@ h3.class-method-name {
     font-weight: normal;
 }
 
-.signature .method-head {
+.signature .method-head, 
+.signature .variable-head, 
+.signature .function-head {
     display: flex;
     gap: 0.5em;
     align-items: center;
@@ -226,7 +230,9 @@ span.class-method-kind.kind-constructor {
     color: tan;
 }
 
-.class-method-kind {
+.class-method-kind, 
+.variable-kind,
+.function-kind {
     background: #171717;
     font-size: 1rem;
     padding: 0.2em 0.5em;

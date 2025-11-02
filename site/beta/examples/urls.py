@@ -9,7 +9,8 @@ from . import views
 app_name = 'examples'
 
 urlpatterns = urls.paths_named(views,
-    example=('ExampleIndexTemplateView', '',),
+    example=('TheatreIndexTemplateView', '',),
+    demo_examples=('ExampleIndexTemplateView', 'demos/',),
     theatre_process=('ImmediateProcessTheatreFilesView', ('process/',)),
     point_src=('PointSrcAssetView', ('point_src/<path:path>',)),
     demo_src=('DemoSrcAssetView', ('demos/<path:path>',)),

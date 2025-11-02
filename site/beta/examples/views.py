@@ -41,10 +41,13 @@ class ExampleIndexTemplateView(views.ListView):
     template_name = 'examples/index.html'
 
     """The directory to list,
+
         POLYPOINT_THEATRE_DIR: 'theatre/*.js' dir
         POLYPOINT_EXAMPLES_DIR: 'examples/*.html' dir
+
+    This will change the list.
     """
-    parent_dir = settings.POLYPOINT_THEATRE_DIR
+    parent_dir = settings.POLYPOINT_EXAMPLES_DIR
     # parent_dir = settings.POLYPOINT_EXAMPLES_DIR
 
     def get_orderby(self):
@@ -61,6 +64,11 @@ class ExampleIndexTemplateView(views.ListView):
 
         return get_theatre_list(reverse=reverse, orderby=orderby,
                                 parent_dir=self.parent_dir)
+
+
+class TheatreIndexTemplateView(ExampleIndexTemplateView):
+    parent_dir = settings.POLYPOINT_THEATRE_DIR
+
 
 
 class ScriptsImportListView(views.ListView):
@@ -145,20 +153,19 @@ class ExampleFileView(views.TemplateView):
             del meta['markdown']
         return r
 
-    # def get_template_names(self):
-    #     """
-    #     Return a list of template names to be used for the request. Must return
-    #     a list. May not be called if render_to_response is overridden.
-    #     """
-    #     path = self.kwargs.get('path')
+    def get_template_names(self):
+        """
+        Return a list of template names to be used for the request. Must return
+        a list. May not be called if render_to_response is overridden.
+        """
+        path = self.kwargs.get('path')
 
-    #     names = [
-    #         path,
-    #         f"{path}.html",
-    #         self.template_name
-    #     ]
-    #     # names = super().get_template_names()
-    #     return names
+        names = [
+            path,
+            f"{path}.html",
+            self.template_name
+        ] + super().get_template_names()
+        return names
 
 
 class ExampleFileScriptsView(views.TemplateView):

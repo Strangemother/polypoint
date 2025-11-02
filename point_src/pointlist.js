@@ -401,7 +401,7 @@ class PointList extends LazyAccessArray {
                 return new type(p)
             }
         }
-        return this.map(p=>func(p))
+        return this.map(p=>func(p, type))
     }
 
     centerOfMass(type='simple', origin) {

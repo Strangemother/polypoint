@@ -1,5 +1,16 @@
 /*
+# _tree_ Demo Source File
+
 This file presents a bunch of javascript for  _tree_ convert tool tes.t
+
+It contains various constructs, including:
+
+- Block comments
+- Inline comments
+- Class declarations
+
+This comment is the first block comment in the file.
+
 */
 
     /* stackItem1 A Multiline
@@ -52,7 +63,7 @@ let letStoreFunction = function(){
 
 
 
-/* Comment outside for the class*/
+/* Comment outside for the class */
 class ParentClass extends Array {
     /* Comment inside for the class*/
 
@@ -98,13 +109,15 @@ class ParentClass extends Array {
 
     static staticParentMethod() {
         /*
-        Static parent method
+        This is the comment for the Static parent method `staticParentMethod`
         */
     }
 
 
     [Symbol.toPrimitive](hint){
-
+        /* this is the header block comment for Symbol.toPrimitive
+        a very special method that converts an object to a primitive value based on the given hint.
+        */
         // return this.value;
 
         let o = {
@@ -124,6 +137,10 @@ class ParentClass extends Array {
 
 
 class Primary extends ParentClass {
+    /* This is the header comment for the Primary class. Just within the class declaration. 
+
+    This is the Primary class which extends ParentClass.
+    */
 
     betaMethod() {
         /*
@@ -147,7 +164,9 @@ class Primary extends ParentClass {
         */
     }
 
+    // an inline comment for the getter `name`, set above the function
     get name() {
+        // an inline comment **within** the getter `name`
         return 'Primary';
     }
 

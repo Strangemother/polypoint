@@ -1,31 +1,194 @@
 # Tree version 2, for cleaner parsing.
 #
 import os
-# from tree2 import TreeReader
+import sys
+import argparse
 from pathlib import Path
 import json
 from datetime import datetime as dt
-
-
 from collections import defaultdict
 
 
-
-doc_path = Path("C:/Users/jay/Documents/projects/polypoint/docs/")
-
-
-# tree_filepath = doc_path / "trees/ast-demo-js-tree.json"
-# tree_filepath = doc_path / "trees/stage-js-tree.json"
-tree_filepath = doc_path / "trees/point-js-tree.json"
-# tree_filepath = doc_path / "trees/timeit-js-tree.json"
-# tree_filepath = doc_path / "trees/easing-js-tree.json"
-# filepath = doc_path / "trees/point-js-tree/cut-cache/data-cut/_info.json"
+# Default paths
+doc_path = Path("../docs/")
+trees_dir = doc_path / "trees"
 output_dir = doc_path / "trees/clean/"
 
+# Default tree file
+default_tree = "point-js-tree.json"
 
-def main(target=tree_filepath):
-    t = PhaseTree(tree_filepath=target, output_dir=output_dir)
-    t.run()
+
+def parse_args():
+    """Parse command line arguments"""
+    parser = argparse.ArgumentParser(
+        description='Parse JavaScript AST tree files into documentation format',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s point-js-tree.json
+  %(prog)s zoom-js-tree.json
+  %(prog)s stage-js-tree.json
+  %(prog)s --list
+  %(prog)s --parse-missed
+        """
+    )
+    
+    parser.add_argument(
+        'tree_file',
+        nargs='?',
+        default=default_tree,
+        help=f'Name of the tree JSON file (default: {default_tree})'
+    )
+    
+    parser.add_argument(
+        '--trees-dir',
+        default=trees_dir,
+        type=Path,
+        help=f'Directory containing tree files (default: {trees_dir})'
+    )
+    
+    parser.add_argument(
+        '--output-dir',
+        default=output_dir,
+        type=Path,
+        help=f'Output directory for processed files (default: {output_dir})'
+    )
+    
+    parser.add_argument(
+        '--list', '-l',
+        action='store_true',
+        help='List available tree files and exit'
+    )
+    
+    parser.add_argument(
+        '--parse-missed', '-m',
+        action='store_true',
+        help='Parse all tree files that have not been processed yet'
+    )
+    
+    return parser.parse_args()
+
+
+def list_tree_files(trees_dir):
+    """List all available tree JSON files"""
+    trees_path = Path(trees_dir)
+    if not trees_path.exists():
+        print(f"Error: Trees directory not found: {trees_dir}")
+        return []
+    
+    tree_files = sorted(trees_path.glob('*-tree.json'))
+    
+    if not tree_files:
+        print(f"No tree files found in {trees_dir}")
+        return []
+    
+    print(f"\nAvailable tree files in {trees_dir}:")
+    print("=" * 60)
+    for tree_file in tree_files:
+        size = tree_file.stat().st_size / 1024  # KB
+        print(f"  {tree_file.name:<30} ({size:>8.1f} KB)")
+    print()
+    
+    return tree_files
+
+
+def find_unprocessed_files(trees_dir, output_dir):
+    """Find tree files that haven't been processed yet"""
+    trees_path = Path(trees_dir)
+    output_path = Path(output_dir)
+    
+    if not trees_path.exists():
+        print(f"Error: Trees directory not found: {trees_dir}")
+        return []
+    
+    tree_files = sorted(trees_path.glob('*-tree.json'))
+    unprocessed = []
+    
+    for tree_file in tree_files:
+        # Derive the expected output path
+        # e.g., zoom-js-tree.json -> clean/stash/zoom-js/references.json
+        base_name = tree_file.stem.replace('-tree', '')  # zoom-js-tree -> zoom-js
+        expected_output = output_path / 'stash' / base_name / 'references.json'
+        
+        if not expected_output.exists():
+            unprocessed.append(tree_file)
+    
+    return unprocessed
+
+
+def main():
+    """Main entry point with argument parsing"""
+    args = parse_args()
+    
+    # Handle --list option
+    if args.list:
+        list_tree_files(args.trees_dir)
+        return 0
+    
+    # Handle --parse-missed option
+    if args.parse_missed:
+        unprocessed = find_unprocessed_files(args.trees_dir, args.output_dir)
+        
+        if not unprocessed:
+            print("✓ All tree files have been processed!")
+            return 0
+        
+        print(f"\nFound {len(unprocessed)} unprocessed file(s):")
+        print("=" * 60)
+        for tree_file in unprocessed:
+            size = tree_file.stat().st_size / 1024  # KB
+            print(f"  {tree_file.name:<30} ({size:>8.1f} KB)")
+        print()
+        
+        # Process each unprocessed file
+        success_count = 0
+        fail_count = 0
+        
+        for tree_file in unprocessed:
+            print(f"\nProcessing: {tree_file.name}")
+            print(f"Input:  {tree_file}")
+            print(f"Output: {args.output_dir}")
+            
+            try:
+                t = PhaseTree(tree_filepath=tree_file, output_dir=args.output_dir)
+                t.run()
+                print(f"✓ Successfully processed {tree_file.name}")
+                success_count += 1
+            except Exception as e:
+                print(f"✗ Error processing {tree_file.name}: {e}")
+                import traceback
+                traceback.print_exc()
+                fail_count += 1
+        
+        print("\n" + "=" * 60)
+        print(f"Summary: {success_count} succeeded, {fail_count} failed")
+        return 0 if fail_count == 0 else 1
+    
+    # Construct full path to tree file
+    tree_filepath = args.trees_dir / args.tree_file
+    
+    # Check if file exists
+    if not tree_filepath.exists():
+        print(f"Error: Tree file not found: {tree_filepath}")
+        print(f"\nUse --list to see available files")
+        return 1
+    
+    # Run the parser
+    print(f"Processing: {args.tree_file}")
+    print(f"Input:  {tree_filepath}")
+    print(f"Output: {args.output_dir}")
+    print()
+    
+    try:
+        t = PhaseTree(tree_filepath=tree_filepath, output_dir=args.output_dir)
+        t.run()
+        print(f"\n✓ Successfully processed {args.tree_file}")
+        return 0
+    except Exception as e:
+        print(f"\n✗ Error processing {args.tree_file}: {e}")
+        import traceback
+        traceback.print_exc()
+        return 1
 
 
 
@@ -269,28 +432,41 @@ class CommentsMixin:
 
         return None  # ❌ No matching comment found
 
-    def get_header_comment(self, pos:Position, block_comments=True, single_line=False):
+    def get_header_comment(self, pos:Position, block_comments=True, single_line=True):
+        """
+        Get header comments for a method/class definition.
+        Captures comments immediately preceding the definition (within 1 line).
+        
+        Returns tuple of comments in order (furthest to closest).
+        """
         start_line = pos.loc['start']['line']
-        on_line = ()
+        header_comments = []
+        
         for comment in reversed(self.comments):
             comment_end_line = comment['currentLoc']['line']
-            is_above = comment_end_line < start_line
             is_block = comment['block'] and block_comments
             is_single = not comment['block'] and single_line
-            distance = comment_end_line - start_line
-
-            if distance == 0:
-                # on the line
-                on_line += (comment,)
+            
+            # Skip if not a type we're looking for
+            if not (is_block or is_single):
                 continue
-
-            # if (comment_end_line - start_line) <= 1:
-            #     import pdb; pdb.set_trace()  # breakpoint cc61d69e //
-
-            if is_above and (is_block or is_single):
-                if distance < -1:
-                    return on_line
-                return on_line + (comment, )
+            
+            # Calculate distance (negative means comment is above)
+            distance = start_line - comment_end_line
+            
+            if distance == 0:
+                # Comment on same line as definition (rare but possible)
+                header_comments.append(comment)
+            elif distance == 1:
+                # Comment immediately above (1 line gap)
+                header_comments.append(comment)
+            elif distance > 1:
+                # Too far away, stop looking
+                break
+            # distance < 0 means comment is below, skip it
+        
+        # Return in original order (top to bottom)
+        return tuple(reversed(header_comments))
 
     def get_area_comments(self, pos):
         return {
@@ -340,6 +516,8 @@ class PhaseTree(TreeReader, CommentsMixin):
     apply_position = True
     apply_key = False
     denest_vars = True
+    simplify_params = True  # Clean up params to minimal format
+    convert_comments_to_html = False  # Set True to convert markdown to HTML
 
     def node_Program(self, tree, content):
         """This is the top level.
@@ -368,40 +546,201 @@ class PhaseTree(TreeReader, CommentsMixin):
             ordered_tops += (item['type'], )
             # Read the type, get the node, stash the node.
             item_def = self.get_inner_method(item, content)
-            item_defs += item_def.value if isinstance(item_def, Concat) else (item_def,)
-            # item_defs += (item_def, )
+            # Handle Concat, None, or regular items
+            if isinstance(item_def, Concat):
+                item_defs += item_def.value
+            elif item_def is not None:
+                item_defs += (item_def,)
 
         prog['defs'] = item_defs
-
-        # Stash the titles of each type in an ordered list.
         prog['types'] = ordered_tops
         prog['info'] = content['info']
 
+        # Save the detailed program structure
         op = self.stash_dir / 'program.json'
         if op.parent.exists() is False:
             os.makedirs(op.parent)
         dump_json(prog, op)
 
+        # Create a UI-friendly reference file
+        self.create_reference_file(prog, filename)
+
         return prog
+    
+    def create_reference_file(self, prog, filename):
+        """
+        Create a simplified reference file optimized for UI consumption.
+        This matches the format expected by the Django template.
+        
+        Captures:
+        - Classes with methods
+        - Top-level functions
+        - Top-level constants/variables
+        """
+        references = {
+            'classes': {},
+            'functions': [],
+            'constants': []
+        }
+        
+        for item_def in prog['defs']:
+            # Skip None values (from empty statements or unhandled nodes)
+            if item_def is None or not isinstance(item_def, dict):
+                continue
+                
+            if item_def.get('kind') == 'class':
+                # Handle class declarations
+                class_name = item_def['word']
+                
+                # Extract methods from the class body
+                methods = []
+                for body_item in item_def.get('body', []):
+                    if body_item.get('kind') in ['constructor', 'method', 'get', 'set']:
+                        pos = body_item.get('pos')
+                        line_no = self._extract_line_number(pos)
+                        
+                        method_info = {
+                            'method_name': body_item.get('word'),
+                            'class_name': class_name,
+                            'kind': body_item['kind'],
+                            'params': body_item.get('value', {}).get('params', []),
+                            'comments': body_item.get('comments', {'header': [], 'inner': []}),
+                            'static': body_item.get('static', False),
+                            'is_symbol': body_item.get('is_symbol', False),
+                            'computed': body_item.get('computed', False),
+                            'line': line_no
+                        }
+                        methods.append(method_info)
+                
+                class_pos = item_def.get('pos')
+                class_line = self._extract_line_number(class_pos)
+                
+                references['classes'][class_name] = {
+                    'class_name': class_name,
+                    'inherits': item_def.get('parentName'),
+                    'methods': methods,
+                    'comments': item_def.get('comments', {'header': [], 'inner': []}),
+                    'line': class_line
+                }
+                
+            elif item_def.get('kind') == 'function':
+                # Handle top-level function declarations (function foo() {})
+                func_name = item_def.get('word', '')
+                pos = item_def.get('pos')
+                line_no = self._extract_line_number(pos)
+                
+                func_info = {
+                    'name': func_name,
+                    'kind': 'function',
+                    'type': 'function',
+                    'line': line_no,
+                    'params': item_def.get('params', []),
+                    'async': item_def.get('async', False),
+                    'generator': item_def.get('generator', False),
+                    'comments': item_def.get('comments', {'header': [], 'inner': []})
+                }
+                references['functions'].append(func_info)
+                
+            elif item_def.get('kind') == 'const' or item_def.get('kind') == 'let' or item_def.get('kind') == 'var':
+                # Handle top-level variable declarations (functions, constants, objects)
+                var_name = item_def.get('word', '')
+                init = item_def.get('init', {})
+                init_type = init.get('type', '') if isinstance(init, dict) else ''
+                pos = item_def.get('pos')
+                line_no = self._extract_line_number(pos)
+                
+                var_info = {
+                    'name': var_name,
+                    'kind': item_def.get('kind'),
+                    'line': line_no,
+                    'comments': item_def.get('comments', {'header': [], 'inner': []})
+                }
+                
+                if init_type == 'FunctionExpression':
+                    # It's a function
+                    var_info['type'] = 'function'
+                    var_info['params'] = init.get('params', [])
+                    var_info['async'] = init.get('async', False)
+                    references['functions'].append(var_info)
+                    
+                elif init_type == 'ArrowFunctionExpression':
+                    # Arrow function
+                    var_info['type'] = 'arrow_function'
+                    var_info['params'] = init.get('params', [])
+                    var_info['async'] = init.get('async', False)
+                    references['functions'].append(var_info)
+                    
+                elif init_type == 'ObjectExpression':
+                    # Object/config
+                    var_info['type'] = 'object'
+                    var_info['properties'] = self._extract_object_properties(init)
+                    references['constants'].append(var_info)
+                    
+                else:
+                    # Other constants (literals, etc)
+                    var_info['type'] = 'constant'
+                    if init_type == 'Literal':
+                        var_info['value'] = init.get('value')
+                    references['constants'].append(var_info)
+        
+        # Save the reference file
+        ref_path = self.stash_dir / 'references.json'
+        ref_data = {
+            'src_file': filename,
+            'references': references,
+            'info': prog['info']
+        }
+        dump_json(ref_data, ref_path)
+        
+        print(f'Created reference file: {ref_path}')
+        return ref_data
+    
+    def _extract_object_properties(self, obj_expr):
+        """Extract property names from an ObjectExpression"""
+        if not isinstance(obj_expr, dict):
+            return []
+        
+        properties = obj_expr.get('properties', [])
+        if not properties:
+            return []
+        
+        prop_list = []
+        for prop in properties[:10]:  # Limit to first 10 properties
+            if isinstance(prop, dict):
+                prop_info = {
+                    'name': prop.get('word', prop.get('key', {}).get('name', ''))
+                }
+                # Check if property is a method
+                if prop.get('method') or prop.get('value', {}).get('type') == 'FunctionExpression':
+                    prop_info['is_method'] = True
+                prop_list.append(prop_info)
+        
+        return prop_list
+    
+    def _extract_line_number(self, pos):
+        """Extract line number from position object or dict"""
+        if isinstance(pos, Position):
+            return pos.loc.get('start', {}).get('line', 0)
+        elif isinstance(pos, dict):
+            return pos.get('loc', {}).get('start', {}).get('line', 0)
+        return 0
 
     def node_ClassDeclaration(self, tree, content):
         """The response it sent to the prog output.
         """
 
         pos = tree['pos']
-        # raw_comments = self.get_inside_comments(pos.start, pos.end)
         raw_comments = self.get_area_comments(pos)
+        comments = self.format_comments_for_output(raw_comments)
 
         return {
             "kind": "class",
             "word": tree['id']['name'],
             "parentName": tree['superClass'].get('name', None) if tree['superClass'] else None,
             "type": tree['type'],
-            # node_ClassBody
             "body": self.get_inner_method(tree['body'], content),
-            "super_class": tree['superClass'],
-            "raw_comments": raw_comments,
-            "id": tree['id'],
+            "comments": comments,
+            **self.make_position(tree),
         }
 
     def node_ClassBody(self, tree, content):
@@ -422,21 +761,68 @@ class PhaseTree(TreeReader, CommentsMixin):
         """
 
         pos = tree['pos']
-        # raw_comments = self.get_inside_comments(pos.start, pos.end)
         raw_comments = self.get_area_comments(pos)
+        comments = self.format_comments_for_output(raw_comments)
+        
+        # Extract method name, handling computed properties like [Symbol.toPrimitive]
+        method_name, is_computed, is_symbol = self._extract_method_name(tree)
 
         return {
             "kind": tree['kind'],
-            "word": tree.get('key', {}).get('name'),
+            "word": method_name,
             "static": tree['static'],
             "computed": tree['computed'],
+            "is_symbol": is_symbol,
             "value": self.get_inner_method(tree['value'], content),
             "type": tree['type'],
-            "raw_comments": raw_comments,
+            "comments": comments,
             **self.make_key(tree, content),
             **self.make_position(tree),
-            # , "id": tree['id']
         }
+
+    def _extract_method_name(self, tree):
+        """
+        Extract method name from a MethodDefinition, handling computed properties.
+        
+        Returns: (method_name, is_computed, is_symbol)
+        
+        Examples:
+            alphaMethod() -> ("alphaMethod", False, False)
+            [Symbol.toPrimitive]() -> ("Symbol.toPrimitive", True, True)
+            [key]() -> ("[key]", True, False)
+        """
+        key = tree.get('key', {})
+        is_computed = tree.get('computed', False)
+        is_symbol = False
+        method_name = None
+        
+        if not is_computed:
+            # Simple method name: alphaMethod()
+            method_name = key.get('name')
+        else:
+            # Computed property: [Symbol.toPrimitive], [key], etc.
+            if key.get('type') == 'MemberExpression':
+                # [Symbol.toPrimitive] or [Object.keys], etc.
+                obj = key.get('object', {})
+                prop = key.get('property', {})
+                
+                obj_name = obj.get('name', '')
+                prop_name = prop.get('name', '')
+                
+                if obj_name and prop_name:
+                    method_name = f"{obj_name}.{prop_name}"
+                    is_symbol = (obj_name == 'Symbol')
+                else:
+                    # Fallback to bracketed representation
+                    method_name = f"[{obj_name}.{prop_name}]"
+            elif key.get('type') == 'Identifier':
+                # [key] where key is a variable
+                method_name = f"[{key.get('name', 'computed')}]"
+            else:
+                # Other computed expressions
+                method_name = f"[computed_{key.get('type', 'method')}]"
+        
+        return method_name, is_computed, is_symbol
 
     def make_key(self, tree, content):
         if self.apply_key is False:
@@ -485,15 +871,38 @@ class PhaseTree(TreeReader, CommentsMixin):
         """The response it sent to the prog output.
         """
         params = self.get_inner_method_many(tree['params'], content)
+        # Flatten params - they're already tuples from get_inner_method_many
+        flat_params = [y for x in params for y in x] if params else []
+        
+        if self.simplify_params:
+            flat_params = self.simplify_parameters(flat_params)
+        
         return {
             "type": tree['type'],
             "id": self.get_inner_method(tree['id'], content) if tree['id'] else None,
             "generator": tree['generator'],
             "expression": tree['expression'],
             "async": tree['async'],
-            "params": [y for x in params for y in x],
+            "params": flat_params,
             **self.make_position(tree),
-            # "params": self.get_inner_method_many(tree['params'], content),
+        }
+
+    def node_ArrowFunctionExpression(self, tree, content):
+        """
+        Handle arrow functions: (x) => x * 2, () => { return 5; }
+        """
+        params = self.get_inner_method_many(tree['params'], content)
+        flat_params = [y for x in params for y in x] if params else []
+        
+        if self.simplify_params:
+            flat_params = self.simplify_parameters(flat_params)
+        
+        return {
+            "type": tree['type'],
+            "expression": tree.get('expression', False),
+            "async": tree.get('async', False),
+            "params": flat_params,
+            **self.make_position(tree),
         }
 
     def node_FunctionDeclaration(self, tree, content):
@@ -504,6 +913,12 @@ class PhaseTree(TreeReader, CommentsMixin):
                 console.log('genericFunction')
             }
         """
+        params = self.get_inner_method_many(tree['params'], content)
+        # Flatten params - they're already tuples from get_inner_method_many
+        flat_params = [y for x in params for y in x] if params else []
+        
+        if self.simplify_params:
+            flat_params = self.simplify_parameters(flat_params)
 
         return {
             "kind": "function",
@@ -511,7 +926,7 @@ class PhaseTree(TreeReader, CommentsMixin):
             "generator": tree['generator'],
             "expression": tree['expression'],
             "async": tree['async'],
-            "params": self.get_inner_method_many(tree['params'], content),
+            "params": flat_params,
             "id": tree['id'],
             **self.make_position(tree),
             "type": tree['type'],
@@ -539,6 +954,112 @@ class PhaseTree(TreeReader, CommentsMixin):
         #     "type": tree['type'],
         # }
 
+    def node_RestElement(self, tree, content):
+        """Handle rest parameters like ...points in function arguments"""
+        return {
+            "type": tree['type'],
+            "word": tree['argument']['name'],
+            "argument": self.get_inner_method(tree['argument'], content),
+            **self.make_position(tree),
+        }
+
+    def node_AssignmentExpression(self, tree, content):
+        """
+        Handle assignment expressions: x = 5, this.value = foo, etc.
+        
+        Example: this.stage = stage
+        """
+        return {
+            "type": tree['type'],
+            "operator": tree['operator'],
+            "left": self.get_inner_method(tree.get('left'), content),
+            "right": self.get_inner_method(tree.get('right'), content),
+            **self.make_position(tree),
+        }
+
+    def node_MemberExpression(self, tree, content):
+        """
+        Handle member expressions: this.property, object.method, array[index]
+        
+        Examples:
+            - this.stage
+            - Point.prototype
+            - obj['key']
+        """
+        return {
+            "type": tree['type'],
+            "object": self.get_inner_method(tree.get('object'), content),
+            "property": self.get_inner_method(tree.get('property'), content),
+            "computed": tree.get('computed', False),
+            "optional": tree.get('optional', False),
+            **self.make_position(tree),
+        }
+
+    def node_ThisExpression(self, tree, content):
+        """
+        Handle 'this' keyword
+        """
+        return {
+            "type": tree['type'],
+            "word": "this",
+            **self.make_position(tree),
+        }
+
+    def node_ArrayExpression(self, tree, content):
+        """
+        Handle array literals: [1, 2, 3], []
+        """
+        elements = tree.get('elements', [])
+        return {
+            "type": tree['type'],
+            "elements": [self.get_inner_method(el, content) for el in elements if el],
+            "length": len(elements),
+            **self.make_position(tree),
+        }
+
+    def node_NewExpression(self, tree, content):
+        """
+        Handle new expressions: new PointList(), new Point(x, y)
+        """
+        return {
+            "type": tree['type'],
+            "callee": self.get_inner_method(tree.get('callee'), content),
+            "arguments": [self.get_inner_method(arg, content) for arg in tree.get('arguments', [])],
+            **self.make_position(tree),
+        }
+
+    def node_ReturnStatement(self, tree, content):
+        """
+        Handle return statements
+        """
+        return {
+            "type": tree['type'],
+            "argument": self.get_inner_method(tree.get('argument'), content) if tree.get('argument') else None,
+            **self.make_position(tree),
+        }
+
+    def node_BlockStatement(self, tree, content):
+        """
+        Handle block statements (function bodies, if blocks, etc.)
+        Usually we don't need to descend into these for documentation
+        """
+        return {
+            "type": tree['type'],
+            "body_length": len(tree.get('body', [])),
+            **self.make_position(tree),
+        }
+
+    def node_EmptyStatement(self, tree, content):
+        """
+        Handle empty statements (standalone semicolons)
+        These are common in JavaScript and usually can be ignored for documentation
+        """
+        return {
+            "type": tree['type'],
+            "kind": "empty",
+            **self.make_position(tree),
+        }
+
     def node_VariableDeclaration(self, tree, content):
         # return tree
         r = {
@@ -557,52 +1078,29 @@ class PhaseTree(TreeReader, CommentsMixin):
 
     def perform_vars_denest(self, res, tree, content):
         """
-            {
-                "kind": "const",
-                "type": "VariableDeclaration",
-                "declarations": [
-                    {
-                        "word": "stackItem1",
-                        "type": "VariableDeclarator",
-                        "init": {
-                            "kind": "literal",
-                            "raw": "'foo'",
-                            "value": "foo",
-                            "pos": "98, 103, 5, 19, 5, 24"
-                        },
-                        "id": {
-                            "type": "Identifier",
-                            "word": "stackItem1",
-                            "pos": "85, 95, 5, 6, 5, 16"
-                        },
-                        "pos": "85, 103, 5, 6, 5, 24"
-                    },
-                    ...
-                ],
-                "pos": "79, 205, 5, 0, 9, 29"
-            }
+        Denest variable declarations so each variable gets its own entry.
+        This makes const/let/var with multiple declarations easier to consume.
         """
         orig = tree.copy()
         decs = orig.pop('declarations', ())
         items = ()
 
-
         for dec in decs:
             new_dec = orig.copy()
             pos = dec['pos']
-            # raw_comments = self.get_inside_comments(pos.start, pos.end)
             raw_comments = self.get_area_comments(pos)
+            comments = self.format_comments_for_output(raw_comments)
+            
             d = {
                 'word': dec['id']['name'],
                 'sub_type': dec['type'],
                 'init': self.get_inner_method(dec['init'], content),
-                "raw_comments": raw_comments,
-                'sub_id': dec['id'],
+                "comments": comments,
+                **self.make_position(dec),
             }
             d.update(new_dec)
-            # new_dec.update(d)
             items += (d,)
-        # return items
+        
         return Concat(items)
 
     def node_VariableDeclarator(self, tree, content):
@@ -638,6 +1136,60 @@ class PhaseTree(TreeReader, CommentsMixin):
         # }
         return tree
 
+    def node_BinaryExpression(self, tree, content):
+        """
+        Handle binary expressions: a + b, x / y, etc.
+        Returns a simplified string representation for display.
+        """
+        left = self.get_inner_method(tree['left'], content)
+        right = self.get_inner_method(tree['right'], content)
+        operator = tree['operator']
+        
+        # Helper to extract string from expression
+        def get_expr_string(expr):
+            if not expr:
+                return None
+            if isinstance(expr, dict):
+                # Try raw first
+                if expr.get('raw'):
+                    return expr['raw']
+                # For MemberExpression, construct it
+                if expr.get('type') == 'MemberExpression':
+                    obj = expr.get('object', {})
+                    prop = expr.get('property', {})
+                    obj_name = obj.get('word') or obj.get('name') or str(obj.get('value', ''))
+                    prop_name = prop.get('word') or prop.get('name') or str(prop.get('value', ''))
+                    return f"{obj_name}.{prop_name}"
+                # Try word or name
+                if expr.get('word'):
+                    return expr['word']
+                if expr.get('name'):
+                    return expr['name']
+                # Try value
+                if 'value' in expr:
+                    return str(expr['value'])
+            return str(expr)
+        
+        left_str = get_expr_string(left)
+        right_str = get_expr_string(right)
+        
+        # Build the expression string
+        expr_parts = []
+        if left_str:
+            expr_parts.append(left_str)
+        expr_parts.append(operator)
+        if right_str:
+            expr_parts.append(right_str)
+        
+        return {
+            "type": tree['type'],
+            "operator": operator,
+            "left": left,
+            "right": right,
+            "raw": f"({' '.join(expr_parts)})",
+            **self.make_position(tree),
+        }
+
     def node_ObjectExpression(self, tree, content):
        return {
             # "word": tree["id"]["name"],
@@ -664,8 +1216,136 @@ class PhaseTree(TreeReader, CommentsMixin):
         }
         # return tuple(tree.keys())
 
+    def simplify_parameters(self, params):
+        """
+        Convert complex parameter objects into simplified format for UI consumption.
+        
+        Input examples:
+            - {"type": "Identifier", "word": "stage", ...}
+            - {"type": "AssignmentPattern", "left": {...}, "right": {...}, ...}
+            - {"type": "RestElement", "word": "points", ...}
+        
+        Output format:
+            {"name": "stage"}
+            {"name": "points", "default_value": "[]"}
+            {"name": "points", "is_rest": true}
+        """
+        simplified = []
+        
+        for param in params:
+            if not isinstance(param, dict):
+                continue
+                
+            param_type = param.get('type', '')
+            result = {}
+            
+            if param_type == 'Identifier':
+                # Simple parameter: (stage)
+                result = {
+                    "name": param.get('word') or param.get('name', '')
+                }
+                
+            elif param_type == 'AssignmentPattern':
+                # Parameter with default: (points=[], factor=1)
+                left = param.get('left', {})
+                right = param.get('right', {})
+                
+                result = {
+                    "name": left.get('name', '')
+                }
+                
+                # Extract default value
+                if right.get('type') == 'Literal':
+                    result['default_value'] = right.get('value')
+                elif right.get('type') == 'Identifier':
+                    result['default_value'] = right.get('name')
+                elif right.get('type') == 'ArrayExpression':
+                    result['default_value'] = '[]'
+                elif right.get('type') == 'ObjectExpression':
+                    # Try to represent object defaults simply
+                    props = right.get('properties', [])
+                    if props:
+                        obj_str = self._format_object_default(props)
+                        result['default_value'] = obj_str
+                    else:
+                        result['default_value'] = '{}'
+                        
+            elif param_type == 'RestElement':
+                # Rest parameter: (...points)
+                result = {
+                    "name": param.get('word', ''),
+                    "is_rest": True
+                }
+            
+            if result.get('name'):
+                simplified.append(result)
+        
+        return simplified
+    
+    def _format_object_default(self, properties):
+        """Format object expression properties into a simple string"""
+        try:
+            parts = []
+            for prop in properties[:3]:  # Limit to first 3 properties
+                key = prop.get('key', {}).get('name', '')
+                value_node = prop.get('value', {})
+                if value_node.get('type') == 'Literal':
+                    val = value_node.get('value', '')
+                    parts.append(f"{key}: {val}")
+            
+            result = "{" + ", ".join(parts) + "}"
+            if len(properties) > 3:
+                result = result[:-1] + ", ...}"
+            return result
+        except:
+            return '{}'
+    
+    def format_comments_for_output(self, raw_comments):
+        """
+        Format comments for output, optionally converting to HTML.
+        
+        raw_comments = {
+            'header': [...],
+            'inner': [...]
+        }
+        """
+        if not raw_comments:
+            return {'header': [], 'inner': []}
+            
+        result = {
+            'header': self._process_comment_list(raw_comments.get('header', [])),
+            'inner': self._process_comment_list(raw_comments.get('inner', []))
+        }
+        
+        return result
+    
+    def _process_comment_list(self, comments):
+        """Process a list of comment objects"""
+        if not comments:
+            return []
+            
+        processed = []
+        for comment in comments:
+            if isinstance(comment, dict):
+                clean = {
+                    'text': comment.get('text', ''),
+                    'block': comment.get('block', False),
+                    'line': comment.get('currentLoc', {}).get('line', 0)
+                }
+                
+                if self.convert_comments_to_html:
+                    import markdown
+                    import inspect
+                    md = markdown.Markdown(extensions=['meta', 'extra'])
+                    clean_text = inspect.cleandoc(comment.get('text', ''))
+                    clean['html'] = md.convert(clean_text)
+                
+                processed.append(clean)
+        
+        return processed
+
 
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

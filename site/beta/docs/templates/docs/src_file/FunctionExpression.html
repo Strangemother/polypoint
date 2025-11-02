@@ -1,1 +1,63 @@
-<p>{{ item.kind }} {{ item.word }}: <small>{{ item.keys }}</small></p>
+<div class="function-expression">
+    <div class="signature">
+
+        <a class='anchor' name='{{ item.word }}'></a>
+        <div class='function-head'>
+            <div class="item-kind-space">
+                <span class="function-kind kind-{{ item.kind }}">
+                    {% firstof item.kind 'function' %}
+                </span>
+            </div>
+            <h3 data-kind='{{ item.kind }}' data-key='{{ item.word }}'
+                class="function-name">
+                {{ item.word }}
+            </h3>
+        </div>
+
+        <div class="bracket bracket-open">(</div>
+
+        <div class="params">
+            {% for param in item.params %}
+                <span class="name">{{ param.name }}</span>
+
+                {% if param.default_value %}
+                    <span>=</span>
+                    <span class="default-value">
+                        {{ param.default_value }}
+                    </span>
+                {% endif %}
+                {% if param.is_rest %}
+                    <span class="rest-indicator">...</span>
+                {% endif %}
+                {% if not forloop.last %}<span class="comma">,</span>{% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="bracket bracket-close">)</div>
+
+        {% if item.async %}
+        <div class="function-modifiers">
+            <span class="modifier async">async</span>
+        </div>
+        {% endif %}
+
+    </div>
+
+     <div class="comments">
+
+        <div class="comment">
+            <small>{{ item.keys }}</small>
+        </div>
+
+        {% for comment in item.comments.header %}
+            <div class="header-comment comment">
+                {{ comment.text|safe }}
+            </div>
+        {% endfor %}
+        {% for comment in item.comments.inner %}
+            <div class="inner-comment comment">
+                {{ comment.text|safe }}
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -17,10 +17,17 @@
 
 <div class="class-doc">
     <div class="comments">
-        <div class="tiny-label">raw comments</div>
-        {% for comment in item.raw_comments %}
-        <div class="comment">
-            {{ comment.html|safe }}
+        <div class="tiny-label">class comments:</div>
+
+        {% for comment in item.comments.header %}
+        <div class="header-comment comment">
+            {{ comment.text|safe }}
+        </div>
+        {% endfor %}
+        
+        {% for comment in item.comments.inner %}
+        <div class="inner-comment comment">
+            {{ comment.text|safe }}
         </div>
         {% endfor %}
     </div>

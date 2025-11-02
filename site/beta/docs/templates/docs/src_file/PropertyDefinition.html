@@ -18,15 +18,10 @@
         </div>
 
         <div class="params">
-
-            {# for param in item.params #}
-                {# <span class="name">param_name</span> #}
-                {# if param.default_value #}
-                    <span>=</span>
-                    <span class="default-value">{{ item.value.raw }}</span>
-                {# endif #}
-                <span class="comma">,</span>
-            {# endfor #}
+            {% if item.value.raw %}
+                <span>=</span>
+                <span class="default-value">{{ item.value.raw }}</span>
+            {% endif %}
         </div>
 
         <div class="method-owner-class">
@@ -37,18 +32,18 @@
     </div>
 
      <div class="comments">
-        <div class="tiny-label">{{item.raw_comments}}</div>
+        <div class="tiny-label">{{item.comments}}</div>
 
         <div class="comment">
             <small>{{ item.keys }}</small>
         </div>
-        {% for comment in item.raw_comments.header %}
+        {% for comment in item.comments.header %}
             <div class="comment">
                 {{ comment.text|safe }}
             </div>
         {% endfor %}
 
-        {% for comment in item.raw_comments.inner %}
+        {% for comment in item.comments.inner %}
             <div class="comment">
                 {{ comment.text|safe }}
             </div>

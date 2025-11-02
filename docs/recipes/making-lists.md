@@ -140,32 +140,39 @@ this.points = new PointList(
 ).cast(BodyPoint)
 ```
 
-## Future
-
-Better. But it would be nice to reduce further. Unfortunately because we're applying the `name` property to each point, it's not possible to simply convert each point to a _list_ type; because a list type point accepts `[x, y, radius, rotation]`:
+Better. But it would be nice to reduce further. Unfortunately because we're applying the `name` property to each point, it's not possible to simply convert each point to a _list_ type; because a list type point accepts `[x, y, radius, rotation]`.
 
 
-```js
-this.points = new PointList(
-    //  x,   y,      radius, (no) rotation
-      [ mx,  150,    50]  // 'head'
-    , [ 400, 180       ]  // 'neck'
-    , [ mx,  200,    10]  // 'shoulders'
-    // arm
-    // ...
-)
-```
-
-To fix this, we can alter the _list entry_ functionality, assigning a new order:
 
 ```js
-// before (default)
-[x, y, radius, rotation]
 
-// After (preferred)
-[name, x, y, radius]
+points = new PointList(
+    // name,          x,     y,   radius
+      ['head',        mx,    150, 50]
+    , ['neck',        400,   180]
+    , ['shoulders',   mx,    200, 10]
+    // left arm
+    , ['elbow',       mx-20, 220]
+    , ['hand' ,       mx,    230]
+    // right arm
+    , ['elbow',       mx+20, 240]
+    , ['hand',        mx+40, 250]
+    // --- 
+    , ['hips',        mx-20, 260, 15]
+    // left leg
+    , ['leg' ,        mx-50, 310]
+    , ['foot',        mx,    320]
+    // right leg
+    , ['leg',         mx,    340]
+    , ['foot',        400,   520]
+).cast(BodyPoint, function(arrItem, type){
+    let [name, ...xyr] = arrItem
+    let o = (new type(xyr)).update({
+                vx: .1, vy: 0, mass: 1, name 
+            })
+    return o 
+});
+        
 ```
 
-Our `BodyPoint` already exists and can be customised without affecting anything else.
-
-
+This requires a bit more code in the cast function, but saves a lot of repetition in the point list.

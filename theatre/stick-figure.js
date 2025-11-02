@@ -48,30 +48,36 @@ class MainStage extends Stage {
         }
 
         this.points = new PointList(
-              {x: mx, y:150, radius:50, name: 'head' }
-            , {x: 400, y:180, name: 'neck'}
-            , {x: mx, y:200, radius:10, name:'shoulders' }
+                // name, x, y, radius
+              ['head',      mx, 150, 50]
+            , ['neck',      400, 180]
+            , ['shoulders', mx, 200, 10]
             // arm
-            , {x: mx-20, y:220, name: 'elbow'  }
-            , {x: mx, y:230, name: 'hand'  }
+            , ['elbow',     mx-20, 220]
+            , ['hand' ,     mx, 230]
 
             // right arm
-            , {x: mx+20, y:240, name: 'elbow' }
-            , {x: mx+40, y:250, name: 'hand' }
+            , ['elbow',  mx+20, 240]
+            , ['hand',   mx+40, 250]
 
             // left leg
-            , {x: mx-20, y:260, radius:15, name: 'hips' }
-            , {x: mx-50, y:310, name: 'leg'  }
+            , ['hips',   mx-20, 260, 15]
+            , ['leg' ,   mx-50, 310]
 
-            , {x: mx, y:320, name: 'foot'}
-            , {x: mx, y:340, name: 'leg' }
-
-            , {x:400, y:520, name: 'foot'}
-        ).cast(BodyPoint)
+            , ['foot',    mx, 320]
+            , ['leg',    mx, 340]
+            , ['foot',   400, 520]
+        ).cast(BodyPoint, function(arrItem, type){
+            let [name, ...xyr] = arrItem
+            let o = new type(xyr)
+            o.name = name
+            return o 
+        })
 
         this.points.update({
             vx: .1, vy: 0, mass: 1
         });
+        
         let cb = this.collisionBox = new CollisionBox()
         cb.points.push(this.points[0])
         cb.points.push(this.points[4])

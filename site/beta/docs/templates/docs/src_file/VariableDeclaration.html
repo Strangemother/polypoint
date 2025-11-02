@@ -1,28 +1,87 @@
-{% load strings %}
+<div class="variable-declaration">
+    <div class="signature">
 
-<div>
-
-
-    {{ item.kind }} {{ item.word }}
-    {% if item.init.raw %}
-        = {{ item.init.raw }}
-    {% else %}
-        <div class="type">
-
-        type: {{ item.init.type }}
-        {% if item.init.type %}
-            {% str_merge './' item.init.type '.html' as inc_name %}
-            {% include inc_name with item=item %}
-        {% else %}
-            init: {{ item.init }}
-        {% endif %}
+        <a class='anchor' name='var-{{ item.word }}'></a>
+        <div class='variable-head'>
+            <div class="item-kind-space">
+                <span class="variable-kind kind-{{ item.kind }}">
+                    {{ item.kind }}
+                </span>
+            </div>
+            <h3 data-kind='{{ item.kind }}' data-key='{{ item.word }}'
+                class="variable-name">
+                {{ item.word }}
+            </h3>
         </div>
-    {% endif %}
 
-<small>{{ item.keys }}</small>
+        {% if item.init %}
+            <span class="equals">=</span>
+            <div class="variable-value">
+                {% if item.init.raw %}
+                    <span class="raw-value">{{ item.init.raw }}</span>
+                {% elif item.init.word %}
+                    <span class="identifier-value">{{ item.init.word }}</span>
+                {% elif item.init.name %}
+                    <span class="identifier-value">{{ item.init.name }}</span>
+                {% elif item.init.type == "FunctionExpression" %}
+                    <span class="function-value">
+                        <span class="keyword">function</span>
+                        <span class="bracket">(</span>
+                        {% for param in item.init.params %}
+                            <span class="param-name">{{ param.name }}</span>
+                            {% if param.default_value %}
+                                <span>=</span><span class="default-value">{{ param.default_value }}</span>
+                            {% endif %}
+                            {% if not forloop.last %}<span class="comma">,</span>{% endif %}
+                        {% endfor %}
+                        <span class="bracket">)</span>
+                    </span>
+                {% elif item.init.type == "ArrowFunctionExpression" %}
+                    <span class="arrow-function-value">
+                        <span class="bracket">(</span>
+                        {% for param in item.init.params %}
+                            <span class="param-name">{{ param.name }}</span>
+                            {% if not forloop.last %}<span class="comma">,</span>{% endif %}
+                        {% endfor %}
+                        <span class="bracket">)</span>
+                        <span class="arrow">=&gt;</span>
+                    </span>
+                {% elif item.init.type == "NewExpression" %}
+                    <span class="new-expression-value">
+                        <span class="keyword">new</span>
+                        <span class="constructor">
+                            {% if item.init.callee.word %}
+                                {{ item.init.callee.word }}
+                            {% elif item.init.callee.name %}
+                                {{ item.init.callee.name }}
+                            {% else %}
+                                {{ item.init.callee.type }}
+                            {% endif %}
+                        </span>
+                        <span class="bracket">(</span>
+                        {% for arg in item.init.arguments %}
+                            {% if arg.word %}{{ arg.word }}{% elif arg.name %}{{ arg.name }}{% elif arg.raw %}{{ arg.raw }}{% else %}{{ arg.type }}{% endif %}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                        <span class="bracket">)</span>
+                    </span>
+                {% else %}
+                    <span class="type-value">{{ item.init.type }}</span>
+                {% endif %}
+            </div>
+        {% endif %}
 
+    </div>
+
+    <div class="comments">
+        {% for comment in item.comments.header %}
+            <div class="header-comment comment">
+                {{ comment.text|safe }}
+            </div>
+        {% endfor %}
+        {% for comment in item.comments.inner %}
+            <div class="inner-comment comment">
+                {{ comment.text|safe }}
+            </div>
+        {% endfor %}
+    </div>
 </div>
-
-{% comment %}
-
-{% endcomment %}

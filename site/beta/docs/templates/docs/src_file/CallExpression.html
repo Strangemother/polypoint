@@ -1,0 +1,18 @@
+<span class="call-expression">
+    <span class="call-name">
+        {% if item.word %}
+            {{ item.word }}
+        {% elif item.name %}
+            {{ item.name }}
+        {% else %}
+            {{ item.type }}
+        {% endif %}
+    </span>
+    <span class="call-arguments">(
+        {% if item.arguments %}
+            {% for arg in item.arguments %}
+                {% if arg.word %}{{ arg.word }}{% elif arg.name %}{{ arg.name }}{% elif arg.raw %}{{ arg.raw }}{% else %}{{ arg.type }}{% endif %}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        {% endif %}
+    )</span>
+</span>

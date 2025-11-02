@@ -18,6 +18,13 @@ from .theatre import get_theatre_list, get_theatre_filelist, get_metadata
 from . import forms
 from . import theatre_process
 
+import re
+
+from django.core.files.storage import default_storage
+
+from uuid import uuid4
+import os
+
 
 class ExampleIndexTemplateView(views.ListView):
     """
@@ -101,6 +108,7 @@ class ExampleFileView(views.TemplateView):
 
     Finally the _theatre_ file is attempted at `theatre/{path}.js`.
     """
+
     # The template file will be generated based upon the
     # path; e.g. "egg" -> "theatre/egg.js", "examples/egg.html"
     # If the template file does not exist, use this default template.
@@ -210,9 +218,6 @@ class ExampleFileScriptsView(views.TemplateView):
         return names
 
 
-
-import re
-
 def remove_comments(string):
     pattern = r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)"
     # first group captures quoted strings (double or single)
@@ -226,8 +231,6 @@ def remove_comments(string):
         else: # otherwise, we will return the 1st group
             return match.group(1) # captured quoted-string
     return regex.sub(_replacer, string)
-
-
 
 
 class CloneFileView(views.FormView):
@@ -351,10 +354,6 @@ class ExampleFileImagesView(views.TemplateView):
         )
 
 
-from django.core.files.storage import default_storage
-
-from uuid import uuid4
-import os
 
 class AjaxFormMixin:
     def form_invalid(self, form):

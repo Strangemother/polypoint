@@ -1,6 +1,23 @@
 # Installing Addons
 
-Polypoint and all its assets are _pluggable_ through a process of `install` and `mixin` prototype loading. This allows us to _import_ for it to hoist methods on existing assets.
+Polypoint and all its assets are _pluggable_ through a process of `install` and `extend` prototype loading. This allows us to _import_ files that hoist methods on existing assets.
+
+> **Recommended:** Use the [`Polypoint.extend.*` API](./extend-methods.md) for the cleanest, most intuitive experience.
+
+## Table of Contents
+
+- [Install](#install) - Register classes with Polypoint
+- [Extending Classes](#extending-classes) - Add functionality to installed classes
+  - [extend.mixin](#extendmixin) - Complex property descriptors
+  - [extend.functions](#extendfunctions) - Multiple methods at once
+  - [extend.prop](#extendprop) - Per-instance lazy properties
+  - [extend.singleton](#extendsingleton) - Shared singleton properties
+- [Arrow Functions](#arrow-functions-) - Important scope considerations
+- [Legacy API](#legacy-api) - Migration guide
+
+---
+
+## Quick Start
 
 Like this:
 
@@ -8,8 +25,8 @@ Like this:
 // Pretend Polypoint.Stage
 class Stage {}
 
-// tell Polypoint this is a mixin thing.
-Polypoint.install(Stage)
+// Register with Polypoint
+Polypoint.head.install(Stage)
 
 const stage = new Stage();
 /* could also become */
@@ -24,8 +41,8 @@ undefined
 Install something:
 
 ```js
-// We can install a new function
-Polypoint.lazierProp('Stage', function dragging(){
+// We can install a new singleton property
+Polypoint.extend.singleton('Stage', function dragging(){
     console.log('new dragging instance')
     let dr = new Dragging(this)
     dr.initDragging();
@@ -38,32 +55,38 @@ console.log(stage.dragging)
 ```
 
 
-## Usage
+---
 
-A Polypoint asset should be loaded into the primary object.
+## Install
 
+A Polypoint asset should be loaded into the primary object using `install`, then extended with new functionality.
 
-### Install
-
-Use `Polypoint.install` to ensure the entity is available for overloading:
+Use `Polypoint.head.install()` to register a class with Polypoint:
 
 ```js
-// Pretend Polypoint.Stage
 class Thing {}
 
-// tell Polypoint this is a mixin thing.
-Polypoint.install(Thing)
+// Register with Polypoint
+Polypoint.head.install(Thing)
 
+// Now accessible through Polypoint
 Polypoint.Thing == Thing
 ```
 
+Once installed, you can extend the class with new properties and methods.
 
-### `mixin`
+---
 
-Install properties onto an incoming unit. The target may be any _installed_ asset:
+## Extending Classes
+
+The `Polypoint.extend.*` API provides clean, intuitive methods for adding functionality. See [extend-methods.md](./extend-methods.md) for full documentation.
+
+### `extend.mixin`
+
+Install properties with full descriptor control. The target may be any _installed_ asset:
 
 ```js
-Polypoint.mixin('Point', {
+Polypoint.extend.mixin('Point', {
 
     _draggable: {
         value: true,
@@ -73,24 +96,27 @@ Polypoint.mixin('Point', {
     , draggable: {
         get() {
             return this._draggable
+        },
+        set(value) {
+            this._draggable = Boolean(value)
         }
     }
 })
 
 this.center.draggable == true
-this.center._draggable = false
+this.center.draggable = false
 this.center.draggable == false
 ```
 
-The mixin exposes the standard `Object.defineProperties`
+The mixin accepts standard `Object.defineProperties` descriptors.
 
 
-### `installFunctions`
+### `extend.functions`
 
-Assume many functions to install:
+Install multiple methods at once:
 
 ```js
-Polypoint.head.installFunctions('Point', {
+Polypoint.extend.functions('Point', {
     track(other, settings) {
         return constraints.distance(other, this, settings)
     }
@@ -101,135 +127,108 @@ Polypoint.head.installFunctions('Point', {
 });
 ```
 
-Synonymous to:
+All functions are writable and can be overridden if needed.
+
+
+### `extend.prop`
+
+Add a lazy-loaded property unique to each instance. The initializer runs once per instance:
 
 ```js
-Polypoint.head.mixin('Point', {
-    track: {
-        value(any=false) {
-            // ...
-        }
-        , writable: true
-    }
-    , leash: {
-        // ...
-    }
+Polypoint.extend.prop('Point', function pen() {
+    return new PointPen(this)
+})
+
+// Each point gets its own pen
+stage.center._pen == undefined  // true (before first access)
+stage.center.pen                // Creates PointPen
+stage.center._pen == PointPen   // true (now cached)
+```
+
+The property is automatically cached on first access.
+
+
+### `extend.singleton`
+
+Add a lazy-loaded property that returns the same instance across all instances:
+
+> [!TIP]
+> Arrow functions may not maintain the correct scope for `this` within the call. Read the "Arrow Functions" section below for more info.
+
+```js
+Polypoint.extend.singleton('Stage', function screenshot() {
+    return new Screenshot(this)
 })
 ```
 
-
-### `lazyProp`
-
-Assume many correctly named functions to access values on first call.
+This creates the `screenshot` property on Stage, but will only initialize once.
+Any subsequent calls to `stage.screenshot` will yield the same shared object:
 
 ```js
-Polypoint.head.lazyProp('Point', {
-    pen() {
-        let r = this._pen
-        if(r == undefined) {
-            r = new PointPen(this)
-            this._pen = r
-        }
-        return r
-    }
-})
+const stage1 = new Stage
+const stage2 = new Stage
 
-stage.center._pen == undefined
-stage.center.pen == Pen
-stage.center._pen == Pen
+Polypoint._screenshot == undefined  // true (before first access)
+stage1.screenshot                   // Creates Screenshot (singleton)
+Polypoint._screenshot == Screenshot // true (cached globally)
+stage2.screenshot === stage1.screenshot  // true (shared instance)
 ```
 
-Synonymous to:
+The singleton is cached on the `Polypoint` object itself, not the instances.
+
+---
+
+## Arrow Functions `()=>{}`
+
+When using `extend.prop` or `extend.singleton`, the callback is executed with `this` bound to the target instance (e.g., `new Point()`). Arrow functions do not maintain this binding.
+
+If your class requires a reference to the owning entity (like `Point.as` methods needing a reference to their `point`), use classic function syntax:
+
+**Example:** The `PointCast` class requires a reference to `this` of type `Point`:
 
 ```js
-Polypoint.head.mixin('Point', {
-    pen: {
-        get() {
-            let r = this._pen
-            if(r == undefined) {
-                r = new PointPen(this)
-                this._pen = r
-            }
-            return r
-        }
-    }
-})
-```
-
-
-### `lazierProp`
-
-Using the `lazyProp` for a _first call create_ is very common. Therefore we have a lazier function:
-
->[TIP]
-> Arrow functions may not maintain the correct scope for `this` within the call. Read the "Method Note" for more info
-
-```js
-Polypoint.head.lazierProp('Stage',
-    function screenshot() {
-        return new Screenshot(this)
-    }
-);
-```
-
-This applies the `screenshot()` method to a stage, but will only call once.
-Any subsequesnt calls to `stage.screenshot()` will yield the generated object:
-
-```js
-const stage = new Stage;
-stage._screenshot == undefined
-console.log(stage.screenshot)
-stage._screenshot == stage.screenshot
-```
-
-Synonymous to:
-
-```js
-Polypoint.head.lazyProp('Stage', {
-    screenshot() {
-        let s = this._screenshot;
-        if(s) { return s };
-        this._screenshot = new Screenshot(this)
-        return this._screenshot
-    }
-})
-```
-
-#### Arrow Functions `()=>{}`
-
-The lazy prop is called once, and the result is cached under the `_{name}` of the method.
-The scope of the callback (`this`), is the target instance `(new Point)`. The `this` reference for arrow functions is the outer scope.
-
-If the sub entity requires a reference to the owning entity (Such as the `Point.as...` methods need a reference to its `point`), ensure to use the classic function:
-
-In this example the `PointCast` class requires a reference to `this` of type `Point`:
-
-
-```js
-// Without lazy prop:
+// Without extend.prop:
 const point = new Point(100, 200)
-point.as = PointerCast(point);
+point.as = new PointCast(point)
 point.as.array()
 // [100, 200]
 ```
 
-With the `lazierProp` example, we ensure a closed scope for this one-time call using `function(){ ... }`:
+**With `extend.prop`**, use `function(){}` to ensure correct scope:
 
 ```js
-Polypoint.lazierProp('Point', function(){
+// ✅ Correct - `this` refers to the Point instance
+Polypoint.extend.prop('Point', function as() {
     return new PointCast(this)
-}, 'as')
+})
 ```
 
-When using arrow functions `()=>{}` the `this` reference is not the `Point`, but is more likely the `window`
+**Arrow functions will not work:**
 
 ```js
-// will not work
-
-// `this` is undefined
-Polypoint.lazierProp('Point', ()=>new PointCast, 'as')
-// `this` is Window
-Polypoint.lazierProp('Point', ()=>{ new PointCast(this)}, 'as')
+// ❌ Wrong - `this` is undefined or Window
+Polypoint.extend.prop('Point', () => new PointCast(this), 'as')
 ```
 
-In both cases the `this` reference did not correctly apply the scope as the `Point` instance.
+In this case, `this` does not correctly reference the `Point` instance.
+
+---
+
+## Legacy API
+
+The older `Polypoint.head.*` API remains available for backwards compatibility:
+
+- `Polypoint.head.deferredProp()` → Use `Polypoint.extend.prop()`
+- `Polypoint.head.lazierProp()` → Use `Polypoint.extend.singleton()`
+- `Polypoint.head.lazyProp()` → Use `Polypoint.extend.getter()`
+- `Polypoint.head.installFunctions()` → Use `Polypoint.extend.functions()`
+
+See [head-methods.md](./head-methods.md) for the legacy documentation.
+
+---
+
+## See Also
+
+- [extend-methods.md](./extend-methods.md) - **Recommended API** with full examples
+- [head-methods.md](./head-methods.md) - Legacy API documentation
+- [getting-started.md](./getting-started.md) - Basic Polypoint usage

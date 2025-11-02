@@ -78,7 +78,8 @@ def get_theatre_list(**kw):
     # get all files in the theatre dir
     # parent = settings.POLYPOINT_THEATRE_DIR
     # parent = settings.POLYPOINT_EXAMPLES_DIR
-    parent = settings.POLYPOINT_THEATRE_DIR
+    parent = kw.get('parent_dir', settings.POLYPOINT_THEATRE_DIR)
+    # parent = settings.POLYPOINT_EXAMPLES_DIR
 
     reverse = kw.get('reverse', True)
     order_by = kw.get('orderby', None)

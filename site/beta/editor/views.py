@@ -60,11 +60,14 @@ class MicroRunOnlyView(IndexView):
 
 class PointSrcAssetView(views.TemplateView):
     template_name = 'editor/blank.html'
-
+    src_dir = settings.POLYPOINT_THEATRE_DIR
+    # src_dir = settings.POLYPOINT_DEMO_DIR
+    #
     def get_context_data(self,**kwargs):
         kw = super().get_context_data(**kwargs)
         # kw['path'] = self.inject_requirements(get_file_contents(kwargs['path']))
-        kw['path'] = get_file_contents(kwargs['path'])
+        # src_dir = settings.POLYPOINT_DEMO_DIR
+        kw['path'] = get_file_contents(kwargs['path'], root=self.src_dir)
         if kw['path']['exists'] is False:
             raise Http404
 
@@ -73,7 +76,8 @@ class PointSrcAssetView(views.TemplateView):
     def inject_requirements(self, obj):
         extra = 'window \n\n'
         src_dir = Path(settings.POLYPOINT_SRC_DIR)
-        # parent = Path(settings.POLYPOINT_THEATRE_SRC_RELATIVE_PATH)
+        # src_dir = Path(settings.POLYPOINT_DEMO_DIR)
+
         data = theatre.get_metadata(obj['path'], parent=src_dir)
         files = data.get('files', ())
 
@@ -95,6 +99,13 @@ class PointSrcAssetView(views.TemplateView):
         response['Content-Type'] = 'text/javascript'
         # response['Content-Length'] = len(content)
         return response
+
+
+class DemoSrcAssetView(PointSrcAssetView):
+    # template_name = 'editor/blank.html'
+    # src_dir = settings.POLYPOINT_THEATRE_DIR
+    src_dir = settings.POLYPOINT_DEMO_DIR
+
 
 
 class TreeStorePostView(views.FormView):

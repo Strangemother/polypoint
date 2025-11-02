@@ -57,6 +57,97 @@ colorScheme = {
     ]
 }
 
+class ColorBase {
+
+    constructor() {
+        this.palette = new Map
+        this.set(this.base())
+    }
+
+    base() {
+        return {
+            primary: '#E55F00'   // Medium orange
+            , secondary1: '#E09400' // Medium gold
+            , secondary2: '#0E4299' // Medium blue
+            , complement: '#00907C' // Medium teal
+        }
+    }
+
+    set(data) {
+        for(let k in data) {
+            this.add(k, data[k])
+        }
+    }
+
+    add(name, color) {
+        this.palette.set(name, this.cast(color))
+    }
+
+    get(name, parse=true) {
+        if(this.palette.has(name) == false) return null
+        let v = this.palette.get(name)
+        return parse==true? this.format(v): v
+    }
+
+    blend(background, overlay, opacity, gamma=1) {
+        let _b = this.get(background, 0)
+        if(_b == null) _b = background;
+        let _o = this.get(overlay, 0)
+        if(_o == null) _o = overlay;
+
+        return this.format(colorBits.blend(_b, _o, opacity, gamma))
+    }
+
+    darken(name, coefficient) {
+        return this.format(colorBits.darken(this.get(name, 0), coefficient))
+    }
+
+    lighten(name, coefficient) {
+        return this.format(colorBits.lighten(this.get(name, 0), coefficient))
+    }
+
+    splitRight(count, background, overlay, gamma=1) {
+        return this._split(count, (i, t, a) => this.blend(background, overlay, t, gamma))
+    }
+
+    splitDarken(count, name) {
+        return this._split(count, (i, t, a) => this.darken(name, t))
+    }
+
+    splitLighten(count, name) {
+        return this._split(count, (i, t, a) => this.lighten(name, t))
+    }
+
+    splitLeft(count, background, overlay, gamma=1) {
+        return this._split(count, (i, t, a) => this.blend(background, overlay, 1-t, gamma))
+    }
+
+    _split(count, func) {
+        let i = 0;
+        let r = []
+        while(i<count) {
+            i++;
+            const t = i / count  // Normalize to 0-1 range (9 intervals for 10 colors)
+            // const blended = colorBits.blend(this.startColor, this.endColor, t)
+            r.push(func(i, t, r))
+        };
+        return r
+    }
+
+
+    format(v) {
+        return colorBits.format(v)
+    }
+
+    cast(color) {
+        /*
+        CSS color string: #xxx, #xxxxxx, #xxxxxxxx, rgb(), rgba(), hsl(), hsla(), color()
+         */
+        return colorBits.parse(color)
+    }
+}
+
+const colorBase = new ColorBase;
 
 class MainStage extends Stage {
     canvas = 'playspace'
@@ -64,16 +155,11 @@ class MainStage extends Stage {
     mounted() {
         this.points = PointList.generate.list(20, new Point(40, 0), [100, 100])
         this.points.each.radius = 10
-        // Define start and end colors using the scheme
-        this.startColor = colorScheme.primary[2]
-        this.endColor = colorScheme.complement[2]
-
-        this.points.forEach((p, i, a) => {
-            const t = i / a.length  // Normalize to 0-1 range (9 intervals for 10 colors)
-            const blended = colorBits.blend(this.startColor, this.endColor, t)
-            p.color = colorBits.format(blended)
-        })
-
+        // let cs = colorBase.splitLeft(this.points.length, 'primary', 'complement', 1)
+        // let cs = colorBase.splitRight(this.points.length, 'primary', 'complement', 1)
+        // let cs = colorBase.splitLighten(this.points.length, 'primary')
+        let cs = colorBase.splitDarken(this.points.length, 'primary')
+        this.points.each.color = (p, i) => cs[i]
     }
 
     draw(ctx) {
@@ -81,5 +167,6 @@ class MainStage extends Stage {
         this.points.pen.fill(ctx)
     }
 }
+
 
 stage = MainStage.go({ loop: false})

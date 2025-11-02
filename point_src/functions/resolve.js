@@ -20,6 +20,7 @@ const resolveCanvas = function(target, stage) {
     if(typeof(target) == "string") {
 
         node = document.getElementById(target)
+
         if(node == null) {
             let nodes = document.querySelectorAll(target)
             if(nodes.length == 0) {
@@ -32,6 +33,7 @@ const resolveCanvas = function(target, stage) {
                 console.warn('One canvas per stage.', target)
                 return nodes[0]
             }
+            return nodes[0]
         }
 
     }

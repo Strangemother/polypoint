@@ -25,10 +25,10 @@ files:
     ../point_src/text/beta.js
     ../point_src/clock.js
     ../point_src/curve-extras.js
+*/
 
- */
 class MainStage extends Stage {
-    canvas='playspace'
+    // canvas='playspace'
     // live=false
     live = true
     mounted(){
@@ -201,4 +201,5 @@ class MainStage extends Stage {
 }
 
 
-;stage = MainStage.go();
+Polypoint.head.install(MainStage)
+;stage = MainStage.go("#playspace");

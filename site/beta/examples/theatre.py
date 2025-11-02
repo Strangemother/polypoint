@@ -110,9 +110,9 @@ def get_theatre_list(**kw):
     return tuple(res)
 
 
-def render_markdown(path, parent, clean_meta=False, meta_keys=None):
+def render_markdown(path, parent, clean_meta=False, meta_keys=None, encoding='utf-8'):
     theatre_file = (parent / path)
-    text_data = theatre_file.read_text()
+    text_data = theatre_file.read_text(encoding=encoding)
 
     md = ''
     html = ''

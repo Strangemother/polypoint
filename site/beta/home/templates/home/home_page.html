@@ -19,13 +19,15 @@ Delete the line below if you're just getting started and want to remove the welc
 <script src="/editor/point_src/core/loader.js"></script>
 <script src="/editor/point_src/files.js"></script>
 
+<script src="/editor/point_src/core/polypoint-canvas.js"></script>
+
+{% comment "optional note" %}
+{% endcomment %}
+
 {% js "js/home/home_loads.js" %}
 {% js "js/home/home_loader.js" %}
 
-{# <script src='/examples/theatre/arc-angles.js'></script> #}
-
 {% link.js "js/home/home_page.js" %}
-
 
 <div class="example-grid-space">
     <div class="color-grade"></div>
@@ -100,8 +102,6 @@ Delete the line below if you're just getting started and want to remove the welc
 {% block content %}
 {% link.css "css/bubble-demo.css" %}
 
-
-
 <div class="outer-block primary-highlight info-block">
     <div class="block">
         <div class="info-container">
@@ -133,8 +133,17 @@ Delete the line below if you're just getting started and want to remove the welc
         Polypoint thrives on instant gratification — plugging together effortlessly. Abstract, import, rearrange; it's modularity on crack.
         {% endmarkdown %}
         </div>
+            <div class="info-sibling">
+                <polypoint-canvas
+                    xtheatre="http://127.0.0.1:8000/examples/scripts+theatre/clock-face-sweep.js/">
+                </polypoint-canvas>
 
-            <div class="info-sibling"></div>
+                <polypoint-canvas>
+                    context.beginPath();
+                    context.arc(50, 50, 40, 0, 2 * Math.PI);
+                    context.stroke();
+                </polypoint-canvas>
+            </div>
         </div>
     </div>
 </div>
@@ -193,7 +202,7 @@ Delete the line below if you're just getting started and want to remove the welc
 
         > No abstractions here!
 
-        Access the canvas as a first-class citizen. With no gatekeeping, no hidden laters, brush it aside when you don't need it.
+        Access the canvas as a first-class citizen. With no gatekeeping, no hidden layers, brush it aside when you don't need it.
 
         Polypoint provides a thin abstract on-top of the canvas layer, with a wealth of functionatily to brush away the boilerplate.
         {% endmarkdown %}

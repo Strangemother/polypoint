@@ -70,8 +70,6 @@ const twoPointsAsRectOrdered = function(a, b) {
 
 // }
 
-
-
 // bottom: 709.390625
 // height: 709.390625
 // left: 0

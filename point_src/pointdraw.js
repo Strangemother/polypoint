@@ -76,7 +76,7 @@ class PointDraw {
         ctx.rect(xy.x + offset.x, xy.y + offset.y, width, height)
     }
 
-    roundRect(ctx, width=this.point.radius, height, radii=[10]) {
+    roundRect(ctx, width=this.point.radius, height, radii=[10], offset={x:0, y:0}) {
         /* Draw a standard `roundRect` using this point as the top left `{x,y}`
         The default _width_ and _height_ is the _radus_ of the point, drawing
         a round rect to the size of the point.
@@ -97,7 +97,8 @@ class PointDraw {
             height = width
         }
         let p = this.point
-        ctx.roundRect(p.x, p.y, width, height, radii)
+        ctx.roundRect(p.x + offset.x, p.y + offset.y, width, height, radii)
+        // ctx.rect(xy.x + offset.x, xy.y + offset.y, width, height)
     }
 
     ngon(ctx, sides, radius, fromCenter=true, angle=0) {

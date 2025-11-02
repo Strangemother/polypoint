@@ -1,5 +1,8 @@
 
 function generateCubeShellPoints(countPerAxis = 3, size = 1) {
+  /*
+      points = PointList.from(generateCubeShellPoints(count, 400)).cast()
+  */
   const points = [];
   const step = size / (countPerAxis - 1);
   const offset = -size / 2;

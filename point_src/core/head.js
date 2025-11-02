@@ -432,7 +432,7 @@ This works for many mixins:
     /*
         Assume many functions to install:
 
-            Polypoint.installFunctions('Point', {
+            Polypoint.head.installFunctions('Point', {
                 track(other, settings) {
                     return constraints.distance(other, this, settings)
                 }

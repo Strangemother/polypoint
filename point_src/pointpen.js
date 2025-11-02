@@ -215,6 +215,18 @@ class PointPen {
         }, color, strokeWidth)
     }
 
+    roundRect(ctx, width=this.point.radius, height, color, strokeWidth, offset={x:0, y:0}, radii=[this.point.radius]) {
+        let xy = this.point.xy
+        if(height == undefined) {
+            height = width
+        }
+
+        this._quickStroke(ctx, ()=>{
+            // roundRect(x, y, width, height, radii)
+           ctx.roundRect(xy.x + offset.x, xy.y + offset.y, width, height, radii)
+        }, color, strokeWidth)
+    }
+
     indicator(ctx, miniConf={}) {
         /*
         Synonymous to:

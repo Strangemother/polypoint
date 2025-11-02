@@ -90,6 +90,10 @@ class Random {
         return p
     }
 
+    shuffle(points, max=1) {
+        points.forEach(p=>p.xy=this.within(p, max))
+    }
+
     within(point, max=.5) {
         /* Return a random 2D position within the given point.
 

@@ -5,7 +5,31 @@ first object to loadout: `Polypoint`.
 
 The head contains a range of hoisting functions to late-load installables.
 
-## Quick Guide
+## Recommended API
+
+For extending Polypoint classes, use the cleaner `Polypoint.extend.*` API:
+
+    Polypoint.extend.prop('Point', function pen() {
+        return new PointPen(this)
+    })
+
+    Polypoint.extend.singleton('Stage', function dragging() {
+        return new Dragging(this)
+    })
+
+    Polypoint.extend.functions('Point', {
+        track(other, settings) {
+            return constraints.distance(other, this, settings)
+        }
+
+        , leash(other, settings) {
+            return constraints.within(other, this, settings)
+        }
+    })
+
+See docs/extend-methods.md for full documentation.
+
+## Quick Guide (Legacy/Advanced)
 
 Install a class:
 
@@ -25,7 +49,7 @@ Deferred prop (called once to generate):
 
 Install Functions:
 
-    Polypoint.installFunctions('Point', {
+    Polypoint.head.installFunctions('Point', {
         track(other, settings) {
             return constraints.distance(other, this, settings)
         }
@@ -640,6 +664,9 @@ This works for many mixins:
         , installFunctions
         , define
         , lazyProp, lazierProp, deferredProp
+        , getter: lazyProp
+        , singleton: lazierProp
+        , prop: deferredProp
         /* Return a map iterator of the installed items.*/
         , get installed() {
             return installMap.keys()
@@ -671,10 +698,22 @@ This works for many mixins:
         return f
     }
 
+    const extend = {
+        prop: deferredProp
+        , singleton: lazierProp
+        , getter: lazyProp
+        , functions: installFunctions
+        , mixin
+        , static: staticMixin
+        , install
+        , installMany
+    }
+
     const exposed = {
         ready: false
         , head
         , file: fileObject
+        , extend
     }
 
     if(!strict){

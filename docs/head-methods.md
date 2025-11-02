@@ -1,6 +1,8 @@
 # Polypoint _head_
 
-The _head_ is an object within the primary `Polypoint` collection, with method for loading functionality into the collection.
+The _head_ is an object within the primary `Polypoint` collection, with methods for loading functionality into the collection.
+
+> **Note:** For most use cases, prefer the newer [`Polypoint.extend.*` API](./extend-methods.md) which provides cleaner, more intuitive method names. The `head` API remains available for advanced usage and backwards compatibility.
 
 ## Install
 
@@ -96,11 +98,10 @@ p1 = (new Point()).jigger.wiggle()
 
 ## Mixin
 
-
 Install properties onto an incoming unit
 
 ```js
-Polypoint.mixin('Point', {
+Polypoint.head.mixin('Point', {
 
     _draggable: {
         value: true,
@@ -119,3 +120,25 @@ this.center.draggable == true
 this.center._draggable = false
 this.center.draggable == false
 ```
+
+---
+
+## Method Aliases
+
+The `head` object also exposes shorter, more intuitive aliases:
+
+```js
+Polypoint.head.prop()       // Alias for deferredProp
+Polypoint.head.singleton()  // Alias for lazierProp
+Polypoint.head.getter()     // Alias for lazyProp
+```
+
+For the cleanest API, use `Polypoint.extend.*` instead - see [extend-methods.md](./extend-methods.md).
+
+---
+
+## See Also
+
+- [extend-methods.md](./extend-methods.md) - **Recommended API** for extending classes
+- [getting-started.md](./getting-started.md) - Basic Polypoint usage
+- [installing-addons.md](./installing-addons.md) - Adding plugins

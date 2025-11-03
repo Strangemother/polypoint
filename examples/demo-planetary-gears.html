@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Planetary Gears Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            font-family: monospace;
+            color: #fff;
+        }
+        canvas {
+            border: 1px solid #444;
+            display: block;
+            margin: 20px auto;
+            background: #222;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #444;
+            color: #fff;
+            border: 1px solid #666;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        button:hover {
+            background: #555;
+        }
+        .info {
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h2>Planetary Gear System</h2>
+        <p>Sun gear (pink) drives the planet gears (gray) which mesh with the ring gear (gray, outer)</p>
+        <p>The planets orbit while also rotating on their own axes</p>
+    </div>
+    
+    <canvas id="canvas" width="800" height="600"></canvas>
+    
+    <div class="controls">
+        <button onclick="toggleSun()">Toggle Sun Motor</button>
+        <button onclick="speedUp()">Speed Up</button>
+        <button onclick="speedDown()">Speed Down</button>
+        <button onclick="toggleSpokes()">Toggle Spokes</button>
+        <button onclick="resetSystem()">Reset</button>
+    </div>
+    
+    <div class="info">
+        <p id="stats">Sun Speed: 0.02 | Carrier Angle: 0°</p>
+    </div>
+
+    <script type="module">
+        // Import your Point/PointList classes here
+        // For demo purposes, I'll assume they're globally available
+        // import { Point, PointList } from '../point_src/point.js'
+        
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let gearbox;
+        let planetarySystem;
+        let sunSpeed = 0.02;
+        let running = true;
+        
+        function init() {
+            // Create gearbox
+            gearbox = new GearBox();
+            
+            // Create planetary system
+            planetarySystem = gearbox.createPlanetarySystem({
+                sunXY: { x: 400, y: 300 },
+                sunRadius: 60,
+                planetRadius: 25,
+                ringRadius: 150,
+                planetCount: 3,
+                sunMotor: sunSpeed
+            });
+            
+            console.log('Planetary system created!');
+            console.log('Sun:', planetarySystem.sun);
+            console.log('Planets:', planetarySystem.planets);
+            console.log('Ring:', planetarySystem.ring);
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw and update
+            gearbox.performDraw(ctx);
+            
+            // Update stats
+            updateStats();
+            
+            requestAnimationFrame(animate);
+        }
+        
+        function updateStats() {
+            const carrierAngle = (planetarySystem.carrierAngle * 180 / Math.PI).toFixed(1);
+            const carrierVel = (planetarySystem.carrierVelocity * 100).toFixed(2);
+            document.getElementById('stats').innerHTML = 
+                `Sun Speed: ${sunSpeed.toFixed(3)} | Carrier Angle: ${carrierAngle}° | Carrier Velocity: ${carrierVel}`;
+        }
+        
+        window.toggleSun = function() {
+            if (planetarySystem.sun.motor === 0) {
+                planetarySystem.setSunMotor(sunSpeed);
+            } else {
+                planetarySystem.setSunMotor(0);
+            }
+        }
+        
+        window.speedUp = function() {
+            sunSpeed += 0.01;
+            planetarySystem.setSunMotor(sunSpeed);
+        }
+        
+        window.speedDown = function() {
+            sunSpeed -= 0.01;
+            planetarySystem.setSunMotor(sunSpeed);
+        }
+        
+        window.toggleSpokes = function() {
+            gearbox.doSpokes = !gearbox.doSpokes;
+        }
+        
+        window.resetSystem = function() {
+            sunSpeed = 0.02;
+            init();
+        }
+        
+        // Start
+        init();
+        animate();
+    </script>
+    
+    <!-- Include your actual Point library here -->
+    <!-- <script src="../point_src/point.js"></script> -->
+    <!-- <script src="../point_src/pointlist.js"></script> -->
+    <script src="../point_src/gearbox.js"></script>
+</body>
+</html>

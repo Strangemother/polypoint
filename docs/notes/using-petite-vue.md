@@ -67,15 +67,15 @@ Furthermore with this structure, we selectively apply the `reactive` method. Thi
 For the most part, it seems the templates act the same:
 
 
-```jinja
-{% verbatim %}
+```html
+{% raw %}
 <div id="memory-values" class="memory-values-container">
     <div class='memory-cell' v-for='item in memoryCache'>
         <span class="label">{{ item.label }}</span>
         <span id="memory-total-value">{{ item.value }} {{ item.postfix }}</span>
     </div>
 </div>
-{% endverbatim %}
+{% endraw %}
 ```
 
 The supporting code for this app:

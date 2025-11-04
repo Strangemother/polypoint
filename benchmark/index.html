@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Benchmark Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #0f3460;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #a8b2d1;
+            margin-bottom: 30px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 2px solid #1a1a2e;
+            background: #16213e;
+            color: #e4e4e7;
+            border-radius: 5px;
+            font-size: 14px;
+            min-width: 250px;
+            cursor: pointer;
+        }
+
+        select option {
+            background: #16213e;
+            color: #e4e4e7;
+        }
+
+        .file-description {
+            color: #8892b0;
+            font-size: 13px;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #a8b2d1;
+        }
+
+        input[type="number"] {
+            padding: 8px 12px;
+            border: 2px solid #1a1a2e;
+            background: #16213e;
+            color: #e4e4e7;
+            border-radius: 5px;
+            width: 100px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 25px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #d63651;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+
+        button:disabled {
+            background: #3a4a5c;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .status.ready {
+            background: #1a4d2e;
+            color: #4ecca3;
+        }
+
+        .status.running {
+            background: #4d3800;
+            color: #ffb347;
+        }
+
+        .status.complete {
+            background: #1a3a52;
+            color: #64b5f6;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: #16213e;
+            border-left: 4px solid #e94560;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-item.winner {
+            border-left-color: #4ecca3;
+            background: #1a3a2e;
+        }
+
+        .result-item.winner::after {
+            content: "🏆 FASTEST";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4ecca3;
+            color: #0f0f0f;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .result-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e4e4e7;
+            margin-bottom: 10px;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #8892b0;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ccd6f6;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #1a1a2e;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #e94560;
+            transition: width 0.3s;
+        }
+
+        .test-functions {
+            margin-top: 30px;
+            padding: 20px;
+            background: #16213e;
+            border-radius: 5px;
+        }
+
+        .test-functions h3 {
+            margin-bottom: 15px;
+            color: #e94560;
+        }
+
+        .function-item {
+            background: #1a1a2e;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #a8b2d1;
+        }
+
+        code {
+            background: #1a1a2e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #64ffda;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ JavaScript Benchmark Suite</h1>
+        <p class="subtitle">Test and compare the performance of your JavaScript functions</p>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="testFile">Test File:</label>
+                <select id="testFile" onchange="onFileChange()">
+                    <option value="">Select a test file...</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="fileDescription" class="file-description"></div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="duration">Duration (seconds):</label>
+                <input type="number" id="duration" value="2" min="1" max="60">
+            </div>
+            <button id="runBtn" onclick="runBenchmarks()" disabled>Run Benchmarks</button>
+            <button onclick="clearResults()">Clear Results</button>
+            <button onclick="reloadTests()">Reload Tests</button>
+        </div>
+
+        <div id="status" class="status ready">
+            Ready to run benchmarks. Load your test functions below.
+        </div>
+
+        <div id="results" class="results"></div>
+
+        <div class="test-functions">
+            <h3>📝 Test Functions</h3>
+            <p style="margin-bottom: 15px; color: #8892b0;">
+                Define your test functions in <code>benchmark-tests.js</code> or paste them below:
+            </p>
+            <div id="functionList"></div>
+        </div>
+    </div>
+
+    <script src="benchmark-files.js"></script>
+    <script>
+        // Worker-based Benchmark Suite
+        let worker = null;
+        let workerTests = [];
+        let testCode = '';
+        let currentTestFile = '';
+
+        // Populate test file selector
+        function populateFileSelector() {
+            const select = document.getElementById('testFile');
+            select.innerHTML = '<option value="">Select a test file...</option>';
+            
+            BENCHMARK_FILES.forEach(file => {
+                const option = document.createElement('option');
+                option.value = file.file;
+                option.textContent = file.name;
+                option.dataset.description = file.description;
+                select.appendChild(option);
+            });
+        }
+
+        // Handle file selection change
+        function onFileChange() {
+            const select = document.getElementById('testFile');
+            const selectedOption = select.options[select.selectedIndex];
+            const descriptionEl = document.getElementById('fileDescription');
+            
+            if (select.value) {
+                currentTestFile = select.value;
+                descriptionEl.textContent = selectedOption.dataset.description || '';
+                loadTestsIntoWorker();
+                document.getElementById('runBtn').disabled = false;
+            } else {
+                currentTestFile = '';
+                descriptionEl.textContent = '';
+                workerTests = [];
+                displayFunctions();
+                document.getElementById('runBtn').disabled = true;
+            }
+        }
+
+        // Initialize worker
+        function initWorker() {
+            if (worker) {
+                worker.terminate();
+            }
+            
+            worker = new Worker('benchmark-worker.js');
+            
+            worker.addEventListener('message', (e) => {
+                const { type, data } = e.data;
+                
+                switch (type) {
+                    case 'ready':
+                        console.log('Benchmark worker ready');
+                        loadTestsIntoWorker();
+                        break;
+                        
+                    case 'testsLoaded':
+                        workerTests = e.data.tests;
+                        displayFunctions();
+                        setStatus(`✓ Loaded ${workerTests.length} test${workerTests.length !== 1 ? 's' : ''} from ${currentTestFile || 'file'}`, 'ready');
+                        break;
+                        
+                    case 'progress':
+                        setStatus(`Running ${e.data.current + 1}/${e.data.total}: ${e.data.testName}...`, 'running');
+                        break;
+                        
+                    case 'complete':
+                        displayResults(e.data.results);
+                        setStatus(`✓ Benchmarks complete! Ran ${e.data.results.length} tests.`, 'complete');
+                        document.getElementById('runBtn').disabled = false;
+                        break;
+                        
+                    case 'error':
+                        setStatus(`Error: ${e.data.message}`, 'ready');
+                        console.error(e.data.message);
+                        document.getElementById('runBtn').disabled = false;
+                        break;
+                }
+            });
+            
+            worker.addEventListener('error', (e) => {
+                setStatus(`Worker error: ${e.message}`, 'ready');
+                console.error('Worker error:', e);
+                document.getElementById('runBtn').disabled = false;
+            });
+        }
+
+        // Load test code into worker
+        async function loadTestsIntoWorker() {
+            if (!currentTestFile) {
+                console.warn('No test file selected');
+                return;
+            }
+            
+            try {
+                setStatus(`Loading ${currentTestFile}...`, 'running');
+                const response = await fetch(currentTestFile);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                testCode = await response.text();
+                worker.postMessage({
+                    type: 'loadTests',
+                    data: { testCode, fileName: currentTestFile }
+                });
+            } catch (error) {
+                console.error('Failed to load test file:', error);
+                setStatus(`Failed to load ${currentTestFile}: ${error.message}`, 'ready');
+                workerTests = [];
+                displayFunctions();
+            }
+        }
+
+        // Display functions list
+        function displayFunctions() {
+            const listEl = document.getElementById('functionList');
+            if (workerTests.length === 0) {
+                listEl.innerHTML = '<div class="function-item" style="color: #64748b;">No test functions loaded yet.</div>';
+            } else {
+                // Group tests by group name
+                const groupedTests = {};
+                workerTests.forEach(test => {
+                    const groupName = test.group || 'Ungrouped';
+                    if (!groupedTests[groupName]) {
+                        groupedTests[groupName] = [];
+                    }
+                    groupedTests[groupName].push(test);
+                });
+
+                let html = '';
+                for (const [groupName, tests] of Object.entries(groupedTests)) {
+                    html += `<div style="margin-top: 10px; margin-bottom: 5px; color: #e94560; font-weight: 600;">${groupName}</div>`;
+                    html += tests.map(test => 
+                        `<div class="function-item" style="margin-left: 15px;">✓ ${test.name}</div>`
+                    ).join('');
+                }
+                listEl.innerHTML = html;
+            }
+        }
+
+        // Update status
+        function setStatus(message, type) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = `status ${type}`;
+        }
+
+        // Format number with commas
+        function formatNumber(num) {
+            return new Intl.NumberFormat().format(Math.round(num));
+        }
+
+        // Display results
+        function displayResults(results) {
+            const resultsEl = document.getElementById('results');
+            
+            if (results.length === 0) {
+                resultsEl.innerHTML = '<p style="color: #64748b;">No results to display.</p>';
+                return;
+            }
+
+            // Group results by group name
+            const groupedResults = {};
+            results.forEach(result => {
+                const groupName = result.group || 'Ungrouped';
+                if (!groupedResults[groupName]) {
+                    groupedResults[groupName] = [];
+                }
+                groupedResults[groupName].push(result);
+            });
+
+            let html = '';
+            
+            // Process each group
+            for (const [groupName, groupResults] of Object.entries(groupedResults)) {
+                const maxOps = Math.max(...groupResults.map(r => r.opsPerSecond));
+                const minOps = Math.min(...groupResults.map(r => r.opsPerSecond)); // baseline for this group
+                
+                // Find the overall fastest in this group
+                const fastestInGroup = groupResults[0].name;
+                
+                html += `
+                    <div style="margin-top: 30px; margin-bottom: 15px;">
+                        <h2 style="color: #e94560; font-size: 22px; margin-bottom: 5px;">${groupName}</h2>
+                        <div style="color: #8892b0; font-size: 14px;">${groupResults.length} test${groupResults.length > 1 ? 's' : ''}</div>
+                    </div>
+                `;
+
+                groupResults.forEach((result, index) => {
+                    const isGroupWinner = index === 0;
+                    const percentage = (result.opsPerSecond / maxOps) * 100;
+                    const factor = result.opsPerSecond / minOps;
+                    const factorDisplay = factor === 1.0 
+                        ? '1.0× (baseline)' 
+                        : `${factor.toFixed(2)}×`;
+                    const factorColor = factor === 1.0 ? '#8892b0' : (factor > 2 ? '#4ecca3' : '#64ffda');
+                    
+                    html += `
+                        <div class="result-item ${isGroupWinner ? 'winner' : ''}">
+                            <div class="result-name">${result.name}</div>
+                            <div class="result-stats">
+                                <div class="stat">
+                                    <div class="stat-label">Operations</div>
+                                    <div class="stat-value">${formatNumber(result.operations)}</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">Ops/Second</div>
+                                    <div class="stat-value">${formatNumber(result.opsPerSecond)}</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">Avg Time</div>
+                                    <div class="stat-value">${result.avgTime.toFixed(4)} ms</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">Speed Factor</div>
+                                    <div class="stat-value" style="color: ${factorColor};">${factorDisplay}</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">Duration</div>
+                                    <div class="stat-value">${result.duration.toFixed(2)} s</div>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${percentage}%"></div>
+                            </div>
+                            ${result.errors > 0 ? `<div style="color: #ff6b6b; margin-top: 10px;">⚠️ Errors: ${result.errors}</div>` : ''}
+                        </div>
+                    `;
+                });
+            }
+
+            resultsEl.innerHTML = html;
+        }
+
+        // Run benchmarks
+        function runBenchmarks() {
+            if (workerTests.length === 0) {
+                alert('No test functions loaded. Please define tests in benchmark-tests.js');
+                return;
+            }
+
+            const duration = parseFloat(document.getElementById('duration').value);
+            const runBtn = document.getElementById('runBtn');
+            
+            runBtn.disabled = true;
+            setStatus('Starting benchmarks...', 'running');
+            
+            // Send run command to worker
+            worker.postMessage({
+                type: 'runBenchmarks',
+                data: { duration }
+            });
+        }
+
+        // Clear results
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+            setStatus('Ready to run benchmarks.', 'ready');
+        }
+
+        // Reload tests
+        function reloadTests() {
+            setStatus('Reloading tests...', 'running');
+            loadTestsIntoWorker();
+        }
+
+        // Initialize worker on page load
+        window.addEventListener('load', () => {
+            populateFileSelector();
+            initWorker();
+            
+            // Auto-select first test file if available
+            if (BENCHMARK_FILES.length > 0) {
+                const select = document.getElementById('testFile');
+                select.value = BENCHMARK_FILES[0].file;
+                onFileChange();
+            }
+        });
+    </script>
+</body>
+</html>

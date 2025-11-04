@@ -27,6 +27,13 @@ It builds a line by plotting the tangent points to the siblings through
 a psuedo center. This ensures the arc is drawn _through_ the center rather
 than arcing around the outside.
 
+It works very well at small scales, but at larger scales the tangent lines to points
+tends to overshoot the center, causing the two lines to cross before reaching the center point.
+
+This should be fixed by limiting the length of the tangent lines to a reasonable distance, given the radius of the arc (the target point).
+
+For example, if four points are connected, with A and C being very large radius points, when moving B, the tangent lines from A and C 
+will intersect before reaching B, causing the arc to loop back on itself.
 
 */
 

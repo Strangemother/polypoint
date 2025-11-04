@@ -1,6 +1,11 @@
 
 // --------------- Linear --------------------
 
+/**
+ * Linear easing with no acceleration.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const linearInOut = function(t) {
 
     return t
@@ -8,7 +13,11 @@ const linearInOut = function(t) {
 
 // --------------- Quadratic easing functions --------------------
 
-
+/**
+ * Quadratic easing in and out.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quadEaseInOut = function(t) {
     if(t < 0.5){
         return 2 * t * t
@@ -17,27 +26,52 @@ const quadEaseInOut = function(t) {
     return (-2 * t * t) + (4 * t) - 1
 }
 
+/**
+ * Quadratic easing in - accelerating from zero velocity.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quadEaseIn = function(t) {
 
     return t * t
 }
 
+/**
+ * Quadratic easing out - decelerating to zero velocity.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quadEaseOut = function(t) {
     return -(t * (t - 2))
 }
 
 // --------------- Cubic easing functions --------------------
 
+/**
+ * Cubic easing in - accelerating from zero velocity.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const cubicEaseIn = function(t) {
 
     return t * t * t
 }
 
+/**
+ * Cubic easing out - decelerating to zero velocity.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const cubicEaseOut = function(t) {
 
     return (t - 1) * (t - 1) * (t - 1) + 1
 }
 
+/**
+ * Cubic easing in and out.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const cubicEaseInOut = function(t) {
 
     if (t < 0.5){
@@ -49,16 +83,31 @@ const cubicEaseInOut = function(t) {
 
 // --------------- Quartic easing functions --------------------
 
+/**
+ * Quartic easing in - accelerating from zero velocity.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quarticEaseIn = function(t) {
 
     return t * t * t * t
 }
 
+/**
+ * Quartic easing out - decelerating to zero velocity.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quarticEaseOut = function(t) {
 
     return (t - 1) * (t - 1) * (t - 1) * (1 - t) + 1
 }
 
+/**
+ * Quartic easing in and out.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quarticEaseInOut = function(t) {
 
     if( t < 0.5){
@@ -70,16 +119,31 @@ const quarticEaseInOut = function(t) {
 
 // --------------- Quintic easing functions --------------------
 
+/**
+ * Quintic easing in - accelerating from zero velocity.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quinticEaseIn = function(t) {
 
     return t * t * t * t * t
 }
 
+/**
+ * Quintic easing out - decelerating to zero velocity.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quinticEaseOut = function(t) {
 
     return (t - 1) * (t - 1) * (t - 1) * (t - 1) * (t - 1) + 1
 }
 
+/**
+ * Quintic easing in and out.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const quinticEaseInOut = function(t) {
 
     if( t < 0.5){
@@ -91,16 +155,31 @@ const quinticEaseInOut = function(t) {
 
 // --------------- Sine easing functions --------------------
 
+/**
+ * Sine easing in - accelerating using a sine wave.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const sineEaseIn = function(t) {
 
     return Math.sin((t - 1) * Math.PI / 2) + 1
 }
 
+/**
+ * Sine easing out - decelerating using a sine wave.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const sineEaseOut = function(t) {
 
     return Math.sin(t * Math.PI / 2)
 }
 
+/**
+ * Sine easing in and out.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const sineEaseInOut = function(t) {
 
     return 0.5 * (1 - Math.cos(t * Math.PI))
@@ -108,16 +187,31 @@ const sineEaseInOut = function(t) {
 
 // --------------- Circular easing functions --------------------
 
+/**
+ * Circular easing in - accelerating using a circular function.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const circularEaseIn = function(t) {
 
     return 1 - Math.sqrt(1 - (t * t))
 }
 
+/**
+ * Circular easing out - decelerating using a circular function.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const circularEaseOut = function(t) {
 
     return Math.sqrt((2 - t) * t)
 }
 
+/**
+ * Circular easing in and out.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const circularEaseInOut = function(t) {
 
     if( t < 0.5){
@@ -128,6 +222,11 @@ const circularEaseInOut = function(t) {
 
 // --------------- Exponential easing functions --------------------
 
+/**
+ * Exponential easing in - accelerating exponentially.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const exponentialEaseIn = function(t) {
 
     if(t == 0){
@@ -136,6 +235,11 @@ const exponentialEaseIn = function(t) {
     return Math.pow(2, 10 * (t - 1))
 }
 
+/**
+ * Exponential easing out - decelerating exponentially.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const exponentialEaseOut = function(t) {
 
     if(t == 1){
@@ -144,6 +248,11 @@ const exponentialEaseOut = function(t) {
     return 1 - Math.pow(2, -10 * t)
 }
 
+/**
+ * Exponential easing in and out.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const exponentialEaseInOut = function(t) {
 
     if( t == 0 || t == 1){
@@ -158,16 +267,32 @@ const exponentialEaseInOut = function(t) {
 
 // --------------- Elastic Easing Functions --------------------
 
+/**
+ * Elastic easing in - with elastic bouncing effect at the start.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const elasticEaseIn = function(t) {
 
     return Math.sin(13 * Math.PI / 2 * t) * Math.pow(2, 10 * (t - 1))
 }
 
+/**
+ * Elastic easing out - with elastic bouncing effect at the end.
+ * @param {number} t - Progress value between 0 and 1
+ * @param {number} p - Power factor for the exponential decay (default: -10)
+ * @returns {number} Eased value
+ */
 const elasticEaseOut = function(t, p=-10) {
 
     return Math.sin(-13 * Math.PI / 2 * (t + 1)) * Math.pow(2, p * t) + 1
 }
 
+/**
+ * Elastic easing in and out - with elastic bouncing effect at both ends.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const elasticEaseInOut = function(t) {
 
     if (t < 0.5) {
@@ -187,17 +312,32 @@ const elasticEaseInOut = function(t) {
 
 // --------------- Back Easing Functions --------------------
 
+/**
+ * Back easing in - pulls back slightly before accelerating forward.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const backEaseIn = function(t) {
 
     return t * t * t - t * Math.sin(t * Math.PI)
 }
 
+/**
+ * Back easing out - overshoots slightly before settling at the target.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const backEaseOut = function(t) {
 
     var p = 1 - t
     return 1 - (p * p * p - p * Math.sin(p * Math.PI))
 }
 
+/**
+ * Back easing in and out - pulls back and overshoots at both ends.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const backEaseInOut = function(t) {
 
     if( t < 0.5){
@@ -213,11 +353,21 @@ const backEaseInOut = function(t) {
 
 // --------------- Bounce Easing Functions --------------------
 
+/**
+ * Bounce easing in - with bouncing effect at the start.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const bounceEaseIn = function(t) {
 
     return 1 - bounceEaseOut(1 - t)
 }
 
+/**
+ * Bounce easing out - with bouncing effect at the end.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const bounceEaseOut = function(t) {
 
     if (t < 4 / 11) {
@@ -234,6 +384,11 @@ const bounceEaseOut = function(t) {
     return (54 / 5.0 * t * t) - (513 / 25.0 * t) + 268 / 25.0
 }
 
+/**
+ * Bounce easing in and out - with bouncing effect at both ends.
+ * @param {number} t - Progress value between 0 and 1
+ * @returns {number} Eased value
+ */
 const bounceEaseInOut = function(t) {
 
     if( t < 0.5){
@@ -245,6 +400,11 @@ const bounceEaseInOut = function(t) {
 // ----
 //
 
+/**
+ * Combines multiple easing functions by averaging their outputs.
+ * @param {...Function} functions - Easing functions to combine
+ * @returns {Function} Combined easing function
+ */
 const multiEase = function(...functions) {
 
     const mergeFuncs = functions
@@ -257,6 +417,10 @@ const multiEase = function(...functions) {
     return stepper
 }
 
+/**
+ * Collection of all easing functions organized by type and direction.
+ * Access patterns: easingFunctions.quad.inOut, easingFunctions.sine.in, etc.
+ */
 const easingFunctions = {
     /* A neat little collector for easing methods - built into an object.
 

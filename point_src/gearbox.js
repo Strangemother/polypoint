@@ -55,6 +55,9 @@ class GearBox {
         let tm = this.spinGears(ps)
         this.waiting = this.recursiveSpinTouchMap(tick, tm, ps, 6)
         this.pushVelocities(ps)
+        
+        // Update orbital gear positions (planetary systems)
+        this.updateOrbitalGears()
     }
 
     pushVelocities(ps) {
@@ -436,6 +439,37 @@ class GearBox {
             p.motor = 1
         }
         return p
+    }
+
+    createPlanetarySystem(options={}) {
+        /* Create a planetary gear system with sun, planets, and ring gear.
+         * Returns a PlanetaryGearSystem instance that manages orbital motion.
+         * 
+         * Requires: gearbox-planets.js to be loaded
+         */
+        if(typeof PlanetaryGearSystem === 'undefined') {
+            console.error('PlanetaryGearSystem not found. Please load gearbox-planets.js')
+            return null
+        }
+        let system = new PlanetaryGearSystem(this, options)
+        return system
+    }
+
+    updateOrbitalGears() {
+        /* Called during performStep to update positions of all orbital gears */
+        if(!this.planetarySystems) return
+        
+        this.planetarySystems.forEach(system => {
+            system.updateOrbitalPositions()
+        })
+    }
+
+    registerPlanetarySystem(system) {
+        /* Track planetary systems for automatic position updates */
+        if(!this.planetarySystems) {
+            this.planetarySystems = []
+        }
+        this.planetarySystems.push(system)
     }
 }
 

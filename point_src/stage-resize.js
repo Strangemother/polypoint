@@ -23,12 +23,17 @@ Polypoint.head.installFunctions('Stage', {
         the new cached dimesions
         */
         let dimensions = this.dimensions = this.stickCanvasSize(this.canvas, rectSize)
-        console.log('dimensions resize event')
+        this.log('dimensions resize event')
         this.events && this.events.emit('resize', dimensions)
         this.onResize && this.onResize(event)
         return this.dimensions
     }
 
+});
+
+Polypoint.head.mixin('Stage', {
+    debounceResize: {value: true}
+    , debounceResizeTimeout: {value: 100}
 });
 
 
@@ -37,8 +42,9 @@ addEventListener('stage:prepare', (e)=>{
     the system resize event. Call the stage `resizeHandler` when an event
     occurs.
     */
+    let {stage, canvas }= e.detail.canvas;
+    if(canvas) { /* Stick the shape with stage-resize.js */ stage.resize() }
     addEventListener('resize', function(e){
         this.stage.resizeHandler(e)
     }.bind({stage:e.detail.stage}));
 });
-

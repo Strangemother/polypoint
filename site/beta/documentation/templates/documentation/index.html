@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="outer-block">
-    <div class="block">
+    <div class="block markdown-rendered">
 
         {% markdown.file "docs" "readme.md" %}
 
@@ -38,5 +38,6 @@
 </div>
 
 {% link.css "examples/css/column-list.css" %}
+{% link.css "examples/css/markdown-rendered.css" %}
 
 {% endblock content %}

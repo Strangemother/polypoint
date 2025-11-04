@@ -1,21 +1,25 @@
 # Text and Labels
 
-RawText: No Styling, no rotation. Fill and Stroke using the global styles.
-    + No rotation
-    + No custom styling
+**RawText**: No Styling, no rotation. Fill and Stroke using the global styles.
 
-Label: Text without the extras, using the global ctx styles.
-    + can have rotation
-    + Not custom styled by default
++ No rotation
++ No custom styling
 
-Text: Text with styles - a builtin font styler, designed to enable these upon render.
-    + can have rotation
-    + Custom styling
+**Label**: Text without the extras, using the global ctx styles.
+
++ can have rotation
++ Not custom styled by default
+
+**Text**: Text with styles - a builtin font styler, designed to enable these upon render.
+
++ can have rotation
++ Custom styling
     + Has an internal point list
 
-Char: A single character, with measurements.
-    + can rotate
-    + Custom styling
+**Char**: A single character, with measurements.
+
++ can rotate
++ Custom styling
 
 ```js
 t = new Text(settings)

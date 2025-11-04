@@ -55,12 +55,12 @@ class Random {
     }
 
     callOne(functions) {
-        /* Given many functions, call one. */
+        /* Given many functions, call a random one. */
         return selections[this.index(selections)]()
     }
 
     choice(selections) {
-        /* Give many items, return one */
+        /* Give many items, return one random object */
         return selections[this.index(selections)]
     }
 
@@ -91,6 +91,16 @@ class Random {
     }
 
     shuffle(points, max=1) {
+        /* Randomly shuffle all points be a random amount between 0 and a multilper
+        of the radius.
+        For example if the point is 20px, a `max` of `.5` would plot the center
+        of the point anywhere within the full point area. Providing a value of `1`
+        (default) would plot within a 40px width and height (circular) area.
+        (Math.PI * 2)
+
+        This is because the `max` value computes a percenile of the _radius_ of
+        the origin position, resolving anywhere within the diameter area if the point.
+        */
         points.forEach(p=>p.xy=this.within(p, max))
     }
 

@@ -18,6 +18,8 @@ The minimal requirements include the _head_, _stage_, and the _point_.
 */
 class MainStage extends Stage {
     canvas = 'playspace'
+
+    constantClick = true
     mounted() {
 
         this.points = PointList.generate.random(8, new Point(500, 500, 30), new Point(100, 100))
@@ -45,6 +47,14 @@ class MainStage extends Stage {
 
     connectEnd(ev, p) {
         if(p == undefined) { return }
+
+        if(p == this.start) {
+            // turn off
+            this.start = undefined
+            this.action = 'connectStart'
+            return
+        }
+
         let uuid1 = this.start.uuid
         let uuid2 = p.uuid
         console.log('stopped')
@@ -58,6 +68,11 @@ class MainStage extends Stage {
         this.connections[name].push([this.start, p])
         this.start = undefined
         this.action = 'connectStart'
+
+        if(this.constantClick) {
+            this.start = p
+            this.action = 'connectEnd'
+        }
     }
 
     draw(ctx){
@@ -71,6 +86,9 @@ class MainStage extends Stage {
 
         this.points.pen.fill(ctx, {color:'purple'})
 
+        if(this.action == 'connectEnd') {
+            this.start.pen.line(ctx, this.mouse.point, '#888', 3)
+        }
         if(this.start) {
             this.start.pen.fill(ctx, {color:'green'})
         }

@@ -8,20 +8,26 @@
 
 let earlyEvents = [];
 
-events.on('scene:go', function(event) {
-    console.log('Global scene:go event caught:', event);
-    if (sceneSelectorApp && sceneSelectorApp.isMounted == true) {
-        console.log('sceneSelectorApp is mounted, handling event immediately.');
-        sceneSelectorApp.handleSceneGoEvent(event);
-    } else {
-        console.log('sceneSelectorApp not mounted yet, queuing event.');
-        earlyEvents.push(event);
+try{
+    const sceneGo = function(event) {
+        console.log('Global scene:go event caught:', event);
+        if (sceneSelectorApp
+            && sceneSelectorApp.isMounted == true) {
+            console.log('sceneSelectorApp is mounted, handling event immediately.');
+            sceneSelectorApp.handleSceneGoEvent(event);
+        } else {
+            console.log('sceneSelectorApp not mounted yet, queuing event.');
+            earlyEvents.push(event);
+        }
     }
-})
+    events.on('scene:go', sceneGo);
+} catch {
+    console.warn('No events')
+}
 
 class SceneSelectorApp extends Mountable {
     storageName = 'sceneSelectorApp'
-    
+
     mounted(){
         console.log('sceneSelectorApp Mounted')
         // Process any early events that were queued before mounting
@@ -46,11 +52,11 @@ class SceneSelectorApp extends Mountable {
             name = stage.constructor.name
         }
 
-        // this.store.scenes.push({ 
-        //     stage 
+        // this.store.scenes.push({
+        //     stage
         //     , name
         //  });
-        
+
         this.store.scenes.push(name);
     }
 }

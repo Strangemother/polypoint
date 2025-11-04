@@ -19,7 +19,7 @@
             <div>
                 {{ readme.path.as_posix }}
             </div>
-            <div class="readme-content">
+            <div class="readme-content markdown-rendered">
             {{ readme.rendered|safe }}
             </div>
             {# <pre>{{ readme.text }}</pre> #}
@@ -48,5 +48,6 @@
 </div>
 
 {% link.css "examples/css/column-list.css" %}
+{% link.css "examples/css/markdown-rendered.css" %}
 
 {% endblock content %}

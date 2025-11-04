@@ -1,6 +1,6 @@
 /*
 files:
-    stage-resize.js
+    // stage-resize.js
     functions/resolve.js
 ---
 
@@ -84,11 +84,36 @@ class StageBase {
 }
 
 class StageRender extends StageBase {
+    /*
+
+    Stage Lifecycle
+
+        constructor
+            prepare
+                stickCanvasSize
+                mounted
+                ?load
+
+        go
+            cleanGoConfig
+            ?prepare
+            update
+                stageStartDraw
+                    firstDraw
+                    update
+            update
+                draw
+            unfreeze
+                loopDraw
+                    update
+                        draw
+                    loopDraw
+
+
+     */
     _drawFunc
     _loopDraw = true
-
-    debounceResize = true
-    debounceResizeTimeout = 100
+    initData = undefined
 
     constructor(canvas, drawFunc) {
         /*
@@ -202,7 +227,8 @@ class StageRender extends StageBase {
 
         this.dispatch('stage:prepare', {target, id, canvas })
 
-        if(canvas) { /* Stick the shape with stage-resize.js */ this.resize() }
+        // if(canvas) { /* Stick the shape with stage-resize.js */ this.resize() }
+        this.dimensions = this.stickCanvasSize(this.canvas)
         /* ensure the stage is ready to be used. */
         this.loopDraw = this.loopDraw.bind(this)
         this._prepared = true;
@@ -213,16 +239,13 @@ class StageRender extends StageBase {
         addEventListener('addon:announce', (e)=>this.addonAnnounceHandler(e));
     }
 
+    /* Empty API Method */
     mounted(canvas) {
         /* A Convenient place to perform initial work. */
     }
 
     stop(freeze=true) {
         return this.freeze(freeze)
-    }
-
-    ensurePrepared(canvas) {
-        if(this._prepared != true) { this.prepare(canvas) }
     }
 
     static go(additionalData={}) {
@@ -273,12 +296,12 @@ class StageRender extends StageBase {
             }
         }
 
-        /* Ensure look by default. */
+        /* Ensure loop by default. */
         if(info.loop === undefined){
             info.loop = true
         }
 
-        return info
+        return Object.assign(this.initData || {}, info)
     }
 
     go(additionalData={}) {
@@ -288,7 +311,8 @@ class StageRender extends StageBase {
         */
         let goData = this.cleanGoConfig(additionalData)
         /* First we ensure prepare has occured */
-        this.ensurePrepared(goData.canvas)
+        if(this._prepared != true) { this.prepare(goData.canvas) }
+        this.initData = goData;
         /* Grab the look function - */
         let loop = goData.loop !== undefined? goData.loop: true
 
@@ -310,12 +334,14 @@ class StageRender extends StageBase {
         through this method, calling `firstDraw` once, then
         changing the internal draw function to the typical `this.draw`
 
-        If `this.draw` is not a method, `this.update()` is called and the
+        If `this.draw` is not a method, `this.update()` is not called and the
         `stopDraw` method is called.
         */
         this.firstDraw(this.ctx)
         let _drawFunc = drawFunc  || this.draw
         if(drawFunc) {
+            /* Rewrite the internal draw function forever, removing _this_
+            method, and replacing it with the real draw. */
             this._drawFunc = _drawFunc
             this.update()
             return
@@ -435,6 +461,10 @@ class StageRender extends StageBase {
     }
 
     onTick(tick, func) {
+        /* call the function after a number of _ticks_ has succeded, cycled.
+
+        This apply a new method to the onDrawBefore stack, executing the
+        function every _modulu_ 0. */
         /* modulo auto */
         if(this._tick == undefined) {
             this._tick = 0
@@ -467,6 +497,7 @@ class StageRender extends StageBase {
         this._drawBefore.splice(i, 1)
     }
 
+    /* Empty API Method */
     firstDraw(ctx) {
         /* The `firstDraw(ctx)` method us used _once_ when drawing starts.
         This occurs before the first `update()` call is performed.
@@ -484,6 +515,7 @@ class StageRender extends StageBase {
         */
     }
 
+    /* Empty API Method */
     draw(ctx) {
         /* The primary rendering function to override.
         Called by the `update()` method, given the context `ctx` of the

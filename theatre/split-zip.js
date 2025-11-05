@@ -60,10 +60,16 @@ class MainStage extends Stage {
 
         this.line.render(ctx)
         this.line2.render(ctx, {color: 'green'})
+        this.splits1 = this.line.split(this.count, -90)
+        this.splits2 = this.line2.split(this.count, 90)
+        
+        for(let xx of zip(this.splits1, this.splits2)) { 
+            (new PointList(...xx)).pen.line(ctx)  // Spread the pair
+        }
 
-        zip(this.splits1, this.splits2).forEach(()=>{
-            (new PointList(pair)).pen.line(ctx)
-        })
+        // zip(this.splits1, this.splits2).forEach(()=>{
+        //     (new PointList(pair)).pen.line(ctx)
+        // })
 
     }
 }

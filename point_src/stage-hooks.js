@@ -6,21 +6,21 @@ and optimal performance characteristics.
 
 Usage:
     const stage = new Stage()
-    
+
     // Add hooks to any method
     stage.hooks.draw.before(() => {
         console.log('Before draw')
     })
-    
+
     stage.hooks.draw.after((result) => {
         console.log('After draw', result)
     })
-    
+
     // Chaining
     stage.hooks.clear
         .before(() => console.log('1'))
         .after(() => console.log('2'))
-    
+
     // Around (wrapping)
     stage.hooks.draw.around(function(original, args) {
         this.ctx.save()
@@ -28,16 +28,16 @@ Usage:
         this.ctx.restore()
         return result
     })
-    
+
     // Management
     const myHook = () => console.log('my hook')
     stage.hooks.draw.before(myHook)
     stage.hooks.draw.remove('before', myHook)
     stage.hooks.draw.clear()
-    
+
     // Inspection
     console.log(stage.hooks.draw.list())
-    
+
     // Execute as normal - hooks run automatically
     stage.draw()
 
@@ -63,10 +63,10 @@ const globalHooksStorage = new WeakMap()
 class StageHooks {
     constructor(stage, options = {}) {
         this.stage = stage
-        
+
         // Configuration
         this.autoWrap = options.autoWrap !== undefined ? options.autoWrap : true
-        
+
         // Get or create hooks storage for this stage in the WeakMap
         // This ensures automatic cleanup when stage is garbage collected
         if (!globalHooksStorage.has(stage)) {
@@ -76,12 +76,12 @@ class StageHooks {
                 originals: new Map()  // methodName -> original function (before wrapping)
             })
         }
-        
+
         const storage = globalHooksStorage.get(stage)
         this.registry = storage.registry
         this.cache = storage.cache
         this.originals = storage.originals
-        
+
         // Optional: Register for cleanup notification (useful for debugging)
         if (!stage._hookCleanupRegistered) {
             const cleanup = new FinalizationRegistry((stageName) => {
@@ -90,7 +90,7 @@ class StageHooks {
             cleanup.register(stage, stage.name || 'unnamed')
             stage._hookCleanupRegistered = true
         }
-        
+
         // Return a proxy for auto-discovery of hookable methods
         return new Proxy(this, {
             get(target, prop) {
@@ -98,25 +98,25 @@ class StageHooks {
                 if (prop in target) {
                     return target[prop]
                 }
-                
+
                 // Check cache first to avoid repeated lookups
                 if (target.cache.has(prop)) {
                     return target.cache.get(prop)
                 }
-                
+
                 // Auto-wrap if it's a function on the stage
-                if (typeof target.stage[prop] === 'function') {
+                // if (typeof target.stage[prop] === 'function') {
                     const lifecycle = target.for(prop)
                     target.cache.set(prop, lifecycle)  // Cache for next access
                     return lifecycle
-                }
-                
+                // }
+
                 // Not a function, return undefined
                 return undefined
             }
         })
     }
-    
+
     /**
      * Get or create a lifecycle manager for a specific method
      * @param {string} methodName - Name of the method to hook
@@ -127,11 +127,11 @@ class StageHooks {
         if (this.registry.has(methodName)) {
             return this.registry.get(methodName)
         }
-        
+
         // Otherwise wrap the method
         return this._wrapMethod(methodName)
     }
-    
+
     /**
      * Wrap a method with lifecycle hooks
      * @private
@@ -139,18 +139,18 @@ class StageHooks {
     _wrapMethod(methodName) {
         const stage = this.stage
         const original = stage[methodName]
-        
+
         if (typeof original !== 'function') {
             throw new Error(`[StageHooks] ${methodName} is not a function`)
         }
-        
+
         // Storage for hooks
         const hooks = {
             before: [],
             after: [],
             around: null
         }
-        
+
         // Create the lifecycle manager object
         const lifecycle = {
             /**
@@ -164,7 +164,7 @@ class StageHooks {
                 hooks.before.push(fn)
                 return lifecycle
             },
-            
+
             /**
              * Add an after hook
              * Called after the original method with the result and arguments
@@ -176,7 +176,7 @@ class StageHooks {
                 hooks.after.push(fn)
                 return lifecycle
             },
-            
+
             /**
              * Add an around hook (wrapper)
              * Receives the original function and arguments, must call original
@@ -188,7 +188,7 @@ class StageHooks {
                 hooks.around = fn
                 return lifecycle
             },
-            
+
             /**
              * Remove a specific hook or all hooks of a type
              * @param {string} type - 'before', 'after', or 'around'
@@ -213,7 +213,7 @@ class StageHooks {
                 }
                 return lifecycle
             },
-            
+
             /**
              * Clear all hooks for this method
              */
@@ -223,7 +223,7 @@ class StageHooks {
                 hooks.around = null
                 return lifecycle
             },
-            
+
             /**
              * List all hooks for this method
              * @returns {object} Copy of hooks object
@@ -235,7 +235,7 @@ class StageHooks {
                     around: hooks.around
                 }
             },
-            
+
             /**
              * Get the count of hooks
              * @returns {object} Count of each hook type
@@ -248,7 +248,7 @@ class StageHooks {
                     total: hooks.before.length + hooks.after.length + (hooks.around ? 1 : 0)
                 }
             },
-            
+
             /**
              * Manually execute the 'before' hook stack
              * @param {*} context - The 'this' context for hooks (usually stage)
@@ -261,7 +261,7 @@ class StageHooks {
                 }
                 return lifecycle
             },
-            
+
             /**
              * Manually execute the 'after' hook stack
              * @param {*} context - The 'this' context for hooks (usually stage)
@@ -275,7 +275,7 @@ class StageHooks {
                 }
                 return lifecycle
             },
-            
+
             /**
              * Manually execute the 'around' hook
              * @param {*} context - The 'this' context for the hook (usually stage)
@@ -290,7 +290,7 @@ class StageHooks {
                 // No around hook, just call original
                 return originalFn.apply(context, args)
             },
-            
+
             /**
              * Manually execute the full hook lifecycle
              * @param {*} context - The 'this' context (usually stage)
@@ -303,7 +303,7 @@ class StageHooks {
                 for (const fn of hooks.before) {
                     fn.call(context, args)
                 }
-                
+
                 // Main function (with or without around)
                 let result
                 if (hooks.around) {
@@ -311,15 +311,15 @@ class StageHooks {
                 } else {
                     result = originalFn.apply(context, args)
                 }
-                
+
                 // After hooks
                 for (const fn of hooks.after) {
                     fn.call(context, result, args)
                 }
-                
+
                 return result
             },
-            
+
             /**
              * Get direct access to the hook arrays (for advanced usage)
              * @returns {object} The actual hooks object (not a copy)
@@ -328,172 +328,24 @@ class StageHooks {
                 return hooks
             }
         }
-        
+
         // Store the lifecycle manager
         this.registry.set(methodName, lifecycle)
-        
+
         // Store the original function before any wrapping
         if (!this.originals.has(methodName)) {
             this.originals.set(methodName, original)
         }
-        
+
         // Add method to get the original unwrapped function
         lifecycle.getOriginal = () => {
             return this.originals.get(methodName)
         }
-        
-        // Only auto-wrap if enabled (default: true)
-        if (this.autoWrap) {
-            // Create the wrapped method
-            const wrapped = function(...args) {
-                // Fast path: check if there are any hooks using bitwise OR
-                // This is JIT-optimizable and faster than logical OR
-                const hasHooks = hooks.before.length | hooks.after.length | (hooks.around ? 1 : 0)
-                
-                if (!hasHooks) {
-                    // No hooks - direct call (fastest path)
-                    return original.apply(this, args)
-                }
-                
-                // Execute before hooks
-                for (const fn of hooks.before) {
-                    fn.call(this, args)
-                }
-                
-                // Execute main function (with or without around hook)
-                let result
-                if (hooks.around) {
-                    result = hooks.around.call(this, original, args)
-                } else {
-                    result = original.apply(this, args)
-                }
-                
-                // Execute after hooks
-                for (const fn of hooks.after) {
-                    fn.call(this, result, args)
-                }
-                
-                return result
-            }
-            
-            // Preserve the original function name for debugging
-            Object.defineProperty(wrapped, 'name', {
-                value: methodName,
-                configurable: true
-            })
-            
-            // Replace the method on the stage
-            stage[methodName] = wrapped.bind(stage)
-        }
-        
+
         return lifecycle
     }
-    
-    /**
-     * Get all hooked methods
-     * @returns {string[]} Array of method names that have been hooked
-     */
-    getHookedMethods() {
-        return Array.from(this.registry.keys())
-    }
-    
-    /**
-     * Get statistics about all hooks
-     * @returns {object} Statistics object
-     */
-    getStats() {
-        const stats = {
-            hookedMethods: this.registry.size,
-            totalHooks: 0,
-            byMethod: {}
-        }
-        
-        for (const [methodName, lifecycle] of this.registry.entries()) {
-            const count = lifecycle.count()
-            stats.byMethod[methodName] = count
-            stats.totalHooks += count.total
-        }
-        
-        return stats
-    }
-    
-    /**
-     * Clear all hooks for all methods
-     */
-    clearAll() {
-        for (const lifecycle of this.registry.values()) {
-            lifecycle.clear()
-        }
-        return this
-    }
-    
-    /**
-     * Enable automatic wrapping for a specific method
-     * Use this if you created hooks with autoWrap: false and want to enable it later
-     * @param {string} methodName - Name of the method to wrap
-     */
-    enableAutoWrap(methodName) {
-        const lifecycle = this.registry.get(methodName)
-        if (!lifecycle) {
-            throw new Error(`[StageHooks] No hooks registered for ${methodName}`)
-        }
-        
-        const original = this.originals.get(methodName)
-        if (!original) {
-            throw new Error(`[StageHooks] Original function not found for ${methodName}`)
-        }
-        
-        const hooks = lifecycle.getHooks()
-        const stage = this.stage
-        
-        // Create wrapped function
-        const wrapped = function(...args) {
-            const hasHooks = hooks.before.length | hooks.after.length | (hooks.around ? 1 : 0)
-            
-            if (!hasHooks) {
-                return original.apply(this, args)
-            }
-            
-            for (const fn of hooks.before) {
-                fn.call(this, args)
-            }
-            
-            let result
-            if (hooks.around) {
-                result = hooks.around.call(this, original, args)
-            } else {
-                result = original.apply(this, args)
-            }
-            
-            for (const fn of hooks.after) {
-                fn.call(this, result, args)
-            }
-            
-            return result
-        }
-        
-        Object.defineProperty(wrapped, 'name', {
-            value: methodName,
-            configurable: true
-        })
-        
-        stage[methodName] = wrapped.bind(stage)
-        return this
-    }
-    
-    /**
-     * Disable automatic wrapping and restore original method
-     * @param {string} methodName - Name of the method to unwrap
-     */
-    disableAutoWrap(methodName) {
-        const original = this.originals.get(methodName)
-        if (!original) {
-            throw new Error(`[StageHooks] Original function not found for ${methodName}`)
-        }
-        
-        this.stage[methodName] = original
-        return this
-    }
+
+
 }
 
 

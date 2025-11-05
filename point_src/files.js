@@ -1,4 +1,8 @@
 /*
+!Important
+
+The JSON file is the primary. This is not the true file set yet.
+
 
 # Files
 
@@ -71,7 +75,8 @@ const polypointFileAssets = function(js='') {
         ]
 
         , stage: [
-            `${js}stage.js#stage`
+            `${js}stage-resize.js#stageresize`
+            // , `${js}stage.js#stage`
         ]
         , point: [
             'head'

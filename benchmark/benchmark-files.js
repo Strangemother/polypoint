@@ -5,8 +5,14 @@ const BENCHMARK_FILES = [
     {
         id: 'property-access',
         name: 'Property Access (gets vs sets)',
-        file: 'benchmark-tests.js',
+        file: 'tests/benchmark-tests.js',
         description: 'Compare getter, setter, and direct property access'
+    },
+    {
+        id: 'spread-args',
+        name: 'Spread arguments vs .apply',
+        file: 'tests/spread-tests.js',
+        description: 'Compare ...args vs .apply() '
     },
     {
         id: 'array-operations',

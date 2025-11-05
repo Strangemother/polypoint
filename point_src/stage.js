@@ -1,6 +1,5 @@
 /*
 files:
-    // stage-resize.js
     functions/resolve.js
 ---
 
@@ -83,6 +82,66 @@ class StageBase {
 
 }
 
+class StageHooks {
+
+    constructor(stage) {
+        this.stage = stage
+        this.methodMap = new Map
+        // Return a proxy for auto-discovery of hookable methods
+        return new Proxy(this, {
+            get(target, prop) {
+                // Return own properties directly (for, stage, registry, cache, etc.)
+                if (prop in target) {
+                    return target[prop]
+                }
+
+                // console.log('prop get', prop)
+                return target.resolveStack(prop)
+            }
+        })
+    }
+
+    resolveStack(prop) {
+        if(this.methodMap.has(prop)) {
+            return this.methodMap.get(prop)
+        }
+        // console.log('Creating')
+        let hs = new HookStack
+        this.methodMap.set(prop, hs)
+        return hs;
+    }
+
+
+}
+
+
+class HookStack {
+
+    constructor() {
+        this.before = new HookList
+        this.after = new HookList
+    }
+}
+
+class HookList {
+    constructor() {
+        this.items = []
+    }
+    add() {
+        return this.items.push.apply(this.items, arguments)
+    }
+    remove(fn) {
+        const idx = this.items.indexOf(fn)
+        if (idx > -1) {
+            this.items.splice(idx, 1)
+        }
+    }
+    run() {
+        this.items.forEach(f=>f(...arguments))
+    }
+}
+
+
 class StageRender extends StageBase {
     /*
 
@@ -111,7 +170,7 @@ class StageRender extends StageBase {
 
 
      */
-    _drawFunc
+    $drawFunc
     _loopDraw = true
     initData = undefined
 
@@ -133,14 +192,16 @@ class StageRender extends StageBase {
          */
         super()
 
-        drawFunc = drawFunc || ( ()=>this.stageStartDraw(this.draw))
+        drawFunc = drawFunc || ( ()=>this.stageStartDraw(this.draw) )
         if(drawFunc) {
-            this._drawFunc = drawFunc
+            this.$drawFunc = drawFunc
         }
 
+        this.drawHooks = new HookStack
+
         this._nextTick = new Set;
-        this._drawAfter = []
-        this._drawBefore = []
+        // this._drawAfter = []
+        // this._drawBefore = []
         if(canvas)  {
             this.prepare(canvas)
         }
@@ -276,40 +337,41 @@ class StageRender extends StageBase {
         setTimeout(()=>this.loopDraw(), timeout)
     }
 
-    cleanGoConfig(info) {
-        /*
-            Return a dict, if the:
-
-            + is dict,
-            + thing is a string, assume name
-            + thing is node, assume canvas
-         */
-        if(typeof info == 'string'){
-            info = {
-                canvas: info
-            }
-        }
-
-        if(info instanceof HTMLCanvasElement){
-            info = {
-                canvas: info
-            }
-        }
-
-        /* Ensure loop by default. */
-        if(info.loop === undefined){
-            info.loop = true
-        }
-
-        return Object.assign(this.initData || {}, info)
-    }
 
     go(additionalData={}) {
         /* Make a copy of a new Stage.
         Call prepare() if required. If `additionalData.loop` is `true` (default)
         start the update loopDraw
         */
-        let goData = this.cleanGoConfig(additionalData)
+        const cleanGoConfig = function(info) {
+            /*
+                Return a dict, if the:
+
+                + is dict,
+                + thing is a string, assume name
+                + thing is node, assume canvas
+             */
+            if(typeof info == 'string'){
+                info = {
+                    canvas: info
+                }
+            }
+
+            if(info instanceof HTMLCanvasElement){
+                info = {
+                    canvas: info
+                }
+            }
+
+            /* Ensure loop by default. */
+            if(info.loop === undefined){
+                info.loop = true
+            }
+
+            return Object.assign(this.initData || {}, info)
+        }.bind(this)
+
+        let goData = cleanGoConfig(additionalData)
         /* First we ensure prepare has occured */
         if(this._prepared != true) { this.prepare(goData.canvas) }
         this.initData = goData;
@@ -338,11 +400,11 @@ class StageRender extends StageBase {
         `stopDraw` method is called.
         */
         this.firstDraw(this.ctx)
-        let _drawFunc = drawFunc  || this.draw
+        let $drawFunc = drawFunc  || this.draw
         if(drawFunc) {
             /* Rewrite the internal draw function forever, removing _this_
             method, and replacing it with the real draw. */
-            this._drawFunc = _drawFunc
+            this.$drawFunc = $drawFunc
             this.update()
             return
         }
@@ -414,24 +476,28 @@ class StageRender extends StageBase {
 
             + all _drawBefore_ methods
             + all _nextTick_ methods
-            + the `draw` method (mapped through `this._drawFunc`)
+            + the `draw` method (mapped through `this.$drawFunc`)
             + all _drawAfter_ methods
         */
         const ctx = this.ctx;
 
-        for(let af of this._drawBefore) {
-            af(ctx)
-        }
+        // for(let af of this._drawBefore) {
+        //     af(ctx)
+        // }
+
+        this.drawHooks.before.run(ctx)
 
         let nt = this._nextTick;
         nt.forEach(f=>f(ctx, this))
         nt.size && (this._nextTick = new Set)
 
-        this._drawFunc(ctx);
+        this.$drawFunc(ctx);
 
-        for(let af of this._drawAfter) {
-            af(ctx)
-        }
+        this.drawHooks.after.run(ctx)
+
+        // for(let af of this._drawAfter) {
+        //     af(ctx)
+        // }
     }
 
     nextTick(func) {
@@ -479,22 +545,26 @@ class StageRender extends StageBase {
         })
     }
 
+    onDrawBefore(func) {
+        // this._drawBefore.push(func)
+        this.drawHooks.before.add(func)
+    }
+
     onDrawAfter(func) {
-        this._drawAfter.push(func)
+        // this._drawAfter.push(func)
+        this.drawHooks.after.add(func)
     }
 
     offDrawAfter(func) {
-        let i = this._drawAfter.indexOf(func)
-        this._drawAfter.splice(i, 1)
-    }
-
-    onDrawBefore(func) {
-        this._drawBefore.push(func)
+        // let i = this._drawAfter.indexOf(func)
+        // this._drawAfter.splice(i, 1)
+        this.drawHooks.after.remove(func)
     }
 
     offDrawBefore(func) {
-        let i = this._drawBefore.indexOf(func)
-        this._drawBefore.splice(i, 1)
+        // let i = this._drawBefore.indexOf(func)
+        // this._drawBefore.splice(i, 1)
+        this.drawHooks.before.remove(func)
     }
 
     /* Empty API Method */

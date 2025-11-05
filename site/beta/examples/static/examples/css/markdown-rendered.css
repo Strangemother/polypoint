@@ -71,11 +71,14 @@
     margin: 2em 0em;
 }
 
-.markdown-rendered p,
-.markdown-rendered ul {
+.markdown-rendered p, .markdown-rendered ul, .markdown-rendered ol {
     /* font-size: 1.1em; */
     font-weight: 400;
     line-height: 1.6;
+}
+
+.markdown-rendered ul li > p, .markdown-rendered ol li > p {
+    margin: auto
 }
 
 .highlight code.hljs,
@@ -86,7 +89,8 @@ pre code.hljs {
 }
 
 .markdown-rendered strong {
-    color: hsl(298deg 17% 72%);
+    color: hsl(267deg 24% 80%);
+    font-weight: 500;
 }
 
 .markdown-rendered a {

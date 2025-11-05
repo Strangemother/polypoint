@@ -3,7 +3,7 @@ title: Just a Stagr
 categories: minimal
 files:
     head
-    stage
+    ../point_src/stage.js
 ---
 
 The minimal requirements include the _head_ and _stage_.

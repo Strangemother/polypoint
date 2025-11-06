@@ -1,6 +1,6 @@
 /*
 files:
-    point_src/stage-hooks.js
+    stage-hooks.js
     functions/resolve.js
 ---
 

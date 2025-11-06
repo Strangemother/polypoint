@@ -21,6 +21,81 @@ files:
 ---
 
 */
+
+;(function(){
+
+
+const dot = (off,
+    x = w / 2 - 140 + off,
+    y = h / 4,
+    ox = x,
+    oy = y,
+    xo, yo,
+    vx = rnd() * 10 - 5,
+    vy = rnd() * -10,
+    s = 20,
+    g = .3 + rnd() * .2,
+    intersect
+) => () => {
+    x += vx
+    y += vy
+
+    if (shoot) {
+        vy = rnd() * -20;
+        vx = rnd() * 10 - 5
+        x = ox
+        y = oy
+    }
+
+    intersect = false;
+    for (let i = 0; i < num - 1; i++) {
+        let a = pnts[i]
+        let b = pnts[i + 1]
+        let d = lineDist(a[0], a[1], b[0], b[1], x, y)
+        if (d < s) {
+            [rvx, rvy] = reflect(vx, vy, a[0], a[1], b[0], b[1]);
+            vx = rvx
+            vy = rvy
+            x = ox;
+            y = oy;
+            intersect = true;
+            break;
+        }
+    }
+
+    vy += g
+    if (!intersect) {
+        ox = x;
+        oy = y;
+    }
+    c.fillStyle = 'red'
+    c.fillRect(x, y, s, s)
+}
+
+
+
+const mount = () => {
+    c.beginPath()
+    c.moveTo(0, h - 100)
+    step = w / num
+    for (let i = 0; i <= num; i++) {
+        x = step * i
+        y = h - 600 - 450 * cos(2 + i / 8) + 50 * sin(i * 0xFFFFF)
+        pnts[i] = [x, y]
+        c.lineTo(x, y)
+    };
+
+    c.stroke()
+    return () => {
+        c.beginPath()
+        c.moveTo(0, h - 100)
+        for (let i = 0; i <= num; i++) {
+            c.lineTo(pnts[i][0], pnts[i][1])
+        }
+        c.stroke()
+    }
+}
+
 let { sqrt, cos, sin, random: rnd } = Math
 
 cnv = document.createElement`canvas`
@@ -41,7 +116,7 @@ NUM = 200
 rst = 0.99
 shoot = false
 
-for (i = 0; i < NUM; i++) {
+for (let i = 0; i < NUM; i++) {
     ds[i] = dot(i * 4 - 200)
 }
 
@@ -79,29 +154,6 @@ class MainStage extends Stage {
 
 ;stage = MainStage.go();
 
-
-const mount = () => {
-    c.beginPath()
-    c.moveTo(0, h - 100)
-    step = w / num
-    for (let i = 0; i <= num; i++) {
-        x = step * i
-        y = h - 600 - 450 * cos(2 + i / 8) + 50 * sin(i * 0xFFFFF)
-        pnts[i] = [x, y]
-        c.lineTo(x, y)
-    };
-
-    c.stroke()
-    return () => {
-        c.beginPath()
-        c.moveTo(0, h - 100)
-        for (let i = 0; i <= num; i++) {
-            c.lineTo(pnts[i][0], pnts[i][1])
-        }
-        c.stroke()
-    }
-}
-
 const reflect = (vx, vy, ax, ay, bx, by,
                 dx = bx - ax
                 , dy = by - ay
@@ -111,61 +163,12 @@ const reflect = (vx, vy, ax, ay, bx, by,
     dy /= len
     nx = -dy
     ny = dx
-    dot = vx * nx + vy * ny
-    vx = 0.5 * (vx - (1 + rst) * dot * nx)
-    vy = 0.5 * (vy - (1 + rst) * dot * ny)
+    let _dot = vx * nx + vy * ny
+    vx = 0.5 * (vx - (1 + rst) * _dot * nx)
+    vy = 0.5 * (vy - (1 + rst) * _dot * ny)
     return [vx, vy];
 }
 
-
-
-
-const dot = (off,
-    x = w / 2 - 140 + off,
-    y = h / 4,
-    ox = x,
-    oy = y,
-    xo, yo,
-    vx = rnd() * 10 - 5,
-    vy = rnd() * -10,
-    s = 20,
-    g = .3 + rnd() * .2,
-    intersect
-) => () => {
-    x += vx
-    y += vy
-
-    if (shoot) {
-        vy = rnd() * -20;
-        vx = rnd() * 10 - 5
-        x = ox
-        y = oy
-    }
-
-    intersect = false;
-    for (let i = 0; i < num - 1; i++) {
-        a = pnts[i]
-        b = pnts[i + 1]
-        d = lineDist(a[0], a[1], b[0], b[1], x, y)
-        if (d < s) {
-            [rvx, rvy] = reflect(vx, vy, a[0], a[1], b[0], b[1]);
-            vx = rvx
-            vy = rvy
-            x = ox;
-            y = oy;
-            intersect = true;
-            break;
-        }
-    }
-
-    vy += g
-    if (!intersect) {
-        ox = x;
-        oy = y;
-    }
-    c.fillStyle = 'red'
-    c.fillRect(x, y, s, s)
-}
 
 
 onpointerdown = e => {
@@ -183,3 +186,5 @@ const loop = () => {
 }
 
 loop()
+
+})();

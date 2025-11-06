@@ -62,7 +62,9 @@ class MainStage extends Stage {
         this.line2.render(ctx, {color: 'green'})
 
         zip(this.splits1, this.splits2).forEach(()=>{
-            (new PointList(pair)).pen.line(ctx)
+            // (new PointList(pair)).pen.line(ctx)
+            (new BezierCurve(pair)).pen.line(ctx)
+            // (new PointList(pair)).update({radius: 30}).pen.quadCurve(ctx)
         })
 
     }

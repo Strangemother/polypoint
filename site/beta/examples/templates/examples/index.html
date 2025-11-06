@@ -26,10 +26,11 @@
 </div>
 {% js "examples/js/index.js" %}
 {% css "examples/css/index.css" %}
+{% link.css "examples/css/markdown-rendered.css" %}
 
 
 <div class="outer-block">
-    <div class="block">
+    <div class="block markdown-rendered wide">
         {% markdown.file "docs" "headers/theatre.md" %}
 
         {% theatre.render_markdown "readme.md" as markdown_text %}

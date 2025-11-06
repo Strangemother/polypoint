@@ -16,6 +16,8 @@ const loadPolypointCoreTools = function() {
         // 'dragging',
         // 'bisector',
         // 'stroke',
+
+        /*
         "head"
         , "stroke"
         , "../point_src/point-content.js"
@@ -36,6 +38,9 @@ const loadPolypointCoreTools = function() {
         , "../point_src/angle.js"
         , "../point_src/text/label.js"
         , "/examples/theatre/objects/tetra.js"
+
+         */
+        "/examples/scripts+theatre/pseudo3D-tetra.js"
         // , "head"
         // , "point"
         // , "pointlist"
@@ -65,12 +70,13 @@ const polypointFundamentalsLoaded = function() {
         // let mainDisplay = '/examples/theatre/pseudo3D-cube-2.js';
         // let mainDisplay = '/examples/theatre/grid-flag.js';
         // let mainDisplay = '/examples/theatre/pseudo3D-sphere.js';
-        let mainDisplay = '/examples/theatre/pseudo3D-tetra.js';
         // Polypoint.head.load("/examples/theatre/arc-angles.js")
-        Polypoint.head.load(mainDisplay, function(){
-            console.log('Demo loaded')
-            sendPin()
-        })
+
+        // let mainDisplay = '/examples/theatre/pseudo3D-tetra.js';
+        // Polypoint.head.load(mainDisplay, function(){
+        //     console.log('Demo loaded')
+        // })
+        sendPin()
 
 
     //     ljs.load('other', function(){

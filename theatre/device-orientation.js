@@ -30,9 +30,10 @@ class MainStage extends Stage {
         ctx.textBaseline = 'middle'
 
         this.point.text.fill(ctx, JSON.stringify(this.orientation))
-        this.point.pen.fill(ctx, '#880000')
+        // this.point.pen.fill(ctx, '#880000')
     }
 }
+
 
 const sensor = new AbsoluteOrientationSensor();
 Promise.all([navigator.permissions.query({ name: "accelerometer" }),
@@ -51,6 +52,7 @@ window.addEventListener('deviceorientation', handleOrientation);
 
 let ticks = 0;
 
+
 function handleOrientation(event) {
     const spin = alpha = event.alpha; // flat on its back
     const pitch = beta = event.beta; // pitch forward
@@ -61,5 +63,5 @@ function handleOrientation(event) {
     stage.orientation = {ticks, spin, pitch}
 }
 
-stage = MainStage.go(/*{ loop: true }*/)
 
+stage = MainStage.go(/*{ loop: true }*/);

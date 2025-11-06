@@ -5,6 +5,7 @@ This document lists all files that currently use the legacy `Polypoint.head.*` A
 ## Migration Guide
 
 **Old API → New API:**
+
 - `Polypoint.head.deferredProp()` → `Polypoint.extend.prop()`
 - `Polypoint.head.lazierProp()` → `Polypoint.extend.singleton()`
 - `Polypoint.head.lazyProp()` → `Polypoint.extend.getter()`

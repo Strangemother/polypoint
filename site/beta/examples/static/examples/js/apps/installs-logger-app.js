@@ -7,6 +7,8 @@ checkout `early-installs-logger-app.js`
 class InstallsLoggerApp extends Mountable {
     storageName = 'installsLoggerApp'
     mounted(){
+
+        // Grabbeb from the global, applied by early-installs-logger-app
         this.installCache = installCache
         this.drain(installCache)
         this.writeText('Mounted', this.installCache.classCache.length, 'files')
@@ -16,11 +18,38 @@ class InstallsLoggerApp extends Mountable {
         /* Given the initial install object, drain and process early data. */
         let lines = []
         installCache.classCache.forEach((e, i, a)=>{
-            let r = e.name
-            lines.push(`<li><span>${i+1}</span> <span>${r}</span></li>`)
+            let r = e.name || e;
+            lines.push(`<li>
+                <span>${i+1}</span>
+                <span>
+                    <a href="/files/file/${r}" target=_blank>${r}</a>
+                </span>
+            </li>`)
         })
 
         this.$refs.classesTextSlot.innerHTML = lines.join('')
+
+        let lines2 = []
+        installCache.propsCache.forEach((e, i, a)=>{
+            let r = e.name || e;
+            let innerList = []
+            for(let item in e.propsDict) {
+                let v = item
+                innerList.push(`<li>${v}</li>`)
+            };
+
+            lines2.push(`<li>
+                <span>${i+1}</span>
+                <span>${r}</span>
+                <span>
+                    <ul class="sub-props">
+                        ${innerList.join('')}
+                    </ul>
+                </span>
+            </li>`)
+        })
+
+        this.$refs.propsTextSlot.innerHTML = lines2.join('')
     }
 
     writeText(text){
@@ -39,8 +68,6 @@ class InstallsLoggerApp extends Mountable {
     initData(){
         return { words: 'No Text'}
     }
-
-
 }
 
 const installsLoggerApp = InstallsLoggerApp.loadMount('#installs_logger_app')

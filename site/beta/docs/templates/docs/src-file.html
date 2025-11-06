@@ -74,7 +74,7 @@
         {% comment "what" %}
             The script imports example block
         {% endcomment %}
-        <div class="block">
+        <div class="block markdown-rendered">
             {% if metadata.dependencies %}
                 {% for dep_filepath in metadata.dependencies %}
                     {% include "./fragments/single-import.html" with path=dep_filepath %}
@@ -95,7 +95,7 @@
 
     {#  file meta Markdown #}
     <div class="outer-block">
-        <div class="block">
+        <div class="block markdown-rendered">
             {% if markdown %}
                 <div>
                 {{ markdown.rendered|safe }}
@@ -113,6 +113,7 @@
 
 <hr>
 
+    {% link.css "examples/css/markdown-rendered.css" %}
     {% link.css "css/docs/another-example.css" %}
     {% link.css "css/docs/doc-structure.css" %}
 

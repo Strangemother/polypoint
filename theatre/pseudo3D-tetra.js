@@ -4,10 +4,10 @@ title: 3D Tetrahedron
 categories: pseudo3D
 files:
     head
+    stage
     point
     pointlist
     mouse
-    stage
     ../point_src/rotate.js
     stroke
     ../point_src/distances.js

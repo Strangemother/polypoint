@@ -10,12 +10,13 @@ const checkLinesIntersection = function(line, otherLine, length) {
     // Normalize the direction vector (end - start) and apply the length
     const dx = line[1].x - x1;
     const dy = line[1].y - y1;
-    const magnitude = Math.sqrt(dx * dy + dy * dy);
+    const magnitude = Math.sqrt(dx * dx + dy * dy);
+    // const magnitude = Math.sqrt(dx * dy + dy * dy);
 
     let directionX = dx
     let directionY = dy
 
-    if(length!== undefined) {
+    if(length !== undefined) {
         directionX = (dx / magnitude) * length;
         directionY = (dy / magnitude) * length;
     }
@@ -31,7 +32,7 @@ const checkLinesIntersection = function(line, otherLine, length) {
 
     /* with two parallel lines, the denominator is zero */
     const denominator = getDenominator(x1, y1, x2, y2, x3, y3, x4, y4)
-    denomText = denominator
+    // denomText = denominator
     if (denominator === 0) return false; // Parallel lines
 
     const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denominator;
@@ -47,6 +48,7 @@ const checkLinesIntersection = function(line, otherLine, length) {
         return {
                 x: intersectX
                 , y: intersectY
+                , denominator
                 // , radians: angleRad
             };
 

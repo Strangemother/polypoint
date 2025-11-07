@@ -31,7 +31,7 @@ class MainStage extends Stage {
     live = true
     mounted(){
         this.point = new Point(300, 400, 100)
-        this.count = 10
+        this.count = 20
 
         this.point1 = new Point(300, 400, 50)
         this.point2 = new Point(300, 400, 120)

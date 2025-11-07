@@ -85,13 +85,12 @@ class MainStage extends Stage {
 
         let int = checkLinesIntersection(this.lineA, this.lineB)
         if(int) {
-
             let iPoint = (new Point).copy(int).update({radius: 30})
             // iPoint.radius = 30
             iPoint.pen.indicator(ctx)
         }
 
-        this.l.text = `Denominator: ${denomText}`
+        this.l.text = `Denominator: ${int.denominator}`
         this.l.draw(ctx)
         this.dragging.drawIris(ctx)
     }

@@ -17,8 +17,8 @@ echo "→ Activating virtual environment..."
 source /home/site/apps/polypoint/.venv/bin/activate
 
 # Install/update dependencies
-echo "→ Installing dependencies..."
-pip install -r /home/site/apps/polypoint/site/beta/requirements.txt
+# echo "→ Installing dependencies..."
+# pip install -r /home/site/apps/polypoint/site/beta/requirements.txt
 
 # Collect static files
 echo "→ Collecting static files..."

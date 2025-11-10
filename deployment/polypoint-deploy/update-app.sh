@@ -24,18 +24,18 @@ python3 manage.py collectstatic --noinput
 echo "✓ Application updated successfully"
 EOSU
 
-# Restart gunicorn service
+# Restart gunicorn service (running as root, no sudo needed)
 echo "→ Restarting gunicorn service..."
-sudo systemctl restart gunicorn-polypointjs-com.service
+systemctl restart gunicorn-polypointjs-com.service
 
 # Restart nginx
 echo "→ Restarting nginx..."
-sudo systemctl restart nginx
+systemctl restart nginx
 
 # Check service status
 echo ""
 echo "=== Service Status ==="
-sudo systemctl status gunicorn-polypointjs-com.service --no-pager
+systemctl status gunicorn-polypointjs-com.service --no-pager
 
 echo ""
 echo "✓ Update completed successfully!"

@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Thick Line Leg Example
 categories: minimal
 files:
     head

@@ -1,5 +1,5 @@
 /*
-title: TextAlpha Class
+title: TextAlpha Gradient Text
 categories: text
 files:
     head

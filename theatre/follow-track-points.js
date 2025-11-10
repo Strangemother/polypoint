@@ -1,5 +1,5 @@
 /*
-title: Follow
+title: Point Tracking Behavior
 categories: constraints
 files:
     ../point_src/core/head.js

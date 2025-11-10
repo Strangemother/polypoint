@@ -1,6 +1,6 @@
 /*
 ---
-title: Split
+title: Line Rider with Split Points
 categories: split
     curve
 files:

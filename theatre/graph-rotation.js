@@ -1,5 +1,5 @@
 /*
-title: Graph Based Rotation
+title: Graph Node Rotation
 categories:
     raw
     graph

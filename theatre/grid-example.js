@@ -1,5 +1,5 @@
 /*
-title: Grid Example
+title: Interactive Grid System
 categories:
     grid
     raw

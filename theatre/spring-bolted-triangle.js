@@ -1,4 +1,5 @@
 /*
+title: Bolted Triangle Springs
 categories: springs
 files:
     ../point_src/core/head.js

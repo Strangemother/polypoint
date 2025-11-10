@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Bridged Loop Connection
 categories: basic
     dragging
 files:

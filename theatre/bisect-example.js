@@ -1,5 +1,5 @@
 /*
-title: Bisector
+title: Angle Bisector Visualization
 categories: bisect
 files:
     head

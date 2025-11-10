@@ -1,4 +1,5 @@
 /*
+title: Spring Pop-On Effect
 categories: springs
 files:
     ../point_src/core/head.js

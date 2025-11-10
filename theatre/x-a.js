@@ -1,3 +1,6 @@
+/*
+title: Experimental: SVG Path Command Builder
+*/
 
 const namedCommands = function(name, letter, ...positions){
     let res = {

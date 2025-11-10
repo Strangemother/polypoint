@@ -1,6 +1,6 @@
 /*
 
-title: Plotter
+title: Cosine-Sine Wave Plotter
 files:
     head
     point

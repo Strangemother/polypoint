@@ -1,6 +1,6 @@
 /*
 
-title: Spiral Plots
+title: Spiral Path Plotter
 files:
     head
     point

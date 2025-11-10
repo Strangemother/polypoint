@@ -1,5 +1,5 @@
 /*
-title: Graph Based Rotation
+title: Graph with Connected Lines
 categories:
     raw
     graph

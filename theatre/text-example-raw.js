@@ -1,5 +1,5 @@
 /*
-
+title: Basic Text Rendering
 categories: text
 files:
     ../point_src/point-content.js

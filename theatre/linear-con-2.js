@@ -1,5 +1,5 @@
 /*
-title: Graph Chain Follow Points 2
+title: Linear Constraint with Collisions
 categories: graph
     collisions
     constraints

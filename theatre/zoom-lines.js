@@ -1,6 +1,6 @@
 /*
 ---
-title: Zooming Points
+title: Zoom Level Lines
 src_dir: ../point_src/
 categories: scaling
 files:

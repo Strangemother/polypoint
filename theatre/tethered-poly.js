@@ -1,5 +1,5 @@
 /*
-title: Tethered Controller Point
+title: Tethered Polygon Shape
 categories: binding
 files:
     head

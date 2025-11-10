@@ -1,5 +1,5 @@
 /*
-title: Point Click
+title: Point Click Detection
 category: mouse
 files:
     ../point_src/core/head.js

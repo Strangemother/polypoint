@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Angle
+title: Arc Drawing with Circumcircle
 categories:
     arc
     angles

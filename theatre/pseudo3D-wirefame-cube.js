@@ -1,6 +1,6 @@
 /*
 ---
-title: 3D Sphere
+title: Pseudo-3D Wireframe Cube
 categories: pseudo3D
 files:
     ../point_src/math.js

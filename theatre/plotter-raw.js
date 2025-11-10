@@ -1,6 +1,6 @@
 /*
 
-title: Plotter
+title: Raw Function Plotter
 files:
     head
     point

@@ -1,4 +1,5 @@
 /*
+title: Mass Pointer
 categories: springs
 files:
     ../point_src/core/head.js

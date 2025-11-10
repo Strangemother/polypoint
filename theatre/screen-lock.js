@@ -1,3 +1,6 @@
+/*
+title: Screen Lock
+*/
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');

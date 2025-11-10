@@ -1,5 +1,5 @@
 /*
-title: Pinnable Rope
+title: Rope Physics with Text
 categories: chain
     rope
     constraints

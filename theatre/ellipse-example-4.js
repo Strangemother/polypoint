@@ -1,4 +1,5 @@
 /*
+title: Ellipse Parametric Plot
 categories: simple
     ellipse
 files:

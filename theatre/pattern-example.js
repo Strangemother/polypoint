@@ -1,5 +1,5 @@
 /*
-title: Using createPattern()
+title: Canvas Pattern Fill
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,5 +1,5 @@
 /*
-title: PointList Lerper method
+title: PointList Lerp Through Positions
 categories: lerp
 files:
     head

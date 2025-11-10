@@ -1,4 +1,5 @@
 /*
+title: Spring-Connected Hut Structure
 categories: gravity
     raw
     quad-tree

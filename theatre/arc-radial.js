@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Angle
+title: Radial Arc Drawing
 categories:
     arc
     angles

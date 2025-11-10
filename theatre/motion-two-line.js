@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Dual Line Motion Tracking
 categories: basic
     dragging
 files:

@@ -1,4 +1,5 @@
 /*
+title: Text Simple Example
 categories: text
 files:
     ../point_src/core/head.js

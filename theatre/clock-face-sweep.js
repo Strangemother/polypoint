@@ -1,4 +1,5 @@
 /*
+title: Clock Face Sweep
 categories: clock
 files:
     ../point_src/math.js

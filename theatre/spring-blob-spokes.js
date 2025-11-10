@@ -1,4 +1,5 @@
 /*
+title: Spring Blob with Spokes
 categories: springs
 files:
     ../point_src/core/head.js

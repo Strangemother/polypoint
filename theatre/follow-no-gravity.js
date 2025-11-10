@@ -1,5 +1,5 @@
 /*
-title: Raw Point follow (no gravity)
+title: Point Following Without Gravity
 sr_dir: ../point_src/
 categories: constraints
 files:

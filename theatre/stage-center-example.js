@@ -1,5 +1,6 @@
 /*
 category: center
+title: Stage Center Positioning
 files:
     ../point_src/math.js
     ../point_src/core/head.js

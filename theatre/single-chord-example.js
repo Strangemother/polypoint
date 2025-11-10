@@ -1,5 +1,5 @@
 /*
-title: Circle Segment
+title: Single Circle Chord
 category: chords
 files:
     head

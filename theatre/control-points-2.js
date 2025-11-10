@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Bezier Control Point Manipulation
 src_dir: ../point_src/
 categories: binding
 files:

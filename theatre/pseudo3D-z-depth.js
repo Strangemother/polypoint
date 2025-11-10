@@ -1,6 +1,6 @@
 /*
 ---
-title: Rotate 3D
+title: Pseudo-3D Z-Depth Sorting
 categories: pseudo3D
 files:
     ../point_src/math.js

@@ -1,6 +1,6 @@
 /*
 ---
-title: pseudo3D Cube
+title: Pseudo-3D Rotating Cube
 categories: pseudo3D
 files:
     ../point_src/math.js

@@ -1,5 +1,5 @@
 /*
-title: Line Rider
+title: Line Rider with Draggable Boundary
 src_dir: ../point_src/
 files:
     ../point_src/core/head.js

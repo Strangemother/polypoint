@@ -1,6 +1,6 @@
 /*
 ---
-title: Timeline (Second Attempt)
+title: Timeline Sequence V2
 categories: timeline
 files:
     ../point_src/core/head.js

@@ -1,5 +1,5 @@
 /*
-title: Offscreen rendering.
+title: Offscreen Canvas without Primary Canvas
 category: offscreen
 files:
     ../point_src/core/head.js

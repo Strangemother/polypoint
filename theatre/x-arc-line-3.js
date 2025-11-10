@@ -1,5 +1,6 @@
 /*
 category: arcs
+title: Experimental: Arc Line V3
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

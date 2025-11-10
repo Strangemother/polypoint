@@ -1,4 +1,5 @@
 /*
+title: Cluster
 categories: clusters
 files:
     ../point_src/core/head.js

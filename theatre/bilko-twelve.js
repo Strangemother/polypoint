@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Bezier Egg Shape with Control Points
 src_dir: ../point_src/
 files:
     ../point_src/math.js

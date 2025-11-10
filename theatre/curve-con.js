@@ -1,5 +1,5 @@
 /*
-title: Graph Chain Follow Points 2
+title: Curved Constraint Graph
 categories: graph
 files:
     ../point_src/core/head.js

@@ -1,6 +1,6 @@
 /*
 ---
-title: Spread Line
+title: Point Spread Line
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

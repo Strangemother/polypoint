@@ -1,5 +1,5 @@
 /*
-title: TextAlpha Class
+title: TextAlpha Logo Animation
 categories: text
 files:
     head

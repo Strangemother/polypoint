@@ -1,5 +1,5 @@
 /*
-title: Pinnable Rope
+title: Small Rope System
 categories: chain
     rope
     constraints

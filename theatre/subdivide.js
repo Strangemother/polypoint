@@ -1,5 +1,6 @@
 /*
 ---
+title: Curve Subdivision
 categories: subdivide
 files:
     ../point_src/math.js

@@ -1,5 +1,6 @@
 /*
 ---
+title: Directional Tangent 5
 categories: tangents
     bisector
     raw

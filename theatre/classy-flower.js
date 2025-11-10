@@ -1,5 +1,5 @@
 /*
-title: Flower!
+title: Gradient Flower Pattern
 src_dir: ../point_src/
 categories: curve
 files:

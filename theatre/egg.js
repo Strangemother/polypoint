@@ -1,4 +1,5 @@
 /*
+title: Parametric Egg Shape
 categories: curve
 files:
     ../point_src/math.js

@@ -1,4 +1,5 @@
 /*
+title: Hairy Ball
 categories: springs
 files:
     ../point_src/core/head.js

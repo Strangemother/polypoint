@@ -1,5 +1,5 @@
 /*
-title: Brownian Within a Point
+title: Brownian Walker Raw Implementation
 categories: brownian
     random
 files:

@@ -1,6 +1,7 @@
 /*
 category: center
     raw
+title: Center of Mass Without Stage
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Click to Create Connected Points
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

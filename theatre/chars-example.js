@@ -1,5 +1,5 @@
 /*
-title: Char Example
+title: Character Text Rendering
 files:
     ../point_src/math.js
     ../point_src/core/head.js

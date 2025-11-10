@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Bezier Curve Between Split Points
 files:
     head
     point

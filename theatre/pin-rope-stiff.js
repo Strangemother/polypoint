@@ -1,5 +1,5 @@
 /*
-title: Pinnable Rope
+title: Stiff Rope Constraints
 categories: chain
     rope
     constraints

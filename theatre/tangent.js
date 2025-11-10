@@ -1,4 +1,5 @@
 /*
+title: Tangent Line to Curve
 categories: tangents
 files:
     ../point_src/core/head.js

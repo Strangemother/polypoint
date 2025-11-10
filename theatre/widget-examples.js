@@ -1,4 +1,5 @@
 /*
+title: UI Widget Components
 files:
     head
     point

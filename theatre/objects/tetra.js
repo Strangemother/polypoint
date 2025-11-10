@@ -1,3 +1,6 @@
+/*
+title: Tetrahedron Object
+*/
 
 
 function generateRadialTetrahedronMesh(targetCount = 500, radius = 1) {

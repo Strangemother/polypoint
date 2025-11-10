@@ -1,6 +1,6 @@
 /*
 ---
-title: 3D Sphere
+title: Pseudo-3D Sphere Raw
 categories: pseudo3D
 files:
     head

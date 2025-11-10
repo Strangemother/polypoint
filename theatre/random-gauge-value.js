@@ -1,4 +1,5 @@
 /*
+title: Random Gauge Meter
 files:
     ../point_src/core/head.js
     ../point_src/point-content.js

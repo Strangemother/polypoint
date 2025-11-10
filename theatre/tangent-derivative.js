@@ -1,6 +1,6 @@
 /*
 ---
-title: Split
+title: Tangent Derivative Calculation
 categories: tangents
 files:
     ../point_src/math.js

@@ -1,4 +1,5 @@
 /*
+title: Relative Position Bubbles
 categories: relative
 files:
     ../point_src/math.js

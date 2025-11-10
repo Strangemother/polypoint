@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Ellipse Disc Projection V2
 categories: curve
 src_dir: ../point_src/
 files:

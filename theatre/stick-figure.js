@@ -1,5 +1,5 @@
 /*
-title: Graph Based Rotation
+title: Stick Figure Animation
 categories:
     raw
     graph

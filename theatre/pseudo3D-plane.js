@@ -1,6 +1,6 @@
 /*
 ---
-title: 3D Pseudo Rotation Plane
+title: Pseudo-3D Plane Grid
 categories: pseudo3D
 files:
     ../point_src/math.js

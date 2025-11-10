@@ -1,6 +1,6 @@
 /*
 
-title: Plotter
+title: Dual Line Potter Wheel
 files:
     head
     point

@@ -1,5 +1,5 @@
 /*
-title: Emitter 4
+title: Particle Emitter System V5
 category: emitter
 files:
     ../point_src/core/head.js

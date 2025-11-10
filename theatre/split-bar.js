@@ -1,4 +1,5 @@
 /*
+title: Adjustable Split Bar
 categories: split
     lines
 files:

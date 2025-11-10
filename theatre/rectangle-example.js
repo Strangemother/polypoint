@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Rectangle Drawing Tool
 categories: minimal
 files:
     head

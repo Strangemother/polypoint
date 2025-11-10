@@ -1,5 +1,5 @@
 /*
-title: Multi-scale
+title: Multi-Scale Simplified
 categories: scaling
 files:
     ../point_src/core/head.js

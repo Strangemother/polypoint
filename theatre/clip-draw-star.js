@@ -1,5 +1,5 @@
 /*
-title: Clip Draw Star Example
+title: Clipping Path Star Example
 files:
     head
     point

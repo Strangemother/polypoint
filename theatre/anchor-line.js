@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Point Leash Distance Constraint
 categories: basic
     dragging
 files:

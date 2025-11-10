@@ -1,4 +1,5 @@
 /*
+title: Intersection Line Line
 categories: intersections
 files:
     ../point_src/core/head.js

@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Turtle Graphics Drawing
 categories: basic
     dragging
 files:

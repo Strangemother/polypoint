@@ -1,5 +1,5 @@
 /*
-title: SVG Example
+title: SVG Path Rendering
 categories: svg
 files:
     ../point_src/core/head.js

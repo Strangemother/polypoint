@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Connected Light Points Grid
 categories: minimal
 files:
     head

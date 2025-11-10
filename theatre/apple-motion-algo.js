@@ -1,5 +1,5 @@
 /*
-title: Brownian Within a Point
+title: Apple Motion Timing Curve
 categories: brownian
     random
 ---

@@ -1,3 +1,6 @@
+/*
+title: 3D Sphere Object
+*/
 
 function generateSpherePoints(count = 100, radius = 1) {
   const points = [];

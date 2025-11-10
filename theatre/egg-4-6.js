@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Egg Shape Variant 4-6
 categories: curve
 src_dir: ../point_src/
 files:

@@ -1,4 +1,5 @@
 /*
+title: Mirror Reflection with Class
 categories: reflections
 files:
     ../point_src/core/head.js

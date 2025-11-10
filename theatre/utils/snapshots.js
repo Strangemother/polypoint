@@ -1,3 +1,6 @@
+/*
+title: Snapshot Utility Functions
+*/
 
 // In your js file you can include this code block
 function getCookie(name) {

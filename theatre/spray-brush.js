@@ -1,5 +1,5 @@
 /*
-title: Spray
+title: Spray Paint Brush
 categories: brush
 files:
     head

@@ -1,6 +1,6 @@
 /*
-
 src_dir: ../point_src/
+title: Mini Space 3
 categories: gravity
     raw
 files:

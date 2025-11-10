@@ -1,5 +1,5 @@
 /*
-title: Example
+title: HSL Color Point Animation
 categories: basic
     dragging
 files:

@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Sine Wave Point Animation
 categories: minimal
 files:
     head

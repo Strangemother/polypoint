@@ -1,5 +1,6 @@
 /*
 src_dir: ../point_src/
+title: Experimental: Projected Circle
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

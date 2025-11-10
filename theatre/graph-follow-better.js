@@ -1,5 +1,5 @@
 /*
-title: Graph Based Rotation
+title: Graph Follow Improved
 categories:
     raw
     graph

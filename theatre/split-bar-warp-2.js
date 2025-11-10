@@ -1,4 +1,5 @@
 /*
+title: Split Bar Warp Effect V2
 categories: split
     curve
 tags: ribbon

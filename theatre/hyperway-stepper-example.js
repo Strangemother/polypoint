@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Hyperway Step Animation
 categories: minimal
 files:
     head

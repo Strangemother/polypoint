@@ -1,6 +1,6 @@
 /*
 ---
-title: Quad Curve Loop
+title: Quadratic Curve Loop
 categories: quadcurve
     curve
 files:

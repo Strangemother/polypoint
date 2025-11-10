@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Bezier Curve Tube Between Points
 files:
     head
     point

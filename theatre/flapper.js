@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Flapping Wing Animation
 categories: basic
     dragging
 files:

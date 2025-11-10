@@ -1,5 +1,6 @@
 /*
 Title: Mirror with Catenary
+title: Mirror With Catenary Example
 categories: reflections
     catenary
 files:

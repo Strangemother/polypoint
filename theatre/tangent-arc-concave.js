@@ -1,4 +1,5 @@
 /*
+title: Concave Arc Tangent
 categories: tangents
 files:
     head

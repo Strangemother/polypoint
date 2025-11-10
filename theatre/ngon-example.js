@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: N-Sided Polygon Generator
 categories: minimal
 files:
     head

@@ -1,5 +1,5 @@
 /*
-title: FPS Example
+title: Frames Per Second Counter
 categories: fps
     text
 files:

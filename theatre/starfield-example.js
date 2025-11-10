@@ -1,5 +1,5 @@
 /*
-title: Simple Starfield
+title: Starfield Parallax Effect
 categories: minimal
     starfield
 files:

@@ -1,4 +1,5 @@
 /*
+title: Sine Wave Oscillation
 categories: curve
 files:
     head

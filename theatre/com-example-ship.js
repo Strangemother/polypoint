@@ -1,5 +1,5 @@
 /*
-title: Center of Mass.
+title: Center of Mass with Ship
 category: center
 files:
     ../point_src/core/head.js

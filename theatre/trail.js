@@ -1,4 +1,5 @@
 /*
+title: Point Trail Effect
 categories: emitter
 files:
     ../point_src/core/head.js

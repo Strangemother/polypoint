@@ -1,5 +1,5 @@
 /*
-title: Blob
+title: Soft-Body Blob Physics
 category: soft-body
 files:
     ../point_src/math.js

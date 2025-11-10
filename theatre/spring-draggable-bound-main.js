@@ -1,5 +1,5 @@
 /*
-title: Spring Forces Distributed With Time
+title: Draggable Spring Bounds
 tags: springs
 categories: springs
 files:

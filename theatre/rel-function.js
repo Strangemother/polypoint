@@ -1,5 +1,5 @@
 /*
-title: Rel Function
+title: Relative Function Movement
 categories: relative
     functions
 files:

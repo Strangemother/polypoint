@@ -1,6 +1,6 @@
 /*
-title: Color Bits Library Example
-categories: minimal, color, third-party
+title: Color-Bits Library Example
+categories: colors
 files:
     head
     point

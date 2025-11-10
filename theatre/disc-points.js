@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Points on Disc Surface
 categories: curve
 src_dir: ../point_src/
 files:

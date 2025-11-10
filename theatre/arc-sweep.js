@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Angle
+title: Arc Sweep from Center
 categories:
     arc
     angles

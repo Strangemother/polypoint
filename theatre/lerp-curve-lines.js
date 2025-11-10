@@ -1,4 +1,5 @@
 /*
+title: Lerp Curve Lines
 categories: curve
 files:
     ../point_src/math.js

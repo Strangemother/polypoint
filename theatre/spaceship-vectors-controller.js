@@ -1,4 +1,5 @@
 /*
+title: Spaceship Vector Controller
 categories: relative
 files:
     ../point_src/core/head.js

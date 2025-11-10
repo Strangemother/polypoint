@@ -1,4 +1,5 @@
 /*
+title: Easing Merge
 categories: easing
 files:
     head

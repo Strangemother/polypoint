@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Motion Interpolation Line
 categories: basic
     dragging
 files:

@@ -1,5 +1,5 @@
 /*
-title: PointList Lerper method
+title: PointList Lerp with Randomized Timing
 categories: lerp
 files:
     head

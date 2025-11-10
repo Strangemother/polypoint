@@ -1,6 +1,6 @@
 /*
 ---
-title: Timeline Example
+title: Timeline with Keyframes
 categories: timeline
 files:
     ../point_src/core/head.js

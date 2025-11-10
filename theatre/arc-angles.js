@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Angle
+title: Arc Between Point Rotations
 categories:
     arc
     angles

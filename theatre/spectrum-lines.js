@@ -1,6 +1,6 @@
 /*
 ---
-title: Spectrum Line
+title: Spectrum Color Lines
 categories: curve
     raw
     noise

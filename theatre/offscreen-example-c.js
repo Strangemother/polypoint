@@ -1,5 +1,5 @@
 /*
-title: Offscreen rendering.
+title: Offscreen Canvas with Context Replacement
 category: offscreen
 files:
     ../point_src/core/head.js

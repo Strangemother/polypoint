@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Bridged Line Connection
 categories: basic
     dragging
 files:

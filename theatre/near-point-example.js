@@ -1,4 +1,5 @@
 /*
+title: Nearest Point Detection
 categories: distances
 */
 class MainStage extends Stage {

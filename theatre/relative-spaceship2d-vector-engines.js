@@ -1,4 +1,5 @@
 /*
+title: Spaceship Vector Engines
 categories: relative
 files:
     ../point_src/core/head.js

@@ -1,5 +1,5 @@
 /*
-title: Catenary Example By GPT
+title: Catenary Solver (Experimental)
 categories: raw
   broken
   gpt

@@ -1,4 +1,5 @@
 /*
+title: Text Alignment with Points
 categories: collisions
 files:
     ../point_src/core/head.js

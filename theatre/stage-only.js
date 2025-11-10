@@ -1,5 +1,5 @@
 /*
-title: Just a Stagr
+title: Stage Without Points
 categories: minimal
 files:
     head

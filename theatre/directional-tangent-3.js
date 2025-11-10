@@ -1,5 +1,6 @@
 /*
 ---
+title: Directional Tangent 3
 categories: tangents
     bisector
 files:

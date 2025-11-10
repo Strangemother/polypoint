@@ -1,4 +1,5 @@
 /*
+title: Elastic Collision with Friction
 categories: collisions
 files:
     ../point_src/core/head.js

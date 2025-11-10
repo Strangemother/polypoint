@@ -1,5 +1,5 @@
 /*
-title: Tethered Controller Point
+title: Origin Rotation with Tether
 categories: binding
 files:
     head

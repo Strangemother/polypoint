@@ -1,6 +1,6 @@
 /*
 categories: svg
-title: SVG Path Data
+title: SVG Path Data Parser
 files:
     ../point_src/math.js
     ../point_src/core/head.js

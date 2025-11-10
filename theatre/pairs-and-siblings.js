@@ -1,4 +1,5 @@
 /*
+title: Pairs And Siblings
 files:
     head
     stage

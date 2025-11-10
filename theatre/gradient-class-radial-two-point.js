@@ -1,5 +1,5 @@
 /*
-title: Radial Gradient (2 Points)
+title: Radial Gradient Class Implementation
 category: gradient
 files:
     ../point_src/core/head.js

@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Click-Drag Bounding Box
 categories: minimal
 files:
     head

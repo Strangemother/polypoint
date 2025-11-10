@@ -1,3 +1,6 @@
+/*
+title: Protractor Point Editor
+*/
 
 /* Perform this:
 https://www.youtube.com/watch?v=SUI_AWpgmzU

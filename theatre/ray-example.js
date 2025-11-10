@@ -1,4 +1,5 @@
 /*
+title: Ray Casting Example
 files:
     ../point_src/core/head.js
     ../point_src/stage.js

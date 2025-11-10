@@ -1,5 +1,5 @@
 /*
-title: Planets
+title: Orbital Planets System
 files:
     ../point_src/core/head.js
     ../point_src/pointlistpen.js

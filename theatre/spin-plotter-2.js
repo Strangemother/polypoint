@@ -1,6 +1,6 @@
 /*
 
-title: Plotter
+title: Spinning Plotter V2
 files:
     head
     point

@@ -1,4 +1,5 @@
 /*
+title: Connected Line Chain
 files:
     head
     point

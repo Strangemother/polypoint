@@ -1,4 +1,5 @@
 /*
+title: Relative 2D Spaceship Motion
 categories: relative
 files:
     ../point_src/core/head.js

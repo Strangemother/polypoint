@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Elliptical Disc Rendering
 categories: curve
 src_dir: ../point_src/
 files:

@@ -1,6 +1,6 @@
 /*
 ---
-title: RectTools example
+title: Rectangle Tools API
 categories: rectangles
 files:
     ../point_src/core/head.js

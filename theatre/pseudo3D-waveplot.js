@@ -1,6 +1,6 @@
 /*
 ---
-title: 3D Pseudo Wave Plot
+title: Pseudo-3D Wave Plot
 categories: pseudo3D
 files:
     ../point_src/math.js

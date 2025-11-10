@@ -1,6 +1,6 @@
 /*
 ---
-title: Splatout
+title: Splat Explosion Effect
 files:
     head
     point

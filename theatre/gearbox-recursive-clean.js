@@ -1,5 +1,5 @@
 /*
-title: Gears (Nearly)
+title: Recursive Gearbox Clean
 src_dir: ../point_src/
 categories: gears
 files:

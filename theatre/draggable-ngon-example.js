@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Draggable Polygon Shape
 categories: minimal
 files:
     head

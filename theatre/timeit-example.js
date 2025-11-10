@@ -1,5 +1,5 @@
 /*
-title: TimeIt Class Example
+title: Performance Timing Utility
 categories: clock
     time
 files:

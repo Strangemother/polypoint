@@ -1,6 +1,7 @@
 /*
 category: center
     raw
+title: Center of Mass Raw Calculation
 files:
     head
     point

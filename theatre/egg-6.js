@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Egg Shape with 3D Effect
 categories: curve
 src_dir: ../point_src/
 files:

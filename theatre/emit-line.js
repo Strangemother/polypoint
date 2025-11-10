@@ -1,5 +1,5 @@
 /*
-title: Emitter Line
+title: Basic Line Emitter
 category: emitter
 files:
     ../point_src/core/head.js

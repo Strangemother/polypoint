@@ -1,5 +1,5 @@
 /*
-title: Emitter
+title: Basic Particle Emitter
 category: emitter
 files:
     ../point_src/core/head.js

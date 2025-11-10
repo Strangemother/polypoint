@@ -1,4 +1,5 @@
 /*
+title: Split Bar Warp Distortion
 categories: split
     curve
 files:

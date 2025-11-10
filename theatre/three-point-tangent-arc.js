@@ -1,4 +1,5 @@
 /*
+title: Three Point Tangent Arc
 categories: arcs
 files:
     ../point_src/core/head.js

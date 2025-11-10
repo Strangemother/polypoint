@@ -1,5 +1,6 @@
 /*
 src_dir: ../point_src/
+title: Follow Point
 categories: constraints
 files:
     ../point_src/core/head.js

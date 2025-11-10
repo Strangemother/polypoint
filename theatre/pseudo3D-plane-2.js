@@ -1,6 +1,6 @@
 /*
 ---
-title: pseudo3D Very Perspective
+title: Pseudo-3D Plane Projection V2
 categories: pseudo3D
 files:
     ../point_src/math.js

@@ -1,6 +1,6 @@
 /*
 ---
-title: Spread Line
+title: Spread Line Distribution V2
 src_dir: ../point_src/
 files:
     ../point_src/core/head.js

@@ -1,5 +1,5 @@
 /*
-title: Tethered Controller Point
+title: Direction-Based Tethered Point
 categories: binding
 files:
     head

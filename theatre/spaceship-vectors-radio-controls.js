@@ -1,4 +1,5 @@
 /*
+title: Spaceship Radio UI Controls
 categories: relative
 files:
     ../point_src/core/head.js

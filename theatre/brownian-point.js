@@ -1,5 +1,5 @@
 /*
-title: Brownian Within a Point
+title: Brownian Motion Point
 categories: brownian
     random
 files:

@@ -1,5 +1,6 @@
 /*
 category: events
+title: General Event Position
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

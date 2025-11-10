@@ -1,5 +1,5 @@
 /*
-title: Offscreen rendering.
+title: Offscreen Canvas Multiple Approaches
 category: offscreen
 files:
     ../point_src/core/head.js

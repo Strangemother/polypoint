@@ -1,6 +1,6 @@
 /*
 ---
-title: 3D Sphere
+title: Pseudo-3D Cube Rotation V2
 categories: pseudo3D
 files:
     ../point_src/math.js

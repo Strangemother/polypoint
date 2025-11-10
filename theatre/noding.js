@@ -1,5 +1,5 @@
 /*
-title: Titles on "Nodes"
+title: Node Titles with Auto Labels
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

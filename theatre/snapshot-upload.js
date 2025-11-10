@@ -1,3 +1,6 @@
+/*
+title: Canvas Snapshot Upload
+*/
     /*
 title: Upload Snapshots
 categories: gif

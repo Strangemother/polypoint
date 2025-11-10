@@ -1,4 +1,5 @@
 /*
+title: Point Split Operation V2
 categories: split
 files:
     ../point_src/math.js

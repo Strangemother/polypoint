@@ -1,4 +1,5 @@
 /*
+title: Stamp Pattern Tool
 files:
     head
     ../point_src/math.js

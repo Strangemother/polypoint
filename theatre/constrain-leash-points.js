@@ -1,5 +1,6 @@
 /*
 category: constraints
+title: Constrain Leash Points
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

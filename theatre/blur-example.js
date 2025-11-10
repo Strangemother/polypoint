@@ -1,5 +1,5 @@
 /*
-title: Blur Example
+title: Canvas Blur Filter
 files:
     head
     point

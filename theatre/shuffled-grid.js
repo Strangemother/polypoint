@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Shuffled Grid Points
 categories: minimal
 files:
     head

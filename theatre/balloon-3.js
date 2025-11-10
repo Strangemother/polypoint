@@ -1,5 +1,5 @@
 /*
-title: Better Balloon
+title: Balloon Physics v3
 categories: chain
     rope
     constraints

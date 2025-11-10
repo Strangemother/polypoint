@@ -1,5 +1,5 @@
 /*
-title: Touch Events
+title: Touch Event Handler
 categories: touch
 files:
     ../point_src/math.js

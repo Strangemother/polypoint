@@ -1,4 +1,5 @@
 /*
+title: Ellipse Arc Rendering
 categories: simple
     ellipse
 files:

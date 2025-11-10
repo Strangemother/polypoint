@@ -1,4 +1,5 @@
 /*
+title: Point Collision with Mass and Rotation
 categories: collisions
 files:
     ../point_src/core/head.js

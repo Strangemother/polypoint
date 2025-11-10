@@ -1,4 +1,5 @@
 /*
+title: Multiple Line Types Demo
 categories: lines
     curve
 files:

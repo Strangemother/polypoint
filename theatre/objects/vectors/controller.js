@@ -1,3 +1,6 @@
+/*
+title: Vector Controller Object
+*/
 
 // Gamepad integration
 /**

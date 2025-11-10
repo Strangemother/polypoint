@@ -1,5 +1,5 @@
 /*
-title: Tethered Controller Point
+title: Random Point Generation
 categories: binding
 files:
     head

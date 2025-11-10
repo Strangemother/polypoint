@@ -1,3 +1,6 @@
+/*
+title: Point to Line Projection
+*/
 
 class Line {
     constructor(p1, p2, color='red', width=1){

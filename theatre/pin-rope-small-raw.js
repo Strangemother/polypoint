@@ -1,5 +1,5 @@
 /*
-title: Pinnable Rope
+title: Small Rope Physics Raw
 categories: chain
     rope
     constraints

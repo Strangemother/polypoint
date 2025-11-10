@@ -1,5 +1,5 @@
 /*
-title: Brownian Walker
+title: AI Brownian Walker Agent
 categories: brownian
     random
 files:

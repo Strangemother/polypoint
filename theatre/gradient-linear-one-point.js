@@ -1,5 +1,5 @@
 /*
-title: Radial Gradient (2 Points)
+title: Linear Gradient Single Point
 category: gradient
 files:
     ../point_src/core/head.js

@@ -1,4 +1,5 @@
 /*
+title: Manual Spring Blob
 categories: springs
 files:
     ../point_src/core/head.js

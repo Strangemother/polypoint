@@ -1,4 +1,5 @@
 /*
+title: Mini Space
 categories: gravity
     raw
 ---

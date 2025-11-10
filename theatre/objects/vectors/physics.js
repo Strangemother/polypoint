@@ -1,3 +1,6 @@
+/*
+title: Vector Physics Engine
+*/
 
 // ============================================================================
 // MOMENT OF INERTIA CALCULATION

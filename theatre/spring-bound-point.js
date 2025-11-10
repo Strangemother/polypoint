@@ -1,4 +1,5 @@
 /*
+title: Spring Boundary Point
 categories: springs
 files:
     ../point_src/core/head.js

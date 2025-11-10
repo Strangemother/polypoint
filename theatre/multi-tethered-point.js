@@ -1,5 +1,5 @@
 /*
-title: Tethered Controller Point
+title: Multi-Point Tethered System
 categories: binding
 files:
     head

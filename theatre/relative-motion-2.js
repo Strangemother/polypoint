@@ -1,5 +1,5 @@
 /*
-title: Relative Forward
+title: Relative Motion System V2
 categories: relative
 files:
     ../point_src/core/head.js

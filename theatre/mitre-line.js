@@ -1,4 +1,5 @@
 /*
+title: Mitre Line
 categories: lines
 files:
     ../point_src/core/head.js

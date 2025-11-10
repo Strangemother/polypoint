@@ -1,5 +1,5 @@
 /*
-title: Titles on "Nodes"
+title: Node Titles with Arrows
 files:
     head
     point

@@ -1,5 +1,5 @@
 /*
-title: Emitter Line
+title: Line Emitter with Drawing
 category: emitter
 files:
     ../point_src/core/head.js

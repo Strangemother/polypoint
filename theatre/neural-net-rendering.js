@@ -1,5 +1,5 @@
 /*
-title: Neural Net Example
+title: Neural Network Visualization
 categories: arrange
 files:
     head

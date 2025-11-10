@@ -1,6 +1,6 @@
 /*
 ---
-title: pseudo3D Z Plane
+title: Pseudo-3D Z-Plane Projection
 categories: pseudo3D
 files:
     ../point_src/math.js

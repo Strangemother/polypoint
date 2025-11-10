@@ -1,3 +1,6 @@
+/*
+title: Quadtree Spatial Partitioning
+*/
 
 	class QuadTree {
 		constructor(boundary, n) {

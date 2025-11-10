@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Angle
+title: Moon Phase Arc Visualization
 categories:
     arc
     angles

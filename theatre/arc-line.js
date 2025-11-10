@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Angle
+title: Arc Between Two Lines
 category: angles
     arcs
 categories:

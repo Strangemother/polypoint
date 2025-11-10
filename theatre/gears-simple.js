@@ -1,5 +1,5 @@
 /*
-title: Gears (Nearly)
+title: Simple Gear System
 categories: gears
 src_dir: ../point_src/
 files:

@@ -1,4 +1,5 @@
 /*
+title: Mirror One Point
 categories: reflections
 files:
     head

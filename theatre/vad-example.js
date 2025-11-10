@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Voice Activity Detection
 categories: minimal
 files:
     head

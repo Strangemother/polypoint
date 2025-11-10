@@ -1,5 +1,5 @@
 /*
-title: Draw Box
+title: Rotation Selection Tool
 files:
     head
     point

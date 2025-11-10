@@ -1,5 +1,5 @@
 /*
-title: Flame
+title: Flame Teardrop Shape Generator
 files:
     head
     stroke

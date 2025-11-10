@@ -1,4 +1,5 @@
 /*
+title: Multi-Layer Spring Shape
 categories: springs
 files:
     ../point_src/core/head.js

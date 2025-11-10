@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Angle
+title: Arc Radial Polygon Drawing
 categories:
     arc
     angles

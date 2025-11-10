@@ -1,6 +1,6 @@
 /*
 ---
-title: Split
+title: Zipper Split
 categories: split
     curve
 files:

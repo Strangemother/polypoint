@@ -1,5 +1,5 @@
 /*
-title: Egg 2
+title: Flower Petal Pattern
 src_dir: ../point_src/
 categories: curve
 files:

@@ -1,4 +1,5 @@
 /*
+title: Raw Point Example
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

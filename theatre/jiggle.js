@@ -1,6 +1,6 @@
 /*
 ---
-title: Jiggle
+title: Point Jiggle Effect
 categories: iteration
 files:
     ../point_src/core/head.js

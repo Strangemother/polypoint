@@ -1,6 +1,6 @@
 /*
 ---
-title: Jiggle
+title: PointList Jiggle Animation
 categories: iteration
 files:
     ../point_src/core/head.js

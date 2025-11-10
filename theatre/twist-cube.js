@@ -1,6 +1,6 @@
 /*
 ---
-title: 3D Points
+title: Twisting Cube Animation
 categories: pseudo3D
 files:
     ../point_src/math.js

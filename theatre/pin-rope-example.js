@@ -1,5 +1,5 @@
 /*
-title: Pinnable Rope
+title: Pinned Rope Constraints
 categories: chain
     rope
     constraints

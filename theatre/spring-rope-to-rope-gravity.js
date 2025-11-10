@@ -1,4 +1,5 @@
 /*
+title: Rope to Rope Spring Gravity
 categories: springs
 files:
     ../point_src/core/head.js

@@ -1,5 +1,5 @@
 /*
-title: Raw PointList Lerping
+title: PointList Interpolation Values
 categories: lerp
 files:
     head

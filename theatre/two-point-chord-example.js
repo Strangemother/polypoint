@@ -1,5 +1,5 @@
 /*
-title: Two Point Circle Segment
+title: Two Point Circle Chord
 category: chords
 files:
     head

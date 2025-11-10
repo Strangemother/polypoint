@@ -1,3 +1,6 @@
+/*
+title: VAD Waveform Display
+*/
 async function micMonitorMain() {
     const myvad = await vad.MicVAD.new({
         onSpeechStart(){

@@ -1,3 +1,6 @@
+/*
+title: Quadtree Rectangle Operations
+*/
 	
 	class Rectangle {
 		constructor(x, y, w, h) {

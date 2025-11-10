@@ -1,6 +1,6 @@
 /*
 ---
-title: Simple Box Examples
+title: Square N-Gon Bounding Box
 categories: rectangles
 files:
     ../point_src/core/head.js

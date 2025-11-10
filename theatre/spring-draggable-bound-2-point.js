@@ -1,4 +1,5 @@
 /*
+title: Draggable 2-Point Spring
 categories: springs
 files:
     ../point_src/core/head.js

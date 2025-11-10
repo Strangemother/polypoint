@@ -1,5 +1,5 @@
 /*
-title: PointList Lerper method
+title: PointList Lerp with Custom Easing
 categories: lerp
 files:
     head

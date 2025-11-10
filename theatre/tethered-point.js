@@ -1,5 +1,5 @@
 /*
-title: Tethered Controller Point
+title: Tethered Point Distance
 categories: binding
 files:
     head

@@ -1,4 +1,5 @@
 /*
+title: Split Bar Interface V2
 categories: split
     curve
 files:

@@ -1,5 +1,5 @@
 /*
-title: Curve Circle (Egg bezierFactor)
+title: Squircle Shape (Square-Circle)
 categories: curve
 files:
     ../point_src/math.js

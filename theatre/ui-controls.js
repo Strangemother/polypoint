@@ -1,6 +1,6 @@
 /*
 ---
-title: UI Controls
+title: UI Control Widgets
 categories: widgets
 files:
     ../point_src/math.js

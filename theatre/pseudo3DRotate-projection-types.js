@@ -1,6 +1,6 @@
 /*
 ---
-title: pseudo3D Orthogonal vs Perspective
+title: Pseudo-3D Rotation Projection Types
 categories: pseudo3D
 files:
     ../point_src/math.js

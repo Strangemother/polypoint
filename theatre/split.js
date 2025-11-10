@@ -1,6 +1,6 @@
 /*
 ---
-title: Split
+title: Point Split Tool
 categories: split
     curve
 files:

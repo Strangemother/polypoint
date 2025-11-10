@@ -1,5 +1,5 @@
 /*
-title: Polgon hit-test
+title: Polygon Point-in-Polygon Test
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

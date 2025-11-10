@@ -1,4 +1,5 @@
 /*
+title: Spring-Based Blob
 categories: springs
 files:
     ../point_src/core/head.js

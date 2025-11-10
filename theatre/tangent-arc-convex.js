@@ -1,4 +1,5 @@
 /*
+title: Convex Arc Tangent
 categories: tangents
 files:
     ../point_src/core/head.js

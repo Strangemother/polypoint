@@ -1,6 +1,6 @@
 /*
 ---
-title: Split
+title: Alternative Point Split
 categories: split
     curve
 files:

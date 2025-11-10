@@ -1,5 +1,5 @@
 /*
-
+title: Interactive Line Drawing
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Three Point.
+title: Earth Horizon Arc Curve
 categories:
     arc
     angles

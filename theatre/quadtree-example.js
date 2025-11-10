@@ -1,5 +1,5 @@
 /*
-title: Linear Arrangement
+title: Quadtree Collision Detection
 categories: arrange
 files:
     head

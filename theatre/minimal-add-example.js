@@ -1,5 +1,5 @@
 /*
-title: Most Minimal Example
+title: Minimal Point Addition
 categories: minimal
 files:
     head

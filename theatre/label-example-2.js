@@ -1,5 +1,6 @@
 /*
 category: text
+title: Point Label Text V2
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

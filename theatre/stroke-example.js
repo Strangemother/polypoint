@@ -1,5 +1,5 @@
 /*
-    title: Coupled Lines
+    title: Stroke Style Examples
     categories: strokes
     files:
         ../point_src/logging/logger.js

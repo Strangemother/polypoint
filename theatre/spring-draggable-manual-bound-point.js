@@ -1,5 +1,5 @@
 /*
-
+title: Manual Drag Spring Point
 categories: springs
 files:
     ../point_src/core/head.js

@@ -1,4 +1,5 @@
 /*
+title: Spring Blob with Gravity
 categories: springs
 files:
     ../point_src/core/head.js

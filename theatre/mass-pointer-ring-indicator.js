@@ -1,4 +1,5 @@
 /*
+title: Mass Pointer Ring Indicator
 categories: springs
 files:
     ../point_src/core/head.js

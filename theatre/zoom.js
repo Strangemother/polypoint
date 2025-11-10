@@ -1,6 +1,6 @@
 /*
 ---
-title: Zooming Points
+title: Canvas Zoom Control
 src_dir: ../point_src/
 categories: scaling
 files:

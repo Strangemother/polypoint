@@ -1,4 +1,5 @@
 /*
+title: Emitter Sun
 categories: emitter
      gradient
 files:

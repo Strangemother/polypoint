@@ -1,5 +1,5 @@
 /*
-title: Raw Brush
+title: Alpha Brush Stroke Drawing
 categories: brush
     raw
 files:

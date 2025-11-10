@@ -1,5 +1,5 @@
 /*
-title: Flower!
+title: Filled Flower Shape
 src_dir: ../point_src/
 categories: curve
 files:

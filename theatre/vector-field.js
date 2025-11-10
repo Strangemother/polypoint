@@ -1,5 +1,5 @@
 /*
-title: Example
+title: Vector Field Visualization
 categories: velocity
 files:
     ../point_src/core/head.js

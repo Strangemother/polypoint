@@ -1,5 +1,5 @@
 /*
-title: Flame
+title: Jelly Wobble Physics
 categories: soft-body
     raw
 files:

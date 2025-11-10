@@ -1,6 +1,6 @@
 /*
-
 src_dir: ../point_src/
+title: Follow With Gravity 2
 categories: constraints
 files:
     ../point_src/core/head.js

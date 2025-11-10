@@ -1,5 +1,5 @@
 /*
-title: Gradient
+title: Gradient Color Demonstration
 category: gradient
 files:
     ../point_src/core/head.js

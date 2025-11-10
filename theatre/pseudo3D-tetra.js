@@ -1,6 +1,6 @@
 /*
 ---
-title: 3D Tetrahedron
+title: Pseudo-3D Tetrahedron
 categories: pseudo3D
 files:
     head

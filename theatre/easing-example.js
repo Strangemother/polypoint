@@ -1,4 +1,5 @@
 /*
+title: Easing Function Animation
 categories: easing
 files:
     ../point_src/core/head.js

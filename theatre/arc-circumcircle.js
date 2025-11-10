@@ -1,6 +1,6 @@
 /*
 ---
-title: Arc Angle
+title: Circumcircle Arc Through Points
 categories:
     arc
     angles

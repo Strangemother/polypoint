@@ -1,6 +1,6 @@
 /*
 ---
-title: Split
+title: Curve Angle Visualization
 categories: curve
 files:
     ../point_src/math.js

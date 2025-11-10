@@ -3,6 +3,15 @@
 + Update Source: `sudo systemctl restart gunicorn-polypointjs-com`
 + Update nginx config: `sudo systemctl reload nginx`
 
+To update your application, follow these steps:
+
+```
+git pull --no-ff origin main
+python3 manage.py collectstatic --noinput
+sudo systemctl restart gunicorn-polypointjs-com.service
+sudo systemctl restart nginx
+```
+
 ---
 
 When you make changes to your application:

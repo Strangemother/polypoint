@@ -62,12 +62,39 @@ class ExampleIndexTemplateView(views.ListView):
         reverse = self.request.GET.get('reverse', None) or ''
         reverse = reverse.lower().startswith('t')
 
-        return get_theatre_list(reverse=reverse, orderby=orderby,
+        items = get_theatre_list(reverse=reverse, orderby=orderby,
                                 parent_dir=self.parent_dir)
 
+        return items
 
 class TheatreIndexTemplateView(ExampleIndexTemplateView):
     parent_dir = settings.POLYPOINT_THEATRE_DIR
+
+import json
+
+class TheatreIndexJSONTemplateView(ExampleIndexTemplateView):
+    """Read the theatre list from the process json file.
+    """
+    parent_dir = settings.POLYPOINT_THEATRE_DIR
+    filename = 'theatre-files.json'
+    template_name = 'examples/json-index.html'
+
+    def get_queryset(self):
+        """
+        Return the list of items for this view.
+        """
+        orderby = self.request.GET.get('orderby', None)
+        reverse = self.request.GET.get('reverse', None) or ''
+        reverse = reverse.lower().startswith('t')
+
+        asset_path = (Path(self.parent_dir) / self.filename).read_text()
+        data = json.loads(asset_path)['files']
+        ordered_list = data
+        if orderby:
+            ordered_list = sorted(data, key=lambda d: d[orderby])
+        if reverse:
+            ordered_list = reversed(ordered_list)
+        return list(ordered_list)
 
 
 

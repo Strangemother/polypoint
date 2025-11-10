@@ -126,4 +126,5 @@ class MainStage extends Stage {
     }
 }
 
-;stage = MainStage.go();
+// ;stage = MainStage.go();
+;stage = MainStage.announce();

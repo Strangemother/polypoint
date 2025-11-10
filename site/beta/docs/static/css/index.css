@@ -46,6 +46,7 @@ header.primary ul {
     margin: 0;
     gap: 0.1em;
     font-size: 1.3em;
+    /* background: #0e0e0e; */
 }
 
 header.primary ul li a {
@@ -54,6 +55,7 @@ header.primary ul li a {
     padding: 0.2em 1em;
     padding: 0.6em 0.9em;
     display: inline-flex;
+    font-weight: 400;
 }
 
 .tags-container {
@@ -73,7 +75,7 @@ header.primary ul li a {
 
 .header-container {
     display: grid;
-    grid-template-columns: 1fr minmax(auto, 1000px) 1fr;
+    grid-template-columns: 1fr minmax(auto, 73em) 1fr;
     grid-template-rows: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
@@ -388,4 +390,23 @@ polypoint-canvas {
 
 .installs-logger ul li span:first-child {
     padding-left: 0;
+}
+
+.primary-content-block.markdown-rendered h2 {
+    margin: 0;
+}
+
+.bar {
+    position: fixed;
+    top: 0em;
+    z-index: 2;
+    left: 50%;
+    width: 1px;
+    bottom: 0em;
+    background: red;
+}
+
+.design-bars {
+    /* z-index: 1; */
+    opacity: .3;
 }

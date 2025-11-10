@@ -20,5 +20,4 @@ files:
     ../point_src/grid-get-siblings.js
     ../point_src/origin-shift/origin-walker.js
     ../point_src/origin-shift/origin-shift-main-wide.js
-
 */

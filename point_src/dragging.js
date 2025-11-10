@@ -104,7 +104,8 @@ class Dragging extends Distances {
         mouse.listen(c, 'mousedown', (c,ev)=> this.onMousedown(stage,c,ev))
         mouse.listen(c, 'mousemove', (c,ev)=> this.onMousemove(stage,c,ev))
         mouse.listen(c, 'mouseup', (c,ev)=> this.onMouseup(stage,c,ev))
-        mouse.listen(c, 'wheel', (c,ev)=> this.onWheelInternal(stage,c,ev), {passive: true})
+        mouse.listen(c, 'wheel', (c,ev)=> this.onWheelInternalActive(stage,c,ev), {passive: false})
+        mouse.listen(c, 'wheel', (c,ev)=> this.onWheelInternalPassive(stage,c,ev), {passive: true})
         mouse.listen(c, 'contextmenu', (c,ev)=> this.onContextMenu(stage,c,ev)/*, {passive: true}*/)
 
         this._near = new Point(mouse.position);
@@ -208,7 +209,7 @@ class Dragging extends Distances {
         let spinX = this._near.x // this.mousedownOrigin.x
         let spinY = this._near.y // this.mousedownOrigin.y
         let targetCenter = new Point(spinX, spinY);
-        let mousePos = stage.mouse.position;
+        let mousePos = this.stage.mouse.position;
         let downPoint = this.mousedownPoint
         // let rads= calculateAngleDiff(primaryPoint, secondaryPoint)
 
@@ -308,11 +309,11 @@ class Dragging extends Distances {
         this.onLongClick(stage, canvas, ev, delta)
     }
 
-    onWheelInternal(stage, canvas, ev) {
+    onWheelInternalPassive(stage, canvas, ev) {
         let n = this._near;
         if(!n) { return this.onWheelEmpty(ev)};
 
-        let size = event.wheelDelta
+        let size = ev.wheelDelta
         let positive = size > 0
         let compute = Math.abs(size * .01)
         let radius = n.radius;
@@ -321,6 +322,10 @@ class Dragging extends Distances {
         n.onResize && n.onResize(ev, stage, canvas)
         // this.onWheel(ev, n)
         this.callDoubleHandler('onWheel', ev, n)
+    }
+
+    onWheelInternalActive(stage, canvas, ev) {
+        ev.preventDefault()
     }
 
     onLongClick(stage, canvas, ev, delta) {

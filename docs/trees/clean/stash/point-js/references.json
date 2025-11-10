@@ -18,14 +18,14 @@
                         "comments": {
                             "header": [
                                 {
-                                    "text": " ABOVE X method\r\n\r\n    Multiline - touching.\r\n    ",
+                                    "text": " ABOVE X method\n\n    Multiline - touching.\n    ",
                                     "block": true,
                                     "line": 56
                                 }
                             ],
                             "inner": [
                                 {
-                                    "text": " Set the _X_ (horizontal | latitude | across) value of the positionable.\r\n        From cooridinate top left `(0,0)``\r\n\r\n            point.x = 100\r\n\r\n        If the given value is a function, the function is called immediately,\r\n        with _this_ positionable as the first argument.\r\n\r\n            stage.center.x = (p)=>200\r\n\r\n         ",
+                                    "text": " Set the _X_ (horizontal | latitude | across) value of the positionable.\n        From cooridinate top left `(0,0)``\n\n            point.x = 100\n\n        If the given value is a function, the function is called immediately,\n        with _this_ positionable as the first argument.\n\n            stage.center.x = (p)=>200\n\n         ",
                                     "block": true,
                                     "line": 68
                                 }
@@ -49,7 +49,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Set the _Y_ (vertical | height | longtitude) value of the positionable.\r\n        From cooridinate top left `(0,0)``\r\n\r\n            point.x = 100\r\n\r\n        If the given value is a function, the function is called immediately,\r\n        with _this_ positionable as the first argument.\r\n\r\n            stage.center.x = (p)=>200\r\n\r\n         ",
+                                    "text": " Set the _Y_ (vertical | height | longtitude) value of the positionable.\n        From cooridinate top left `(0,0)``\n\n            point.x = 100\n\n        If the given value is a function, the function is called immediately,\n        with _this_ positionable as the first argument.\n\n            stage.center.x = (p)=>200\n\n         ",
                                     "block": true,
                                     "line": 84
                                 }
@@ -133,7 +133,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Return the _radius_ of this point in base units (pixels)\r\n\r\n            const point = new Point(100,300, 20)\r\n            point.radius == 20\r\n        ",
+                                    "text": "\n        Return the _radius_ of this point in base units (pixels)\n\n            const point = new Point(100,300, 20)\n            point.radius == 20\n        ",
                                     "block": true,
                                     "line": 119
                                 }
@@ -160,7 +160,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Set the given `key`, `value`, assuming the given key is a \"special\"\r\n        string, such as \"radius\".\r\n        This method is called by the special getters and setters for this point:\r\n\r\n            const point = new Point(100,300, 20)\r\n            point.setSpecial('radius', 55)\r\n\r\n        Synonymous to:\r\n\r\n            point.radius = 55\r\n\r\n        ",
+                                    "text": " Set the given `key`, `value`, assuming the given key is a \"special\"\n        string, such as \"radius\".\n        This method is called by the special getters and setters for this point:\n\n            const point = new Point(100,300, 20)\n            point.setSpecial('radius', 55)\n\n        Synonymous to:\n\n            point.radius = 55\n\n        ",
                                     "block": true,
                                     "line": 139
                                 }
@@ -187,7 +187,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " A callback executed by setSpecial when a \"special\" property is called.\r\n\r\n        If a method on this point exists matching the _set method_ pattern,\r\n        the method is called with the given `value`:\r\n\r\n            class MyPoint extends Point {\r\n                radiusSet(value) {\r\n                    console.log('New Radius value is', value)\r\n                }\r\n            }\r\n\r\n        ",
+                                    "text": " A callback executed by setSpecial when a \"special\" property is called.\n\n        If a method on this point exists matching the _set method_ pattern,\n        the method is called with the given `value`:\n\n            class MyPoint extends Point {\n                radiusSet(value) {\n                    console.log('New Radius value is', value)\n                }\n            }\n\n        ",
                                     "block": true,
                                     "line": 157
                                 }
@@ -219,7 +219,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Return a stored _special_ value given a `key`.\r\n\r\n        If the `relIndex`  property is not None, the relative value found\r\n        at the index (within this points relative data Array),\r\n        add the stashed relative value to the result.\r\n\r\n            const point = new Point(100,300, 20)\r\n            point.getSpecial('radius', 2)\r\n            // 20\r\n\r\n        if a default value is given, and the internal `key` value does not exist,\r\n        return the default value:\r\n\r\n            point.getSpecial('banana', 'yellow')\r\n            'yellow'\r\n\r\n        ",
+                                    "text": " Return a stored _special_ value given a `key`.\n\n        If the `relIndex`  property is not None, the relative value found\n        at the index (within this points relative data Array),\n        add the stashed relative value to the result.\n\n            const point = new Point(100,300, 20)\n            point.getSpecial('radius', 2)\n            // 20\n\n        if a default value is given, and the internal `key` value does not exist,\n        return the default value:\n\n            point.getSpecial('banana', 'yellow')\n            'yellow'\n\n        ",
                                     "block": true,
                                     "line": 180
                                 }
@@ -252,7 +252,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n            set(x, y, radius, rotation)\r\n            set(100)    => x,y\r\n            set([])     => [x,y,radius, rotation]\r\n            set({})     => *\r\n        ",
+                                    "text": "\n            set(x, y, radius, rotation)\n            set(100)    => x,y\n            set([])     => [x,y,radius, rotation]\n            set({})     => *\n        ",
                                     "block": true,
                                     "line": 194
                                 }
@@ -405,7 +405,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Returns a new point, with the XY set at the point that is `offset` times\r\n        the distance from the current point to the other point.\r\n\r\n        this function is also `lerp` for linear interpolation\r\n        ",
+                                    "text": "\n        Returns a new point, with the XY set at the point that is `offset` times\n        the distance from the current point to the other point.\n\n        this function is also `lerp` for linear interpolation\n        ",
                                     "block": true,
                                     "line": 320
                                 }
@@ -421,7 +421,7 @@
                     "header": [],
                     "inner": [
                         {
-                            "text": " The base `Positionable` class provides functionality for\r\n    plotting the X and Y of an entity. This includes any fundamental\r\n    methods such as `multiply()`.\r\n    ",
+                            "text": " The base `Positionable` class provides functionality for\n    plotting the X and Y of an entity. This includes any fundamental\n    methods such as `multiply()`.\n    ",
                             "block": true,
                             "line": 51
                         }
@@ -446,7 +446,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\r\n        `true` (default), the given value is fixed through modulus 360\r\n\r\n            point.rotation = 600\r\n            // 240\r\n            point.rotation += 1\r\n            // 241\r\n\r\n        To set the rotation (degrees) whilst accounting for the _UP_ vector,\r\n        consider the `rotate()` method.\r\n        ",
+                                    "text": " Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\n        `true` (default), the given value is fixed through modulus 360\n\n            point.rotation = 600\n            // 240\n            point.rotation += 1\n            // 241\n\n        To set the rotation (degrees) whilst accounting for the _UP_ vector,\n        consider the `rotate()` method.\n        ",
                                     "block": true,
                                     "line": 345
                                 }
@@ -498,7 +498,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "Return the _radians_ of the current rotation, where _rotation returns\r\n        the degrees",
+                                    "text": "Return the _radians_ of the current rotation, where _rotation returns\n        the degrees",
                                     "block": true,
                                     "line": 366
                                 }
@@ -522,7 +522,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " by pushing through the existing rotations, we account for the _up_\r\n        vector. ",
+                                    "text": " by pushing through the existing rotations, we account for the _up_\n        vector. ",
                                     "block": true,
                                     "line": 372
                                 }
@@ -554,7 +554,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Rotate the point such that the angle relative to the\r\n        `otherPoint` is `0`, essentially _looking at_ the other point.\r\n\r\n            point.lookAt(otherPoint)\r\n\r\n        Return the angle in radians.\r\n        ",
+                                    "text": " Rotate the point such that the angle relative to the\n        `otherPoint` is `0`, essentially _looking at_ the other point.\n\n            point.lookAt(otherPoint)\n\n        Return the angle in radians.\n        ",
                                     "block": true,
                                     "line": 383
                                 }
@@ -667,7 +667,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Return the calculated theta value through atan2 and built to offload\r\n        some of the boring.\r\n        The _direction_ denotes the \"gravity\" pull. Generally this is `DOWN`.\r\n\r\n        Synonymous to:\r\n\r\n            let theta = Math.atan2(point.y,\r\n                                   point.x);\r\n\r\n            let theta = Math.atan2(point.y - other.y,\r\n                                   point.x - other.x);\r\n\r\n            let theta = Math.atan2(point.y - other.y,\r\n                                   point.x - other.x) - DOWN;\r\n\r\n        ",
+                                    "text": " Return the calculated theta value through atan2 and built to offload\n        some of the boring.\n        The _direction_ denotes the \"gravity\" pull. Generally this is `DOWN`.\n\n        Synonymous to:\n\n            let theta = Math.atan2(point.y,\n                                   point.x);\n\n            let theta = Math.atan2(point.y - other.y,\n                                   point.x - other.x);\n\n            let theta = Math.atan2(point.y - other.y,\n                                   point.x - other.x) - DOWN;\n\n        ",
                                     "block": true,
                                     "line": 449
                                 }
@@ -683,7 +683,7 @@
                     "header": [],
                     "inner": [
                         {
-                            "text": " Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\r\n        `true` (default), the given value is fixed through modulus 360\r\n\r\n            point.rotation = 600\r\n            // 240\r\n            point.rotation += 1\r\n            // 241\r\n\r\n        To set the rotation (degrees) whilst accounting for the _UP_ vector,\r\n        consider the `rotate()` method.\r\n        ",
+                            "text": " Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\n        `true` (default), the given value is fixed through modulus 360\n\n            point.rotation = 600\n            // 240\n            point.rotation += 1\n            // 241\n\n        To set the rotation (degrees) whilst accounting for the _UP_ vector,\n        consider the `rotate()` method.\n        ",
                             "block": true,
                             "line": 345
                         }
@@ -784,7 +784,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Given another point, replicate the value into this node.\r\n        Else, return a new node with the same information as this point.\r\n        ",
+                                    "text": " Given another point, replicate the value into this node.\n        Else, return a new node with the same information as this point.\n        ",
                                     "block": true,
                                     "line": 508
                                 }
@@ -822,7 +822,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Synonymous to:\r\n\r\n            {\r\n                x: AB.x / magnitudeAB,\r\n                y: AB.y / magnitudeAB\r\n            };\r\n        ",
+                                    "text": "\n        Synonymous to:\n\n            {\n                x: AB.x / magnitudeAB,\n                y: AB.y / magnitudeAB\n            };\n        ",
                                     "block": true,
                                     "line": 543
                                 }
@@ -853,7 +853,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " return a point relative from _this_ point towards the `other`,\r\n        offset by the given number `offset` value.\r\n        The `pointIndex` (default 0) identifies from which point [this, other]\r\n        to offset.",
+                                    "text": " return a point relative from _this_ point towards the `other`,\n        offset by the given number `offset` value.\n        The `pointIndex` (default 0) identifies from which point [this, other]\n        to offset.",
                                     "block": true,
                                     "line": 552
                                 }
@@ -966,7 +966,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Returns a new point, offset by `pixelDistance` pixels in the direction\r\n        from this point to the other point.\r\n        ",
+                                    "text": "\n        Returns a new point, offset by `pixelDistance` pixels in the direction\n        from this point to the other point.\n        ",
                                     "block": true,
                                     "line": 582
                                 }
@@ -1008,7 +1008,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " A new point accepts arguments, an object, or an array.\r\n\r\n        By default the `Point` accepts up to four arguments\r\n\r\n            new Point(x, y, radius, rotation)\r\n\r\n        The same properties may be supplied as a single `Array`:\r\n\r\n            new Point([x, y, radius, rotation])\r\n\r\n        If the given object is an `object`, we can assign properties\r\n        immediately:\r\n\r\n            point = new Point({x, y, radius, rotation, other:100})\r\n            point.other\r\n            // 100\r\n\r\n        ",
+                                    "text": " A new point accepts arguments, an object, or an array.\n\n        By default the `Point` accepts up to four arguments\n\n            new Point(x, y, radius, rotation)\n\n        The same properties may be supplied as a single `Array`:\n\n            new Point([x, y, radius, rotation])\n\n        If the given object is an `object`, we can assign properties\n        immediately:\n\n            point = new Point({x, y, radius, rotation, other:100})\n            point.other\n            // 100\n\n        ",
                                     "block": true,
                                     "line": 651
                                 }
@@ -1052,7 +1052,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Perform an _update_ given a dictionary of other properties.\r\n\r\n            point.update({ x: 200, color: 'red' })\r\n        ",
+                                    "text": "\n        Perform an _update_ given a dictionary of other properties.\n\n            point.update({ x: 200, color: 'red' })\n        ",
                                     "block": true,
                                     "line": 679
                                 }
@@ -1072,7 +1072,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Get or create the random `_id` for this point.\r\n        Return a unique string.\r\n        ",
+                                    "text": " Get or create the random `_id` for this point.\n        Return a unique string.\n        ",
                                     "block": true,
                                     "line": 690
                                 }
@@ -1110,7 +1110,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " return the X value of the point:\r\n\r\n            point[0]\r\n\r\n        Note:\r\n\r\n            point[0] == point.x\r\n        ",
+                                    "text": " return the X value of the point:\n\n            point[0]\n\n        Note:\n\n            point[0] == point.x\n        ",
                                     "block": true,
                                     "line": 710
                                 }
@@ -1134,7 +1134,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Sugar function to apply `this.x`:\r\n\r\n            point[0] = 100\r\n            point.x == 100\r\n        ",
+                                    "text": "\n        Sugar function to apply `this.x`:\n\n            point[0] = 100\n            point.x == 100\n        ",
                                     "block": true,
                                     "line": 720
                                 }
@@ -1154,7 +1154,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " return the Y value of the point:\r\n\r\n            point[0]\r\n\r\n        Note:\r\n\r\n            point[0] == point.y\r\n        ",
+                                    "text": " return the Y value of the point:\n\n            point[0]\n\n        Note:\n\n            point[0] == point.y\n        ",
                                     "block": true,
                                     "line": 732
                                 }
@@ -1178,7 +1178,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Sugar function to apply `this.y`:\r\n\r\n            point[0] = 300\r\n            point.y == 300\r\n        ",
+                                    "text": "\n        Sugar function to apply `this.y`:\n\n            point[0] = 300\n            point.y == 300\n        ",
                                     "block": true,
                                     "line": 742
                                 }
@@ -1269,7 +1269,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Return this point as an Array of 4 values:\r\n\r\n            const point = new Point(1,2,3,4);\r\n            point.asArray();\r\n            // [1,2,3,4]\r\n\r\n        Keys:\r\n\r\n        + x\r\n        + y\r\n        + radius\r\n        + rotation\r\n\r\n        ",
+                                    "text": "\n        Return this point as an Array of 4 values:\n\n            const point = new Point(1,2,3,4);\n            point.asArray();\n            // [1,2,3,4]\n\n        Keys:\n\n        + x\n        + y\n        + radius\n        + rotation\n\n        ",
                                     "block": true,
                                     "line": 780
                                 }
@@ -1289,7 +1289,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Return the important information about this node,\r\n        used for _save_ or copy methods. ",
+                                    "text": " Return the important information about this node,\n        used for _save_ or copy methods. ",
                                     "block": true,
                                     "line": 792
                                 }
@@ -1305,7 +1305,7 @@
                     "header": [],
                     "inner": [
                         {
-                            "text": "The `Point` is the primary class for manipulating XY 2D points.\r\n\r\n    Arguments:\r\n\r\n        new Point(100, 200)\r\n\r\n    Object | Array:\r\n\r\n        new Point({x: 100, y: 200})\r\n        new Point([100, 200])\r\n\r\n    Properties:\r\n\r\n        point = new Point\r\n        point.x = 100\r\n        point.y = 200\r\n\r\n    ",
+                            "text": "The `Point` is the primary class for manipulating XY 2D points.\n\n    Arguments:\n\n        new Point(100, 200)\n\n    Object | Array:\n\n        new Point({x: 100, y: 200})\n        new Point([100, 200])\n\n    Properties:\n\n        point = new Point\n        point.x = 100\n        point.y = 200\n\n    ",
                             "block": true,
                             "line": 625
                         }
@@ -1371,8 +1371,6 @@
     },
     "info": {
         "filename": "point.js",
-        "path": "/workspaces/polypoint/point_src/point.js",
-        "size": 22409,
-        "parsed_date": "2025-11-02T21:11:37.595Z"
+        "store_dt": "2025-11-08 20:48:38.231971"
     }
 }

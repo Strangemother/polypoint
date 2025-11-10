@@ -226,4 +226,5 @@ function getArcCenter(A, B, C) {
 }
 
 
-;stage = MainStage.go();
+// ;stage = MainStage.go();
+;stage = MainStage.announce();

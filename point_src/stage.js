@@ -71,8 +71,8 @@ class StageBase {
         try{
 
             Object.defineProperty(this, name, {value: instance})
-        } catch {
-            console.warn('property failure', name)
+        } catch(e) {
+            console.warn('property failure', name, e)
         }
     }
 
@@ -331,6 +331,16 @@ class StageRender extends StageBase {
         }
 
         return this
+    }
+
+    static announce(additionalData) {
+
+        const currentLoc = document.currentScript.src
+        dispatchEvent(new CustomEvent('stage::announce', {
+            detail: { StageClass: this, currentLoc, additionalData },
+            bubbles: true
+        }));
+
     }
 
     stageStartDraw(drawFunc){

@@ -28,7 +28,9 @@ let sendPin = function(){
         let left = pin.left- frame.left
         let top = pin.top- frame.top
         let ev = { x: ~~left, y: ~~top}
-        stage?.perspectiveCenter.set(ev)
+        try{
+        stage?.perspectiveCenter?.set(ev)
+        } catch {}
         return ev
     }
 

@@ -202,4 +202,13 @@ class MainStage extends Stage {
 
 
 Polypoint.head.install(MainStage)
-;stage = MainStage.go("#playspace");
+
+// ;stage = MainStage.go("#playspace");
+;stage = MainStage.announce("#playspace");
+
+//
+// const currentLoc = document.currentScript.src
+// dispatchEvent(new CustomEvent('hoistStage', {
+//     detail: { StageClass: MainStage, currentLoc },
+//     bubbles: true
+// }));

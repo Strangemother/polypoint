@@ -135,11 +135,16 @@ Delete the line below if you're just getting started and want to remove the welc
         </div>
             <div class="info-sibling">
                 <polypoint-canvas
-                    xtheatre="http://127.0.0.1:8000/examples/scripts+theatre/clock-face-sweep.js/">
+                    theatre="/examples/scripts+theatre/clock-face-sweep.js/">
+                </polypoint-canvas>
+
+                <polypoint-canvas
+                    theatre="/examples/scripts+theatre/flower-fill.js/">
                 </polypoint-canvas>
 
                 <polypoint-canvas>
                     context.beginPath();
+                    context.strokeStyle = '#ddd'
                     context.arc(50, 50, 40, 0, 2 * Math.PI);
                     context.stroke();
                 </polypoint-canvas>

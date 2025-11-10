@@ -1,0 +1,63 @@
+{% extends "docs/doc-base.html" %}
+{% comment "What" %}
+    The _Theatre_ index file. Listing all the example files within the
+    THEATRE directory.
+
+        http://localhost:8000/examples/
+{% endcomment %}
+{% load link theatre markdown %}
+{% block page_title %}Theatre{% endblock page_title %}
+
+{% block content %}
+
+<div class="actions-container">
+    <select name="orderby" id='orderby'>
+        <option selected>Ordering</option>
+        {% for o in view.orders %}
+            <option value="{{ o.0 }}" {% if view.get_orderby == o.0 %}selected=selected{% endif %}>{{ o.1 }}</option>
+
+        {% endfor %}
+    </select>
+    <div class="right">
+        <a href="javascript:;"
+            id='direction'>reverse</a>
+    </div>
+
+</div>
+{% js "examples/js/index.js" %}
+{% css "examples/css/index.css" %}
+{% link.css "examples/css/markdown-rendered.css" %}
+
+
+<div class="outer-block">
+    <div class="block markdown-rendered wide">
+        {% markdown.file "docs" "headers/theatre.md" %}
+
+        {% theatre.render_markdown "readme.md" as markdown_text %}
+        <div>
+            {{ markdown_text|safe }}
+        </div>
+
+        <h2>{{ object_list|length }} Examples</h2>
+
+        <ul class='example-list'>
+            {% for obj in object_list %}
+            <li>
+                {% with ordering=view.get_orderby %}
+                    {% if ordering == 'name' %}
+                        {% ifchanged %}<h3>{{ obj.name.0 }}</h3>{% endifchanged %}
+                    {% elif ordering == 'modified' %}
+
+                    {% endif %}
+                {% endwith %}
+            </li>
+            <li>
+                {% link "examples:file_example" obj.name obj.name %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+{% endblock content %}

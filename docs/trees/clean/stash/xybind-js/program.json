@@ -3,7 +3,352 @@
         {
             "word": "defaultRad",
             "sub_type": "VariableDeclarator",
-            "init": null,
+            "init": {
+                "type": "BinaryExpression",
+                "operator": "%",
+                "left": {
+                    "type": "BinaryExpression",
+                    "operator": "+",
+                    "left": {
+                        "type": "BinaryExpression",
+                        "operator": "+",
+                        "left": {
+                            "type": "MemberExpression",
+                            "object": {
+                                "type": "Identifier",
+                                "word": "Math",
+                                "pos": {
+                                    "start": 31,
+                                    "end": 35,
+                                    "loc": {
+                                        "start": {
+                                            "line": 3,
+                                            "column": 18
+                                        },
+                                        "end": {
+                                            "line": 3,
+                                            "column": 22
+                                        }
+                                    }
+                                }
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "word": "PI2",
+                                "pos": {
+                                    "start": 36,
+                                    "end": 39,
+                                    "loc": {
+                                        "start": {
+                                            "line": 3,
+                                            "column": 23
+                                        },
+                                        "end": {
+                                            "line": 3,
+                                            "column": 26
+                                        }
+                                    }
+                                }
+                            },
+                            "computed": false,
+                            "optional": false,
+                            "pos": {
+                                "start": 31,
+                                "end": 39,
+                                "loc": {
+                                    "start": {
+                                        "line": 3,
+                                        "column": 18
+                                    },
+                                    "end": {
+                                        "line": 3,
+                                        "column": 26
+                                    }
+                                }
+                            }
+                        },
+                        "right": {
+                            "type": "CallExpression",
+                            "start": 42,
+                            "end": 55,
+                            "loc": {
+                                "start": {
+                                    "line": 3,
+                                    "column": 29
+                                },
+                                "end": {
+                                    "line": 3,
+                                    "column": 42
+                                }
+                            },
+                            "callee": {
+                                "type": "Identifier",
+                                "start": 42,
+                                "end": 50,
+                                "loc": {
+                                    "start": {
+                                        "line": 3,
+                                        "column": 29
+                                    },
+                                    "end": {
+                                        "line": 3,
+                                        "column": 37
+                                    }
+                                },
+                                "name": "degToRad",
+                                "pos": {
+                                    "start": 42,
+                                    "end": 50,
+                                    "loc": {
+                                        "start": {
+                                            "line": 3,
+                                            "column": 29
+                                        },
+                                        "end": {
+                                            "line": 3,
+                                            "column": 37
+                                        }
+                                    }
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "UnaryExpression",
+                                    "start": 51,
+                                    "end": 54,
+                                    "loc": {
+                                        "start": {
+                                            "line": 3,
+                                            "column": 38
+                                        },
+                                        "end": {
+                                            "line": 3,
+                                            "column": 41
+                                        }
+                                    },
+                                    "operator": "-",
+                                    "prefix": true,
+                                    "argument": {
+                                        "type": "Literal",
+                                        "start": 52,
+                                        "end": 54,
+                                        "loc": {
+                                            "start": {
+                                                "line": 3,
+                                                "column": 39
+                                            },
+                                            "end": {
+                                                "line": 3,
+                                                "column": 41
+                                            }
+                                        },
+                                        "value": 90,
+                                        "raw": "90",
+                                        "pos": {
+                                            "start": 52,
+                                            "end": 54,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 3,
+                                                    "column": 39
+                                                },
+                                                "end": {
+                                                    "line": 3,
+                                                    "column": 41
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 51,
+                                        "end": 54,
+                                        "loc": {
+                                            "start": {
+                                                "line": 3,
+                                                "column": 38
+                                            },
+                                            "end": {
+                                                "line": 3,
+                                                "column": 41
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "optional": false,
+                            "pos": {
+                                "start": 42,
+                                "end": 55,
+                                "loc": {
+                                    "start": {
+                                        "line": 3,
+                                        "column": 29
+                                    },
+                                    "end": {
+                                        "line": 3,
+                                        "column": 42
+                                    }
+                                }
+                            }
+                        },
+                        "raw": "(Math.PI2 + {'type': 'CallExpression', 'start': 42, 'end': 55, 'loc': {'start': {'line': 3, 'column': 29}, 'end': {'line': 3, 'column': 42}}, 'callee': {'type': 'Identifier', 'start': 42, 'end': 50, 'loc': {'start': {'line': 3, 'column': 29}, 'end': {'line': 3, 'column': 37}}, 'name': 'degToRad', 'pos': <run_tree2.Position object at 0x000000000336E280>}, 'arguments': [{'type': 'UnaryExpression', 'start': 51, 'end': 54, 'loc': {'start': {'line': 3, 'column': 38}, 'end': {'line': 3, 'column': 41}}, 'operator': '-', 'prefix': True, 'argument': {'type': 'Literal', 'start': 52, 'end': 54, 'loc': {'start': {'line': 3, 'column': 39}, 'end': {'line': 3, 'column': 41}}, 'value': 90, 'raw': '90', 'pos': <run_tree2.Position object at 0x000000000336E190>}, 'pos': <run_tree2.Position object at 0x000000000336E5E0>}], 'optional': False, 'pos': <run_tree2.Position object at 0x000000000336E340>})",
+                        "pos": {
+                            "start": 31,
+                            "end": 55,
+                            "loc": {
+                                "start": {
+                                    "line": 3,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 3,
+                                    "column": 42
+                                }
+                            }
+                        }
+                    },
+                    "right": {
+                        "type": "MemberExpression",
+                        "object": {
+                            "type": "Identifier",
+                            "word": "Math",
+                            "pos": {
+                                "start": 58,
+                                "end": 62,
+                                "loc": {
+                                    "start": {
+                                        "line": 3,
+                                        "column": 45
+                                    },
+                                    "end": {
+                                        "line": 3,
+                                        "column": 49
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "word": "PI",
+                            "pos": {
+                                "start": 63,
+                                "end": 65,
+                                "loc": {
+                                    "start": {
+                                        "line": 3,
+                                        "column": 50
+                                    },
+                                    "end": {
+                                        "line": 3,
+                                        "column": 52
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 58,
+                            "end": 65,
+                            "loc": {
+                                "start": {
+                                    "line": 3,
+                                    "column": 45
+                                },
+                                "end": {
+                                    "line": 3,
+                                    "column": 52
+                                }
+                            }
+                        }
+                    },
+                    "raw": "((Math.PI2 + {'type': 'CallExpression', 'start': 42, 'end': 55, 'loc': {'start': {'line': 3, 'column': 29}, 'end': {'line': 3, 'column': 42}}, 'callee': {'type': 'Identifier', 'start': 42, 'end': 50, 'loc': {'start': {'line': 3, 'column': 29}, 'end': {'line': 3, 'column': 37}}, 'name': 'degToRad', 'pos': <run_tree2.Position object at 0x000000000336E280>}, 'arguments': [{'type': 'UnaryExpression', 'start': 51, 'end': 54, 'loc': {'start': {'line': 3, 'column': 38}, 'end': {'line': 3, 'column': 41}}, 'operator': '-', 'prefix': True, 'argument': {'type': 'Literal', 'start': 52, 'end': 54, 'loc': {'start': {'line': 3, 'column': 39}, 'end': {'line': 3, 'column': 41}}, 'value': 90, 'raw': '90', 'pos': <run_tree2.Position object at 0x000000000336E190>}, 'pos': <run_tree2.Position object at 0x000000000336E5E0>}], 'optional': False, 'pos': <run_tree2.Position object at 0x000000000336E340>}) + Math.PI)",
+                    "pos": {
+                        "start": 31,
+                        "end": 65,
+                        "loc": {
+                            "start": {
+                                "line": 3,
+                                "column": 18
+                            },
+                            "end": {
+                                "line": 3,
+                                "column": 52
+                            }
+                        }
+                    }
+                },
+                "right": {
+                    "type": "MemberExpression",
+                    "object": {
+                        "type": "Identifier",
+                        "word": "Math",
+                        "pos": {
+                            "start": 69,
+                            "end": 73,
+                            "loc": {
+                                "start": {
+                                    "line": 3,
+                                    "column": 56
+                                },
+                                "end": {
+                                    "line": 3,
+                                    "column": 60
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "word": "PI2",
+                        "pos": {
+                            "start": 74,
+                            "end": 77,
+                            "loc": {
+                                "start": {
+                                    "line": 3,
+                                    "column": 61
+                                },
+                                "end": {
+                                    "line": 3,
+                                    "column": 64
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 69,
+                        "end": 77,
+                        "loc": {
+                            "start": {
+                                "line": 3,
+                                "column": 56
+                            },
+                            "end": {
+                                "line": 3,
+                                "column": 64
+                            }
+                        }
+                    }
+                },
+                "raw": "(((Math.PI2 + {'type': 'CallExpression', 'start': 42, 'end': 55, 'loc': {'start': {'line': 3, 'column': 29}, 'end': {'line': 3, 'column': 42}}, 'callee': {'type': 'Identifier', 'start': 42, 'end': 50, 'loc': {'start': {'line': 3, 'column': 29}, 'end': {'line': 3, 'column': 37}}, 'name': 'degToRad', 'pos': <run_tree2.Position object at 0x000000000336E280>}, 'arguments': [{'type': 'UnaryExpression', 'start': 51, 'end': 54, 'loc': {'start': {'line': 3, 'column': 38}, 'end': {'line': 3, 'column': 41}}, 'operator': '-', 'prefix': True, 'argument': {'type': 'Literal', 'start': 52, 'end': 54, 'loc': {'start': {'line': 3, 'column': 39}, 'end': {'line': 3, 'column': 41}}, 'value': 90, 'raw': '90', 'pos': <run_tree2.Position object at 0x000000000336E190>}, 'pos': <run_tree2.Position object at 0x000000000336E5E0>}], 'optional': False, 'pos': <run_tree2.Position object at 0x000000000336E340>}) + Math.PI) % Math.PI2)",
+                "pos": {
+                    "start": 30,
+                    "end": 77,
+                    "loc": {
+                        "start": {
+                            "line": 3,
+                            "column": 17
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 64
+                        }
+                    }
+                }
+            },
             "comments": {
                 "header": [
                     {

@@ -72,8 +72,20 @@ class PolypointCanvas extends HTMLElement {
     loadTheatreFile(path) {
         const script = document.createElement('script');
         script.src = path + '?close_scope=1';
+
+        addEventListener('stage::announce', (ev)=>{
+            console.log('stage::announce event', ev)
+            // console.log(script.src)
+            const detail = ev.detail;
+            if(script.src == detail.currentLoc) {
+                detail.StageClass.go(this.canvas)
+            }
+        });
+
         script.onload = () => {
             console.log('Loaded')
+            // stage._ctx = this.context
+            // stage.canvas = this.context.canvas
             this.dispatchEvent(new CustomEvent('theatre-loaded', {
                 detail: { path },
                 bubbles: true

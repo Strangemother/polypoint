@@ -173,7 +173,7 @@ class AutoMouse {
     }
 
     listen(canvas, eventName, handler, opts) {
-        canvas.addEventListener(eventName, e => handler(canvas, event), opts);
+        canvas.addEventListener(eventName, e => handler(canvas, e), opts);
         return this;
     }
 

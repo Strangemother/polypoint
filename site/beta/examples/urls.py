@@ -10,6 +10,7 @@ app_name = 'examples'
 
 urlpatterns = urls.paths_named(views,
     example=('TheatreIndexTemplateView', '',),
+    json_examples=('TheatreIndexJSONTemplateView', 'processed/',),
     demo_examples=('ExampleIndexTemplateView', 'demos/',),
     theatre_process=('ImmediateProcessTheatreFilesView', ('process/',)),
     point_src=('PointSrcAssetView', ('point_src/<path:path>',)),

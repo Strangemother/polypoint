@@ -171,9 +171,6 @@ class OriginShift {
     nextPossible(index=this.origin) {
         return getNeighbours(index, conf.rowCount)
     }
-
-
-
 }
 
 

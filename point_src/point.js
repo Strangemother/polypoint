@@ -722,7 +722,8 @@ class Point extends Tooling {
     }
 
     get [1]() {
-        /* return the Y value of the point:
+        /*
+        return the Y value of the point:
 
             point[0]
 

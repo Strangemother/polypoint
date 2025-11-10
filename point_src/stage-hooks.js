@@ -30,8 +30,6 @@ class StageHooks {
         this.methodMap.set(prop, hs)
         return hs;
     }
-
-
 }
 
 

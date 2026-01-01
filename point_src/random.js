@@ -60,12 +60,33 @@ class Random {
     }
 
     choice(selections) {
-        /* Give many items, return one random object */
+        /* Select and return a random item from an array.
+        
+        Use this method to randomly choose one element from a collection of items.
+        
+            const colors = ['red', 'blue', 'green', 'yellow']
+            random.choice(colors)
+            // 'green'
+            
+            const points = [new Point(10, 20), new Point(30, 40), new Point(50, 60)]
+            random.choice(points)
+            // Point { x: 30, y: 40 }
+        */
         return selections[this.index(selections)]
     }
 
     index(selections) {
-        /* Given many, return an index */
+        /* Return a random index for the given array.
+        
+        Use this to get a valid random position within an array's bounds.
+        
+            const items = ['apple', 'banana', 'cherry', 'date']
+            random.index(items)
+            // 2
+            
+            items[random.index(items)]
+            // 'banana'
+        */
         return Math.floor(selections.length * Math.random())
     }
 
@@ -79,9 +100,20 @@ class Random {
     }
 
     point(multiplier=1, method=undefined) {
-        /*
-            return a random point(), with the X/Y values set as random*multplier
-         */
+        /* Generate a new Point with random x and y coordinates.
+        
+        Use this to create a random Point instance with coordinates scaled by the multiplier.
+        Values ≤2 use floats, larger values use integers by default.
+        
+            random.point(100)
+            // Point { x: 47, y: 83 }
+            
+            random.point(1)
+            // Point { x: 0.234, y: 0.891 }
+            
+            random.point(500, 'float')
+            // Point { x: 234.56, y: 412.89 }
+        */
         if (method == undefined) {
             method = multiplier <= this.pointIntMin ? 'float': 'int'
         }
@@ -155,6 +187,17 @@ class Random {
     }
 
     polar2D() {
+        /* Generate random 2D coordinates using polar distribution.
+        
+        Use this to create randomly distributed points following a normal distribution
+        in both x and y dimensions, useful for particle effects and natural scatter patterns.
+        
+            random.polar2D()
+            // [0.8234, -1.2156]
+            
+            const [x, y] = random.polar2D()
+            const point = new Point(centerX + x * radius, centerY + y * radius)
+        */
         let theta  = 2 * Math.PI * Math.random();
         let R   = Math.sqrt(-2 * Math.log(Math.random()));
         let x   = R * Math.cos(theta);

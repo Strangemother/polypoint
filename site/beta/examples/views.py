@@ -67,6 +67,7 @@ class ExampleIndexTemplateView(views.ListView):
 
         return items
 
+
 class TheatreIndexTemplateView(ExampleIndexTemplateView):
     parent_dir = settings.POLYPOINT_THEATRE_DIR
 

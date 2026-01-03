@@ -72,6 +72,7 @@ class TheatreIndexTemplateView(ExampleIndexTemplateView):
 
 import json
 
+
 class TheatreIndexJSONTemplateView(ExampleIndexTemplateView):
     """Read the theatre list from the process json file.
     """
@@ -91,7 +92,7 @@ class TheatreIndexJSONTemplateView(ExampleIndexTemplateView):
         data = json.loads(asset_path)['files']
         ordered_list = data
         if orderby:
-            ordered_list = sorted(data, key=lambda d: d[orderby])
+            ordered_list = sorted(data, key=lambda d: str(d[orderby]).lower())
         if reverse:
             ordered_list = reversed(ordered_list)
         return list(ordered_list)

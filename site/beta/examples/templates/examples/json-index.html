@@ -44,15 +44,15 @@
             {% for obj in object_list %}
             <li>
                 {% with ordering=view.get_orderby %}
-                    {% if ordering == 'name' %}
-                        {% ifchanged %}<h3>{{ obj.name.0 }}</h3>{% endifchanged %}
+                    {% if ordering == 'title' %}
+                        {% ifchanged %}<h3>{{ obj.title.0.lower }}</h3>{% endifchanged %}
                     {% elif ordering == 'modified' %}
 
                     {% endif %}
                 {% endwith %}
             </li>
             <li>
-                {% link "examples:file_example" obj.name obj.name %}
+                {% link "examples:file_example" obj.name obj.title %}
             </li>
             {% endfor %}
         </ul>

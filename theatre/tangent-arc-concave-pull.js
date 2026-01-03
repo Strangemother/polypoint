@@ -45,9 +45,24 @@ class MainStage extends Stage {
         let ts = getTangents(a,b, this.rLength)
 
         if(ts == undefined) {
-            a.pen.indicator(ctx)
-            b.pen.indicator(ctx, {color: this.pointB.color})
+            a.pen.circle(ctx)
+            b.pen.circle(ctx, {color: this.pointB.color})
             return
+        }
+
+
+
+        if(ts.o3 && ts.o4) {
+
+            let dist = ts.o3.distanceTo(ts.o4)
+            let v = dist - (this.rLength * 2)
+            if(v < 4) {
+                /* touching arcs */
+                /* The two primary indicators. */
+                a.pen.circle(ctx)
+                b.pen.circle(ctx)
+                return
+            }
         }
 
         return this.drawArcs(ctx, ts)
@@ -62,20 +77,27 @@ class MainStage extends Stage {
         let [t3, t4] = ts.b
 
         /* Touch points. */
-        t1.pen.fill(ctx, color) // top left
-        t2.pen.fill(ctx, color) // bottom left
-        t3.pen.fill(ctx, color) // top right
-        t4.pen.fill(ctx, color) // bottom left
+        t1.pen.fill(ctx, 'red') // top left
+        t2.pen.fill(ctx, 'orange') // bottom left
+        t3.pen.fill(ctx, 'green') // top right
+        t4.pen.fill(ctx, 'lime') // bottom left
 
+        // t1.pen.arc(ctx, t2, 'red')
+        ctx.beginPath()
+        a.draw.arc(ctx, a.distanceTo(t1), a.directionTo(t1), a.directionTo(t2))
+        ctx.stroke()
+        ctx.beginPath()
+        b.draw.arc(ctx, b.distanceTo(t3), b.directionTo(t3), b.directionTo(t4), 0)
+        ctx.stroke()
         // c.pen.circle(ctx, undefined, '#777')
         // d.pen.circle(ctx, undefined, '#777')
 
-        /* The two primary indicators. */
-        a.pen.indicator(ctx)
-        b.pen.indicator(ctx)
+        // /* The two primary indicators. */
+        // a.pen.indicator(ctx)
+        // b.pen.indicator(ctx)
 
         /* The straight lines to the protractor points.*/
-        ts.lines.forEach(l=>l.render(ctx))
+        // ts.lines.forEach(l=>l.render(ctx))
 
         ctx.strokeStyle = 'yellow'
         /* draw an arc, with the origin at o4,
@@ -101,23 +123,8 @@ class MainStage extends Stage {
         ctx.arc(o3.x, o3.y, r3, t1Angle, t3Angle, 1);
 
         ctx.stroke()
-        ctx.strokeStyle = 'grey'
+        // ctx.strokeStyle = 'grey'
 
-        let pCol = '#CC00BB';
-        /* pink tangent tips. */
-
-        if(o3 && o4) {
-
-            let dist = o3.distanceTo(o4)
-            let v = dist - (this.rLength * 2)
-            if(v < 4) {
-                /* touching arcs */
-                pCol = 'white';
-            }
-        };
-
-        o3 && (o3).pen.fill(ctx, pCol);
-        o4 && (new Point(o4)).pen.fill(ctx, pCol);
     }
 }
 

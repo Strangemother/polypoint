@@ -26,18 +26,19 @@ files:
 
 // brushSize simply is the thikness of the brush stroke
 let mouseX, mouseY;
-let brushSize = 10;
+// let brushSize = 10;
 let f = 0.5;
 let spring = 0.4;
 let friction = 0.45;
 let v = 0.5;
-let r = 0;
+let r = 90;
 let vx = 0;
 let vy = 0;
 let splitNum = 100;
-let diff = 2;
+let diff = .1;
 
-function brushDraw(ctx, mouseIsPressed) {
+function brushDraw(ctx, mouseIsPressed, size=1) {
+    let brushSize = size;
 
     let strokeWeight = (v)=>ctx.lineWidth=v;
 
@@ -94,32 +95,88 @@ class MainStage extends Stage {
     live = true
     mounted(){
         let c = this.center.copy().update({
-                radius: this.center.radius + 40
+                radius: 1
                 , color:"hsl(299deg 62% 44%)"
             })
 
         let g = this.g = (new Gradient).linear(this.center.update({radius: 200}))
+        this.point = this.center.copy()
 
         g.addStops({
             0: "hsl(299deg 62% 44%)",
             1: "hsl(244deg 71% 56%)"
         })
-        let grad = g.linear()
+
+        let grad = g.linear();
+
+        this.presenter = navigator.ink.requestPresenter({
+                presentationArea: this.canvas
+        });
     }
 
     firstDraw(ctx) {
         let grad = this.g.getObject(ctx)
         this.ctx.strokeStyle = grad// 'green'
         this.ctx.fillStyle = grad// 'green'
+        this.clear(ctx)
     }
 
     draw(ctx){
-        // this.clear(ctx)
 
         let pos = this.mouse.position
-        brushDraw(ctx, this.mouse.isDown(0))
-        mouseX = pos.x
-        mouseY = pos.y
+        // ctx.lineWidth = this.point.radius
+        mouseX = this.point.x
+        mouseY = this.point.y
+        brushDraw(ctx
+                , this.pDown == true || this.mouse.isDown(0)
+                , (this.point.radius
+                    * this.point.radius
+                    * this.point.radius ) * .05)
+        if(this.pDown == true){
+            // this.point.pen.fill(ctx)
+        }
+    }
+
+    async onPointerDown(ev) {
+        ev.preventDefault()
+        ev.stopImmediatePropagation()
+
+    }
+
+    async onTouchMove(ev) {
+        ev.preventDefault()
+        ev.stopImmediatePropagation()
+    }
+
+    async onTouchStart(ev) {
+        ev.preventDefault()
+        ev.stopImmediatePropagation()
+        this.pDown = true
+    }
+
+    async onPointerUp(ev) {
+        ev.preventDefault()
+        ev.stopImmediatePropagation()
+        this.pDown = false
+    }
+
+    async onPointerMove(ev) {
+        ev.preventDefault()
+        ev.stopImmediatePropagation()
+
+        // console.log(`${ev.height} ${ev.pressure} ${ev.width}  ${ev.altitudeAngle}  ${ev.pointerType}  ${ev.twist}`);
+        let pos = Point.from(ev)
+        this.point.update({
+            radius: (10 * ev.pressure) + 1
+            , x: pos.x
+            , y: pos.y
+        });
+
+
+       (await this.presenter).updateInkTrailStartPoint(ev, {
+            diameter: 1,
+            color: 'red'
+        });
     }
 }
 

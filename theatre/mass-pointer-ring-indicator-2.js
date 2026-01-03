@@ -261,6 +261,7 @@ class MainStage extends Stage {
         this.cable.handle.radius = 8
         // this.cable.visibleRopeGravity.y = -.05// + (random.float(-1, 1) * .1)
         this.target = new Point(this.center.copy())
+        this.target.radius = 60
         this.ring = new Point(this.center.copy())
         this.knuckle = this.ring.project()
         this.cable.mounted(this.knuckle.add(0))
@@ -289,7 +290,7 @@ class MainStage extends Stage {
         this.cable.handle.xy = this.knuckle.xy
         let r2d =  this.knuckle.distance2D(this.target)
 
-        let divisor = .0001
+        let divisor = .001
         this.cable.visibleRopeGravity.x = r2d.x * divisor
         this.cable.visibleRopeGravity.y = r2d.y * divisor
         this.cable.gravity.x = r2d.x * divisor
@@ -299,8 +300,12 @@ class MainStage extends Stage {
         this.knuckle.track(this.ring, this.ring.radius)
 
         this.target.pen.fill(ctx, {color: 'pink', width:1})
-        this.knuckle.pen.circle(ctx, {color: '#999', width:2})
-        this.cable.draw(ctx)
+        this.knuckle.pen.circle(ctx, {color: '#999', width:3, radius: 2})
+        this.knuckle.pen.line(ctx, this.cable.head, '#999', 2)
+        this.cable.head.pen.circle(ctx, {color: '#999', width:3})
+
+        // this.cable.draw(ctx)
+        this.cable.step(ctx)
         this.cable.head.text.label(ctx, "It's a Polypoint!", {x:10, y:0})
     }
 }

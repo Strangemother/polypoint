@@ -71,13 +71,13 @@ class MainStage extends Stage {
             let [name, ...xyr] = arrItem
             let o = new type(xyr)
             o.name = name
-            return o 
+            return o
         })
 
         this.points.update({
             vx: .1, vy: 0, mass: 1
         });
-        
+
         let cb = this.collisionBox = new CollisionBox()
         cb.points.push(this.points[0])
         cb.points.push(this.points[4])

@@ -7,10 +7,10 @@
     font-size: 1em;
 }
 
-.markdown-rendered h1, 
-.markdown-rendered h2, 
-.markdown-rendered h3, 
-.markdown-rendered h4, 
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
 .markdown-rendered h5 {
     /* color: red; */
     -webkit-text-fill-color: initial;
@@ -51,9 +51,9 @@
     background: #080808;
     padding: .05em 0.3em 0.2em 0.3em;
     border-radius: 0.2em;
-} 
+}
 
-.markdown-rendered ul code, 
+.markdown-rendered ul code,
 .markdown-rendered ol code,
 .markdown-rendered p  code {
     /* color: red; */
@@ -64,7 +64,7 @@
     /*     padding: 0 .2em; */
     color: hsl(292deg 27% 61%);
     font-family: inherit;
-} 
+}
 
 .markdown-rendered hr {
     border: solid 1px black;
@@ -111,4 +111,46 @@ pre code.hljs {
 
 .markdown-rendered .example-list li:first-child h3 {
     margin-top: 0;
+}
+
+
+
+
+    .toggle-hidden {
+        display: none;
+    }
+
+    a.toggle-link {
+        text-decoration: none;
+    }
+
+    a.toggle-link.toggle-selected {
+        text-decoration: underline;
+    }
+
+.markdown-rendered .tabs > * {
+    padding: 0.6em 1em;
+    display: inline-block;
+    border-right: solid 1px #111;
+    color: #9a81b0;
+    cursor: pointer;
+}
+
+.markdown-rendered .tabs {
+    display: flex;
+    background: #0a0a0a;
+}
+
+.markdown-rendered .tab-panels {
+    border: solid 3px #0a0a0a;
+    border-top: none;
+    padding: 1em;
+    margin: 0 0 2em;
+}
+
+.markdown-rendered .tabs > a.toggle-selected {
+    color: hsl(299deg 62% 44%);
+    /* color: unset; */
+    background: #6c39d2;
+    color: black;
 }

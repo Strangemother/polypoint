@@ -1,2 +1,2 @@
 REM server.py - because new JS requires imports
-py -m http.server
+C:\Users\jay\Documents\projects\polypoint\site\env\Scripts\python -m http.server

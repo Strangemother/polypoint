@@ -1,5 +1,5 @@
 /*
-title: Concave Arc Tangent
+title: Meta Ball Example
 categories: tangents
 files:
     head
@@ -18,8 +18,13 @@ files:
     ../point_src/text/label.js
     ../point_src/intersections.js
 
+---
 
- */
+In this example we perform _meta ball_ sticky like points using tangent arcs.
+To ensure we draw or stroke neatly, we carefully draw the pen in the correct
+point to point conigious walk.
+
+*/
 
 
 class MainStage extends Stage {
@@ -33,24 +38,73 @@ class MainStage extends Stage {
 
         this.lines = []
         this.rLength = 200
+        this.connected = false;
+
+        /* The distance for activating meta ball */
+        this.edgeDistance = 2
+        /* the gap size between the two meta-ball arcs.
+        If the arcs are closer than the minimum, a _break_ occurs. */
+        this.tangentMinDistance = 2
+        /* the multipler for the tangent arc size. Smaller results in a
+        _tighter_ meta-ball. Larger (1) results in _stretchier_ meta-ball. */
+        this.rLengthMultiplier = .7
+        this.pointColor = '#050505'
     }
 
     draw(ctx){
         this.clear(ctx)
 
+        ctx.strokeStyle = 'purple'
+        ctx.lineWidth = 3
+
         let a = this.pointA;
         let b = this.pointB;
-        this.rLength = a.distanceTo(b) * .6
+
+        /* This can be static, but scaling to distance add a nice
+        looking variant. */
+        this.rLength = a.distanceTo(b) * this.rLengthMultiplier
 
         let ts = getTangents(a,b, this.rLength)
 
         if(ts == undefined) {
-            a.pen.indicator(ctx)
-            b.pen.indicator(ctx, {color: this.pointB.color})
+            /* No tagents.
+            Too far to too close. */
+            if(this.pointColor){
+                a.pen.fill(ctx, {color: this.pointColor})
+                b.pen.fill(ctx, {color: this.pointB.color})
+            }
+
+            a.pen.circle(ctx)
+            b.pen.circle(ctx, {color: this.pointB.color})
             return
         }
 
-        return this.drawArcs(ctx, ts)
+
+        /* If the edges of our points are touching, we activate the meta
+        balling */
+        let edgeDistance = a.distanceTo(b) - a.radius - b.radius;
+        if(edgeDistance < this.edgeDistance) { this.connected  = true }
+
+        if(ts.o3 && ts.o4) {
+            let dist = ts.o3.distanceTo(ts.o4)
+            let v = dist - (this.rLength * 2)
+            if(v < this.tangentMinDistance) {
+                /* touching arcs, */
+                this.connected = false
+            }
+        }
+
+        if(this.connected) {
+            return this.drawArcs(ctx, ts)
+        } else {
+            if(this.pointColor) {
+                a.pen.fill(ctx, {width: 2, color: this.pointColor})
+                b.pen.fill(ctx, {width: 2, color: this.pointColor})
+            }
+
+            a.pen.circle(ctx, {width: 2})
+            b.pen.circle(ctx, {color: this.pointB.color})
+        }
     }
 
     drawArcs(ctx, ts){
@@ -62,62 +116,56 @@ class MainStage extends Stage {
         let [t3, t4] = ts.b
 
         /* Touch points. */
-        t1.pen.fill(ctx, color) // top left
-        t2.pen.fill(ctx, color) // bottom left
-        t3.pen.fill(ctx, color) // top right
-        t4.pen.fill(ctx, color) // bottom left
-
-        // c.pen.circle(ctx, undefined, '#777')
-        // d.pen.circle(ctx, undefined, '#777')
-
-        /* The two primary indicators. */
-        a.pen.indicator(ctx)
-        b.pen.indicator(ctx)
-
-        /* The straight lines to the protractor points.*/
-        ts.lines.forEach(l=>l.render(ctx))
-
-        ctx.strokeStyle = 'yellow'
-        /* draw an arc, with the origin at o4,
-        then from the end point, to the start point (because we're sweeping
-        backward).
-        get the angle of the origin to t2 (left),
-        then get the angle of origin to t4 (right). */
+        // t1.pen.fill(ctx, 'red') // top left
+        // t2.pen.fill(ctx, 'orange') // bottom left
+        // t3.pen.fill(ctx, 'green') // top right
+        // t4.pen.fill(ctx, 'lime') // bottom left
 
         let o4 = ts.o4
             , o3 = ts.o3
             , r3 = ts.r3
             ;
+
         const t2Angle = twoPointsAngle(o4, t2)
         const t4Angle = twoPointsAngle(o4, t4)
-        ctx.beginPath()
-        ctx.arc(o4.x, o4.y, r3, t4Angle, t2Angle, 1);
-
-        ctx.stroke()
-        ctx.beginPath()
-
         const t3Angle = twoPointsAngle(o3, t3)
         const t1Angle = twoPointsAngle(o3, t1)
-        ctx.arc(o3.x, o3.y, r3, t1Angle, t3Angle, 1);
 
+        // t1.pen.arc(ctx, t2, 'red')
+        ctx.beginPath()
+
+        // The left meta ball
+        a.draw.arc(ctx, a.distanceTo(t1), a.directionTo(t1), a.directionTo(t2))
+
+        /* Mini Lesson.
+        When draing a line we want to move the pen to each point correctly.
+
+        If you have an arc drawing _right to left_:
+
+            ctx.arc(o4.x, o4.y, r3, t4Angle, t2Angle, 1);
+
+        and want to perform the same _left to right_, flip the angles and the
+        drawing direction:
+
+            ctx.arc(o4.x, o4.y, r3, t2Angle, t4Angle, 0);
+
+        */
+        // Bottom line
+        ctx.arc(o4.x, o4.y, r3, t2Angle, t4Angle, 0);
+
+        // The right meta ball.
+        b.draw.arc(ctx, b.distanceTo(t3), b.directionTo(t4), b.directionTo(t3), 1)
+
+        // top Line
+        ctx.arc(o3.x, o3.y, r3, t3Angle, t1Angle, 0);
+
+        if(this.pointColor) {
+            ctx.fillStyle = this.pointColor
+            ctx.fill()
+        }
         ctx.stroke()
-        ctx.strokeStyle = 'grey'
+        // ctx.strokeStyle = 'grey'
 
-        let pCol = '#CC00BB';
-        /* pink tangent tips. */
-
-        if(o3 && o4) {
-
-            let dist = o3.distanceTo(o4)
-            let v = dist - (this.rLength * 2)
-            if(v < 4) {
-                /* touching arcs */
-                pCol = 'white';
-            }
-        };
-
-        o3 && (o3).pen.fill(ctx, pCol);
-        o4 && (new Point(o4)).pen.fill(ctx, pCol);
     }
 }
 

@@ -78,9 +78,7 @@ class MainStage extends Stage {
             let [a,b] = ps
             ctx.beginPath()
             // ctx.arcTo(a.x, a.y, b.x, b.y, 50)
-            let ac = a.midpoint(b)
-            ac.radius = a.distanceTo(b) * .5
-            this.drawArc(ctx, ac, a, b)
+            this.drawSmoothArc(ctx, a, b)
             ctx.stroke()
         })
 
@@ -88,6 +86,35 @@ class MainStage extends Stage {
 
         // stips.pen.quadCurve(ctx,{ loop: 1})
     }
+
+    /**
+     * Draw a smooth arc from point A to B, aligned with their entry/exit rotations.
+     * Uses cubic Bezier curves with control points projected along each point's direction.
+     */
+    drawSmoothArc(ctx, pa, pb, tension = 0.5) {
+        // Calculate distance for control point offset
+        let dist = pa.distanceTo(pb)
+        let controlDist = dist * tension
+
+        // Get the direction each point is facing (from their parent's lookAt)
+        // pa's direction points toward its parent, pb's direction points toward its parent
+        let paDir = pa.parent ? pa.parent.rotation : pa.directionTo(pb)
+        let pbDir = pb.parent ? pb.parent.rotation : pb.directionTo(pa)
+
+        // Project control points along the tangent directions
+        // cp1 extends from pa in the direction pa is facing
+        let cp1x = pa.x + Math.cos(paDir) * controlDist
+        let cp1y = pa.y + Math.sin(paDir) * controlDist
+
+        // cp2 extends from pb in the opposite of the direction pb is facing
+        // (approaching pb from the curve)
+        let cp2x = pb.x + Math.cos(pbDir + Math.PI) * controlDist
+        let cp2y = pb.y + Math.sin(pbDir + Math.PI) * controlDist
+
+        ctx.moveTo(pa.x, pa.y)
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, pb.x, pb.y)
+    }
+
     drawArc(ctx, a, pa, pb) {
         ctx.arc(a.x, a.y, a.radius, a.directionTo(pa), a.directionTo(pb))
     }

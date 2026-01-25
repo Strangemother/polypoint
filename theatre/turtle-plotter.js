@@ -50,11 +50,13 @@ addButton('walk', {
     }
 })
 
+
 addButton('journey', {
     onclick(ev) {
         stage.journey()
     }
 })
+
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
@@ -143,7 +145,7 @@ class MainStage extends Stage {
         // run
         this.walk(2, initPoint)
 
-        if(this._flagStop == true || this.turtle.distanceTo(initPoint) < 20) {
+        if(this._flagStop == true || this.turtle.distanceTo(initPoint) < 2) {
             this.up_Action()
             console.log('Stop')
             this.printSize()

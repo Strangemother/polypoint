@@ -43,9 +43,9 @@ addControl('steps', {
 })
 
 
-addButton('feet', {
+addButton('toe', {
     onclick(ev) {
-        stage.turtle.feet(stage.stepCount)
+        stage.turtle.toe(stage.stepCount)
     }
 })
 
@@ -276,6 +276,7 @@ class Trundle extends Turtle {
     }
 }
 
+
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
@@ -285,6 +286,103 @@ class MainStage extends Stage {
     }
 
     layout() {
+        let items = [
+            ['forward', 10],
+            ['rotate', 90],
+            ['forward', 10],
+            ['rotate', 90],
+            ['forward', 10],
+            ['rotate', 90],
+            ['forward', 10],
+        ]
+        return items
+    }
+
+    layoutFour() {
+
+        let items = [
+            // Assume the point is facing _left_, as 0degree.
+            ['forward', 10], // Front wall.
+            10,
+            -1, -10,
+            5,
+            3,
+            -1, -3,
+            20, 20, 20, 9,
+            -1, -15, -1, -4,
+            20, 15, 20, 5,
+            -1, -7, -21,
+            10, 50, 8, 4,
+        ]
+
+        let clock = (...vs) => {
+            return vs.map((v)=>{
+                if(v < 0) {
+                    return ['right', Math.abs(v)]
+                }
+                return ['left', v]
+            })
+        }
+
+        let clean = function() {
+            let r = []
+
+
+            for (var i = 0; i < items.length; i++) {
+                let v = items[i]
+                if (v == undefined) {
+                    continue
+                }
+                if(typeof(v) == 'number') {
+                    r = r.concat(clock(v))
+                } else {
+                    r.push(v)
+                }
+            }
+            return r
+        }
+
+        return clean(items)
+    }
+
+    layoutThree() {
+
+        let clock = (...vs) => {
+            return vs.map((v)=>{ return ['left', v] })
+        }
+
+        let anti = (...vs) => {
+            return vs.map((v)=>{ return ['right', v] })
+        }
+
+        return [
+            // Assume the point is facing _left_, as 0degree.
+              ['forward', 10] // Front wall.
+            , ...clock(10) // right wall (B)
+            , ...anti(1, 10) // doorway out, left side. // left (B)
+            // , ...clock(5, 30, 5, 14) // front door // corridor right
+            , ...clock(5)
+            // , ['forward', 30] // Front wall.
+            , ...clock(3)
+            , ...anti(1, 3)
+            , ...clock(20, 20, 20, 9)
+            , ...anti(1, 15, 1, 4)
+            , ...clock(20, 15, 20, 5)
+            , ...anti(1, 7, 21)
+            , ...clock(10, 50, 8, 4)
+            // , ...clock(5, 14) // front door // corridor right
+            // , ...anti(1, 14)
+            // , ...clock(5)
+            // , ...anti(1, 5)
+            // , ...clock(10, 4)
+            // , ...anti(4)
+            // , ...clock(30, 14, 20)
+            // , ...anti(1, 20)
+            // , ...clock(30, 24)
+        ]
+    }
+
+    layoutTwo() {
 
         let clock = (v=1) => ['left', v];
         let anti = (v=1) => ['right', v];
@@ -359,7 +457,7 @@ class MainStage extends Stage {
 
         this.line = new PointList()
         this.stepCount = this.steps().length
-        this.turtle = new Trundle(500, 100);
+        this.turtle = new Trundle(200, 100);
         this.turtle.steps = this.steps()
 
         this.dragging.add(this.turtle)
@@ -378,7 +476,7 @@ class MainStage extends Stage {
             line.draw.line(ctx, {color: '#333'})
             ctx.fill()
             // line.pen.quadCurve(ctx, {color: 'red'})
-            line.pen.indicators(ctx, {color: '#880000'})
+            // line.pen.indicators(ctx, {color: '#880000'})
             line.pen.line(ctx, {color: 'red'})
         })
     }

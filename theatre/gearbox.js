@@ -25,6 +25,11 @@ files:
 A simple example of gear-like rotations
 */
 
+const setGearPositions = function(){
+    stage.gearBox.points.fromJSON('[[959,446,30,197],[231,276,100,-219.57108872668036],[407,377,100,54.14724459619435],[407,377,50,54.14724459619435],[634,197,100,115.81033655212542],[634,197,50,115.81033655212542],[836,211,100,-55.047682266417894],[836,211,50,-55.047682266417894],[993,377,179.15903999999998,161.5114260181259],[993,377,107.49542399999999,161.5114260181259],[707,483,60,113.492020042036],[707,483,30,113.492020042036],[588,431,140,-136.95149496430162],[588,431,70,-140.01451327631534],[990,363,60,-39.95799887141891],[520,183,60,-81.2250438504148]]', 1)
+}
+
+;addButton('setWidget', { onclick: setGearPositions});
 
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
@@ -50,7 +55,7 @@ class MainStage extends Stage {
         this.dragging.add(p, pin)
 
         this.dragging.add(...r)
-        this.dragging.onEmptyDown = this.onEmptyDown.bind(this)
+        // this.dragging.onEmptyDown = this.onEmptyDown.bind(this)
     }
 
     generate(pointCount=2){
@@ -62,6 +67,7 @@ class MainStage extends Stage {
         gb.createReductionGear({x:400, y:200, radius: 100})
         gb.createInternalGear({x:400, y:300, radius: 60})
         gb.createInternalGear({x:400, y:300, radius: 60})
+
         return gb.points
     }
 

@@ -50,7 +50,8 @@ class MainStage extends Stage {
 
         this.points = new PointList(
                 {x:130, y:230, radius: 30}
-                ,{x:300, y:240, radius: 20, isFlipped: true}
+                ,{x:300, y:240, radius: 20, isFlipped: 0}
+                // ,{x:300, y:240, radius: 20, isFlipped: true}
                 ,{x:230, y:340, radius: 30}
                 ,{x:540, y:140, radius: 30}
                 // ,{x:440, y:440, radius: 30}
@@ -91,7 +92,18 @@ class MainStage extends Stage {
         biPoints.siblings(1).forEach((pairs, i, items)=>{
             let next = getNextWrapped(this.points, i)
             let p = this.points[i]
+
+            // Detect if tangents would cross due to overlapping/close circles
+            let wouldCross = this.detectTangentCrossing(pairs[0], pairs[1])
+
+            // Base type from outer/flipped state
             let typ = (p.isOuter || p.isFlipped)
+
+            // If tangents would cross, flip the selection to use the alternate tangent
+            if (wouldCross) {
+                typ = !typ
+            }
+
             let [da,db] = typ? ['bb', 'ab']: ['ba', 'aa']
             let fname = (next?.isOuter || next?.isFlipped)? da: db
             res.push(pairs[0].tangent[fname](pairs[1]))
@@ -126,6 +138,16 @@ class MainStage extends Stage {
             t[1].isOuter = isOuter
             t[1].color = isOuter? 'red': 'yellow'
         });
+    }
+
+    /* Detect if two tangent lines would cross before reaching the target point.
+       This occurs when the combined radii of the circles is greater than the
+       distance between them, causing the tangent touch points to "overshoot" */
+    detectTangentCrossing(biPointA, biPointB) {
+        let dist = biPointA.distanceTo(biPointB)
+        let combinedRadii = biPointA.radius + biPointB.radius
+        // If the circles overlap or are very close, tangents will cross
+        return dist < combinedRadii
     }
 
     draw(ctx){
@@ -204,7 +226,13 @@ class MainStage extends Stage {
             ctx.beginPath()
             // ctx.arcTo(a.x, a.y, b.x, b.y, p.radius)
             // this.drawArc(ctx, p, pa, pb)
-            p.draw.arc(ctx, p.radius, start, end, isOuterPoint)
+            if((pa).distanceTo(pb) < p.radius*.3) {
+                // debugger
+                pa.draw.lineTo(ctx, pb)
+            }else{
+                p.draw.arc(ctx, p.radius, start, end, isOuterPoint)
+            }
+
             ctx.stroke()
             // pair.forEach(p=>{
             //     new Point(p).pen.circle(ctx, {color})

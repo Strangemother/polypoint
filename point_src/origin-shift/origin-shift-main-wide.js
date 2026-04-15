@@ -54,6 +54,22 @@ const addControls = function(){
             }
         })
 
+        addButton('export', {
+            onclick(){
+                if(os.export) {
+                    let content = os.export()
+                    let jsonString = JSON.stringify(content, null, 2);
+                    let blob = new Blob([jsonString], { type: 'application/json' });
+                    let url = URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'export.json';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }
+            }
+        })
+
         addButton('drawpath', {
             label: 'Draw Path'
             , onclick(){

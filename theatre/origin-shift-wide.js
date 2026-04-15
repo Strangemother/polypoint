@@ -18,6 +18,7 @@ files:
     ../point_src/origin-shift/origin-shift.js
     ../point_src/origin-shift/origin-shift-configs.js
     ../point_src/origin-shift/origin-shift-drawpath.js
+    ../point_src/origin-shift/origin-shift-export.js
     ../point_src/grid-get-siblings.js
     ../point_src/origin-shift/origin-walker.js
     ../point_src/origin-shift/origin-shift-main-wide.js

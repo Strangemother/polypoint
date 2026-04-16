@@ -70,6 +70,43 @@ const addControls = function(){
             }
         })
 
+        addButton('export walls', {
+            label: 'Export Walls'
+            , onclick(){
+                let content = stage.exportWalls()
+                let jsonString = JSON.stringify(content, null, 2);
+                let blob = new Blob([jsonString], { type: 'application/json' });
+                let url = URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = 'export-walls.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        })
+
+        addButton('invert', {
+            label: 'Invert'
+            , onclick(){
+                // acts like a toggle
+                if(stage.permanentWalls) {
+                    delete stage.permanentWalls
+                    stage.hidePaths = false
+                    stage.refresh()
+                } else {
+                    stage.invertToWalls(true, false) // sticky, hide-paths
+                }
+            }
+        })
+
+        addButton('togglePaths', {
+            label: 'Toggle Paths'
+            , onclick(){
+                stage.hidePaths = !stage.hidePaths
+                // stage.refresh()
+            }
+        })
+
         addButton('drawpath', {
             label: 'Draw Path'
             , onclick(){
@@ -142,12 +179,14 @@ class MainStage extends Stage {
             // , new Walker(os, os.pointList.length - 3)
         ]
         this.paths = new Array(this.walkers.length)
+        this.featurePoints = new PointList
 
         let kb = this.keyboard
         // kb.onKeydown(KC.UP, this.onUpKeydown.bind(this))
         // kb.onKeyup(KC.UP, this.onUpKeyup.bind(this))
         this.reset()
         this.example()
+
     }
 
     onKeydown(ev){
@@ -207,13 +246,18 @@ class MainStage extends Stage {
 
         // lineStroke.step()
         // lineStroke.set(ctx)
-        this.drawPoints(ctx)
+        if(this.hidePaths !== false){
+            this.drawPoints(ctx)
+        }
         // lineStroke.unset(ctx)
 
         // if(this.path) {
         //     // this.path.pen.fill(ctx, 'black', 3)
         //     this.path.pen.line(ctx, 'black', 4)
         // }
+        if(this.permanentWalls) {
+            this.drawInverted(ctx)
+        }
 
         if(this.paths) {
             // this.path.pen.fill(ctx, 'black', 3)
@@ -230,6 +274,8 @@ class MainStage extends Stage {
                 this.walkerIndicator.pen.fill(ctx, 'red')
             }
         })
+
+        this.featurePoints.pen.fill(ctx) 
     }
 
 
@@ -238,12 +284,17 @@ class MainStage extends Stage {
         let ctx = this.ctx;
         this.clear(ctx)
         this.drawPoints(ctx)
+        
 
-        if(this.paths) {
+        if(!this.hidePaths && this.paths) {
             // this.path.pen.fill(ctx, 'black', 3)
             this.paths.forEach(p=>{
                 p?.pen.line(ctx, 'black', 4)
             })
+        }
+
+        if(this.permanentWalls) {
+            this.drawInverted(ctx)
         }
     }
 
@@ -367,6 +418,405 @@ class MainStage extends Stage {
 
         // os.getOrigin().pen.circle(ctx, 2, conf.originColor, conf.lineWidth)
     }
+
+    computeWalls() {
+        /* Build walls by inverting the current maze edges.
+           A wall exists wherever two adjacent cells do NOT
+           share an open passage. */
+        let rows = conf.rows
+            , cols = conf.cols
+            ;
+
+        let open = new Set()
+        os.forEach((p, i) => {
+            if(p.target != null) {
+                let lo = Math.min(i, p.target)
+                    , hi = Math.max(i, p.target)
+                    ;
+                open.add(lo + '-' + hi)
+            }
+        })
+
+        let walls = []
+            , pl = os.pointList
+            ;
+        for(let r = 0; r < rows; r++) {
+            for(let c = 0; c < cols; c++) {
+                let index = r * cols + c
+                /* Skip unvisited cells — no walls around them. */
+                if(!pl[index].hit) { continue }
+                if(c + 1 < cols && pl[index + 1].hit
+                    && !open.has(`${index}-${index + 1}`)) {
+                    walls.push([index, index + 1])
+                }
+                if(r + 1 < rows && pl[index + cols].hit
+                    && !open.has(`${index}-${index + cols}`)) {
+                    walls.push([index, index + cols])
+                }
+            }
+        }
+
+        return walls
+    }
+
+    exportWalls() {
+        /* Export the maze in the same format as os.export(),
+           but with a `walls` key instead of `edges`. */
+        let cols = conf.cols
+        let walls = this.computeWalls()
+
+        let nodes = []
+        os.forEach((p, i) => {
+            nodes.push({
+                index: i
+                , row: Math.floor(i / cols)
+                , col: i % cols
+                , x: p.x
+                , y: p.y
+                , target: p.target ?? null
+                , color: p.lineColor || null
+            })
+        })
+
+        return {
+            meta: {
+                rows: conf.rows
+                , cols
+                , pointSpread: conf.pointSpread
+                , originIndex: os.origin
+            }
+            , nodes
+            , walls
+        }
+    }
+
+    invertToWalls(sticky=true, hidePaths=false) {
+        this._walls = this.computeWalls()
+        this._inverted = true
+
+        console.log('Inverted to walls. sticky:', sticky, 'hidePaths:', hidePaths)
+        this.permanentWalls = sticky
+        this.hidePaths = hidePaths
+
+        this.drawInverted(this.ctx)
+    }
+
+    addPointAtPosition(index, ex={color: 'lightblue'}) {
+        // (Assuming 'walls' visual)
+        // given an index within the grid,
+        // add a point at that position, 
+        // allowing the presentation of 'detectFeatures'
+        // points.
+        
+        // index to xy (between walls.)
+        let x = index % conf.cols
+        let y = Math.floor(index / conf.cols)
+        let size = conf.pointSpread
+        let firstPoint = os.pointList[0]
+        let offX = firstPoint.x // - size * 0.5
+        let offY = firstPoint.y // - size * 0.5
+        let px = offX + x * size
+        let py = offY + y * size
+        let c = Object.assign({x: px, y: py}, ex)
+        let p = new Point(c)
+
+        if(!this.featurePoints) {
+            this.featurePoints = new PointList
+        }
+        
+        this.featurePoints.push(p)
+
+    }
+
+    detectFeatures() {
+        /* Analyse the maze grid and classify every visited cell
+           by its spatial type, then group corridors into chains.
+
+           Returns {
+               cells:     Map<index, {index, row, col, exits, wallCount, type, walls}>,
+               deadEnds:  [index, ...],
+               corridors: [[index, ...], ...],   // chains of 3+ corridor cells
+               culDeSacs: [[index, ...], ...],    // corridor chains ending in a dead-end
+               alcoves:   [index, ...],           // 3-wall cells (1 exit)
+               junctions: [index, ...],           // 1-wall cells (3 exits)
+               crossroads:[index, ...],           // 0-wall cells (4 exits)
+           }
+        */
+        let rows = conf.rows
+            , cols = conf.cols
+            , pl = os.pointList
+            , wallSet = new Set()
+            ;
+
+        /* Build a fast wall lookup from the computed walls. */
+        let walls = this._walls || this.computeWalls()
+        walls.forEach(([a, b]) => {
+            let lo = Math.min(a, b), hi = Math.max(a, b)
+            wallSet.add(lo + '-' + hi)
+        })
+
+        const hasWall = (a, b) => {
+            let lo = Math.min(a, b), hi = Math.max(a, b)
+            return wallSet.has(lo + '-' + hi)
+        }
+
+        /* For each visited cell, determine wall sides and exit count. */
+        let cells = new Map()
+
+        for(let r = 0; r < rows; r++) {
+            for(let c = 0; c < cols; c++) {
+                let index = r * cols + c
+                if(!pl[index].hit) { continue }
+
+                let cellWalls = {
+                    up:    r === 0    || !pl[index - cols]?.hit || hasWall(index, index - cols)
+                    , down:  r === rows-1 || !pl[index + cols]?.hit || hasWall(index, index + cols)
+                    , left:  c === 0    || !pl[index - 1]?.hit   || hasWall(index, index - 1)
+                    , right: c === cols-1 || !pl[index + 1]?.hit || hasWall(index, index + 1)
+                }
+
+                let wallCount = 0
+                for(let k in cellWalls) { if(cellWalls[k]) wallCount++ }
+                let exits = 4 - wallCount
+
+                let type = 'open'
+                if(exits === 0) type = 'isolated'
+                else if(exits === 1) type = 'deadEnd'
+                else if(exits === 2) type = 'corridor'
+                else if(exits === 3) type = 'junction'
+                else if(exits === 4) type = 'crossroad'
+
+                cells.set(index, {
+                    index, row: r, col: c
+                    , exits, wallCount, type
+                    , walls: cellWalls
+                })
+            }
+        }
+
+        /* Collect simple feature lists. */
+        let deadEnds = []
+            , alcoves = []
+            , junctions = []
+            , crossroads = []
+            ;
+
+        cells.forEach((cell) => {
+            if(cell.type === 'deadEnd')   deadEnds.push(cell.index)
+            if(cell.type === 'deadEnd')   alcoves.push(cell.index)
+            if(cell.type === 'junction')  junctions.push(cell.index)
+            if(cell.type === 'crossroad') crossroads.push(cell.index)
+        })
+
+        /* Chain corridor cells (2 exits) into connected runs.
+           Walk through each unvisited corridor cell, expanding
+           in both directions along connected corridor neighbours. */
+        let visited = new Set()
+        let corridors = []
+
+        const getNeighbours = (idx) => {
+            let r = Math.floor(idx / cols), c = idx % cols
+            let out = []
+            if(r > 0)       out.push(idx - cols)
+            if(r < rows -1) out.push(idx + cols)
+            if(c > 0)       out.push(idx - 1)
+            if(c < cols -1) out.push(idx + 1)
+            return out
+        }
+
+        const connectedPassage = (a, b) => {
+            return cells.has(b) && !hasWall(a, b)
+        }
+
+        cells.forEach((cell) => {
+            if(cell.type !== 'corridor' || visited.has(cell.index)) return
+            /* BFS/flood-fill along connected corridor cells. */
+            let chain = []
+                , queue = [cell.index]
+                ;
+            visited.add(cell.index)
+            while(queue.length) {
+                let cur = queue.shift()
+                chain.push(cur)
+                getNeighbours(cur).forEach(nb => {
+                    if(!visited.has(nb)
+                        && cells.has(nb)
+                        && cells.get(nb).type === 'corridor'
+                        && connectedPassage(cur, nb)) {
+                        visited.add(nb)
+                        queue.push(nb)
+                    }
+                })
+            }
+            if(chain.length >= 3) {
+                corridors.push(chain)
+            }
+        })
+
+        /* Cul-de-sacs: corridor chains where at least one end
+           connects to a dead-end cell. */
+        let deadEndSet = new Set(deadEnds)
+        let culDeSacs = corridors.filter(chain => {
+            return chain.some(idx => {
+                return getNeighbours(idx).some(nb =>
+                    deadEndSet.has(nb) && connectedPassage(idx, nb)
+                )
+            })
+        })
+
+        /* Corridors with dead-ends: the full run including the
+           dead-end cells at each terminus. Each entry is
+           { corridor: [index,...], deadEnds: [index,...], full: [index,...] } */
+        let corridorDeadEnds = culDeSacs.map(chain => {
+            let ends = []
+            chain.forEach(idx => {
+                getNeighbours(idx).forEach(nb => {
+                    if(deadEndSet.has(nb) && connectedPassage(idx, nb)) {
+                        ends.push(nb)
+                    }
+                })
+            })
+            return {
+                corridor: chain
+                , deadEnds: ends
+                , full: [...new Set([...ends, ...chain])]
+            }
+        })
+
+        let features = { cells, deadEnds, corridors, culDeSacs
+            , corridorDeadEnds, alcoves, junctions, crossroads }
+        this._features = features
+        console.log('Features detected:', {
+            deadEnds: deadEnds.length
+            , corridors: corridors.length
+            , culDeSacs: culDeSacs.length
+            , corridorDeadEnds: corridorDeadEnds.length
+            , junctions: junctions.length
+            , crossroads: crossroads.length
+        })
+        return new FeaturesObject(features, this)
+    }
+
+    drawInverted(ctx) {
+        this.clear(ctx)
+        this.drawMazeWalls(ctx)
+        this.drawMazeBorder(ctx)
+        
+    }
+
+    drawMazeWalls(ctx) {
+        ctx.strokeStyle = conf.lineColor || '#999'
+        ctx.lineWidth = conf.lineWidth || 2
+        ctx.lineCap = 'square'
+
+        ctx.beginPath()
+        this._walls.forEach(([a, b]) => {
+            let [x1, y1, x2, y2] = this.plotWall(a, b)
+            ctx.moveTo(x1, y1)
+            ctx.lineTo(x2, y2)
+        })
+        ctx.stroke()
+    }
+
+    plotWall(a, b) {
+        let diff = b - a
+            , cols = conf.cols
+            , row = Math.floor(a / cols)
+            , col = a % cols
+            , size = conf.pointSpread
+            /* Offset so walls align with the existing grid positions. */
+            , firstPoint = os.pointList[0]
+            , offX = firstPoint.x - size * 0.5
+            , offY = firstPoint.y - size * 0.5
+            ;
+
+        if(diff === 1) {
+            /* Vertical wall on the right edge of cell a. */
+            let x = offX + (col + 1) * size
+            let y = offY + row * size
+            return [x, y, x, y + size]
+        }
+
+        /* Horizontal wall on the bottom edge of cell a. */
+        let x = offX + col * size
+        let y = offY + (row + 1) * size
+        return [x, y, x + size, y]
+    }
+
+    drawMazeBorder(ctx) {
+        let size = conf.pointSpread
+            , firstPoint = os.pointList[0]
+            , lineWidth = 3
+            , padding = 2
+            , offX = firstPoint.x - size * 0.5 - (lineWidth * 0.5) - (padding * 0.5)
+            , offY = firstPoint.y - size * 0.5 - (lineWidth * 0.5) - (padding * 0.5)
+            , w = lineWidth + padding + (conf.cols * size)
+            , h = lineWidth + padding + (conf.rows * size)
+            ;
+        ctx.strokeStyle = '#666'
+        ctx.lineWidth = lineWidth
+        ctx.strokeRect(offX, offY, w, h)
+    }
+}
+
+
+class FeaturesObject {
+    /* A simple wrapper for the features detected in the maze, with some helper methods for querying. 
+    
+    Synonmyms:
+
+        info.deadEnds.forEach(x=>stage.addPointAtPosition(x, {color:'red'}));
+        info.corridorDeadEnds.forEach(l=>{
+            stage.addPointAtPosition(l.deadEnds[0], {color:'white'})
+        });
+
+    */
+
+    constructor(info, stage){
+        this.info = info
+        this.stage = stage
+
+    }
+
+    clearFeatures(stage=this.stage) {
+        stage.featurePoints = new PointList
+    }
+
+    showCorridors(stage=this.stage) {
+        this.info.corridors.forEach(chain=>{
+            chain.forEach(x=>{
+                stage.addPointAtPosition(x, {color:'lightgreen'})
+            })
+        })
+    }
+
+    showJunctions(stage=this.stage) {
+        this.info.junctions.forEach(x=>stage.addPointAtPosition(x, {color:'lightblue'}));
+    }
+    
+    showDeadEnds(stage=this.stage) {
+        this.info.deadEnds.forEach(x=>stage.addPointAtPosition(x, {color:'red'}));
+    }
+
+    showCorridorDeadEnds(stage=this.stage) {
+        this.info.corridorDeadEnds.forEach(l=>{
+            stage.addPointAtPosition(l.deadEnds[0], {color:'white'})
+        });
+    }
+
+    showCrossroads(stage=this.stage) {
+        this.info.crossroads.forEach(x=>stage.addPointAtPosition(x, {color:'purple'}));
+    }
+
+    showCulDeSacs(stage=this.stage) {
+        this.info.culDeSacs.forEach(chain=>{
+            chain.forEach(x=>{
+                stage.addPointAtPosition(x, {color:'orange'})
+            })
+        }); 
+    }
+
+
 }
 
 

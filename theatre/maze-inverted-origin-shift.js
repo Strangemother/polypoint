@@ -1,6 +1,6 @@
 /*
 ---
-title: Maze Walls (Origin Shift)
+title: Inverted Maze Walls (Origin Shift)
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -22,7 +22,43 @@ Loads the maze JSON, computes walls from edges, and draws them.
 
  */
 
-const MAZE_JSON_PATH = '../theatre/jsons/maze-1-walls.json'
+const MAZE_JSON_WALLS = '../theatre/jsons/tiny-walls-2.json'
+const MAZE_JSON_RAW_PATH = '../theatre/jsons/large-paths-with-missing.json'
+
+
+addButton('Load Demo Walls', {
+    onclick(){
+        console.log('click')
+        stage.downloadMaze(MAZE_JSON_WALLS)
+    }
+});
+
+addButton('Load Demo Paths', {
+    onclick(){
+        console.log('click')
+        stage.downloadMaze(MAZE_JSON_RAW_PATH)
+    }
+});
+
+
+addControl('text', {
+    field: 'input'
+    , value: 'filename.json'
+    , onchange(ev) {
+        let url = ev.target.value
+        console.log('URL:', url)
+        stage._targetURL = url
+    }
+})
+
+
+addButton('Load file (Above)', {
+    onclick(){
+        console.log('click')
+        stage.downloadMaze(stage._targetURL)
+    }
+});
+
 
 class MainStage extends Stage {
     canvas='playspace'
@@ -32,16 +68,23 @@ class MainStage extends Stage {
         this.offset = 100
         this.borderLineWidth = 3
         this.borderInnerPadding = 2
+        // this.downloadMaze(MAZE_JSON_WALLS)
+    }
 
-        fetch(MAZE_JSON_PATH)
+    downloadMaze(url){
+        fetch(url)
             .then(r => r.json())
             .then(data => {
                 this.rows = data.meta.rows
                 this.cols = data.meta.cols
                 this.walls = data.walls 
-                //this.loadMaze(data)
+                if(data.edges) {
+                    console.log('Edges found in maze JSON, computing walls from edges...')
+                    this.walls = this.loadMaze(data)
+                }
                 this.firstDraw(this.ctx)
             });
+
     }
 
     loadMaze(data) {
@@ -50,7 +93,12 @@ class MainStage extends Stage {
 
         /* Build a set of open passages for fast lookup. */
         let open = new Set()
-        data.edges.forEach(([a, b]) => {
+        let items = data.walls
+        if(items == undefined || (items.length === 0 && data.edges)) {
+            console.log('No walls found, but edges exist. Using edges as open passages.')
+            items = data.edges
+        }
+        items.forEach(([a, b]) => {
             let lo = Math.min(a, b), hi = Math.max(a, b)
             open.add(lo + '-' + hi)
         })

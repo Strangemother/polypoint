@@ -180,6 +180,10 @@ class MainStage extends Stage {
         ]
         this.paths = new Array(this.walkers.length)
         this.featurePoints = new PointList
+        /* Highlighted wall segments keyed by colour,
+           populated via addFeatureWall. Rendered on top of
+           everything in draw() / refresh(). */
+        this.featureWalls = []
 
         let kb = this.keyboard
         // kb.onKeydown(KC.UP, this.onUpKeydown.bind(this))
@@ -276,6 +280,7 @@ class MainStage extends Stage {
         })
 
         this.featurePoints.pen.fill(ctx) 
+        this.drawFeatureWalls(ctx)
     }
 
 
@@ -296,6 +301,9 @@ class MainStage extends Stage {
         if(this.permanentWalls) {
             this.drawInverted(ctx)
         }
+
+        this.featurePoints.pen.fill(ctx)
+        this.drawFeatureWalls(ctx)
     }
 
     drawPath(startIndex=undefined, clean=true, d={}){
@@ -534,6 +542,36 @@ class MainStage extends Stage {
         
         this.featurePoints.push(p)
 
+    }
+
+    addFeatureWall(a, b, color='yellow', width=4) {
+        /* Highlight a wall segment between cells a and b.
+           Used by FeaturesObject.showNarrowWalls etc.
+           The wall pair order is normalised to match the
+           format used by computeWalls / plotWall. */
+        let lo = Math.min(a, b), hi = Math.max(a, b)
+        if(!this.featureWalls) { this.featureWalls = [] }
+        this.featureWalls.push({a: lo, b: hi, color, width})
+    }
+
+    clearFeatureWalls() {
+        this.featureWalls = []
+    }
+
+    drawFeatureWalls(ctx) {
+        if(!this.featureWalls || this.featureWalls.length === 0) { return }
+        let prevCap = ctx.lineCap
+        ctx.lineCap = 'square'
+        this.featureWalls.forEach(w => {
+            let [x1, y1, x2, y2] = this.plotWall(w.a, w.b)
+            ctx.strokeStyle = w.color
+            ctx.lineWidth = w.width
+            ctx.beginPath()
+            ctx.moveTo(x1, y1)
+            ctx.lineTo(x2, y2)
+            ctx.stroke()
+        })
+        ctx.lineCap = prevCap
     }
 
     detectFeatures() {
@@ -852,6 +890,13 @@ class MainStage extends Stage {
                             axis: 'horizontal'
                             , gapIndex: mid
                             , gapPair: [mid, mid + cols]
+                            /* The two jamb walls that flank the
+                               doorway. Each pair is [a,b] with
+                               a<b, matching the walls list format. */
+                            , jambWalls: [
+                                [mid - 1, mid - 1 + cols]
+                                , [mid + 1, mid + 1 + cols]
+                            ]
                         })
                     }
                 }
@@ -878,6 +923,12 @@ class MainStage extends Stage {
                             axis: 'vertical'
                             , gapIndex: mid
                             , gapPair: [mid, mid + 1]
+                            /* Jamb walls above and below the
+                               doorway. */
+                            , jambWalls: [
+                                [mid - cols, mid - cols + 1]
+                                , [mid + cols, mid + cols + 1]
+                            ]
                         })
                     }
                 }
@@ -970,6 +1021,7 @@ class FeaturesObject {
 
     clearFeatures(stage=this.stage) {
         stage.featurePoints = new PointList
+        stage.clearFeatureWalls && stage.clearFeatureWalls()
     }
 
     showCorridors(stage=this.stage) {
@@ -1010,6 +1062,31 @@ class FeaturesObject {
         this.info.narrows.forEach(n=>{
             stage.addPointAtPosition(n.gapIndex, {color:'yellow'})
         });
+    }
+
+    showNarrowWalls(stage=this.stage, color='deeppink', width=4) {
+        /* Render the two jamb walls for every detected narrow
+           as highlighted wall segments — these are the door
+           placements for the game render. */
+        this.info.narrows.forEach(n => {
+            if(!n.jambWalls) { return }
+            n.jambWalls.forEach(([a, b]) => {
+                stage.addFeatureWall(a, b, color, width)
+            })
+        })
+        stage.refresh && stage.refresh()
+    }
+
+    showNarrowDoors(stage=this.stage, color='gold', width=4) {
+        /* Render the doorway GAP between the jambs for every
+           detected narrow — the open edge where a door would
+           be placed to seal the passage. */
+        this.info.narrows.forEach(n => {
+            if(!n.gapPair) { return }
+            let [a, b] = n.gapPair
+            stage.addFeatureWall(a, b, color, width)
+        })
+        stage.refresh && stage.refresh()
     }
 
 

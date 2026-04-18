@@ -378,6 +378,13 @@ class MainStage extends Stage {
 
     reset(draw=true){
         os.reset()
+        /* Clear any feature overlays from a previous maze —
+           indices/positions are no longer meaningful after
+           a reset. */
+        this.featurePoints = new PointList
+        this.featureWalls = []
+        this._walls = null
+        this._features = null
         draw && this.draw(this.ctx)
     }
 
@@ -487,11 +494,14 @@ class MainStage extends Stage {
             })
         })
 
-        /* Detect features and serialise. The cells Map becomes
-           an array of cell objects for JSON compatibility. */
+        /* Detect features and serialise. Clone the features
+           shape so converting the cells Map to an array for
+           JSON doesn't mutate the cached in-memory features. */
         this._walls = walls
-        let feat = this.detectFeatures().info
-        feat.cells = Array.from(feat.cells.values())
+        let source = this.detectFeatures().info
+        let feat = Object.assign({}, source, {
+            cells: Array.from(source.cells.values())
+        })
 
         return {
             meta: {
@@ -550,6 +560,18 @@ class MainStage extends Stage {
            The wall pair order is normalised to match the
            format used by computeWalls / plotWall. */
         let lo = Math.min(a, b), hi = Math.max(a, b)
+        let diff = hi - lo
+        /* plotWall only understands horizontal (diff=1, same row)
+           and vertical (diff=cols) adjacencies. Anything else
+           would produce nonsensical geometry. */
+        if(diff !== 1 && diff !== conf.cols) {
+            console.warn('addFeatureWall: non-adjacent pair', a, b)
+            return
+        }
+        if(diff === 1 && Math.floor(lo / conf.cols) !== Math.floor(hi / conf.cols)) {
+            console.warn('addFeatureWall: pair wraps row boundary', a, b)
+            return
+        }
         if(!this.featureWalls) { this.featureWalls = [] }
         this.featureWalls.push({a: lo, b: hi, color, width})
     }
@@ -747,7 +769,7 @@ class MainStage extends Stage {
         return new FeaturesObject(features, this)
     }
 
-    detectNarrows(cells, rows, cols, mirror=true) {
+    detectNarrows(cells, rows, cols) {
         /* Detect strict H-shaped doorway / pinch-point cells.
 
            The H pattern (correct examples):
@@ -758,100 +780,12 @@ class MainStage extends Stage {
                |  |  |          --------
                -------
 
-           Three cells in a line L─M─R where:
-             1. M is open on BOTH transverse sides (the gap).
-             2. L and R are walled on BOTH transverse sides
-                (the jambs / pillars of the H).
-             3. M actually connects to L and R along the
-                passage axis (through-passage).
+           Defined by an OPEN doorway edge with parallel
+           WALLED jamb edges on each side, where both rows
+           of the H are connected through.
 
-           mirror=true (default): full H — both transverse
-           sides match. This is the user-preferred shape.
-
-           mirror=false: relaxed — only one transverse side
-           needs the wall-gap-wall pattern. */
-        return mirror
-            ? this.detectNarrowsMirrored(cells, rows, cols)
-            : this.detectNarrowsSingle(cells, rows, cols)
-    }
-
-    detectNarrowsSingle(cells, rows, cols) {
-        /* A narrow / doorway / pinch-point is THREE cells in a
-           row (L M R) where M is the squeezed middle:
-
-               +--+--+--+
-               |  ?  ?  |    L and R are "wider" — at least one
-               +  +##+  +    transverse opening each.
-               .  L  M  R .  Passage runs L ── M ── R.
-               +  +##+  +    M is walled top AND bottom (pinch),
-               |  ?  ?  |    open left AND right (through-passage).
-               +--+--+--+
-
-           Three required properties of M:
-             1. M is walled on BOTH transverse sides
-                (this is what makes it "narrow" — excludes
-                junctions / crossroads which have transverse
-                openings).
-             2. M connects to both L and R
-                (the passage actually goes through).
-             3. At least one of L or R is wider — has an
-                opening on a transverse side (otherwise the
-                three cells form a plain straight corridor,
-                not a *narrowing*).
-
-           Single-side: only one of L / R needs the transverse
-           opening (asymmetric doorway counts).
-           Mirrored variant requires both. */
-        let narrows = []
-
-        cells.forEach((midCell) => {
-            let {row: r, col: c, index: mid} = midCell
-
-            if(c > 0 && c < cols - 1) {
-                let leftCell  = cells.get(mid - 1)
-                let rightCell = cells.get(mid + 1)
-                /* M is a horizontal corridor (pinch + through). */
-                let mIsPinch = midCell.walls.up && midCell.walls.down
-                    && !midCell.walls.left && !midCell.walls.right
-                let leftWider  = leftCell  && (!leftCell.walls.up  || !leftCell.walls.down)
-                let rightWider = rightCell && (!rightCell.walls.up || !rightCell.walls.down)
-                if(leftCell && rightCell && mIsPinch
-                    && (leftWider || rightWider)) {
-                    narrows.push({
-                        axis: 'horizontal'
-                        , gapIndex: mid
-                    })
-                }
-            }
-
-            if(r > 0 && r < rows - 1) {
-                let aboveCell = cells.get(mid - cols)
-                let belowCell = cells.get(mid + cols)
-                /* M is a vertical corridor (pinch + through). */
-                let mIsPinch = midCell.walls.left && midCell.walls.right
-                    && !midCell.walls.up && !midCell.walls.down
-                let aboveWider = aboveCell && (!aboveCell.walls.left || !aboveCell.walls.right)
-                let belowWider = belowCell && (!belowCell.walls.left || !belowCell.walls.right)
-                if(aboveCell && belowCell && mIsPinch
-                    && (aboveWider || belowWider)) {
-                    narrows.push({
-                        axis: 'vertical'
-                        , gapIndex: mid
-                    })
-                }
-            }
-        })
-
-        return narrows
-    }
-
-    detectNarrowsMirrored(cells, rows, cols) {
-        /* Strict H — defined by an OPEN doorway edge with
-           parallel WALLED jamb edges on each side, where both
-           rows of the H are connected through.
-
-           A horizontal H around the doorway edge M↔M' (M above,
-           M' below):
+           A horizontal H around the doorway edge M↔M'
+           (M above, M' below):
 
                +--+--+--+
                | L  M  R|       row r:    L─M─R open across
@@ -861,9 +795,13 @@ class MainStage extends Stage {
                                 row r+1: L'─M'─R' open across
 
            Detected per OPEN edge (not per cell), so we get one
-           entry per doorway. Cells M can be junctions or any
-           other type — what matters is the surrounding edge
-           pattern. */
+           entry per doorway. Each narrow carries:
+             - axis:      'horizontal' | 'vertical'
+             - gapIndex:  cell on one side of the doorway
+             - gapPair:   [a,b] the two cells of the doorway
+             - jambWalls: [[a,b],[a,b]] the two flanking walls
+                          (pair ordering matches the main
+                          walls list: a<b). */
         let narrows = []
 
         cells.forEach((m) => {

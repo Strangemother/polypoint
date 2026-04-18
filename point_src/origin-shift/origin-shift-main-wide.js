@@ -461,7 +461,8 @@ class MainStage extends Stage {
 
     exportWalls() {
         /* Export the maze in the same format as os.export(),
-           but with a `walls` key instead of `edges`. */
+           but with a `walls` key instead of `edges`,
+           and a `features` key with detected spatial features. */
         let cols = conf.cols
         let walls = this.computeWalls()
 
@@ -478,6 +479,12 @@ class MainStage extends Stage {
             })
         })
 
+        /* Detect features and serialise. The cells Map becomes
+           an array of cell objects for JSON compatibility. */
+        this._walls = walls
+        let feat = this.detectFeatures().info
+        feat.cells = Array.from(feat.cells.values())
+
         return {
             meta: {
                 rows: conf.rows
@@ -487,6 +494,7 @@ class MainStage extends Stage {
             }
             , nodes
             , walls
+            , features: feat
         }
     }
 

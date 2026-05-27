@@ -1,0 +1,260 @@
+{
+  "meta": {
+    "rows": 3,
+    "cols": 3,
+    "pointSpread": 15,
+    "originIndex": 3
+  },
+  "nodes": [
+    {
+      "index": 0,
+      "row": 0,
+      "col": 0,
+      "x": 20,
+      "y": 20,
+      "target": 1,
+      "color": null
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "col": 1,
+      "x": 35,
+      "y": 20,
+      "target": 4,
+      "color": null
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "col": 2,
+      "x": 50,
+      "y": 20,
+      "target": 1,
+      "color": null
+    },
+    {
+      "index": 3,
+      "row": 1,
+      "col": 0,
+      "x": 20,
+      "y": 35,
+      "target": 6,
+      "color": null
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "col": 1,
+      "x": 35,
+      "y": 35,
+      "target": 3,
+      "color": null
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "col": 2,
+      "x": 50,
+      "y": 35,
+      "target": 4,
+      "color": null
+    },
+    {
+      "index": 6,
+      "row": 2,
+      "col": 0,
+      "x": 20,
+      "y": 50,
+      "target": 3,
+      "color": null
+    },
+    {
+      "index": 7,
+      "row": 2,
+      "col": 1,
+      "x": 35,
+      "y": 50,
+      "target": 6,
+      "color": null
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "col": 2,
+      "x": 50,
+      "y": 50,
+      "target": 5,
+      "color": null
+    }
+  ],
+  "walls": [
+    [
+      0,
+      3
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      4,
+      7
+    ],
+    [
+      7,
+      8
+    ]
+  ],
+  "features": {
+    "cells": [
+      {
+        "index": 0,
+        "row": 0,
+        "col": 0,
+        "exits": 1,
+        "wallCount": 3,
+        "type": "deadEnd",
+        "walls": {
+          "up": true,
+          "down": true,
+          "left": true,
+          "right": false
+        }
+      },
+      {
+        "index": 1,
+        "row": 0,
+        "col": 1,
+        "exits": 3,
+        "wallCount": 1,
+        "type": "junction",
+        "walls": {
+          "up": true,
+          "down": false,
+          "left": false,
+          "right": false
+        }
+      },
+      {
+        "index": 2,
+        "row": 0,
+        "col": 2,
+        "exits": 1,
+        "wallCount": 3,
+        "type": "deadEnd",
+        "walls": {
+          "up": true,
+          "down": true,
+          "left": false,
+          "right": true
+        }
+      },
+      {
+        "index": 3,
+        "row": 1,
+        "col": 0,
+        "exits": 2,
+        "wallCount": 2,
+        "type": "corridor",
+        "walls": {
+          "up": true,
+          "down": false,
+          "left": true,
+          "right": false
+        }
+      },
+      {
+        "index": 4,
+        "row": 1,
+        "col": 1,
+        "exits": 3,
+        "wallCount": 1,
+        "type": "junction",
+        "walls": {
+          "up": false,
+          "down": true,
+          "left": false,
+          "right": false
+        }
+      },
+      {
+        "index": 5,
+        "row": 1,
+        "col": 2,
+        "exits": 2,
+        "wallCount": 2,
+        "type": "corridor",
+        "walls": {
+          "up": true,
+          "down": false,
+          "left": false,
+          "right": true
+        }
+      },
+      {
+        "index": 6,
+        "row": 2,
+        "col": 0,
+        "exits": 2,
+        "wallCount": 2,
+        "type": "corridor",
+        "walls": {
+          "up": false,
+          "down": true,
+          "left": true,
+          "right": false
+        }
+      },
+      {
+        "index": 7,
+        "row": 2,
+        "col": 1,
+        "exits": 1,
+        "wallCount": 3,
+        "type": "deadEnd",
+        "walls": {
+          "up": true,
+          "down": true,
+          "left": false,
+          "right": true
+        }
+      },
+      {
+        "index": 8,
+        "row": 2,
+        "col": 2,
+        "exits": 1,
+        "wallCount": 3,
+        "type": "deadEnd",
+        "walls": {
+          "up": false,
+          "down": true,
+          "left": true,
+          "right": true
+        }
+      }
+    ],
+    "deadEnds": [
+      0,
+      2,
+      7,
+      8
+    ],
+    "corridors": [],
+    "culDeSacs": [],
+    "corridorDeadEnds": [],
+    "alcoves": [
+      0,
+      2,
+      7,
+      8
+    ],
+    "junctions": [
+      1,
+      4
+    ],
+    "crossroads": [],
+    "narrows": []
+  }
+}

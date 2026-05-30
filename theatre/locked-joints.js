@@ -27,6 +27,14 @@ Rotating the origin will slide the position around the origin center
 Moving the knee will _lock_ at the edges of the projected cone.
 
 distance is handled by another element, and is optional here.
+
+This demo uses two constraints together:
+
+1. `cone()` limits the angle of the child around its parent.
+2. `track()` keeps the child at a fixed distance from its parent.
+
+So the cone decides _where the point may rotate_, while track decides _how far
+away it stays_. Combining them gives a simple joint with angular limits.
  */
 class MainStage extends Stage {
     canvas='playspace'
@@ -48,11 +56,14 @@ class MainStage extends Stage {
     draw(ctx){
         this.clear(ctx)
 
-        this.a.rotation += 1
+        // this.a.rotation += 1
 
+        /* First clamp each child into its parent's allowed angular cone. */
         this.a.constraint.cone(this.b, this.a.cone)
         this.b.constraint.cone(this.c, this.b.cone)
 
+        /* Then enforce the segment lengths. This preserves the locked angle
+        while keeping each point on its radius from the parent. */
         this.b.constraint.track(this.a, 200)
         this.c.constraint.track(this.b, 100)
 

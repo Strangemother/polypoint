@@ -43,6 +43,41 @@ const constraints = {
         return this._ifDistance(pointA, pointB, maxDistance, this.lte)
     }
 
+    , cone(pointA, pointB, settings={}) {
+        if(isNumber(settings)) {
+            settings = { cone: settings }
+        }
+
+        const conf = Object.assign({
+            cone: pointB.cone
+            , rotation: pointA.rotation
+            , distance: undefined
+            , direction: 1
+        }, settings)
+
+        if(conf.cone == undefined) {
+            return false
+        }
+
+        const angle = calculateAngle180(pointA, pointB, conf.rotation, conf.direction)
+        if(Math.abs(angle) <= conf.cone) {
+            return false
+        }
+
+        const distance = conf.distance == undefined
+            ? pointA.distanceTo(pointB)
+            : conf.distance
+
+        if(distance == 0) {
+            return false
+        }
+
+        const lockedAngle = clamp(angle, -conf.cone, conf.cone)
+        const absoluteAngle = conf.rotation + (lockedAngle * conf.direction)
+        pointB.copy(projectFrom(pointA, distance, absoluteAngle))
+        return true
+    }
+
 }
 
 
@@ -174,6 +209,10 @@ class PointConstraints {
         }, settings)
         return stringAttach(other, this.parent, c)
     }
+
+    cone(other, settings) {
+        return constraints.cone(this.parent, other, settings)
+    }
 }
 
 Polypoint.head.deferredProp('Point',
@@ -201,6 +240,10 @@ Polypoint.head.installFunctions('Point', {
     occurs, this point is moved. Fundamentally this is the antethsis of leash().*/
     , avoid(other, settings) {
         return constraints.inverse(other, this, settings)
+    }
+
+    , cone(other, settings) {
+        return constraints.cone(other, this, settings)
     }
 })
 

@@ -52,6 +52,8 @@ class MainStage extends Stage {
 
         // this.a.rotation += 1
 
+        this.a.constraint.cone(this.b, this.b.cone)
+
         this.a.pen.indicator(ctx, {color:'#ddd'})
         this.b.pen.indicator(ctx, {color:'green'})
         this.c.pen.indicator(ctx)

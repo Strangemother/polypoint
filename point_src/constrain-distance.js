@@ -59,6 +59,8 @@ const constraints = {
             rotation: forward direction of the cone. Defaults to pointA.rotation.
             distance: optional radius to project onto. Defaults to current A->B distance.
             direction: flip the angle direction when using an inverted frame.
+            resist: how much of the correction stays on the child. `1` keeps the
+                parent fixed, `0` rotates the parent to absorb all overflow.
 
         The steps are:
             1. Measure the signed angle from the cone center to pointB.
@@ -75,6 +77,7 @@ const constraints = {
             , rotation: pointA.rotation
             , distance: undefined
             , direction: 1
+            , resist: 1
         }, settings)
 
         if(conf.cone == undefined) {
@@ -96,10 +99,17 @@ const constraints = {
             return false
         }
 
-        /* Clamp to the nearest allowed cone edge, then rebuild the position
-        from pointA using the same radius. */
+        const resist = clamp(conf.resist, 0, 1)
+
+        /* Split the overflow correction between parent rotation and child
+        position. When resist is 1 the parent stays fixed. When resist is 0 the
+        parent rotates enough to keep the child where it was dragged. */
         const lockedAngle = clamp(angle, -conf.cone, conf.cone)
-        const absoluteAngle = conf.rotation + (lockedAngle * conf.direction)
+        const overflow = angle - lockedAngle
+        const rotationShift = overflow * (1 - resist) * conf.direction
+        pointA.rotation += rotationShift
+
+        const absoluteAngle = pointA.rotation + (lockedAngle * conf.direction)
         pointB.copy(projectFrom(pointA, distance, absoluteAngle))
         return true
     }
@@ -236,9 +246,22 @@ class PointConstraints {
         return stringAttach(other, this.parent, c)
     }
 
-    cone(other, settings) {
-        return constraints.cone(this.parent, other, settings)
+    cone(other, settings, options=undefined) {
+        return constraints.cone(this.parent, other, mergeConeSettings(settings, options))
     }
+}
+
+
+const mergeConeSettings = function(settings, options=undefined) {
+    if(options == undefined) {
+        return settings
+    }
+
+    if(typeof(settings) == 'number') {
+        return Object.assign({ cone: settings }, options)
+    }
+
+    return Object.assign({}, settings, options)
 }
 
 Polypoint.head.deferredProp('Point',
@@ -268,8 +291,8 @@ Polypoint.head.installFunctions('Point', {
         return constraints.inverse(other, this, settings)
     }
 
-    , cone(other, settings) {
-        return constraints.cone(other, this, settings)
+    , cone(other, settings, options=undefined) {
+        return constraints.cone(other, this, mergeConeSettings(settings, options))
     }
 })
 

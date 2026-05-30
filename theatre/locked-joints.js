@@ -1,6 +1,6 @@
 /*
 ---
-title: Locked Coupling Points
+title: Locked Joint
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -14,10 +14,8 @@ files:
     ../point_src/dragging.js
     ../point_src/functions/clamp.js
     ../point_src/stage.js
-    ../point_src/coupling.js
+    ../point_src/constrain-distance.js
 ---
-
-# Locked Joint
 
 A point cannot exceed the rotation around a point to a maxmium angle value,
 relative to the origin point zero.
@@ -35,12 +33,12 @@ class MainStage extends Stage {
 
     mounted(){
 
-        let a = this.a = new Point({x:200,y:200, radius: 50, rotation: 10, cone: 10})
+        let a = this.a = new Point({x:200,y:200, radius: 50, rotation: 10, cone: 50})
         let b = this.b = new Point({x:400,y:200, radius: 30,
                 rotation: 0,
                 /* degrees  either side of rotation point.
                 resulting in 10 arc degress allowed movement.*/
-                cone: 5})
+                cone: 10})
         let c = this.c = new Point({x:600,y:200, radius: 20})
 
         this.dragging.add(a, b, c)
@@ -50,9 +48,13 @@ class MainStage extends Stage {
     draw(ctx){
         this.clear(ctx)
 
-        // this.a.rotation += 1
+        this.a.rotation += 1
 
-        this.a.constraint.cone(this.b, this.b.cone)
+        this.a.constraint.cone(this.b, this.a.cone)
+        this.b.constraint.cone(this.c, this.b.cone)
+
+        this.b.constraint.track(this.a, 200)
+        this.c.constraint.track(this.b, 100)
 
         this.a.pen.indicator(ctx, {color:'#ddd'})
         this.b.pen.indicator(ctx, {color:'green'})

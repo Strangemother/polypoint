@@ -44,7 +44,7 @@ const constraints = {
     }
 
     , cone(pointA, pointB, settings={}) {
-        if(isNumber(settings)) {
+        if(typeof(settings) == 'number') {
             settings = { cone: settings }
         }
 

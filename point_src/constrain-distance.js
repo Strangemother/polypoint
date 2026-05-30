@@ -44,6 +44,28 @@ const constraints = {
     }
 
     , cone(pointA, pointB, settings={}) {
+        /* Keep `pointB` inside an angular cone projected from `pointA`.
+
+        The cone is centered on `rotation` and extends `cone` degrees to either
+        side. If `pointB` drifts outside that arc we do not change its distance,
+        we only clamp its angle and project it back onto the same radius.
+
+        Example:
+
+            constraints.cone(hip, knee, { cone: 25 })
+
+        Settings:
+            cone: half-width of the allowed arc in degrees.
+            rotation: forward direction of the cone. Defaults to pointA.rotation.
+            distance: optional radius to project onto. Defaults to current A->B distance.
+            direction: flip the angle direction when using an inverted frame.
+
+        The steps are:
+            1. Measure the signed angle from the cone center to pointB.
+            2. If the angle is already inside the cone, do nothing.
+            3. Clamp the angle to the nearest cone edge.
+            4. Re-project pointB from pointA using the preserved distance.
+        */
         if(typeof(settings) == 'number') {
             settings = { cone: settings }
         }
@@ -59,6 +81,8 @@ const constraints = {
             return false
         }
 
+        /* Angle is signed, so negative values are left of the cone center and
+        positive values are right of it. */
         const angle = calculateAngle180(pointA, pointB, conf.rotation, conf.direction)
         if(Math.abs(angle) <= conf.cone) {
             return false
@@ -72,6 +96,8 @@ const constraints = {
             return false
         }
 
+        /* Clamp to the nearest allowed cone edge, then rebuild the position
+        from pointA using the same radius. */
         const lockedAngle = clamp(angle, -conf.cone, conf.cone)
         const absoluteAngle = conf.rotation + (lockedAngle * conf.direction)
         pointB.copy(projectFrom(pointA, distance, absoluteAngle))

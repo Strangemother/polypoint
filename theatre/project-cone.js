@@ -1,6 +1,6 @@
 /*
 ---
-title: Locked Joint
+title: Project Cone
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js
@@ -21,17 +21,16 @@ files:
     ../point_src/constrain-distance.js
 ---
 
-Given a point, project a cone from the center of the point, and limit the rotation of the point to a maximum angle value.
-
-The point can be rotated around its center, but it cannot exceed the angle of the cone. 
-The cone is defined by a rotation value and a cone angle. The rotation value determines the direction of the cone, and the cone angle determines how wide the cone is.
- */
+The projected cone from the center of the origin. This is actually
+a pointlist with a fill.
+*/
 class MainStage extends Stage {
     canvas='playspace'
 
     mounted(){
 
-        let a = this.a = new Point({x:200,y:200, radius: 50, rotation: 10, cone: 50})
+        let a = this.a = new Point({x:200,y:200, radius: 50,
+                                rotation: 10, cone: 5})
 
         this.dragging.add(a)
 
@@ -44,12 +43,17 @@ class MainStage extends Stage {
 
         let conePoints = this.getConePoints(this.a)
         // draw cone by filling the polygon of the cone points
-        conePoints.pen.fill(ctx, {color: 'rebeccapurple'})
         conePoints.draw.line(ctx)
         // conePoints.pen.fill(ctx, {color: 'undefined'})
-        this.pen.fill(ctx, "#5f2260")
+        this.pen.fill(ctx, "#0c0811")
+        conePoints.pen.fill(ctx, {color: 'rebeccapurple'})
+
+        conePoints[0].pen.line(ctx, conePoints[1], 'purple', 2)
+        conePoints[0].pen.line(ctx, conePoints.last(), 'purple', 2)
+
+        // conePoints.pen.line(ctx, {color: 'purple', width: 2, closed: true})
         this.a.pen.indicator(ctx, {color:'#ddd'})
-        
+
     }
 
     getConePoints(point){
@@ -61,8 +65,12 @@ class MainStage extends Stage {
         return new PointList(point.copy().update({radius: undefined}), start, ...corners, end).cast()
     }
 
+    getContainer(){
+        return this.dimensions
+    }
+
     getConeCorners(point, startAngle, endAngle) {
-        let { width, height } = this.dimensions
+        let { width, height } = this.getContainer()
         let sweep = endAngle - startAngle
         let corners = [
             new Point({x: 0, y: 0})
@@ -85,7 +93,7 @@ class MainStage extends Stage {
     }
 
     getWallIntersection(point, angle) {
-        let { width, height } = this.dimensions
+        let { width, height } = this.getContainer()
         let radians = degToRad(angle)
         let dx = Math.cos(radians)
         let dy = Math.sin(radians)
@@ -115,7 +123,7 @@ class MainStage extends Stage {
     hitAtX(point, wallX, dx, dy) {
         let distance = (wallX - point.x) / dx
         let y = point.y + (dy * distance)
-        if(distance < 0 || y < 0 || y > this.dimensions.height) {
+        if(distance < 0 || y < 0 || y > this.getContainer().height) {
             return undefined
         }
 
@@ -125,7 +133,7 @@ class MainStage extends Stage {
     hitAtY(point, wallY, dx, dy) {
         let distance = (wallY - point.y) / dy
         let x = point.x + (dx * distance)
-        if(distance < 0 || x < 0 || x > this.dimensions.width) {
+        if(distance < 0 || x < 0 || x > this.getContainer().width) {
             return undefined
         }
 

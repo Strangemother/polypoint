@@ -28,7 +28,7 @@ class PointListDraw {
     }
 
     /* Draw this list as a pointline, provide an init position for an offset. */
-    pointLine(ctx, position, eachFunc) {
+    pointLine(ctx, position, loop=false) {
         // To 'close' the old drawing.
         let pointsArray = this.list
         let a = pointsArray[0]
@@ -42,13 +42,15 @@ class PointListDraw {
             let segment = pointsArray[i]
             ctx.lineTo(segment.x + x, segment.y + y);
         }
-
+        if(loop==true) {
+            ctx.lineTo(a.x, a.y);
+        }
         // ctx.strokeStyle = 'white'
     }
 
     /* Draw a startline lineTo through all points. */
-    line(ctx) {
-        return this.pointLine(ctx)
+    line(ctx, conf={}) {
+        return this.pointLine(ctx, undefined, conf.loop == undefined? conf.closed: conf.loop)
     }
 
     quadCurve(ctx, loop=false, position){

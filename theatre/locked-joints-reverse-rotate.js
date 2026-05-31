@@ -52,7 +52,7 @@ class MainStage extends Stage {
 
         /* resist=0 means the parent absorbs the overflow and rotates with the
         dragged knee instead of forcing the knee back to the cone edge. */
-        this.a.constraint.cone(this.b, this.a.cone, { resist: 0})
+        this.a.constraint.cone(this.b, this.a.cone, { resist: 0.5})
 
         this.b.constraint.track(this.a, 200)
 

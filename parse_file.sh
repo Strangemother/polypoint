@@ -37,7 +37,7 @@ echo -e "${GREEN}✓ Tree file created${NC}"
 echo ""
 echo -e "${BLUE}Step 2: Processing tree with Python processor...${NC}"
 cd /workspaces/polypoint/py_tools
-python run-tree2.py "$TREE_FILE"
+python run_tree2.py "$TREE_FILE"
 
 if [ $? -ne 0 ]; then
     echo -e "${RED}Error: Failed to process tree file${NC}"

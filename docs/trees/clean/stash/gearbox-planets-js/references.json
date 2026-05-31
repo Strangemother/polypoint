@@ -1,0 +1,223 @@
+{
+    "src_file": "gearbox-planets.js",
+    "references": {
+        "classes": {
+            "PlanetaryGearSystem": {
+                "class_name": "PlanetaryGearSystem",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PlanetaryGearSystem",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "gearbox"
+                            },
+                            {
+                                "name": "options",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Configuration",
+                                    "block": false,
+                                    "line": 117
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 111
+                    },
+                    {
+                        "method_name": "createPlanet",
+                        "class_name": "PlanetaryGearSystem",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "angle"
+                            },
+                            {
+                                "name": "radius"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Create a single planet gear at the specified angle (in degrees) ",
+                                    "block": true,
+                                    "line": 159
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 158
+                    },
+                    {
+                        "method_name": "calculatePlanetPosition",
+                        "class_name": "PlanetaryGearSystem",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "angle"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Calculate XY position for a planet at the given orbital angle \n         * Angle is in degrees (polypoint convention)\n         ",
+                                    "block": true,
+                                    "line": 181
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 178
+                    },
+                    {
+                        "method_name": "updateOrbitalPositions",
+                        "class_name": "PlanetaryGearSystem",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Update planet positions based on carrier rotation \n         * This is called each frame by the gearbox\n         * Working in DEGREES (polypoint convention)\n         ",
+                                    "block": true,
+                                    "line": 192
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 188
+                    },
+                    {
+                        "method_name": "updateCarrierVelocity",
+                        "class_name": "PlanetaryGearSystem",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Calculate carrier rotation based on planet velocities \n         * When planets rotate, they \"walk\" around the sun/ring, driving the carrier\n         * \n         * Working in DEGREES (not radians) since polypoint uses degrees\n         ",
+                                    "block": true,
+                                    "line": 235
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 230
+                    },
+                    {
+                        "method_name": "setCarrierLocked",
+                        "class_name": "PlanetaryGearSystem",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "locked"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Lock or unlock the carrier (prevents orbital motion) ",
+                                    "block": true,
+                                    "line": 261
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 260
+                    },
+                    {
+                        "method_name": "setRingLocked",
+                        "class_name": "PlanetaryGearSystem",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "locked"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Lock or unlock the ring gear ",
+                                    "block": true,
+                                    "line": 269
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 268
+                    },
+                    {
+                        "method_name": "setSunMotor",
+                        "class_name": "PlanetaryGearSystem",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "velocity"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Change the sun gear motor speed ",
+                                    "block": true,
+                                    "line": 278
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 277
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " \n     * Manages a planetary gear system with:\n     * - Sun gear (center, typically the input/motor)\n     * - Planet gears (orbit around sun while rotating)\n     * - Ring gear (outer, internal gear that planets mesh with)\n     * - Carrier (virtual mechanism that controls orbital motion)\n     ",
+                            "block": true,
+                            "line": 109
+                        }
+                    ]
+                },
+                "line": 102
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "gearbox-planets.js",
+        "path": "/workspaces/polypoint/point_src/gearbox-planets.js",
+        "size": 9258,
+        "parsed_date": "2026-05-31T22:35:59.376Z"
+    }
+}

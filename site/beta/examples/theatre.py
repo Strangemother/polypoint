@@ -3,6 +3,9 @@
 from pprint import pprint as pp
 from operator import itemgetter
 from pathlib import Path
+import shutil
+import subprocess
+import sys
 import markdown
 import textwrap
 import re
@@ -16,6 +19,82 @@ import settings
 # from tree import generic_run
 
 from datetime import datetime
+
+
+def process_source_file(filename):
+    """Parse a source file and generate the cleaned documentation tree."""
+    relative_filename, source_path = resolve_source_file(filename)
+
+    js_parser_dir = settings.SITE_DIR / 'js_parser'
+    tree_script = settings.POLYPOINT_TOOLS / 'run_tree2.py'
+
+    parser_command = build_parser_command(relative_filename)
+    run_command(parser_command, cwd=js_parser_dir)
+
+    tree_path = settings.POLYPOINT_DOCS_DIR / 'trees' / f'{source_path.stem}-js-tree.json'
+    if tree_path.exists() is False:
+        raise RuntimeError(f'Parser did not produce tree file: {tree_path}')
+
+    run_command((sys.executable, str(tree_script), str(tree_path)), cwd=settings.POLYPOINT_TOOLS)
+
+    stash_dir = settings.POLYPOINT_DOCS_DIR / 'trees' / 'clean' / 'stash' / f'{source_path.stem}-js'
+    program_path = stash_dir / 'program.json'
+    references_path = stash_dir / 'references.json'
+
+    if program_path.exists() is False:
+        raise RuntimeError(f'Processor did not produce program file: {program_path}')
+
+    return {
+        'filename': relative_filename,
+        'source_path': source_path,
+        'tree_path': tree_path,
+        'program_path': program_path,
+        'references_path': references_path,
+        'exists': references_path.exists(),
+    }
+
+
+def build_parser_command(filename):
+    if shutil.which('npm') is not None:
+        return ('npm', 'run', 'parse', '--', filename)
+    return ('node', 'parse-file.js', filename)
+
+
+def run_command(command, cwd):
+    result = subprocess.run(
+        command,
+        cwd=cwd,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        details = '\n'.join(
+            part for part in (result.stdout.strip(), result.stderr.strip()) if part
+        )
+        raise RuntimeError(
+            f'Command failed ({result.returncode}): {" ".join(command)}\n{details}'
+        )
+    return result
+
+
+def resolve_source_file(filename):
+    source_root = settings.POLYPOINT_SRC_DIR.resolve()
+    source_path = Path(filename)
+
+    if source_path.suffix == '':
+        source_path = source_path.with_suffix('.js')
+
+    target = (source_root / source_path).resolve()
+    try:
+        target.relative_to(source_root)
+    except ValueError as exc:
+        raise ValueError(f'Invalid source path: {filename}') from exc
+
+    if target.exists() is False:
+        raise FileNotFoundError(f'Source file does not exist: {source_path.as_posix()}')
+
+    return target.relative_to(source_root).as_posix(), target
 
 def store_tree(filename, tree_data):
     """ Called by the editor.TreeStorePostView to record a JSON POST

@@ -1,0 +1,1050 @@
+{
+    "src_file": "cone.js",
+    "references": {
+        "classes": {
+            "PointCone": {
+                "class_name": "PointCone",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointCone",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 156
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " Apply changes for the persistent info",
+                                    "block": true,
+                                    "line": 162
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 161
+                    },
+                    {
+                        "method_name": "resolveSettings",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 167
+                    },
+                    {
+                        "method_name": "renderData",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 171
+                    },
+                    {
+                        "method_name": "points",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 193
+                    },
+                    {
+                        "method_name": "hitPolygon",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 223
+                    },
+                    {
+                        "method_name": "fill",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 252
+                    },
+                    {
+                        "method_name": "renderOutline",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 264
+                    },
+                    {
+                        "method_name": "tracePath",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 292
+                    },
+                    {
+                        "method_name": "traceOutline",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            },
+                            {
+                                "name": "outline",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 319
+                    },
+                    {
+                        "method_name": "drawEdgePath",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "data"
+                            },
+                            {
+                                "name": "curveValue"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 360
+                    },
+                    {
+                        "method_name": "drawQuadraticPath",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "points"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 380
+                    },
+                    {
+                        "method_name": "drawStraightEdge",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "points"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 406
+                    },
+                    {
+                        "method_name": "appendHitOuterPoints",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "polygon"
+                            },
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 418
+                    },
+                    {
+                        "method_name": "appendHitInnerPoints",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "polygon"
+                            },
+                            {
+                                "name": "data"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 443
+                    },
+                    {
+                        "method_name": "appendQuadraticPathPoints",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "polygon"
+                            },
+                            {
+                                "name": "pathPoints"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 456
+                    },
+                    {
+                        "method_name": "appendQuadraticSamplePoints",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "polygon"
+                            },
+                            {
+                                "name": "start"
+                            },
+                            {
+                                "name": "control"
+                            },
+                            {
+                                "name": "end"
+                            },
+                            {
+                                "name": "sampleCount",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 481
+                    },
+                    {
+                        "method_name": "appendArcSamplePoints",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "polygon"
+                            },
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "start"
+                            },
+                            {
+                                "name": "end"
+                            },
+                            {
+                                "name": "anticlockwise",
+                                "default_value": false
+                            },
+                            {
+                                "name": "sampleCount",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 501
+                    },
+                    {
+                        "method_name": "getConeCurveControl",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "settings"
+                            },
+                            {
+                                "name": "start"
+                            },
+                            {
+                                "name": "end"
+                            },
+                            {
+                                "name": "curveValue"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": " A full positive curve follows the matching circular arc passing\n        through the edge points, then interpolates beyond that centerline. ",
+                                    "block": true,
+                                    "line": 533
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 528
+                    },
+                    {
+                        "method_name": "drawInnerCurve",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "settings"
+                            },
+                            {
+                                "name": "start"
+                            },
+                            {
+                                "name": "end"
+                            },
+                            {
+                                "name": "curveValue"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 546
+                    },
+                    {
+                        "method_name": "drawConeArc",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "start"
+                            },
+                            {
+                                "name": "end"
+                            },
+                            {
+                                "name": "anticlockwise",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 556
+                    },
+                    {
+                        "method_name": "getEdgePoint",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "angle"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 564
+                    },
+                    {
+                        "method_name": "getConeCorners",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "startAngle"
+                            },
+                            {
+                                "name": "endAngle"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 576
+                    },
+                    {
+                        "method_name": "getWallIntersection",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "angle"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 606
+                    },
+                    {
+                        "method_name": "projectDistance",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "angle"
+                            },
+                            {
+                                "name": "distance"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 651
+                    },
+                    {
+                        "method_name": "hitAtX",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "wallX"
+                            },
+                            {
+                                "name": "dx"
+                            },
+                            {
+                                "name": "dy"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 657
+                    },
+                    {
+                        "method_name": "hitAtY",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "wallY"
+                            },
+                            {
+                                "name": "dx"
+                            },
+                            {
+                                "name": "dy"
+                            },
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 668
+                    },
+                    {
+                        "method_name": "getContainer",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 679
+                    },
+                    {
+                        "method_name": "angleTo",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "point"
+                            },
+                            {
+                                "name": "target"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 693
+                    },
+                    {
+                        "method_name": "wrapAngle",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 697
+                    },
+                    {
+                        "method_name": "getCurveSettings",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 701
+                    },
+                    {
+                        "method_name": "getInnerOffset",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 710
+                    },
+                    {
+                        "method_name": "getOutlineSettings",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 716
+                    },
+                    {
+                        "method_name": "normalizeCurveValue",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "invert",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 720
+                    },
+                    {
+                        "method_name": "hasEqualRadius",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "originPoint"
+                            },
+                            {
+                                "name": "start"
+                            },
+                            {
+                                "name": "end"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 724
+                    },
+                    {
+                        "method_name": "samePoint",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 730
+                    },
+                    {
+                        "method_name": "pushUniquePoint",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "points"
+                            },
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 738
+                    },
+                    {
+                        "method_name": "ensureRenderData",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "settings",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 750
+                    },
+                    {
+                        "method_name": "isRenderData",
+                        "class_name": "PointCone",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 754
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " Apply changes for the persistent info",
+                            "block": true,
+                            "line": 162
+                        }
+                    ]
+                },
+                "line": 154
+            }
+        },
+        "functions": [
+            {
+                "name": "resolveConeSettings",
+                "kind": "function",
+                "type": "function",
+                "line": 59,
+                "params": [
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "baseSettings",
+                        "default_value": "{}"
+                    },
+                    {
+                        "name": "settings",
+                        "default_value": "{}"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "getConeOutlineSettings",
+                "kind": "function",
+                "type": "function",
+                "line": 81,
+                "params": [
+                    {
+                        "name": "settings",
+                        "default_value": "{}"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "normalizeConeCurveValue",
+                "kind": "function",
+                "type": "function",
+                "line": 106,
+                "params": [
+                    {
+                        "name": "value"
+                    },
+                    {
+                        "name": "invert",
+                        "default_value": false
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "withinCone",
+                "kind": "function",
+                "type": "function",
+                "line": 113,
+                "params": [
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "cone"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            }
+        ],
+        "constants": [
+            {
+                "name": "CONE_DEFAULT_SETTINGS",
+                "kind": "const",
+                "line": 18,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": " , fillColor: 'rebeccapurple'",
+                            "block": false,
+                            "line": 27
+                        }
+                    ]
+                },
+                "type": "object",
+                "properties": []
+            },
+            {
+                "name": "CONE_OUTLINE_MODES",
+                "kind": "const",
+                "line": 34,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "object",
+                "properties": []
+            }
+        ]
+    },
+    "info": {
+        "filename": "cone.js",
+        "path": "/workspaces/polypoint/point_src/cone.js",
+        "size": 23130,
+        "parsed_date": "2026-05-31T22:31:54.022Z"
+    }
+}

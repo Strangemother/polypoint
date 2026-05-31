@@ -113,7 +113,16 @@ class PointWithin {
             const polygon = [{x: 10, y:20}]
             let isInside = point.within.polygon(polygon)
         */
-        return withinPolygon(this, polygon)
+        return withinPolygon(this.parent, polygon)
+    }
+
+    cone(otherPoint) {
+        /* Test if _this_ point is within another point's cone shape.
+
+            let point = Point.mouse.position
+            let isInside = point.within.cone(conePoint)
+        */
+        return withinCone(this.parent, otherPoint)
     }
 
     point(other) {

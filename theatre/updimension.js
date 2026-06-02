@@ -5,6 +5,7 @@ files:
     head
     point
     pointlist
+    ../point_src/pointlistpen.js
     ../point_src/events.js
     mouse
     stage
@@ -12,11 +13,24 @@ files:
     stroke
     ../point_src/random.js
     ../point_src/rectangle.js
+    ../point_src/rotate.js
 ---
 
 Up Dimension converts the 2d Plot into a 3D plot
 using the radius as a camera distance
 */
+
+function upDimensionPoint(point, projectionCenter, projectionLength, worldRadius) {
+    let safeProjectedRadius = Math.max(point.radius, .0001)
+    let safeWorldRadius = Math.max(worldRadius, .0001)
+    let factor = safeProjectedRadius / safeWorldRadius
+
+    point.x = projectionCenter.x + ((point.x - projectionCenter.x) / factor)
+    point.y = projectionCenter.y + ((point.y - projectionCenter.y) / factor)
+    point.z = projectionLength * ((1 / factor) - 1)
+    point.radius = safeWorldRadius
+    return point
+}
 
 addButton('Plot', {
     onclick(){
@@ -30,15 +44,32 @@ addButton('shuffle', {
     }
 })
 
+
+addButton('Up Dimension', {
+    onclick(){
+        stage.upDimension()
+    }
+})
+
 class MainStage extends Stage {
     canvas = 'playspace'
     mounted() {
         this.plot()
+        this.spunPoints = undefined
+        this.rotSize = 0
     }
 
     plot(){
         this.points = PointList.generate.grid(48, 8, 100)
-        this.points.each.radius = ()=> random.int(5,15)
+        this.points.each.radius = ()=> random.int(5,25)
+        // this.points.each.z = () => -900 + Math.random() * 1000 + 500
+        this.projectionPoint = this.points.center.copy()
+        this.projectionLength = 700
+        this.worldRadius = 10
+        
+        this.originPoints = this.points.copy(true)
+        this.points.forEach(p=> upDimensionPoint(p, this.projectionPoint, this.projectionLength, this.worldRadius))
+        this.perspectiveCenter = this.projectionPoint.copy()
         // random.shuffle(this.points, 2)
         this.dragging.set(...this.points)
     }
@@ -49,13 +80,39 @@ class MainStage extends Stage {
 
     draw(ctx){
         this.clear(ctx)
-
-        this.points.pen.fill(ctx, {color:'purple'})
-
+        this.originPoints.pen.fill(ctx, {color:'#666'})
+        if(this.spunPoints != undefined){
+            this.spunPoints.pen.fill(ctx, {color:'purple'})
+        }
+        this.rotSize += 0.1
+        this.upDimension()
     }
-}
 
-// Polypoint.head.deferredProp('PointList', )
+    upDimension(){
+        let projectionPoint = this.projectionPoint
+        let perspectiveCenter = this.perspectiveCenter
+        let projectionLength = this.projectionLength
+        let worldRadius = this.worldRadius
+        // let spin = this.spin
+        
+        let spin = this.spin = {
+                x: 0
+                , y:  this.rotSize
+                , z: 0
+            }
+        let ps = this.points//.copy(true)
+        // ps.forEach(p=> upDimensionPoint(p, projectionPoint, projectionLength, worldRadius))
+        // let spunPoints = pseudo3DRotatePerspective(ps, projectionPoint, projectionLength)
+        let spunPoints = ps.pseudo3d.perspective(
+                  spin
+                , projectionPoint
+                , projectionLength
+                , perspectiveCenter
+            )
+        this.spunPoints = spunPoints.map(p=>new Point(p))
+    }
+
+}
 
 stage = MainStage.go(/*{ loop: true }*/)
 

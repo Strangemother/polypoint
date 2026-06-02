@@ -1,72 +1,22 @@
 {% extends "docs/doc-base.html" %}
 {% load content link %}
-{% load quickforms %}
 
 {% block page_title %}Parse{% endblock page_title %}
 
 {% block content %}
 
-{% link.js "examples/js/petite-vue.iife.js" "defer" %}
-
-<div class="display-none">
-{% quickform.form "editor:tree" %}
-</div>
-
 <div class="outer-block">
     <div class="block">
-
-        <script type="text/javascript">
-            var OBJECT_PATH = "{{ object_path.as_posix }}"
-        </script>
         <p>File Parse {{ object_path }}</p>
 
+        <form method="post" action="{% url 'editor:tree' %}">
+            {% csrf_token %}
+            <input type="hidden" name="filename" value="{{ object_path.as_posix }}">
+            <button type="submit">Parse File</button>
+        </form>
+
         <div class="tree">
-            <p>This tree is parsed live from the source file.</p>
-            <div id="tree-app">
-                <h3>Classes</h3>
-                {% verbatim %}
-
-                <div>
-                    <button @click='prepareForm'>Send Tree</button>
-                </div>
-
-                <ul>
-                    <li v-for='item in getClasses()'>
-                        <h3>{{ item.name }}</h3>
-                        <ul class="display-table">
-                            <li class="display-table-row"
-                                :class='"is-static-" + method.isStatic'
-                                v-for='method, key in item.methods'>
-                                <span class='display-table-cell'>{{ key }}</span>
-                                <span class='display-table-cell'>
-                                    <!--<ul>
-                                        <p>
-                                            {{ getFirstCommentText(method) }}
-                                        </p>
-
-                                        <li v-for='comment in getComments(method)'>
-                                            <div class='white-space-pre-line'>
-                                                {{ comment.text }}
-                                            </div>
-                                        </li>
-                                    </ul>-->
-                                </span>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h3>Not Classes</h3>
-                <p>
-                    {{ getTree() }}
-                </p>
-
-                <h3>Comments</h3>
-                <p>
-                    {{ getTreeComments() }}
-                </p>
-                {% endverbatim %}
-            </div>
+            <p>This runs the server-side parser and regenerates the documentation tree for this source file.</p>
         </div>
 
         <h2>Source</h2>
@@ -76,10 +26,6 @@
 
     </div>
 </div>
-
-{% js "js/acorn.js" %}
-{% js "js/file-parser.js" %}
-{% js "js/parser/tree-app.js" "defer" %}
 
 
 {% endblock content %}

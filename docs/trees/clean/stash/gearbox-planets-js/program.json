@@ -1,0 +1,508 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "PlanetaryGearSystem",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "gearbox"
+                            },
+                            {
+                                "name": "options",
+                                "default_value": "{}"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3101,
+                            "end": 4824,
+                            "loc": {
+                                "start": {
+                                    "line": 111,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 156,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Configuration",
+                                "block": false,
+                                "line": 117
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3090,
+                        "end": 4824,
+                        "loc": {
+                            "start": {
+                                "line": 111,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 156,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "createPlanet",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "angle"
+                            },
+                            {
+                                "name": "radius"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4842,
+                            "end": 5406,
+                            "loc": {
+                                "start": {
+                                    "line": 158,
+                                    "column": 16
+                                },
+                                "end": {
+                                    "line": 176,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Create a single planet gear at the specified angle (in degrees) ",
+                                "block": true,
+                                "line": 159
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4830,
+                        "end": 5406,
+                        "loc": {
+                            "start": {
+                                "line": 158,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 176,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "calculatePlanetPosition",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "angle"
+                            }
+                        ],
+                        "pos": {
+                            "start": 5435,
+                            "end": 5788,
+                            "loc": {
+                                "start": {
+                                    "line": 178,
+                                    "column": 27
+                                },
+                                "end": {
+                                    "line": 186,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Calculate XY position for a planet at the given orbital angle \n         * Angle is in degrees (polypoint convention)\n         ",
+                                "block": true,
+                                "line": 181
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5412,
+                        "end": 5788,
+                        "loc": {
+                            "start": {
+                                "line": 178,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 186,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "updateOrbitalPositions",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 5816,
+                            "end": 7381,
+                            "loc": {
+                                "start": {
+                                    "line": 188,
+                                    "column": 26
+                                },
+                                "end": {
+                                    "line": 228,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Update planet positions based on carrier rotation \n         * This is called each frame by the gearbox\n         * Working in DEGREES (polypoint convention)\n         ",
+                                "block": true,
+                                "line": 192
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 5794,
+                        "end": 7381,
+                        "loc": {
+                            "start": {
+                                "line": 188,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 228,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "updateCarrierVelocity",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 7408,
+                            "end": 8715,
+                            "loc": {
+                                "start": {
+                                    "line": 230,
+                                    "column": 25
+                                },
+                                "end": {
+                                    "line": 258,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Calculate carrier rotation based on planet velocities \n         * When planets rotate, they \"walk\" around the sun/ring, driving the carrier\n         * \n         * Working in DEGREES (not radians) since polypoint uses degrees\n         ",
+                                "block": true,
+                                "line": 235
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 7387,
+                        "end": 8715,
+                        "loc": {
+                            "start": {
+                                "line": 230,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 258,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "setCarrierLocked",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "locked"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8737,
+                            "end": 8924,
+                            "loc": {
+                                "start": {
+                                    "line": 260,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 266,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Lock or unlock the carrier (prevents orbital motion) ",
+                                "block": true,
+                                "line": 261
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8721,
+                        "end": 8924,
+                        "loc": {
+                            "start": {
+                                "line": 260,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 266,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "setRingLocked",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "locked"
+                            }
+                        ],
+                        "pos": {
+                            "start": 8943,
+                            "end": 9140,
+                            "loc": {
+                                "start": {
+                                    "line": 268,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 275,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Lock or unlock the ring gear ",
+                                "block": true,
+                                "line": 269
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 8930,
+                        "end": 9140,
+                        "loc": {
+                            "start": {
+                                "line": 268,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 275,
+                                "column": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "method",
+                    "word": "setSunMotor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "velocity"
+                            }
+                        ],
+                        "pos": {
+                            "start": 9157,
+                            "end": 9255,
+                            "loc": {
+                                "start": {
+                                    "line": 277,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 280,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": " Change the sun gear motor speed ",
+                                "block": true,
+                                "line": 278
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 9146,
+                        "end": 9255,
+                        "loc": {
+                            "start": {
+                                "line": 277,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 280,
+                                "column": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": " \n     * Manages a planetary gear system with:\n     * - Sun gear (center, typically the input/motor)\n     * - Planet gears (orbit around sun while rotating)\n     * - Ring gear (outer, internal gear that planets mesh with)\n     * - Carrier (virtual mechanism that controls orbital motion)\n     ",
+                        "block": true,
+                        "line": 109
+                    }
+                ]
+            },
+            "pos": {
+                "start": 2755,
+                "end": 9257,
+                "loc": {
+                    "start": {
+                        "line": 102,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 281,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration"
+    ],
+    "info": {
+        "filename": "gearbox-planets.js",
+        "path": "/workspaces/polypoint/point_src/gearbox-planets.js",
+        "size": 9258,
+        "parsed_date": "2026-05-31T22:35:59.376Z"
+    }
+}

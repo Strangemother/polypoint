@@ -1,6 +1,5 @@
-import json
 from pathlib import Path
-from django.http import Http404
+from django.http import Http404, HttpResponseBadRequest
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -112,31 +111,23 @@ class DemoSrcAssetView(PointSrcAssetView):
 
 
 class TreeStorePostView(views.FormView):
-    """Receive a POST of JSON content from a parser, for a file within
-    the point src.
-    When enabled, this file is stored for later use within the documentation.
-    """
+    """Receive a source filename and run the full parser pipeline server-side."""
     template_name = "editor/tree_form.html"
     form_class = forms.TreeForm
     success_url = views.reverse_lazy('editor:tree_success')
 
     def form_valid(self, form):
         data = form.cleaned_data
-        json_content = data['content']
         filename = data['filename']
-        # json_content['info'] = {
-        #     "filename": filename
-        # }
-        # print('Result', filename, json_content.keys())
-        # json_content = json.loads(json_content)
-        self.tree_result = theatre.store_tree(filename, json_content)
-        self.form_filename = filename
+        try:
+            self.tree_result = theatre.process_source_file(filename)
+        except (FileNotFoundError, RuntimeError, ValueError) as exc:
+            return HttpResponseBadRequest(str(exc))
+        self.form_filename = self.tree_result['filename']
         print('RESULT', self.tree_result)
         return super().form_valid(form)
 
     def get_success_url(self):
-        ok = self.tree_result['exists']
-        filename = self.form_filename
         return views.reverse('docs:point_src', args=(self.form_filename,))
 
 

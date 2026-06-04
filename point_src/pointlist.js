@@ -370,7 +370,7 @@ class PointList extends LazyAccessArray {
 
         let x = 0
             , y = 0
-            , min = this[0]
+            , min = this[0]?.copy?.() || this[0]
             , max = {x,y}
             ;
 

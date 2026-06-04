@@ -61,14 +61,27 @@ class MainStage extends Stage {
 
     plot(){
         this.points = PointList.generate.grid(48, 8, 100)
-        this.points.each.radius = ()=> random.int(5,25)
+        let maxSize = 25
+        let minSize = 5
+        this.points.each.radius = ()=> random.int(minSize,maxSize)
         // this.points.each.z = () => -900 + Math.random() * 1000 + 500
         this.projectionPoint = this.points.center.copy()
         this.projectionLength = 700
         this.worldRadius = 10
-        
+
         this.originPoints = this.points.copy(true)
+
+        let maxDepth = maxSize / minSize
+        /* Edit the originPoint colors given the base set z placements. */
+        this.originPoints.forEach((p, i)=>{
+            let z = this.points[i].radius
+            let light = parseInt((z / maxDepth) * 10)
+            let color = `hsl(200 66% ${light}%)`
+            p.color = color
+        })
+
         this.points.forEach(p=> upDimensionPoint(p, this.projectionPoint, this.projectionLength, this.worldRadius))
+
         this.perspectiveCenter = this.projectionPoint.copy()
         // random.shuffle(this.points, 2)
         this.dragging.set(...this.points)
@@ -80,7 +93,9 @@ class MainStage extends Stage {
 
     draw(ctx){
         this.clear(ctx)
-        this.originPoints.pen.fill(ctx, {color:'#666'})
+        this.originPoints.forEach(p=>p.pen.fill(ctx, p.color))
+        // this.originPoints.pen.fill(ctx)
+        // this.originPoints.pen.fill(ctx, {color:'#666'})
         if(this.spunPoints != undefined){
             this.spunPoints.pen.fill(ctx, {color:'purple'})
         }
@@ -94,7 +109,7 @@ class MainStage extends Stage {
         let projectionLength = this.projectionLength
         let worldRadius = this.worldRadius
         // let spin = this.spin
-        
+
         let spin = this.spin = {
                 x: 0
                 , y:  this.rotSize

@@ -155,7 +155,7 @@ class MainStage extends Stage {
 
             pa.pen.line(ctx, this.points[Number(ib)], 'purple', 2)
         });
-        // this.points.pen.indicators(ctx, {color: '#555'})
+        this.points.pen.indicators(ctx, {color: '#555'})
 
     }
 

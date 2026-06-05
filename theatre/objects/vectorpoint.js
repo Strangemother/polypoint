@@ -28,14 +28,14 @@ class VectorPoint extends Point {
         this.pen.indicator(ctx, {color: '#336600'})
         this.tethers.points.forEach((tp)=>{
             this.pen.line(ctx, tp, style.color, style.width)
+            this.renderTip(ctx, tp, style)
         });
 
-        this.renderTip(ctx, style)
         this.renderText(ctx)
     }
 
-    renderTip(ctx, style){
-        let cp = this.getTip()
+    renderTip(ctx, tip=this.getTip(), style){
+        let cp = tip || this.getTip()
         // let cp = this.tethers.points[0]
         let angle = this.directionTo(cp)
         // p.tethers.points[0].radians

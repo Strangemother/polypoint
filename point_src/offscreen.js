@@ -16,12 +16,32 @@ function createOffscreenCanvas(whUnit) {
 }
 
 
-function copyToOnScreen(offScreenCanvas, onScreenCanvas) {
-    // const onScreenContext = document.getElementById("playspace").getContext("2d");
-    const onScreenContext = onScreenCanvas.getContext("bitmaprenderer");
-    // const onScreenContext = document.getElementById("playspace").getContext("bitmaprenderer");
-    let offScreenBitmap = offScreenCanvas.transferToImageBitmap()
-    onScreenContext.transferFromImageBitmap(offScreenBitmap);
+function copyToOnScreen(offScreenCanvas, onScreenCanvas, options={ transfer: true, clear: true }) {
+    if(options.transfer === true) {
+        const onScreenContext = onScreenCanvas.getContext('bitmaprenderer')
+        let offScreenBitmap = offScreenCanvas.transferToImageBitmap()
+        onScreenContext.transferFromImageBitmap(offScreenBitmap)
+        return
+    }
+
+    const onScreenContext = onScreenCanvas.getContext('2d', {
+        alpha: options.alpha !== false
+    })
+
+    onScreenContext.save()
+
+    if(options.clear === true) {
+        onScreenContext.clearRect(0, 0, onScreenCanvas.width, onScreenCanvas.height)
+    }
+
+    onScreenContext.globalCompositeOperation = options.compositeOperation || 'source-over'
+    onScreenContext.drawImage(
+        offScreenCanvas,
+        0, 0, offScreenCanvas.width, offScreenCanvas.height,
+        0, 0, onScreenCanvas.width, onScreenCanvas.height
+    )
+
+    onScreenContext.restore()
 }
 
 

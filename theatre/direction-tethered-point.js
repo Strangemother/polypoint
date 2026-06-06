@@ -23,11 +23,15 @@ class MainStage extends Stage {
         this.dragging.add(p)
 
         let cp = p.addNewPoint()
+        let cp2 = p.addNewPoint()
+
         this.dragging.add(cp)
+        this.dragging.add(cp2)
     }
 
     draw(ctx){
         this.clear(ctx)
+        // this.point.pen.fill(ctx)
         this.point.render(ctx)
     }
 }

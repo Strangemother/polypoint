@@ -3,6 +3,8 @@
 import os
 import sys
 import argparse
+import inspect
+import re
 from pathlib import Path
 import json
 from datetime import datetime as dt
@@ -1327,22 +1329,57 @@ class PhaseTree(TreeReader, CommentsMixin):
         processed = []
         for comment in comments:
             if isinstance(comment, dict):
+                clean_text = self._normalize_comment_text(
+                    comment.get('text', ''),
+                    is_block=comment.get('block', False),
+                )
                 clean = {
-                    'text': comment.get('text', ''),
+                    'text': clean_text,
                     'block': comment.get('block', False),
                     'line': comment.get('currentLoc', {}).get('line', 0)
                 }
 
                 if self.convert_comments_to_html:
                     import markdown
-                    import inspect
                     md = markdown.Markdown(extensions=['meta', 'extra'])
-                    clean_text = inspect.cleandoc(comment.get('text', ''))
                     clean['html'] = md.convert(clean_text)
 
                 processed.append(clean)
 
         return processed
+
+    def _normalize_comment_text(self, text, is_block=False):
+        """Normalize parser comment text for JSON and markdown output."""
+        if not text:
+            return ''
+
+        clean_text = inspect.cleandoc(text.replace('\r\n', '\n').replace('\r', '\n'))
+
+        if is_block:
+            clean_text = self._strip_multiline_jsdoc_gutter(clean_text)
+
+        return clean_text.strip()
+
+    def _strip_multiline_jsdoc_gutter(self, text):
+        """Remove leading `*` gutters from multiline JSDoc-style comments."""
+        lines = text.split('\n')
+        content_lines = [line for line in lines if line.strip()]
+
+        if len(content_lines) < 2:
+            return text
+
+        if not all(line.lstrip().startswith('*') for line in content_lines):
+            return text
+
+        stripped_lines = []
+        for line in lines:
+            if not line.strip():
+                stripped_lines.append('')
+                continue
+
+            stripped_lines.append(re.sub(r'^\s*\* ?', '', line))
+
+        return '\n'.join(stripped_lines)
 
 
 

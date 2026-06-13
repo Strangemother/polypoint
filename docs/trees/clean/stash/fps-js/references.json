@@ -1,0 +1,204 @@
+{
+    "src_file": "fps.js",
+    "references": {
+        "classes": {
+            "FPS": {
+                "class_name": "FPS",
+                "inherits": "TextAlpha",
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "FPS",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage"
+                            },
+                            {
+                                "name": "text",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 47
+                    },
+                    {
+                        "method_name": "setup",
+                        "class_name": "FPS",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Called during prep.",
+                                    "block": true,
+                                    "line": 59
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 58
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "FPS",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Update is for data.\n\ndrawFPS(ctx) {\n    t = new FPS(stage)\n    t.update()\n    t.draw(ctx, color)\n}",
+                                    "block": true,
+                                    "line": 72
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 64
+                    },
+                    {
+                        "method_name": "draw",
+                        "class_name": "FPS",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            },
+                            {
+                                "name": "color"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Draw is for visual",
+                                    "block": true,
+                                    "line": 78
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Higher is a longer delay between visual text updates.",
+                            "block": false,
+                            "line": 40
+                        }
+                    ]
+                },
+                "line": 38
+            },
+            "FramerateExt": {
+                "class_name": "FramerateExt",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "FramerateExt",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "stage"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "tools to extend the stage.",
+                                    "block": false,
+                                    "line": 87
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 88
+                    },
+                    {
+                        "method_name": "drawFPS",
+                        "class_name": "FramerateExt",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 93
+                    },
+                    {
+                        "method_name": "print",
+                        "class_name": "FramerateExt",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "shortcut for the drawFPS",
+                                    "block": false,
+                                    "line": 100
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 99
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "tools to extend the stage.",
+                            "block": false,
+                            "line": 87
+                        }
+                    ]
+                },
+                "line": 86
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "fps.js",
+        "path": "/workspaces/polypoint/point_src/text/fps.js",
+        "size": 2681,
+        "parsed_date": "2026-06-13T01:59:28.886Z"
+    }
+}

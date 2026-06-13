@@ -21,6 +21,11 @@ import settings
 from datetime import datetime
 
 
+TABLE_SEPARATOR_RE = re.compile(
+    r"^\s*\|?(?:\s*:?-{3,}:?\s*\|)+\s*:?-{3,}:?\s*\|?\s*$"
+)
+
+
 def process_source_file(filename):
     """Parse a source file and generate the cleaned documentation tree."""
     relative_filename, source_path = resolve_source_file(filename)
@@ -199,7 +204,7 @@ def get_theatre_list(**kw):
 
 def render_markdown(path, parent, clean_meta=False, meta_keys=None, encoding='utf-8'):
     theatre_file = (parent / path)
-    text_data = theatre_file.read_text(encoding=encoding)
+    text_data = normalize_markdown_text(theatre_file.read_text(encoding=encoding))
 
     md = ''
     html = ''
@@ -280,12 +285,13 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js', rel_pre
 
     if len(text_data) > 0:
         # print(text_data)
-        text_data = textwrap.dedent(text_data).strip()
+        text_data = normalize_markdown_text(text_data)
         extensions=[
             # MyExtClass(),
             # 'myext',
             # 'path.to.my.ext:MyExtClass'
             'meta',
+            'extra',
             # 'examples.meta2:MetaExtension'
             ]
         md = markdown.Markdown(extensions=extensions)
@@ -313,6 +319,30 @@ def destack_file_dependencies(filepaths):
         #   # if the dependency has an dependency, stack above.
         pass
     return clean_file_meta
+
+
+def normalize_markdown_text(content):
+    if not content:
+        return content
+
+    normalized = textwrap.dedent(content.replace('\r\n', '\n').replace('\r', '\n')).strip()
+    lines = normalized.split('\n')
+    normalized_lines = []
+
+    for index, line in enumerate(lines):
+        next_line = lines[index + 1] if index + 1 < len(lines) else ''
+        prev_line = normalized_lines[-1] if normalized_lines else ''
+
+        if _starts_markdown_table(line, next_line) and prev_line.strip():
+            normalized_lines.append('')
+
+        normalized_lines.append(line)
+
+    return '\n'.join(normalized_lines)
+
+
+def _starts_markdown_table(line, next_line):
+    return '|' in line and bool(TABLE_SEPARATOR_RE.match(next_line))
 
 
 def clean_files_list(metadata=None, deep_include=True, files=None, rel_prefix=None):

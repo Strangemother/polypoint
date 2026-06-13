@@ -18,14 +18,14 @@
                         "comments": {
                             "header": [
                                 {
-                                    "text": " The _AutoMouse_ class cares for much of the mouse pointer functionality\r\n    for a stage and the a point.\r\n    It's functionality is designed to hook onto preparing `stages` and their canvas.\r\n    It exists as a singleton `autoMouse`:\r\n\r\n        autoMouse = new AutoMouse()\r\n        autoMouse == stage.mouse\r\n        Point.mouse == stage.mouse\r\n\r\n    Initiate like this:\r\n\r\n        Point.mouse?.mount(stage.canvas)\r\n\r\n    Synonymous to:\r\n\r\n        installCanvas(canvas, stage){\r\n            this.canvasMap.set(canvas, stage)\r\n            Point.mouse?.listen(canvas)\r\n        }\r\n\r\n\r\n     ",
+                                    "text": "The _AutoMouse_ class cares for much of the mouse pointer functionality\nfor a stage and the a point.\nIt's functionality is designed to hook onto preparing `stages` and their canvas.\nIt exists as a singleton `autoMouse`:\n\n    autoMouse = new AutoMouse()\n    autoMouse == stage.mouse\n    Point.mouse == stage.mouse\n\nInitiate like this:\n\n    Point.mouse?.mount(stage.canvas)\n\nSynonymous to:\n\n    installCanvas(canvas, stage){\n        this.canvasMap.set(canvas, stage)\n        Point.mouse?.listen(canvas)\n    }",
                                     "block": true,
                                     "line": 39
                                 }
                             ],
                             "inner": [
                                 {
-                                    "text": " a reference of clicks",
+                                    "text": "a reference of clicks",
                                     "block": false,
                                     "line": 43
                                 }
@@ -45,7 +45,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Wait for a stage prep event. ",
+                                    "text": "Wait for a stage prep event.",
                                     "block": true,
                                     "line": 59
                                 }
@@ -68,14 +68,14 @@
                         "comments": {
                             "header": [
                                 {
-                                    "text": " The given event has a stage ready for mounting. Perform any changes,\r\n    such as adding a reference to the mouse. ",
+                                    "text": "The given event has a stage ready for mounting. Perform any changes,\nsuch as adding a reference to the mouse.",
                                     "block": true,
                                     "line": 75
                                 }
                             ],
                             "inner": [
                                 {
-                                    "text": " console.log('AutoMouse::stagePrepareHandler', d)",
+                                    "text": "console.log('AutoMouse::stagePrepareHandler', d)",
                                     "block": false,
                                     "line": 78
                                 }
@@ -149,7 +149,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " The `this.position` method returns a new Point, with the mouse XY\r\n        (from the last motion).\r\n\r\n        Use `this.point` for a persisent single Point instance.\r\n        ",
+                                    "text": "The `this.position` method returns a new Point, with the mouse XY\n(from the last motion).\n\nUse `this.point` for a persisent single Point instance.",
                                     "block": true,
                                     "line": 109
                                 }
@@ -169,7 +169,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\r\n        Return a persistent _point_, of which is updated rather than replaced\r\n        when the mouse state changes.\r\n         ",
+                                    "text": "Return a persistent _point_, of which is updated rather than replaced\nwhen the mouse state changes.",
                                     "block": true,
                                     "line": 117
                                 }
@@ -207,7 +207,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " console.log('Setting up mouse events')",
+                                    "text": "console.log('Setting up mouse events')",
                                     "block": false,
                                     "line": 139
                                 }
@@ -231,7 +231,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Call upon `mount` to initate listening of all events on a canvas. ",
+                                    "text": "Call upon `mount` to initate listening of all events on a canvas.",
                                     "block": true,
                                     "line": 152
                                 }
@@ -285,7 +285,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " let bound = this.getBoundingClientRect();",
+                                    "text": "let bound = this.getBoundingClientRect();",
                                     "block": false,
                                     "line": 181
                                 }
@@ -466,7 +466,7 @@
                         "comments": {
                             "header": [
                                 {
-                                    "text": "\r\n    A function to help clamp the wheel scroll within a range. By using this\r\n    function, the wheel value doesn't exceed the clamp.\r\n\r\n\r\n        let size = mouse.clampWheelSize(5, 20)\r\n\r\n    The same can be done with the clamp function\r\n\r\n        let size = clamp(mouse.wheelSize(), 30, 300)\r\n\r\n    but when the wheel exceeds the clamp, it'll scroll into an unused range.\r\n\r\n     ",
+                                    "text": "A function to help clamp the wheel scroll within a range. By using this\nfunction, the wheel value doesn't exceed the clamp.\n\n\n    let size = mouse.clampWheelSize(5, 20)\n\nThe same can be done with the clamp function\n\n    let size = clamp(mouse.wheelSize(), 30, 300)\n\nbut when the wheel exceeds the clamp, it'll scroll into an unused range.",
                                     "block": true,
                                     "line": 329
                                 }
@@ -544,7 +544,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Return the speed of the point over a delta.\r\n        This is a lot like the velocity functionality, but cut-down for\r\n        efficiency. ",
+                                    "text": "Return the speed of the point over a delta.\nThis is a lot like the velocity functionality, but cut-down for\nefficiency.",
                                     "block": true,
                                     "line": 367
                                 }
@@ -600,7 +600,7 @@
                         "comments": {
                             "header": [
                                 {
-                                    "text": " CREATE use a smoothtext function\r\n    share for this anf fps text",
+                                    "text": "CREATE use a smoothtext function\nshare for this anf fps text",
                                     "block": true,
                                     "line": 391
                                 }
@@ -617,7 +617,7 @@
                     "header": [],
                     "inner": [
                         {
-                            "text": " The _AutoMouse_ class cares for much of the mouse pointer functionality\r\n    for a stage and the a point.\r\n    It's functionality is designed to hook onto preparing `stages` and their canvas.\r\n    It exists as a singleton `autoMouse`:\r\n\r\n        autoMouse = new AutoMouse()\r\n        autoMouse == stage.mouse\r\n        Point.mouse == stage.mouse\r\n\r\n    Initiate like this:\r\n\r\n        Point.mouse?.mount(stage.canvas)\r\n\r\n    Synonymous to:\r\n\r\n        installCanvas(canvas, stage){\r\n            this.canvasMap.set(canvas, stage)\r\n            Point.mouse?.listen(canvas)\r\n        }\r\n\r\n\r\n     ",
+                            "text": "The _AutoMouse_ class cares for much of the mouse pointer functionality\nfor a stage and the a point.\nIt's functionality is designed to hook onto preparing `stages` and their canvas.\nIt exists as a singleton `autoMouse`:\n\n    autoMouse = new AutoMouse()\n    autoMouse == stage.mouse\n    Point.mouse == stage.mouse\n\nInitiate like this:\n\n    Point.mouse?.mount(stage.canvas)\n\nSynonymous to:\n\n    installCanvas(canvas, stage){\n        this.canvasMap.set(canvas, stage)\n        Point.mouse?.listen(canvas)\n    }",
                             "block": true,
                             "line": 39
                         }
@@ -656,7 +656,7 @@
     "info": {
         "filename": "automouse.js",
         "path": "/workspaces/polypoint/point_src/automouse.js",
-        "size": 12238,
-        "parsed_date": "2025-11-02T21:11:32.457Z"
+        "size": 12234,
+        "parsed_date": "2026-06-13T02:01:07.317Z"
     }
 }

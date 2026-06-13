@@ -100,14 +100,14 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " The _AutoMouse_ class cares for much of the mouse pointer functionality\r\n    for a stage and the a point.\r\n    It's functionality is designed to hook onto preparing `stages` and their canvas.\r\n    It exists as a singleton `autoMouse`:\r\n\r\n        autoMouse = new AutoMouse()\r\n        autoMouse == stage.mouse\r\n        Point.mouse == stage.mouse\r\n\r\n    Initiate like this:\r\n\r\n        Point.mouse?.mount(stage.canvas)\r\n\r\n    Synonymous to:\r\n\r\n        installCanvas(canvas, stage){\r\n            this.canvasMap.set(canvas, stage)\r\n            Point.mouse?.listen(canvas)\r\n        }\r\n\r\n\r\n     ",
+                                "text": "The _AutoMouse_ class cares for much of the mouse pointer functionality\nfor a stage and the a point.\nIt's functionality is designed to hook onto preparing `stages` and their canvas.\nIt exists as a singleton `autoMouse`:\n\n    autoMouse = new AutoMouse()\n    autoMouse == stage.mouse\n    Point.mouse == stage.mouse\n\nInitiate like this:\n\n    Point.mouse?.mount(stage.canvas)\n\nSynonymous to:\n\n    installCanvas(canvas, stage){\n        this.canvasMap.set(canvas, stage)\n        Point.mouse?.listen(canvas)\n    }",
                                 "block": true,
                                 "line": 39
                             }
                         ],
                         "inner": [
                             {
-                                "text": " a reference of clicks",
+                                "text": "a reference of clicks",
                                 "block": false,
                                 "line": 43
                             }
@@ -126,7 +126,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -161,7 +162,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Wait for a stage prep event. ",
+                                "text": "Wait for a stage prep event.",
                                 "block": true,
                                 "line": 59
                             }
@@ -180,7 +181,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -218,14 +220,14 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " The given event has a stage ready for mounting. Perform any changes,\r\n    such as adding a reference to the mouse. ",
+                                "text": "The given event has a stage ready for mounting. Perform any changes,\nsuch as adding a reference to the mouse.",
                                 "block": true,
                                 "line": 75
                             }
                         ],
                         "inner": [
                             {
-                                "text": " console.log('AutoMouse::stagePrepareHandler', d)",
+                                "text": "console.log('AutoMouse::stagePrepareHandler', d)",
                                 "block": false,
                                 "line": 78
                             }
@@ -244,7 +246,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -300,7 +303,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -352,7 +356,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "get",
@@ -400,7 +405,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "get",
@@ -435,7 +441,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " The `this.position` method returns a new Point, with the mouse XY\r\n        (from the last motion).\r\n\r\n        Use `this.point` for a persisent single Point instance.\r\n        ",
+                                "text": "The `this.position` method returns a new Point, with the mouse XY\n(from the last motion).\n\nUse `this.point` for a persisent single Point instance.",
                                 "block": true,
                                 "line": 109
                             }
@@ -454,7 +460,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "get",
@@ -489,7 +496,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": "\r\n        Return a persistent _point_, of which is updated rather than replaced\r\n        when the mouse state changes.\r\n         ",
+                                "text": "Return a persistent _point_, of which is updated rather than replaced\nwhen the mouse state changes.",
                                 "block": true,
                                 "line": 117
                             }
@@ -508,7 +515,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -560,7 +568,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -595,7 +604,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " console.log('Setting up mouse events')",
+                                "text": "console.log('Setting up mouse events')",
                                 "block": false,
                                 "line": 139
                             }
@@ -614,7 +623,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -653,7 +663,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Call upon `mount` to initate listening of all events on a canvas. ",
+                                "text": "Call upon `mount` to initate listening of all events on a canvas.",
                                 "block": true,
                                 "line": 152
                             }
@@ -672,7 +682,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -702,7 +713,7 @@
                         ],
                         "pos": {
                             "start": 4737,
-                            "end": 4882,
+                            "end": 4878,
                             "loc": {
                                 "start": {
                                     "line": 175,
@@ -722,7 +733,7 @@
                     },
                     "pos": {
                         "start": 4731,
-                        "end": 4882,
+                        "end": 4878,
                         "loc": {
                             "start": {
                                 "line": 175,
@@ -733,7 +744,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -756,8 +768,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 4906,
-                            "end": 7099,
+                            "start": 4902,
+                            "end": 7095,
                             "loc": {
                                 "start": {
                                     "line": 180,
@@ -775,15 +787,15 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " let bound = this.getBoundingClientRect();",
+                                "text": "let bound = this.getBoundingClientRect();",
                                 "block": false,
                                 "line": 181
                             }
                         ]
                     },
                     "pos": {
-                        "start": 4890,
-                        "end": 7099,
+                        "start": 4886,
+                        "end": 7095,
                         "loc": {
                             "start": {
                                 "line": 180,
@@ -794,7 +806,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -820,8 +833,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 7119,
-                            "end": 7312,
+                            "start": 7115,
+                            "end": 7308,
                             "loc": {
                                 "start": {
                                     "line": 247,
@@ -840,8 +853,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 7107,
-                        "end": 7312,
+                        "start": 7103,
+                        "end": 7308,
                         "loc": {
                             "start": {
                                 "line": 247,
@@ -852,7 +865,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -875,8 +889,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 7336,
-                            "end": 7570,
+                            "start": 7332,
+                            "end": 7566,
                             "loc": {
                                 "start": {
                                     "line": 255,
@@ -895,8 +909,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 7320,
-                        "end": 7570,
+                        "start": 7316,
+                        "end": 7566,
                         "loc": {
                             "start": {
                                 "line": 255,
@@ -907,7 +921,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -930,8 +945,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 7592,
-                            "end": 7825,
+                            "start": 7588,
+                            "end": 7821,
                             "loc": {
                                 "start": {
                                     "line": 263,
@@ -950,8 +965,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 7578,
-                        "end": 7825,
+                        "start": 7574,
+                        "end": 7821,
                         "loc": {
                             "start": {
                                 "line": 263,
@@ -962,7 +977,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -985,8 +1001,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 7855,
-                            "end": 8043,
+                            "start": 7851,
+                            "end": 8039,
                             "loc": {
                                 "start": {
                                     "line": 271,
@@ -1005,8 +1021,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 7833,
-                        "end": 8043,
+                        "start": 7829,
+                        "end": 8039,
                         "loc": {
                             "start": {
                                 "line": 271,
@@ -1017,7 +1033,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1040,8 +1057,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 8063,
-                            "end": 8717,
+                            "start": 8059,
+                            "end": 8713,
                             "loc": {
                                 "start": {
                                     "line": 280,
@@ -1060,8 +1077,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 8051,
-                        "end": 8717,
+                        "start": 8047,
+                        "end": 8713,
                         "loc": {
                             "start": {
                                 "line": 280,
@@ -1072,7 +1089,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1092,8 +1110,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 8731,
-                            "end": 8833,
+                            "start": 8727,
+                            "end": 8829,
                             "loc": {
                                 "start": {
                                     "line": 303,
@@ -1112,8 +1130,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 8725,
-                        "end": 8833,
+                        "start": 8721,
+                        "end": 8829,
                         "loc": {
                             "start": {
                                 "line": 303,
@@ -1124,7 +1142,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1145,8 +1164,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 8850,
-                            "end": 9043,
+                            "start": 8846,
+                            "end": 9039,
                             "loc": {
                                 "start": {
                                     "line": 309,
@@ -1171,8 +1190,8 @@
                         ]
                     },
                     "pos": {
-                        "start": 8841,
-                        "end": 9043,
+                        "start": 8837,
+                        "end": 9039,
                         "loc": {
                             "start": {
                                 "line": 309,
@@ -1183,7 +1202,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1210,8 +1230,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 9458,
-                            "end": 9682,
+                            "start": 9454,
+                            "end": 9678,
                             "loc": {
                                 "start": {
                                     "line": 330,
@@ -1228,7 +1248,7 @@
                     "comments": {
                         "header": [
                             {
-                                "text": "\r\n    A function to help clamp the wheel scroll within a range. By using this\r\n    function, the wheel value doesn't exceed the clamp.\r\n\r\n\r\n        let size = mouse.clampWheelSize(5, 20)\r\n\r\n    The same can be done with the clamp function\r\n\r\n        let size = clamp(mouse.wheelSize(), 30, 300)\r\n\r\n    but when the wheel exceeds the clamp, it'll scroll into an unused range.\r\n\r\n     ",
+                                "text": "A function to help clamp the wheel scroll within a range. By using this\nfunction, the wheel value doesn't exceed the clamp.\n\n\n    let size = mouse.clampWheelSize(5, 20)\n\nThe same can be done with the clamp function\n\n    let size = clamp(mouse.wheelSize(), 30, 300)\n\nbut when the wheel exceeds the clamp, it'll scroll into an unused range.",
                                 "block": true,
                                 "line": 329
                             }
@@ -1236,8 +1256,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 9444,
-                        "end": 9682,
+                        "start": 9440,
+                        "end": 9678,
                         "loc": {
                             "start": {
                                 "line": 330,
@@ -1248,7 +1268,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1277,8 +1298,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 9694,
-                            "end": 10057,
+                            "start": 9690,
+                            "end": 10053,
                             "loc": {
                                 "start": {
                                     "line": 341,
@@ -1297,8 +1318,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 9692,
-                        "end": 10057,
+                        "start": 9688,
+                        "end": 10053,
                         "loc": {
                             "start": {
                                 "line": 341,
@@ -1309,7 +1330,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1333,8 +1355,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 10079,
-                            "end": 10334,
+                            "start": 10075,
+                            "end": 10330,
                             "loc": {
                                 "start": {
                                     "line": 353,
@@ -1353,8 +1375,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 10065,
-                        "end": 10334,
+                        "start": 10061,
+                        "end": 10330,
                         "loc": {
                             "start": {
                                 "line": 353,
@@ -1365,7 +1387,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1389,8 +1412,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 10347,
-                            "end": 10787,
+                            "start": 10343,
+                            "end": 10783,
                             "loc": {
                                 "start": {
                                     "line": 364,
@@ -1408,15 +1431,15 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Return the speed of the point over a delta.\r\n        This is a lot like the velocity functionality, but cut-down for\r\n        efficiency. ",
+                                "text": "Return the speed of the point over a delta.\nThis is a lot like the velocity functionality, but cut-down for\nefficiency.",
                                 "block": true,
                                 "line": 367
                             }
                         ]
                     },
                     "pos": {
-                        "start": 10342,
-                        "end": 10787,
+                        "start": 10338,
+                        "end": 10783,
                         "loc": {
                             "start": {
                                 "line": 364,
@@ -1427,7 +1450,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "property",
@@ -1439,8 +1463,8 @@
                         "raw": "0",
                         "value": 0,
                         "pos": {
-                            "start": 10811,
-                            "end": 10812,
+                            "start": 10807,
+                            "end": 10808,
                             "loc": {
                                 "start": {
                                     "line": 378,
@@ -1455,8 +1479,8 @@
                     },
                     "type": "PropertyDefinition",
                     "pos": {
-                        "start": 10795,
-                        "end": 10812,
+                        "start": 10791,
+                        "end": 10808,
                         "loc": {
                             "start": {
                                 "line": 378,
@@ -1467,7 +1491,8 @@
                                 "column": 21
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1495,8 +1520,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 10832,
-                            "end": 11203,
+                            "start": 10828,
+                            "end": 11199,
                             "loc": {
                                 "start": {
                                     "line": 379,
@@ -1515,8 +1540,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 10818,
-                        "end": 11203,
+                        "start": 10814,
+                        "end": 11199,
                         "loc": {
                             "start": {
                                 "line": 379,
@@ -1527,7 +1552,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 },
                 {
                     "kind": "method",
@@ -1554,8 +1580,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 11299,
-                            "end": 11476,
+                            "start": 11295,
+                            "end": 11472,
                             "loc": {
                                 "start": {
                                     "line": 392,
@@ -1572,7 +1598,7 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " CREATE use a smoothtext function\r\n    share for this anf fps text",
+                                "text": "CREATE use a smoothtext function\nshare for this anf fps text",
                                 "block": true,
                                 "line": 391
                             }
@@ -1580,8 +1606,8 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 11287,
-                        "end": 11476,
+                        "start": 11283,
+                        "end": 11472,
                         "loc": {
                             "start": {
                                 "line": 392,
@@ -1592,14 +1618,15 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "AutoMouse"
                 }
             ],
             "comments": {
                 "header": [],
                 "inner": [
                     {
-                        "text": " The _AutoMouse_ class cares for much of the mouse pointer functionality\r\n    for a stage and the a point.\r\n    It's functionality is designed to hook onto preparing `stages` and their canvas.\r\n    It exists as a singleton `autoMouse`:\r\n\r\n        autoMouse = new AutoMouse()\r\n        autoMouse == stage.mouse\r\n        Point.mouse == stage.mouse\r\n\r\n    Initiate like this:\r\n\r\n        Point.mouse?.mount(stage.canvas)\r\n\r\n    Synonymous to:\r\n\r\n        installCanvas(canvas, stage){\r\n            this.canvasMap.set(canvas, stage)\r\n            Point.mouse?.listen(canvas)\r\n        }\r\n\r\n\r\n     ",
+                        "text": "The _AutoMouse_ class cares for much of the mouse pointer functionality\nfor a stage and the a point.\nIt's functionality is designed to hook onto preparing `stages` and their canvas.\nIt exists as a singleton `autoMouse`:\n\n    autoMouse = new AutoMouse()\n    autoMouse == stage.mouse\n    Point.mouse == stage.mouse\n\nInitiate like this:\n\n    Point.mouse?.mount(stage.canvas)\n\nSynonymous to:\n\n    installCanvas(canvas, stage){\n        this.canvasMap.set(canvas, stage)\n        Point.mouse?.listen(canvas)\n    }",
                         "block": true,
                         "line": 39
                     }
@@ -1607,7 +1634,7 @@
             },
             "pos": {
                 "start": 314,
-                "end": 11479,
+                "end": 11475,
                 "loc": {
                     "start": {
                         "line": 17,
@@ -1624,8 +1651,8 @@
             "type": "ExpressionStatement",
             "expression": {
                 "type": "CallExpression",
-                "start": 11483,
-                "end": 11516,
+                "start": 11479,
+                "end": 11512,
                 "loc": {
                     "start": {
                         "line": 399,
@@ -1638,8 +1665,8 @@
                 },
                 "callee": {
                     "type": "MemberExpression",
-                    "start": 11483,
-                    "end": 11505,
+                    "start": 11479,
+                    "end": 11501,
                     "loc": {
                         "start": {
                             "line": 399,
@@ -1652,8 +1679,8 @@
                     },
                     "object": {
                         "type": "MemberExpression",
-                        "start": 11483,
-                        "end": 11497,
+                        "start": 11479,
+                        "end": 11493,
                         "loc": {
                             "start": {
                                 "line": 399,
@@ -1666,8 +1693,8 @@
                         },
                         "object": {
                             "type": "Identifier",
-                            "start": 11483,
-                            "end": 11492,
+                            "start": 11479,
+                            "end": 11488,
                             "loc": {
                                 "start": {
                                     "line": 399,
@@ -1680,8 +1707,8 @@
                             },
                             "name": "Polypoint",
                             "pos": {
-                                "start": 11483,
-                                "end": 11492,
+                                "start": 11479,
+                                "end": 11488,
                                 "loc": {
                                     "start": {
                                         "line": 399,
@@ -1696,8 +1723,8 @@
                         },
                         "property": {
                             "type": "Identifier",
-                            "start": 11493,
-                            "end": 11497,
+                            "start": 11489,
+                            "end": 11493,
                             "loc": {
                                 "start": {
                                     "line": 399,
@@ -1710,8 +1737,8 @@
                             },
                             "name": "head",
                             "pos": {
-                                "start": 11493,
-                                "end": 11497,
+                                "start": 11489,
+                                "end": 11493,
                                 "loc": {
                                     "start": {
                                         "line": 399,
@@ -1727,8 +1754,8 @@
                         "computed": false,
                         "optional": false,
                         "pos": {
-                            "start": 11483,
-                            "end": 11497,
+                            "start": 11479,
+                            "end": 11493,
                             "loc": {
                                 "start": {
                                     "line": 399,
@@ -1743,8 +1770,8 @@
                     },
                     "property": {
                         "type": "Identifier",
-                        "start": 11498,
-                        "end": 11505,
+                        "start": 11494,
+                        "end": 11501,
                         "loc": {
                             "start": {
                                 "line": 399,
@@ -1757,8 +1784,8 @@
                         },
                         "name": "install",
                         "pos": {
-                            "start": 11498,
-                            "end": 11505,
+                            "start": 11494,
+                            "end": 11501,
                             "loc": {
                                 "start": {
                                     "line": 399,
@@ -1774,8 +1801,8 @@
                     "computed": false,
                     "optional": false,
                     "pos": {
-                        "start": 11483,
-                        "end": 11505,
+                        "start": 11479,
+                        "end": 11501,
                         "loc": {
                             "start": {
                                 "line": 399,
@@ -1791,8 +1818,8 @@
                 "arguments": [
                     {
                         "type": "Identifier",
-                        "start": 11506,
-                        "end": 11515,
+                        "start": 11502,
+                        "end": 11511,
                         "loc": {
                             "start": {
                                 "line": 399,
@@ -1805,8 +1832,8 @@
                         },
                         "name": "AutoMouse",
                         "pos": {
-                            "start": 11506,
-                            "end": 11515,
+                            "start": 11502,
+                            "end": 11511,
                             "loc": {
                                 "start": {
                                     "line": 399,
@@ -1822,8 +1849,8 @@
                 ],
                 "optional": false,
                 "pos": {
-                    "start": 11483,
-                    "end": 11516,
+                    "start": 11479,
+                    "end": 11512,
                     "loc": {
                         "start": {
                             "line": 399,
@@ -1837,8 +1864,8 @@
                 }
             },
             "pos": {
-                "start": 11483,
-                "end": 11516,
+                "start": 11479,
+                "end": 11512,
                 "loc": {
                     "start": {
                         "line": 399,
@@ -1860,8 +1887,8 @@
                     "type": "Identifier",
                     "word": "AutoMouse",
                     "pos": {
-                        "start": 11545,
-                        "end": 11554,
+                        "start": 11541,
+                        "end": 11550,
                         "loc": {
                             "start": {
                                 "line": 402,
@@ -1879,8 +1906,8 @@
                         "type": "Identifier",
                         "word": "Point",
                         "pos": {
-                            "start": 11555,
-                            "end": 11560,
+                            "start": 11551,
+                            "end": 11556,
                             "loc": {
                                 "start": {
                                     "line": 402,
@@ -1895,8 +1922,8 @@
                     }
                 ],
                 "pos": {
-                    "start": 11541,
-                    "end": 11561,
+                    "start": 11537,
+                    "end": 11557,
                     "loc": {
                         "start": {
                             "line": 402,
@@ -1914,8 +1941,8 @@
                 "inner": []
             },
             "pos": {
-                "start": 11522,
-                "end": 11562,
+                "start": 11518,
+                "end": 11558,
                 "loc": {
                     "start": {
                         "line": 402,
@@ -1928,8 +1955,8 @@
                 }
             },
             "type": "VariableDeclaration",
-            "start": 11522,
-            "end": 11562,
+            "start": 11518,
+            "end": 11558,
             "loc": {
                 "start": {
                     "line": 402,
@@ -1946,8 +1973,8 @@
             "type": "ExpressionStatement",
             "expression": {
                 "type": "CallExpression",
-                "start": 11616,
-                "end": 11793,
+                "start": 11612,
+                "end": 11789,
                 "loc": {
                     "start": {
                         "line": 407,
@@ -1960,8 +1987,8 @@
                 },
                 "callee": {
                     "type": "MemberExpression",
-                    "start": 11616,
-                    "end": 11637,
+                    "start": 11612,
+                    "end": 11633,
                     "loc": {
                         "start": {
                             "line": 407,
@@ -1974,8 +2001,8 @@
                     },
                     "object": {
                         "type": "MemberExpression",
-                        "start": 11616,
-                        "end": 11630,
+                        "start": 11612,
+                        "end": 11626,
                         "loc": {
                             "start": {
                                 "line": 407,
@@ -1988,8 +2015,8 @@
                         },
                         "object": {
                             "type": "Identifier",
-                            "start": 11616,
-                            "end": 11625,
+                            "start": 11612,
+                            "end": 11621,
                             "loc": {
                                 "start": {
                                     "line": 407,
@@ -2002,8 +2029,8 @@
                             },
                             "name": "Polypoint",
                             "pos": {
-                                "start": 11616,
-                                "end": 11625,
+                                "start": 11612,
+                                "end": 11621,
                                 "loc": {
                                     "start": {
                                         "line": 407,
@@ -2018,8 +2045,8 @@
                         },
                         "property": {
                             "type": "Identifier",
-                            "start": 11626,
-                            "end": 11630,
+                            "start": 11622,
+                            "end": 11626,
                             "loc": {
                                 "start": {
                                     "line": 407,
@@ -2032,8 +2059,8 @@
                             },
                             "name": "head",
                             "pos": {
-                                "start": 11626,
-                                "end": 11630,
+                                "start": 11622,
+                                "end": 11626,
                                 "loc": {
                                     "start": {
                                         "line": 407,
@@ -2049,8 +2076,8 @@
                         "computed": false,
                         "optional": false,
                         "pos": {
-                            "start": 11616,
-                            "end": 11630,
+                            "start": 11612,
+                            "end": 11626,
                             "loc": {
                                 "start": {
                                     "line": 407,
@@ -2065,8 +2092,8 @@
                     },
                     "property": {
                         "type": "Identifier",
-                        "start": 11631,
-                        "end": 11637,
+                        "start": 11627,
+                        "end": 11633,
                         "loc": {
                             "start": {
                                 "line": 407,
@@ -2079,8 +2106,8 @@
                         },
                         "name": "static",
                         "pos": {
-                            "start": 11631,
-                            "end": 11637,
+                            "start": 11627,
+                            "end": 11633,
                             "loc": {
                                 "start": {
                                     "line": 407,
@@ -2096,8 +2123,8 @@
                     "computed": false,
                     "optional": false,
                     "pos": {
-                        "start": 11616,
-                        "end": 11637,
+                        "start": 11612,
+                        "end": 11633,
                         "loc": {
                             "start": {
                                 "line": 407,
@@ -2113,8 +2140,8 @@
                 "arguments": [
                     {
                         "type": "Literal",
-                        "start": 11638,
-                        "end": 11645,
+                        "start": 11634,
+                        "end": 11641,
                         "loc": {
                             "start": {
                                 "line": 407,
@@ -2128,8 +2155,8 @@
                         "value": "Point",
                         "raw": "'Point'",
                         "pos": {
-                            "start": 11638,
-                            "end": 11645,
+                            "start": 11634,
+                            "end": 11641,
                             "loc": {
                                 "start": {
                                     "line": 407,
@@ -2144,8 +2171,8 @@
                     },
                     {
                         "type": "ObjectExpression",
-                        "start": 11647,
-                        "end": 11792,
+                        "start": 11643,
+                        "end": 11788,
                         "loc": {
                             "start": {
                                 "line": 407,
@@ -2159,8 +2186,8 @@
                         "properties": [
                             {
                                 "type": "Property",
-                                "start": 11654,
-                                "end": 11789,
+                                "start": 11650,
+                                "end": 11785,
                                 "loc": {
                                     "start": {
                                         "line": 408,
@@ -2176,8 +2203,8 @@
                                 "computed": false,
                                 "key": {
                                     "type": "Identifier",
-                                    "start": 11654,
-                                    "end": 11659,
+                                    "start": 11650,
+                                    "end": 11655,
                                     "loc": {
                                         "start": {
                                             "line": 408,
@@ -2190,8 +2217,8 @@
                                     },
                                     "name": "mouse",
                                     "pos": {
-                                        "start": 11654,
-                                        "end": 11659,
+                                        "start": 11650,
+                                        "end": 11655,
                                         "loc": {
                                             "start": {
                                                 "line": 408,
@@ -2206,8 +2233,8 @@
                                 },
                                 "value": {
                                     "type": "ObjectExpression",
-                                    "start": 11661,
-                                    "end": 11789,
+                                    "start": 11657,
+                                    "end": 11785,
                                     "loc": {
                                         "start": {
                                             "line": 408,
@@ -2221,8 +2248,8 @@
                                     "properties": [
                                         {
                                             "type": "Property",
-                                            "start": 11672,
-                                            "end": 11688,
+                                            "start": 11668,
+                                            "end": 11684,
                                             "loc": {
                                                 "start": {
                                                     "line": 409,
@@ -2238,8 +2265,8 @@
                                             "computed": false,
                                             "key": {
                                                 "type": "Identifier",
-                                                "start": 11672,
-                                                "end": 11677,
+                                                "start": 11668,
+                                                "end": 11673,
                                                 "loc": {
                                                     "start": {
                                                         "line": 409,
@@ -2252,8 +2279,8 @@
                                                 },
                                                 "name": "value",
                                                 "pos": {
-                                                    "start": 11672,
-                                                    "end": 11677,
+                                                    "start": 11668,
+                                                    "end": 11673,
                                                     "loc": {
                                                         "start": {
                                                             "line": 409,
@@ -2268,8 +2295,8 @@
                                             },
                                             "value": {
                                                 "type": "Identifier",
-                                                "start": 11679,
-                                                "end": 11688,
+                                                "start": 11675,
+                                                "end": 11684,
                                                 "loc": {
                                                     "start": {
                                                         "line": 409,
@@ -2282,8 +2309,8 @@
                                                 },
                                                 "name": "autoMouse",
                                                 "pos": {
-                                                    "start": 11679,
-                                                    "end": 11688,
+                                                    "start": 11675,
+                                                    "end": 11684,
                                                     "loc": {
                                                         "start": {
                                                             "line": 409,
@@ -2298,8 +2325,8 @@
                                             },
                                             "kind": "init",
                                             "pos": {
-                                                "start": 11672,
-                                                "end": 11688,
+                                                "start": 11668,
+                                                "end": 11684,
                                                 "loc": {
                                                     "start": {
                                                         "line": 409,
@@ -2314,8 +2341,8 @@
                                         }
                                     ],
                                     "pos": {
-                                        "start": 11661,
-                                        "end": 11789,
+                                        "start": 11657,
+                                        "end": 11785,
                                         "loc": {
                                             "start": {
                                                 "line": 408,
@@ -2330,8 +2357,8 @@
                                 },
                                 "kind": "init",
                                 "pos": {
-                                    "start": 11654,
-                                    "end": 11789,
+                                    "start": 11650,
+                                    "end": 11785,
                                     "loc": {
                                         "start": {
                                             "line": 408,
@@ -2346,8 +2373,8 @@
                             }
                         ],
                         "pos": {
-                            "start": 11647,
-                            "end": 11792,
+                            "start": 11643,
+                            "end": 11788,
                             "loc": {
                                 "start": {
                                     "line": 407,
@@ -2363,8 +2390,8 @@
                 ],
                 "optional": false,
                 "pos": {
-                    "start": 11616,
-                    "end": 11793,
+                    "start": 11612,
+                    "end": 11789,
                     "loc": {
                         "start": {
                             "line": 407,
@@ -2378,8 +2405,8 @@
                 }
             },
             "pos": {
-                "start": 11616,
-                "end": 11793,
+                "start": 11612,
+                "end": 11789,
                 "loc": {
                     "start": {
                         "line": 407,
@@ -2396,8 +2423,8 @@
             "type": "ExpressionStatement",
             "expression": {
                 "type": "CallExpression",
-                "start": 11801,
-                "end": 12095,
+                "start": 11797,
+                "end": 12091,
                 "loc": {
                     "start": {
                         "line": 418,
@@ -2410,8 +2437,8 @@
                 },
                 "callee": {
                     "type": "Identifier",
-                    "start": 11801,
-                    "end": 11817,
+                    "start": 11797,
+                    "end": 11813,
                     "loc": {
                         "start": {
                             "line": 418,
@@ -2424,8 +2451,8 @@
                     },
                     "name": "addEventListener",
                     "pos": {
-                        "start": 11801,
-                        "end": 11817,
+                        "start": 11797,
+                        "end": 11813,
                         "loc": {
                             "start": {
                                 "line": 418,
@@ -2441,8 +2468,8 @@
                 "arguments": [
                     {
                         "type": "Literal",
-                        "start": 11818,
-                        "end": 11833,
+                        "start": 11814,
+                        "end": 11829,
                         "loc": {
                             "start": {
                                 "line": 418,
@@ -2456,8 +2483,8 @@
                         "value": "stage:prepare",
                         "raw": "'stage:prepare'",
                         "pos": {
-                            "start": 11818,
-                            "end": 11833,
+                            "start": 11814,
+                            "end": 11829,
                             "loc": {
                                 "start": {
                                     "line": 418,
@@ -2472,8 +2499,8 @@
                     },
                     {
                         "type": "ArrowFunctionExpression",
-                        "start": 11835,
-                        "end": 12094,
+                        "start": 11831,
+                        "end": 12090,
                         "loc": {
                             "start": {
                                 "line": 418,
@@ -2491,8 +2518,8 @@
                         "params": [
                             {
                                 "type": "Identifier",
-                                "start": 11836,
-                                "end": 11837,
+                                "start": 11832,
+                                "end": 11833,
                                 "loc": {
                                     "start": {
                                         "line": 418,
@@ -2505,8 +2532,8 @@
                                 },
                                 "name": "e",
                                 "pos": {
-                                    "start": 11836,
-                                    "end": 11837,
+                                    "start": 11832,
+                                    "end": 11833,
                                     "loc": {
                                         "start": {
                                             "line": 418,
@@ -2522,8 +2549,8 @@
                         ],
                         "body": {
                             "type": "BlockStatement",
-                            "start": 11840,
-                            "end": 12094,
+                            "start": 11836,
+                            "end": 12090,
                             "loc": {
                                 "start": {
                                     "line": 418,
@@ -2537,8 +2564,8 @@
                             "body": [
                                 {
                                     "type": "ExpressionStatement",
-                                    "start": 12014,
-                                    "end": 12055,
+                                    "start": 12010,
+                                    "end": 12051,
                                     "loc": {
                                         "start": {
                                             "line": 424,
@@ -2551,8 +2578,8 @@
                                     },
                                     "expression": {
                                         "type": "ChainExpression",
-                                        "start": 12014,
-                                        "end": 12055,
+                                        "start": 12010,
+                                        "end": 12051,
                                         "loc": {
                                             "start": {
                                                 "line": 424,
@@ -2565,8 +2592,8 @@
                                         },
                                         "expression": {
                                             "type": "CallExpression",
-                                            "start": 12014,
-                                            "end": 12055,
+                                            "start": 12010,
+                                            "end": 12051,
                                             "loc": {
                                                 "start": {
                                                     "line": 424,
@@ -2579,8 +2606,8 @@
                                             },
                                             "callee": {
                                                 "type": "MemberExpression",
-                                                "start": 12014,
-                                                "end": 12032,
+                                                "start": 12010,
+                                                "end": 12028,
                                                 "loc": {
                                                     "start": {
                                                         "line": 424,
@@ -2593,8 +2620,8 @@
                                                 },
                                                 "object": {
                                                     "type": "MemberExpression",
-                                                    "start": 12014,
-                                                    "end": 12025,
+                                                    "start": 12010,
+                                                    "end": 12021,
                                                     "loc": {
                                                         "start": {
                                                             "line": 424,
@@ -2607,8 +2634,8 @@
                                                     },
                                                     "object": {
                                                         "type": "Identifier",
-                                                        "start": 12014,
-                                                        "end": 12019,
+                                                        "start": 12010,
+                                                        "end": 12015,
                                                         "loc": {
                                                             "start": {
                                                                 "line": 424,
@@ -2621,8 +2648,8 @@
                                                         },
                                                         "name": "Point",
                                                         "pos": {
-                                                            "start": 12014,
-                                                            "end": 12019,
+                                                            "start": 12010,
+                                                            "end": 12015,
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 424,
@@ -2637,8 +2664,8 @@
                                                     },
                                                     "property": {
                                                         "type": "Identifier",
-                                                        "start": 12020,
-                                                        "end": 12025,
+                                                        "start": 12016,
+                                                        "end": 12021,
                                                         "loc": {
                                                             "start": {
                                                                 "line": 424,
@@ -2651,8 +2678,8 @@
                                                         },
                                                         "name": "mouse",
                                                         "pos": {
-                                                            "start": 12020,
-                                                            "end": 12025,
+                                                            "start": 12016,
+                                                            "end": 12021,
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 424,
@@ -2668,8 +2695,8 @@
                                                     "computed": false,
                                                     "optional": false,
                                                     "pos": {
-                                                        "start": 12014,
-                                                        "end": 12025,
+                                                        "start": 12010,
+                                                        "end": 12021,
                                                         "loc": {
                                                             "start": {
                                                                 "line": 424,
@@ -2684,8 +2711,8 @@
                                                 },
                                                 "property": {
                                                     "type": "Identifier",
-                                                    "start": 12027,
-                                                    "end": 12032,
+                                                    "start": 12023,
+                                                    "end": 12028,
                                                     "loc": {
                                                         "start": {
                                                             "line": 424,
@@ -2698,8 +2725,8 @@
                                                     },
                                                     "name": "mount",
                                                     "pos": {
-                                                        "start": 12027,
-                                                        "end": 12032,
+                                                        "start": 12023,
+                                                        "end": 12028,
                                                         "loc": {
                                                             "start": {
                                                                 "line": 424,
@@ -2715,8 +2742,8 @@
                                                 "computed": false,
                                                 "optional": true,
                                                 "pos": {
-                                                    "start": 12014,
-                                                    "end": 12032,
+                                                    "start": 12010,
+                                                    "end": 12028,
                                                     "loc": {
                                                         "start": {
                                                             "line": 424,
@@ -2732,8 +2759,8 @@
                                             "arguments": [
                                                 {
                                                     "type": "MemberExpression",
-                                                    "start": 12033,
-                                                    "end": 12054,
+                                                    "start": 12029,
+                                                    "end": 12050,
                                                     "loc": {
                                                         "start": {
                                                             "line": 424,
@@ -2746,8 +2773,8 @@
                                                     },
                                                     "object": {
                                                         "type": "MemberExpression",
-                                                        "start": 12033,
-                                                        "end": 12047,
+                                                        "start": 12029,
+                                                        "end": 12043,
                                                         "loc": {
                                                             "start": {
                                                                 "line": 424,
@@ -2760,8 +2787,8 @@
                                                         },
                                                         "object": {
                                                             "type": "MemberExpression",
-                                                            "start": 12033,
-                                                            "end": 12041,
+                                                            "start": 12029,
+                                                            "end": 12037,
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 424,
@@ -2774,8 +2801,8 @@
                                                             },
                                                             "object": {
                                                                 "type": "Identifier",
-                                                                "start": 12033,
-                                                                "end": 12034,
+                                                                "start": 12029,
+                                                                "end": 12030,
                                                                 "loc": {
                                                                     "start": {
                                                                         "line": 424,
@@ -2788,8 +2815,8 @@
                                                                 },
                                                                 "name": "e",
                                                                 "pos": {
-                                                                    "start": 12033,
-                                                                    "end": 12034,
+                                                                    "start": 12029,
+                                                                    "end": 12030,
                                                                     "loc": {
                                                                         "start": {
                                                                             "line": 424,
@@ -2804,8 +2831,8 @@
                                                             },
                                                             "property": {
                                                                 "type": "Identifier",
-                                                                "start": 12035,
-                                                                "end": 12041,
+                                                                "start": 12031,
+                                                                "end": 12037,
                                                                 "loc": {
                                                                     "start": {
                                                                         "line": 424,
@@ -2818,8 +2845,8 @@
                                                                 },
                                                                 "name": "detail",
                                                                 "pos": {
-                                                                    "start": 12035,
-                                                                    "end": 12041,
+                                                                    "start": 12031,
+                                                                    "end": 12037,
                                                                     "loc": {
                                                                         "start": {
                                                                             "line": 424,
@@ -2835,8 +2862,8 @@
                                                             "computed": false,
                                                             "optional": false,
                                                             "pos": {
-                                                                "start": 12033,
-                                                                "end": 12041,
+                                                                "start": 12029,
+                                                                "end": 12037,
                                                                 "loc": {
                                                                     "start": {
                                                                         "line": 424,
@@ -2851,8 +2878,8 @@
                                                         },
                                                         "property": {
                                                             "type": "Identifier",
-                                                            "start": 12042,
-                                                            "end": 12047,
+                                                            "start": 12038,
+                                                            "end": 12043,
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 424,
@@ -2865,8 +2892,8 @@
                                                             },
                                                             "name": "stage",
                                                             "pos": {
-                                                                "start": 12042,
-                                                                "end": 12047,
+                                                                "start": 12038,
+                                                                "end": 12043,
                                                                 "loc": {
                                                                     "start": {
                                                                         "line": 424,
@@ -2882,8 +2909,8 @@
                                                         "computed": false,
                                                         "optional": false,
                                                         "pos": {
-                                                            "start": 12033,
-                                                            "end": 12047,
+                                                            "start": 12029,
+                                                            "end": 12043,
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 424,
@@ -2898,8 +2925,8 @@
                                                     },
                                                     "property": {
                                                         "type": "Identifier",
-                                                        "start": 12048,
-                                                        "end": 12054,
+                                                        "start": 12044,
+                                                        "end": 12050,
                                                         "loc": {
                                                             "start": {
                                                                 "line": 424,
@@ -2912,8 +2939,8 @@
                                                         },
                                                         "name": "canvas",
                                                         "pos": {
-                                                            "start": 12048,
-                                                            "end": 12054,
+                                                            "start": 12044,
+                                                            "end": 12050,
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 424,
@@ -2929,8 +2956,8 @@
                                                     "computed": false,
                                                     "optional": false,
                                                     "pos": {
-                                                        "start": 12033,
-                                                        "end": 12054,
+                                                        "start": 12029,
+                                                        "end": 12050,
                                                         "loc": {
                                                             "start": {
                                                                 "line": 424,
@@ -2946,8 +2973,8 @@
                                             ],
                                             "optional": false,
                                             "pos": {
-                                                "start": 12014,
-                                                "end": 12055,
+                                                "start": 12010,
+                                                "end": 12051,
                                                 "loc": {
                                                     "start": {
                                                         "line": 424,
@@ -2961,8 +2988,8 @@
                                             }
                                         },
                                         "pos": {
-                                            "start": 12014,
-                                            "end": 12055,
+                                            "start": 12010,
+                                            "end": 12051,
                                             "loc": {
                                                 "start": {
                                                     "line": 424,
@@ -2976,8 +3003,8 @@
                                         }
                                     },
                                     "pos": {
-                                        "start": 12014,
-                                        "end": 12055,
+                                        "start": 12010,
+                                        "end": 12051,
                                         "loc": {
                                             "start": {
                                                 "line": 424,
@@ -2992,8 +3019,8 @@
                                 }
                             ],
                             "pos": {
-                                "start": 11840,
-                                "end": 12094,
+                                "start": 11836,
+                                "end": 12090,
                                 "loc": {
                                     "start": {
                                         "line": 418,
@@ -3007,8 +3034,8 @@
                             }
                         },
                         "pos": {
-                            "start": 11835,
-                            "end": 12094,
+                            "start": 11831,
+                            "end": 12090,
                             "loc": {
                                 "start": {
                                     "line": 418,
@@ -3024,8 +3051,8 @@
                 ],
                 "optional": false,
                 "pos": {
-                    "start": 11801,
-                    "end": 12095,
+                    "start": 11797,
+                    "end": 12091,
                     "loc": {
                         "start": {
                             "line": 418,
@@ -3039,8 +3066,8 @@
                 }
             },
             "pos": {
-                "start": 11801,
-                "end": 12096,
+                "start": 11797,
+                "end": 12092,
                 "loc": {
                     "start": {
                         "line": 418,
@@ -3066,7 +3093,7 @@
     "info": {
         "filename": "automouse.js",
         "path": "/workspaces/polypoint/point_src/automouse.js",
-        "size": 12238,
-        "parsed_date": "2025-11-02T21:11:32.457Z"
+        "size": 12234,
+        "parsed_date": "2026-06-13T02:01:07.317Z"
     }
 }

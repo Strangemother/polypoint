@@ -36,10 +36,19 @@
 
 <ul class='class-methods' data-show-inherited='false'>
     {% for sub_item in item.body %}
-        <li class="kind-method_kind">
-            {% if item.type %}
+        {% firstof sub_item.class_name item.word as owner_class_name %}
+        <li class="kind-{{ sub_item.kind|default:'unknown' }}"
+            data-current-class="{{ item.word }}"
+            data-owner-class="{{ owner_class_name }}"
+            {% if item.word == owner_class_name %}
+                data-ishome="true"
+            {% else %}
+                data-ishome="false"
+            {% endif %}
+            data-key='{{ item.word }}-{{ sub_item.word }}'>
+            {% if sub_item.type %}
                 {% str_merge './' sub_item.type '.html' as inc_name %}
-                {% include inc_name with item=sub_item %}
+                {% include inc_name with item=sub_item class_name=item.word owner_class_name=owner_class_name %}
             {% else %}
                 {{ sub_item.word }}: {{ sub_item.type }}
                 {{ sub_item }}

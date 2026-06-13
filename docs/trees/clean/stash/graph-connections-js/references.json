@@ -15,7 +15,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " neighbours by connections.\r\n        When reversing; we grab the rear node,\r\n        and in reverse, we iterate siblings. ",
+                                    "text": "neighbours by connections.\nWhen reversing; we grab the rear node,\nand in reverse, we iterate siblings.",
                                     "block": true,
                                     "line": 108
                                 }
@@ -40,7 +40,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " split an array into overlapping pairs\r\n\r\n            [0,1,2,3,4,5]\r\n            [0,1]\r\n            [1,2]\r\n            [2,3]\r\n            ...\r\n        ",
+                                    "text": "split an array into overlapping pairs\n\n[0,1,2,3,4,5]\n[0,1]\n[1,2]\n[2,3]\n...",
                                     "block": true,
                                     "line": 120
                                 }
@@ -67,7 +67,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Add forward.\r\n\r\n        this builds the following:\r\n\r\n        {\r\n            \"0\": [1 ],\r\n            \"1\": [0, 2 ],\r\n            \"2\": [1, 3, 5],\r\n            \"3\": [2, 4],\r\n            \"4\": [3 ],\r\n            \"5\": [2, 6],\r\n            \"6\": [5 ]\r\n        }\r\n\r\n        For connections, we walk (from a key numer) in a direction, generating pairs.\r\n        Some keys will fork - but that should generated the connected pair set.\r\n\r\n        e.g, pulling '3',\r\n\r\n            3 -> 2, 4\r\n                    4 -> [3]      <= not executed,\r\n                 2 -> 1, [3], 5   <= skip 3, as \"2\"\r\n                      1 -> 0, 2   <= skip 2, as \"1\"\r\n                             ...\r\n        ",
+                                    "text": "Add forward.\n\nthis builds the following:\n\n{\n    \"0\": [1 ],\n    \"1\": [0, 2 ],\n    \"2\": [1, 3, 5],\n    \"3\": [2, 4],\n    \"4\": [3 ],\n    \"5\": [2, 6],\n    \"6\": [5 ]\n}\n\nFor connections, we walk (from a key numer) in a direction, generating pairs.\nSome keys will fork - but that should generated the connected pair set.\n\ne.g, pulling '3',\n\n    3 -> 2, 4\n            4 -> [3]      <= not executed,\n         2 -> 1, [3], 5   <= skip 3, as \"2\"\n              1 -> 0, 2   <= skip 2, as \"1\"\n                     ...",
                                     "block": true,
                                     "line": 153
                                 }
@@ -125,7 +125,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " This is back through the original chain.",
+                                    "text": "This is back through the original chain.",
                                     "block": true,
                                     "line": 197
                                 }
@@ -153,7 +153,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " if(reverse == true) {",
+                                    "text": "if(reverse == true) {",
                                     "block": false,
                                     "line": 207
                                 }
@@ -169,7 +169,7 @@
                     "header": [],
                     "inner": [
                         {
-                            "text": " neighbours by connections.\r\n        When reversing; we grab the rear node,\r\n        and in reverse, we iterate siblings. ",
+                            "text": "neighbours by connections.\nWhen reversing; we grab the rear node,\nand in reverse, we iterate siblings.",
                             "block": true,
                             "line": 108
                         }
@@ -197,7 +197,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Add forward.\r\n\r\n        this builds the following:\r\n\r\n        {\r\n            \"0\": [1 ],\r\n            \"1\": [0, 2 ],\r\n            \"2\": [1, 3, 5],\r\n            \"3\": [2, 4],\r\n            \"4\": [3 ],\r\n            \"5\": [2, 6],\r\n            \"6\": [5 ]\r\n        }\r\n\r\n        For connections, we walk (from a key numer) in a direction, generating pairs.\r\n        Some keys will fork - but that should generated the connected pair set.\r\n\r\n        e.g, pulling '3',\r\n\r\n            3 -> 2, 4\r\n                    4 -> [3]      <= not executed,\r\n                 2 -> 1, [3], 5   <= skip 3, as \"2\"\r\n                      1 -> 0, 2   <= skip 2, as \"1\"\r\n                             ...\r\n        ",
+                                    "text": "Add forward.\n\nthis builds the following:\n\n{\n    \"0\": [1 ],\n    \"1\": [0, 2 ],\n    \"2\": [1, 3, 5],\n    \"3\": [2, 4],\n    \"4\": [3 ],\n    \"5\": [2, 6],\n    \"6\": [5 ]\n}\n\nFor connections, we walk (from a key numer) in a direction, generating pairs.\nSome keys will fork - but that should generated the connected pair set.\n\ne.g, pulling '3',\n\n    3 -> 2, 4\n            4 -> [3]      <= not executed,\n         2 -> 1, [3], 5   <= skip 3, as \"2\"\n              1 -> 0, 2   <= skip 2, as \"1\"\n                     ...",
                                     "block": true,
                                     "line": 253
                                 }
@@ -207,13 +207,171 @@
                         "is_symbol": false,
                         "computed": false,
                         "line": 228
+                    },
+                    {
+                        "method_name": "constructor",
+                        "class_name": "GraphConnections",
+                        "kind": "constructor",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "neighbours by connections.\nWhen reversing; we grab the rear node,\nand in reverse, we iterate siblings.",
+                                    "block": true,
+                                    "line": 108
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 103
+                    },
+                    {
+                        "method_name": "connect",
+                        "class_name": "GraphConnections",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "items",
+                                "is_rest": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "split an array into overlapping pairs\n\n[0,1,2,3,4,5]\n[0,1]\n[1,2]\n[2,3]\n...",
+                                    "block": true,
+                                    "line": 120
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 112
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "GraphConnections",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Add forward.\n\nthis builds the following:\n\n{\n    \"0\": [1 ],\n    \"1\": [0, 2 ],\n    \"2\": [1, 3, 5],\n    \"3\": [2, 4],\n    \"4\": [3 ],\n    \"5\": [2, 6],\n    \"6\": [5 ]\n}\n\nFor connections, we walk (from a key numer) in a direction, generating pairs.\nSome keys will fork - but that should generated the connected pair set.\n\ne.g, pulling '3',\n\n    3 -> 2, 4\n            4 -> [3]      <= not executed,\n         2 -> 1, [3], 5   <= skip 3, as \"2\"\n              1 -> 0, 2   <= skip 2, as \"1\"\n                     ...",
+                                    "block": true,
+                                    "line": 153
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 128
+                    },
+                    {
+                        "method_name": "getChain",
+                        "class_name": "GraphConnections",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "fromId"
+                            },
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 167
+                    },
+                    {
+                        "method_name": "walkForward",
+                        "class_name": "GraphConnections",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "fromId"
+                            },
+                            {
+                                "name": "func"
+                            },
+                            {
+                                "name": "previousId"
+                            },
+                            {
+                                "name": "count",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "maxCount"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "This is back through the original chain.",
+                                    "block": true,
+                                    "line": 197
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 183
+                    },
+                    {
+                        "method_name": "forPair",
+                        "class_name": "GraphConnections",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "func"
+                            },
+                            {
+                                "name": "reverse",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "if(reverse == true) {",
+                                    "block": false,
+                                    "line": 207
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 205
                     }
                 ],
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " Add forward.\r\n\r\n        this builds the following:\r\n\r\n        {\r\n            \"0\": [1 ],\r\n            \"1\": [0, 2 ],\r\n            \"2\": [1, 3, 5],\r\n            \"3\": [2, 4],\r\n            \"4\": [3 ],\r\n            \"5\": [2, 6],\r\n            \"6\": [5 ]\r\n        }\r\n\r\n        For connections, we walk (from a key numer) in a direction, generating pairs.\r\n        Some keys will fork - but that should generated the connected pair set.\r\n\r\n        e.g, pulling '3',\r\n\r\n            3 -> 2, 4\r\n                    4 -> [3]      <= not executed,\r\n                 2 -> 1, [3], 5   <= skip 3, as \"2\"\r\n                      1 -> 0, 2   <= skip 2, as \"1\"\r\n                             ...\r\n        ",
+                            "text": "Add forward.\n\nthis builds the following:\n\n{\n    \"0\": [1 ],\n    \"1\": [0, 2 ],\n    \"2\": [1, 3, 5],\n    \"3\": [2, 4],\n    \"4\": [3 ],\n    \"5\": [2, 6],\n    \"6\": [5 ]\n}\n\nFor connections, we walk (from a key numer) in a direction, generating pairs.\nSome keys will fork - but that should generated the connected pair set.\n\ne.g, pulling '3',\n\n    3 -> 2, 4\n            4 -> [3]      <= not executed,\n         2 -> 1, [3], 5   <= skip 3, as \"2\"\n              1 -> 0, 2   <= skip 2, as \"1\"\n                     ...",
                             "block": true,
                             "line": 253
                         }
@@ -229,6 +387,6 @@
         "filename": "graph-connections.js",
         "path": "/workspaces/polypoint/point_src/graph-connections.js",
         "size": 6346,
-        "parsed_date": "2025-11-02T21:11:35.564Z"
+        "parsed_date": "2026-06-13T01:52:29.627Z"
     }
 }

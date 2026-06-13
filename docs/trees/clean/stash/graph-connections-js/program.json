@@ -39,7 +39,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " neighbours by connections.\r\n        When reversing; we grab the rear node,\r\n        and in reverse, we iterate siblings. ",
+                                "text": "neighbours by connections.\nWhen reversing; we grab the rear node,\nand in reverse, we iterate siblings.",
                                 "block": true,
                                 "line": 108
                             }
@@ -58,7 +58,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "GraphConnections"
                 },
                 {
                     "kind": "method",
@@ -98,7 +99,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " split an array into overlapping pairs\r\n\r\n            [0,1,2,3,4,5]\r\n            [0,1]\r\n            [1,2]\r\n            [2,3]\r\n            ...\r\n        ",
+                                "text": "split an array into overlapping pairs\n\n[0,1,2,3,4,5]\n[0,1]\n[1,2]\n[2,3]\n...",
                                 "block": true,
                                 "line": 120
                             }
@@ -117,7 +118,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "GraphConnections"
                 },
                 {
                     "kind": "method",
@@ -159,7 +161,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Add forward.\r\n\r\n        this builds the following:\r\n\r\n        {\r\n            \"0\": [1 ],\r\n            \"1\": [0, 2 ],\r\n            \"2\": [1, 3, 5],\r\n            \"3\": [2, 4],\r\n            \"4\": [3 ],\r\n            \"5\": [2, 6],\r\n            \"6\": [5 ]\r\n        }\r\n\r\n        For connections, we walk (from a key numer) in a direction, generating pairs.\r\n        Some keys will fork - but that should generated the connected pair set.\r\n\r\n        e.g, pulling '3',\r\n\r\n            3 -> 2, 4\r\n                    4 -> [3]      <= not executed,\r\n                 2 -> 1, [3], 5   <= skip 3, as \"2\"\r\n                      1 -> 0, 2   <= skip 2, as \"1\"\r\n                             ...\r\n        ",
+                                "text": "Add forward.\n\nthis builds the following:\n\n{\n    \"0\": [1 ],\n    \"1\": [0, 2 ],\n    \"2\": [1, 3, 5],\n    \"3\": [2, 4],\n    \"4\": [3 ],\n    \"5\": [2, 6],\n    \"6\": [5 ]\n}\n\nFor connections, we walk (from a key numer) in a direction, generating pairs.\nSome keys will fork - but that should generated the connected pair set.\n\ne.g, pulling '3',\n\n    3 -> 2, 4\n            4 -> [3]      <= not executed,\n         2 -> 1, [3], 5   <= skip 3, as \"2\"\n              1 -> 0, 2   <= skip 2, as \"1\"\n                     ...",
                                 "block": true,
                                 "line": 153
                             }
@@ -178,7 +180,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "GraphConnections"
                 },
                 {
                     "kind": "method",
@@ -233,7 +236,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "GraphConnections"
                 },
                 {
                     "kind": "method",
@@ -285,7 +289,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " This is back through the original chain.",
+                                "text": "This is back through the original chain.",
                                 "block": true,
                                 "line": 197
                             }
@@ -304,7 +308,8 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "GraphConnections"
                 },
                 {
                     "kind": "method",
@@ -347,7 +352,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " if(reverse == true) {",
+                                "text": "if(reverse == true) {",
                                 "block": false,
                                 "line": 207
                             }
@@ -366,14 +371,15 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "GraphConnections"
                 }
             ],
             "comments": {
                 "header": [],
                 "inner": [
                     {
-                        "text": " neighbours by connections.\r\n        When reversing; we grab the rear node,\r\n        and in reverse, we iterate siblings. ",
+                        "text": "neighbours by connections.\nWhen reversing; we grab the rear node,\nand in reverse, we iterate siblings.",
                         "block": true,
                         "line": 108
                     }
@@ -440,7 +446,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Add forward.\r\n\r\n        this builds the following:\r\n\r\n        {\r\n            \"0\": [1 ],\r\n            \"1\": [0, 2 ],\r\n            \"2\": [1, 3, 5],\r\n            \"3\": [2, 4],\r\n            \"4\": [3 ],\r\n            \"5\": [2, 6],\r\n            \"6\": [5 ]\r\n        }\r\n\r\n        For connections, we walk (from a key numer) in a direction, generating pairs.\r\n        Some keys will fork - but that should generated the connected pair set.\r\n\r\n        e.g, pulling '3',\r\n\r\n            3 -> 2, 4\r\n                    4 -> [3]      <= not executed,\r\n                 2 -> 1, [3], 5   <= skip 3, as \"2\"\r\n                      1 -> 0, 2   <= skip 2, as \"1\"\r\n                             ...\r\n        ",
+                                "text": "Add forward.\n\nthis builds the following:\n\n{\n    \"0\": [1 ],\n    \"1\": [0, 2 ],\n    \"2\": [1, 3, 5],\n    \"3\": [2, 4],\n    \"4\": [3 ],\n    \"5\": [2, 6],\n    \"6\": [5 ]\n}\n\nFor connections, we walk (from a key numer) in a direction, generating pairs.\nSome keys will fork - but that should generated the connected pair set.\n\ne.g, pulling '3',\n\n    3 -> 2, 4\n            4 -> [3]      <= not executed,\n         2 -> 1, [3], 5   <= skip 3, as \"2\"\n              1 -> 0, 2   <= skip 2, as \"1\"\n                     ...",
                                 "block": true,
                                 "line": 253
                             }
@@ -459,14 +465,383 @@
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "DirectionalGraphConnections"
+                },
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 2338,
+                            "end": 2566,
+                            "loc": {
+                                "start": {
+                                    "line": 103,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 110,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "neighbours by connections.\nWhen reversing; we grab the rear node,\nand in reverse, we iterate siblings.",
+                                "block": true,
+                                "line": 108
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2327,
+                        "end": 2566,
+                        "loc": {
+                            "start": {
+                                "line": 103,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 110,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "GraphConnections"
+                },
+                {
+                    "kind": "method",
+                    "word": "connect",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "items",
+                                "is_rest": true
+                            }
+                        ],
+                        "pos": {
+                            "start": 2581,
+                            "end": 2942,
+                            "loc": {
+                                "start": {
+                                    "line": 112,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 126,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "split an array into overlapping pairs\n\n[0,1,2,3,4,5]\n[0,1]\n[1,2]\n[2,3]\n...",
+                                "block": true,
+                                "line": 120
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2574,
+                        "end": 2942,
+                        "loc": {
+                            "start": {
+                                "line": 112,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 126,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "GraphConnections"
+                },
+                {
+                    "kind": "method",
+                    "word": "add",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2953,
+                            "end": 3912,
+                            "loc": {
+                                "start": {
+                                    "line": 128,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 165,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "Add forward.\n\nthis builds the following:\n\n{\n    \"0\": [1 ],\n    \"1\": [0, 2 ],\n    \"2\": [1, 3, 5],\n    \"3\": [2, 4],\n    \"4\": [3 ],\n    \"5\": [2, 6],\n    \"6\": [5 ]\n}\n\nFor connections, we walk (from a key numer) in a direction, generating pairs.\nSome keys will fork - but that should generated the connected pair set.\n\ne.g, pulling '3',\n\n    3 -> 2, 4\n            4 -> [3]      <= not executed,\n         2 -> 1, [3], 5   <= skip 3, as \"2\"\n              1 -> 0, 2   <= skip 2, as \"1\"\n                     ...",
+                                "block": true,
+                                "line": 153
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2950,
+                        "end": 3912,
+                        "loc": {
+                            "start": {
+                                "line": 128,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 165,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "GraphConnections"
+                },
+                {
+                    "kind": "method",
+                    "word": "getChain",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "fromId"
+                            },
+                            {
+                                "name": "func"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3928,
+                            "end": 4232,
+                            "loc": {
+                                "start": {
+                                    "line": 167,
+                                    "column": 12
+                                },
+                                "end": {
+                                    "line": 181,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3920,
+                        "end": 4232,
+                        "loc": {
+                            "start": {
+                                "line": 167,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 181,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "GraphConnections"
+                },
+                {
+                    "kind": "method",
+                    "word": "walkForward",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "fromId"
+                            },
+                            {
+                                "name": "func"
+                            },
+                            {
+                                "name": "previousId"
+                            },
+                            {
+                                "name": "count",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "maxCount"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4251,
+                            "end": 4871,
+                            "loc": {
+                                "start": {
+                                    "line": 183,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 203,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "This is back through the original chain.",
+                                "block": true,
+                                "line": 197
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4240,
+                        "end": 4871,
+                        "loc": {
+                            "start": {
+                                "line": 183,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 203,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "GraphConnections"
+                },
+                {
+                    "kind": "method",
+                    "word": "forPair",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "func"
+                            },
+                            {
+                                "name": "reverse",
+                                "default_value": false
+                            }
+                        ],
+                        "pos": {
+                            "start": 4886,
+                            "end": 5288,
+                            "loc": {
+                                "start": {
+                                    "line": 205,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 222,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "if(reverse == true) {",
+                                "block": false,
+                                "line": 207
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4879,
+                        "end": 5288,
+                        "loc": {
+                            "start": {
+                                "line": 205,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 222,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "GraphConnections"
                 }
             ],
             "comments": {
                 "header": [],
                 "inner": [
                     {
-                        "text": " Add forward.\r\n\r\n        this builds the following:\r\n\r\n        {\r\n            \"0\": [1 ],\r\n            \"1\": [0, 2 ],\r\n            \"2\": [1, 3, 5],\r\n            \"3\": [2, 4],\r\n            \"4\": [3 ],\r\n            \"5\": [2, 6],\r\n            \"6\": [5 ]\r\n        }\r\n\r\n        For connections, we walk (from a key numer) in a direction, generating pairs.\r\n        Some keys will fork - but that should generated the connected pair set.\r\n\r\n        e.g, pulling '3',\r\n\r\n            3 -> 2, 4\r\n                    4 -> [3]      <= not executed,\r\n                 2 -> 1, [3], 5   <= skip 3, as \"2\"\r\n                      1 -> 0, 2   <= skip 2, as \"1\"\r\n                             ...\r\n        ",
+                        "text": "Add forward.\n\nthis builds the following:\n\n{\n    \"0\": [1 ],\n    \"1\": [0, 2 ],\n    \"2\": [1, 3, 5],\n    \"3\": [2, 4],\n    \"4\": [3 ],\n    \"5\": [2, 6],\n    \"6\": [5 ]\n}\n\nFor connections, we walk (from a key numer) in a direction, generating pairs.\nSome keys will fork - but that should generated the connected pair set.\n\ne.g, pulling '3',\n\n    3 -> 2, 4\n            4 -> [3]      <= not executed,\n         2 -> 1, [3], 5   <= skip 3, as \"2\"\n              1 -> 0, 2   <= skip 2, as \"1\"\n                     ...",
                         "block": true,
                         "line": 253
                     }
@@ -496,6 +871,6 @@
         "filename": "graph-connections.js",
         "path": "/workspaces/polypoint/point_src/graph-connections.js",
         "size": 6346,
-        "parsed_date": "2025-11-02T21:11:35.564Z"
+        "parsed_date": "2026-06-13T01:52:29.627Z"
     }
 }

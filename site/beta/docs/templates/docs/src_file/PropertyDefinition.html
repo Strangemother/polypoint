@@ -1,9 +1,11 @@
 
+{% firstof owner_class_name item.class_name class_name as resolved_owner_class_name %}
+
 
 <div class="property method-definition">
 
-    <div class="signature" data-inherited="class_name">
-        <a class='anchor' name='class_name-{{ item.word }}'></a>
+    <div class="signature" data-inherited="{{ resolved_owner_class_name }}">
+        <a class='anchor' name='{{ class_name }}-{{ item.word }}'></a>
 
         <div class='method-head'>
             <div class="item-kind-space">
@@ -13,7 +15,7 @@
             </div>
             {% if item.static %}static{% endif %}
             <h3 data-kind='method_kind'
-                data-key='class_name-{{ item.word }}'
+                data-key='{{ class_name }}-{{ item.word }}'
                 class="class-method-name">{{ item.word }}</h3>
         </div>
 
@@ -26,7 +28,7 @@
 
         <div class="method-owner-class">
             <span class="sub-text inherits">from</span>
-            <span class="owner-class-name">class_name</span>
+            <span class="owner-class-name">{{ resolved_owner_class_name }}</span>
         </div>
 
     </div>

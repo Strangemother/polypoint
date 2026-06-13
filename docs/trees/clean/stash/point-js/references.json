@@ -18,14 +18,14 @@
                         "comments": {
                             "header": [
                                 {
-                                    "text": " ABOVE X method\n\n    Multiline - touching.\n    ",
+                                    "text": "ABOVE X method\n\nMultiline - touching.",
                                     "block": true,
                                     "line": 56
                                 }
                             ],
                             "inner": [
                                 {
-                                    "text": " Set the _X_ (horizontal | latitude | across) value of the positionable.\n        From cooridinate top left `(0,0)``\n\n            point.x = 100\n\n        If the given value is a function, the function is called immediately,\n        with _this_ positionable as the first argument.\n\n            stage.center.x = (p)=>200\n\n         ",
+                                    "text": "Set the _X_ (horizontal | latitude | across) value of the positionable.\nFrom cooridinate top left `(0,0)``\n\n    point.x = 100\n\nIf the given value is a function, the function is called immediately,\nwith _this_ positionable as the first argument.\n\n    stage.center.x = (p)=>200",
                                     "block": true,
                                     "line": 68
                                 }
@@ -49,7 +49,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Set the _Y_ (vertical | height | longtitude) value of the positionable.\n        From cooridinate top left `(0,0)``\n\n            point.x = 100\n\n        If the given value is a function, the function is called immediately,\n        with _this_ positionable as the first argument.\n\n            stage.center.x = (p)=>200\n\n         ",
+                                    "text": "Set the _Y_ (vertical | height | longtitude) value of the positionable.\nFrom cooridinate top left `(0,0)``\n\n    point.x = 100\n\nIf the given value is a function, the function is called immediately,\nwith _this_ positionable as the first argument.\n\n    stage.center.x = (p)=>200",
                                     "block": true,
                                     "line": 84
                                 }
@@ -69,7 +69,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " const _x = this._opts.x;",
+                                    "text": "const _x = this._opts.x;",
                                     "block": false,
                                     "line": 91
                                 }
@@ -89,7 +89,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " const _y = this._opts.y;",
+                                    "text": "const _y = this._opts.y;",
                                     "block": false,
                                     "line": 101
                                 }
@@ -113,7 +113,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " this._opts.radius = isFunction(v)? v(this, 'radius'): v",
+                                    "text": "this._opts.radius = isFunction(v)? v(this, 'radius'): v",
                                     "block": false,
                                     "line": 109
                                 }
@@ -133,7 +133,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n        Return the _radius_ of this point in base units (pixels)\n\n            const point = new Point(100,300, 20)\n            point.radius == 20\n        ",
+                                    "text": "Return the _radius_ of this point in base units (pixels)\n\n    const point = new Point(100,300, 20)\n    point.radius == 20",
                                     "block": true,
                                     "line": 119
                                 }
@@ -160,7 +160,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Set the given `key`, `value`, assuming the given key is a \"special\"\n        string, such as \"radius\".\n        This method is called by the special getters and setters for this point:\n\n            const point = new Point(100,300, 20)\n            point.setSpecial('radius', 55)\n\n        Synonymous to:\n\n            point.radius = 55\n\n        ",
+                                    "text": "Set the given `key`, `value`, assuming the given key is a \"special\"\nstring, such as \"radius\".\nThis method is called by the special getters and setters for this point:\n\n    const point = new Point(100,300, 20)\n    point.setSpecial('radius', 55)\n\nSynonymous to:\n\n    point.radius = 55",
                                     "block": true,
                                     "line": 139
                                 }
@@ -187,7 +187,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " A callback executed by setSpecial when a \"special\" property is called.\n\n        If a method on this point exists matching the _set method_ pattern,\n        the method is called with the given `value`:\n\n            class MyPoint extends Point {\n                radiusSet(value) {\n                    console.log('New Radius value is', value)\n                }\n            }\n\n        ",
+                                    "text": "A callback executed by setSpecial when a \"special\" property is called.\n\nIf a method on this point exists matching the _set method_ pattern,\nthe method is called with the given `value`:\n\n    class MyPoint extends Point {\n        radiusSet(value) {\n            console.log('New Radius value is', value)\n        }\n    }",
                                     "block": true,
                                     "line": 157
                                 }
@@ -219,7 +219,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Return a stored _special_ value given a `key`.\n\n        If the `relIndex`  property is not None, the relative value found\n        at the index (within this points relative data Array),\n        add the stashed relative value to the result.\n\n            const point = new Point(100,300, 20)\n            point.getSpecial('radius', 2)\n            // 20\n\n        if a default value is given, and the internal `key` value does not exist,\n        return the default value:\n\n            point.getSpecial('banana', 'yellow')\n            'yellow'\n\n        ",
+                                    "text": "Return a stored _special_ value given a `key`.\n\nIf the `relIndex`  property is not None, the relative value found\nat the index (within this points relative data Array),\nadd the stashed relative value to the result.\n\n    const point = new Point(100,300, 20)\n    point.getSpecial('radius', 2)\n    // 20\n\nif a default value is given, and the internal `key` value does not exist,\nreturn the default value:\n\n    point.getSpecial('banana', 'yellow')\n    'yellow'",
                                     "block": true,
                                     "line": 180
                                 }
@@ -252,7 +252,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n            set(x, y, radius, rotation)\n            set(100)    => x,y\n            set([])     => [x,y,radius, rotation]\n            set({})     => *\n        ",
+                                    "text": "set(x, y, radius, rotation)\nset(100)    => x,y\nset([])     => [x,y,radius, rotation]\nset({})     => *",
                                     "block": true,
                                     "line": 194
                                 }
@@ -302,7 +302,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " \"subtract\" this point to the _other_ point, returning a new point. ",
+                                    "text": "\"subtract\" this point to the _other_ point, returning a new point.",
                                     "block": true,
                                     "line": 261
                                 }
@@ -329,7 +329,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " \"Add\" this point to the _other_ point, returning a new point. ",
+                                    "text": "\"Add\" this point to the _other_ point, returning a new point.",
                                     "block": true,
                                     "line": 270
                                 }
@@ -353,7 +353,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " \"Divide\" this point to the _other_ point, returning a new point. ",
+                                    "text": "\"Divide\" this point to the _other_ point, returning a new point.",
                                     "block": true,
                                     "line": 280
                                 }
@@ -377,7 +377,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " \"Multiply\" this point to the _other_ point, returning a new point. ",
+                                    "text": "\"Multiply\" this point to the _other_ point, returning a new point.",
                                     "block": true,
                                     "line": 294
                                 }
@@ -405,7 +405,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n        Returns a new point, with the XY set at the point that is `offset` times\n        the distance from the current point to the other point.\n\n        this function is also `lerp` for linear interpolation\n        ",
+                                    "text": "Returns a new point, with the XY set at the point that is `offset` times\nthe distance from the current point to the other point.\n\nthis function is also `lerp` for linear interpolation",
                                     "block": true,
                                     "line": 320
                                 }
@@ -421,7 +421,7 @@
                     "header": [],
                     "inner": [
                         {
-                            "text": " The base `Positionable` class provides functionality for\n    plotting the X and Y of an entity. This includes any fundamental\n    methods such as `multiply()`.\n    ",
+                            "text": "The base `Positionable` class provides functionality for\nplotting the X and Y of an entity. This includes any fundamental\nmethods such as `multiply()`.",
                             "block": true,
                             "line": 51
                         }
@@ -446,7 +446,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\n        `true` (default), the given value is fixed through modulus 360\n\n            point.rotation = 600\n            // 240\n            point.rotation += 1\n            // 241\n\n        To set the rotation (degrees) whilst accounting for the _UP_ vector,\n        consider the `rotate()` method.\n        ",
+                                    "text": "Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\n`true` (default), the given value is fixed through modulus 360\n\n    point.rotation = 600\n    // 240\n    point.rotation += 1\n    // 241\n\nTo set the rotation (degrees) whilst accounting for the _UP_ vector,\nconsider the `rotate()` method.",
                                     "block": true,
                                     "line": 345
                                 }
@@ -498,7 +498,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "Return the _radians_ of the current rotation, where _rotation returns\n        the degrees",
+                                    "text": "Return the _radians_ of the current rotation, where _rotation returns\nthe degrees",
                                     "block": true,
                                     "line": 366
                                 }
@@ -522,7 +522,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " by pushing through the existing rotations, we account for the _up_\n        vector. ",
+                                    "text": "by pushing through the existing rotations, we account for the _up_\nvector.",
                                     "block": true,
                                     "line": 372
                                 }
@@ -554,7 +554,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Rotate the point such that the angle relative to the\n        `otherPoint` is `0`, essentially _looking at_ the other point.\n\n            point.lookAt(otherPoint)\n\n        Return the angle in radians.\n        ",
+                                    "text": "Rotate the point such that the angle relative to the\n`otherPoint` is `0`, essentially _looking at_ the other point.\n\n    point.lookAt(otherPoint)\n\nReturn the angle in radians.",
                                     "block": true,
                                     "line": 383
                                 }
@@ -586,7 +586,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Calculate the differences in x and y coordinates",
+                                    "text": "Calculate the differences in x and y coordinates",
                                     "block": false,
                                     "line": 388
                                 }
@@ -617,7 +617,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Normalize the angle difference to be within the range -PI to PI",
+                                    "text": "Normalize the angle difference to be within the range -PI to PI",
                                     "block": false,
                                     "line": 417
                                 }
@@ -667,7 +667,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Return the calculated theta value through atan2 and built to offload\n        some of the boring.\n        The _direction_ denotes the \"gravity\" pull. Generally this is `DOWN`.\n\n        Synonymous to:\n\n            let theta = Math.atan2(point.y,\n                                   point.x);\n\n            let theta = Math.atan2(point.y - other.y,\n                                   point.x - other.x);\n\n            let theta = Math.atan2(point.y - other.y,\n                                   point.x - other.x) - DOWN;\n\n        ",
+                                    "text": "Return the calculated theta value through atan2 and built to offload\nsome of the boring.\nThe _direction_ denotes the \"gravity\" pull. Generally this is `DOWN`.\n\nSynonymous to:\n\n    let theta = Math.atan2(point.y,\n                           point.x);\n\n    let theta = Math.atan2(point.y - other.y,\n                           point.x - other.x);\n\n    let theta = Math.atan2(point.y - other.y,\n                           point.x - other.x) - DOWN;",
                                     "block": true,
                                     "line": 449
                                 }
@@ -677,13 +677,423 @@
                         "is_symbol": false,
                         "computed": false,
                         "line": 433
+                    },
+                    {
+                        "method_name": "x",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "ABOVE X method\n\nMultiline - touching.",
+                                    "block": true,
+                                    "line": 56
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": "Set the _X_ (horizontal | latitude | across) value of the positionable.\nFrom cooridinate top left `(0,0)``\n\n    point.x = 100\n\nIf the given value is a function, the function is called immediately,\nwith _this_ positionable as the first argument.\n\n    stage.center.x = (p)=>200",
+                                    "block": true,
+                                    "line": 68
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 57
+                    },
+                    {
+                        "method_name": "y",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Set the _Y_ (vertical | height | longtitude) value of the positionable.\nFrom cooridinate top left `(0,0)``\n\n    point.x = 100\n\nIf the given value is a function, the function is called immediately,\nwith _this_ positionable as the first argument.\n\n    stage.center.x = (p)=>200",
+                                    "block": true,
+                                    "line": 84
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 73
+                    },
+                    {
+                        "method_name": "x",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "const _x = this._opts.x;",
+                                    "block": false,
+                                    "line": 91
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 89
+                    },
+                    {
+                        "method_name": "y",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "const _y = this._opts.y;",
+                                    "block": false,
+                                    "line": 101
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 99
+                    },
+                    {
+                        "method_name": "radius",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "this._opts.radius = isFunction(v)? v(this, 'radius'): v",
+                                    "block": false,
+                                    "line": 109
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 108
+                    },
+                    {
+                        "method_name": "radius",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return the _radius_ of this point in base units (pixels)\n\n    const point = new Point(100,300, 20)\n    point.radius == 20",
+                                    "block": true,
+                                    "line": 119
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 113
+                    },
+                    {
+                        "method_name": "setSpecial",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Set the given `key`, `value`, assuming the given key is a \"special\"\nstring, such as \"radius\".\nThis method is called by the special getters and setters for this point:\n\n    const point = new Point(100,300, 20)\n    point.setSpecial('radius', 55)\n\nSynonymous to:\n\n    point.radius = 55",
+                                    "block": true,
+                                    "line": 139
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 127
+                    },
+                    {
+                        "method_name": "onSpecialSet",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "A callback executed by setSpecial when a \"special\" property is called.\n\nIf a method on this point exists matching the _set method_ pattern,\nthe method is called with the given `value`:\n\n    class MyPoint extends Point {\n        radiusSet(value) {\n            console.log('New Radius value is', value)\n        }\n    }",
+                                    "block": true,
+                                    "line": 157
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 145
+                    },
+                    {
+                        "method_name": "getSpecial",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "relIndex",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "defaultValue",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return a stored _special_ value given a `key`.\n\nIf the `relIndex`  property is not None, the relative value found\nat the index (within this points relative data Array),\nadd the stashed relative value to the result.\n\n    const point = new Point(100,300, 20)\n    point.getSpecial('radius', 2)\n    // 20\n\nif a default value is given, and the internal `key` value does not exist,\nreturn the default value:\n\n    point.getSpecial('banana', 'yellow')\n    'yellow'",
+                                    "block": true,
+                                    "line": 180
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 163
+                    },
+                    {
+                        "method_name": "set",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "x"
+                            },
+                            {
+                                "name": "y"
+                            },
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "rotation"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "set(x, y, radius, rotation)\nset(100)    => x,y\nset([])     => [x,y,radius, rotation]\nset({})     => *",
+                                    "block": true,
+                                    "line": 194
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 188
+                    },
+                    {
+                        "method_name": "_cast",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_2",
+                                "default_value": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 254
+                    },
+                    {
+                        "method_name": "subtract",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_2",
+                                "default_value": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"subtract\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 261
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 260
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Add\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 270
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 269
+                    },
+                    {
+                        "method_name": "divide",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Divide\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 280
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 279
+                    },
+                    {
+                        "method_name": "multiply",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Multiply\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 294
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 293
+                    },
+                    {
+                        "method_name": "midpoint",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": 0.5
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Returns a new point, with the XY set at the point that is `offset` times\nthe distance from the current point to the other point.\n\nthis function is also `lerp` for linear interpolation",
+                                    "block": true,
+                                    "line": 320
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 314
                     }
                 ],
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\n        `true` (default), the given value is fixed through modulus 360\n\n            point.rotation = 600\n            // 240\n            point.rotation += 1\n            // 241\n\n        To set the rotation (degrees) whilst accounting for the _UP_ vector,\n        consider the `rotate()` method.\n        ",
+                            "text": "Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\n`true` (default), the given value is fixed through modulus 360\n\n    point.rotation = 600\n    // 240\n    point.rotation += 1\n    // 241\n\nTo set the rotation (degrees) whilst accounting for the _UP_ vector,\nconsider the `rotate()` method.",
                             "block": true,
                             "line": 345
                         }
@@ -711,7 +1121,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " str such as this[\"rotation\"]",
+                                    "text": "str such as this[\"rotation\"]",
                                     "block": false,
                                     "line": 475
                                 }
@@ -731,7 +1141,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Return the theta value through the atan2 function for this point.",
+                                    "text": "Return the theta value through the atan2 function for this point.",
                                     "block": true,
                                     "line": 487
                                 }
@@ -784,7 +1194,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Given another point, replicate the value into this node.\n        Else, return a new node with the same information as this point.\n        ",
+                                    "text": "Given another point, replicate the value into this node.\nElse, return a new node with the same information as this point.",
                                     "block": true,
                                     "line": 508
                                 }
@@ -822,7 +1232,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n        Synonymous to:\n\n            {\n                x: AB.x / magnitudeAB,\n                y: AB.y / magnitudeAB\n            };\n        ",
+                                    "text": "Synonymous to:\n\n    {\n        x: AB.x / magnitudeAB,\n        y: AB.y / magnitudeAB\n    };",
                                     "block": true,
                                     "line": 543
                                 }
@@ -853,7 +1263,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " return a point relative from _this_ point towards the `other`,\n        offset by the given number `offset` value.\n        The `pointIndex` (default 0) identifies from which point [this, other]\n        to offset.",
+                                    "text": "return a point relative from _this_ point towards the `other`,\noffset by the given number `offset` value.\nThe `pointIndex` (default 0) identifies from which point [this, other]\nto offset.",
                                     "block": true,
                                     "line": 552
                                 }
@@ -966,7 +1376,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n        Returns a new point, offset by `pixelDistance` pixels in the direction\n        from this point to the other point.\n        ",
+                                    "text": "Returns a new point, offset by `pixelDistance` pixels in the direction\nfrom this point to the other point.",
                                     "block": true,
                                     "line": 582
                                 }
@@ -976,13 +1386,668 @@
                         "is_symbol": false,
                         "computed": false,
                         "line": 578
+                    },
+                    {
+                        "method_name": "rotation",
+                        "class_name": "Rotation",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\n`true` (default), the given value is fixed through modulus 360\n\n    point.rotation = 600\n    // 240\n    point.rotation += 1\n    // 241\n\nTo set the rotation (degrees) whilst accounting for the _UP_ vector,\nconsider the `rotate()` method.",
+                                    "block": true,
+                                    "line": 345
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 334
+                    },
+                    {
+                        "method_name": "rotate",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "degrees"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 355
+                    },
+                    {
+                        "method_name": "rotation",
+                        "class_name": "Rotation",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 360
+                    },
+                    {
+                        "method_name": "radians",
+                        "class_name": "Rotation",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return the _radians_ of the current rotation, where _rotation returns\nthe degrees",
+                                    "block": true,
+                                    "line": 366
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 364
+                    },
+                    {
+                        "method_name": "radians",
+                        "class_name": "Rotation",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "angle"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "by pushing through the existing rotations, we account for the _up_\nvector.",
+                                    "block": true,
+                                    "line": 372
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 370
+                    },
+                    {
+                        "method_name": "lookAt",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "add",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "rotationMultiplier",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Rotate the point such that the angle relative to the\n`otherPoint` is `0`, essentially _looking at_ the other point.\n\n    point.lookAt(otherPoint)\n\nReturn the angle in radians.",
+                                    "block": true,
+                                    "line": 383
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 376
+                    },
+                    {
+                        "method_name": "directionTo",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "rotationMultiplier",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "addRad",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Calculate the differences in x and y coordinates",
+                                    "block": false,
+                                    "line": 388
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 387
+                    },
+                    {
+                        "method_name": "_normalizedRadians",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "rotationMultiplier"
+                            },
+                            {
+                                "name": "addRad",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Normalize the angle difference to be within the range -PI to PI",
+                                    "block": false,
+                                    "line": 417
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 411
+                    },
+                    {
+                        "method_name": "turnTo",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "rotationMultiplier",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 427
+                    },
+                    {
+                        "method_name": "getTheta",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "direction",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return the calculated theta value through atan2 and built to offload\nsome of the boring.\nThe _direction_ denotes the \"gravity\" pull. Generally this is `DOWN`.\n\nSynonymous to:\n\n    let theta = Math.atan2(point.y,\n                           point.x);\n\n    let theta = Math.atan2(point.y - other.y,\n                           point.x - other.x);\n\n    let theta = Math.atan2(point.y - other.y,\n                           point.x - other.x) - DOWN;",
+                                    "block": true,
+                                    "line": 449
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 433
+                    },
+                    {
+                        "method_name": "x",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "ABOVE X method\n\nMultiline - touching.",
+                                    "block": true,
+                                    "line": 56
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": "Set the _X_ (horizontal | latitude | across) value of the positionable.\nFrom cooridinate top left `(0,0)``\n\n    point.x = 100\n\nIf the given value is a function, the function is called immediately,\nwith _this_ positionable as the first argument.\n\n    stage.center.x = (p)=>200",
+                                    "block": true,
+                                    "line": 68
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 57
+                    },
+                    {
+                        "method_name": "y",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Set the _Y_ (vertical | height | longtitude) value of the positionable.\nFrom cooridinate top left `(0,0)``\n\n    point.x = 100\n\nIf the given value is a function, the function is called immediately,\nwith _this_ positionable as the first argument.\n\n    stage.center.x = (p)=>200",
+                                    "block": true,
+                                    "line": 84
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 73
+                    },
+                    {
+                        "method_name": "x",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "const _x = this._opts.x;",
+                                    "block": false,
+                                    "line": 91
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 89
+                    },
+                    {
+                        "method_name": "y",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "const _y = this._opts.y;",
+                                    "block": false,
+                                    "line": 101
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 99
+                    },
+                    {
+                        "method_name": "radius",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "this._opts.radius = isFunction(v)? v(this, 'radius'): v",
+                                    "block": false,
+                                    "line": 109
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 108
+                    },
+                    {
+                        "method_name": "radius",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return the _radius_ of this point in base units (pixels)\n\n    const point = new Point(100,300, 20)\n    point.radius == 20",
+                                    "block": true,
+                                    "line": 119
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 113
+                    },
+                    {
+                        "method_name": "setSpecial",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Set the given `key`, `value`, assuming the given key is a \"special\"\nstring, such as \"radius\".\nThis method is called by the special getters and setters for this point:\n\n    const point = new Point(100,300, 20)\n    point.setSpecial('radius', 55)\n\nSynonymous to:\n\n    point.radius = 55",
+                                    "block": true,
+                                    "line": 139
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 127
+                    },
+                    {
+                        "method_name": "onSpecialSet",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "A callback executed by setSpecial when a \"special\" property is called.\n\nIf a method on this point exists matching the _set method_ pattern,\nthe method is called with the given `value`:\n\n    class MyPoint extends Point {\n        radiusSet(value) {\n            console.log('New Radius value is', value)\n        }\n    }",
+                                    "block": true,
+                                    "line": 157
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 145
+                    },
+                    {
+                        "method_name": "getSpecial",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "relIndex",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "defaultValue",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return a stored _special_ value given a `key`.\n\nIf the `relIndex`  property is not None, the relative value found\nat the index (within this points relative data Array),\nadd the stashed relative value to the result.\n\n    const point = new Point(100,300, 20)\n    point.getSpecial('radius', 2)\n    // 20\n\nif a default value is given, and the internal `key` value does not exist,\nreturn the default value:\n\n    point.getSpecial('banana', 'yellow')\n    'yellow'",
+                                    "block": true,
+                                    "line": 180
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 163
+                    },
+                    {
+                        "method_name": "set",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "x"
+                            },
+                            {
+                                "name": "y"
+                            },
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "rotation"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "set(x, y, radius, rotation)\nset(100)    => x,y\nset([])     => [x,y,radius, rotation]\nset({})     => *",
+                                    "block": true,
+                                    "line": 194
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 188
+                    },
+                    {
+                        "method_name": "_cast",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_2",
+                                "default_value": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 254
+                    },
+                    {
+                        "method_name": "subtract",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_2",
+                                "default_value": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"subtract\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 261
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 260
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Add\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 270
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 269
+                    },
+                    {
+                        "method_name": "divide",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Divide\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 280
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 279
+                    },
+                    {
+                        "method_name": "multiply",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Multiply\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 294
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 293
+                    },
+                    {
+                        "method_name": "midpoint",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": 0.5
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Returns a new point, with the XY set at the point that is `offset` times\nthe distance from the current point to the other point.\n\nthis function is also `lerp` for linear interpolation",
+                                    "block": true,
+                                    "line": 320
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 314
                     }
                 ],
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " str such as this[\"rotation\"]",
+                            "text": "str such as this[\"rotation\"]",
                             "block": false,
                             "line": 475
                         }
@@ -1008,7 +2073,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " A new point accepts arguments, an object, or an array.\n\n        By default the `Point` accepts up to four arguments\n\n            new Point(x, y, radius, rotation)\n\n        The same properties may be supplied as a single `Array`:\n\n            new Point([x, y, radius, rotation])\n\n        If the given object is an `object`, we can assign properties\n        immediately:\n\n            point = new Point({x, y, radius, rotation, other:100})\n            point.other\n            // 100\n\n        ",
+                                    "text": "A new point accepts arguments, an object, or an array.\n\nBy default the `Point` accepts up to four arguments\n\n    new Point(x, y, radius, rotation)\n\nThe same properties may be supplied as a single `Array`:\n\n    new Point([x, y, radius, rotation])\n\nIf the given object is an `object`, we can assign properties\nimmediately:\n\n    point = new Point({x, y, radius, rotation, other:100})\n    point.other\n    // 100",
                                     "block": true,
                                     "line": 651
                                 }
@@ -1028,7 +2093,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " api hook for life.",
+                                    "text": "api hook for life.",
                                     "block": false,
                                     "line": 671
                                 }
@@ -1052,7 +2117,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n        Perform an _update_ given a dictionary of other properties.\n\n            point.update({ x: 200, color: 'red' })\n        ",
+                                    "text": "Perform an _update_ given a dictionary of other properties.\n\n    point.update({ x: 200, color: 'red' })",
                                     "block": true,
                                     "line": 679
                                 }
@@ -1072,7 +2137,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Get or create the random `_id` for this point.\n        Return a unique string.\n        ",
+                                    "text": "Get or create the random `_id` for this point.\nReturn a unique string.",
                                     "block": true,
                                     "line": 690
                                 }
@@ -1110,7 +2175,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " return the X value of the point:\n\n            point[0]\n\n        Note:\n\n            point[0] == point.x\n        ",
+                                    "text": "return the X value of the point:\n\n    point[0]\n\nNote:\n\n    point[0] == point.x",
                                     "block": true,
                                     "line": 710
                                 }
@@ -1134,7 +2199,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n        Sugar function to apply `this.x`:\n\n            point[0] = 100\n            point.x == 100\n        ",
+                                    "text": "Sugar function to apply `this.x`:\n\n    point[0] = 100\n    point.x == 100",
                                     "block": true,
                                     "line": 720
                                 }
@@ -1154,9 +2219,9 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " return the Y value of the point:\n\n            point[0]\n\n        Note:\n\n            point[0] == point.y\n        ",
+                                    "text": "return the Y value of the point:\n\n    point[0]\n\nNote:\n\n    point[0] == point.y",
                                     "block": true,
-                                    "line": 732
+                                    "line": 733
                                 }
                             ]
                         },
@@ -1178,16 +2243,16 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n        Sugar function to apply `this.y`:\n\n            point[0] = 300\n            point.y == 300\n        ",
+                                    "text": "Sugar function to apply `this.y`:\n\n    point[0] = 300\n    point.y == 300",
                                     "block": true,
-                                    "line": 742
+                                    "line": 743
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": false,
                         "computed": true,
-                        "line": 736
+                        "line": 737
                     },
                     {
                         "method_name": "Symbol.toStringTag",
@@ -1201,7 +2266,7 @@
                         "static": false,
                         "is_symbol": true,
                         "computed": true,
-                        "line": 746
+                        "line": 747
                     },
                     {
                         "method_name": "Symbol.toPrimitive",
@@ -1216,16 +2281,16 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " return Reflect.apply(...arguments)",
+                                    "text": "return Reflect.apply(...arguments)",
                                     "block": false,
-                                    "line": 755
+                                    "line": 756
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": true,
                         "computed": true,
-                        "line": 750
+                        "line": 751
                     },
                     {
                         "method_name": "toString",
@@ -1239,7 +2304,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 758
+                        "line": 759
                     },
                     {
                         "method_name": "_liveProps",
@@ -1253,7 +2318,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 763
+                        "line": 764
                     },
                     {
                         "method_name": "asArray",
@@ -1269,16 +2334,16 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "\n        Return this point as an Array of 4 values:\n\n            const point = new Point(1,2,3,4);\n            point.asArray();\n            // [1,2,3,4]\n\n        Keys:\n\n        + x\n        + y\n        + radius\n        + rotation\n\n        ",
+                                    "text": "Return this point as an Array of 4 values:\n\n    const point = new Point(1,2,3,4);\n    point.asArray();\n    // [1,2,3,4]\n\nKeys:\n\n+ x\n+ y\n+ radius\n+ rotation",
                                     "block": true,
-                                    "line": 780
+                                    "line": 781
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 765
+                        "line": 766
                     },
                     {
                         "method_name": "asObject",
@@ -1289,23 +2354,960 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " Return the important information about this node,\n        used for _save_ or copy methods. ",
+                                    "text": "Return the important information about this node,\nused for _save_ or copy methods.",
                                     "block": true,
-                                    "line": 792
+                                    "line": 793
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 790
+                        "line": 791
+                    },
+                    {
+                        "method_name": "resolveStringOrFunction",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "direction"
+                            },
+                            {
+                                "name": "defaultValue"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "str such as this[\"rotation\"]",
+                                    "block": false,
+                                    "line": 475
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 471
+                    },
+                    {
+                        "method_name": "atan2",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return the theta value through the atan2 function for this point.",
+                                    "block": true,
+                                    "line": 487
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 486
+                    },
+                    {
+                        "method_name": "project",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "distance"
+                            },
+                            {
+                                "name": "rotation"
+                            },
+                            {
+                                "name": "relative",
+                                "default_value": true
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 496
+                    },
+                    {
+                        "method_name": "copy",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "position"
+                            },
+                            {
+                                "name": "deep",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Given another point, replicate the value into this node.\nElse, return a new node with the same information as this point.",
+                                    "block": true,
+                                    "line": 508
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 505
+                    },
+                    {
+                        "method_name": "magnitude",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 529
+                    },
+                    {
+                        "method_name": "normalized",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "magnitude"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Synonymous to:\n\n    {\n        x: AB.x / magnitudeAB,\n        y: AB.y / magnitudeAB\n    };",
+                                    "block": true,
+                                    "line": 543
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 535
+                    },
+                    {
+                        "method_name": "interpolateTo",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "offset"
+                            },
+                            {
+                                "name": "pointIndex",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "return a point relative from _this_ point towards the `other`,\noffset by the given number `offset` value.\nThe `pointIndex` (default 0) identifies from which point [this, other]\nto offset.",
+                                    "block": true,
+                                    "line": 552
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 548
+                    },
+                    {
+                        "method_name": "interpolateFrom",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "offset"
+                            },
+                            {
+                                "name": "pointIndex",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 557
+                    },
+                    {
+                        "method_name": "distance",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": true,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 561
+                    },
+                    {
+                        "method_name": "quantize",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "amount",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 565
+                    },
+                    {
+                        "method_name": "protractorAngleTo",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "referencePoint"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 573
+                    },
+                    {
+                        "method_name": "lerpPixel",
+                        "class_name": "Tooling",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "pixelDistance"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Returns a new point, offset by `pixelDistance` pixels in the direction\nfrom this point to the other point.",
+                                    "block": true,
+                                    "line": 582
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 578
+                    },
+                    {
+                        "method_name": "rotation",
+                        "class_name": "Rotation",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Set the rotation in degrees (0 to 360). If `this.modulusRotate` is\n`true` (default), the given value is fixed through modulus 360\n\n    point.rotation = 600\n    // 240\n    point.rotation += 1\n    // 241\n\nTo set the rotation (degrees) whilst accounting for the _UP_ vector,\nconsider the `rotate()` method.",
+                                    "block": true,
+                                    "line": 345
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 334
+                    },
+                    {
+                        "method_name": "rotate",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "degrees"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 355
+                    },
+                    {
+                        "method_name": "rotation",
+                        "class_name": "Rotation",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 360
+                    },
+                    {
+                        "method_name": "radians",
+                        "class_name": "Rotation",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return the _radians_ of the current rotation, where _rotation returns\nthe degrees",
+                                    "block": true,
+                                    "line": 366
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 364
+                    },
+                    {
+                        "method_name": "radians",
+                        "class_name": "Rotation",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "angle"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "by pushing through the existing rotations, we account for the _up_\nvector.",
+                                    "block": true,
+                                    "line": 372
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 370
+                    },
+                    {
+                        "method_name": "lookAt",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "add",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "rotationMultiplier",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Rotate the point such that the angle relative to the\n`otherPoint` is `0`, essentially _looking at_ the other point.\n\n    point.lookAt(otherPoint)\n\nReturn the angle in radians.",
+                                    "block": true,
+                                    "line": 383
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 376
+                    },
+                    {
+                        "method_name": "directionTo",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "rotationMultiplier",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "addRad",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Calculate the differences in x and y coordinates",
+                                    "block": false,
+                                    "line": 388
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 387
+                    },
+                    {
+                        "method_name": "_normalizedRadians",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "rotationMultiplier"
+                            },
+                            {
+                                "name": "addRad",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Normalize the angle difference to be within the range -PI to PI",
+                                    "block": false,
+                                    "line": 417
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 411
+                    },
+                    {
+                        "method_name": "turnTo",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "otherPoint"
+                            },
+                            {
+                                "name": "rotationMultiplier",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 427
+                    },
+                    {
+                        "method_name": "getTheta",
+                        "class_name": "Rotation",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "direction",
+                                "default_value": "undefined"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return the calculated theta value through atan2 and built to offload\nsome of the boring.\nThe _direction_ denotes the \"gravity\" pull. Generally this is `DOWN`.\n\nSynonymous to:\n\n    let theta = Math.atan2(point.y,\n                           point.x);\n\n    let theta = Math.atan2(point.y - other.y,\n                           point.x - other.x);\n\n    let theta = Math.atan2(point.y - other.y,\n                           point.x - other.x) - DOWN;",
+                                    "block": true,
+                                    "line": 449
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 433
+                    },
+                    {
+                        "method_name": "x",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "ABOVE X method\n\nMultiline - touching.",
+                                    "block": true,
+                                    "line": 56
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": "Set the _X_ (horizontal | latitude | across) value of the positionable.\nFrom cooridinate top left `(0,0)``\n\n    point.x = 100\n\nIf the given value is a function, the function is called immediately,\nwith _this_ positionable as the first argument.\n\n    stage.center.x = (p)=>200",
+                                    "block": true,
+                                    "line": 68
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 57
+                    },
+                    {
+                        "method_name": "y",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Set the _Y_ (vertical | height | longtitude) value of the positionable.\nFrom cooridinate top left `(0,0)``\n\n    point.x = 100\n\nIf the given value is a function, the function is called immediately,\nwith _this_ positionable as the first argument.\n\n    stage.center.x = (p)=>200",
+                                    "block": true,
+                                    "line": 84
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 73
+                    },
+                    {
+                        "method_name": "x",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "const _x = this._opts.x;",
+                                    "block": false,
+                                    "line": 91
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 89
+                    },
+                    {
+                        "method_name": "y",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "const _y = this._opts.y;",
+                                    "block": false,
+                                    "line": 101
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 99
+                    },
+                    {
+                        "method_name": "radius",
+                        "class_name": "Positionable",
+                        "kind": "set",
+                        "params": [
+                            {
+                                "name": "v"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "this._opts.radius = isFunction(v)? v(this, 'radius'): v",
+                                    "block": false,
+                                    "line": 109
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 108
+                    },
+                    {
+                        "method_name": "radius",
+                        "class_name": "Positionable",
+                        "kind": "get",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return the _radius_ of this point in base units (pixels)\n\n    const point = new Point(100,300, 20)\n    point.radius == 20",
+                                    "block": true,
+                                    "line": 119
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 113
+                    },
+                    {
+                        "method_name": "setSpecial",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Set the given `key`, `value`, assuming the given key is a \"special\"\nstring, such as \"radius\".\nThis method is called by the special getters and setters for this point:\n\n    const point = new Point(100,300, 20)\n    point.setSpecial('radius', 55)\n\nSynonymous to:\n\n    point.radius = 55",
+                                    "block": true,
+                                    "line": 139
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 127
+                    },
+                    {
+                        "method_name": "onSpecialSet",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "value"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "A callback executed by setSpecial when a \"special\" property is called.\n\nIf a method on this point exists matching the _set method_ pattern,\nthe method is called with the given `value`:\n\n    class MyPoint extends Point {\n        radiusSet(value) {\n            console.log('New Radius value is', value)\n        }\n    }",
+                                    "block": true,
+                                    "line": 157
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 145
+                    },
+                    {
+                        "method_name": "getSpecial",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "key"
+                            },
+                            {
+                                "name": "relIndex",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "defaultValue",
+                                "default_value": 0
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Return a stored _special_ value given a `key`.\n\nIf the `relIndex`  property is not None, the relative value found\nat the index (within this points relative data Array),\nadd the stashed relative value to the result.\n\n    const point = new Point(100,300, 20)\n    point.getSpecial('radius', 2)\n    // 20\n\nif a default value is given, and the internal `key` value does not exist,\nreturn the default value:\n\n    point.getSpecial('banana', 'yellow')\n    'yellow'",
+                                    "block": true,
+                                    "line": 180
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 163
+                    },
+                    {
+                        "method_name": "set",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "x"
+                            },
+                            {
+                                "name": "y"
+                            },
+                            {
+                                "name": "radius"
+                            },
+                            {
+                                "name": "rotation"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "set(x, y, radius, rotation)\nset(100)    => x,y\nset([])     => [x,y,radius, rotation]\nset({})     => *",
+                                    "block": true,
+                                    "line": 194
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 188
+                    },
+                    {
+                        "method_name": "_cast",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_2",
+                                "default_value": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 254
+                    },
+                    {
+                        "method_name": "subtract",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_2",
+                                "default_value": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"subtract\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 261
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 260
+                    },
+                    {
+                        "method_name": "add",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "_b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Add\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 270
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 269
+                    },
+                    {
+                        "method_name": "divide",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Divide\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 280
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 279
+                    },
+                    {
+                        "method_name": "multiply",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "\"Multiply\" this point to the _other_ point, returning a new point.",
+                                    "block": true,
+                                    "line": 294
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 293
+                    },
+                    {
+                        "method_name": "midpoint",
+                        "class_name": "Positionable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "other"
+                            },
+                            {
+                                "name": "offset",
+                                "default_value": 0.5
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Returns a new point, with the XY set at the point that is `offset` times\nthe distance from the current point to the other point.\n\nthis function is also `lerp` for linear interpolation",
+                                    "block": true,
+                                    "line": 320
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 314
                     }
                 ],
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": "The `Point` is the primary class for manipulating XY 2D points.\n\n    Arguments:\n\n        new Point(100, 200)\n\n    Object | Array:\n\n        new Point({x: 100, y: 200})\n        new Point([100, 200])\n\n    Properties:\n\n        point = new Point\n        point.x = 100\n        point.y = 200\n\n    ",
+                            "text": "The `Point` is the primary class for manipulating XY 2D points.\n\nArguments:\n\n    new Point(100, 200)\n\nObject | Array:\n\n    new Point({x: 100, y: 200})\n    new Point([100, 200])\n\nProperties:\n\n    point = new Point\n    point.x = 100\n    point.y = 200",
                             "block": true,
                             "line": 625
                         }
@@ -1371,6 +3373,8 @@
     },
     "info": {
         "filename": "point.js",
-        "store_dt": "2025-11-08 20:48:38.231971"
+        "path": "/workspaces/polypoint/point_src/point.js",
+        "size": 22418,
+        "parsed_date": "2026-06-13T01:50:44.081Z"
     }
 }

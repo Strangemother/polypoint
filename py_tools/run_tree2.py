@@ -554,6 +554,8 @@ class PhaseTree(TreeReader, CommentsMixin):
             elif item_def is not None:
                 item_defs += (item_def,)
 
+        item_defs = self._expand_class_inheritance(item_defs)
+
         prog['defs'] = item_defs
         prog['types'] = ordered_tops
         prog['info'] = content['info']
@@ -568,6 +570,55 @@ class PhaseTree(TreeReader, CommentsMixin):
         self.create_reference_file(prog, filename)
 
         return prog
+
+    def _expand_class_inheritance(self, item_defs):
+        """Append inherited class members to each class body, preserving owner class names."""
+        class_defs = {
+            item_def.get('word'): item_def
+            for item_def in item_defs
+            if isinstance(item_def, dict) and item_def.get('kind') == 'class'
+        }
+
+        expanded_bodies = {}
+
+        def copy_body_item(body_item):
+            return body_item.copy() if isinstance(body_item, dict) else body_item
+
+        def expand_body(class_def, lineage=None):
+            class_name = class_def.get('word')
+            if class_name in expanded_bodies:
+                return expanded_bodies[class_name]
+
+            lineage = set() if lineage is None else set(lineage)
+            if class_name in lineage:
+                return tuple(copy_body_item(item) for item in class_def.get('body', ()))
+
+            lineage.add(class_name)
+            own_body = tuple(copy_body_item(item) for item in class_def.get('body', ()))
+
+            parent_name = class_def.get('parentName')
+            inherited_body = ()
+            parent_def = class_defs.get(parent_name)
+            if parent_def is not None:
+                inherited_body = tuple(
+                    copy_body_item(item)
+                    for item in expand_body(parent_def, lineage)
+                )
+
+            expanded_bodies[class_name] = own_body + inherited_body
+            return expanded_bodies[class_name]
+
+        expanded_defs = []
+        for item_def in item_defs:
+            if not isinstance(item_def, dict) or item_def.get('kind') != 'class':
+                expanded_defs.append(item_def)
+                continue
+
+            expanded_item = item_def.copy()
+            expanded_item['body'] = expand_body(item_def)
+            expanded_defs.append(expanded_item)
+
+        return tuple(expanded_defs)
 
     def create_reference_file(self, prog, filename):
         """
@@ -600,10 +651,11 @@ class PhaseTree(TreeReader, CommentsMixin):
                     if body_item.get('kind') in ['constructor', 'method', 'get', 'set']:
                         pos = body_item.get('pos')
                         line_no = self._extract_line_number(pos)
+                        owner_class_name = body_item.get('class_name', class_name)
 
                         method_info = {
                             'method_name': body_item.get('word'),
-                            'class_name': class_name,
+                            'class_name': owner_class_name,
                             'kind': body_item['kind'],
                             'params': body_item.get('value', {}).get('params', []),
                             'comments': body_item.get('comments', {'header': [], 'inner': []}),
@@ -727,6 +779,27 @@ class PhaseTree(TreeReader, CommentsMixin):
             return pos.get('loc', {}).get('start', {}).get('line', 0)
         return 0
 
+    def _annotate_class_body_members(self, class_name, body_items):
+        """Attach the owning class name to class members for downstream templates."""
+        if not isinstance(body_items, (list, tuple)):
+            return body_items
+
+        annotated_items = []
+        member_kinds = {'constructor', 'method', 'get', 'set', 'property'}
+
+        for body_item in body_items:
+            if not isinstance(body_item, dict):
+                annotated_items.append(body_item)
+                continue
+
+            annotated_item = body_item.copy()
+            if annotated_item.get('kind') in member_kinds and not annotated_item.get('class_name'):
+                annotated_item['class_name'] = class_name
+
+            annotated_items.append(annotated_item)
+
+        return tuple(annotated_items) if isinstance(body_items, tuple) else annotated_items
+
     def node_ClassDeclaration(self, tree, content):
         """The response it sent to the prog output.
         """
@@ -734,13 +807,18 @@ class PhaseTree(TreeReader, CommentsMixin):
         pos = tree['pos']
         raw_comments = self.get_area_comments(pos)
         comments = self.format_comments_for_output(raw_comments)
+        class_name = tree['id']['name']
+        class_body = self._annotate_class_body_members(
+            class_name,
+            self.get_inner_method(tree['body'], content),
+        )
 
         return {
             "kind": "class",
-            "word": tree['id']['name'],
+            "word": class_name,
             "parentName": tree['superClass'].get('name', None) if tree['superClass'] else None,
             "type": tree['type'],
-            "body": self.get_inner_method(tree['body'], content),
+            "body": class_body,
             "comments": comments,
             **self.make_position(tree),
         }

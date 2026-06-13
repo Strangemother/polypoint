@@ -42,14 +42,14 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " an addon instance has anounced itself. Perform the addComponent ",
+                                "text": "an addon instance has anounced itself. Perform the addComponent",
                                 "block": true,
                                 "line": 34
                             }
                         ],
                         "inner": [
                             {
-                                "text": " this.dispatch('stage:prepare', {target, id, canvas })",
+                                "text": "this.dispatch('stage:prepare', {target, id, canvas })",
                                 "block": false,
                                 "line": 38
                             }
@@ -110,7 +110,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " this.dispatch('prepare', { target, id, stage: this, canvas })",
+                                "text": "this.dispatch('prepare', { target, id, stage: this, canvas })",
                                 "block": false,
                                 "line": 52
                             }
@@ -167,7 +167,7 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " Given a dictionary, return a finished dictionary, ready for event\r\n    dispatch ",
+                                "text": "Given a dictionary, return a finished dictionary, ready for event\ndispatch",
                                 "block": true,
                                 "line": 61
                             }
@@ -228,7 +228,7 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " a given object is mounted on _this_ - such as the `mouse`.\r\n    This may be called in response to a 'stage:prepare' event.  ",
+                                "text": "a given object is mounted on _this_ - such as the `mouse`.\nThis may be called in response to a 'stage:prepare' event.",
                                 "block": true,
                                 "line": 68
                             }
@@ -283,7 +283,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " console.log.apply(console, Array.from(arguments))",
+                                "text": "console.log.apply(console, Array.from(arguments))",
                                 "block": false,
                                 "line": 81
                             }
@@ -309,7 +309,7 @@
                 "header": [],
                 "inner": [
                     {
-                        "text": " an addon instance has anounced itself. Perform the addComponent ",
+                        "text": "an addon instance has anounced itself. Perform the addComponent",
                         "block": true,
                         "line": 34
                     }
@@ -477,7 +477,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": "\r\n            Accept a `canvas` node and an optional `draw` function, prepare\r\n            the stage draw routine. If the `canvas` is given, immediately call\r\n            `this.prepare(canvas)` to initiate the layer.\r\n\r\n                new StageRender(canvas, ()=>{})\r\n\r\n            Any given `drawFunc` overrides the existing `this.stageStartDraw` method\r\n            and expects the _next_ method to call once complete:\r\n\r\n            The default `this.draw(ctx)` method is given`\r\n\r\n                this.stageStartDraw(this.draw)\r\n\r\n         ",
+                                "text": "Accept a `canvas` node and an optional `draw` function, prepare\nthe stage draw routine. If the `canvas` is given, immediately call\n`this.prepare(canvas)` to initiate the layer.\n\n    new StageRender(canvas, ()=>{})\n\nAny given `drawFunc` overrides the existing `this.stageStartDraw` method\nand expects the _next_ method to call once complete:\n\nThe default `this.draw(ctx)` method is given`\n\n    this.stageStartDraw(this.draw)",
                                 "block": true,
                                 "line": 134
                             }
@@ -538,7 +538,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Return the result of the bounding box function, else resort\r\n        to the object w/h ",
+                                "text": "Return the result of the bounding box function, else resort\nto the object w/h",
                                 "block": true,
                                 "line": 155
                             }
@@ -644,7 +644,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Perform any preparations for this stage instance to run the\r\n          canvas tools. This includes resolving and measuring the canvas.\r\n\r\n            class MainStage extends Stage {\r\n                canvas = playspace\r\n                prepare(target){\r\n                    super.prepare(target)\r\n                    // ...\r\n                }\r\n            }\r\n\r\n        This will run automatically if the canvas is given in the constructor\r\n\r\n            new MainStage(canvas)\r\n            // _prepared == true\r\n\r\n        Once prepared the stage is essentially ready-to-go.\r\n\r\n            stage = new MainStage()\r\n            stage.prepare(canvas)\r\n            stage.update()\r\n\r\n        ",
+                                "text": "Perform any preparations for this stage instance to run the\n  canvas tools. This includes resolving and measuring the canvas.\n\n    class MainStage extends Stage {\n        canvas = playspace\n        prepare(target){\n            super.prepare(target)\n            // ...\n        }\n    }\n\nThis will run automatically if the canvas is given in the constructor\n\n    new MainStage(canvas)\n    // _prepared == true\n\nOnce prepared the stage is essentially ready-to-go.\n\n    stage = new MainStage()\n    stage.prepare(canvas)\n    stage.update()",
                                 "block": true,
                                 "line": 211
                             }
@@ -701,14 +701,14 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " Empty API Method ",
+                                "text": "Empty API Method",
                                 "block": true,
                                 "line": 245
                             }
                         ],
                         "inner": [
                             {
-                                "text": " A Convenient place to perform initial work. ",
+                                "text": "A Convenient place to perform initial work.",
                                 "block": true,
                                 "line": 247
                             }
@@ -820,7 +820,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Make a copy of a new Stage.\r\n        Call prepare() if required. If `additionalData.loop` is `true` (default)\r\n        start the update loopDraw\r\n        ",
+                                "text": "Make a copy of a new Stage.\nCall prepare() if required. If `additionalData.loop` is `true` (default)\nstart the update loopDraw",
                                 "block": true,
                                 "line": 258
                             }
@@ -936,7 +936,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " 1ms delay for a next tick. ",
+                                "text": "1ms delay for a next tick.",
                                 "block": true,
                                 "line": 272
                             }
@@ -995,7 +995,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Make a copy of a new Stage.\r\n        Call prepare() if required. If `additionalData.loop` is `true` (default)\r\n        start the update loopDraw\r\n        ",
+                                "text": "Make a copy of a new Stage.\nCall prepare() if required. If `additionalData.loop` is `true` (default)\nstart the update loopDraw",
                                 "block": true,
                                 "line": 287
                             }
@@ -1105,7 +1105,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " When using the internal loop drawing the first draw call occurs\r\n        through this method, calling `firstDraw` once, then\r\n        changing the internal draw function to the typical `this.draw`\r\n\r\n        If `this.draw` is not a method, `this.update()` is not called and the\r\n        `stopDraw` method is called.\r\n        ",
+                                "text": "When using the internal loop drawing the first draw call occurs\nthrough this method, calling `firstDraw` once, then\nchanging the internal draw function to the typical `this.draw`\n\nIf `this.draw` is not a method, `this.update()` is not called and the\n`stopDraw` method is called.",
                                 "block": true,
                                 "line": 353
                             }
@@ -1159,7 +1159,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " A helper function to apply this stage to the animation frame,\r\n        calling `update()` for every frame.\r\n\r\n        Call once to start the loop.\r\n\r\n                stage = new MainStage()\r\n                stage.prepare(canvas)\r\n                stage.loopDraw()\r\n        ",
+                                "text": "A helper function to apply this stage to the animation frame,\ncalling `update()` for every frame.\n\nCall once to start the loop.\n\n        stage = new MainStage()\n        stage.prepare(canvas)\n        stage.loopDraw()",
                                 "block": true,
                                 "line": 376
                             }
@@ -1213,7 +1213,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Return the cached context object of the current canvas.\r\n        ",
+                                "text": "Return the cached context object of the current canvas.",
                                 "block": true,
                                 "line": 383
                             }
@@ -1275,7 +1275,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": "\r\n        + `alpha`:\r\n                A boolean value that indicates if the canvas contains an alpha\r\n                channel. If set to false, the browser now knows that the\r\n                backdrop is always opaque, which can speed up drawing of\r\n                transparent content and images.\r\n\r\n        + `colorSpace` Optional:\r\n                Specifies the color space of the rendering context.\r\n                Possible values are:\r\n\r\n                    \"srgb\" selects the sRGB color space. (default value)\r\n                    \"display-p3\" selects the display-p3 color space.\r\n\r\n        + `desynchronized`:\r\n                A boolean value that hints the user agent to reduce the\r\n                latency by desynchronizing the canvas paint cycle from the\r\n                event loop.\r\n\r\n        + `willReadFrequently`:\r\n                A boolean value that indicates whether or not a lot of\r\n                read-back operations are planned. This will force the use of\r\n                a software (instead of hardware accelerated) 2D canvas and\r\n                can save memory when calling getImageData() frequently.\r\n         ",
+                                "text": "+ `alpha`:\n        A boolean value that indicates if the canvas contains an alpha\n        channel. If set to false, the browser now knows that the\n        backdrop is always opaque, which can speed up drawing of\n        transparent content and images.\n\n+ `colorSpace` Optional:\n        Specifies the color space of the rendering context.\n        Possible values are:\n\n            \"srgb\" selects the sRGB color space. (default value)\n            \"display-p3\" selects the display-p3 color space.\n\n+ `desynchronized`:\n        A boolean value that hints the user agent to reduce the\n        latency by desynchronizing the canvas paint cycle from the\n        event loop.\n\n+ `willReadFrequently`:\n        A boolean value that indicates whether or not a lot of\n        read-back operations are planned. This will force the use of\n        a software (instead of hardware accelerated) 2D canvas and\n        can save memory when calling getImageData() frequently.",
                                 "block": true,
                                 "line": 412
                             }
@@ -1329,7 +1329,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": "\r\n            inline update per draw. For each call:\r\n\r\n            + all _drawBefore_ methods\r\n            + all _nextTick_ methods\r\n            + the `draw` method (mapped through `this.$drawFunc`)\r\n            + all _drawAfter_ methods\r\n        ",
+                                "text": "inline update per draw. For each call:\n\n+ all _drawBefore_ methods\n+ all _nextTick_ methods\n+ the `draw` method (mapped through `this.$drawFunc`)\n+ all _drawAfter_ methods",
                                 "block": true,
                                 "line": 433
                             }
@@ -1387,7 +1387,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Run the given function (with context) on the next draw call.\r\n        This function is very similar to `onDrawBefore`, but only runs _once_.\r\n\r\n            stage.nextTick(function(ctx){\r\n                // run next time.\r\n                stage.runCustomRender(ctx)\r\n            })\r\n\r\n        This is useful for performing clearups, or running routines on\r\n        single action:\r\n\r\n            let v = this.v = new Value(this.p.radius, width, easing)\r\n            v.doneHandler = ()=>{\r\n                // st.switchOut()\r\n                this.nextTick(this.switchOut.bind(this))\r\n            }\r\n\r\n            switchOut() {\r\n                this.log('doneHandler')\r\n                this.v = undefined;\r\n            }\r\n        ",
+                                "text": "Run the given function (with context) on the next draw call.\nThis function is very similar to `onDrawBefore`, but only runs _once_.\n\n    stage.nextTick(function(ctx){\n        // run next time.\n        stage.runCustomRender(ctx)\n    })\n\nThis is useful for performing clearups, or running routines on\nsingle action:\n\n    let v = this.v = new Value(this.p.radius, width, easing)\n    v.doneHandler = ()=>{\n        // st.switchOut()\n        this.nextTick(this.switchOut.bind(this))\n    }\n\n    switchOut() {\n        this.log('doneHandler')\n        this.v = undefined;\n    }",
                                 "block": true,
                                 "line": 477
                             }
@@ -1448,7 +1448,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " call the function after a number of _ticks_ has succeded, cycled.\r\n\r\n        This apply a new method to the onDrawBefore stack, executing the\r\n        function every _modulu_ 0. ",
+                                "text": "call the function after a number of _ticks_ has succeded, cycled.\n\nThis apply a new method to the onDrawBefore stack, executing the\nfunction every _modulu_ 0.",
                                 "block": true,
                                 "line": 485
                             }
@@ -1506,7 +1506,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " this._drawBefore.push(func)",
+                                "text": "this._drawBefore.push(func)",
                                 "block": false,
                                 "line": 501
                             }
@@ -1564,7 +1564,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " this._drawAfter.push(func)",
+                                "text": "this._drawAfter.push(func)",
                                 "block": false,
                                 "line": 506
                             }
@@ -1622,7 +1622,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " let i = this._drawAfter.indexOf(func)",
+                                "text": "let i = this._drawAfter.indexOf(func)",
                                 "block": false,
                                 "line": 511
                             }
@@ -1680,7 +1680,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " let i = this._drawBefore.indexOf(func)",
+                                "text": "let i = this._drawBefore.indexOf(func)",
                                 "block": false,
                                 "line": 517
                             }
@@ -1720,14 +1720,14 @@
                         ],
                         "pos": {
                             "start": 15558,
-                            "end": 16040,
+                            "end": 16061,
                             "loc": {
                                 "start": {
                                     "line": 523,
                                     "column": 13
                                 },
                                 "end": {
-                                    "line": 538,
+                                    "line": 540,
                                     "column": 5
                                 }
                             }
@@ -1737,29 +1737,29 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " Empty API Method ",
+                                "text": "Empty API Method",
                                 "block": true,
                                 "line": 522
                             }
                         ],
                         "inner": [
                             {
-                                "text": " The `firstDraw(ctx)` method us used _once_ when drawing starts.\r\n        This occurs before the first `update()` call is performed.\r\n\r\n        This is useful if you're setting context arguments - but only need to\r\n        set them once.\r\n\r\n            class Main extends Stage {\r\n                firstDraw(ctx) {\r\n                    ctx.fillStyle = '#ccc'\r\n                    ctx.font = 'normal 1em arial'\r\n                }\r\n            }\r\n\r\n        ",
+                                "text": "PGym Bag.\n\nThe `firstDraw(ctx)` method us used _once_ when drawing starts.\nThis occurs before the first `update()` call is performed.\n\nThis is useful if you're setting context arguments - but only need to\nset them once.\n\n    class Main extends Stage {\n        firstDraw(ctx) {\n            ctx.fillStyle = '#ccc'\n            ctx.font = 'normal 1em arial'\n        }\n    }",
                                 "block": true,
-                                "line": 537
+                                "line": 539
                             }
                         ]
                     },
                     "pos": {
                         "start": 15549,
-                        "end": 16040,
+                        "end": 16061,
                         "loc": {
                             "start": {
                                 "line": 523,
                                 "column": 4
                             },
                             "end": {
-                                "line": 538,
+                                "line": 540,
                                 "column": 5
                             }
                         }
@@ -1783,15 +1783,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 16080,
-                            "end": 16853,
+                            "start": 16101,
+                            "end": 16874,
                             "loc": {
                                 "start": {
-                                    "line": 541,
+                                    "line": 543,
                                     "column": 8
                                 },
                                 "end": {
-                                    "line": 571,
+                                    "line": 573,
                                     "column": 5
                                 }
                             }
@@ -1801,29 +1801,29 @@
                     "comments": {
                         "header": [
                             {
-                                "text": " Empty API Method ",
+                                "text": "Empty API Method",
                                 "block": true,
-                                "line": 540
+                                "line": 542
                             }
                         ],
                         "inner": [
                             {
-                                "text": " The primary rendering function to override.\r\n        Called by the `update()` method, given the context `ctx` of the\r\n        target canvas.\r\n\r\n        This is essentially the same as running the update function\r\n        manually:\r\n\r\n\r\n            const ctx = canvas.getContext('2d');\r\n            const stage = new MainStage()\r\n\r\n            stage.prepare(canvas)\r\n\r\n            function draw() {\r\n\r\n                // or: stage.clear(ctx)\r\n                ctx.clearRect(0, 0, canvas.width, canvas.height);\r\n\r\n                // Run the draw routines\r\n                stage.draw(ctx)\r\n\r\n                // And rinse repeat.\r\n                requestAnimationFrame(draw);\r\n\r\n            }\r\n\r\n            draw()\r\n        ",
+                                "text": "The primary rendering function to override.\nCalled by the `update()` method, given the context `ctx` of the\ntarget canvas.\n\nThis is essentially the same as running the update function\nmanually:\n\n\n    const ctx = canvas.getContext('2d');\n    const stage = new MainStage()\n\n    stage.prepare(canvas)\n\n    function draw() {\n\n        // or: stage.clear(ctx)\n        ctx.clearRect(0, 0, canvas.width, canvas.height);\n\n        // Run the draw routines\n        stage.draw(ctx)\n\n        // And rinse repeat.\n        requestAnimationFrame(draw);\n\n    }\n\n    draw()",
                                 "block": true,
-                                "line": 569
+                                "line": 571
                             }
                         ]
                     },
                     "pos": {
-                        "start": 16076,
-                        "end": 16853,
+                        "start": 16097,
+                        "end": 16874,
                         "loc": {
                             "start": {
-                                "line": 541,
+                                "line": 543,
                                 "column": 4
                             },
                             "end": {
-                                "line": 571,
+                                "line": 573,
                                 "column": 5
                             }
                         }
@@ -1851,15 +1851,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 16866,
-                            "end": 17543,
+                            "start": 16887,
+                            "end": 17564,
                             "loc": {
                                 "start": {
-                                    "line": 573,
+                                    "line": 575,
                                     "column": 9
                                 },
                                 "end": {
-                                    "line": 595,
+                                    "line": 597,
                                     "column": 5
                                 }
                             }
@@ -1870,22 +1870,22 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Perform a standard 'clearRect' using the cached dimensions of the\r\n        canvas.\r\n\r\n            stage.clear(ctx)\r\n\r\n        Synonymous to:\r\n\r\n            const ctx = canvas.getContext('2d');\r\n            ctx.clearRect(0, 0, canvas.width, canvas.height);\r\n\r\n        Apply an optional flood fillStyle:\r\n\r\n            stage.clear(ctx, '#000')\r\n        ",
+                                "text": "Perform a standard 'clearRect' using the cached dimensions of the\ncanvas.\n\n    stage.clear(ctx)\n\nSynonymous to:\n\n    const ctx = canvas.getContext('2d');\n    ctx.clearRect(0, 0, canvas.width, canvas.height);\n\nApply an optional flood fillStyle:\n\n    stage.clear(ctx, '#000')",
                                 "block": true,
-                                "line": 587
+                                "line": 589
                             }
                         ]
                     },
                     "pos": {
-                        "start": 16861,
-                        "end": 17543,
+                        "start": 16882,
+                        "end": 17564,
                         "loc": {
                             "start": {
-                                "line": 573,
+                                "line": 575,
                                 "column": 4
                             },
                             "end": {
-                                "line": 595,
+                                "line": 597,
                                 "column": 5
                             }
                         }
@@ -1896,7 +1896,7 @@
                 "header": [],
                 "inner": [
                     {
-                        "text": "\r\n\r\n     Stage Lifecycle\r\n\r\n        constructor\r\n            prepare\r\n                stickCanvasSize\r\n                mounted\r\n                ?load\r\n\r\n        go\r\n            cleanGoConfig\r\n            ?prepare\r\n            update\r\n                stageStartDraw\r\n                    firstDraw\r\n                    update\r\n            update\r\n                draw\r\n            unfreeze\r\n                loopDraw\r\n                    update\r\n                        draw\r\n                    loopDraw\r\n\r\n\r\n     ",
+                        "text": "Stage Lifecycle\n\n   constructor\n       prepare\n           stickCanvasSize\n           mounted\n           ?load\n\n   go\n       cleanGoConfig\n       ?prepare\n       update\n           stageStartDraw\n               firstDraw\n               update\n       update\n           draw\n       unfreeze\n           loopDraw\n               update\n                   draw\n               loopDraw",
                         "block": true,
                         "line": 114
                     }
@@ -1904,14 +1904,14 @@
             },
             "pos": {
                 "start": 2420,
-                "end": 17546,
+                "end": 17567,
                 "loc": {
                     "start": {
                         "line": 87,
                         "column": 0
                     },
                     "end": {
-                        "line": 596,
+                        "line": 598,
                         "column": 1
                     }
                 }
@@ -1933,15 +1933,15 @@
                         "raw": "false",
                         "value": false,
                         "pos": {
-                            "start": 17602,
-                            "end": 17607,
+                            "start": 17623,
+                            "end": 17628,
                             "loc": {
                                 "start": {
-                                    "line": 601,
+                                    "line": 603,
                                     "column": 13
                                 },
                                 "end": {
-                                    "line": 601,
+                                    "line": 603,
                                     "column": 18
                                 }
                             }
@@ -1949,15 +1949,15 @@
                     },
                     "type": "PropertyDefinition",
                     "pos": {
-                        "start": 17593,
-                        "end": 17607,
+                        "start": 17614,
+                        "end": 17628,
                         "loc": {
                             "start": {
-                                "line": 601,
+                                "line": 603,
                                 "column": 4
                             },
                             "end": {
-                                "line": 601,
+                                "line": 603,
                                 "column": 18
                             }
                         }
@@ -1981,15 +1981,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 17622,
-                            "end": 17806,
+                            "start": 17643,
+                            "end": 17827,
                             "loc": {
                                 "start": {
-                                    "line": 603,
+                                    "line": 605,
                                     "column": 11
                                 },
                                 "end": {
-                                    "line": 612,
+                                    "line": 614,
                                     "column": 5
                                 }
                             }
@@ -2001,15 +2001,15 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 17615,
-                        "end": 17806,
+                        "start": 17636,
+                        "end": 17827,
                         "loc": {
                             "start": {
-                                "line": 603,
+                                "line": 605,
                                 "column": 4
                             },
                             "end": {
-                                "line": 612,
+                                "line": 614,
                                 "column": 5
                             }
                         }
@@ -2029,15 +2029,15 @@
                         "async": false,
                         "params": [],
                         "pos": {
-                            "start": 17818,
-                            "end": 18062,
+                            "start": 17839,
+                            "end": 18083,
                             "loc": {
                                 "start": {
-                                    "line": 614,
+                                    "line": 616,
                                     "column": 8
                                 },
                                 "end": {
-                                    "line": 622,
+                                    "line": 624,
                                     "column": 5
                                 }
                             }
@@ -2048,22 +2048,22 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Called once by the prepare() method, to act as a first-time\r\n         loader for the stage.\r\n\r\n         Apply global hooks here.\r\n        ",
+                                "text": "Called once by the prepare() method, to act as a first-time\nloader for the stage.\n\nApply global hooks here.",
                                 "block": true,
-                                "line": 619
+                                "line": 621
                             }
                         ]
                     },
                     "pos": {
-                        "start": 17814,
-                        "end": 18062,
+                        "start": 17835,
+                        "end": 18083,
                         "loc": {
                             "start": {
-                                "line": 614,
+                                "line": 616,
                                 "column": 4
                             },
                             "end": {
-                                "line": 622,
+                                "line": 624,
                                 "column": 5
                             }
                         }
@@ -2074,22 +2074,22 @@
                 "header": [],
                 "inner": [
                     {
-                        "text": " Called once by the prepare() method, to act as a first-time\r\n         loader for the stage.\r\n\r\n         Apply global hooks here.\r\n        ",
+                        "text": "Called once by the prepare() method, to act as a first-time\nloader for the stage.\n\nApply global hooks here.",
                         "block": true,
-                        "line": 619
+                        "line": 621
                     }
                 ]
             },
             "pos": {
-                "start": 17552,
-                "end": 18065,
+                "start": 17573,
+                "end": 18086,
                 "loc": {
                     "start": {
-                        "line": 599,
+                        "line": 601,
                         "column": 0
                     },
                     "end": {
-                        "line": 623,
+                        "line": 625,
                         "column": 1
                     }
                 }
@@ -2099,71 +2099,71 @@
             "type": "ExpressionStatement",
             "expression": {
                 "type": "CallExpression",
-                "start": 18071,
-                "end": 18100,
+                "start": 18092,
+                "end": 18121,
                 "loc": {
                     "start": {
-                        "line": 626,
+                        "line": 628,
                         "column": 0
                     },
                     "end": {
-                        "line": 626,
+                        "line": 628,
                         "column": 29
                     }
                 },
                 "callee": {
                     "type": "MemberExpression",
-                    "start": 18071,
-                    "end": 18093,
+                    "start": 18092,
+                    "end": 18114,
                     "loc": {
                         "start": {
-                            "line": 626,
+                            "line": 628,
                             "column": 0
                         },
                         "end": {
-                            "line": 626,
+                            "line": 628,
                             "column": 22
                         }
                     },
                     "object": {
                         "type": "MemberExpression",
-                        "start": 18071,
-                        "end": 18085,
+                        "start": 18092,
+                        "end": 18106,
                         "loc": {
                             "start": {
-                                "line": 626,
+                                "line": 628,
                                 "column": 0
                             },
                             "end": {
-                                "line": 626,
+                                "line": 628,
                                 "column": 14
                             }
                         },
                         "object": {
                             "type": "Identifier",
-                            "start": 18071,
-                            "end": 18080,
+                            "start": 18092,
+                            "end": 18101,
                             "loc": {
                                 "start": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 0
                                 },
                                 "end": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 9
                                 }
                             },
                             "name": "Polypoint",
                             "pos": {
-                                "start": 18071,
-                                "end": 18080,
+                                "start": 18092,
+                                "end": 18101,
                                 "loc": {
                                     "start": {
-                                        "line": 626,
+                                        "line": 628,
                                         "column": 0
                                     },
                                     "end": {
-                                        "line": 626,
+                                        "line": 628,
                                         "column": 9
                                     }
                                 }
@@ -2171,29 +2171,29 @@
                         },
                         "property": {
                             "type": "Identifier",
-                            "start": 18081,
-                            "end": 18085,
+                            "start": 18102,
+                            "end": 18106,
                             "loc": {
                                 "start": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 10
                                 },
                                 "end": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 14
                                 }
                             },
                             "name": "head",
                             "pos": {
-                                "start": 18081,
-                                "end": 18085,
+                                "start": 18102,
+                                "end": 18106,
                                 "loc": {
                                     "start": {
-                                        "line": 626,
+                                        "line": 628,
                                         "column": 10
                                     },
                                     "end": {
-                                        "line": 626,
+                                        "line": 628,
                                         "column": 14
                                     }
                                 }
@@ -2202,15 +2202,15 @@
                         "computed": false,
                         "optional": false,
                         "pos": {
-                            "start": 18071,
-                            "end": 18085,
+                            "start": 18092,
+                            "end": 18106,
                             "loc": {
                                 "start": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 0
                                 },
                                 "end": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 14
                                 }
                             }
@@ -2218,29 +2218,29 @@
                     },
                     "property": {
                         "type": "Identifier",
-                        "start": 18086,
-                        "end": 18093,
+                        "start": 18107,
+                        "end": 18114,
                         "loc": {
                             "start": {
-                                "line": 626,
+                                "line": 628,
                                 "column": 15
                             },
                             "end": {
-                                "line": 626,
+                                "line": 628,
                                 "column": 22
                             }
                         },
                         "name": "install",
                         "pos": {
-                            "start": 18086,
-                            "end": 18093,
+                            "start": 18107,
+                            "end": 18114,
                             "loc": {
                                 "start": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 15
                                 },
                                 "end": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 22
                                 }
                             }
@@ -2249,15 +2249,15 @@
                     "computed": false,
                     "optional": false,
                     "pos": {
-                        "start": 18071,
-                        "end": 18093,
+                        "start": 18092,
+                        "end": 18114,
                         "loc": {
                             "start": {
-                                "line": 626,
+                                "line": 628,
                                 "column": 0
                             },
                             "end": {
-                                "line": 626,
+                                "line": 628,
                                 "column": 22
                             }
                         }
@@ -2266,29 +2266,29 @@
                 "arguments": [
                     {
                         "type": "Identifier",
-                        "start": 18094,
-                        "end": 18099,
+                        "start": 18115,
+                        "end": 18120,
                         "loc": {
                             "start": {
-                                "line": 626,
+                                "line": 628,
                                 "column": 23
                             },
                             "end": {
-                                "line": 626,
+                                "line": 628,
                                 "column": 28
                             }
                         },
                         "name": "Stage",
                         "pos": {
-                            "start": 18094,
-                            "end": 18099,
+                            "start": 18115,
+                            "end": 18120,
                             "loc": {
                                 "start": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 23
                                 },
                                 "end": {
-                                    "line": 626,
+                                    "line": 628,
                                     "column": 28
                                 }
                             }
@@ -2297,30 +2297,30 @@
                 ],
                 "optional": false,
                 "pos": {
-                    "start": 18071,
-                    "end": 18100,
+                    "start": 18092,
+                    "end": 18121,
                     "loc": {
                         "start": {
-                            "line": 626,
+                            "line": 628,
                             "column": 0
                         },
                         "end": {
-                            "line": 626,
+                            "line": 628,
                             "column": 29
                         }
                     }
                 }
             },
             "pos": {
-                "start": 18071,
-                "end": 18100,
+                "start": 18092,
+                "end": 18121,
                 "loc": {
                     "start": {
-                        "line": 626,
+                        "line": 628,
                         "column": 0
                     },
                     "end": {
-                        "line": 626,
+                        "line": 628,
                         "column": 29
                     }
                 }
@@ -2336,7 +2336,7 @@
     "info": {
         "filename": "stage.js",
         "path": "/workspaces/polypoint/point_src/stage.js",
-        "size": 18104,
-        "parsed_date": "2026-06-06T00:45:59.095Z"
+        "size": 18125,
+        "parsed_date": "2026-06-13T00:31:33.469Z"
     }
 }

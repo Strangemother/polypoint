@@ -1,9 +1,8 @@
 /*
-title: Apple Motion Timing Curve
-categories: brownian
-    random
 ---
+title: Apple Motion Timing Curve
 
+---
 
 files:
     head
@@ -13,8 +12,6 @@ files:
     dragging
     stroke
     ../point_src/random.js
-
-
 ---
 
 

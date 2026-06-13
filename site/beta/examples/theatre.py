@@ -29,6 +29,7 @@ def process_source_file(filename):
     tree_script = settings.POLYPOINT_TOOLS / 'run_tree2.py'
 
     parser_command = build_parser_command(relative_filename)
+    print('Running command: ', parser_command)
     run_command(parser_command, cwd=js_parser_dir)
 
     tree_path = settings.POLYPOINT_DOCS_DIR / 'trees' / f'{source_path.stem}-js-tree.json'
@@ -55,9 +56,16 @@ def process_source_file(filename):
 
 
 def build_parser_command(filename):
+    cp = '../../js_parser/node-v18.20.8-win-x64/node.exe'
+    o = 'node'
+    if os.path.exists(cp):
+        o = cp
+        return (o, 'parse-file.js', filename)
+
     if shutil.which('npm') is not None:
         return ('npm', 'run', 'parse', '--', filename)
-    return ('node', 'parse-file.js', filename)
+
+    return (o, 'parse-file.js', filename)
 
 
 def run_command(command, cwd):

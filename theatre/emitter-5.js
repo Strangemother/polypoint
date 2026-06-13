@@ -31,13 +31,8 @@ class MainStage extends Stage {
     canvas = 'playspace'
 
     mounted(){
-        this.point = new Point(100, 100, 20)
-        // this.events.wake()
-
         let e2 = new RandomPointEmitter(400,400, 60)
-        // let e2 = new PumpRandomPointEmitter(400,400, 60)
-        // let e2 = new RandomPointEmitter(400,400, 60)
-        e2.direction = {x:1, y:0} //inward.
+        e2.direction = {x:1, y:0}
         e2.fromEdge = true
         e2.directionVariant = 200
         e2.tickModulo = 3
@@ -48,19 +43,7 @@ class MainStage extends Stage {
         e2.lifetime = e2.radius * 3
         e2.wake()
         this.e2 = e2
-
-
-        // let e3 = new Emitter(500,200, 60)
-        // e3.fromEdge = true
-        // e3.tickModulo = 100
-        // e3.birthrate = 20
-        // e3.lifetime = 200
-        let e3 = new PumpRandomPointEmitter(500,200, 60)
-        e3.wake()
-        this.e3 = e3
-
-        this.dragging.add(e2, e3)
-        // this.dragging.add(this.e1, e2, e3)
+        this.dragging.add(e2)
     }
 
     draw(ctx){
@@ -77,25 +60,14 @@ class MainStage extends Stage {
 
             e.step()
             e.rotation += (e.speed || 0)
-            // e.lookAt(this.mouse.point)
             e.pen.circle(ctx, {color: 'purple', width: 2})
             e.text.fill(ctx, e.length)
-            // e.points.pen.indicators(ctx)
-            // e.points.forEach(p=>{
-            //     p.radius = clamp( (p.lifetime * 3 / p.age * 4) - 2, 0, 30)
-            //     // p.radius = clamp( (p.age * 3 / p.lifetime * 4) - 2, 0, 30)
-            // })
-            // e.points.pen.lines(ctx, 'pink', 2)
-
             e.points.forEach(p=>{
-                // p.radius = clamp( (p.lifetime * 3 / p.age * 4) - 2, 0, 30)
                 p.radius = clamp( (p.age * 3 / p.lifetime * 4) - 2, 0, 30)
             })
             e.points.pen.lines(ctx, 'purple', 2)
 
         })
-
-        // this.point.pen.fill(ctx, '#880000')
     }
 }
 

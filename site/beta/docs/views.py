@@ -389,7 +389,6 @@ class PointSrcFileView(views.TemplateView):
         trees_parent = docs_parent / f"trees/clean/stash" / name / 'program.json'
 
         print('\n\ntrees_parent.exists(): ',trees_parent.exists(), trees_parent, '\n\n')
-
         if trees_parent.exists() is False:
             return r
 

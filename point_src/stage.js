@@ -521,7 +521,10 @@ class StageRender extends StageBase {
 
     /* Empty API Method */
     firstDraw(ctx) {
-        /* The `firstDraw(ctx)` method us used _once_ when drawing starts.
+        /*
+        Gym Bag.
+
+        The `firstDraw(ctx)` method us used _once_ when drawing starts.
         This occurs before the first `update()` call is performed.
 
         This is useful if you're setting context arguments - but only need to

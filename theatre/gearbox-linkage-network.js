@@ -346,6 +346,7 @@ class MainStage extends Stage {
             pointA: new Point({ x: 120, y: 320, radius: 10, color: '#22aa66' })
         })
 
+
         this.wheel = new PassiveWheelPoint({
             center: new Point({ x: 560, y: 320, radius: 54, color: '#6688dd', rotation: 45 }),
             offsetRadius: 34,
@@ -362,9 +363,11 @@ class MainStage extends Stage {
         this.dragging.add(
             this.wheel.center,
             this.wheel.point,
+            
             this.pivotLinkage.pivot,
             this.pivotLinkage.pointA,
-            this.pivotLinkage.pointB
+            this.pivotLinkage.pointB,
+
         )
 
         this.dragging.onDragStart = this.onDragStart.bind(this)

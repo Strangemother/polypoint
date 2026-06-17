@@ -12,23 +12,20 @@ A Nice angle conversion utility.
     // Angle(a, 'tau')
     a.degrees
 
-functions
-
-
-    | char | short | name | long |
-    | ----- | ----- | ----- | ----- |
-    | d | deg | degrees | -- |
-    | t | tau | turn | -- |
-    | g | gon | grad | gradian |
-    | r | rad | rads | radians |
-    | h | hour | hour | -- |
-    | b | binary | binary | -- |
-
 ---
 
-| compass |
-| rpm |
- */
+Functions:
+
+| char | short | name | long |
+| --- | --- | --- | --- |
+| d | deg | degrees | - |
+| t | tau | turn | - |
+| g | gon | grad | gradian |
+| r | rad | rads | radians |
+| h | hour | hour | - |
+| b | binary | binary | - |
+
+*/
 
 /*
 Angle convert tools list the available types, with functions

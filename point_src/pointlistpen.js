@@ -123,6 +123,31 @@ class PointListPen {
         ctx.fill()
     }
 
+    flood(ctx, fillStyle, draw='quadCurve', ...drawArgs) {
+        /* Flood the pointlist area after a draw. This is similar to ctx 'fill',
+        but receives a fillStyle
+
+            draw = 'quadCurve'
+            drawArgs = data.loop, position
+
+        */
+        let keep;
+        if(fillStyle) {
+            keep = ctx.fillStyle
+            ctx.fillStyle = fillStyle
+        }
+
+        if(draw != undefined || draw != false || draw != null) {
+            this.pointList.draw[draw](ctx, ...drawArgs)
+        }
+
+        ctx.fill()
+
+        if(keep != undefined) {
+            ctx.fillStyle = keep
+        }
+    }
+
     stroke(ctx) {
         // ctx.stroke()
         let args = arguments;

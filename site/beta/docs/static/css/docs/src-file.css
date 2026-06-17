@@ -5,9 +5,19 @@
     align-items: center;
 }
 
-.class-methods > li {
-    border-bottom: solid 1px #000;
+.class-methods > li, .def-item {
+    border-bottom: solid 1px hsl(292deg 5% 14%);
     padding: 1rem 0 1rem 0;
+}
+
+.class-unit {
+    margin-top: 5rem;
+    border-top: solid 3px #a226a5;
+    padding-top: 3rem;
+}
+
+h3.variable-name {
+    color: hsl(205deg 72% 66%);
 }
 
 ul.class-methods {
@@ -40,4 +50,32 @@ ul.defs-list {
 
 .item-keys.comment {
     display: none;
+}
+
+.defs-list .comments {
+    margin-left: 4em;
+}
+
+.kind-const span.text-content {
+    color: hsl(205deg 72% 66%);
+}
+
+.kind-var span.text-content {
+    color: hsl(205deg 70% 55%);
+}
+
+.kind-let span.text-content {
+    color: hsl(205deg 79% 55%);
+}
+
+.def-item:first-child .class-unit {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: navajowhite;
+}
+
+ul.defs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0em;
 }

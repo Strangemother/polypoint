@@ -6,13 +6,17 @@ Track the distances between given points.
 
     const near = d.closest(Point.mouse.position)
 
----
-
-{% load content %}
-<pre>{% code_content "events/mypoint-stage.js" %}</pre>
-
 */
+
 class Distances {
+    /*
+    The `Distances` class helps with tracking many points and discovering
+    the distance to or within the given points.
+
+        const d = new Distances;
+        d.addPoints(...points);
+
+    */
 
     constructor(){
         this.points = new Map
@@ -46,7 +50,8 @@ class Distances {
     }
 
     closest(point, maxDistance){
-        /* Return the closest point to the given point, for example the nearest
+        /*
+        Return the closest point to the given point, for example the nearest
         point to the mouse.
 
         Return the most near point at any distance:
@@ -223,6 +228,7 @@ Polypoint.head.mixin('Point', {
         }
         , writable: true
     }
+
     , distanceTo: {
         value(other) {
             return distance(this, other)

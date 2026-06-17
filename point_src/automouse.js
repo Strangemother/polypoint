@@ -15,7 +15,8 @@ const getLastMousePos = function(){
 
 
 class AutoMouse {
-    /* The _AutoMouse_ class cares for much of the mouse pointer functionality
+    /*
+    The _AutoMouse_ class cares for much of the mouse pointer functionality
     for a stage and the a point.
     It's functionality is designed to hook onto preparing `stages` and their canvas.
     It exists as a singleton `autoMouse`:
@@ -37,7 +38,16 @@ class AutoMouse {
 
 
      */
+
     constructor(parentClass) {
+        /*
+        The AutoMouse constructor accepts `undefined` or a `parentClass`,
+        a class entity:
+
+            const autoMouse = new AutoMouse(Point)
+
+        this instance will immediately announce itself using `this._announce()`
+        */
         this.parentClass = parentClass
         this.mouseCache = {x: 0, y: 0}
         // a reference of clicks
@@ -55,8 +65,11 @@ class AutoMouse {
     }
 
     _announce() {
+        /* Wait for a stage prep event and emit `addon:announce` with _this_
+        instance as the target.
 
-        /* Wait for a stage prep event. */
+        This method is called automatically upon instantiation
+        */
 
         events.on('stage:prepare', this.stagePrepareHandler.bind(this))
         // addEventListener('stage:prepare', this.stagePrepareHandler.bind(this))
@@ -89,6 +102,13 @@ class AutoMouse {
     }
 
     getMousePos(canvas) {
+        /*
+        Return the current X/Y, relative to the bounding client for the mouse,
+        using the mouse cache.
+
+            let mouseXY = autoMouse.getMousePos()
+
+        */
         var rect = this.getBoundingClientRect();
         let mouseCache = this.mouseCache
         return {
@@ -105,7 +125,10 @@ class AutoMouse {
         /* The `this.position` method returns a new Point, with the mouse XY
         (from the last motion).
 
-        Use `this.point` for a persisent single Point instance.
+            let mousePoint = autoMouse.position
+            mousePoint.pen.fill(ctx)
+
+        Use `this.point` for a persistent single Point instance.
         */
         return new Point(this.mouseCache)
     }
@@ -114,7 +137,7 @@ class AutoMouse {
         /*
         Return a persistent _point_, of which is updated rather than replaced
         when the mouse state changes.
-         */
+        */
         return this._peristentPoint
     }
     // [Symbol.toPrimitive](hint) {
@@ -126,9 +149,17 @@ class AutoMouse {
     // }
 
     getBoundingClientRect(canvas) {
+        /*
+        Return the bounding box of the target canvas. If no canvas is given,
+        the internal `this.canvas` is used.
+
+            this.getBoundingClientRect() == this.canvas.getBoundingClientRect()
+
+        */
         if(canvas === undefined) {
             canvas = this.canvas;
         }
+
         return canvas.getBoundingClientRect();
     }
 

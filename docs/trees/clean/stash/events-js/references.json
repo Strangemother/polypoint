@@ -17,13 +17,19 @@
                             }
                         ],
                         "comments": {
-                            "header": [],
+                            "header": [
+                                {
+                                    "text": "The base `Event class, for `emit` on `on` methods.\n\nObject `events` exists in this events module.",
+                                    "block": true,
+                                    "line": 30
+                                }
+                            ],
                             "inner": []
                         },
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 3
+                        "line": 31
                     },
                     {
                         "method_name": "emit",
@@ -44,7 +50,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 7
+                        "line": 35
                     },
                     {
                         "method_name": "on",
@@ -68,7 +74,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 11
+                        "line": 39
                     },
                     {
                         "method_name": "getParent",
@@ -82,14 +88,20 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 15
+                        "line": 43
                     }
                 ],
                 "comments": {
                     "header": [],
-                    "inner": []
+                    "inner": [
+                        {
+                            "text": "The base `Event class, for `emit` on `on` methods.\n\nObject `events` exists in this events module.",
+                            "block": true,
+                            "line": 30
+                        }
+                    ]
                 },
-                "line": 2
+                "line": 25
             },
             "StageEvents": {
                 "class_name": "StageEvents",
@@ -112,7 +124,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 84
+                        "line": 115
                     },
                     {
                         "method_name": "wake",
@@ -126,7 +138,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 89
+                        "line": 120
                     },
                     {
                         "method_name": "getAutoListen",
@@ -140,7 +152,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 95
+                        "line": 126
                     },
                     {
                         "method_name": "hook",
@@ -155,16 +167,16 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " console.log('Auto listen.')",
+                                    "text": "console.log('Auto listen.')",
                                     "block": false,
-                                    "line": 100
+                                    "line": 131
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 99
+                        "line": 130
                     },
                     {
                         "method_name": "on",
@@ -188,7 +200,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 114
+                        "line": 145
                     },
                     {
                         "method_name": "emit",
@@ -209,7 +221,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 118
+                        "line": 149
                     },
                     {
                         "method_name": "getEventParent",
@@ -223,7 +235,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 122
+                        "line": 153
                     },
                     {
                         "method_name": "receiverFunction",
@@ -238,29 +250,29 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " console.log('prop', prop, handler)",
+                                    "text": "console.log('prop', prop, handler)",
                                     "block": false,
-                                    "line": 128
+                                    "line": 159
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 126
+                        "line": 157
                     }
                 ],
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " StageEvents apply `.events` to the stage.\r\n    If `autoListen=true` (default). any method matching `on[EventName]` is\r\n    hooked.\r\n\r\n        class MyStage extends Stage {\r\n            autoListen = true\r\n\r\n            onClick(ev){\r\n                // raw ev event\r\n            }\r\n        }\r\n\r\n    Standard `on` and `emit` (listen/dispatch) for events:\r\n\r\n        stage.on('eventName', stage.handle)\r\n\r\n    ",
+                            "text": "StageEvents apply `.events` to the stage.\nIf `autoListen=true` (default). any method matching `on[EventName]` is\nhooked.\n\n    class MyStage extends Stage {\n        autoListen = true\n\n        onClick(ev){\n            // raw ev event\n        }\n    }\n\nStandard `on` and `emit` (listen/dispatch) for events:\n\n    stage.on('eventName', stage.handle)",
                             "block": true,
-                            "line": 81
+                            "line": 112
                         }
                     ]
                 },
-                "line": 64
+                "line": 95
             }
         },
         "functions": [
@@ -268,7 +280,7 @@
                 "name": "getMethodsOf",
                 "kind": "function",
                 "type": "function",
-                "line": 46,
+                "line": 74,
                 "params": [
                     {
                         "name": "obj"
@@ -284,14 +296,14 @@
             {
                 "name": "stageHandler",
                 "kind": "const",
-                "line": 135,
+                "line": 166,
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " debugger;",
+                            "text": "debugger;",
                             "block": false,
-                            "line": 139
+                            "line": 170
                         }
                     ]
                 },
@@ -308,7 +320,7 @@
             {
                 "name": "events",
                 "kind": "const",
-                "line": 21,
+                "line": 49,
                 "comments": {
                     "header": [],
                     "inner": []
@@ -319,8 +331,8 @@
     },
     "info": {
         "filename": "events.js",
-        "path": "/workspaces/polypoint/point_src/events.js",
-        "size": 3918,
-        "parsed_date": "2025-11-02T21:11:35.014Z"
+        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\events.js",
+        "size": 4893,
+        "parsed_date": "2026-06-17T00:34:48.113Z"
     }
 }

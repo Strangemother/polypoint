@@ -25,12 +25,9 @@ class Random {
         /* Generate an integer between 0 and the given min.
         Given 1 (default), the result will be either 0 or 1
 
-            random.int(10)
-            7
-            random.int(50)
-            30
-            random.int(300)
-            220
+            random.int(10) // 7
+            random.int(50) // 30
+            random.int(300) // 220
         */
         if(max != undefined) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -61,13 +58,13 @@ class Random {
 
     choice(selections) {
         /* Select and return a random item from an array.
-        
+
         Use this method to randomly choose one element from a collection of items.
-        
+
             const colors = ['red', 'blue', 'green', 'yellow']
             random.choice(colors)
             // 'green'
-            
+
             const points = [new Point(10, 20), new Point(30, 40), new Point(50, 60)]
             random.choice(points)
             // Point { x: 30, y: 40 }
@@ -77,13 +74,13 @@ class Random {
 
     index(selections) {
         /* Return a random index for the given array.
-        
+
         Use this to get a valid random position within an array's bounds.
-        
+
             const items = ['apple', 'banana', 'cherry', 'date']
             random.index(items)
             // 2
-            
+
             items[random.index(items)]
             // 'banana'
         */
@@ -101,16 +98,16 @@ class Random {
 
     point(multiplier=1, method=undefined) {
         /* Generate a new Point with random x and y coordinates.
-        
+
         Use this to create a random Point instance with coordinates scaled by the multiplier.
         Values ≤2 use floats, larger values use integers by default.
-        
+
             random.point(100)
             // Point { x: 47, y: 83 }
-            
+
             random.point(1)
             // Point { x: 0.234, y: 0.891 }
-            
+
             random.point(500, 'float')
             // Point { x: 234.56, y: 412.89 }
         */
@@ -188,13 +185,13 @@ class Random {
 
     polar2D() {
         /* Generate random 2D coordinates using polar distribution.
-        
+
         Use this to create randomly distributed points following a normal distribution
         in both x and y dimensions, useful for particle effects and natural scatter patterns.
-        
+
             random.polar2D()
             // [0.8234, -1.2156]
-            
+
             const [x, y] = random.polar2D()
             const point = new Point(centerX + x * radius, centerY + y * radius)
         */
@@ -207,7 +204,8 @@ class Random {
     }
 
     color(h=360, s=100, l=100) {
-        /* Return a random `hsl` color string,
+        /*
+        Return a random `hsl` color string:
 
             random.color()
             random.color(360, 100, 100)
@@ -231,9 +229,9 @@ Polypoint.head.install('Random')
 const randomizePoint = function(px, y) {
     /* Perform random() on the X and Y.
 
-    If a point is given, randomize to the _max_ of the given point
-    If a single number is given, assume _square_
-    If no params are given, discover the stage size.
+    + If a point is given, randomize to the _max_ of the given point
+    + If a single number is given, assume _square_
+    + If no params are given, discover the stage size.
 
     Use `Point.random()` for the same form, as a new point
 

@@ -21,9 +21,9 @@
                         "comments": {
                             "header": [
                                 {
-                                    "text": " defaultType = 'degrees'",
+                                    "text": "defaultType = 'degrees'",
                                     "block": false,
-                                    "line": 65
+                                    "line": 87
                                 }
                             ],
                             "inner": []
@@ -31,7 +31,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 66
+                        "line": 88
                     },
                     {
                         "method_name": "from",
@@ -52,7 +52,7 @@
                         "static": true,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 71
+                        "line": 93
                     },
                     {
                         "method_name": "type",
@@ -70,7 +70,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 75
+                        "line": 97
                     },
                     {
                         "method_name": "type",
@@ -84,7 +84,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 79
+                        "line": 101
                     },
                     {
                         "method_name": "resolveType",
@@ -102,7 +102,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 83
+                        "line": 105
                     },
                     {
                         "method_name": "Symbol.toPrimitive",
@@ -117,16 +117,16 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " return this.value;",
+                                    "text": "return this.value;",
                                     "block": false,
-                                    "line": 89
+                                    "line": 111
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": true,
                         "computed": true,
-                        "line": 87
+                        "line": 109
                     },
                     {
                         "method_name": "as",
@@ -144,16 +144,16 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " No inner type, return a new Angle with this type\r\n                Angle(30).tau\r\n            ",
+                                    "text": "No inner type, return a new Angle with this type\nAngle(30).tau",
                                     "block": true,
-                                    "line": 114
+                                    "line": 136
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 104
+                        "line": 126
                     },
                     {
                         "method_name": "table",
@@ -167,7 +167,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 127
+                        "line": 149
                     },
                     {
                         "method_name": "toLongString",
@@ -185,7 +185,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 137
+                        "line": 159
                     },
                     {
                         "method_name": "invert",
@@ -196,29 +196,29 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": " perform a 180",
+                                    "text": "perform a 180",
                                     "block": false,
-                                    "line": 146
+                                    "line": 168
                                 }
                             ]
                         },
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 145
+                        "line": 167
                     }
                 ],
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " static convert = AngleConvertTable",
+                            "text": "static convert = AngleConvertTable",
                             "block": false,
-                            "line": 62
+                            "line": 84
                         }
                     ]
                 },
-                "line": 61
+                "line": 83
             },
             "AngleNumber": {
                 "class_name": "AngleNumber",
@@ -240,9 +240,9 @@
                         "comments": {
                             "header": [
                                 {
-                                    "text": " A plain number with extra tools to quickly call out the\r\n    common angles ",
+                                    "text": "A plain number with extra tools to quickly call out the\ncommon angles",
                                     "block": true,
-                                    "line": 204
+                                    "line": 226
                                 }
                             ],
                             "inner": []
@@ -250,7 +250,7 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 205
+                        "line": 227
                     },
                     {
                         "method_name": "toAngle",
@@ -268,34 +268,34 @@
                         "static": false,
                         "is_symbol": false,
                         "computed": false,
-                        "line": 210
+                        "line": 232
                     }
                 ],
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " A plain number with extra tools to quickly call out the\r\n    common angles ",
+                            "text": "A plain number with extra tools to quickly call out the\ncommon angles",
                             "block": true,
-                            "line": 204
+                            "line": 226
                         }
                     ]
                 },
-                "line": 202
+                "line": 224
             }
         },
         "functions": [
             {
                 "name": "generateAngleFunctions",
                 "kind": "const",
-                "line": 222,
+                "line": 244,
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " console.log(name)",
+                            "text": "console.log(name)",
                             "block": false,
-                            "line": 225
+                            "line": 247
                         }
                     ]
                 },
@@ -308,20 +308,20 @@
             {
                 "name": "AngleConvertTable",
                 "kind": "const",
-                "line": 37,
+                "line": 59,
                 "comments": {
                     "header": [
                         {
-                            "text": "\r\nAngle convert tools list the available types, with functions\r\nto convert. For example radians to degrees `AngleConvertTable.radians.degrees(rads)`\r\n",
+                            "text": "Angle convert tools list the available types, with functions\nto convert. For example radians to degrees `AngleConvertTable.radians.degrees(rads)`",
                             "block": true,
-                            "line": 36
+                            "line": 58
                         }
                     ],
                     "inner": [
                         {
-                            "text": " or deg * (10/9)",
+                            "text": "or deg * (10/9)",
                             "block": false,
-                            "line": 40
+                            "line": 62
                         }
                     ]
                 },
@@ -331,14 +331,14 @@
             {
                 "name": "angleAliasStack",
                 "kind": "let",
-                "line": 151,
+                "line": 173,
                 "comments": {
                     "header": [],
                     "inner": [
                         {
-                            "text": " , hour: ['h', 'hour']",
+                            "text": ", hour: ['h', 'hour']",
                             "block": false,
-                            "line": 156
+                            "line": 178
                         }
                     ]
                 },
@@ -348,13 +348,13 @@
             {
                 "name": "angleConstantsMap",
                 "kind": "let",
-                "line": 172,
+                "line": 194,
                 "comments": {
                     "header": [
                         {
-                            "text": " Map the key value of the short name to the _long name_.\r\nThe last key is automatically pluralised (may change.)\r\n\r\n    d => degrees\r\n    deg => degrees\r\n    rad => radians\r\n",
+                            "text": "Map the key value of the short name to the _long name_.\nThe last key is automatically pluralised (may change.)\n\n    d => degrees\n    deg => degrees\n    rad => radians",
                             "block": true,
-                            "line": 171
+                            "line": 193
                         }
                     ],
                     "inner": []
@@ -365,8 +365,8 @@
     },
     "info": {
         "filename": "angle.js",
-        "path": "/workspaces/polypoint/point_src/angle.js",
-        "size": 6150,
-        "parsed_date": "2025-11-02T21:11:32.003Z"
+        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\angle.js",
+        "size": 6417,
+        "parsed_date": "2026-06-13T02:54:08.360Z"
     }
 }

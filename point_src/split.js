@@ -36,7 +36,7 @@ function bLerp(a,b,t){
 }
 
 // AWESOME! https://acegikmo.com/bezier/
-// https://acegikmo.medium.com/the-ever-so-lovely-bézier-curve-eb27514da3bf
+// https://acegikmo.medium.com/the-ever-so-lovely-bÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©zier-curve-eb27514da3bf
 function lerpV2(a,b,t){
     return {
         x: bLerp(a.x,b.x,t),
@@ -316,6 +316,39 @@ Polypoint.head.installFunctions('Line', {
                 , lerp(a.y, b.y, i * splitVal)
                 , a.radius
                 , degs
+                )
+            )
+        }
+        return r
+    }
+    , _splitTick: 0
+    , splitAnimated(count, angle=undefined, speed=.2, delta=this._splitTick) {
+
+        let a = this.a
+        let b = this.b
+        let r = new PointList
+
+        let splitVal = 1 / (count)
+        let degs = undefined
+        if(angle != undefined) {
+            degs = calculateAngle(a, b) - angle;
+        }
+
+        this._splitTick += 1
+        // count == 10, mod = 6.5
+        // count == 30, mod = 2
+        let mod = splitVal * 65// 6.4
+        let _s = ((delta * speed) % (Math.PI * mod)) * .005
+        // let _s = Math.sin(delta * .1) * .02
+
+        for (var i = 0; i < count+1; i++) {
+            let slideOffset = i * (splitVal) + _s;
+            if(slideOffset > 1 || slideOffset < 0) { continue }
+            r.push(new Point(
+                    lerp(a.x, b.x, slideOffset)
+                    , lerp(a.y, b.y, slideOffset)
+                    , a.radius
+                    , degs
                 )
             )
         }

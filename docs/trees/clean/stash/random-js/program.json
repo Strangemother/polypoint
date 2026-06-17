@@ -44,7 +44,8 @@
                                 "column": 19
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -69,14 +70,14 @@
                         ],
                         "pos": {
                             "start": 433,
-                            "end": 907,
+                            "end": 877,
                             "loc": {
                                 "start": {
                                     "line": 24,
                                     "column": 7
                                 },
                                 "end": {
-                                    "line": 41,
+                                    "line": 38,
                                     "column": 5
                                 }
                             }
@@ -87,26 +88,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Generate an integer between 0 and the given min.\r\n        Given 1 (default), the result will be either 0 or 1\r\n\r\n            random.int(10)\r\n            7\r\n            random.int(50)\r\n            30\r\n            random.int(300)\r\n            220\r\n        ",
+                                "text": "Generate an integer between 0 and the given min.\nGiven 1 (default), the result will be either 0 or 1\n\n    random.int(10) // 7\n    random.int(50) // 30\n    random.int(300) // 220",
                                 "block": true,
-                                "line": 34
+                                "line": 31
                             }
                         ]
                     },
                     "pos": {
                         "start": 430,
-                        "end": 907,
+                        "end": 877,
                         "loc": {
                             "start": {
                                 "line": 24,
                                 "column": 4
                             },
                             "end": {
-                                "line": 41,
+                                "line": 38,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -130,15 +132,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 920,
-                            "end": 1247,
+                            "start": 890,
+                            "end": 1217,
                             "loc": {
                                 "start": {
-                                    "line": 43,
+                                    "line": 40,
                                     "column": 9
                                 },
                                 "end": {
-                                    "line": 55,
+                                    "line": 52,
                                     "column": 5
                                 }
                             }
@@ -149,26 +151,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Generate a decimal number between `0` and `1`.\r\n        Provide a min/max to limit\r\n\r\n            random.float()\r\n            random.float(.2, 1)\r\n        ",
+                                "text": "Generate a decimal number between `0` and `1`.\nProvide a min/max to limit\n\n    random.float()\n    random.float(.2, 1)",
                                 "block": true,
-                                "line": 49
+                                "line": 46
                             }
                         ]
                     },
                     "pos": {
-                        "start": 915,
-                        "end": 1247,
+                        "start": 885,
+                        "end": 1217,
                         "loc": {
                             "start": {
-                                "line": 43,
+                                "line": 40,
                                 "column": 4
                             },
                             "end": {
-                                "line": 55,
+                                "line": 52,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -188,15 +191,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 1262,
-                            "end": 1382,
+                            "start": 1232,
+                            "end": 1361,
                             "loc": {
                                 "start": {
-                                    "line": 57,
+                                    "line": 54,
                                     "column": 11
                                 },
                                 "end": {
-                                    "line": 60,
+                                    "line": 57,
                                     "column": 5
                                 }
                             }
@@ -207,26 +210,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Given many functions, call one. ",
+                                "text": "Given many functions, call a random one.",
                                 "block": true,
-                                "line": 58
+                                "line": 55
                             }
                         ]
                     },
                     "pos": {
-                        "start": 1255,
-                        "end": 1382,
+                        "start": 1225,
+                        "end": 1361,
                         "loc": {
                             "start": {
-                                "line": 57,
+                                "line": 54,
                                 "column": 4
                             },
                             "end": {
-                                "line": 60,
+                                "line": 57,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -246,15 +250,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 1396,
-                            "end": 1511,
+                            "start": 1375,
+                            "end": 1890,
                             "loc": {
                                 "start": {
-                                    "line": 62,
+                                    "line": 59,
                                     "column": 10
                                 },
                                 "end": {
-                                    "line": 65,
+                                    "line": 73,
                                     "column": 5
                                 }
                             }
@@ -265,26 +269,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Give many items, return one ",
+                                "text": "Select and return a random item from an array.\n\nUse this method to randomly choose one element from a collection of items.\n\n    const colors = ['red', 'blue', 'green', 'yellow']\n    random.choice(colors)\n    // 'green'\n\n    const points = [new Point(10, 20), new Point(30, 40), new Point(50, 60)]\n    random.choice(points)\n    // Point { x: 30, y: 40 }",
                                 "block": true,
-                                "line": 63
+                                "line": 71
                             }
                         ]
                     },
                     "pos": {
-                        "start": 1390,
-                        "end": 1511,
+                        "start": 1369,
+                        "end": 1890,
                         "loc": {
                             "start": {
-                                "line": 62,
+                                "line": 59,
                                 "column": 4
                             },
                             "end": {
-                                "line": 65,
+                                "line": 73,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -304,15 +309,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 1524,
-                            "end": 1650,
+                            "start": 1903,
+                            "end": 2315,
                             "loc": {
                                 "start": {
-                                    "line": 67,
+                                    "line": 75,
                                     "column": 9
                                 },
                                 "end": {
-                                    "line": 70,
+                                    "line": 88,
                                     "column": 5
                                 }
                             }
@@ -323,26 +328,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Given many, return an index ",
+                                "text": "Return a random index for the given array.\n\nUse this to get a valid random position within an array's bounds.\n\n    const items = ['apple', 'banana', 'cherry', 'date']\n    random.index(items)\n    // 2\n\n    items[random.index(items)]\n    // 'banana'",
                                 "block": true,
-                                "line": 68
+                                "line": 86
                             }
                         ]
                     },
                     "pos": {
-                        "start": 1519,
-                        "end": 1650,
+                        "start": 1898,
+                        "end": 2315,
                         "loc": {
                             "start": {
-                                "line": 67,
+                                "line": 75,
                                 "column": 4
                             },
                             "end": {
-                                "line": 70,
+                                "line": 88,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -367,15 +373,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 1664,
-                            "end": 1797,
+                            "start": 2329,
+                            "end": 2462,
                             "loc": {
                                 "start": {
-                                    "line": 72,
+                                    "line": 90,
                                     "column": 10
                                 },
                                 "end": {
-                                    "line": 75,
+                                    "line": 93,
                                     "column": 5
                                 }
                             }
@@ -386,26 +392,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Return a random string ",
+                                "text": "Return a random string",
                                 "block": true,
-                                "line": 73
+                                "line": 91
                             }
                         ]
                     },
                     "pos": {
-                        "start": 1658,
-                        "end": 1797,
+                        "start": 2323,
+                        "end": 2462,
                         "loc": {
                             "start": {
-                                "line": 72,
+                                "line": 90,
                                 "column": 4
                             },
                             "end": {
-                                "line": 75,
+                                "line": 93,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -429,15 +436,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 1810,
-                            "end": 1862,
+                            "start": 2475,
+                            "end": 2527,
                             "loc": {
                                 "start": {
-                                    "line": 77,
+                                    "line": 95,
                                     "column": 9
                                 },
                                 "end": {
-                                    "line": 79,
+                                    "line": 97,
                                     "column": 5
                                 }
                             }
@@ -449,19 +456,20 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 1805,
-                        "end": 1862,
+                        "start": 2470,
+                        "end": 2527,
                         "loc": {
                             "start": {
-                                "line": 77,
+                                "line": 95,
                                 "column": 4
                             },
                             "end": {
-                                "line": 79,
+                                "line": 97,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -486,15 +494,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 1875,
-                            "end": 2239,
+                            "start": 2540,
+                            "end": 3279,
                             "loc": {
                                 "start": {
-                                    "line": 81,
+                                    "line": 99,
                                     "column": 9
                                 },
                                 "end": {
-                                    "line": 91,
+                                    "line": 120,
                                     "column": 5
                                 }
                             }
@@ -505,26 +513,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": "\r\n            return a random point(), with the X/Y values set as random*multplier\r\n         ",
+                                "text": "Generate a new Point with random x and y coordinates.\n\nUse this to create a random Point instance with coordinates scaled by the multiplier.\nValues \u00e2\u2030\u00a42 use floats, larger values use integers by default.\n\n    random.point(100)\n    // Point { x: 47, y: 83 }\n\n    random.point(1)\n    // Point { x: 0.234, y: 0.891 }\n\n    random.point(500, 'float')\n    // Point { x: 234.56, y: 412.89 }",
                                 "block": true,
-                                "line": 84
+                                "line": 113
                             }
                         ]
                     },
                     "pos": {
-                        "start": 1870,
-                        "end": 2239,
+                        "start": 2535,
+                        "end": 3279,
                         "loc": {
                             "start": {
-                                "line": 81,
+                                "line": 99,
                                 "column": 4
                             },
                             "end": {
-                                "line": 91,
+                                "line": 120,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -548,15 +557,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 2254,
-                            "end": 2331,
+                            "start": 3294,
+                            "end": 3929,
                             "loc": {
                                 "start": {
-                                    "line": 93,
+                                    "line": 122,
                                     "column": 11
                                 },
                                 "end": {
-                                    "line": 95,
+                                    "line": 134,
                                     "column": 5
                                 }
                             }
@@ -565,22 +574,29 @@
                     "type": "MethodDefinition",
                     "comments": {
                         "header": [],
-                        "inner": []
+                        "inner": [
+                            {
+                                "text": "Randomly shuffle all points be a random amount between 0 and a multilper\nof the radius.\nFor example if the point is 20px, a `max` of `.5` would plot the center\nof the point anywhere within the full point area. Providing a value of `1`\n(default) would plot within a 40px width and height (circular) area.\n(Math.PI * 2)\n\nThis is because the `max` value computes a percenile of the _radius_ of\nthe origin position, resolving anywhere within the diameter area if the point.",
+                                "block": true,
+                                "line": 132
+                            }
+                        ]
                     },
                     "pos": {
-                        "start": 2247,
-                        "end": 2331,
+                        "start": 3287,
+                        "end": 3929,
                         "loc": {
                             "start": {
-                                "line": 93,
+                                "line": 122,
                                 "column": 4
                             },
                             "end": {
-                                "line": 95,
+                                "line": 134,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -604,15 +620,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 2345,
-                            "end": 3177,
+                            "start": 3943,
+                            "end": 4775,
                             "loc": {
                                 "start": {
-                                    "line": 97,
+                                    "line": 136,
                                     "column": 10
                                 },
                                 "end": {
-                                    "line": 121,
+                                    "line": 160,
                                     "column": 5
                                 }
                             }
@@ -623,26 +639,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Return a random 2D position within the given point.\r\n\r\n            within({ x: 100, y: 100, radius: 100})\r\n            {x: 79, y: 50}\r\n        ",
+                                "text": "Return a random 2D position within the given point.\n\nwithin({ x: 100, y: 100, radius: 100})\n{x: 79, y: 50}",
                                 "block": true,
-                                "line": 102
+                                "line": 141
                             }
                         ]
                     },
                     "pos": {
-                        "start": 2339,
-                        "end": 3177,
+                        "start": 3937,
+                        "end": 4775,
                         "loc": {
                             "start": {
-                                "line": 97,
+                                "line": 136,
                                 "column": 4
                             },
                             "end": {
-                                "line": 121,
+                                "line": 160,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -663,15 +680,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 3187,
-                            "end": 3524,
+                            "start": 4785,
+                            "end": 5122,
                             "loc": {
                                 "start": {
-                                    "line": 123,
+                                    "line": 162,
                                     "column": 6
                                 },
                                 "end": {
-                                    "line": 129,
+                                    "line": 168,
                                     "column": 5
                                 }
                             }
@@ -682,26 +699,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": "return two random values between 0 and 1 multiplied by the given\r\n        value `multiplier`.\r\n        This is similar to the random.point() function, except it only returns\r\n        an object of {x,y}",
+                                "text": "return two random values between 0 and 1 multiplied by the given\nvalue `multiplier`.\nThis is similar to the random.point() function, except it only returns\nan object of {x,y}",
                                 "block": true,
-                                "line": 127
+                                "line": 166
                             }
                         ]
                     },
                     "pos": {
-                        "start": 3185,
-                        "end": 3524,
+                        "start": 4783,
+                        "end": 5122,
                         "loc": {
                             "start": {
-                                "line": 123,
+                                "line": 162,
                                 "column": 4
                             },
                             "end": {
-                                "line": 129,
+                                "line": 168,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -726,15 +744,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 3545,
-                            "end": 4057,
+                            "start": 5143,
+                            "end": 5655,
                             "loc": {
                                 "start": {
-                                    "line": 131,
+                                    "line": 170,
                                     "column": 17
                                 },
                                 "end": {
-                                    "line": 141,
+                                    "line": 180,
                                     "column": 5
                                 }
                             }
@@ -745,26 +763,27 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Standard Normal variate using Box-Muller transform.",
+                                "text": "Standard Normal variate using Box-Muller transform.",
                                 "block": false,
-                                "line": 132
+                                "line": 171
                             }
                         ]
                     },
                     "pos": {
-                        "start": 3532,
-                        "end": 4057,
+                        "start": 5130,
+                        "end": 5655,
                         "loc": {
                             "start": {
-                                "line": 131,
+                                "line": 170,
                                 "column": 4
                             },
                             "end": {
-                                "line": 141,
+                                "line": 180,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -795,15 +814,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 4073,
-                            "end": 4200,
+                            "start": 5671,
+                            "end": 5798,
                             "loc": {
                                 "start": {
-                                    "line": 143,
+                                    "line": 182,
                                     "column": 12
                                 },
                                 "end": {
-                                    "line": 145,
+                                    "line": 184,
                                     "column": 5
                                 }
                             }
@@ -815,19 +834,20 @@
                         "inner": []
                     },
                     "pos": {
-                        "start": 4065,
-                        "end": 4200,
+                        "start": 5663,
+                        "end": 5798,
                         "loc": {
                             "start": {
-                                "line": 143,
+                                "line": 182,
                                 "column": 4
                             },
                             "end": {
-                                "line": 145,
+                                "line": 184,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -843,15 +863,15 @@
                         "async": false,
                         "params": [],
                         "pos": {
-                            "start": 4215,
-                            "end": 4445,
+                            "start": 5813,
+                            "end": 6503,
                             "loc": {
                                 "start": {
-                                    "line": 147,
+                                    "line": 186,
                                     "column": 11
                                 },
                                 "end": {
-                                    "line": 154,
+                                    "line": 204,
                                     "column": 5
                                 }
                             }
@@ -860,22 +880,29 @@
                     "type": "MethodDefinition",
                     "comments": {
                         "header": [],
-                        "inner": []
+                        "inner": [
+                            {
+                                "text": "Generate random 2D coordinates using polar distribution.\n\nUse this to create randomly distributed points following a normal distribution\nin both x and y dimensions, useful for particle effects and natural scatter patterns.\n\n    random.polar2D()\n    // [0.8234, -1.2156]\n\n    const [x, y] = random.polar2D()\n    const point = new Point(centerX + x * radius, centerY + y * radius)",
+                                "block": true,
+                                "line": 197
+                            }
+                        ]
                     },
                     "pos": {
-                        "start": 4208,
-                        "end": 4445,
+                        "start": 5806,
+                        "end": 6503,
                         "loc": {
                             "start": {
-                                "line": 147,
+                                "line": 186,
                                 "column": 4
                             },
                             "end": {
-                                "line": 154,
+                                "line": 204,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 },
                 {
                     "kind": "method",
@@ -904,15 +931,15 @@
                             }
                         ],
                         "pos": {
-                            "start": 4458,
-                            "end": 4940,
+                            "start": 6516,
+                            "end": 7007,
                             "loc": {
                                 "start": {
-                                    "line": 156,
+                                    "line": 206,
                                     "column": 9
                                 },
                                 "end": {
-                                    "line": 170,
+                                    "line": 221,
                                     "column": 5
                                 }
                             }
@@ -923,33 +950,34 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": " Return a random `hsl` color string,\r\n\r\n            random.color()\r\n            random.color(360, 100, 100)\r\n            random.color(360, [30, 100], [60,100])\r\n\r\n        ",
+                                "text": "Return a random `hsl` color string:\n\n    random.color()\n    random.color(360, 100, 100)\n    random.color(360, [30, 100], [60,100])",
                                 "block": true,
-                                "line": 163
+                                "line": 214
                             }
                         ]
                     },
                     "pos": {
-                        "start": 4453,
-                        "end": 4940,
+                        "start": 6511,
+                        "end": 7007,
                         "loc": {
                             "start": {
-                                "line": 156,
+                                "line": 206,
                                 "column": 4
                             },
                             "end": {
-                                "line": 170,
+                                "line": 221,
                                 "column": 5
                             }
                         }
-                    }
+                    },
+                    "class_name": "Random"
                 }
             ],
             "comments": {
                 "header": [],
                 "inner": [
                     {
-                        "text": " The minimum value the _point(value)_ can be, before\r\n    the automatic 'float' method is used over the 'int' method.\r\n    ",
+                        "text": "The minimum value the _point(value)_ can be, before\nthe automatic 'float' method is used over the 'int' method.",
                         "block": true,
                         "line": 21
                     }
@@ -957,14 +985,14 @@
             },
             "pos": {
                 "start": 252,
-                "end": 4943,
+                "end": 7010,
                 "loc": {
                     "start": {
                         "line": 17,
                         "column": 0
                     },
                     "end": {
-                        "line": 171,
+                        "line": 222,
                         "column": 1
                     }
                 }
@@ -979,15 +1007,15 @@
                     "type": "Identifier",
                     "word": "Random",
                     "pos": {
-                        "start": 4968,
-                        "end": 4974,
+                        "start": 7035,
+                        "end": 7041,
                         "loc": {
                             "start": {
-                                "line": 174,
+                                "line": 225,
                                 "column": 19
                             },
                             "end": {
-                                "line": 174,
+                                "line": 225,
                                 "column": 25
                             }
                         }
@@ -995,15 +1023,15 @@
                 },
                 "arguments": [],
                 "pos": {
-                    "start": 4964,
-                    "end": 4976,
+                    "start": 7031,
+                    "end": 7043,
                     "loc": {
                         "start": {
-                            "line": 174,
+                            "line": 225,
                             "column": 15
                         },
                         "end": {
-                            "line": 174,
+                            "line": 225,
                             "column": 27
                         }
                     }
@@ -1014,29 +1042,29 @@
                 "inner": []
             },
             "pos": {
-                "start": 4949,
-                "end": 4976,
+                "start": 7016,
+                "end": 7043,
                 "loc": {
                     "start": {
-                        "line": 174,
+                        "line": 225,
                         "column": 0
                     },
                     "end": {
-                        "line": 174,
+                        "line": 225,
                         "column": 27
                     }
                 }
             },
             "type": "VariableDeclaration",
-            "start": 4949,
-            "end": 4976,
+            "start": 7016,
+            "end": 7043,
             "loc": {
                 "start": {
-                    "line": 174,
+                    "line": 225,
                     "column": 0
                 },
                 "end": {
-                    "line": 174,
+                    "line": 225,
                     "column": 27
                 }
             },
@@ -1046,71 +1074,71 @@
             "type": "ExpressionStatement",
             "expression": {
                 "type": "CallExpression",
-                "start": 4978,
-                "end": 5010,
+                "start": 7045,
+                "end": 7077,
                 "loc": {
                     "start": {
-                        "line": 175,
+                        "line": 226,
                         "column": 0
                     },
                     "end": {
-                        "line": 175,
+                        "line": 226,
                         "column": 32
                     }
                 },
                 "callee": {
                     "type": "MemberExpression",
-                    "start": 4978,
-                    "end": 5000,
+                    "start": 7045,
+                    "end": 7067,
                     "loc": {
                         "start": {
-                            "line": 175,
+                            "line": 226,
                             "column": 0
                         },
                         "end": {
-                            "line": 175,
+                            "line": 226,
                             "column": 22
                         }
                     },
                     "object": {
                         "type": "MemberExpression",
-                        "start": 4978,
-                        "end": 4992,
+                        "start": 7045,
+                        "end": 7059,
                         "loc": {
                             "start": {
-                                "line": 175,
+                                "line": 226,
                                 "column": 0
                             },
                             "end": {
-                                "line": 175,
+                                "line": 226,
                                 "column": 14
                             }
                         },
                         "object": {
                             "type": "Identifier",
-                            "start": 4978,
-                            "end": 4987,
+                            "start": 7045,
+                            "end": 7054,
                             "loc": {
                                 "start": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 0
                                 },
                                 "end": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 9
                                 }
                             },
                             "name": "Polypoint",
                             "pos": {
-                                "start": 4978,
-                                "end": 4987,
+                                "start": 7045,
+                                "end": 7054,
                                 "loc": {
                                     "start": {
-                                        "line": 175,
+                                        "line": 226,
                                         "column": 0
                                     },
                                     "end": {
-                                        "line": 175,
+                                        "line": 226,
                                         "column": 9
                                     }
                                 }
@@ -1118,29 +1146,29 @@
                         },
                         "property": {
                             "type": "Identifier",
-                            "start": 4988,
-                            "end": 4992,
+                            "start": 7055,
+                            "end": 7059,
                             "loc": {
                                 "start": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 10
                                 },
                                 "end": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 14
                                 }
                             },
                             "name": "head",
                             "pos": {
-                                "start": 4988,
-                                "end": 4992,
+                                "start": 7055,
+                                "end": 7059,
                                 "loc": {
                                     "start": {
-                                        "line": 175,
+                                        "line": 226,
                                         "column": 10
                                     },
                                     "end": {
-                                        "line": 175,
+                                        "line": 226,
                                         "column": 14
                                     }
                                 }
@@ -1149,15 +1177,15 @@
                         "computed": false,
                         "optional": false,
                         "pos": {
-                            "start": 4978,
-                            "end": 4992,
+                            "start": 7045,
+                            "end": 7059,
                             "loc": {
                                 "start": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 0
                                 },
                                 "end": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 14
                                 }
                             }
@@ -1165,29 +1193,29 @@
                     },
                     "property": {
                         "type": "Identifier",
-                        "start": 4993,
-                        "end": 5000,
+                        "start": 7060,
+                        "end": 7067,
                         "loc": {
                             "start": {
-                                "line": 175,
+                                "line": 226,
                                 "column": 15
                             },
                             "end": {
-                                "line": 175,
+                                "line": 226,
                                 "column": 22
                             }
                         },
                         "name": "install",
                         "pos": {
-                            "start": 4993,
-                            "end": 5000,
+                            "start": 7060,
+                            "end": 7067,
                             "loc": {
                                 "start": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 15
                                 },
                                 "end": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 22
                                 }
                             }
@@ -1196,15 +1224,15 @@
                     "computed": false,
                     "optional": false,
                     "pos": {
-                        "start": 4978,
-                        "end": 5000,
+                        "start": 7045,
+                        "end": 7067,
                         "loc": {
                             "start": {
-                                "line": 175,
+                                "line": 226,
                                 "column": 0
                             },
                             "end": {
-                                "line": 175,
+                                "line": 226,
                                 "column": 22
                             }
                         }
@@ -1213,30 +1241,30 @@
                 "arguments": [
                     {
                         "type": "Literal",
-                        "start": 5001,
-                        "end": 5009,
+                        "start": 7068,
+                        "end": 7076,
                         "loc": {
                             "start": {
-                                "line": 175,
+                                "line": 226,
                                 "column": 23
                             },
                             "end": {
-                                "line": 175,
+                                "line": 226,
                                 "column": 31
                             }
                         },
                         "value": "Random",
                         "raw": "'Random'",
                         "pos": {
-                            "start": 5001,
-                            "end": 5009,
+                            "start": 7068,
+                            "end": 7076,
                             "loc": {
                                 "start": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 23
                                 },
                                 "end": {
-                                    "line": 175,
+                                    "line": 226,
                                     "column": 31
                                 }
                             }
@@ -1245,30 +1273,30 @@
                 ],
                 "optional": false,
                 "pos": {
-                    "start": 4978,
-                    "end": 5010,
+                    "start": 7045,
+                    "end": 7077,
                     "loc": {
                         "start": {
-                            "line": 175,
+                            "line": 226,
                             "column": 0
                         },
                         "end": {
-                            "line": 175,
+                            "line": 226,
                             "column": 32
                         }
                     }
                 }
             },
             "pos": {
-                "start": 4978,
-                "end": 5010,
+                "start": 7045,
+                "end": 7077,
                 "loc": {
                     "start": {
-                        "line": 175,
+                        "line": 226,
                         "column": 0
                     },
                     "end": {
-                        "line": 175,
+                        "line": 226,
                         "column": 32
                     }
                 }
@@ -1292,15 +1320,15 @@
                     }
                 ],
                 "pos": {
-                    "start": 5039,
-                    "end": 6312,
+                    "start": 7106,
+                    "end": 8385,
                     "loc": {
                         "start": {
-                            "line": 178,
+                            "line": 229,
                             "column": 23
                         },
                         "end": {
-                            "line": 223,
+                            "line": 274,
                             "column": 1
                         }
                     }
@@ -1310,36 +1338,36 @@
                 "header": [],
                 "inner": [
                     {
-                        "text": " Perform random() on the X and Y.\r\n\r\n    If a point is given, randomize to the _max_ of the given point\r\n    If a single number is given, assume _square_\r\n    If no params are given, discover the stage size.\r\n\r\n    Use `Point.random()` for the same form, as a new point\r\n\r\n        let p = new Point()\r\n        p.randomize(100, 400)\r\n        p.randomize(100) // 100, 100\r\n        p.randomize(new Point(100, 400)) // 100, 400\r\n\r\n    if one of the keys is undefined, no change occurs:\r\n\r\n        p.setXY(500,700)\r\n        p.randomize(100, undefined) // 100, 700\r\n        p.randomize(undefined, 400) // 500, 400\r\n\r\n        p.randomize(undefined, undefined) // 500, 700 // no change occurs.\r\n\r\n    Note; no params will randomize as much as possible (the stage size)\r\n\r\n        p.randomize() // 800, 600\r\n\r\n    Other features would be nice:\r\n\r\n    + random in rect (like stage):\r\n\r\n        p.randomize(rect|dimensions)\r\n\r\n    + Randomize other values, e.g radius, colors\r\n\r\n        p.randomize(['x', 'y', 'radius', 'mass'])\r\n\r\n        // randomize x to max 400, radius to max 50\r\n        p.randomize({ x: 400, radius: 50})\r\n\r\n    + In the future, the _origin_; randomize relative to a point:\r\n\r\n        p.randomize({point, relative: true})\r\n\r\n    ",
+                        "text": "Perform random() on the X and Y.\n\n+ If a point is given, randomize to the _max_ of the given point\n+ If a single number is given, assume _square_\n+ If no params are given, discover the stage size.\n\nUse `Point.random()` for the same form, as a new point\n\n    let p = new Point()\n    p.randomize(100, 400)\n    p.randomize(100) // 100, 100\n    p.randomize(new Point(100, 400)) // 100, 400\n\nif one of the keys is undefined, no change occurs:\n\n    p.setXY(500,700)\n    p.randomize(100, undefined) // 100, 700\n    p.randomize(undefined, 400) // 500, 400\n\n    p.randomize(undefined, undefined) // 500, 700 // no change occurs.\n\nNote; no params will randomize as much as possible (the stage size)\n\n    p.randomize() // 800, 600\n\nOther features would be nice:\n\n+ random in rect (like stage):\n\n    p.randomize(rect|dimensions)\n\n+ Randomize other values, e.g radius, colors\n\n    p.randomize(['x', 'y', 'radius', 'mass'])\n\n    // randomize x to max 400, radius to max 50\n    p.randomize({ x: 400, radius: 50})\n\n+ In the future, the _origin_; randomize relative to a point:\n\n    p.randomize({point, relative: true})",
                         "block": true,
-                        "line": 221
+                        "line": 272
                     }
                 ]
             },
             "pos": {
-                "start": 5016,
-                "end": 6312,
+                "start": 7083,
+                "end": 8385,
                 "loc": {
                     "start": {
-                        "line": 178,
+                        "line": 229,
                         "column": 0
                     },
                     "end": {
-                        "line": 223,
+                        "line": 274,
                         "column": 1
                     }
                 }
             },
             "type": "VariableDeclaration",
-            "start": 5016,
-            "end": 6312,
+            "start": 7083,
+            "end": 8385,
             "loc": {
                 "start": {
-                    "line": 178,
+                    "line": 229,
                     "column": 0
                 },
                 "end": {
-                    "line": 223,
+                    "line": 274,
                     "column": 1
                 }
             },
@@ -1354,8 +1382,8 @@
     ],
     "info": {
         "filename": "random.js",
-        "path": "/workspaces/polypoint/point_src/random.js",
-        "size": 6312,
-        "parsed_date": "2025-11-02T21:11:38.881Z"
+        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\random.js",
+        "size": 8385,
+        "parsed_date": "2026-06-15T18:38:55.506Z"
     }
 }

@@ -1,5 +1,33 @@
+/*
+The `Events` class and the automatically prepared `events` object, provides
+a simple interface to event listen and dispatch
+
+    events.on('stage:prepare', (e)=>console.log(e))
+    events.emit('eventname', { foo: 'bar' })
+
+When loading this `events` module, the Stage automatically inherits `StageEvents` live
+functionality. all standard interface events are applied:
+
+    class MyStage extends Stage {
+        autoListen = true
+
+        onClick(ev){
+            // raw ev event
+        }
+    }
+
+To extend this, prefix any event with _`on`_, e.g. `DragOver`, becomes `onDragOver`.
+Function casing is ignored, ensuring `onDragOver` is the same as `ondragover`.
+
+*/
+
 
 class Events {
+    /* The base `Event class, for `emit` on `on` methods.
+
+    Object `events` exists in this events module.
+
+    */
     constructor(parent=undefined) {
         this.parent = parent
     }
@@ -44,6 +72,9 @@ or appending data to an event on emit.
 */
 
 function getMethodsOf(obj){
+    /* A Helper function to capture the _methods_ of a class instance.
+    returns an object of method names, with the associated method as the value.
+     */
     const methods = {}
     Object.getOwnPropertyNames( Object.getPrototypeOf(obj) ).forEach(methodName => {
         methods[methodName] = obj[methodName]

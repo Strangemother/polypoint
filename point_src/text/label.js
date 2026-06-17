@@ -1,4 +1,5 @@
-/*
+/* A Label provides an interface to a persistent, styled text element.
+Under the hood it maintains a `position`:
 
         let label = new Label(ctx, {
             fontSize: 50
@@ -14,7 +15,14 @@
         this.label.writeText(ctx)
 
  */
+
 class Label {
+    /* A Label class accepts generic text properties.
+
+    + Accept basic styles
+    + position and rotation
+
+    */
     fontSize = 14
     fontWeight = 'normal'
     fontName = 'Courier New'

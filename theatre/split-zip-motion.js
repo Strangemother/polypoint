@@ -55,7 +55,7 @@ class MainStage extends Stage {
         this.line[1].pen.line(ctx, this.line2[1])
 
         for(let xx of zip(splits1, splits2)) {
-            xx.forEach(x=>{ x && (x.radius=100) });
+            // xx.forEach(x=>{ x && (x.radius=10) });
             xx[0] && xx[0].pen.line(ctx, xx[1])
             // if(xx[0]) { xx[0].pen.line(ctx, xx[1]) }
         }

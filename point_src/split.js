@@ -145,7 +145,10 @@ Polypoint.head.installFunctions('BezierCurve', {
 
         return r
     }
+    , _splitTick: 0
+    , splitAnimated(count, angle=undefined, speed=.2, delta=this._splitTick) {
 
+    }
     , split(count, angle=0) {
         let p0 = this.a;
         let p3 = this.b;

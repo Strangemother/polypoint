@@ -31,6 +31,13 @@ const splitToPointList = function(point, count, radius, rotation, angle=undefine
 const lerp = (x, y, a) => x * (1 - a) + y * a;
 
 
+const animatedSegmentOffset = function(delta, speed, segmentSize, scale=.005) {
+    let travel = delta * speed * scale
+    // Keep animation inside one segment width/angle to avoid hard clipping pops.
+    return ((travel % segmentSize) + segmentSize) % segmentSize
+}
+
+
 function bLerp(a,b,t){
     return (1-t)*a+t*b;
 }
@@ -95,11 +102,11 @@ Polypoint.head.installFunctions('Point', {
     , _splitTick: 0
     , splitAnimated(count, angle=undefined, speed=.2, delta=this._splitTick) {
         let point = this
+        let safeCount = Math.max(1, count)
 
         this._splitTick += 1
-        // Keep the same temporal profile as the line/bezier animated splits.
-        let mod = 12
-        let outerAngle = ((delta * speed) % (Math.PI * mod)) * .005
+        let segmentAngle = (Math.PI * 2) / safeCount
+        let outerAngle = animatedSegmentOffset(delta, speed, segmentAngle)
 
         return splitToPointList(
             point,
@@ -174,13 +181,12 @@ Polypoint.head.installFunctions('BezierCurve', {
 
         let r = new PointList
 
-        let splitVal = 1 / (count)
+        let safeCount = Math.max(1, count)
+        let splitVal = 1 / safeCount
         let rotationOffset = angle == undefined ? 0 : angle
 
         this._splitTick += 1
-        // Keep the same travel feel as Line.splitAnimated.
-        let mod = splitVal * 65
-        let _s = ((delta * speed) % (Math.PI * mod)) * .005
+        let _s = animatedSegmentOffset(delta, speed, splitVal)
 
         for (var i = 0; i < count+1; i++) {
             let t = i * splitVal + _s
@@ -376,18 +382,15 @@ Polypoint.head.installFunctions('Line', {
         let b = this.b
         let r = new PointList
 
-        let splitVal = 1 / (count)
+        let safeCount = Math.max(1, count)
+        let splitVal = 1 / safeCount
         let degs = undefined
         if(angle != undefined) {
             degs = calculateAngle(a, b) - angle;
         }
 
         this._splitTick += 1
-        // count == 10, mod = 6.5
-        // count == 30, mod = 2
-        let mod = splitVal * 65// 6.4
-        let _s = ((delta * speed) % (Math.PI * mod)) * .005
-        // let _s = Math.sin(delta * .1) * .02
+        let _s = animatedSegmentOffset(delta, speed, splitVal)
 
         for (var i = 0; i < count+1; i++) {
             let slideOffset = i * (splitVal) + _s;

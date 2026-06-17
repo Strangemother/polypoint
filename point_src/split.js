@@ -148,6 +148,31 @@ Polypoint.head.installFunctions('BezierCurve', {
     , _splitTick: 0
     , splitAnimated(count, angle=undefined, speed=.2, delta=this._splitTick) {
 
+        let p0 = this.a
+        let p3 = this.b
+        let [p1, p2] = this.getControlPoints()
+
+        let r = new PointList
+
+        let splitVal = 1 / (count)
+        let rotationOffset = angle == undefined ? 0 : angle
+
+        this._splitTick += 1
+        // Keep the same travel feel as Line.splitAnimated.
+        let mod = splitVal * 65
+        let _s = ((delta * speed) % (Math.PI * mod)) * .005
+
+        for (var i = 0; i < count+1; i++) {
+            let t = i * splitVal + _s
+            if(t > 1 || t < 0) { continue }
+
+            let p = new Point(get_bezier_point(p0, p1, p2, p3, t))
+            let { dx, dy } = get_bezier_derivative(p0, p1, p2, p3, t)
+            p.radians = Math.atan2(-dx, dy) + rotationOffset
+            r.push(p)
+        }
+
+        return r
     }
     , split(count, angle=0) {
         let p0 = this.a;

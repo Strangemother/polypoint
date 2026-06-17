@@ -98,7 +98,7 @@ Polypoint.head.installFunctions('Point', {
 
         this._splitTick += 1
         // Keep the same temporal profile as the line/bezier animated splits.
-        let mod = 65
+        let mod = 12
         let outerAngle = ((delta * speed) % (Math.PI * mod)) * .005
 
         return splitToPointList(
@@ -110,6 +110,8 @@ Polypoint.head.installFunctions('Point', {
         )
     }
 });
+
+console.log('split')
 
 
 

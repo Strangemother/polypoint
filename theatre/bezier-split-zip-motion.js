@@ -34,13 +34,20 @@ class MainStage extends Stage {
         this.count = 20
         this.speed = .3
 
-        let lpoints = [new Point(100, 100), new Point(500, 100)]
-        this.line = new Line(...lpoints)
+        this.line = new BezierCurve(
+                new Point(200, 300, 200, -30)
+                , new Point(600, 340, 200, 90)
+            )
 
-        let lpoints2 = [new Point(100, 200), new Point(500, 200)]
-        this.line2 = new Line(...lpoints2)
 
-        this.dragging.add(...lpoints, ...lpoints2)
+        // let lpoints2 = [new Point(100, 200), new Point(500, 200)]
+        this.line2 = new BezierCurve(
+                new Point(300, 400, 200, -30)
+                , new Point(600, 340, 200, 90)
+            )
+
+
+        this.dragging.add(...this.line.points, ...this.line2.points)
     }
 
     draw(ctx){

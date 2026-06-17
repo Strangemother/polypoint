@@ -32,30 +32,26 @@ class MainStage extends Stage {
     mounted(){
 
         this.count = 20
-        this.speed = .3
+        this.speed = 1.3
 
-        let lpoints = [new Point(100, 100), new Point(500, 100)]
-        this.line = new Line(...lpoints)
-
-        let lpoints2 = [new Point(100, 200), new Point(500, 200)]
-        this.line2 = new Line(...lpoints2)
-
-        this.dragging.add(...lpoints, ...lpoints2)
+        this.line = new Point(600, 340, 200, 0)
+        this.line2 = new Point(600, 340, 100, 0)
+        this.dragging.add(this.line, this.line2)
     }
 
     draw(ctx){
         this.clear(ctx)
-        this.line.render(ctx)
-        this.line2.render(ctx, {color: 'purple'})
+        this.line.pen.indicator(ctx)
+        this.line2.pen.indicator(ctx, {color: 'purple'})
 
         let splits1 = this.line.splitAnimated(this.count, 0, this.speed)
         let splits2 = this.line2.splitAnimated(this.count, 0, this.speed)
 
-        this.line[0].pen.line(ctx, this.line2[0])
-        this.line[1].pen.line(ctx, this.line2[1])
+        // this.line[0].pen.line(ctx, this.line2[0])
+        // this.line[1].pen.line(ctx, this.line2[1])
 
         for(let xx of zip(splits1, splits2)) {
-            xx[0] && xx[0].pen.line(ctx, xx[1])
+            xx[0] && xx[0].pen.line(ctx, xx[1], 'red')
         }
 
     }

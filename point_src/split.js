@@ -91,6 +91,24 @@ Polypoint.head.installFunctions('Point', {
         let point = this
         return splitToPointList(point, count, point.radius, point.radians + outerAngle, angle)
     }
+
+    , _splitTick: 0
+    , splitAnimated(count, angle=undefined, speed=.2, delta=this._splitTick) {
+        let point = this
+
+        this._splitTick += 1
+        // Keep the same temporal profile as the line/bezier animated splits.
+        let mod = 65
+        let outerAngle = ((delta * speed) % (Math.PI * mod)) * .005
+
+        return splitToPointList(
+            point,
+            count,
+            point.radius,
+            point.radians + outerAngle,
+            angle
+        )
+    }
 });
 
 

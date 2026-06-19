@@ -30,7 +30,7 @@
         },
         {
             "block": true,
-            "text": "\r\n        Create a new motion blue instance. Provide a `Point` instance.\r\n\r\n            new MotionBlur(targetPoint)\r\n\r\n        ",
+            "text": "\r\n        Create a new motion blur instance. Provide a `Point` instance.\r\n\r\n            new MotionBlur(targetPoint)\r\n\r\n        ",
             "start": 496,
             "end": 627,
             "startLoc": {
@@ -125,19 +125,33 @@
                 "line": 59,
                 "column": 43
             }
+        },
+        {
+            "block": true,
+            "text": " Get a motion blur instance for this point.\r\n    \r\n    return `MotionBlur` A new MotionBlur instance once.\r\n    ",
+            "start": 1633,
+            "end": 1749,
+            "startLoc": {
+                "line": 65,
+                "column": 4
+            },
+            "currentLoc": {
+                "line": 68,
+                "column": 6
+            }
         }
     ],
     "ast": {
         "type": "Program",
         "start": 0,
-        "end": 1702,
+        "end": 1824,
         "loc": {
             "start": {
                 "line": 1,
                 "column": 0
             },
             "end": {
-                "line": 69,
+                "line": 73,
                 "column": 0
             }
         },
@@ -2560,28 +2574,28 @@
             {
                 "type": "ExpressionStatement",
                 "start": 1597,
-                "end": 1700,
+                "end": 1822,
                 "loc": {
                     "start": {
                         "line": 64,
                         "column": 0
                     },
                     "end": {
-                        "line": 68,
+                        "line": 72,
                         "column": 2
                     }
                 },
                 "expression": {
                     "type": "CallExpression",
                     "start": 1597,
-                    "end": 1699,
+                    "end": 1821,
                     "loc": {
                         "start": {
                             "line": 64,
                             "column": 0
                         },
                         "end": {
-                            "line": 68,
+                            "line": 72,
                             "column": 1
                         }
                     },
@@ -2687,29 +2701,29 @@
                         },
                         {
                             "type": "FunctionExpression",
-                            "start": 1633,
-                            "end": 1696,
+                            "start": 1755,
+                            "end": 1818,
                             "loc": {
                                 "start": {
-                                    "line": 65,
+                                    "line": 69,
                                     "column": 4
                                 },
                                 "end": {
-                                    "line": 67,
+                                    "line": 71,
                                     "column": 5
                                 }
                             },
                             "id": {
                                 "type": "Identifier",
-                                "start": 1642,
-                                "end": 1648,
+                                "start": 1764,
+                                "end": 1770,
                                 "loc": {
                                     "start": {
-                                        "line": 65,
+                                        "line": 69,
                                         "column": 13
                                     },
                                     "end": {
-                                        "line": 65,
+                                        "line": 69,
                                         "column": 19
                                     }
                                 },
@@ -2721,58 +2735,58 @@
                             "params": [],
                             "body": {
                                 "type": "BlockStatement",
-                                "start": 1651,
-                                "end": 1696,
+                                "start": 1773,
+                                "end": 1818,
                                 "loc": {
                                     "start": {
-                                        "line": 65,
+                                        "line": 69,
                                         "column": 22
                                     },
                                     "end": {
-                                        "line": 67,
+                                        "line": 71,
                                         "column": 5
                                     }
                                 },
                                 "body": [
                                     {
                                         "type": "ReturnStatement",
-                                        "start": 1662,
-                                        "end": 1689,
+                                        "start": 1784,
+                                        "end": 1811,
                                         "loc": {
                                             "start": {
-                                                "line": 66,
+                                                "line": 70,
                                                 "column": 8
                                             },
                                             "end": {
-                                                "line": 66,
+                                                "line": 70,
                                                 "column": 35
                                             }
                                         },
                                         "argument": {
                                             "type": "NewExpression",
-                                            "start": 1669,
-                                            "end": 1689,
+                                            "start": 1791,
+                                            "end": 1811,
                                             "loc": {
                                                 "start": {
-                                                    "line": 66,
+                                                    "line": 70,
                                                     "column": 15
                                                 },
                                                 "end": {
-                                                    "line": 66,
+                                                    "line": 70,
                                                     "column": 35
                                                 }
                                             },
                                             "callee": {
                                                 "type": "Identifier",
-                                                "start": 1673,
-                                                "end": 1683,
+                                                "start": 1795,
+                                                "end": 1805,
                                                 "loc": {
                                                     "start": {
-                                                        "line": 66,
+                                                        "line": 70,
                                                         "column": 19
                                                     },
                                                     "end": {
-                                                        "line": 66,
+                                                        "line": 70,
                                                         "column": 29
                                                     }
                                                 },
@@ -2781,15 +2795,15 @@
                                             "arguments": [
                                                 {
                                                     "type": "ThisExpression",
-                                                    "start": 1684,
-                                                    "end": 1688,
+                                                    "start": 1806,
+                                                    "end": 1810,
                                                     "loc": {
                                                         "start": {
-                                                            "line": 66,
+                                                            "line": 70,
                                                             "column": 30
                                                         },
                                                         "end": {
-                                                            "line": 66,
+                                                            "line": 70,
                                                             "column": 34
                                                         }
                                                     }
@@ -2809,8 +2823,8 @@
     },
     "info": {
         "filename": "motion.js",
-        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\motion.js",
-        "size": 1702,
-        "parsed_date": "2026-06-19T21:14:26.694Z"
+        "path": "/workspaces/polypoint/point_src/motion.js",
+        "size": 1824,
+        "parsed_date": "2026-06-19T21:47:54.233Z"
     }
 }

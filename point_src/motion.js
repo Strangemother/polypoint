@@ -62,6 +62,11 @@ class MotionBlur {
 
 
 Polypoint.extend.prop('Point',
+    /* Get a motion blur instance for this point.
+    
+    return `MotionBlur` A new MotionBlur instance once.
+    */
+   
     function motion() {
         return new MotionBlur(this)
     }

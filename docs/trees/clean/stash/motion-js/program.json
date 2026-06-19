@@ -43,7 +43,7 @@
                         "header": [],
                         "inner": [
                             {
-                                "text": "Create a new motion blue instance. Provide a `Point` instance.\n\n    new MotionBlur(targetPoint)",
+                                "text": "Create a new motion blur instance. Provide a `Point` instance.\n\n    new MotionBlur(targetPoint)",
                                 "block": true,
                                 "line": 33
                             }
@@ -151,448 +151,60 @@
             }
         },
         {
-            "type": "ExpressionStatement",
-            "expression": {
-                "type": "CallExpression",
-                "start": 1597,
-                "end": 1699,
-                "loc": {
-                    "start": {
-                        "line": 64,
-                        "column": 0
-                    },
-                    "end": {
-                        "line": 68,
-                        "column": 1
-                    }
-                },
-                "callee": {
-                    "type": "MemberExpression",
-                    "start": 1597,
-                    "end": 1618,
-                    "loc": {
-                        "start": {
-                            "line": 64,
-                            "column": 0
-                        },
-                        "end": {
-                            "line": 64,
-                            "column": 21
-                        }
-                    },
-                    "object": {
-                        "type": "MemberExpression",
-                        "start": 1597,
-                        "end": 1613,
-                        "loc": {
-                            "start": {
-                                "line": 64,
-                                "column": 0
-                            },
-                            "end": {
-                                "line": 64,
-                                "column": 16
-                            }
-                        },
-                        "object": {
-                            "type": "Identifier",
-                            "start": 1597,
-                            "end": 1606,
-                            "loc": {
-                                "start": {
-                                    "line": 64,
-                                    "column": 0
-                                },
-                                "end": {
-                                    "line": 64,
-                                    "column": 9
-                                }
-                            },
-                            "name": "Polypoint",
-                            "pos": {
-                                "start": 1597,
-                                "end": 1606,
-                                "loc": {
-                                    "start": {
-                                        "line": 64,
-                                        "column": 0
-                                    },
-                                    "end": {
-                                        "line": 64,
-                                        "column": 9
-                                    }
-                                }
-                            }
-                        },
-                        "property": {
-                            "type": "Identifier",
-                            "start": 1607,
-                            "end": 1613,
-                            "loc": {
-                                "start": {
-                                    "line": 64,
-                                    "column": 10
-                                },
-                                "end": {
-                                    "line": 64,
-                                    "column": 16
-                                }
-                            },
-                            "name": "extend",
-                            "pos": {
-                                "start": 1607,
-                                "end": 1613,
-                                "loc": {
-                                    "start": {
-                                        "line": 64,
-                                        "column": 10
-                                    },
-                                    "end": {
-                                        "line": 64,
-                                        "column": 16
-                                    }
-                                }
-                            }
-                        },
-                        "computed": false,
-                        "optional": false,
-                        "pos": {
-                            "start": 1597,
-                            "end": 1613,
-                            "loc": {
-                                "start": {
-                                    "line": 64,
-                                    "column": 0
-                                },
-                                "end": {
-                                    "line": 64,
-                                    "column": 16
-                                }
-                            }
-                        }
-                    },
-                    "property": {
-                        "type": "Identifier",
-                        "start": 1614,
-                        "end": 1618,
-                        "loc": {
-                            "start": {
-                                "line": 64,
-                                "column": 17
-                            },
-                            "end": {
-                                "line": 64,
-                                "column": 21
-                            }
-                        },
-                        "name": "prop",
-                        "pos": {
-                            "start": 1614,
-                            "end": 1618,
-                            "loc": {
-                                "start": {
-                                    "line": 64,
-                                    "column": 17
-                                },
-                                "end": {
-                                    "line": 64,
-                                    "column": 21
-                                }
-                            }
-                        }
-                    },
-                    "computed": false,
-                    "optional": false,
-                    "pos": {
-                        "start": 1597,
-                        "end": 1618,
-                        "loc": {
-                            "start": {
-                                "line": 64,
-                                "column": 0
-                            },
-                            "end": {
-                                "line": 64,
-                                "column": 21
-                            }
-                        }
-                    }
-                },
-                "arguments": [
-                    {
-                        "type": "Literal",
-                        "start": 1619,
-                        "end": 1626,
-                        "loc": {
-                            "start": {
-                                "line": 64,
-                                "column": 22
-                            },
-                            "end": {
-                                "line": 64,
-                                "column": 29
-                            }
-                        },
-                        "value": "Point",
-                        "raw": "'Point'",
-                        "pos": {
-                            "start": 1619,
-                            "end": 1626,
-                            "loc": {
-                                "start": {
-                                    "line": 64,
-                                    "column": 22
-                                },
-                                "end": {
-                                    "line": 64,
-                                    "column": 29
-                                }
-                            }
-                        }
-                    },
-                    {
-                        "type": "FunctionExpression",
-                        "start": 1633,
-                        "end": 1696,
-                        "loc": {
-                            "start": {
-                                "line": 65,
-                                "column": 4
-                            },
-                            "end": {
-                                "line": 67,
-                                "column": 5
-                            }
-                        },
-                        "id": {
-                            "type": "Identifier",
-                            "start": 1642,
-                            "end": 1648,
-                            "loc": {
-                                "start": {
-                                    "line": 65,
-                                    "column": 13
-                                },
-                                "end": {
-                                    "line": 65,
-                                    "column": 19
-                                }
-                            },
-                            "name": "motion",
-                            "pos": {
-                                "start": 1642,
-                                "end": 1648,
-                                "loc": {
-                                    "start": {
-                                        "line": 65,
-                                        "column": 13
-                                    },
-                                    "end": {
-                                        "line": 65,
-                                        "column": 19
-                                    }
-                                }
-                            }
-                        },
-                        "expression": false,
-                        "generator": false,
-                        "async": false,
-                        "params": [],
-                        "body": {
-                            "type": "BlockStatement",
-                            "start": 1651,
-                            "end": 1696,
-                            "loc": {
-                                "start": {
-                                    "line": 65,
-                                    "column": 22
-                                },
-                                "end": {
-                                    "line": 67,
-                                    "column": 5
-                                }
-                            },
-                            "body": [
-                                {
-                                    "type": "ReturnStatement",
-                                    "start": 1662,
-                                    "end": 1689,
-                                    "loc": {
-                                        "start": {
-                                            "line": 66,
-                                            "column": 8
-                                        },
-                                        "end": {
-                                            "line": 66,
-                                            "column": 35
-                                        }
-                                    },
-                                    "argument": {
-                                        "type": "NewExpression",
-                                        "start": 1669,
-                                        "end": 1689,
-                                        "loc": {
-                                            "start": {
-                                                "line": 66,
-                                                "column": 15
-                                            },
-                                            "end": {
-                                                "line": 66,
-                                                "column": 35
-                                            }
-                                        },
-                                        "callee": {
-                                            "type": "Identifier",
-                                            "start": 1673,
-                                            "end": 1683,
-                                            "loc": {
-                                                "start": {
-                                                    "line": 66,
-                                                    "column": 19
-                                                },
-                                                "end": {
-                                                    "line": 66,
-                                                    "column": 29
-                                                }
-                                            },
-                                            "name": "MotionBlur",
-                                            "pos": {
-                                                "start": 1673,
-                                                "end": 1683,
-                                                "loc": {
-                                                    "start": {
-                                                        "line": 66,
-                                                        "column": 19
-                                                    },
-                                                    "end": {
-                                                        "line": 66,
-                                                        "column": 29
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        "arguments": [
-                                            {
-                                                "type": "ThisExpression",
-                                                "start": 1684,
-                                                "end": 1688,
-                                                "loc": {
-                                                    "start": {
-                                                        "line": 66,
-                                                        "column": 30
-                                                    },
-                                                    "end": {
-                                                        "line": 66,
-                                                        "column": 34
-                                                    }
-                                                },
-                                                "pos": {
-                                                    "start": 1684,
-                                                    "end": 1688,
-                                                    "loc": {
-                                                        "start": {
-                                                            "line": 66,
-                                                            "column": 30
-                                                        },
-                                                        "end": {
-                                                            "line": 66,
-                                                            "column": 34
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        ],
-                                        "pos": {
-                                            "start": 1669,
-                                            "end": 1689,
-                                            "loc": {
-                                                "start": {
-                                                    "line": 66,
-                                                    "column": 15
-                                                },
-                                                "end": {
-                                                    "line": 66,
-                                                    "column": 35
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "pos": {
-                                        "start": 1662,
-                                        "end": 1689,
-                                        "loc": {
-                                            "start": {
-                                                "line": 66,
-                                                "column": 8
-                                            },
-                                            "end": {
-                                                "line": 66,
-                                                "column": 35
-                                            }
-                                        }
-                                    }
-                                }
-                            ],
-                            "pos": {
-                                "start": 1651,
-                                "end": 1696,
-                                "loc": {
-                                    "start": {
-                                        "line": 65,
-                                        "column": 22
-                                    },
-                                    "end": {
-                                        "line": 67,
-                                        "column": 5
-                                    }
-                                }
-                            }
-                        },
-                        "pos": {
-                            "start": 1633,
-                            "end": 1696,
-                            "loc": {
-                                "start": {
-                                    "line": 65,
-                                    "column": 4
-                                },
-                                "end": {
-                                    "line": 67,
-                                    "column": 5
-                                }
-                            }
-                        }
-                    }
-                ],
-                "optional": false,
+            "type": "FunctionExpression",
+            "id": {
+                "type": "Identifier",
+                "word": "motion",
                 "pos": {
-                    "start": 1597,
-                    "end": 1699,
+                    "start": 1764,
+                    "end": 1770,
                     "loc": {
                         "start": {
-                            "line": 64,
-                            "column": 0
+                            "line": 69,
+                            "column": 13
                         },
                         "end": {
-                            "line": 68,
-                            "column": 1
+                            "line": 69,
+                            "column": 19
                         }
                     }
                 }
             },
+            "generator": false,
+            "expression": false,
+            "async": false,
+            "params": [],
             "pos": {
                 "start": 1597,
-                "end": 1700,
+                "end": 1822,
                 "loc": {
                     "start": {
                         "line": 64,
                         "column": 0
                     },
                     "end": {
-                        "line": 68,
+                        "line": 72,
                         "column": 2
                     }
                 }
+            },
+            "kind": "function",
+            "word": "motion",
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "Get a motion blur instance for this point.\n\nreturn `MotionBlur` A new MotionBlur instance once.",
+                        "block": true,
+                        "line": 68
+                    }
+                ]
+            },
+            "extension": {
+                "kind": "prop",
+                "target": "Point",
+                "property": "motion",
+                "owner": "Polypoint.extend"
             }
         }
     ],
@@ -602,8 +214,8 @@
     ],
     "info": {
         "filename": "motion.js",
-        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\motion.js",
-        "size": 1702,
-        "parsed_date": "2026-06-19T21:14:26.694Z"
+        "path": "/workspaces/polypoint/point_src/motion.js",
+        "size": 1824,
+        "parsed_date": "2026-06-19T21:47:54.233Z"
     }
 }

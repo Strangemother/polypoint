@@ -19,7 +19,7 @@
                             "header": [],
                             "inner": [
                                 {
-                                    "text": "Create a new motion blue instance. Provide a `Point` instance.\n\n    new MotionBlur(targetPoint)",
+                                    "text": "Create a new motion blur instance. Provide a `Point` instance.\n\n    new MotionBlur(targetPoint)",
                                     "block": true,
                                     "line": 33
                                 }
@@ -68,13 +68,39 @@
                 "line": 12
             }
         },
-        "functions": [],
+        "functions": [
+            {
+                "name": "motion",
+                "kind": "function",
+                "type": "function",
+                "line": 64,
+                "params": [],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Get a motion blur instance for this point.\n\nreturn `MotionBlur` A new MotionBlur instance once.",
+                            "block": true,
+                            "line": 68
+                        }
+                    ]
+                },
+                "extension": {
+                    "kind": "prop",
+                    "target": "Point",
+                    "property": "motion",
+                    "owner": "Polypoint.extend"
+                }
+            }
+        ],
         "constants": []
     },
     "info": {
         "filename": "motion.js",
-        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\motion.js",
-        "size": 1702,
-        "parsed_date": "2026-06-19T21:14:26.694Z"
+        "path": "/workspaces/polypoint/point_src/motion.js",
+        "size": 1824,
+        "parsed_date": "2026-06-19T21:47:54.233Z"
     }
 }

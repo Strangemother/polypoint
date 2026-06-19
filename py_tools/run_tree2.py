@@ -693,6 +693,8 @@ class PhaseTree(TreeReader, CommentsMixin):
                     'generator': item_def.get('generator', False),
                     'comments': item_def.get('comments', {'header': [], 'inner': []})
                 }
+                if item_def.get('extension'):
+                    func_info['extension'] = item_def.get('extension')
                 references['functions'].append(func_info)
 
             elif item_def.get('kind') == 'const' or item_def.get('kind') == 'let' or item_def.get('kind') == 'var':
@@ -1199,13 +1201,105 @@ class PhaseTree(TreeReader, CommentsMixin):
         }
 
     def node_ExpressionStatement(self, tree, content):
+        extension_def = self._parse_extend_prop_expression(tree, content)
+        if extension_def is not None:
+            return extension_def
+
         return {
             "type": tree['type'],
-            "expression":self.get_inner_method(tree['expression'], content),
+            "expression": self.get_inner_method(tree['expression'], content),
             # "pos": tree['pos'],
             **self.make_position(tree),
         }
-        # return tree
+
+    def _parse_extend_prop_expression(self, tree, content):
+        """Promote `Polypoint.extend.prop(...)` calls into doc-friendly nodes."""
+        expression = tree.get('expression', {})
+        if not isinstance(expression, dict) or expression.get('type') != 'CallExpression':
+            return None
+
+        callee_path = self._get_member_expression_path(expression.get('callee'))
+        if callee_path != ('Polypoint', 'extend', 'prop'):
+            return None
+
+        arguments = expression.get('arguments', [])
+        if len(arguments) < 2:
+            return None
+
+        target_node = arguments[0]
+        factory_node = arguments[1]
+        alias_node = arguments[2] if len(arguments) > 2 else None
+
+        factory_def = self.get_inner_method(factory_node, content)
+        if not isinstance(factory_def, dict):
+            return None
+
+        target_name = self._extract_string_or_name(target_node)
+        alias_name = self._extract_string_or_name(alias_node)
+        factory_id = factory_def.get('id') or {}
+        function_name = (
+            factory_id.get('word')
+            or alias_name
+            or factory_def.get('word')
+            or target_name
+        )
+
+        result = factory_def.copy()
+        result.update({
+            'kind': 'function',
+            'word': function_name,
+            'comments': self.format_comments_for_output(self.get_area_comments(tree['pos'])),
+            'extension': {
+                'kind': 'prop',
+                'target': target_name,
+                'property': alias_name or function_name,
+                'owner': 'Polypoint.extend',
+            },
+            **self.make_position(tree),
+        })
+        return result
+
+    def _get_member_expression_path(self, node):
+        """Return the dotted path for a nested MemberExpression/Identifier chain."""
+        if not isinstance(node, dict):
+            return ()
+
+        node_type = node.get('type')
+        if node_type == 'Identifier':
+            return (node.get('name'),)
+
+        if node_type != 'MemberExpression':
+            return ()
+
+        parent = self._get_member_expression_path(node.get('object'))
+        prop = node.get('property', {})
+        prop_name = prop.get('name') if isinstance(prop, dict) else None
+        if prop_name is None and isinstance(prop, dict):
+            prop_name = prop.get('value')
+
+        if prop_name is None:
+            return parent
+
+        return parent + (str(prop_name),)
+
+    def _extract_string_or_name(self, node):
+        """Return a readable label for a literal, identifier, or computed value."""
+        if not isinstance(node, dict):
+            return None
+
+        node_type = node.get('type')
+        if node_type == 'Literal':
+            return node.get('value')
+
+        if node_type == 'Identifier':
+            return node.get('name')
+
+        if node_type == 'TemplateLiteral':
+            quasis = node.get('quasis', [])
+            if len(quasis) == 1:
+                return quasis[0].get('value', {}).get('cooked')
+
+        return node.get('raw') or node.get('word') or node.get('name')
 
     def node_CallExpression(self, tree, content):
         # return {

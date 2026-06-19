@@ -5,14 +5,41 @@
         <div class='function-head'>
             <div class="item-kind-space">
                 <span class="function-kind kind-{{ item.kind }}">
-                    {% firstof item.kind 'function' %}
+                    {% if item.extension %}
+                        {% firstof item.extension.kind item.kind 'function' %}
+                    {% else %}
+                        {% firstof item.kind 'function' %}
+                    {% endif %}
                 </span>
             </div>
-            <h3 data-kind='{{ item.kind }}' data-key='{{ item.word }}'
-                class="function-name">
-                {{ item.word }}
-            </h3>
+
+            {% if item.extension %}
+                <h2 data-kind='{{ item.kind }}' data-key='{{ item.word }}'
+                    class="extension-target function-name">
+                    {{ item.extension.target }}.{{ item.word }}
+                </h2>
+            {% else %}
+                <h3 data-kind='{{ item.kind }}' data-key='{{ item.word }}'
+                    class="function-name">
+                    {{ item.word }}
+                </h3>
+            {% endif %}
         </div>
+
+        {% if item.extension %}
+        <div class="polypoint-extend extend-kind-{{ item.extension.kind }} function-extension">
+            <!-- <h2>{{ item.extension.target }} :: {{ item.extension.property }}</h2> -->
+            
+            <!-- <span class="extension-kind">extend.{{ item.extension.kind }}</span> -->
+            <!-- <span class="extension-target">{{ item.extension.target }}</span> -->
+            {% if item.extension.property %}
+                <!-- <span class="extension-property">{{ item.extension.property }}</span> -->
+            {% endif %}
+            <!-- <div> -->
+                <!-- {{item.extension.keys }} -->
+            <!-- </div> -->
+        </div>
+        {% endif %}
 
         <div class="bracket bracket-open">(</div>
 
@@ -49,14 +76,27 @@
             <small>{{ item.keys }}</small>
         </div>
 
+        {% load markdown %}
+
         {% for comment in item.comments.header %}
             <div class="header-comment comment">
-                {{ comment.text|safe }}
+                {% markdown.text comment.text %}
             </div>
         {% endfor %}
         {% for comment in item.comments.inner %}
             <div class="inner-comment comment">
-                {{ comment.text|safe }}
+                {% markdown.text comment.text %}
+            </div>
+        {% endfor %}
+
+        {% for comment in item.comments.header %}
+            <div class="header-comment comment">
+                {% markdown.text comment.text %}
+            </div>
+        {% endfor %}
+        {% for comment in item.comments.inner %}
+            <div class="inner-comment comment">
+                {% markdown.text comment.text %}
             </div>
         {% endfor %}
     </div>

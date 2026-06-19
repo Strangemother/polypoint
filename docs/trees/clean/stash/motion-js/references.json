@@ -1,0 +1,80 @@
+{
+    "src_file": "motion.js",
+    "references": {
+        "classes": {
+            "MotionBlur": {
+                "class_name": "MotionBlur",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "MotionBlur",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "p"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Create a new motion blue instance. Provide a `Point` instance.\n\n    new MotionBlur(targetPoint)",
+                                    "block": true,
+                                    "line": 33
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 27
+                    },
+                    {
+                        "method_name": "linear",
+                        "class_name": "MotionBlur",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Render a _linear_ line motion blur for a single point. The default\nsettings are scaled to present a pleasing motion blur using two\ndrawn lines.",
+                                    "block": true,
+                                    "line": 45
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 40
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "The `MotionBlur` class provides a point relative clean abstraction for\npsuedo motion blur on a single point.\n\nWith the extended prop:\n\n    myPoint.motion.linear(ctx)\n\nStandalone:\n\n    const ml = new MotionBlur(myPoint)\n    ml.motion.linear(ctx)",
+                            "block": true,
+                            "line": 25
+                        }
+                    ]
+                },
+                "line": 12
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "motion.js",
+        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\motion.js",
+        "size": 1702,
+        "parsed_date": "2026-06-19T21:14:26.694Z"
+    }
+}

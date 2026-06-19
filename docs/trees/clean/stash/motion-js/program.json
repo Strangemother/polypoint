@@ -1,0 +1,609 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "MotionBlur",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "p"
+                            }
+                        ],
+                        "pos": {
+                            "start": 482,
+                            "end": 776,
+                            "loc": {
+                                "start": {
+                                    "line": 27,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 38,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "Create a new motion blue instance. Provide a `Point` instance.\n\n    new MotionBlur(targetPoint)",
+                                "block": true,
+                                "line": 33
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 471,
+                        "end": 776,
+                        "loc": {
+                            "start": {
+                                "line": 27,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 38,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "MotionBlur"
+                },
+                {
+                    "kind": "method",
+                    "word": "linear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "ctx"
+                            }
+                        ],
+                        "pos": {
+                            "start": 790,
+                            "end": 1588,
+                            "loc": {
+                                "start": {
+                                    "line": 40,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 60,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "Render a _linear_ line motion blur for a single point. The default\nsettings are scaled to present a pleasing motion blur using two\ndrawn lines.",
+                                "block": true,
+                                "line": 45
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 784,
+                        "end": 1588,
+                        "loc": {
+                            "start": {
+                                "line": 40,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 60,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "MotionBlur"
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "The `MotionBlur` class provides a point relative clean abstraction for\npsuedo motion blur on a single point.\n\nWith the extended prop:\n\n    myPoint.motion.linear(ctx)\n\nStandalone:\n\n    const ml = new MotionBlur(myPoint)\n    ml.motion.linear(ctx)",
+                        "block": true,
+                        "line": 25
+                    }
+                ]
+            },
+            "pos": {
+                "start": 148,
+                "end": 1591,
+                "loc": {
+                    "start": {
+                        "line": 12,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 61,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 1597,
+                "end": 1699,
+                "loc": {
+                    "start": {
+                        "line": 64,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 68,
+                        "column": 1
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 1597,
+                    "end": 1618,
+                    "loc": {
+                        "start": {
+                            "line": 64,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 64,
+                            "column": 21
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 1597,
+                        "end": 1613,
+                        "loc": {
+                            "start": {
+                                "line": 64,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 64,
+                                "column": 16
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 1597,
+                            "end": 1606,
+                            "loc": {
+                                "start": {
+                                    "line": 64,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 64,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 1597,
+                                "end": 1606,
+                                "loc": {
+                                    "start": {
+                                        "line": 64,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 64,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 1607,
+                            "end": 1613,
+                            "loc": {
+                                "start": {
+                                    "line": 64,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 64,
+                                    "column": 16
+                                }
+                            },
+                            "name": "extend",
+                            "pos": {
+                                "start": 1607,
+                                "end": 1613,
+                                "loc": {
+                                    "start": {
+                                        "line": 64,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 64,
+                                        "column": 16
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 1597,
+                            "end": 1613,
+                            "loc": {
+                                "start": {
+                                    "line": 64,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 64,
+                                    "column": 16
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 1614,
+                        "end": 1618,
+                        "loc": {
+                            "start": {
+                                "line": 64,
+                                "column": 17
+                            },
+                            "end": {
+                                "line": 64,
+                                "column": 21
+                            }
+                        },
+                        "name": "prop",
+                        "pos": {
+                            "start": 1614,
+                            "end": 1618,
+                            "loc": {
+                                "start": {
+                                    "line": 64,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 64,
+                                    "column": 21
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 1597,
+                        "end": 1618,
+                        "loc": {
+                            "start": {
+                                "line": 64,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 64,
+                                "column": 21
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 1619,
+                        "end": 1626,
+                        "loc": {
+                            "start": {
+                                "line": 64,
+                                "column": 22
+                            },
+                            "end": {
+                                "line": 64,
+                                "column": 29
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 1619,
+                            "end": 1626,
+                            "loc": {
+                                "start": {
+                                    "line": 64,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 64,
+                                    "column": 29
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 1633,
+                        "end": 1696,
+                        "loc": {
+                            "start": {
+                                "line": 65,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 67,
+                                "column": 5
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 1642,
+                            "end": 1648,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 65,
+                                    "column": 19
+                                }
+                            },
+                            "name": "motion",
+                            "pos": {
+                                "start": 1642,
+                                "end": 1648,
+                                "loc": {
+                                    "start": {
+                                        "line": 65,
+                                        "column": 13
+                                    },
+                                    "end": {
+                                        "line": 65,
+                                        "column": 19
+                                    }
+                                }
+                            }
+                        },
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 1651,
+                            "end": 1696,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 67,
+                                    "column": 5
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 1662,
+                                    "end": 1689,
+                                    "loc": {
+                                        "start": {
+                                            "line": 66,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 66,
+                                            "column": 35
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 1669,
+                                        "end": 1689,
+                                        "loc": {
+                                            "start": {
+                                                "line": 66,
+                                                "column": 15
+                                            },
+                                            "end": {
+                                                "line": 66,
+                                                "column": 35
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 1673,
+                                            "end": 1683,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 66,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 66,
+                                                    "column": 29
+                                                }
+                                            },
+                                            "name": "MotionBlur",
+                                            "pos": {
+                                                "start": 1673,
+                                                "end": 1683,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 66,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 66,
+                                                        "column": 29
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 1684,
+                                                "end": 1688,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 66,
+                                                        "column": 30
+                                                    },
+                                                    "end": {
+                                                        "line": 66,
+                                                        "column": 34
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 1684,
+                                                    "end": 1688,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 66,
+                                                            "column": 30
+                                                        },
+                                                        "end": {
+                                                            "line": 66,
+                                                            "column": 34
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 1669,
+                                            "end": 1689,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 66,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 66,
+                                                    "column": 35
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 1662,
+                                        "end": 1689,
+                                        "loc": {
+                                            "start": {
+                                                "line": 66,
+                                                "column": 8
+                                            },
+                                            "end": {
+                                                "line": 66,
+                                                "column": 35
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 1651,
+                                "end": 1696,
+                                "loc": {
+                                    "start": {
+                                        "line": 65,
+                                        "column": 22
+                                    },
+                                    "end": {
+                                        "line": 67,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 1633,
+                            "end": 1696,
+                            "loc": {
+                                "start": {
+                                    "line": 65,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 67,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 1597,
+                    "end": 1699,
+                    "loc": {
+                        "start": {
+                            "line": 64,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 68,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 1597,
+                "end": 1700,
+                "loc": {
+                    "start": {
+                        "line": 64,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 68,
+                        "column": 2
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "motion.js",
+        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\motion.js",
+        "size": 1702,
+        "parsed_date": "2026-06-19T21:14:26.694Z"
+    }
+}

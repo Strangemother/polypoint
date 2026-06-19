@@ -174,6 +174,7 @@ def get_theatre_list(**kw):
 
     reverse = kw.get('reverse', True)
     order_by = kw.get('orderby', None)
+    suffix = kw.get('suffix', False)
     default_order_index = 1
     order_named = {
         'name': 0,
@@ -190,7 +191,9 @@ def get_theatre_list(**kw):
             modified = asset.stat().st_mtime
             created = asset.stat().st_ctime
             # get date
-            nn = asset.relative_to(tpath).with_suffix('')
+            nn = asset.relative_to(tpath)
+            if suffix is False:
+                nn = nn.with_suffix('')
 
             res += (
                     (str(nn), modified, created,),

@@ -1,0 +1,371 @@
+{
+    "comments": [],
+    "ast": {
+        "type": "Program",
+        "start": 0,
+        "end": 142,
+        "loc": {
+            "start": {
+                "line": 1,
+                "column": 0
+            },
+            "end": {
+                "line": 5,
+                "column": 1
+            }
+        },
+        "body": [
+            {
+                "type": "FunctionDeclaration",
+                "start": 2,
+                "end": 142,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 5,
+                        "column": 1
+                    }
+                },
+                "id": {
+                    "type": "Identifier",
+                    "start": 11,
+                    "end": 25,
+                    "loc": {
+                        "start": {
+                            "line": 2,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 2,
+                            "column": 23
+                        }
+                    },
+                    "name": "quantizeNumber"
+                },
+                "expression": false,
+                "generator": false,
+                "async": false,
+                "params": [
+                    {
+                        "type": "Identifier",
+                        "start": 26,
+                        "end": 31,
+                        "loc": {
+                            "start": {
+                                "line": 2,
+                                "column": 24
+                            },
+                            "end": {
+                                "line": 2,
+                                "column": 29
+                            }
+                        },
+                        "name": "value"
+                    },
+                    {
+                        "type": "AssignmentPattern",
+                        "start": 33,
+                        "end": 43,
+                        "loc": {
+                            "start": {
+                                "line": 2,
+                                "column": 31
+                            },
+                            "end": {
+                                "line": 2,
+                                "column": 41
+                            }
+                        },
+                        "left": {
+                            "type": "Identifier",
+                            "start": 33,
+                            "end": 41,
+                            "loc": {
+                                "start": {
+                                    "line": 2,
+                                    "column": 31
+                                },
+                                "end": {
+                                    "line": 2,
+                                    "column": 39
+                                }
+                            },
+                            "name": "quantize"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "start": 42,
+                            "end": 43,
+                            "loc": {
+                                "start": {
+                                    "line": 2,
+                                    "column": 40
+                                },
+                                "end": {
+                                    "line": 2,
+                                    "column": 41
+                                }
+                            },
+                            "value": 1,
+                            "raw": "1"
+                        }
+                    }
+                ],
+                "body": {
+                    "type": "BlockStatement",
+                    "start": 45,
+                    "end": 142,
+                    "loc": {
+                        "start": {
+                            "line": 2,
+                            "column": 43
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 1
+                        }
+                    },
+                    "body": [
+                        {
+                            "type": "VariableDeclaration",
+                            "start": 50,
+                            "end": 113,
+                            "loc": {
+                                "start": {
+                                    "line": 3,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 3,
+                                    "column": 65
+                                }
+                            },
+                            "declarations": [
+                                {
+                                    "type": "VariableDeclarator",
+                                    "start": 56,
+                                    "end": 112,
+                                    "loc": {
+                                        "start": {
+                                            "line": 3,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 3,
+                                            "column": 64
+                                        }
+                                    },
+                                    "id": {
+                                        "type": "Identifier",
+                                        "start": 56,
+                                        "end": 70,
+                                        "loc": {
+                                            "start": {
+                                                "line": 3,
+                                                "column": 8
+                                            },
+                                            "end": {
+                                                "line": 3,
+                                                "column": 22
+                                            }
+                                        },
+                                        "name": "quantizedValue"
+                                    },
+                                    "init": {
+                                        "type": "BinaryExpression",
+                                        "start": 73,
+                                        "end": 112,
+                                        "loc": {
+                                            "start": {
+                                                "line": 3,
+                                                "column": 25
+                                            },
+                                            "end": {
+                                                "line": 3,
+                                                "column": 64
+                                            }
+                                        },
+                                        "left": {
+                                            "type": "CallExpression",
+                                            "start": 73,
+                                            "end": 101,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 3,
+                                                    "column": 25
+                                                },
+                                                "end": {
+                                                    "line": 3,
+                                                    "column": 53
+                                                }
+                                            },
+                                            "callee": {
+                                                "type": "MemberExpression",
+                                                "start": 73,
+                                                "end": 83,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 3,
+                                                        "column": 25
+                                                    },
+                                                    "end": {
+                                                        "line": 3,
+                                                        "column": 35
+                                                    }
+                                                },
+                                                "object": {
+                                                    "type": "Identifier",
+                                                    "start": 73,
+                                                    "end": 77,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 3,
+                                                            "column": 25
+                                                        },
+                                                        "end": {
+                                                            "line": 3,
+                                                            "column": 29
+                                                        }
+                                                    },
+                                                    "name": "Math"
+                                                },
+                                                "property": {
+                                                    "type": "Identifier",
+                                                    "start": 78,
+                                                    "end": 83,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 3,
+                                                            "column": 30
+                                                        },
+                                                        "end": {
+                                                            "line": 3,
+                                                            "column": 35
+                                                        }
+                                                    },
+                                                    "name": "round"
+                                                },
+                                                "computed": false,
+                                                "optional": false
+                                            },
+                                            "arguments": [
+                                                {
+                                                    "type": "BinaryExpression",
+                                                    "start": 84,
+                                                    "end": 100,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 3,
+                                                            "column": 36
+                                                        },
+                                                        "end": {
+                                                            "line": 3,
+                                                            "column": 52
+                                                        }
+                                                    },
+                                                    "left": {
+                                                        "type": "Identifier",
+                                                        "start": 84,
+                                                        "end": 89,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 3,
+                                                                "column": 36
+                                                            },
+                                                            "end": {
+                                                                "line": 3,
+                                                                "column": 41
+                                                            }
+                                                        },
+                                                        "name": "value"
+                                                    },
+                                                    "operator": "/",
+                                                    "right": {
+                                                        "type": "Identifier",
+                                                        "start": 92,
+                                                        "end": 100,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 3,
+                                                                "column": 44
+                                                            },
+                                                            "end": {
+                                                                "line": 3,
+                                                                "column": 52
+                                                            }
+                                                        },
+                                                        "name": "quantize"
+                                                    }
+                                                }
+                                            ],
+                                            "optional": false
+                                        },
+                                        "operator": "*",
+                                        "right": {
+                                            "type": "Identifier",
+                                            "start": 104,
+                                            "end": 112,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 3,
+                                                    "column": 56
+                                                },
+                                                "end": {
+                                                    "line": 3,
+                                                    "column": 64
+                                                }
+                                            },
+                                            "name": "quantize"
+                                        }
+                                    }
+                                }
+                            ],
+                            "kind": "const"
+                        },
+                        {
+                            "type": "ReturnStatement",
+                            "start": 117,
+                            "end": 139,
+                            "loc": {
+                                "start": {
+                                    "line": 4,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 4,
+                                    "column": 24
+                                }
+                            },
+                            "argument": {
+                                "type": "Identifier",
+                                "start": 124,
+                                "end": 138,
+                                "loc": {
+                                    "start": {
+                                        "line": 4,
+                                        "column": 9
+                                    },
+                                    "end": {
+                                        "line": 4,
+                                        "column": 23
+                                    }
+                                },
+                                "name": "quantizedValue"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "sourceType": "script"
+    },
+    "info": {
+        "filename": "quantize.js",
+        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\functions\\quantize.js",
+        "size": 142,
+        "parsed_date": "2026-06-20T01:22:57.146Z"
+    }
+}

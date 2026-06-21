@@ -151,7 +151,7 @@
 
                     <hr>
 
-                    <h2>Methods</h2>
+                    <h2>TOC</h2>
                     {% comment "what" %}
                         A link list of all discovered methods,
                         at JS runtime.
@@ -206,14 +206,18 @@
                             <a class='anchor' name='{{class_name}}'></a>
 
                             <div class="sticky-header">
-                                <div class="item-kind-space">
-                                    <span class="class-method-kind kind-class">class</span>
+                                <div class="class-title">
+
+                                    <div class="item-kind-space">
+                                        <span class="class-method-kind kind-class">class</span>
+                                    </div>
+                                    <h2 data-key='{{class_name}}'>{{ class_name }}</h2>
+                                    {% if class_info.inherits %}
+                                        <span class="sub-text inherits">extends</span>
+                                        <span class="parent-class">{{ class_info.inherits }}</span>
+                                    {% endif %}
+
                                 </div>
-                                <h2 data-key='{{class_name}}'>{{ class_name }}</h2>
-                                {% if class_info.inherits %}
-                                    <span class="sub-text inherits">extends</span>
-                                    <span class="parent-class">{{ class_info.inherits }}</span>
-                                {% endif %}
                             </div>
 
                             <div class="class-doc">
@@ -230,6 +234,7 @@
 
                             <ul class='class-methods' data-show-inherited='false'>
                                 {% for class_method in class_info.methods %}
+
                                 <li class="kind-{{class_method.kind}}"
                                     data-current-class="{{class_name}}"
                                     data-owner-class="{{ class_method.class_name }}"
@@ -239,7 +244,9 @@
                                         data-ishome="false"
                                     {% endif %}
                                     data-key='{{ class_name }}-{{ class_method.method_name }}'>
-                                    <div class="signature" data-inherited="{{ class_method.class_name }}">
+                                    <div class="{{ class_method.class_name }}-entity">
+
+                                        <div class="signature" data-inherited="{{ class_method.class_name }}">
 
                                         <a class='anchor' name='{{ class_name }}-{{ class_method.method_name }}'></a>
                                         <div class='method-head'>
@@ -290,18 +297,20 @@
                                         <div class="method-owner-class">
                                             <span class="sub-text inherits">from</span>
                                             <span class="owner-class-name">{{ class_method.class_name }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="comments">
+                                            {% for comment in class_method.comments %}
+                                                <div class="comment">
+                                                    {{ comment.html|safe }}
+                                                </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
 
-                                    <div class="comments">
-                                        {% for comment in class_method.comments %}
-                                            <div class="comment">
-                                                {{ comment.html|safe }}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-
                                 </li>
+
                                 {% endfor %}
                             </ul>
                         </div>

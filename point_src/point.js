@@ -65,6 +65,8 @@ class Positionable extends Relative {
 
             stage.center.x = (p)=>200
 
+        This property is known as a _special_ prop, and will actuate the
+        `setSpecial` method and dirty flag.
          */
         // this._opts.x = isFunction(v)? v(this, 'x'): v
         return this.setSpecial('x', value)
@@ -81,6 +83,8 @@ class Positionable extends Relative {
 
             stage.center.x = (p)=>200
 
+        This property is known as a _special_ prop, and will actuate the
+        `setSpecial` method and dirty flag.
          */
         // this._opts.y = isFunction(v)? v(this, 'y'): v
         return this.setSpecial('y', value)
@@ -155,10 +159,55 @@ class Positionable extends Relative {
             }
 
         */
+        this._dirty = true
         let name = `${key}Set`
         this[name] && this[name](value)
+        this._onDirty?.forEach(f=>f(name))
         // console.log(name)
     }
+
+    onDirty(func) {
+        /* Assign a function to call when a special value on this node is
+        changed.
+
+            let p = new Point(10, 10)
+            p.onDirty((key) => {
+                console.log('set', key)
+            })
+            p.y = 100
+            // set y
+
+        This provides a more _reactive_ method of dirty test, as this is called
+        immediately after the special key is changed.
+        Returns nothing.
+        */
+        if(!this._onDirty) { this._onDirty = [] }
+        this._onDirty.push(func)
+    }
+
+    get dirty() {
+        /* Return the _is_ `dirty` value. */
+        return this._dirty
+    }
+
+    get wasDirty() {
+        /* Return the _is_ `dirty` value, but also remove the dirty flag.
+        This is useful for dirty tests within the active render loop:
+
+            if(myPoint.wasDirty) {
+                // will call.
+                console.log('Dirty')
+            }
+
+            myPoint.dirty
+            // false
+
+        */
+        let r = this._dirty
+        this._dirty = false;
+        return r
+    }
+
 
     getSpecial(key, relIndex=undefined, defaultValue=0) {
         /* Return a stored _special_ value given a `key`.
@@ -502,9 +551,29 @@ class Tooling extends Rotation {
         return np
     }
 
+    getTip() {
+        const distance = this.radius
+        const rads = this.radians
+        // Calculate the new x and y coordinates
+        const x = this.x + distance * Math.cos(rads);
+        const y = this.y + distance * Math.sin(rads);
+        return { x, y };
+    }
+
     copy(position, deep=false) {
-        /* Given another point, replicate the value into this node.
-        Else, return a new node with the same information as this point.
+        /*
+        Copy this point as a new Point, or digest the given `position`.
+
+            // new point.
+            let p = stage.center.copy()
+
+        Given another point:
+
+            // drink options.
+            p.copy(new Point(100, 100))
+
+
+        Notably `copy(other)` is mutative and calls `set` on this point.
         */
         if(position) {
             this.set(position.x, position.y)
@@ -512,14 +581,11 @@ class Tooling extends Rotation {
                 this.radians = position.radians
             }
 
-            if(deep==true) {
-                /* Deep should inspect all given options
-                to a point, and apply them all. */
-
-                if(position.radius){
-                    this.radius = position.radius
-                }
+            /* Deep should inspect all given options  to a point, and apply them all. */
+            if(deep==true && position.radius){
+                this.radius = position.radius
             }
+
             return this;
         }
 

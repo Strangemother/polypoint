@@ -4,14 +4,16 @@
 <ul class='defs-list'>
     {% for item in defs %}
     <li class='def-item'>
-        <div class="raw-type">{{ item.type }}</div>
-        {% if item.type %}
-            {% str_merge './' item.type '.html' as inc_name %}
-            {% include inc_name with item=item %}
-        {% else %}
-            Missing type: <p>{{ item.word }}: {{ item.type }}</p>
-            {{ item }}
-        {% endif %}
+        <div class="{{ item.type }}-entity">
+            <div class="raw-type">{{ item.type }}</div>
+            {% if item.type %}
+                {% str_merge './' item.type '.html' as inc_name %}
+                {% include inc_name with item=item %}
+            {% else %}
+                Missing type: <p>{{ item.word }}: {{ item.type }}</p>
+                {{ item }}
+            {% endif %}
+        </div>
     </li>
     {% endfor %}
 </ul>

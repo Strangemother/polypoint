@@ -28,59 +28,128 @@ const pendulum_main = function(){
     ctx.canvas.width  = rect.width;
     ctx.canvas.height = rect.height;
 
-    let line = setupPendulum()
-    start(line)
-    solve()
-
-    draw()
+    setupPendulum()
+    start(randomLine)
+    draw(performance.now())
 }
 
-function draw() {
+function draw(nowMs) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    update()
-    requestAnimationFrame(draw);
-}
-
-
-var _solve = false;
-var UC = 0
-let solve = ()=> _solve = true;
-const update = function() {
-    UC++;
+    update(nowMs)
     if(randomLine) drawMyLine()
-    // if(UC % 3 != 0){ return;}
-    if (_solve) solveLine(randomLine)
-    // if(randomLine) drawMyLine('white')
+    requestAnimationFrame(draw)
 }
 
-var DIV = 10000
+
+var UC = 0
+const FIXED_DT = 1 / 120;
+const MAX_FRAME_DT = 1 / 20;
+const SOLVER_ITERS = 12;
+const ADAPTIVE_SUBSTEPS = false;
+const MAX_SUBSTEPS = 5;
+var lastTimeSec = 0;
+var accumulator = 0;
+
+const update = function(nowMs) {
+    UC++;
+    const nowSec = nowMs * 0.001;
+
+    if(lastTimeSec === 0) {
+        lastTimeSec = nowSec;
+    }
+
+    const frameDt = Math.min(nowSec - lastTimeSec, MAX_FRAME_DT);
+    lastTimeSec = nowSec;
+    accumulator += frameDt;
+
+    while(accumulator >= FIXED_DT) {
+        const substeps = getSubstepCount(randomLine);
+        solveLine(randomLine, FIXED_DT, substeps);
+        accumulator -= FIXED_DT;
+    }
+}
+
+const getSubstepCount = function(pointList) {
+    if(!ADAPTIVE_SUBSTEPS || !pointList || pointList.length < 2) {
+        return 1;
+    }
+
+    let maxStretch = 0;
+    for(let i = 1; i < pointList.length; i++) {
+        const a = pointList[i - 1];
+        const p = pointList[i];
+        const dx = p.x - a.x;
+        const dy = p.y - a.y;
+        const dist = Math.hypot(dx, dy);
+        const stretch = Math.abs(dist - length) / length;
+        if(stretch > maxStretch) {
+            maxStretch = stretch;
+        }
+    }
+
+    if(maxStretch > 0.25) return Math.min(MAX_SUBSTEPS, 5);
+    if(maxStretch > 0.12) return Math.min(MAX_SUBSTEPS, 4);
+    if(maxStretch > 0.06) return Math.min(MAX_SUBSTEPS, 3);
+    if(maxStretch > 0.03) return Math.min(MAX_SUBSTEPS, 2);
+    return 1;
+}
 
 var leftOffset;
 
 var randomLine;
-var length = 100;
-// var DIV = 10000
-// var gravity = 0.6 / DIV;
-// var friction = 0.009 / DIV;
-var DIV = 20
-var gravity = .6 / DIV;
-var friction = .009 / DIV;
-var members = 4; // Model.members;
+var length = 220;           // longer arms — key for chaotic coupling
+var gravity = 2200;
+var damping = 0.9998;       // near-lossless — preserves energy for chaotic motion
+var members = 3;            // few arms: 2–4 is the chaos sweet spot
+var anchorY = 180;
+var randomStartMinDeg = -160;
+var randomStartMaxDeg = 160;
+var randomStartImpulse = 1.8;
 
 const setupPendulum = function (){
     leftOffset = canvas.width * .5;
 
     randomLine = PointList.generate.list(members, length)
-    randomLine.setY(200)
+    const minRad = randomStartMinDeg * Math.PI / 180;
+    const maxRad = randomStartMaxDeg * Math.PI / 180;
+    const initialThetaFromDown = minRad + (.8 * (maxRad - minRad));
 
-    randomLine.setX((e,i,a)=>{
-        e.x = leftOffset + (i*length)
-    })
+    randomLine[0].x = leftOffset;
+    randomLine[0].y = anchorY;
+
+    for(let i = 1; i < randomLine.length; i++) {
+        const prev = randomLine[i - 1];
+        const p = randomLine[i];
+        p.x = prev.x + length * Math.sin(initialThetaFromDown);
+        p.y = prev.y + length * Math.cos(initialThetaFromDown);
+    }
 
     randomLine.forEach((p)=>{
-        p.vTheta = 0
-        p.theta = -45 * Math.PI / 180;
+        p.oldX = p.x;
+        p.oldY = p.y;
+        p.isDrag = false;
+        p.mass = 1;
+        p.invMass = 1;
     })
+
+    randomLine[0].mass = Infinity;
+    randomLine[0].invMass = 0;
+
+    // Equal masses at each joint — concentrated point masses drive chaotic coupling.
+    // Avoid a mass gradient here; distributed mass makes it rope-like instead.
+    for(let i = 1; i < randomLine.length; i++) {
+        randomLine[i].mass = 1;
+        randomLine[i].invMass = 1;
+    }
+
+    // Seed each free joint with an independent random impulse so each run
+    // starts from a different point in phase space — this is what triggers
+    // diverging chaotic trajectories rather than periodic oscillation.
+    for(let i = 1; i < randomLine.length; i++) {
+        const p = randomLine[i];
+        p.oldX = p.x + (Math.random() * 2 - 1) * randomStartImpulse;
+        p.oldY = p.y + (Math.random() * 2 - 1) * randomStartImpulse * 0.4;
+    }
 
     // randomLine[0].isDrag = true
     // randomLine[1].x -= 50;
@@ -114,39 +183,54 @@ function start(pointList) {
 }
 
 
-const solveLine = function(pointList){
-    let n = pointList.length;
-    const gl = gravity / n;
-    const gravity_direction = DOWN;
+const solveLine = function(pointList, dt, substeps=1){
+    if(!pointList || pointList.length < 2) {
+        return;
+    }
 
-    for(let i = 1; i < n; i++) {
-        let pre_point = pointList[i-1];
-        let point = pointList[i];
+    const anchor = pointList[0];
 
-        if (point.isDrag) {
-            let theta = pre_point.atan2()
-            point.x = pre_point.x + length * Math.cos(theta);
-            point.y = pre_point.y + length * Math.sin(theta);
-            point.vTheta = 0;
-            continue
+    for(let i = 1; i < pointList.length; i++) {
+        const p = pointList[i];
+        if(p.isDrag) {
+            continue;
         }
 
-        let theta = point.getTheta(pre_point, gravity_direction)
-        // simple harmonic motion with the parent
-        let aTheta = -1 * gl * Math.sin(theta);
-        point.vTheta += aTheta - friction * point.vTheta;
+        const vx = (p.x - p.oldX) * damping;
+        const vy = (p.y - p.oldY) * damping;
+        p.oldX = p.x;
+        p.oldY = p.y;
+        p.x += vx;
+        p.y += vy + gravity * dt * dt;
+    }
 
-        if(i < n - 1) {
-            let next_point = pointList[i + 1];
-            // next_theta = Math.atan2(next_point.y - point.y, next_point.x - point.x) - gravity_direction;
-            let next_theta = next_point.getTheta(point, gravity_direction)
-            aTheta = gl * Math.sin(next_theta - theta);
-            point.vTheta += aTheta - friction * point.vTheta;
+    const totalIters = SOLVER_ITERS * Math.max(1, substeps);
+    for(let iter = 0; iter < totalIters; iter++) {
+        anchor.x = leftOffset;
+        anchor.y = anchorY;
+
+        for(let i = 1; i < pointList.length; i++) {
+            const a = pointList[i - 1];
+            const b = pointList[i];
+            const dx = b.x - a.x;
+            const dy = b.y - a.y;
+            const dist = Math.hypot(dx, dy) || 1e-9;
+            const diff = (dist - length) / dist;
+
+            const wA = a.isDrag ? 0 : (a.invMass ?? 1);
+            const wB = b.isDrag ? 0 : (b.invMass ?? 1);
+            const wSum = wA + wB;
+            if(wSum === 0) {
+                continue;
+            }
+
+            const corrX = dx * diff;
+            const corrY = dy * diff;
+            a.x += corrX * (wA / wSum);
+            a.y += corrY * (wA / wSum);
+            b.x -= corrX * (wB / wSum);
+            b.y -= corrY * (wB / wSum);
         }
-
-        theta += point.vTheta + gravity_direction;
-        point.x = pre_point.x + length * Math.cos(theta);
-        point.y = pre_point.y + length * Math.sin(theta);
     }
 }
 

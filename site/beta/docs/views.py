@@ -71,10 +71,10 @@ class SearchResultsListView(views.ListView):
         return (
             exact,
             -boost,
-            fts_rank,
-            distance,
             -(item.rank_weight or 1),
             -(item.ranking or 0),
+            fts_rank,
+            distance,
             item.qualified_name,
             item.line_start,
         )
@@ -100,7 +100,12 @@ class SearchResultsListView(views.ListView):
 
         fts = []
         if remaining > 0:
-            fts_ids, self._fts_rank_map = sqlite_fts_ranked_ids(q, limit=self.fts_limit)
+            fts_ids, fts_rank_map = sqlite_fts_ranked_ids(q, limit=self.fts_limit)
+            # Keep FTS ranks for additional FTS-only candidates; direct matches
+            # should not be reordered by the secondary FTS signal.
+            self._fts_rank_map = {
+                row_id: rank for row_id, rank in fts_rank_map.items() if row_id not in direct_ids
+            }
             if fts_ids:
                 fts_by_id = {
                     item.id: item

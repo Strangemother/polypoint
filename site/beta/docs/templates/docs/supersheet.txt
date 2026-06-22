@@ -1,0 +1,10 @@
+Polypoint Super Sheet
+
+{% for item in top_level_results %}{% ifchanged item.qualified_name|slice:":1" %}# {{ item.qualified_name|slice:":1"|upper }}
+{% endifchanged %}{{ item.qualified_name }} ({{ item.symbol_type }}, line:{{ item.line_start }}, weight:{{ item.rank_weight }}, rank:{{ item.ranking }}, file:{{ item.source_file }}{% if item.kind and item.kind != item.symbol_type %}, kind:{{ item.kind }}{% endif %}{% if item.signature %}, sig:{{ item.signature }}{% endif %})
+{% endfor %}
+
+{% if owned_results %}# Owned Members
+{% for item in owned_results %}{{ item.qualified_name }} ({{ item.symbol_type }}, line:{{ item.line_start }}, weight:{{ item.rank_weight }}, rank:{{ item.ranking }}, file:{{ item.source_file }}{% if item.kind and item.kind != item.symbol_type %}, kind:{{ item.kind }}{% endif %}{% if item.signature %}, sig:{{ item.signature }}{% endif %})
+{% endfor %}
+{% endif %}

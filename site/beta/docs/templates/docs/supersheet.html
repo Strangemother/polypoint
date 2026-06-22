@@ -1,0 +1,48 @@
+{% extends "docs/doc-base.html" %}
+
+{% block page_title %}Polypoint Super Sheet{% endblock page_title %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        <p>
+            <a href="?download=1">Download as text</a>
+        </p>
+        
+        <h2>Polypoint Super Sheet</h2>
+
+        <h3>Top Level</h3>
+        <ul>
+            {% for item in top_level_results %}
+            <li>
+               
+                {{ item.qualified_name }} 
+                
+                {% comment %}
+                    ({{ item.symbol_type }}, 
+                    line:{{ item.line_start }}, 
+                    weight:{{ item.rank_weight }}, 
+                    rank:{{ item.ranking }}, 
+                    file:{{ item.source_file }}{% if item.kind and item.kind != item.symbol_type %}, kind:{{ item.kind }}{% endif %}{% if item.signature %}, sig:{{ item.signature }}{% endif %})
+                {% endcomment %}
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Owned Members</h3>
+        <ul>
+            {% for item in owned_results %}
+            <li>
+                <!-- <span class="symbol-kind">{{ item.kind|default:item.symbol_type }}</span> -->
+                {% ifchanged item.owner_name %}
+                    <span class="symbol-owner-name">{{ item.owner_name }}</span>
+                {% else %}
+                    <span class="symbol-owner-name parent-owned visibility-hidden">{{ item.owner_name }}</span>
+                {% endifchanged %}
+                .<span class="symbol-name">{{ item.name|default:item.qualified_name }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}

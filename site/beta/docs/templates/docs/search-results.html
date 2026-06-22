@@ -1,0 +1,39 @@
+{% extends "docs/doc-base.html" %}
+{% load link %}
+
+{% block page_title %}Search Results{% endblock page_title %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        <form action="{% url 'docs:search_results' %}" method="get">
+            <label for="id_q">Query</label>
+            {{ form.q }}
+            <button type="submit">Search</button>
+            <a href="{% url 'docs:search_form' %}">new search</a>
+        </form>
+
+        {% if q %}
+            <p>{{ results|length }} result{{ results|length|pluralize }} for "{{ q }}"</p>
+        {% else %}
+            <p>Enter a query to search symbols.</p>
+        {% endif %}
+
+        <ul>
+            {% for item in results %}
+                <li>
+                    <strong>{{ item.qualified_name }}</strong>
+                    <span>({{ item.symbol_type }})</span>
+                    {% if item.source_file %}
+                        <span>- {{ item.source_file }}:{{ item.line_start }}</span>
+                    {% endif %}
+                </li>
+            {% empty %}
+                {% if q %}
+                    <li>No matches.</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}

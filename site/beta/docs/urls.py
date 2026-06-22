@@ -9,6 +9,9 @@ app_name = 'docs'
 
 urlpatterns = urls.paths_named(views,
     home=('IndexView', ""),
+    supersheet=('SuperSheetListView', 'supersheet/'),
+    search_form=('SearchFormView', 'search/'),
+    search_results=('SearchResultsListView', 'search/results/'),
     markdown_example=('MarkdownExampleView', 'md/'),
     pure_markdown_example=('MarkdownExamplePureView', 'pmd/'),
     page_example=('ExamplePageView', 'example/1/'),

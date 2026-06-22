@@ -1,0 +1,17 @@
+{% extends "docs/doc-base.html" %}
+{% load link %}
+
+{% block page_title %}Search API{% endblock page_title %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="id_q">Query</label>
+            {{ form.q }}
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

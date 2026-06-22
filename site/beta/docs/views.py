@@ -2,10 +2,15 @@ from pathlib import Path
 from operator import itemgetter, attrgetter
 
 from django.template.base import Template
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from django.conf import settings
-from django.shortcuts import render
+from django.db.models import Q
+from urllib.parse import urlencode
 
 from trim import views
 from trim.markdown import (
@@ -19,6 +24,162 @@ import markdown
 
 
 import json
+
+from docs.models import SourceReference
+from docs.forms import SearchSymbolForm
+from docs.search_text import field_boost_score, normalize_search_text, rank_symbol_match
+from docs.sqlite_search import sqlite_fts_ranked_ids
+
+
+class SearchFormView(views.FormView):
+    template_name = "docs/search-form.html"
+    form_class = SearchSymbolForm
+
+    def get_context_data(self, **kwargs):
+        r = super().get_context_data(**kwargs)
+        r["object_path"] = Path("search")
+        r["page_title"] = "Search API"
+        r["title"] = "Search API"
+        return r
+
+    def form_valid(self, form):
+        q = form.cleaned_data["q"]
+        url = reverse("docs:search_results")
+        query = urlencode({"q": q})
+        return HttpResponseRedirect(f"{url}?{query}")
+
+
+class SearchResultsListView(views.ListView):
+    template_name = "docs/search-results.html"
+    context_object_name = "results"
+    result_limit = 250
+    fuzzy_scan_limit = 5000
+    fuzzy_distance_floor = 2
+    fts_limit = 1500
+
+    def _rank_key(self, q, item):
+        exact, distance = rank_symbol_match(q, item.name, item.qualified_name)
+        boost = field_boost_score(
+            query=q,
+            name=item.name,
+            qualified_name=item.qualified_name,
+            owner_name=item.owner_name,
+            symbol_type=item.symbol_type,
+            search_text=item.search_text,
+        )
+        fts_rank = self._fts_rank_map.get(item.id, 1e12)
+        return (
+            exact,
+            -boost,
+            fts_rank,
+            distance,
+            -(item.rank_weight or 1),
+            -(item.ranking or 0),
+            item.qualified_name,
+            item.line_start,
+        )
+
+    def get_queryset(self):
+        q = (self.request.GET.get("q") or "").strip()
+        if not q:
+            return SourceReference.objects.none()
+
+        self._fts_rank_map = {}
+
+        direct = list(
+            SourceReference.objects.filter(
+                Q(search_text__icontains=q)
+                | Q(name__icontains=q)
+                | Q(qualified_name__icontains=q)
+            )
+            .order_by("qualified_name", "line_start")[: self.result_limit]
+        )
+
+        direct_ids = {item.id for item in direct if item.id is not None}
+        remaining = self.result_limit - len(direct)
+
+        fts = []
+        if remaining > 0:
+            fts_ids, self._fts_rank_map = sqlite_fts_ranked_ids(q, limit=self.fts_limit)
+            if fts_ids:
+                fts_by_id = {
+                    item.id: item
+                    for item in SourceReference.objects.filter(id__in=fts_ids)
+                }
+                for row_id in fts_ids:
+                    item = fts_by_id.get(row_id)
+                    if item is None or item.id in direct_ids:
+                        continue
+                    fts.append(item)
+
+        taken_ids = set(direct_ids)
+        taken_ids.update(item.id for item in fts if item.id is not None)
+        remaining = self.result_limit - len(direct) - len(fts)
+
+        fuzzy = []
+        if remaining > 0:
+            normalized_q = normalize_search_text(q)
+            max_distance = max(self.fuzzy_distance_floor, len(normalized_q) // 3)
+
+            scanned = 0
+            pool = SourceReference.objects.exclude(id__in=taken_ids).order_by("name")
+            for item in pool.iterator(chunk_size=1000):
+                scanned += 1
+                if scanned > self.fuzzy_scan_limit:
+                    break
+
+                _, distance = rank_symbol_match(q, item.name, item.qualified_name)
+                if distance <= max_distance:
+                    fuzzy.append(item)
+
+            fuzzy.sort(key=lambda item: self._rank_key(q, item))
+            fuzzy = fuzzy[:remaining]
+
+        matches = direct + fts + fuzzy
+        matches.sort(key=lambda item: self._rank_key(q, item))
+        return matches[: self.result_limit]
+
+    def get_context_data(self, **kwargs):
+        r = super().get_context_data(**kwargs)
+        q = (self.request.GET.get("q") or "").strip()
+        r["q"] = q
+        r["form"] = SearchSymbolForm(initial={"q": q})
+        r["object_path"] = Path("search/results")
+        r["page_title"] = "Search Results"
+        r["title"] = "Search Results"
+        return r
+
+
+class SuperSheetListView(views.ListView):
+    template_name = "docs/supersheet.html"
+    context_object_name = "results"
+
+    def get_queryset(self):
+        return SourceReference.objects.order_by(
+                    "qualified_name", "symbol_type", "line_start"
+                )
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        context = self.get_context_data(object_list=self.object_list)
+
+        if request.GET.get("download"):
+            content = render_to_string("docs/supersheet.txt", context, request=request)
+            response = HttpResponse(content, content_type="text/plain; charset=utf-8")
+            response["Content-Disposition"] = 'attachment; filename="polypoint-supersheet.txt"'
+            return response
+
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        r = super().get_context_data(**kwargs)
+        base_qs = self.object_list if hasattr(self, "object_list") else self.get_queryset()
+        no_owner = Q(owner_name__isnull=True) | Q(owner_name="")
+        top_level_filter = no_owner & ~Q(symbol_type__iexact="class")
+        r["top_level_results"] = base_qs.filter(top_level_filter)
+        r["owned_results"] = base_qs.exclude(top_level_filter)
+        r["object_path"] = Path("supersheet")
+        return r
 
 def get_src_list(sub_path=None, **kw):
     # get all files in the src dir

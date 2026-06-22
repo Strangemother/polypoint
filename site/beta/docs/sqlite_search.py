@@ -53,7 +53,7 @@ def rebuild_fts_index():
             f"""
             INSERT INTO {FTS_TABLE}
                 (rowid, qualified_name, name, owner_name, symbol_type, search_text)
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s, %s)
             """,
             rows,
         )
@@ -85,9 +85,9 @@ def sqlite_fts_ranked_ids(query, limit=500):
     sql = f"""
         SELECT rowid, bm25({FTS_TABLE}, 5.0, 4.0, 1.5, 1.2, 0.8) AS rank
         FROM {FTS_TABLE}
-        WHERE {FTS_TABLE} MATCH ?
+        WHERE {FTS_TABLE} MATCH %s
         ORDER BY rank ASC
-        LIMIT ?
+        LIMIT %s
     """
 
     ids = []

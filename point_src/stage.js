@@ -242,6 +242,23 @@ class StageRender extends StageBase {
         addEventListener('addon:announce', (e)=>this.addonAnnounceHandler(e));
     }
 
+    getObserverRoot(){
+        return document.querySelector("#scrollArea")
+    }
+
+    prepareObserver(opts={}){
+
+        opts.root = this.getObserverRoot()
+        const options = Object.assign({
+              root,
+              rootMargin: "0px",
+              scrollMargin: "0px",
+              threshold: 1.0,
+            }, opts);
+
+        const observer = new IntersectionObserver(callback, options);
+    }
+
     /* Empty API Method */
     mounted(canvas) {
         /* A Convenient place to perform initial work. */

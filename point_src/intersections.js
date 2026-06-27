@@ -63,11 +63,21 @@ const getDotProduct = function(px, py, x1, y1, x2, y2){
     return (px - x1) * (x2 - x1) + (py - y1) * (y2 - y1);
 }
 
-
 const getDenominator = function(x1, y1, x2, y2, x3, y3, x4, y4) {
+    /*
+      Computes the determinant (denominator) for the intersection of two lines.
+
+      Formula: (x1 - x2)(y3 - y4) - (y1 - y2)(x3 - x4)
+
+      Use Case:
+
+      - If result === 0: The lines are parallel or collinear.
+      - If result !== 0: The lines intersect at a single point.
+
+      @param {Array<number>} points - Expected as (x1, y1, x2, y2, x3, y3, x4, y4)
+     */
      return (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
 }
-
 
 const checkPointIntersectionOccured = function(line, point, radius=5, length=400) {
     const x1 = line[0].x;

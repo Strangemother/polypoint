@@ -174,22 +174,22 @@ class MainStage extends Stage {
                 , curve
             })
 
-            ctx.beginPath()
             ctx.moveTo(curve.start.x, curve.start.y)
             curve.segments.forEach((seg)=>{
+                ctx.beginPath()
                 ctx.bezierCurveTo(
                     seg.c1.x, seg.c1.y,
                     seg.c2.x, seg.c2.y,
                     seg.end.x, seg.end.y
                 )
+                ctx.strokeStyle = `hsl(${red} 70% 22%)`
+                ctx.lineWidth = 1
+                ctx.stroke()
             })
             ctx.closePath()
             ctx.fillStyle = color
             ctx.fill()
 
-            ctx.strokeStyle = `hsl(${red} 70% 22%)`
-            ctx.lineWidth = 1
-            ctx.stroke()
         })
     }
 }

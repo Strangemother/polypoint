@@ -139,7 +139,6 @@ function getArcCenterThrough(A, B, C) {
  */
 
 
-
 function getRadiusPlot(A, B, radius) {
   const dx = B.x - A.x;
   const dy = B.y - A.y;
@@ -169,7 +168,6 @@ function getRadiusPlot(A, B, radius) {
     { x: cx2, y: cy2 }
   ];
 }
-
 
 
 const penArcPlot = function(arcPlot, ctx, color='red', width=2) {
@@ -227,6 +225,7 @@ const getArcPlotAngle = function(arcPlot, direction=1){
     return radiansToDegrees(rads)
 }
 
+
 const arcSweep = function(centerPoint, radSweep=Math.PI, direction=0) {
     /* Draw an arc as a _sweep_, using the center point initial direction
     and a angle to sweep through.
@@ -280,8 +279,6 @@ const arcFromTo = function(centerPoint, fromPoint, toPoint, direction=0){
 }
 
 
-
-
 function findThirdPoint(A, B) {
     const dx = B.x - A.x;
     const dy = B.y - A.y;
@@ -313,25 +310,32 @@ function findThirdPoint(A, B) {
 
 
 function findRadius(pointA, pointB, pointC) {
+    /*
+     Calculates the circumradius of a triangle.
 
+     Given three points in a 2D plane, finds the radius of the unique
+     circle that passes through all three points (the circumcircle).
 
-    // // Test the function
-    // const pointA = { x: 0, y: 0 };
-    // const pointB = { x: 1, y: 0 };
-    // const pointC = { x: 0.5, y: 0.5 * Math.sqrt(3) };
-
-    // const radius = findRadius(pointA, pointB, pointC);
-    // console.log("Radius:", radius);
+     Formula: R = abc / 4K
+     Where K is the area calculated via Heron's Formula.
+    */
 
     const a = distance(pointB, pointC);
     const b = distance(pointC, pointA);
     const c = distance(pointA, pointB);
 
-    const s = a + b + c; // semi-perimeter
+    // The perimeter of the triangle
+    const s = a + b + c;
 
-    const radius = (a * b * c) / Math.sqrt(s * (s - 2 * a) * (s - 2 * b) * (s - 2 * c));
+    // Using the expanded Heron's formula to find the denominator (4 * Area)
+    const denominator = Math.sqrt(s * (s - 2 * a) * (s - 2 * b) * (s - 2 * c));
 
-    return radius;
+    if (denominator === 0) return 0;
+
+    const radius = (a * b * c) / denominator;
+
+    // Returns radius if it's a valid number, otherwise returns 0
+    return Number.isFinite(radius) ? radius : 0;
 }
 
 

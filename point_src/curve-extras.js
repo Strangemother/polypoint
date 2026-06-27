@@ -57,6 +57,21 @@ class Line {
         return this.a.distanceTo(this.b)
     }
 
+    setLength(value, centerPoint=.5) {
+        /* Set the length of the line to the specific value,
+        using the centerPoint as the linear shrink pivot.
+
+        Set centerPoint=0 for shink towards point A,
+        or centerPoint=1 to shink towards point B.
+
+            // Move point A an B equally.
+            line.setLength(100, centerPoint=.5)
+            console.log(line.length)
+            //100
+        */
+       // not implemented yet.
+    }
+
     get points() {
         return [this.a, this.b]
     }

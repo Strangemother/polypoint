@@ -55,6 +55,10 @@ class MainStage extends Stage {
         this.randomMove()
         this.ml.linear(ctx)
 
+        let s = 80 + p.radius
+        let l = 20 + (p.radius * 3)
+        let h = 277
+        p.color = `hsl(${h} ${s}% ${l}%)`
         this.point.pen.fill(ctx, p.color)
     }
 }

@@ -168,7 +168,7 @@ class MainStage extends Stage {
         // a1.pen.indicator(ctx)
         // this.a.pen.indicator(ctx, {color: 'cyan'})
         orig.pen.indicator(ctx, {color: '#444'})
-        let last; 
+        let last;
         lineCurve.forEach(trip => {
             let sub = new PointList(...trip)
             if(last) {
@@ -180,7 +180,7 @@ class MainStage extends Stage {
             last = sub.last()
         })
         // lineCurve.pen.indicator(ctx, {color: 'orange'})
-        
+
         // lineCurve.pen.quadCurve(ctx, {color: 'red', width: 2, loop:true})
         // lineCurve.pen.quadCurve(ctx, {color: 'pink', width: 2, loop:false})
         // lineCurve.pen.line(ctx, {color: 'pink', width: 2, loop:false})
@@ -195,7 +195,7 @@ class MainStage extends Stage {
 
         ctx.beginPath();
         ctx.arc(cap.cx, cap.cy, cap.radius, cap.startRadians, cap.toRadians, 0);
-        ctx.stroke();        
+        ctx.stroke();
     }
 
     genLine(orig){
@@ -234,12 +234,12 @@ class MainStage extends Stage {
 
             if(!toTip)  { return [a2, orig[index]] }
             let c = orig[index].copy()
-            
+
             c.lookAt(a1.midpoint(a2))
             let real = c.radius - (a1.distanceTo(a2)) * .5
             c.radius = undefined
             c.update(getContinuationArc(a1, a2, orig[index]))
-        
+
             return [a1, c, a2]
         }
 
@@ -260,12 +260,12 @@ class MainStage extends Stage {
             //     real = c.radius * easingFunctions[easingName][easingType](real / c.radius)
             //     c = c.project(real)
             // }
-            
+
             c.lookAt(a1.midpoint(a2))
             let real = c.radius - (a1.distanceTo(a2)) * .5
             c.radius = undefined
             c.update(getContinuationArc(a1, a2, orig[index]))
-        
+
             if(!toTip)  { return [a1, orig[index]] }
 
             return [a1, c, a2]

@@ -321,23 +321,23 @@ function quantizeAngle(inputAngle, bisect) {
 
 
 function calculateAngle(point1, point2) {
-    /**
-        // Test the function
+    /*
+
+      Given two points, return the angle in degrees representing the slope
+      or angle of the line between the points.
+
         const point1 = {x: 10, y: 10};
         const point2 = {x: 10, y: 100};
         console.log(calculateAngle(point1, point2)); // 90
-        // GPT
+
      */
-    // deltaX and deltaY are the changes in x and y respectively between the two points
     const deltaX = point2.x - point1.x;
     const deltaY = point2.y - point1.y;
 
-    // Calculate the angle in radians and convert it to degrees
+    // rads to deg
     let angleInDegrees = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-
-    // Adjust the angle so that "up" corresponds to 0 degrees and "down" corresponds to 180 degrees
+    // Ensure bounds.
     angleInDegrees = (angleInDegrees + 360) % 360;
-
     return angleInDegrees;
 }
 

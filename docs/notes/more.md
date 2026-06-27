@@ -57,6 +57,25 @@ A ribbon, fron, barbs, threads, fibers
 
 ---
 
+Contigious componentry:
+
+Everything starts with a Point.
+
+Point: A single point.
+Line: Two Points connected via a line
+Curve: A line with an arc
+    Arc
+    Bezier
+    Quad
+    Catenary
+Spline: Many Lines
+
+A Spline is actually just a list of points, but with a a line drawn
+between them. Therefore: Point + Point > Line > Curve > Spline
+
+
+---
+
 # polygon items
 
 ngon func

@@ -1,3 +1,4 @@
-from django.contrib import admin
+from . import models
+from trim.admin import register_models
 
-# Register your models here.
+register_models(models, ignore=__name__)

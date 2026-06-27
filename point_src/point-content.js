@@ -65,11 +65,14 @@ function projectFrom(origin, distance=undefined, rotation=undefined) {
         distance = origin.radius
     }
 
-    const rotationInRadians = degToRad(rotation)
+    // const rotationInRadians = degToRad(rotation)
+    // // Calculate the new x and y coordinates
+    // const x = origin.x + distance * Math.cos(rotationInRadians);
+    // const y = origin.y + distance * Math.sin(rotationInRadians);
 
-    // Calculate the new x and y coordinates
-    const x = origin.x + distance * Math.cos(rotationInRadians);
-    const y = origin.y + distance * Math.sin(rotationInRadians);
+    const vector = getVector(degToRad(rotation), distance)
+    const x = origin.x + vector.x;
+    const y = origin.y + vector.y;
 
     return { x, y };
 }

@@ -37,6 +37,27 @@ const point = function(p, b) {
 }
 
 
+
+function getVector(radians, multiplier=1) {
+    /* Return the 2D XY vector of this point using `this.radians`.
+
+        point.getVector()
+        { x: 1.2, y: 0.3 }
+
+    Provide a multuplier, for example to create an incident angle:
+
+        point.getVector(-1)
+        { x: -1.2, y: -0.3 }
+
+     */
+    return {
+        // Step 1: Convert the incident angle (from radians) to a vector
+        x: multiplier * Math.cos(radians)
+        , y: multiplier * Math.sin(radians)
+    }
+}
+
+
 window.loadDocInfo = function() {
     /* Return the think to resolve */
     console.log('loadDocInfo called')
@@ -554,10 +575,35 @@ class Tooling extends Rotation {
     getTip() {
         const distance = this.radius
         const rads = this.radians
+        const vector = this.vector2D(distance)
         // Calculate the new x and y coordinates
-        const x = this.x + distance * Math.cos(rads);
-        const y = this.y + distance * Math.sin(rads);
+        const x = this.x + vector.x //distance * Math.cos(rads);
+        const y = this.y + vector.y //distance * Math.sin(rads);
+
+        // const x = this.x + distance * Math.cos(rads);
+        // const y = this.y + distance * Math.sin(rads);
+
         return { x, y };
+    }
+
+    vector2D(multiplier=1) {
+        /* Return the 2D XY vector of this point using `this.radians`.
+
+            point.vector2D()
+            { x: 1.2, y: 0.3 }
+
+        Provide a multuplier, for example to create an incident angle:
+
+            point.vector2D(-1)
+            { x: -1.2, y: -0.3 }
+
+         */
+        const rads = this.radians
+        return {
+            // Step 1: Convert the incident angle (from radians) to a vector
+            x: multiplier * Math.cos(rads)
+            , y: multiplier * Math.sin(rads)
+        }
     }
 
     copy(position, deep=false) {

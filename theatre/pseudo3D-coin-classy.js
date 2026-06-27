@@ -21,20 +21,16 @@ files:
 
 */
 
-class MainStage extends Stage {
-    canvas='playspace'
-    // live=false
-    live = true
+class PointCoin {
+    /* point.coin */
+    constructor(p) {
+        this.parent = p
 
-    mounted(){
-        this.depth = 1000
-        this.sourcePoint = new Point({
-            x: this.center.x
-            , y: this.center.y
-            , z: 0
-            , radius: 100
-        })
-
+        this.spin = {
+                x: this.rotSize
+                , y: this.rotSize
+                , z: 0//-this.rotSize
+            }
         // Change these values to rotate around the coin center or an offset pivot.
         // this.rotationOriginMode = 'center' // 'center' | 'offset'
         this.rotationOriginMode = 'offset' // 'center' | 'offset'
@@ -42,9 +38,10 @@ class MainStage extends Stage {
 
         this.projectionPoint = this.getRotationOriginPoint()
         this.projectionLength = 1000
-        this.perspectiveCenter = this.sourcePoint.copy()
+
+        this.perspectiveCenter = this.parent.copy()
         this.rotSize = 0
-        this.performSpin = false
+        this.performSpin = true
 
         // Four-curve coin profile in point-local plane space.
         this.coinCurveConfig = {
@@ -56,34 +53,17 @@ class MainStage extends Stage {
 
     }
 
-    onMousedown(){
-        this.performSpin = !this.performSpin
-    }
-
-    step(){
-        this.spin = {
-                x: this.rotSize
-                , y: this.rotSize
-                , z: 0//-this.rotSize
-            }
-
-        this.projectionPoint = this.getRotationOriginPoint()
-
-        let axisStep = this.coinCurveConfig.axisStep ?? 1
-        this.projectedCoin = this.projectPointBasis(this.sourcePoint, axisStep)
-
-    }
-
     getRotationOriginPoint(){
         if(this.rotationOriginMode == 'offset'){
-            return this.sourcePoint.copy().add(
+            return this.parent.add(
                 this.rotationOriginOffset.x
                 , this.rotationOriginOffset.y
                 , this.rotationOriginOffset.z
             )
         }
-        return this.sourcePoint.copy()
+        return this.parent.copy()
     }
+
 
     projectPointBasis(source, axisStep=1){
         let center = source.copy()
@@ -116,14 +96,48 @@ class MainStage extends Stage {
         }
     }
 
-    mapPlaneLocalToScreen(item, u, v, radius){
-        let p = item.p
-        let ex = item.vx
-        let ey = item.vy
-        return {
-            x: p.x + ((ex.x * u) + (ey.x * v)) * radius
-            , y: p.y + ((ex.y * u) + (ey.y * v)) * radius
+    step(){
+        this.spin = {
+                x: 0 // this.rotSize
+                , y: this.rotSize
+                , z: 0//-this.rotSize
+            }
+
+        this.projectionPoint = this.getRotationOriginPoint()
+
+        let axisStep = this.coinCurveConfig.axisStep ?? 1
+        this.projectedCoin = this.projectPointBasis(this.parent, axisStep)
+    }
+
+    draw(ctx){
+
+        if(this.performSpin){
+            this.rotSize += 1
         }
+        this.step()
+
+        // Four-segment cubic casting for the coin profile.
+        let curve = this.getProjectedCoinBezier(this.projectedCoin, this.coinCurveConfig)
+
+        ctx.beginPath()
+        ctx.moveTo(curve.start.x, curve.start.y)
+        curve.segments.forEach((seg)=>{
+            ctx.bezierCurveTo(
+                seg.c1.x, seg.c1.y,
+                seg.c2.x, seg.c2.y,
+                seg.end.x, seg.end.y
+            )
+        })
+        ctx.closePath()
+        let v = this.spin.y % 360
+        let col = (v > 90 && v < 270) ? '#555': 'purple'
+        ctx.fillStyle = col
+        ctx.fill()
+        // p.pen.fill(ctx, {color: col})
+
+        ctx.strokeStyle = `hsl(277 60% 80%)`
+        ctx.lineWidth = 3
+        ctx.stroke()
     }
 
     getProjectedCoinBezier(item, conf={}){
@@ -164,33 +178,46 @@ class MainStage extends Stage {
         }
     }
 
+    mapPlaneLocalToScreen(item, u, v, radius){
+        let p = item.p
+        let ex = item.vx
+        let ey = item.vy
+        return {
+            x: p.x + ((ex.x * u) + (ey.x * v)) * radius
+            , y: p.y + ((ex.y * u) + (ey.y * v)) * radius
+        }
+    }
+
+}
+
+
+class MainStage extends Stage {
+    canvas='playspace'
+    // live=false
+    live = true
+
+    mounted(){
+        this.depth = 1000
+        this.sourcePoint = new Point({
+            x: this.center.x
+            , y: this.center.y
+            , z: 0
+            , radius: 100
+        })
+
+        this.sourcePoint.coin = new PointCoin(this.sourcePoint)
+    }
+
+    onMousedown(){
+        this.sourcePoint.coin.performSpin = !this.sourcePoint.coin.performSpin
+    }
+
     draw(ctx){
         this.clear(ctx)
+        let p = this.sourcePoint;
+        p.coin.draw(ctx)
 
-        if(this.performSpin){
-            this.rotSize += 2
-        }
-        this.step()
 
-        // Four-segment cubic casting for the coin profile.
-        let curve = this.getProjectedCoinBezier(this.projectedCoin, this.coinCurveConfig)
-
-        ctx.beginPath()
-        ctx.moveTo(curve.start.x, curve.start.y)
-        curve.segments.forEach((seg)=>{
-            ctx.bezierCurveTo(
-                seg.c1.x, seg.c1.y,
-                seg.c2.x, seg.c2.y,
-                seg.end.x, seg.end.y
-            )
-        })
-        ctx.closePath()
-        ctx.fillStyle = 'purple'
-        // ctx.fill()
-
-        ctx.strokeStyle = `purple`
-        ctx.lineWidth = 1
-        ctx.stroke()
     }
 }
 

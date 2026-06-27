@@ -59,6 +59,7 @@ const checkIntersection = function(line, otherLine, length=400) {
     return false;
 }
 
+
 const checkIntersectionWithRotation = function(line, otherLine, length=400) {
 
     const x1 = line.start.x;

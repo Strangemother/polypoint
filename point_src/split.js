@@ -118,8 +118,6 @@ Polypoint.head.installFunctions('Point', {
     }
 });
 
-console.log('split')
-
 
 
 Polypoint.head.installFunctions('BezierCurve', {

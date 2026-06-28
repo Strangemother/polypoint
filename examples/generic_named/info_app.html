@@ -1,10 +1,19 @@
 {% load strings link try_include quickforms %}
 <div class="info-container font-Inter-500">
 
-    <div class="meta-form">
+
+    <div class="meta-form" id="remote_service_app">
+        {% verbatim %}
+            Words: {{ store.word }}
+        {% endverbatim %}
 
         {%  quickform.form "examples:remote_meta_service" %}
 
+        {% verbatim %}
+            <div class="message-response">
+                {{ store.loading ? 'Thinking...' : store.response }}
+            </div>
+        {% endverbatim %}
     </div>
     {% comment %}
         Install the import of the same filename - if it exists.

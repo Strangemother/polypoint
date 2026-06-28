@@ -42,10 +42,16 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('No missing descriptions.'))
             return
 
+        self.stdout.write(
+            f'Processing {total} file(s) with missing descriptions...'
+        )
+        self.stdout.write(f'Endpoint: {endpoint}')
+
         updated = 0
         errors = 0
 
-        for tfm in queryset:
+        for index, tfm in enumerate(queryset, start=1):
+            self.stdout.write(f'[{index}/{total}] {tfm.filepath}')
             try:
                 data = request_description_response(
                     tfm.filepath,
@@ -58,16 +64,23 @@ class Command(BaseCommand):
                 tfm.description = description
                 tfm.save(update_fields=['description'])
                 updated += 1
+                self.stdout.write(
+                    self.style.SUCCESS(
+                        f'  OK ({len(description)} chars)'
+                    )
+                )
             except (
                 FileNotFoundError,
                 requests.RequestException,
                 ValueError,
             ) as exc:
                 errors += 1
-                self.stderr.write(f'[{tfm.id}] {tfm.filepath}: {exc}')
+                self.stderr.write(
+                    self.style.ERROR(f'  ERROR: {exc}')
+                )
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'Updated {updated}/{total} descriptions; {errors} errors.'
+                f'Complete. Updated {updated}/{total}; errors={errors}.'
             )
         )

@@ -6,4 +6,5 @@ from .image_views import *
 from .index_views import *
 from .script_views import *
 from .theatre_state_views import *
+from .remote_meta_views import *
 from .utils import *

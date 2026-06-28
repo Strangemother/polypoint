@@ -1,6 +1,11 @@
-{% load strings link try_include %}
+{% load strings link try_include quickforms %}
 <div class="info-container font-Inter-500">
 
+    <div class="meta-form">
+
+        {%  quickform.form "examples:remote_meta_service" %}
+
+    </div>
     {% comment %}
         Install the import of the same filename - if it exists.
     {% endcomment %}

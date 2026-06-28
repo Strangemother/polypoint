@@ -9,6 +9,15 @@ class ImagePostForm(forms.Form):
     series_index = fields.chars(required=False)
 
 
+class MetaForm(forms.Form):
+    """Given the file and some notes to populate the
+    theatre data info with knowledge.
+    """
+    theatrefile_id = fields.chars(required=False)
+    theatre_filename = fields.chars(required=False)
+    notes = fields.text(required=False)
+
+
 class CloneFileForm(forms.Form):
     new_name = fields.chars(max_length=255)
 

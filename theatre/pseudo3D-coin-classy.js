@@ -127,10 +127,11 @@ class PointCoin {
                 seg.c2.x, seg.c2.y,
                 seg.end.x, seg.end.y
             )
-        })
+        });
+
         ctx.closePath()
         let v = this.spin.y % 360
-        let col = (v > 90 && v < 270) ? '#555': 'purple'
+        let col = (v > 90 && v < 270) ? '#000': 'purple'
         ctx.fillStyle = col
         ctx.fill()
         // p.pen.fill(ctx, {color: col})
@@ -138,6 +139,14 @@ class PointCoin {
         ctx.strokeStyle = `hsl(277 60% 80%)`
         ctx.lineWidth = 3
         ctx.stroke()
+
+        new Point(curve.start.x, curve.start.y).pen.indicator(ctx, {color:'orange'});
+
+        curve.segments.forEach((seg)=>{
+            new Point(seg.c1.x, seg.c1.y).pen.indicator(ctx, {color:'yellow'});
+            new Point(seg.c2.x, seg.c2.y).pen.indicator(ctx, {color:'yellow'});
+            new Point(seg.end.x, seg.end.y).pen.indicator(ctx, {color:'red'});
+        })
     }
 
     getProjectedCoinBezier(item, conf={}){
@@ -190,6 +199,11 @@ class PointCoin {
 
 }
 
+Polypoint.extend.prop('Point', function coin() {
+    return new PointCoin(this)
+})
+
+
 
 class MainStage extends Stage {
     canvas='playspace'
@@ -197,27 +211,24 @@ class MainStage extends Stage {
     live = true
 
     mounted(){
-        this.depth = 1000
-        this.sourcePoint = new Point({
+        this.point = new Point({
             x: this.center.x
             , y: this.center.y
             , z: 0
             , radius: 100
         })
 
-        this.sourcePoint.coin = new PointCoin(this.sourcePoint)
+        // this.point.coin = new PointCoin(this.point)
     }
 
     onMousedown(){
-        this.sourcePoint.coin.performSpin = !this.sourcePoint.coin.performSpin
+        this.point.coin.performSpin = !this.point.coin.performSpin
     }
 
     draw(ctx){
         this.clear(ctx)
-        let p = this.sourcePoint;
+        let p = this.point;
         p.coin.draw(ctx)
-
-
     }
 }
 

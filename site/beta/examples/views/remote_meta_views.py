@@ -59,10 +59,10 @@ class ExampleFileMetaFormView(views.FormView):
             'notes': notes
         }
 
-        t = loader.get_template("examples/dynamic-prompt.html")
+        t = loader.get_template("examples/prompts/dynamic-prompt.md")
         prompt_text = t.render(c, self.request)
 
-        t = loader.get_template("examples/system-prompt.html")
+        t = loader.get_template("examples/prompts/system-prompt.md")
         system_prompt = t.render(c, self.request)
 
         lm_payload = self.build_payload(system_prompt, prompt_text)

@@ -58,6 +58,9 @@ class RemoteServiceApp extends Mountable {
         }
     }
 
+    keepResponse() {
+        console.log('Keeping response:', this.store.response)
+    }
 }
 
 const remoteServiceApp = RemoteServiceApp.loadMount('#remote_service_app')

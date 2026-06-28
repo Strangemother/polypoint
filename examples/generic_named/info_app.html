@@ -13,6 +13,9 @@
             <div class="message-response">
                 {{ store.loading ? 'Thinking...' : store.response }}
             </div>
+            <div class="response-actions">
+                <button class="btn btn-primary" @click="keepResponse">Keep</button>
+            </div>
         {% endverbatim %}
     </div>
     {% comment %}

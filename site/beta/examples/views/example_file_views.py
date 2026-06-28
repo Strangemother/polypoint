@@ -5,6 +5,7 @@ from trim import views
 
 from ..theatre import get_metadata
 from .utils import remove_comments
+from .. import models
 
 
 class ExampleFileView(views.TemplateView):
@@ -41,6 +42,10 @@ class ExampleFileView(views.TemplateView):
         # flag to call the _single file_ endpoint
         # rather than list all files individually.
         r['concat_file'] = False
+
+        tfm = models.TheatreFile.objects.filter(filepath__startswith=path)
+        if tfm.exists():
+            r['theatrefile_object'] = tfm.get()
 
         r['metadata'] = meta
         md = meta.get('markdown', None)

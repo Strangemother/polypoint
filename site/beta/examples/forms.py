@@ -18,6 +18,12 @@ class MetaForm(forms.Form):
     notes = fields.text(required=False)
 
 
+class FileDescriptionForm(forms.Form):
+    """desc.
+    """
+    description = fields.text(required=False)
+
+
 class CloneFileForm(forms.Form):
     new_name = fields.chars(max_length=255)
 

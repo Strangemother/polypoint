@@ -9,6 +9,24 @@ from django.http import JsonResponse
 from django.conf import settings
 
 
+class FileDescriptionFormView(views.FormView):
+    """USer posts desc.
+    """
+    form_class = forms.FileDescriptionForm
+
+    def form_valid(self, form):
+        """Record the desc to the tfm
+        """
+        d = form.cleaned_data
+        tid = self.kwargs.get('pk')
+        tfm = models.TheatreFile.objects.get(id=tid)
+        tfm.description = d['description']
+        tfm.save()
+
+        return JsonResponse({ 'status': 'ok', 'message': 'Description updated.'})
+        # return super().form_valid(form)
+
+
 class ExampleFileMetaFormView(views.FormView):
     """Receive an image for the example.
     An image may be one of a series

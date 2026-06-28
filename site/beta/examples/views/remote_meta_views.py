@@ -1,14 +1,12 @@
-from pathlib import Path
+import requests
 from django.template import loader
 
 from .. import forms, models
 from trim import views
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 from django.conf import settings
-
-from ..theatre import get_metadata
 
 
 class ExampleFileMetaFormView(views.FormView):
@@ -18,6 +16,7 @@ class ExampleFileMetaFormView(views.FormView):
 
     form_class = forms.MetaForm
     template_name = 'examples/image_form.html'
+    lmstudio_endpoint = 'http://192.168.50.60:1234/v1/chat/completions'
 
     def form_valid(self, form):
         """
@@ -41,7 +40,6 @@ class ExampleFileMetaFormView(views.FormView):
         path = tfm.filepath
         # resolve theatre file.
 
-        p = Path(path).with_suffix('')
         parent = settings.POLYPOINT_THEATRE_DIR
 
         theatre_file = (parent / path)
@@ -68,26 +66,79 @@ class ExampleFileMetaFormView(views.FormView):
         system_prompt = t.render(c, self.request)
 
         lm_payload = self.build_payload(system_prompt, prompt_text)
-        # send response.
 
-        return HttpResponse(prompt_text)#, content_type="application/xhtml+xml")
-        # return super().form_valid(form)
+        try:
+            response = requests.post(
+                self.lmstudio_endpoint,
+                json=lm_payload,
+                timeout=60,
+            )
+            response.raise_for_status()
+            return JsonResponse(response.json())
+        except requests.RequestException as exc:
+            return JsonResponse({'error': str(exc)}, status=502)
+        except ValueError:
+            return JsonResponse(
+                {'error': 'Invalid JSON response from LM Studio.'},
+                status=502,
+            )
 
     def build_payload(self, system_prompt, prompt_text):
+        """ example:
+
+        curl http://192.168.50.60:1234/v1/chat/completions \
+            -H "Content-Type: application/json" \
+            -d '{
+                "model": "{{model}}",
+                "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a helpful jokester."
+                },
+                {
+                    "role": "user",
+                    "content": "Tell me a joke."
+                }
+                ],
+                "response_format": {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "joke_response",
+                        "strict": "true",
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "joke": {
+                            "type": "string"
+                            }
+                        },
+                        "required": ["joke"]
+                    }
+                }
+                },
+                "temperature": 0.7,
+                "max_tokens": 50,
+                "stream": false
+            }'
+        """
+
         model_name = 'gemma-4-12b-it'
 
 
         return {
             'model': model_name,
-            'temperature': .8,
-            'system_prompt': system_prompt,
-            'input': [
+            'messages': [
                 {
-                    'type': 'text',
-                    'role': 'user',
-                    'content': prompt_text
+                    'role': 'system',
+                    'content': system_prompt,
                 },
-            ]
+                {
+                    'role': 'user',
+                    'content': prompt_text,
+                },
+            ],
+            'temperature': 0.8,
+            'stream': False,
         }
 
         # for file_obj in self.files:

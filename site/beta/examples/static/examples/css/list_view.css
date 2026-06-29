@@ -1,5 +1,5 @@
 ul.file-list {
-    column-width: 15em;
+    column-width: 18em;
 }
 
 ul.object-list.file-list, ul.new-files.file-list {
@@ -15,4 +15,22 @@ ul.object-list.file-list, ul.new-files.file-list {
 
 .object-list li, .file-list li {
     padding: 0.2em 0;
+    break-inside: avoid;
+}
+
+li .description {
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: #666;
+    transition: color .3s ease;
+}
+
+ul.object-list.file-list li > * {/* display: inherit; */}
+
+li:hover .description {
+    color: inherit;
+}
+
+li.filter-not-found {
+    display: none;
 }

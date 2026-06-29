@@ -18,9 +18,10 @@
 
         <div class="new-files-container">
             <div>
-                <p>New files detected</p>
 
                 {% if new_files %}
+                <p>New files detected</p>
+
                 <form method="post" action="{% url 'examples:onboard_all_theatre_files' %}">
                     {% csrf_token %}
                     <button type="submit">Onboard All</button>
@@ -43,14 +44,36 @@
                 <p>Theatre files</p>
             </div>
 
+            <div id="search_app" class="search-app">
+
+                <div class="search-container">
+                    <input type="text" class="search-field">
+                </div>
+                <script>
+                    window.fuseItems = []
+                </script>
+            </div>
+
+
             <ul class='object-list file-list'>
                 {% for obj in object_list %}
-                <li>
-                    {% link "examples:file_example" obj.name obj.name %}
+                <li data-file="{{ obj.name }}">
+                    <div class="link">{% link "examples:file_example" obj.name obj.name %}</div>
+                    <div class="description">
+                        {{ obj.description }}
+                    </div>
                 </li>
                 {% endfor %}
             </ul>
         </div>
+
+        <script type="module">
+            import Fuse from '/static/examples/js/fuse.mjs'
+            window.Fuse = Fuse;
+        </script>
+
+        {% link.js "examples/js/fuse-search-app.js" 'defer' %}
+
     </div>
 </div>
 

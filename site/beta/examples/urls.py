@@ -20,6 +20,7 @@ urlpatterns = urls.paths_named(views,
     script_raw=('ScriptsRawImportView', 'script_list_raw/<str:name>/'),
     script_list=('ScriptsImportListView', 'script_list/<str:name>/'),
     image_post_form=('ImagePostFormView', 'upload/image/'),
+    photographer_next=('PhotographerNextView', 'get-next/'),
 
     clone_file=('CloneFileView', 'clone/<path:path>/',),
     rename_file=('RenameFileView', 'rename/<path:path>/',),

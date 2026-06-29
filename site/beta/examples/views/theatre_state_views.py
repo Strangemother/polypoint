@@ -4,6 +4,8 @@ from pathlib import Path
 import requests
 
 from django.conf import settings
+from django.http import JsonResponse
+from django.urls import reverse
 from trim import views
 
 from .. import forms, models
@@ -35,6 +37,54 @@ def get_pending_theatre_filepaths():
     files = get_theatre_list(suffix=True)
     existing = set(models.TheatreFile.objects.values_list('filepath', flat=True))
     return [name for name, *_ in files if name not in existing]
+
+
+def has_valid_still_image(theatre_file):
+    still_image_path = (theatre_file.still_image_path or '').strip()
+    if not still_image_path:
+        return False
+
+    image_path = Path(settings.MEDIA_ROOT) / still_image_path
+    return image_path.exists()
+
+
+def get_thumbnail_missing_filepaths():
+    theatre_files = get_theatre_list(reverse=False, orderby='name', suffix=True)
+    theatre_file_map = {
+        item.filepath: item
+        for item in models.TheatreFile.objects.only('filepath', 'still_image_path')
+    }
+
+    missing = []
+    for filepath, *_ in theatre_files:
+        tfm = theatre_file_map.get(filepath)
+        if tfm and has_valid_still_image(tfm):
+            continue
+        missing.append(filepath)
+
+    return missing
+
+
+class PhotographerNextView(views.TemplateView):
+    template_name = 'default_template.html'
+
+    def get(self, request, *args, **kwargs):
+        missing = get_thumbnail_missing_filepaths()
+        if len(missing) < 1:
+            return JsonResponse({'done': True, 'next_url': None, 'remaining': 0})
+
+        next_filepath = missing[0]
+        next_path = str(Path(next_filepath).with_suffix(''))
+        next_url = reverse('examples:file_example', kwargs={'path': next_path})
+
+        return JsonResponse(
+            {
+                'done': False,
+                'next_url': next_url,
+                'filepath': next_filepath,
+                'remaining': len(missing),
+            }
+        )
 
 
 class TheatreFileListView(views.ListView):

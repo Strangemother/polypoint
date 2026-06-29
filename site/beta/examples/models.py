@@ -30,6 +30,8 @@ class TheatreFile(models.Model):
     # created/updated of this fb model.
     created, updated = fields.dt_cu_pair()
 
+    still_image_path = fields.chars(nil=True)
+
     def update_crc(self, root=None, save=True):
         # Update the internal crc.
         fp = Path(self.filepath)

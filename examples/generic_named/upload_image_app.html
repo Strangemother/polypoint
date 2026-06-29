@@ -3,7 +3,7 @@
 {% verbatim %}
 
 <div class="tiny-app download-content-app" id="upload_image_app" >
-    <a href="javascript:;" class="primary-link">
+    <a href="javascript:;" class="primary-link" @click=uploadLinkClick>
         <span class="material-symbols-outlined">upload</span>
         <span class="label">Upload</span>
     </a>
@@ -12,8 +12,12 @@
         <div class="filename-input">
             <input type="text" ref="filename" 
                 value="{% endverbatim %}{{part_name}}{% verbatim %}.png">
+            <input type="hidden" ref="upload_url"
+                value="{% endverbatim %}{% url 'examples:image_post_form' %}{% verbatim %}">
+            <input type="hidden" ref="theatre_filename"
+                value="{% endverbatim %}{{part_name}}{% verbatim %}">
         </div>
-        <a href="javascript:;">
+        <a href="javascript:;" @click=uploadLinkClick>
             <span class="left-cell">
                 <span class="material-symbols-outlined">upload</span>
             </span>
@@ -21,7 +25,7 @@
                 <span class="label">Full</span>
             </span>
         </a>
-        <a href="javascript:;">
+        <a href="javascript:;" @click=uploadThumbnailLinkClick>
             <span class="left-cell">
                 <span class="material-symbols-outlined">crop</span>
             </span>
@@ -29,6 +33,10 @@
                 <span class="label">Thumbnail</span>
             </span>
         </a>
+
+        <div class="upload-status" aria-live="polite">
+            <small>{{ store.uploading ? 'Uploading...' : (store.complete ? 'Done' : '') }}</small>
+        </div>
         
     </div>
 

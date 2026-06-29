@@ -15,6 +15,28 @@ def stat_mtime_to_datetime(st_mtime: float) -> datetime:
     return datetime.fromtimestamp(st_mtime, tz=timezone.utc)
 
 
+def onboard_theatre_file(filepath):
+    clean_filepath = str(Path(filepath).with_suffix('.js'))
+
+    models.TheatreFile.ensure(clean_filepath, settings.POLYPOINT_THEATRE_DIR)
+    tfm = models.TheatreFile.objects.get(filepath=clean_filepath)
+
+    try:
+        data = request_description_response(clean_filepath)
+        description = extract_message(data)
+        if description:
+            tfm.description = description
+            tfm.save(update_fields=['description'])
+    except (FileNotFoundError, requests.RequestException, ValueError):
+        pass
+
+
+def get_pending_theatre_filepaths():
+    files = get_theatre_list(suffix=True)
+    existing = set(models.TheatreFile.objects.values_list('filepath', flat=True))
+    return [name for name, *_ in files if name not in existing]
+
+
 class TheatreFileListView(views.ListView):
     model = models.TheatreFile
     ordering = '-modified'
@@ -69,20 +91,21 @@ class OnboardTheatreFileView(views.FormView):
     http_method_names = ['post']
 
     def form_valid(self, form):
-        filepath = Path(self.kwargs.get('path')).with_suffix('.js')
-        clean_filepath = str(filepath)
+        onboard_theatre_file(self.kwargs.get('path'))
 
-        models.TheatreFile.ensure(clean_filepath, settings.POLYPOINT_THEATRE_DIR)
-        tfm = models.TheatreFile.objects.get(filepath=clean_filepath)
+        return super().form_valid(form)
 
-        try:
-            data = request_description_response(clean_filepath)
-            description = extract_message(data)
-            if description:
-                tfm.description = description
-                tfm.save(update_fields=['description'])
-        except (FileNotFoundError, requests.RequestException, ValueError):
-            pass
+    def get_success_url(self):
+        return views.reverse('examples:example_db')
+
+
+class OnboardAllTheatreFilesView(views.FormView):
+    form_class = forms.ConfirmForm
+    http_method_names = ['post']
+
+    def form_valid(self, form):
+        for filepath in get_pending_theatre_filepaths():
+            onboard_theatre_file(filepath)
 
         return super().form_valid(form)
 

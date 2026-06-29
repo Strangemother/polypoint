@@ -32,6 +32,7 @@ urlpatterns = urls.paths_named(views,
 
     remote_meta_service=('ExampleFileMetaFormView', 'meta/form/'),
     file_description_form=('FileDescriptionFormView', 'meta/desc/<str:pk>/'),
+    onboard_all_theatre_files=('OnboardAllTheatreFilesView', 'onboard/all/'),
     onboard_theatre_file=('OnboardTheatreFileView', 'onboard/<path:path>/'),
 
     # Catch-all

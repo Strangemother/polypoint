@@ -19,6 +19,13 @@
         <div class="new-files-container">
             <div>
                 <p>New files detected</p>
+
+                {% if new_files %}
+                <form method="post" action="{% url 'examples:onboard_all_theatre_files' %}">
+                    {% csrf_token %}
+                    <button type="submit">Onboard All</button>
+                </form>
+                {% endif %}
             </div>
 
             <ul class='new-files file-list'>

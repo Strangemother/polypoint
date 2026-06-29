@@ -345,8 +345,21 @@ class UploadApp extends Mountable {
         })
     }
 
+    canvasToBlob(canvas, mimeType = 'image/png', quality = 0.9) {
+        return new Promise((resolve, reject) => {
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    reject(new Error('Screenshot capture failed.'))
+                    return
+                }
+
+                resolve(blob)
+            }, mimeType, quality)
+        })
+    }
+
     async captureThumbnailBlob() {
-        if (!window?.detectEdges || !stage?.screenshot?.toBlobCropped) {
+        if (!window?.detectEdges) {
             return this.captureFullBlob()
         }
 
@@ -365,17 +378,52 @@ class UploadApp extends Mountable {
                 dimensions.width,
                 dimensions.height,
             )
-            const crop = detectEdges(imageData.data, imageData.width)
-            const validCrop = Number.isFinite(crop?.width)
-                && Number.isFinite(crop?.height)
-                && crop.width > 0
-                && crop.height > 0
+            const edges = detectEdges(imageData.data, imageData.width)
+            const cropLeft = Math.max(0, Math.floor(edges?.left || 0))
+            const cropTop = Math.max(0, Math.floor(edges?.top || 0))
+            const maxCropWidth = Math.max(1, dimensions.width - cropLeft)
+            const maxCropHeight = Math.max(1, dimensions.height - cropTop)
+            const cropWidth = Math.min(
+                maxCropWidth,
+                Math.max(1, Math.floor(edges?.width || 0)),
+            )
+            const cropHeight = Math.min(
+                maxCropHeight,
+                Math.max(1, Math.floor(edges?.height || 0)),
+            )
+            const validCrop = Number.isFinite(cropWidth)
+                && Number.isFinite(cropHeight)
+                && cropWidth > 0
+                && cropHeight > 0
 
             if (!validCrop) {
                 return this.captureFullBlob()
             }
 
-            return stage.screenshot.toBlobCropped(crop)
+            const innerPadding = 10
+            const targetCanvas = document.createElement('canvas')
+            targetCanvas.width = cropWidth + (innerPadding * 2)
+            targetCanvas.height = cropHeight + (innerPadding * 2)
+            const targetCtx = targetCanvas.getContext('2d')
+            if (!targetCtx) {
+                return this.captureFullBlob()
+            }
+            targetCtx.fillStyle = '#222'
+            targetCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height)
+
+            const croppedImageData = stage.ctx.getImageData(
+                cropLeft,
+                cropTop,
+                cropWidth,
+                cropHeight,
+            )
+            targetCtx.putImageData(croppedImageData, innerPadding, innerPadding)
+
+            return this.canvasToBlob(
+                targetCanvas,
+                stage?.screenshot?.fileFormat || 'image/png',
+                stage?.screenshot?.fileQuality || 0.9,
+            )
         } catch {
             return this.captureFullBlob()
         }

@@ -40,7 +40,7 @@ def build_prompts(source_code, notes='', request=None):
         'examples/prompts/dynamic-prompt.md'
     ).render(context, request)
     system_prompt = loader.get_template(
-        'examples/prompts/system-prompt.md'
+        'examples/prompts/desc-system-prompt.md'
     ).render(context, request)
     return system_prompt, prompt_text
 

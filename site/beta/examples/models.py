@@ -21,6 +21,9 @@ class TheatreFile(models.Model):
     name = fields.chars()
     filepath = fields.chars()
 
+    def __str__(self):
+        return self.filepath
+
     # when renaming a file, the crc doesn't change. This can
     # detect a rename.
     crc = fields.chars()

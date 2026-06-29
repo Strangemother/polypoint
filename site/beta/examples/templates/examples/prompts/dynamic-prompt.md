@@ -1,4 +1,3 @@
-dynamic prompt
 
 {% if notes %}
 User given notes:

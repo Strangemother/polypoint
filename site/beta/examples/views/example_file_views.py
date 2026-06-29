@@ -42,10 +42,15 @@ class ExampleFileView(views.TemplateView):
         # flag to call the _single file_ endpoint
         # rather than list all files individually.
         r['concat_file'] = False
+        TF = models.TheatreFile
 
-        tfm = models.TheatreFile.objects.filter(filepath__startswith=path)
+        pjs = Path(path).with_suffix('.js')
+        tfm = TF.objects.filter(filepath__iexact=pjs)
         if tfm.exists():
+            # try:
             r['theatrefile_object'] = tfm.get()
+            # except TF.MultipleObjectsReturned:
+
 
         r['metadata'] = meta
         md = meta.get('markdown', None)

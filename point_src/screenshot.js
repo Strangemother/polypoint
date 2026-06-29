@@ -276,15 +276,27 @@ const asObjectWithCrop = async function(canvas, mimeType = "image/jpeg", quality
 
         if (crop) {
             const { x, y, width, height } = crop;
+            const cropWidth = Math.max(1, Math.round(width));
+            const cropHeight = Math.max(1, Math.round(height));
             targetCanvas = document.createElement("canvas");
-            targetCanvas.width = width + innerPadding;
-            targetCanvas.height = height + innerPadding;
+            targetCanvas.width = cropWidth + (innerPadding * 2);
+            targetCanvas.height = cropHeight + (innerPadding * 2);
             const ctx = targetCanvas.getContext("2d");
-            ctx.rect(0, 0, width, height);
+            ctx.rect(0, 0, targetCanvas.width, targetCanvas.height);
             ctx.fillStyle = '#222'
             ctx.fill()
             // ctx.putImageData(canvas, 0, 0);
-            ctx.drawImage(canvas, x + innerPadding, y + innerPadding, width, height, 0, 0, width, height);
+            ctx.drawImage(
+                canvas,
+                x,
+                y,
+                cropWidth,
+                cropHeight,
+                innerPadding,
+                innerPadding,
+                cropWidth,
+                cropHeight,
+            );
         }
 
         targetCanvas.toBlob((blob) => {

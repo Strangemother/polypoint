@@ -1,9 +1,13 @@
 from datetime import datetime, timezone
+from pathlib import Path
+
+import requests
 
 from django.conf import settings
 from trim import views
 
-from .. import models
+from .. import forms, models
+from ..llm_descriptions import extract_message, request_description_response
 from ..theatre import get_theatre_list
 
 
@@ -58,3 +62,29 @@ class TheatreFileListView(views.ListView):
         print('Files not in DB:', file_names)
 
         return res
+
+
+class OnboardTheatreFileView(views.FormView):
+    form_class = forms.ConfirmForm
+    http_method_names = ['post']
+
+    def form_valid(self, form):
+        filepath = Path(self.kwargs.get('path')).with_suffix('.js')
+        clean_filepath = str(filepath)
+
+        models.TheatreFile.ensure(clean_filepath, settings.POLYPOINT_THEATRE_DIR)
+        tfm = models.TheatreFile.objects.get(filepath=clean_filepath)
+
+        try:
+            data = request_description_response(clean_filepath)
+            description = extract_message(data)
+            if description:
+                tfm.description = description
+                tfm.save(update_fields=['description'])
+        except (FileNotFoundError, requests.RequestException, ValueError):
+            pass
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return views.reverse('examples:example_db')

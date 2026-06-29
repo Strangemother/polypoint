@@ -91,6 +91,14 @@ The "Generic named" template extends the example base and infers the name of
             <div class="right-panel-container">
                 <div class="editor-assist-tools">
                     <ul class="editor-assist-list">
+                        {% if not theatrefile_object %}
+                        <li class="editor-assist-item">
+                            <form method="post" action="{% url 'examples:onboard_theatre_file' part_name %}">
+                                {% csrf_token %}
+                                <button type="submit">Onboard</button>
+                            </form>
+                        </li>
+                        {% endif %}
                         <li class="editor-assist-item">
                             {% link "examples:clone_file" part_name "clone" %}
                         </li>

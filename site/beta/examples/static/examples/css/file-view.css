@@ -452,6 +452,7 @@ span.material-symbols-outlined {
 
 .canvas-layer-stack.digitize-locked .digitize-frame {
     pointer-events: none;
+    border: none;
 }
 
 .digitize-frame.digitize-transforming {
@@ -524,7 +525,7 @@ span.material-symbols-outlined {
 }
 
 .canvas-layer-stack.digitize-image-active #playspace {
-    background: transparent;
+    /* background: transparent; */
 }
 
 .digitize-overlay-surface.digitize-drag-over {
@@ -827,3 +828,12 @@ input[type="text"]:focus {
     line-height: 0.5;
     padding: 0.2em 0.5em;
 }
+
+
+.meta-form {
+    border: solid 2px #383838;
+    border-radius: 0.4em;
+    padding: 0.8em;
+}
+
+.meta-form form ul {list-style: none;margin: 0;padding: 0;}

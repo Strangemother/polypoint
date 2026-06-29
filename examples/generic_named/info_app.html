@@ -5,13 +5,9 @@
     <div class="meta-form" id="remote_service_app">
         {% if theatrefile_object %}
         <div class="theatrefile-object">
-            {{ theatrefile_object }}
+            {{ theatrefile_object.description }}
         </div>
         {% endif %}
-
-        {% verbatim %}
-            Words: {{ store.word }}
-        {% endverbatim %}
 
         <div class="remote-meta-service">
             {% quickform.form "examples:remote_meta_service" theatrefile_id=theatrefile_object.id %}

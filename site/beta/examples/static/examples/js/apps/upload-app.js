@@ -4,6 +4,8 @@ Upload the image or other bits, within the theatre
 
 class UploadApp extends Mountable {
     storageName = 'uploadApp'
+    photographerKey = 'polypoint.photographer.active'
+    photographerReadyDelayMs = 500
 
     emitUploadComplete(data) {
         const detail = {
@@ -22,6 +24,145 @@ class UploadApp extends Mountable {
         window.dispatchEvent(
             new CustomEvent('polypoint:upload:complete', { detail }),
         )
+    }
+
+    mounted() {
+        this.store.photographerActive = this.isPhotographerActive()
+        if (this.store.photographerActive) {
+            this.runPhotographerLoop()
+        }
+    }
+
+    isPhotographerActive() {
+        return localStorage.getItem(this.photographerKey) === '1'
+    }
+
+    setPhotographerActive(value) {
+        if (value) {
+            localStorage.setItem(this.photographerKey, '1')
+        } else {
+            localStorage.removeItem(this.photographerKey)
+        }
+        this.store.photographerActive = value
+    }
+
+    delay(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms)
+        })
+    }
+
+    async waitForStage(maxAttempts = 40, waitMs = 200) {
+        for (let index = 0; index < maxAttempts; index += 1) {
+            const stageReady = Boolean(
+                stage?.canvas
+                && stage?.ctx
+                && stage?._prepared
+                && stage?.loaded,
+            )
+
+            if (stageReady) {
+                await this.delay(this.photographerReadyDelayMs)
+                return
+            }
+
+            if (!this.isPhotographerActive()) {
+                throw new Error('Photographer stopped.')
+            }
+
+            await this.delay(waitMs)
+        }
+
+        throw new Error('Stage not ready for screenshot.')
+    }
+
+    getPhotographerNextUrl() {
+        return this.$refs.photographer_next_url?.value || '../get-next/'
+    }
+
+    async getPhotographerNext() {
+        const response = await fetch(this.getPhotographerNextUrl(), {
+            credentials: 'same-origin',
+        })
+
+        let data = {}
+        try {
+            data = await response.json()
+        } catch {
+            data = { error: 'Invalid JSON response.' }
+        }
+
+        if (!response.ok) {
+            const message = data.error || 'Unable to fetch next photographer item.'
+            throw new Error(message)
+        }
+
+        return data
+    }
+
+    async startPhotographerClick(event) {
+        event?.preventDefault?.()
+        this.setPhotographerActive(true)
+        await this.runPhotographerLoop()
+    }
+
+    stopPhotographerClick(event) {
+        event?.preventDefault?.()
+        this.setPhotographerActive(false)
+        this.store.photographerRunning = false
+    }
+
+    async runPhotographerLoop() {
+        if (this.store.photographerRunning) {
+            return
+        }
+
+        this.store.photographerRunning = true
+
+        try {
+            if (!this.isPhotographerActive()) {
+                return
+            }
+
+            await this.waitForStage()
+
+            if (!this.isPhotographerActive()) {
+                return
+            }
+
+            const uploadResult = await this.uploadImage(
+                this.captureThumbnailBlob.bind(this),
+                'thumbnail',
+            )
+
+            if (!uploadResult || !this.isPhotographerActive()) {
+                this.setPhotographerActive(false)
+                return
+            }
+
+            const nextData = await this.getPhotographerNext()
+            if (!this.isPhotographerActive()) {
+                return
+            }
+
+            if (nextData.done || !nextData.next_url) {
+                this.setPhotographerActive(false)
+                return
+            }
+
+            await this.delay(250)
+            if (!this.isPhotographerActive()) {
+                return
+            }
+
+            window.location.assign(nextData.next_url)
+        } catch (error) {
+            this.store.error = error.message || 'Photographer failed.'
+            this.setPhotographerActive(false)
+            console.error('Photographer failed:', error)
+        } finally {
+            this.store.photographerRunning = false
+        }
     }
 
     getFilename() {
@@ -190,7 +331,7 @@ class UploadApp extends Mountable {
 
     async uploadImage(captureMethod, seriesIndex) {
         if (this.store.uploading) {
-            return
+            return null
         }
 
         this.store.uploading = true
@@ -206,10 +347,12 @@ class UploadApp extends Mountable {
             this.store.complete = true
             this.emitUploadComplete(data)
             console.log('Image upload complete:', data)
+            return data
         } catch (error) {
             this.store.complete = false
             this.store.error = error.message || 'Upload failed.'
             console.error('Image upload failed:', error)
+            return null
         } finally {
             this.store.uploading = false
         }
@@ -219,6 +362,8 @@ class UploadApp extends Mountable {
         return {
             uploading: false,
             complete: false,
+            photographerActive: false,
+            photographerRunning: false,
             error: '',
             lastFile: '',
             lastSeriesIndex: '',

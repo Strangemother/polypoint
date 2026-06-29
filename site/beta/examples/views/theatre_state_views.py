@@ -52,17 +52,43 @@ def get_thumbnail_missing_filepaths():
     theatre_files = get_theatre_list(reverse=False, orderby='name', suffix=True)
     theatre_file_map = {
         item.filepath: item
-        for item in models.TheatreFile.objects.only('filepath', 'still_image_path')
+        for item in models.TheatreFile.objects.only(
+            'filepath',
+            'still_image_path',
+            'still_image_compatible',
+        )
     }
 
     missing = []
     for filepath, *_ in theatre_files:
         tfm = theatre_file_map.get(filepath)
+        if tfm and not tfm.still_image_compatible:
+            continue
         if tfm and has_valid_still_image(tfm):
             continue
         missing.append(filepath)
 
     return missing
+
+
+def resolve_theatre_file(theatre_filename):
+    clean_filepath = str(Path(theatre_filename).with_suffix('.js'))
+    tfm = models.TheatreFile.objects.filter(filepath=clean_filepath).first()
+    if tfm:
+        return tfm
+
+    tfm = models.TheatreFile.objects.filter(
+        filepath__startswith=theatre_filename,
+    ).first()
+    if tfm:
+        return tfm
+
+    try:
+        models.TheatreFile.ensure(clean_filepath, settings.POLYPOINT_THEATRE_DIR)
+    except (FileNotFoundError, OSError):
+        return None
+
+    return models.TheatreFile.objects.filter(filepath=clean_filepath).first()
 
 
 class PhotographerNextView(views.TemplateView):
@@ -83,6 +109,33 @@ class PhotographerNextView(views.TemplateView):
                 'next_url': next_url,
                 'filepath': next_filepath,
                 'remaining': len(missing),
+            }
+        )
+
+
+class PhotographerIncompatibleFormView(views.FormView):
+    form_class = forms.PhotographerIncompatibleForm
+    template_name = 'default_template.html'
+
+    def form_invalid(self, form):
+        return JsonResponse({'errors': form.errors}, status=400)
+
+    def form_valid(self, form):
+        theatre_filename = form.cleaned_data['theatre_filename']
+        tfm = resolve_theatre_file(theatre_filename)
+        if not tfm:
+            return JsonResponse(
+                {'error': 'Unable to resolve theatre file.'},
+                status=404,
+            )
+
+        tfm.still_image_compatible = False
+        tfm.save(update_fields=['still_image_compatible'])
+        return JsonResponse(
+            {
+                'status': 'ok',
+                'filepath': tfm.filepath,
+                'still_image_compatible': tfm.still_image_compatible,
             }
         )
 

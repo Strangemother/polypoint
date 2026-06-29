@@ -34,6 +34,7 @@ class TheatreFile(models.Model):
     created, updated = fields.dt_cu_pair()
 
     still_image_path = fields.chars(nil=True)
+    still_image_compatible = fields.bool_true()
 
     def update_crc(self, root=None, save=True):
         # Update the internal crc.

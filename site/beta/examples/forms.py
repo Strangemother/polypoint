@@ -9,6 +9,11 @@ class ImagePostForm(forms.Form):
     series_index = fields.chars(required=False)
 
 
+class PhotographerIncompatibleForm(forms.Form):
+    theatre_filename = fields.chars()
+    reason = fields.chars(required=False)
+
+
 class MetaForm(forms.Form):
     """Given the file and some notes to populate the
     theatre data info with knowledge.

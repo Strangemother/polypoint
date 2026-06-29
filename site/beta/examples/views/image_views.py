@@ -72,7 +72,8 @@ class ImagePostFormView(AjaxFormMixin, views.FormView):
             return None
 
         tfm.still_image_path = media_subpath
-        tfm.save(update_fields=['still_image_path'])
+        tfm.still_image_compatible = True
+        tfm.save(update_fields=['still_image_path', 'still_image_compatible'])
         return tfm.id
 
     def form_valid(self, form):

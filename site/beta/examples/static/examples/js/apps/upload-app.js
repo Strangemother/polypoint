@@ -5,7 +5,10 @@ Upload the image or other bits, within the theatre
 class UploadApp extends Mountable {
     storageName = 'uploadApp'
     photographerKey = 'polypoint.photographer.active'
+    photographerSlowKey = 'polypoint.photographer.slow'
     photographerReadyDelayMs = 500
+    photographerPageDelayMs = 250
+    photographerSlowModeDelayMs = 1000
 
     emitUploadComplete(data) {
         const detail = {
@@ -28,6 +31,7 @@ class UploadApp extends Mountable {
 
     mounted() {
         this.store.photographerActive = this.isPhotographerActive()
+        this.store.photographerSlow = this.isPhotographerSlow()
         if (this.store.photographerActive) {
             this.runPhotographerLoop()
         }
@@ -37,6 +41,10 @@ class UploadApp extends Mountable {
         return localStorage.getItem(this.photographerKey) === '1'
     }
 
+    isPhotographerSlow() {
+        return localStorage.getItem(this.photographerSlowKey) === '1'
+    }
+
     setPhotographerActive(value) {
         if (value) {
             localStorage.setItem(this.photographerKey, '1')
@@ -44,6 +52,22 @@ class UploadApp extends Mountable {
             localStorage.removeItem(this.photographerKey)
         }
         this.store.photographerActive = value
+    }
+
+    setPhotographerSlow(value) {
+        if (value) {
+            localStorage.setItem(this.photographerSlowKey, '1')
+        } else {
+            localStorage.removeItem(this.photographerSlowKey)
+        }
+        this.store.photographerSlow = value
+    }
+
+    getPhotographerPageDelayMs() {
+        if (this.store.photographerSlow) {
+            return this.photographerSlowModeDelayMs
+        }
+        return this.photographerPageDelayMs
     }
 
     delay(ms) {
@@ -80,6 +104,10 @@ class UploadApp extends Mountable {
         return this.$refs.photographer_next_url?.value || '../get-next/'
     }
 
+    getPhotographerIncompatibleUrl() {
+        return this.$refs.photographer_incompatible_url?.value || '../set-incompatible/'
+    }
+
     async getPhotographerNext() {
         const response = await fetch(this.getPhotographerNextUrl(), {
             credentials: 'same-origin',
@@ -100,10 +128,74 @@ class UploadApp extends Mountable {
         return data
     }
 
+    async markPhotographerIncompatible(reason = '') {
+        const formData = new FormData()
+        formData.append('theatre_filename', this.getTheatreFilename())
+        if (reason && reason.length > 0) {
+            formData.append('reason', reason)
+        }
+
+        const headers = {}
+        const csrfToken = this.getCsrfToken()
+        if (csrfToken.length > 0) {
+            headers['X-CSRFToken'] = csrfToken
+        }
+
+        try {
+            const response = await fetch(this.getPhotographerIncompatibleUrl(), {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin',
+                headers,
+            })
+
+            if (!response.ok) {
+                console.warn('Unable to flag file as incompatible.')
+                return false
+            }
+
+            return true
+        } catch (error) {
+            console.warn('Unable to flag file as incompatible.', error)
+            return false
+        }
+    }
+
+    async movePhotographerToNext() {
+        const nextData = await this.getPhotographerNext()
+        if (!this.isPhotographerActive()) {
+            return false
+        }
+
+        if (nextData.done || !nextData.next_url) {
+            this.setPhotographerActive(false)
+            return false
+        }
+
+        if (nextData.next_url === window.location.pathname) {
+            this.store.error = 'Photographer could not advance to a new page.'
+            this.setPhotographerActive(false)
+            return false
+        }
+
+        await this.delay(this.getPhotographerPageDelayMs())
+        if (!this.isPhotographerActive()) {
+            return false
+        }
+
+        window.location.assign(nextData.next_url)
+        return true
+    }
+
     async startPhotographerClick(event) {
         event?.preventDefault?.()
         this.setPhotographerActive(true)
         await this.runPhotographerLoop()
+    }
+
+    togglePhotographerSlowClick(event) {
+        event?.preventDefault?.()
+        this.setPhotographerSlow(!this.store.photographerSlow)
     }
 
     stopPhotographerClick(event) {
@@ -118,6 +210,7 @@ class UploadApp extends Mountable {
         }
 
         this.store.photographerRunning = true
+        let shouldMarkIncompatible = true
 
         try {
             if (!this.isPhotographerActive()) {
@@ -135,31 +228,41 @@ class UploadApp extends Mountable {
                 'thumbnail',
             )
 
-            if (!uploadResult || !this.isPhotographerActive()) {
-                this.setPhotographerActive(false)
-                return
-            }
-
-            const nextData = await this.getPhotographerNext()
             if (!this.isPhotographerActive()) {
                 return
             }
 
-            if (nextData.done || !nextData.next_url) {
-                this.setPhotographerActive(false)
+            if (!uploadResult) {
+                await this.markPhotographerIncompatible(
+                    this.store.error || 'Photographer upload failed.',
+                )
+                await this.movePhotographerToNext()
                 return
             }
 
-            await this.delay(250)
-            if (!this.isPhotographerActive()) {
-                return
-            }
+            shouldMarkIncompatible = false
 
-            window.location.assign(nextData.next_url)
+            await this.movePhotographerToNext()
         } catch (error) {
             this.store.error = error.message || 'Photographer failed.'
-            this.setPhotographerActive(false)
             console.error('Photographer failed:', error)
+
+            if (!this.isPhotographerActive() || error?.message === 'Photographer stopped.') {
+                return
+            }
+
+            if (shouldMarkIncompatible) {
+                await this.markPhotographerIncompatible(this.store.error)
+                try {
+                    await this.movePhotographerToNext()
+                    return
+                } catch (nextError) {
+                    this.store.error = nextError.message || 'Photographer failed to continue.'
+                    console.error('Photographer continuation failed:', nextError)
+                }
+            }
+
+            this.setPhotographerActive(false)
         } finally {
             this.store.photographerRunning = false
         }
@@ -364,6 +467,7 @@ class UploadApp extends Mountable {
             complete: false,
             photographerActive: false,
             photographerRunning: false,
+            photographerSlow: false,
             error: '',
             lastFile: '',
             lastSeriesIndex: '',

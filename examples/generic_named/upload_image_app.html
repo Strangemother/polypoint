@@ -16,6 +16,8 @@
                 value="{% endverbatim %}{% url 'examples:image_post_form' %}{% verbatim %}">
             <input type="hidden" ref="photographer_next_url"
                 value="{% endverbatim %}{% url 'examples:photographer_next' %}{% verbatim %}">
+            <input type="hidden" ref="photographer_incompatible_url"
+                value="{% endverbatim %}{% url 'examples:photographer_incompatible' %}{% verbatim %}">
             <input type="hidden" ref="theatre_filename"
                 value="{% endverbatim %}{{part_name}}{% verbatim %}">
         </div>
@@ -41,6 +43,14 @@
             </span>
             <span class="right-cell">
                 <span class="label">Start Photographer</span>
+            </span>
+        </a>
+        <a href="javascript:;" @click=togglePhotographerSlowClick>
+            <span class="left-cell">
+                <span class="material-symbols-outlined">arrow_selector_tool</span>
+            </span>
+            <span class="right-cell">
+                <span class="label">Slow 1s/page: {{ store.photographerSlow ? 'On' : 'Off' }}</span>
             </span>
         </a>
 

@@ -1,0 +1,111 @@
+{% load link %}
+
+{% verbatim %}
+<div class="tiny-app download-content-app digitize-image-app" id="digitize_image_app">
+    <a href="javascript:;" class="primary-link">
+        <span class="material-symbols-outlined">upload</span>
+        <span class="label">Digitize</span>
+    </a>
+
+    <div class="tiny-dropdown download-image digitize-image-panel">
+        <p class="digitize-hint">
+            {{ store.filename || 'Drop an image onto the page.' }}
+        </p>
+        <p class="digitize-hint digitize-hint-secondary">
+            Drag the frame to move, corners to resize, top handle to rotate.
+        </p>
+
+        <input
+            type="file"
+            accept="image/*"
+            ref="fileInput"
+            @change="pickFromInput"
+        >
+
+        <a href="javascript:;" @click="openPicker">
+            <span class="left-cell">
+                <span class="material-symbols-outlined">upload</span>
+            </span>
+            <span class="right-cell">
+                <span class="label">Choose image</span>
+            </span>
+        </a>
+
+        <label class="digitize-control">
+            <span class="digitize-label">X</span>
+            <input
+                type="range"
+                min="-1600"
+                max="1600"
+                step="1"
+                v-model="store.x"
+                @input="applyTransform"
+            >
+            <span class="digitize-value">{{ store.x }}</span>
+        </label>
+
+        <label class="digitize-control">
+            <span class="digitize-label">Y</span>
+            <input
+                type="range"
+                min="-1600"
+                max="1600"
+                step="1"
+                v-model="store.y"
+                @input="applyTransform"
+            >
+            <span class="digitize-value">{{ store.y }}</span>
+        </label>
+
+        <label class="digitize-control">
+            <span class="digitize-label">Scale</span>
+            <input
+                type="range"
+                min="0.05"
+                max="5"
+                step="0.01"
+                v-model="store.scale"
+                @input="applyTransform"
+            >
+            <span class="digitize-value">{{ Number(store.scale).toFixed(2) }}</span>
+        </label>
+
+        <label class="digitize-control">
+            <span class="digitize-label">Rotate</span>
+            <input
+                type="range"
+                min="-180"
+                max="180"
+                step="1"
+                v-model="store.rotate"
+                @input="applyTransform"
+            >
+            <span class="digitize-value">{{ store.rotate }}deg</span>
+        </label>
+
+        <label class="digitize-control">
+            <span class="digitize-label">Opacity</span>
+            <input
+                type="range"
+                min="0.1"
+                max="1"
+                step="0.01"
+                v-model="store.opacity"
+                @input="applyTransform"
+            >
+            <span class="digitize-value">{{ Number(store.opacity).toFixed(2) }}</span>
+        </label>
+
+        <div class="digitize-actions">
+            <a
+                href="javascript:;"
+                @click="toggleLock"
+                :class="{ 'is-active': store.locked }"
+            >{{ store.locked ? 'Unlock' : 'Lock' }}</a>
+            <a href="javascript:;" @click="centerImage">Center</a>
+            <a href="javascript:;" @click="resetTransform">Reset</a>
+            <a href="javascript:;" @click="clearImage">Clear</a>
+        </div>
+    </div>
+</div>
+{% endverbatim %}

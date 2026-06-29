@@ -21,6 +21,8 @@ Extending the "example-base.html"
     /* background: #0c0811; */
     border-radius: 0.5em;
     outline: solid 2px #111;
+    position: relative;
+    z-index: 2;
     /* grid-area: 1/1/1/1; */
 }
 
@@ -254,6 +256,16 @@ a.button {
 
 .canvas-container {
     display: grid;
+    z-index:0;
+}
+
+.canvas-layer-stack {
+    display: grid;
+    min-height: 0;
+}
+
+.canvas-layer-stack > * {
+    grid-area: 1 / 1;
 }
 
 
@@ -365,6 +377,12 @@ span.material-symbols-outlined {
 .header-tools.extra-buttons {
     display: inline-flex;
     align-items: center;
+    position: relative;
+    z-index: 20;
+}
+
+.header-tools.extra-buttons .tiny-dropdown {
+    z-index: 30;
 }
 
 .border-panel {
@@ -382,6 +400,192 @@ span.material-symbols-outlined {
     /* justify-content: center; */
     /* border: solid 1px red; */
     margin: 0 1em 1em;
+    position: relative;
+    overflow: hidden;
+}
+
+.digitize-overlay-layer {
+    z-index: 4;
+    pointer-events: none;
+    padding: 0 1em 1em;
+    box-sizing: border-box;
+}
+
+.canvas-layer-stack.digitize-locked .digitize-overlay-layer {
+    z-index: 0;
+}
+
+.digitize-overlay-surface {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.digitize-image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    display: none;
+}
+
+.digitize-frame {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    box-sizing: border-box;
+    border: dashed 1px hsl(200deg 90% 70% / 0.8);
+    background: hsl(200deg 80% 55% / 0.04);
+    z-index: 3;
+    display: none;
+    cursor: move;
+    touch-action: none;
+    pointer-events: auto;
+}
+
+.canvas-layer-stack.digitize-locked .digitize-frame {
+    pointer-events: none;
+}
+
+.digitize-frame.digitize-transforming {
+    border-color: hsl(170deg 90% 60% / 0.95);
+}
+
+.digitize-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    background: hsl(200deg 90% 70%);
+    box-shadow: 0 0 0 1px #0a0a0a;
+    padding: 0;
+    margin: 0;
+}
+
+.digitize-handle:hover,
+.digitize-handle:focus {
+    background: hsl(200deg 95% 80%);
+    outline: none;
+}
+
+.digitize-handle-nw {
+    left: -6px;
+    top: -6px;
+    cursor: nwse-resize;
+}
+
+.digitize-handle-ne {
+    right: -6px;
+    top: -6px;
+    cursor: nesw-resize;
+}
+
+.digitize-handle-sw {
+    left: -6px;
+    bottom: -6px;
+    cursor: nesw-resize;
+}
+
+.digitize-handle-se {
+    right: -6px;
+    bottom: -6px;
+    cursor: nwse-resize;
+}
+
+.digitize-handle-rotate {
+    left: 50%;
+    top: -34px;
+    transform: translateX(-50%);
+    cursor: grab;
+    background: hsl(152deg 70% 54%);
+}
+
+.digitize-handle-rotate::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 12px;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 16px;
+    background: hsl(200deg 80% 70% / 0.9);
+}
+
+.canvas-layer-stack.digitize-locked .digitize-handle {
+    display: none;
+}
+
+.canvas-layer-stack.digitize-image-active #playspace {
+    background: transparent;
+}
+
+.digitize-overlay-surface.digitize-drag-over {
+    outline: dashed 2px hsl(200deg 80% 55% / 0.8);
+    outline-offset: -6px;
+}
+
+.digitize-image-panel {
+    min-width: 22em;
+    gap: 0.5em;
+}
+
+.digitize-image-panel input[type='file'] {
+    display: none;
+}
+
+.digitize-image-panel .digitize-hint {
+    margin: 0;
+    padding: 0.4em 1em;
+    color: #9a9a9a;
+    font-size: 0.85em;
+}
+
+.digitize-image-panel .digitize-hint-secondary {
+    color: #777;
+    padding-top: 0;
+}
+
+.digitize-image-panel .digitize-control {
+    display: grid;
+    grid-template-columns: 4em 1fr 4.5em;
+    gap: 0.6em;
+    align-items: center;
+    padding: 0.1em 1em;
+}
+
+.digitize-image-panel .digitize-label {
+    color: #777;
+    font-size: 0.9em;
+}
+
+.digitize-image-panel .digitize-value {
+    text-align: right;
+    color: #9a9a9a;
+    font-size: 0.85em;
+}
+
+.digitize-image-panel input[type='range'] {
+    width: 100%;
+}
+
+.digitize-image-panel .digitize-actions {
+    border-top: solid 1px #080808;
+    margin-top: 0.3em;
+    padding: 0.3em 0.5em 0.5em;
+    display: flex;
+    gap: 0.5em;
+}
+
+.digitize-image-panel .digitize-actions a.is-active {
+    color: hsl(140deg 65% 62%);
 }
 
 header .logo {

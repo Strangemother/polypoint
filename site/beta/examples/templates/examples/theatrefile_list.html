@@ -58,6 +58,11 @@
             <ul class='object-list file-list'>
                 {% for obj in object_list %}
                 <li data-file="{{ obj.name }}">
+                    <div class="image-container">
+                        {% if obj.still_image_path %}
+                        <img src="/media/{{ obj.still_image_path }}">
+                        {% endif %}
+                    </div>
                     <div class="link">{% link "examples:file_example" obj.name obj.name %}</div>
                     <div class="description">
                         {{ obj.description }}

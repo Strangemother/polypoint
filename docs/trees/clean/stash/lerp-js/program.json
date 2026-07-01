@@ -1,0 +1,1594 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "Value",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "b",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "easing",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "doneStop",
+                                "default_value": false
+                            }
+                        ],
+                        "pos": {
+                            "start": 1364,
+                            "end": 1600,
+                            "loc": {
+                                "start": {
+                                    "line": 60,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 69,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1353,
+                        "end": 1600,
+                        "loc": {
+                            "start": {
+                                "line": 60,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 69,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "setEasing",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "easing"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1617,
+                            "end": 1777,
+                            "loc": {
+                                "start": {
+                                    "line": 71,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 75,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "let linear = v=>Number(v.toFixed(this.fix));",
+                                "block": false,
+                                "line": 73
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1608,
+                        "end": 1777,
+                        "loc": {
+                            "start": {
+                                "line": 71,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 75,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "width",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1790,
+                            "end": 1840,
+                            "loc": {
+                                "start": {
+                                    "line": 77,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 79,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1785,
+                        "end": 1840,
+                        "loc": {
+                            "start": {
+                                "line": 77,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 79,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "t",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "v"
+                            },
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1849,
+                            "end": 1918,
+                            "loc": {
+                                "start": {
+                                    "line": 81,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 83,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 1848,
+                        "end": 1918,
+                        "loc": {
+                            "start": {
+                                "line": 81,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 83,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "get",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "step"
+                            },
+                            {
+                                "name": "easing"
+                            },
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1929,
+                            "end": 2528,
+                            "loc": {
+                                "start": {
+                                    "line": 85,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 104,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "a smoothing function",
+                                "block": true,
+                                "line": 86
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1926,
+                        "end": 2528,
+                        "loc": {
+                            "start": {
+                                "line": 85,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 104,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "pluck",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "step"
+                            },
+                            {
+                                "name": "easing"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2541,
+                            "end": 2652,
+                            "loc": {
+                                "start": {
+                                    "line": 106,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 108,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2536,
+                        "end": 2652,
+                        "loc": {
+                            "start": {
+                                "line": 106,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 108,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "mutate",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "easing"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2666,
+                            "end": 2862,
+                            "loc": {
+                                "start": {
+                                    "line": 110,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 117,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2660,
+                        "end": 2862,
+                        "loc": {
+                            "start": {
+                                "line": 110,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 117,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "emitDoneEvent",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "preValue"
+                            },
+                            {
+                                "name": "mutator"
+                            },
+                            {
+                                "name": "step"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2883,
+                            "end": 3056,
+                            "loc": {
+                                "start": {
+                                    "line": 119,
+                                    "column": 17
+                                },
+                                "end": {
+                                    "line": 124,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 2870,
+                        "end": 3056,
+                        "loc": {
+                            "start": {
+                                "line": 119,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 124,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "doneHandler",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "preValue"
+                            },
+                            {
+                                "name": "mutator"
+                            },
+                            {
+                                "name": "step"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3075,
+                            "end": 3165,
+                            "loc": {
+                                "start": {
+                                    "line": 126,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 128,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "console.log('done', value, preValue)",
+                                "block": false,
+                                "line": 127
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3064,
+                        "end": 3165,
+                        "loc": {
+                            "start": {
+                                "line": 126,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 128,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                },
+                {
+                    "kind": "method",
+                    "word": "split",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "count",
+                                "default_value": 1
+                            }
+                        ],
+                        "pos": {
+                            "start": 3178,
+                            "end": 3582,
+                            "loc": {
+                                "start": {
+                                    "line": 130,
+                                    "column": 9
+                                },
+                                "end": {
+                                    "line": 146,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "return a list of numbers, split through the count divisor\n\nv= new Value(100, 600)\nv.split(10)[9] == 600\nv.split(2) == [100, 600]",
+                                "block": true,
+                                "line": 136
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3173,
+                        "end": 3582,
+                        "loc": {
+                            "start": {
+                                "line": 130,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 146,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "Value"
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "let linear = v=>Number(v.toFixed(this.fix));",
+                        "block": false,
+                        "line": 73
+                    }
+                ]
+            },
+            "pos": {
+                "start": 1332,
+                "end": 3585,
+                "loc": {
+                    "start": {
+                        "line": 58,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 147,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "kind": "class",
+            "word": "PointListLerper",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "pointList"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3635,
+                            "end": 3802,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 158,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3624,
+                        "end": 3802,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 158,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointListLerper"
+                },
+                {
+                    "kind": "method",
+                    "word": "getCommonValue",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 3824,
+                            "end": 4104,
+                            "loc": {
+                                "start": {
+                                    "line": 160,
+                                    "column": 18
+                                },
+                                "end": {
+                                    "line": 169,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 3810,
+                        "end": 4104,
+                        "loc": {
+                            "start": {
+                                "line": 160,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 169,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointListLerper"
+                },
+                {
+                    "kind": "method",
+                    "word": "getCommonEasingFunction",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 4135,
+                            "end": 4219,
+                            "loc": {
+                                "start": {
+                                    "line": 171,
+                                    "column": 27
+                                },
+                                "end": {
+                                    "line": 174,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "return an easing function",
+                                "block": true,
+                                "line": 172
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4112,
+                        "end": 4219,
+                        "loc": {
+                            "start": {
+                                "line": 171,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 174,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointListLerper"
+                },
+                {
+                    "kind": "method",
+                    "word": "through",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "pos": {
+                            "start": 4234,
+                            "end": 6668,
+                            "loc": {
+                                "start": {
+                                    "line": 176,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 244,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "Lerp this entire pointlist from _a_ to _b_.\nSettings can be a number or a settings object.",
+                                "block": true,
+                                "line": 178
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 4227,
+                        "end": 6668,
+                        "loc": {
+                            "start": {
+                                "line": 176,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 244,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointListLerper"
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "return an easing function",
+                        "block": true,
+                        "line": 172
+                    }
+                ]
+            },
+            "pos": {
+                "start": 3593,
+                "end": 6671,
+                "loc": {
+                    "start": {
+                        "line": 151,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 245,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 6675,
+                "end": 6714,
+                "loc": {
+                    "start": {
+                        "line": 247,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 247,
+                        "column": 39
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 6675,
+                    "end": 6697,
+                    "loc": {
+                        "start": {
+                            "line": 247,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 247,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 6675,
+                        "end": 6689,
+                        "loc": {
+                            "start": {
+                                "line": 247,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 247,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 6675,
+                            "end": 6684,
+                            "loc": {
+                                "start": {
+                                    "line": 247,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 247,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 6675,
+                                "end": 6684,
+                                "loc": {
+                                    "start": {
+                                        "line": 247,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 247,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 6685,
+                            "end": 6689,
+                            "loc": {
+                                "start": {
+                                    "line": 247,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 247,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 6685,
+                                "end": 6689,
+                                "loc": {
+                                    "start": {
+                                        "line": 247,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 247,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 6675,
+                            "end": 6689,
+                            "loc": {
+                                "start": {
+                                    "line": 247,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 247,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 6690,
+                        "end": 6697,
+                        "loc": {
+                            "start": {
+                                "line": 247,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 247,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 6690,
+                            "end": 6697,
+                            "loc": {
+                                "start": {
+                                    "line": 247,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 247,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 6675,
+                        "end": 6697,
+                        "loc": {
+                            "start": {
+                                "line": 247,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 247,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 6698,
+                        "end": 6713,
+                        "loc": {
+                            "start": {
+                                "line": 247,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 247,
+                                "column": 38
+                            }
+                        },
+                        "name": "PointListLerper",
+                        "pos": {
+                            "start": 6698,
+                            "end": 6713,
+                            "loc": {
+                                "start": {
+                                    "line": 247,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 247,
+                                    "column": 38
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 6675,
+                    "end": 6714,
+                    "loc": {
+                        "start": {
+                            "line": 247,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 247,
+                            "column": 39
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 6675,
+                "end": 6714,
+                "loc": {
+                    "start": {
+                        "line": 247,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 247,
+                        "column": 39
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 6718,
+                "end": 6835,
+                "loc": {
+                    "start": {
+                        "line": 249,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 253,
+                        "column": 1
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 6718,
+                    "end": 6745,
+                    "loc": {
+                        "start": {
+                            "line": 249,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 249,
+                            "column": 27
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 6718,
+                        "end": 6732,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 6718,
+                            "end": 6727,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 6718,
+                                "end": 6727,
+                                "loc": {
+                                    "start": {
+                                        "line": 249,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 249,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 6728,
+                            "end": 6732,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 6728,
+                                "end": 6732,
+                                "loc": {
+                                    "start": {
+                                        "line": 249,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 249,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 6718,
+                            "end": 6732,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 6733,
+                        "end": 6745,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 27
+                            }
+                        },
+                        "name": "deferredProp",
+                        "pos": {
+                            "start": 6733,
+                            "end": 6745,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 27
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 6718,
+                        "end": 6745,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 27
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 6746,
+                        "end": 6757,
+                        "loc": {
+                            "start": {
+                                "line": 249,
+                                "column": 28
+                            },
+                            "end": {
+                                "line": 249,
+                                "column": 39
+                            }
+                        },
+                        "value": "PointList",
+                        "raw": "'PointList'",
+                        "pos": {
+                            "start": 6746,
+                            "end": 6757,
+                            "loc": {
+                                "start": {
+                                    "line": 249,
+                                    "column": 28
+                                },
+                                "end": {
+                                    "line": 249,
+                                    "column": 39
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 6764,
+                        "end": 6832,
+                        "loc": {
+                            "start": {
+                                "line": 250,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 252,
+                                "column": 5
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 6773,
+                            "end": 6779,
+                            "loc": {
+                                "start": {
+                                    "line": 250,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 250,
+                                    "column": 19
+                                }
+                            },
+                            "name": "lerper",
+                            "pos": {
+                                "start": 6773,
+                                "end": 6779,
+                                "loc": {
+                                    "start": {
+                                        "line": 250,
+                                        "column": 13
+                                    },
+                                    "end": {
+                                        "line": 250,
+                                        "column": 19
+                                    }
+                                }
+                            }
+                        },
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 6782,
+                            "end": 6832,
+                            "loc": {
+                                "start": {
+                                    "line": 250,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 252,
+                                    "column": 5
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 6793,
+                                    "end": 6825,
+                                    "loc": {
+                                        "start": {
+                                            "line": 251,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 251,
+                                            "column": 40
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 6800,
+                                        "end": 6825,
+                                        "loc": {
+                                            "start": {
+                                                "line": 251,
+                                                "column": 15
+                                            },
+                                            "end": {
+                                                "line": 251,
+                                                "column": 40
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 6804,
+                                            "end": 6819,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 251,
+                                                    "column": 19
+                                                },
+                                                "end": {
+                                                    "line": 251,
+                                                    "column": 34
+                                                }
+                                            },
+                                            "name": "PointListLerper",
+                                            "pos": {
+                                                "start": 6804,
+                                                "end": 6819,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 251,
+                                                        "column": 19
+                                                    },
+                                                    "end": {
+                                                        "line": 251,
+                                                        "column": 34
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 6820,
+                                                "end": 6824,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 251,
+                                                        "column": 35
+                                                    },
+                                                    "end": {
+                                                        "line": 251,
+                                                        "column": 39
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 6820,
+                                                    "end": 6824,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 251,
+                                                            "column": 35
+                                                        },
+                                                        "end": {
+                                                            "line": 251,
+                                                            "column": 39
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 6800,
+                                            "end": 6825,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 251,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 251,
+                                                    "column": 40
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 6793,
+                                        "end": 6825,
+                                        "loc": {
+                                            "start": {
+                                                "line": 251,
+                                                "column": 8
+                                            },
+                                            "end": {
+                                                "line": 251,
+                                                "column": 40
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 6782,
+                                "end": 6832,
+                                "loc": {
+                                    "start": {
+                                        "line": 250,
+                                        "column": 22
+                                    },
+                                    "end": {
+                                        "line": 252,
+                                        "column": 5
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 6764,
+                            "end": 6832,
+                            "loc": {
+                                "start": {
+                                    "line": 250,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 252,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 6718,
+                    "end": 6835,
+                    "loc": {
+                        "start": {
+                            "line": 249,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 253,
+                            "column": 1
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 6718,
+                "end": 6836,
+                "loc": {
+                    "start": {
+                        "line": 249,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 253,
+                        "column": 2
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ClassDeclaration",
+        "ExpressionStatement",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "lerp.js",
+        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\iter\\lerp.js",
+        "size": 6840,
+        "parsed_date": "2026-06-30T23:35:31.288Z"
+    }
+}

@@ -101,6 +101,9 @@ class Dragging extends Distances {
             console.error('automouse is not imported. Cannot listen to mouse actions.')
             return
         }
+        mouse.listen(c, 'touchstart', (c,ev)=> this.onTouchstart(stage,c,ev))
+        mouse.listen(c, 'touchmove', (c,ev)=> this.onTouchmove(stage,c,ev))
+        mouse.listen(c, 'touchend', (c,ev)=> this.onTouchend(stage,c,ev))
         mouse.listen(c, 'mousedown', (c,ev)=> this.onMousedown(stage,c,ev))
         mouse.listen(c, 'mousemove', (c,ev)=> this.onMousemove(stage,c,ev))
         mouse.listen(c, 'mouseup', (c,ev)=> this.onMouseup(stage,c,ev))
@@ -123,6 +126,28 @@ class Dragging extends Distances {
         // register point
         // Select near
         return this.primaryActionDown.apply(this, arguments)
+    }
+
+    onTouchmove(stage, canvas, ev) {
+
+        this.onMousemove(stage, canvas, {
+                    x: ev.touches[0].clientX
+                    , y: ev.touches[0].clientY
+                })
+    }
+
+    onTouchstart(stage, canvas, ev) {
+        return this.primaryActionDown.apply(this, [stage, canvas, {
+                    x: ev.touches[0].clientX
+                    , y: ev.touches[0].clientY
+                }])
+    }
+
+    onTouchend(stage, canvas, ev) {
+        // if(ev.touches[0]) {
+
+        this.onMouseup(stage, canvas, ev)
+        // }
     }
 
     primaryActionDown(stage, canvas, ev){

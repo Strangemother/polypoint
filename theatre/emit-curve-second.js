@@ -68,17 +68,26 @@ class MainStage extends Stage {
 
     onDragEnd() {}
     onDragMove() {
-        this.lineEmitter.cachePoints(this.line, .5)
+    //     this.lineEmitter.cachePoints(this.line, .5)
+        this.lineEmitter.step()
     }
 
-    draw(ctx){
-        this.clear(ctx)
-
+    firstDraw(ctx) {
         ctx.strokStyle = '#EEE'
         ctx.fillStyle = '#EEE'
         ctx.font = `400 16px sans-serif`;
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
+
+    }
+
+    draw(ctx){
+        this.clear(ctx)
+
+        if(this.line.points[0].wasDirty || this.line.points[1].wasDirty) {
+            this.lineEmitter.cachePoints(this.line, .5)
+        }
+
 
         this.lineEmitter.step()
         let pointColor = 'hsl(254deg 81% 36%)'

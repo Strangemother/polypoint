@@ -11,12 +11,11 @@ files:
     ../point_src/extras.js
     ../point_src/random.js
     stroke
-    ../point_src/functions/clamp.js
-    ../point_src/distances.js
-    ../point_src/dragging.js
+    dragging
+    ../point_src/touch.js
+*/
 
 
- */
 const data = [
     ['a', 'b']
     , ['a', 'c']
@@ -26,6 +25,7 @@ const data = [
 
 
 const pointMap = new Map()
+
 
 const getNamed = function(name) {
     if(pointMap.has(name)){

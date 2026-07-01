@@ -162,8 +162,9 @@ class Positionable extends Relative {
             point.radius = 55
 
         */
-        this._opts[key] = isFunction(value)? value(this, key): value
-        this.onSpecialSet(key, value)
+        let rV = isFunction(value)? value(this, key): value
+        const v = this.onSpecialSet(key, rV)
+        this._opts[key] = v === undefined? rV: v
         return true
     }
 
@@ -182,9 +183,10 @@ class Positionable extends Relative {
         */
         this._dirty = true
         let name = `${key}Set`
-        this[name] && this[name](value)
-        this._onDirty?.forEach(f=>f(name))
+        let r = this[name] && this[name](value)
+        this._onDirty?.forEach(f=>f(name, r))
         // console.log(name)
+        return r
     }
 
     onDirty(func) {
@@ -536,6 +538,7 @@ class Rotation extends Positionable {
 }
 
 
+
 class Tooling extends Rotation {
 
     resolveStringOrFunction(direction, defaultValue) {
@@ -583,7 +586,7 @@ class Tooling extends Rotation {
         // const x = this.x + distance * Math.cos(rads);
         // const y = this.y + distance * Math.sin(rads);
 
-        return { x, y };
+        return { x, y, };
     }
 
     vector2D(multiplier=1) {

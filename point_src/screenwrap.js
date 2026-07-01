@@ -81,6 +81,9 @@ class ScreenWrap {
             p.screenWrapSector = d;
         }
 
+        if(didChange && p.onScreenWrapChange){
+            p.onScreenWrapChange(px, py)
+        }
         return didChange
     }
 

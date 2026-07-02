@@ -1,10 +1,13 @@
 import os
+from io import BytesIO
 from pathlib import Path
 from uuid import uuid4
 
 from django.conf import settings
+from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.http import JsonResponse
+from PIL import Image, UnidentifiedImageError
 from trim import views
 from trim.response import content_type_response
 
@@ -52,6 +55,36 @@ class ImagePostFormView(AjaxFormMixin, views.FormView):
 
     form_class = forms.ImagePostForm
     template_name = 'examples/image_form.html'
+    thumbnail_series_name = 'thumbnail'
+    webp_quality = 82
+    webp_method = 6
+
+    def is_thumbnail_series(self, series):
+        return str(series or '').strip().lower() == self.thumbnail_series_name
+
+    def build_upload_filename(self, image_name, file_count, is_thumbnail):
+        clean_name = Path(image_name).name
+        if is_thumbnail:
+            clean_name = f'{Path(clean_name).stem}.webp'
+        return f'{file_count}_{clean_name}'
+
+    def save_thumbnail_webp(self, image, out_filename):
+        if hasattr(image, 'seek'):
+            image.seek(0)
+
+        with Image.open(image) as source_image:
+            mode = 'RGBA' if 'A' in source_image.getbands() else 'RGB'
+            converted = source_image.convert(mode)
+            data = BytesIO()
+            converted.save(
+                data,
+                format='WEBP',
+                quality=self.webp_quality,
+                method=self.webp_method,
+            )
+
+        content = ContentFile(data.getvalue())
+        return default_storage.save(out_filename, content)
 
     def apply_still_image_path(self, theatre_filename, media_subpath):
         clean_filepath = str(Path(theatre_filename).with_suffix('.js'))
@@ -83,6 +116,7 @@ class ImagePostFormView(AjaxFormMixin, views.FormView):
         series = form.cleaned_data['series_index']
         stem = form.cleaned_data['theatre_filename']
         series_name = None
+        is_thumbnail = self.is_thumbnail_series(series)
 
         if series:
             if series.isnumeric() and int(series) == 0:
@@ -100,13 +134,30 @@ class ImagePostFormView(AjaxFormMixin, views.FormView):
             _, _, files = next(os.walk(out_path))
             file_count = len(files)
 
-            filename = f'{file_count}_{image.name}'
+            filename = self.build_upload_filename(
+                image.name,
+                file_count,
+                is_thumbnail,
+            )
             out_filename = f'{out_dir}{filename}'
         else:
             # no series.
             out_filename = f'uploads/{stem}/{image.name}'
 
-        filename = default_storage.save(out_filename, image)
+        try:
+            if is_thumbnail:
+                filename = self.save_thumbnail_webp(image, out_filename)
+            else:
+                filename = default_storage.save(out_filename, image)
+        except (UnidentifiedImageError, OSError, ValueError):
+            if hasattr(image, 'seek'):
+                image.seek(0)
+            fallback_filename = out_filename
+            if is_thumbnail:
+                source_suffix = Path(image.name).suffix or '.png'
+                fallback_filename = str(Path(out_filename).with_suffix(source_suffix))
+            filename = default_storage.save(fallback_filename, image)
+
         media_subpath = Path(filename).as_posix()
         theatre_file_id = self.apply_still_image_path(stem, media_subpath)
 

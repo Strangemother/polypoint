@@ -144,14 +144,29 @@ class TheatreFileListView(views.ListView):
     model = models.TheatreFile
     ordering = '-modified'
 
+    def should_sync_file_state(self):
+        raw_flag = (self.request.GET.get('sync') or '').strip().lower()
+        if raw_flag in {'1', 'true', 'yes', 'on'}:
+            return True
+
+        user = getattr(self.request, 'user', None)
+        return bool(user and user.is_authenticated and user.is_staff)
+
     def get_context_data(self, **kw):
         # ITerate every _file_. create a set of names
         # iterate all objects, set of names,
         #   check for modified and crc
         # Un-discovered files in the models are _new_ files.
-        save_updates = True
+        save_updates = self.should_sync_file_state()
 
         res = super().get_context_data(**kw)
+        if not save_updates:
+            # Public requests should be cheap and avoid filesystem scans.
+            res['new_files'] = set()
+            res['modified_change'] = []
+            res['save_updates'] = False
+            return res
+
         items = res['object_list']
         files = get_theatre_list(suffix=True)
         file_names = set(x[0] for x in files)

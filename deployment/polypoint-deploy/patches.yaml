@@ -1,0 +1,22 @@
+# This patch file defines a file and an action to perform for a git collision.
+# The patch file is used to resolve conflicts in the git repository by specifying operations to be performed on specific files. 
+# The operations can include stopping a process, replacing a file, or other actions as needed to manage the deployment effectively.
+# 
+
+# When a file collision occurs:
+# 
+# stop: stop the deployment process to prevent further issues.
+# replace: replace the existing file with the incoming version
+
+## Future
+## commit: Add/commit a conflict with auto message to the git repository.
+## ignore: ignore the conflict and keep the existing file unchanged, ignoring incoming changes.
+
+
+default:
+  pattern: "*" # is a wildcard that matches all files
+  action: stop
+
+site/beta/db.sqlite3:
+  # pattern: "site/beta/db.sqlite3" # default key is used as pattern when omitted
+  action: replace

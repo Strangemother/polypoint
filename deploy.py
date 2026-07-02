@@ -24,8 +24,15 @@ from typing import Sequence
 DEFAULT_HOST = "polypointjs.com"
 DEFAULT_PORT = 32432
 DEFAULT_USER = "root"
+DEFAULT_APP_ROOT = "/home/site/apps/polypoint"
 DEFAULT_REMOTE_SCRIPT = (
     "/home/site/apps/polypoint/deployment/polypoint-deploy/update-app.sh"
+)
+DEFAULT_BOOTSTRAP_FILES = (
+    "deployment/polypoint-deploy/update-app.sh",
+    "deployment/polypoint-deploy/app/update-site-app.sh",
+    "deployment/polypoint-deploy/app/resolve_git_pull_collisions.py",
+    "deployment/polypoint-deploy/patches.yaml",
 )
 
 
@@ -54,6 +61,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Absolute path to remote deployment script",
     )
     parser.add_argument(
+        "--app-root",
+        default=DEFAULT_APP_ROOT,
+        help="Remote repository root used for bootstrap operations",
+    )
+    parser.add_argument(
         "--identity-file",
         type=Path,
         default=None,
@@ -63,6 +75,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--dry-run",
         action="store_true",
         help="Print SSH command and exit without running deployment",
+    )
+    parser.add_argument(
+        "--no-bootstrap",
+        action="store_true",
+        help=(
+            "Skip pre-refresh of deployment scripts from origin/main and run "
+            "the remote script directly"
+        ),
     )
     return parser
 
@@ -82,9 +102,15 @@ def build_ssh_command(
     user: str,
     remote_script: str,
     identity_file: Path | None,
+    app_root: str,
+    bootstrap_deploy_scripts: bool,
 ) -> list[str]:
     """Create SSH command that runs the remote deployment script."""
-    remote_command = f"set -e; bash {shlex.quote(remote_script)}"
+    remote_command = build_remote_command(
+        remote_script=remote_script,
+        app_root=app_root,
+        bootstrap_deploy_scripts=bootstrap_deploy_scripts,
+    )
 
     command: list[str] = [
         "ssh",
@@ -98,6 +124,43 @@ def build_ssh_command(
         command[1:1] = ["-i", str(identity_file.expanduser().resolve())]
 
     return command
+
+
+def build_remote_command(
+    remote_script: str,
+    app_root: str,
+    bootstrap_deploy_scripts: bool,
+) -> str:
+    """Build shell-safe remote command string.
+
+    In bootstrap mode, deployment scripts are refreshed from origin/main before
+    executing the deployment entrypoint. This ensures remote deploy logic can be
+    updated even when normal pull flow is blocked by file collisions.
+    """
+    quoted_script = shlex.quote(remote_script)
+    if not bootstrap_deploy_scripts:
+        return f"set -e; bash {quoted_script}"
+
+    script_path = Path(remote_script)
+    app_root_path = Path(app_root)
+
+    bootstrap_files = list(DEFAULT_BOOTSTRAP_FILES)
+    try:
+        script_rel = script_path.relative_to(app_root_path).as_posix()
+    except ValueError:
+        script_rel = ""
+
+    if script_rel and script_rel not in bootstrap_files:
+        bootstrap_files.insert(0, script_rel)
+
+    quoted_root = shlex.quote(app_root)
+    quoted_files = " ".join(shlex.quote(value) for value in bootstrap_files)
+    return (
+        f"set -e; cd {quoted_root}; "
+        "git fetch origin main; "
+        f"git checkout origin/main -- {quoted_files}; "
+        f"bash {quoted_script}"
+    )
 
 
 def run_command(command: Sequence[str]) -> None:
@@ -126,6 +189,8 @@ def main() -> int:
             user=args.user,
             remote_script=args.script,
             identity_file=args.identity_file,
+            app_root=args.app_root,
+            bootstrap_deploy_scripts=not args.no_bootstrap,
         )
 
         if args.dry_run:

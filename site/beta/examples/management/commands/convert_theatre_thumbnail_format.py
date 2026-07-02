@@ -1,4 +1,5 @@
 from pathlib import Path
+from time import perf_counter
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
@@ -105,6 +106,12 @@ class Command(BaseCommand):
             action='store_true',
             help='Print one line for each conversion/update action.',
         )
+        parser.add_argument(
+            '--db-batch-size',
+            type=int,
+            default=100,
+            help='Bulk DB update batch size (default: 100).',
+        )
 
     def handle(self, *args, **options):
         source_ext = normalize_extension(options['from_format'])
@@ -116,6 +123,7 @@ class Command(BaseCommand):
         dry_run = options['dry_run']
         progress_every = options['progress_every']
         verbose = options['verbose']
+        db_batch_size = options['db_batch_size']
 
         if not source_ext or not target_ext:
             raise CommandError('Both --from-format and --to-format are required.')
@@ -127,6 +135,8 @@ class Command(BaseCommand):
             raise CommandError('--method must be between 0 and 6.')
         if progress_every < 0:
             raise CommandError('--progress-every must be >= 0.')
+        if db_batch_size < 1:
+            raise CommandError('--db-batch-size must be >= 1.')
 
         queryset = models.TheatreFile.objects.order_by('id')
         total_items = queryset.count()
@@ -150,6 +160,26 @@ class Command(BaseCommand):
             f'{source_ext} -> {target_ext} '
             f'(rows={total_items}, progress_every={progress_every})...'
         )
+        if target_ext == '.webp' and quality >= 92 and method >= 5:
+            self.stdout.write(
+                self.style.WARNING(
+                    'Using high-quality WebP settings can be very slow. '
+                    'For faster runs try --qual=82 --method=2.'
+                )
+            )
+
+        start_time = perf_counter()
+        pending_db_updates = []
+
+        def flush_pending_db_updates():
+            if dry_run or not pending_db_updates:
+                return
+            models.TheatreFile.objects.bulk_update(
+                pending_db_updates,
+                ['still_image_path'],
+                batch_size=db_batch_size,
+            )
+            pending_db_updates.clear()
 
         for tfm in queryset:
             stats['total'] += 1
@@ -164,7 +194,8 @@ class Command(BaseCommand):
                     f'Progress {current_index}/{total_items} '
                     f'converted={stats["converted"]} '
                     f'errors={stats["errors"]} '
-                    f'missing={stats["missing_file"]}'
+                    f'missing={stats["missing_file"]} '
+                    f'elapsed={perf_counter() - start_time:.1f}s'
                 )
 
             rel_path = (tfm.still_image_path or '').strip()
@@ -205,7 +236,9 @@ class Command(BaseCommand):
                     continue
 
                 tfm.still_image_path = target_rel_path
-                tfm.save(update_fields=['still_image_path'])
+                pending_db_updates.append(tfm)
+                if len(pending_db_updates) >= db_batch_size:
+                    flush_pending_db_updates()
                 stats['updated_existing_target'] += 1
                 if verbose:
                     self.stdout.write(
@@ -232,7 +265,9 @@ class Command(BaseCommand):
                 converted.save(target_path, **save_kwargs)
 
                 tfm.still_image_path = target_rel_path
-                tfm.save(update_fields=['still_image_path'])
+                pending_db_updates.append(tfm)
+                if len(pending_db_updates) >= db_batch_size:
+                    flush_pending_db_updates()
                 stats['converted'] += 1
                 if verbose:
                     self.stdout.write(
@@ -251,6 +286,8 @@ class Command(BaseCommand):
                         f'Failed {tfm.filepath} ({source_path}): {exc}'
                     )
                 )
+
+        flush_pending_db_updates()
 
         self.stdout.write(
             self.style.SUCCESS(

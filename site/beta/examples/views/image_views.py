@@ -56,8 +56,12 @@ class ImagePostFormView(AjaxFormMixin, views.FormView):
     form_class = forms.ImagePostForm
     template_name = 'examples/image_form.html'
     thumbnail_series_name = 'thumbnail'
-    webp_quality = 82
-    webp_method = 6
+    # Thumbnails are mostly line-art screenshots; prefer sharp edges.
+    webp_lossless = True
+    webp_exact = True
+    webp_method = 4
+    # Used only if webp_lossless is disabled.
+    webp_quality = 90
 
     def is_thumbnail_series(self, series):
         return str(series or '').strip().lower() == self.thumbnail_series_name
@@ -76,11 +80,19 @@ class ImagePostFormView(AjaxFormMixin, views.FormView):
             mode = 'RGBA' if 'A' in source_image.getbands() else 'RGB'
             converted = source_image.convert(mode)
             data = BytesIO()
+            save_kwargs = {
+                'format': 'WEBP',
+                'method': self.webp_method,
+                'exact': self.webp_exact,
+            }
+            if self.webp_lossless:
+                save_kwargs['lossless'] = True
+            else:
+                save_kwargs['quality'] = self.webp_quality
+
             converted.save(
                 data,
-                format='WEBP',
-                quality=self.webp_quality,
-                method=self.webp_method,
+                **save_kwargs,
             )
 
         content = ContentFile(data.getvalue())

@@ -9,26 +9,15 @@ DEPLOY_ROOT="$APP_ROOT/deployment/polypoint-deploy"
 NGINX_SRC_DIR="$DEPLOY_ROOT/deploy/nginx"
 NGINX_SITES_DIR="/etc/nginx/sites-available"
 NGINX_ENABLED_LINK="/etc/nginx/sites-enabled/polypointjs.com.conf"
+SITE_UPDATE_SCRIPT="$DEPLOY_ROOT/app/update-site-app.sh"
 
 # Check if running as root, if so switch to site user for git operations
 if [ "$(id -u)" -eq 0 ]; then
     echo "→ Running as root, switching to site user for git/app operations..."
     su - site << 'EOSU'
 set -e
-cd /home/site/apps/polypoint
-git pull --no-ff origin main
-
-# Activate virtual environment
-source /home/site/apps/polypoint/.venv/bin/activate
-
-# Install/update dependencies (commented out)
-# pip install -r /home/site/apps/polypoint/site/beta/requirements.txt
-
-# Collect static files
-cd /home/site/apps/polypoint/site/beta
-python3 manage.py collectstatic --noinput
-
-echo "✓ Application updated successfully"
+bash /home/site/apps/polypoint/deployment/polypoint-deploy/app/update-site-app.sh \
+    /home/site/apps/polypoint
 EOSU
 
     echo "→ Syncing nginx site configs from repository..."
@@ -55,20 +44,7 @@ EOSU
 else
     # Running as site user already
     echo "→ Running as site user, performing git pull and app updates..."
-    cd /home/site/apps/polypoint
-    git pull --no-ff origin main
-
-    # Activate virtual environment
-    source /home/site/apps/polypoint/.venv/bin/activate
-
-    # Install/update dependencies (commented out)
-    # pip install -r /home/site/apps/polypoint/site/beta/requirements.txt
-
-    # Collect static files
-    cd /home/site/apps/polypoint/site/beta
-    python3 manage.py collectstatic --noinput
-
-    echo "✓ Application updated successfully"
+    bash "$SITE_UPDATE_SCRIPT" "$APP_ROOT"
 
     echo "→ Syncing nginx site configs from repository..."
     sudo install -m 644 "$NGINX_SRC_DIR/polypointjs.com.conf" "$NGINX_SITES_DIR/polypointjs.com.conf"

@@ -143,24 +143,77 @@ def build_remote_command(
 
     script_path = Path(remote_script)
     app_root_path = Path(app_root)
+    quoted_root = shlex.quote(app_root)
 
-    bootstrap_files = list(DEFAULT_BOOTSTRAP_FILES)
+    bootstrap_steps = [
+        "set -e",
+        f"cd {quoted_root}",
+        "git fetch origin main",
+    ]
+
     try:
         script_rel = script_path.relative_to(app_root_path).as_posix()
     except ValueError:
-        script_rel = ""
+        # If script is outside app_root, we cannot safely bootstrap it from
+        # origin/main content. Fall back to direct execution after fetch.
+        bootstrap_steps.append(f"bash {quoted_script}")
+        return "; ".join(bootstrap_steps)
 
+    bootstrap_files = list(DEFAULT_BOOTSTRAP_FILES)
     if script_rel and script_rel not in bootstrap_files:
         bootstrap_files.insert(0, script_rel)
 
-    quoted_root = shlex.quote(app_root)
-    quoted_files = " ".join(shlex.quote(value) for value in bootstrap_files)
-    return (
-        f"set -e; cd {quoted_root}; "
-        "git fetch origin main; "
-        f"git checkout origin/main -- {quoted_files}; "
-        f"bash {quoted_script}"
+    update_app_rel = "deployment/polypoint-deploy/update-app.sh"
+    site_update_rel = "deployment/polypoint-deploy/app/update-site-app.sh"
+    resolver_rel = "deployment/polypoint-deploy/app/resolve_git_pull_collisions.py"
+    patch_rel = "deployment/polypoint-deploy/patches.yaml"
+
+    bootstrap_steps.extend(
+        [
+            'BOOTSTRAP_DIR="$(mktemp -d /tmp/polypoint-deploy.XXXXXX)"',
+            'cleanup_bootstrap(){ rm -rf "$BOOTSTRAP_DIR"; }',
+            "trap cleanup_bootstrap EXIT",
+        ]
     )
+
+    for rel_path in bootstrap_files:
+        rel_q = shlex.quote(rel_path)
+        parent = Path(rel_path).parent.as_posix()
+        if parent and parent != ".":
+            parent_q = shlex.quote(parent)
+            bootstrap_steps.append(f'mkdir -p "$BOOTSTRAP_DIR"/{parent_q}')
+        bootstrap_steps.append(
+            f'git show origin/main:{rel_q} > "$BOOTSTRAP_DIR"/{rel_q}'
+        )
+
+    for executable in (update_app_rel, site_update_rel):
+        if executable in bootstrap_files:
+            executable_q = shlex.quote(executable)
+            bootstrap_steps.append(f'chmod +x "$BOOTSTRAP_DIR"/{executable_q}')
+
+    script_rel_q = shlex.quote(script_rel)
+    if script_rel == update_app_rel:
+        bootstrap_steps.append(
+            'SITE_UPDATE_SCRIPT_OVERRIDE="$BOOTSTRAP_DIR"/'
+            f'{shlex.quote(site_update_rel)} '
+            'PATCH_FILE_OVERRIDE="$BOOTSTRAP_DIR"/'
+            f'{shlex.quote(patch_rel)} '
+            'COLLISION_TOOL_OVERRIDE="$BOOTSTRAP_DIR"/'
+            f'{shlex.quote(resolver_rel)} '
+            f'bash "$BOOTSTRAP_DIR"/{script_rel_q}'
+        )
+    elif script_rel == site_update_rel:
+        bootstrap_steps.append(
+            'PATCH_FILE_OVERRIDE="$BOOTSTRAP_DIR"/'
+            f'{shlex.quote(patch_rel)} '
+            'COLLISION_TOOL_OVERRIDE="$BOOTSTRAP_DIR"/'
+            f'{shlex.quote(resolver_rel)} '
+            f'bash "$BOOTSTRAP_DIR"/{script_rel_q} {quoted_root}'
+        )
+    else:
+        bootstrap_steps.append(f'bash "$BOOTSTRAP_DIR"/{script_rel_q}')
+
+    return "; ".join(bootstrap_steps)
 
 
 def run_command(command: Sequence[str]) -> None:

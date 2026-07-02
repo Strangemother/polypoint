@@ -9,16 +9,23 @@ DEPLOY_ROOT="$APP_ROOT/deployment/polypoint-deploy"
 NGINX_SRC_DIR="$DEPLOY_ROOT/deploy/nginx"
 NGINX_SITES_DIR="/etc/nginx/sites-available"
 NGINX_ENABLED_LINK="/etc/nginx/sites-enabled/polypointjs.com.conf"
-SITE_UPDATE_SCRIPT="$DEPLOY_ROOT/app/update-site-app.sh"
+SITE_UPDATE_SCRIPT_DEFAULT="$DEPLOY_ROOT/app/update-site-app.sh"
+SITE_UPDATE_SCRIPT="${SITE_UPDATE_SCRIPT_OVERRIDE:-$SITE_UPDATE_SCRIPT_DEFAULT}"
+PATCH_FILE_OVERRIDE="${PATCH_FILE_OVERRIDE:-}"
+COLLISION_TOOL_OVERRIDE="${COLLISION_TOOL_OVERRIDE:-}"
 
 # Check if running as root, if so switch to site user for git operations
 if [ "$(id -u)" -eq 0 ]; then
     echo "→ Running as root, switching to site user for git/app operations..."
-    su - site << 'EOSU'
-set -e
-bash /home/site/apps/polypoint/deployment/polypoint-deploy/app/update-site-app.sh \
-    /home/site/apps/polypoint
-EOSU
+    APP_ROOT_Q="$(printf '%q' "$APP_ROOT")"
+    SITE_UPDATE_SCRIPT_Q="$(printf '%q' "$SITE_UPDATE_SCRIPT")"
+    PATCH_FILE_OVERRIDE_Q="$(printf '%q' "$PATCH_FILE_OVERRIDE")"
+    COLLISION_TOOL_OVERRIDE_Q="$(printf '%q' "$COLLISION_TOOL_OVERRIDE")"
+
+    su - site -s /bin/bash -c "set -e; \
+PATCH_FILE_OVERRIDE=$PATCH_FILE_OVERRIDE_Q \
+COLLISION_TOOL_OVERRIDE=$COLLISION_TOOL_OVERRIDE_Q \
+bash $SITE_UPDATE_SCRIPT_Q $APP_ROOT_Q"
 
     echo "→ Syncing nginx site configs from repository..."
     install -m 644 "$NGINX_SRC_DIR/polypointjs.com.conf" "$NGINX_SITES_DIR/polypointjs.com.conf"
@@ -44,6 +51,8 @@ EOSU
 else
     # Running as site user already
     echo "→ Running as site user, performing git pull and app updates..."
+    PATCH_FILE_OVERRIDE="$PATCH_FILE_OVERRIDE" \
+    COLLISION_TOOL_OVERRIDE="$COLLISION_TOOL_OVERRIDE" \
     bash "$SITE_UPDATE_SCRIPT" "$APP_ROOT"
 
     echo "→ Syncing nginx site configs from repository..."

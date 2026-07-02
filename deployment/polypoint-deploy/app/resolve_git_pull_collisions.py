@@ -270,7 +270,16 @@ def main() -> int:
         f"action={default_rule.action}"
     )
 
+    file_tokens: list[str] = []
     for raw_file in args.files:
+        for token in str(raw_file).split():
+            if token:
+                file_tokens.append(token)
+
+    if not file_tokens:
+        raise CollisionResolutionError('No collision files were provided.')
+
+    for raw_file in file_tokens:
         rel_path = normalize_repo_relative(repo_root, raw_file)
         rule = resolve_rule(rel_path, rules, default_rule)
         apply_action(repo_root, rel_path, rule, args.dry_run)

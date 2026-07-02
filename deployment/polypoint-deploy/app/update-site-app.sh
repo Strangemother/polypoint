@@ -3,20 +3,28 @@ set -euo pipefail
 
 APP_ROOT="${1:-/home/site/apps/polypoint}"
 DEPLOY_ROOT="$APP_ROOT/deployment/polypoint-deploy"
-PATCH_FILE="$DEPLOY_ROOT/patches.yaml"
-COLLISION_TOOL="$DEPLOY_ROOT/app/resolve_git_pull_collisions.py"
+PATCH_FILE_DEFAULT="$DEPLOY_ROOT/patches.yaml"
+COLLISION_TOOL_DEFAULT="$DEPLOY_ROOT/app/resolve_git_pull_collisions.py"
+PATCH_FILE="${PATCH_FILE_OVERRIDE:-$PATCH_FILE_DEFAULT}"
+COLLISION_TOOL="${COLLISION_TOOL_OVERRIDE:-$COLLISION_TOOL_DEFAULT}"
 MAX_PULL_ATTEMPTS=5
 
 extract_collision_files() {
     awk '
         /would be overwritten by (merge|checkout):/ {capture=1; next}
-        /Please commit your changes or stash them before you merge\./ {capture=0}
-        /Please move or remove them before you merge\./ {capture=0}
+        /Please commit your changes or stash them before you merge\./ {capture=0; next}
+        /Please move or remove them before you merge\./ {capture=0; next}
+        /^Merge with strategy / {capture=0; next}
+        /^warning:/ {next}
+        /^<stdin>:[0-9]+: trailing whitespace\./ {next}
         capture {
             gsub(/^[[:space:]]+/, "", $0)
-            if (length($0) > 0) print $0
+            if (length($0) == 0) next
+            for (i = 1; i <= NF; i++) {
+                print $i
+            }
         }
-    '
+    ' | sort -u
 }
 
 pull_with_collision_resolution() {

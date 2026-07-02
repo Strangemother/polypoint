@@ -270,10 +270,24 @@ def main() -> int:
         f"action={default_rule.action}"
     )
 
+    def is_collision_file_token(token: str) -> bool:
+        value = str(token or '').strip()
+        if not value:
+            return False
+        if value.startswith('#'):
+            return False
+
+        # Paths from git errors are usually path-like (contain /). If a token
+        # is not path-like, only accept it when it exists at repo root.
+        if '/' in value or '\\' in value:
+            return True
+
+        return (repo_root / value).exists()
+
     file_tokens: list[str] = []
     for raw_file in args.files:
         for token in str(raw_file).split():
-            if token:
+            if is_collision_file_token(token):
                 file_tokens.append(token)
 
     if not file_tokens:

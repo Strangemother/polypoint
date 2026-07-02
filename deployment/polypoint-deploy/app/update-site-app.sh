@@ -15,6 +15,8 @@ extract_collision_files() {
         /Please commit your changes or stash them before you merge\./ {capture=0; next}
         /Please move or remove them before you merge\./ {capture=0; next}
         /^Merge with strategy / {capture=0; next}
+        /^Aborting$/ {capture=0; next}
+        /^# / {next}
         /^warning:/ {next}
         /^<stdin>:[0-9]+: trailing whitespace\./ {next}
         capture {

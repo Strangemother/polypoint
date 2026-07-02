@@ -238,6 +238,48 @@ class CollisionMainFlowTests(unittest.TestCase):
         self.assertIn('[dry-run] replace site/beta/db.sqlite3', output)
         self.assertEqual('', stderr.getvalue())
 
+    def test_main_dry_run_ignores_hash_noise_token(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            repo_root = Path(temp_dir) / 'repo'
+            repo_root.mkdir(parents=True, exist_ok=True)
+
+            patch_file = Path(temp_dir) / 'patches.yaml'
+            patch_file.write_text(
+                '\n'.join(
+                    [
+                        'default:',
+                        '  pattern: "*"',
+                        '  action: stop',
+                        '',
+                        'site/beta/db.sqlite3:',
+                        '  action: replace',
+                    ]
+                ),
+                encoding='utf-8',
+            )
+
+            argv = [
+                'resolve_git_pull_collisions.py',
+                '--repo-root',
+                str(repo_root),
+                '--patch-file',
+                str(patch_file),
+                '--dry-run',
+                '# site/beta/db.sqlite3',
+            ]
+
+            stdout = io.StringIO()
+            stderr = io.StringIO()
+            with mock.patch.object(sys, 'argv', argv):
+                with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+                    exit_code = resolver.main()
+
+        output = stdout.getvalue()
+        self.assertEqual(exit_code, 0)
+        self.assertIn('[dry-run] replace site/beta/db.sqlite3', output)
+        self.assertNotIn('[dry-run] replace #', output)
+        self.assertEqual('', stderr.getvalue())
+
 
 if __name__ == '__main__':
     unittest.main()

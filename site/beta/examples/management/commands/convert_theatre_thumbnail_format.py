@@ -68,6 +68,7 @@ class Command(BaseCommand):
         )
         parser.add_argument(
             '--quality',
+            '--qual',
             type=int,
             default=82,
             help='Quality for lossy outputs such as WebP/JPEG (default: 82).',
@@ -93,6 +94,17 @@ class Command(BaseCommand):
             action='store_true',
             help='Inspect and report without writing files or DB updates.',
         )
+        parser.add_argument(
+            '--progress-every',
+            type=int,
+            default=25,
+            help='Print progress every N records (default: 25). Use 0 to disable.',
+        )
+        parser.add_argument(
+            '--verbose',
+            action='store_true',
+            help='Print one line for each conversion/update action.',
+        )
 
     def handle(self, *args, **options):
         source_ext = normalize_extension(options['from_format'])
@@ -102,6 +114,8 @@ class Command(BaseCommand):
         force = options['force']
         delete_source = options['delete_source']
         dry_run = options['dry_run']
+        progress_every = options['progress_every']
+        verbose = options['verbose']
 
         if not source_ext or not target_ext:
             raise CommandError('Both --from-format and --to-format are required.')
@@ -111,8 +125,11 @@ class Command(BaseCommand):
             raise CommandError('--quality must be between 1 and 100.')
         if method < 0 or method > 6:
             raise CommandError('--method must be between 0 and 6.')
+        if progress_every < 0:
+            raise CommandError('--progress-every must be >= 0.')
 
         queryset = models.TheatreFile.objects.order_by('id')
+        total_items = queryset.count()
 
         stats = {
             'total': 0,
@@ -130,11 +147,26 @@ class Command(BaseCommand):
 
         self.stdout.write(
             'Converting TheatreFile still images '
-            f'{source_ext} -> {target_ext}...'
+            f'{source_ext} -> {target_ext} '
+            f'(rows={total_items}, progress_every={progress_every})...'
         )
 
         for tfm in queryset:
             stats['total'] += 1
+            current_index = stats['total']
+
+            if progress_every and (
+                current_index == 1
+                or current_index == total_items
+                or current_index % progress_every == 0
+            ):
+                self.stdout.write(
+                    f'Progress {current_index}/{total_items} '
+                    f'converted={stats["converted"]} '
+                    f'errors={stats["errors"]} '
+                    f'missing={stats["missing_file"]}'
+                )
+
             rel_path = (tfm.still_image_path or '').strip()
             if not rel_path:
                 stats['without_path'] += 1
@@ -165,11 +197,21 @@ class Command(BaseCommand):
 
                 if dry_run:
                     stats['would_update'] += 1
+                    if verbose:
+                        self.stdout.write(
+                            f'[dry-run] update path {source_rel_path} -> '
+                            f'{target_rel_path}'
+                        )
                     continue
 
                 tfm.still_image_path = target_rel_path
                 tfm.save(update_fields=['still_image_path'])
                 stats['updated_existing_target'] += 1
+                if verbose:
+                    self.stdout.write(
+                        f'Updated path to existing target: '
+                        f'{source_rel_path} -> {target_rel_path}'
+                    )
                 continue
 
             try:
@@ -179,6 +221,11 @@ class Command(BaseCommand):
 
                 if dry_run:
                     stats['would_convert'] += 1
+                    if verbose:
+                        self.stdout.write(
+                            f'[dry-run] convert {source_rel_path} -> '
+                            f'{target_rel_path}'
+                        )
                     continue
 
                 target_path.parent.mkdir(parents=True, exist_ok=True)
@@ -187,10 +234,16 @@ class Command(BaseCommand):
                 tfm.still_image_path = target_rel_path
                 tfm.save(update_fields=['still_image_path'])
                 stats['converted'] += 1
+                if verbose:
+                    self.stdout.write(
+                        f'Converted {source_rel_path} -> {target_rel_path}'
+                    )
 
                 if delete_source and source_path != target_path and source_path.exists():
                     source_path.unlink()
                     stats['deleted_source'] += 1
+                    if verbose:
+                        self.stdout.write(f'Deleted source {source_rel_path}')
             except (UnidentifiedImageError, OSError, ValueError) as exc:
                 stats['errors'] += 1
                 self.stderr.write(

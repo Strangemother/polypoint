@@ -4,6 +4,12 @@ set -e  # Exit on any error
 echo "=== Starting Application Update ==="
 echo ""
 
+APP_ROOT="/home/site/apps/polypoint"
+DEPLOY_ROOT="$APP_ROOT/deployment/polypoint-deploy"
+NGINX_SRC_DIR="$DEPLOY_ROOT/deploy/nginx"
+NGINX_SITES_DIR="/etc/nginx/sites-available"
+NGINX_ENABLED_LINK="/etc/nginx/sites-enabled/polypointjs.com.conf"
+
 # Check if running as root, if so switch to site user for git operations
 if [ "$(id -u)" -eq 0 ]; then
     echo "→ Running as root, switching to site user for git/app operations..."
@@ -25,12 +31,23 @@ python3 manage.py collectstatic --noinput
 echo "✓ Application updated successfully"
 EOSU
 
+    echo "→ Syncing nginx site configs from repository..."
+    install -m 644 "$NGINX_SRC_DIR/polypointjs.com.conf" "$NGINX_SITES_DIR/polypointjs.com.conf"
+    install -m 644 "$NGINX_SRC_DIR/polypointjs.com.improved.conf" "$NGINX_SITES_DIR/polypointjs.com.improved.conf"
+
+    if [ -L "$NGINX_ENABLED_LINK" ]; then
+        echo "→ Active nginx site config: $(readlink -f "$NGINX_ENABLED_LINK")"
+    fi
+
+    echo "→ Testing nginx config..."
+    nginx -t
+
     # Back as root - restart services
     echo "→ Restarting gunicorn service..."
     systemctl restart gunicorn-polypointjs-com.service
 
-    echo "→ Restarting nginx..."
-    systemctl restart nginx
+    echo "→ Reloading nginx..."
+    systemctl reload nginx
 
     echo ""
     echo "=== Service Status ==="
@@ -52,13 +69,24 @@ else
     python3 manage.py collectstatic --noinput
 
     echo "✓ Application updated successfully"
+
+    echo "→ Syncing nginx site configs from repository..."
+    sudo install -m 644 "$NGINX_SRC_DIR/polypointjs.com.conf" "$NGINX_SITES_DIR/polypointjs.com.conf"
+    sudo install -m 644 "$NGINX_SRC_DIR/polypointjs.com.improved.conf" "$NGINX_SITES_DIR/polypointjs.com.improved.conf"
+
+    if [ -L "$NGINX_ENABLED_LINK" ]; then
+        echo "→ Active nginx site config: $(readlink -f "$NGINX_ENABLED_LINK")"
+    fi
+
+    echo "→ Testing nginx config..."
+    sudo nginx -t
     
     # Use sudo for service restarts when running as site user
     echo "→ Restarting gunicorn service..."
     sudo systemctl restart gunicorn-polypointjs-com.service
 
-    echo "→ Restarting nginx..."
-    sudo systemctl restart nginx
+    echo "→ Reloading nginx..."
+    sudo systemctl reload nginx
 
     echo ""
     echo "=== Service Status ==="

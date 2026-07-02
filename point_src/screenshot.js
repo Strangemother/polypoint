@@ -94,113 +94,140 @@ class Screenshot {
     }
 
 
-    downloadCroppedImage(name='polypoint-screenshot.png', background=undefined, borderRadius=10, dimensions=undefined){
-        /* grab the placement, and create a new download image with cropping.*/
-        if(background != undefined) {
-            return this.downloadCroppedImageAlphaComposite(name, background, borderRadius, dimensions)
-        }
-
+    toBlobDetectedCropped(background=undefined, borderRadius=10, dimensions=undefined, minimumSize=undefined) {
         let stage = this.stage
             , ctx = stage.ctx
             , d = dimensions || stage.dimensions
-            , w = d.width
-            , h = d.height
+            , w = d?.width
+            , h = d?.height
+
+        const minWidth = Math.max(0, Math.floor(Number(minimumSize?.width) || 0))
+        const minHeight = Math.max(0, Math.floor(Number(minimumSize?.height) || 0))
+
+        const fallbackBlob = () => {
+            return new Promise((resolve, reject) => {
+                this.toBlob((blob) => {
+                    if (!blob) {
+                        reject(new Error('Screenshot capture failed.'))
+                        return
+                    }
+
+                    resolve(blob)
+                })
+            })
+        }
+
+        if (!Number.isFinite(w) || !Number.isFinite(h) || w < 1 || h < 1) {
+            return fallbackBlob()
+        }
+
+        if (typeof detectEdges != 'function') {
+            return fallbackBlob()
+        }
 
         const initImageData = ctx.getImageData(0, 0, w, h)
         let edges = detectEdges(initImageData.data, initImageData.width)
         const innerPadding = 10
-        let offscreen = stage.offscreen.create({
-                width: edges.width + (innerPadding * 2)
-                , height: edges.height + (innerPadding * 2)
-            })
+        const contentWidth = edges.width + (innerPadding * 2)
+        const contentHeight = edges.height + (innerPadding * 2)
+        const hasMinimumWidth = minWidth > 0
+        const hasMinimumHeight = minHeight > 0
+        const outputWidth = hasMinimumWidth
+            ? Math.max(minWidth, edges.width)
+            : contentWidth
+        const outputHeight = hasMinimumHeight
+            ? Math.max(minHeight, edges.height)
+            : contentHeight
+        const drawX = Math.max(0, Math.floor((outputWidth - edges.width) * .5))
+        const drawY = Math.max(0, Math.floor((outputHeight - edges.height) * .5))
+        let offscreen = stage?.offscreen?.create?.({
+            width: outputWidth,
+            height: outputHeight,
+        })
+
+        if (!offscreen) {
+            offscreen = document.createElement('canvas')
+            offscreen.width = outputWidth
+            offscreen.height = outputHeight
+        }
 
         const imageData = ctx.getImageData(
             edges.left, edges.top,
             edges.width, edges.height
         )
-        let offCtx = offscreen.getContext('2d')
-        offCtx.clearRect(0, 0, offscreen.width, offscreen.height)
-        // offCtx.drawImage(offscreen,  innerPadding,+ innerPadding, edges.width, edges.height, 0, 0, edges.width, edges.height);
-        offCtx.putImageData(imageData, 0 + innerPadding, 0 + innerPadding);
 
-        setTimeout(()=>{
-            let cb = (blob) => {
-                const anchor = document.createElement('a');
-                anchor.download = name
-                anchor.href = this.blobURL(blob);
-                anchor.click()
-                let _stage = this
-                // setTimeout(()=> _stage.revokeURL(anchor.href), 1000)
-                setTimeout(()=> {
-                    let _stage = this
-                    _stage.revokeURL(anchor.href)
-                }, 500)
+        let offCtx = offscreen.getContext('2d')
+        if (!offCtx) {
+            return Promise.reject(new Error('Screenshot crop context unavailable.'))
+        }
+
+        if(background != undefined) {
+            // Draw background
+            offCtx.fillStyle = background
+            offCtx.roundRect(0, 0, offscreen.width, offscreen.height, borderRadius)
+            offCtx.fill()
+
+            // Create temp canvas for proper blending
+            let tempCanvas = document.createElement('canvas')
+            tempCanvas.width = imageData.width
+            tempCanvas.height = imageData.height
+            let tempCtx = tempCanvas.getContext('2d')
+            tempCtx.putImageData(imageData, 0, 0)
+
+            // Draw blended image on top
+            offCtx.drawImage(
+                tempCanvas,
+                0, 0, imageData.width, imageData.height,
+                drawX, drawY, imageData.width, imageData.height
+            )
+        } else {
+            offCtx.clearRect(0, 0, offscreen.width, offscreen.height)
+            offCtx.putImageData(imageData, drawX, drawY)
+        }
+
+        if (typeof offscreen.convertToBlob == 'function') {
+            return offscreen.convertToBlob({
+                type: this.fileFormat,
+                quality: this.fileQuality,
+            })
+        }
+
+        return new Promise((resolve, reject) => {
+            if (typeof offscreen.toBlob != 'function') {
+                reject(new Error('Canvas blob conversion unavailable.'))
+                return
             }
 
-            offscreen.convertToBlob().then(cb);
-        }, 1)
+            offscreen.toBlob((blob) => {
+                if (!blob) {
+                    reject(new Error('Screenshot capture failed.'))
+                    return
+                }
 
+                resolve(blob)
+            }, this.fileFormat, this.fileQuality)
+        })
+    }
+
+
+    downloadCroppedImage(name='polypoint-screenshot.png', background=undefined, borderRadius=10, dimensions=undefined){
+        /* grab the placement, and create a new download image with cropping.*/
+        this.toBlobDetectedCropped(background, borderRadius, dimensions).then((blob) => {
+            const anchor = document.createElement('a')
+            anchor.download = name
+            anchor.href = this.blobURL(blob)
+            anchor.click()
+            setTimeout(()=> {
+                this.revokeURL(anchor.href)
+            }, 500)
+        }).catch((error) => {
+            console.error('downloadCroppedImage failed:', error)
+        })
     }
 
     downloadCroppedImageAlphaComposite(name='polypoint-screenshot.png',
         background=undefined, borderRadius=10, dimensions=undefined){
-        let stage = this.stage
-            , ctx = stage.ctx
-            , d = dimensions || stage.dimensions
-            , w = d.width
-            , h = d.height
-
-        const initImageData = ctx.getImageData(0, 0, w, h)
-        let edges = detectEdges(initImageData.data, initImageData.width)
-        const innerPadding = 10
-        let offscreen = stage.offscreen.create({
-            width: edges.width + (innerPadding * 2),
-            height: edges.height + (innerPadding * 2)
-        })
-
-        const imageData = ctx.getImageData(
-            edges.left, edges.top,
-            edges.width, edges.height
-        )
-
-        let offCtx = offscreen.getContext('2d')
-
-        // Draw background
-        offCtx.fillStyle = background
-        // offCtx.fillRect(0, 0, offscreen.width, offscreen.height)
-        offCtx.roundRect(0, 0, offscreen.width, offscreen.height, 10)
-        offCtx.fill()
-        // Create temp canvas for proper blending
-        let tempCanvas = document.createElement('canvas')
-        tempCanvas.width = imageData.width
-        tempCanvas.height = imageData.height
-        let tempCtx = tempCanvas.getContext('2d')
-        tempCtx.putImageData(imageData, 0, 0)
-
-        // Draw blended image on top
-        offCtx.drawImage(
-            tempCanvas,
-            0, 0, imageData.width, imageData.height,
-            innerPadding, innerPadding, imageData.width, imageData.height
-        )
-
-        setTimeout(()=>{
-            let cb = (blob) => {
-                const anchor = document.createElement('a');
-                anchor.download = name
-                anchor.href = this.blobURL(blob);
-                anchor.click()
-                let _stage = this
-                // setTimeout(()=> _stage.revokeURL(anchor.href), 1000)
-                setTimeout(()=> {
-                    let _stage = this
-                    _stage.revokeURL(anchor.href)
-                }, 500)
-            }
-
-            offscreen.convertToBlob().then(cb);
-        }, 1)
-
+        return this.downloadCroppedImage(name, background, borderRadius, dimensions)
     }
 
 

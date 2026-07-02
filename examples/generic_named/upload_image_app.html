@@ -37,6 +37,24 @@
                 <span class="label">Thumbnail</span>
             </span>
         </a>
+        <div class="filename-input thumbnail-min-size">
+            <input
+                type="number"
+                ref="thumbnail_min_width"
+                value="400"
+                min="1"
+                step="1"
+                @change=thumbnailMinimumSizeChange
+                placeholder="Min width (optional, e.g. 400)">
+            <input
+                type="number"
+                ref="thumbnail_min_height"
+                value="300"
+                min="1"
+                step="1"
+                @change=thumbnailMinimumSizeChange
+                placeholder="Min height (optional, e.g. 300)">
+        </div>
         <a href="javascript:;" @click=startPhotographerClick>
             <span class="left-cell">
                 <span class="material-symbols-outlined">arrow_selector_tool</span>

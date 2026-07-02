@@ -6,6 +6,10 @@ class UploadApp extends Mountable {
     storageName = 'uploadApp'
     photographerKey = 'polypoint.photographer.active'
     photographerSlowKey = 'polypoint.photographer.slow'
+    thumbnailMinWidthKey = 'polypoint.upload.thumbnail.min_width'
+    thumbnailMinHeightKey = 'polypoint.upload.thumbnail.min_height'
+    thumbnailMinWidthDefault = 400
+    thumbnailMinHeightDefault = 300
     photographerReadyDelayMs = 500
     photographerPageDelayMs = 250
     photographerSlowModeDelayMs = 1000
@@ -32,6 +36,7 @@ class UploadApp extends Mountable {
     mounted() {
         this.store.photographerActive = this.isPhotographerActive()
         this.store.photographerSlow = this.isPhotographerSlow()
+        this.initializeThumbnailMinimumSize()
         if (this.store.photographerActive) {
             this.runPhotographerLoop()
         }
@@ -296,6 +301,73 @@ class UploadApp extends Mountable {
         return this.getFilename().replace(/\.[^.]+$/, '')
     }
 
+    parsePositiveInteger(value) {
+        const cleaned = `${value ?? ''}`.trim()
+        if (cleaned.length < 1) {
+            return undefined
+        }
+
+        const parsed = Number.parseInt(cleaned, 10)
+        if (!Number.isFinite(parsed) || parsed < 1) {
+            return undefined
+        }
+
+        return parsed
+    }
+
+    initializeThumbnailMinimumSize() {
+        const widthValue = localStorage.getItem(this.thumbnailMinWidthKey)
+        const heightValue = localStorage.getItem(this.thumbnailMinHeightKey)
+
+        const nextWidth = widthValue == null
+            ? `${this.thumbnailMinWidthDefault}`
+            : widthValue
+        const nextHeight = heightValue == null
+            ? `${this.thumbnailMinHeightDefault}`
+            : heightValue
+
+        if (this.$refs.thumbnail_min_width) {
+            this.$refs.thumbnail_min_width.value = nextWidth
+        }
+        if (this.$refs.thumbnail_min_height) {
+            this.$refs.thumbnail_min_height.value = nextHeight
+        }
+
+        if (widthValue == null) {
+            localStorage.setItem(this.thumbnailMinWidthKey, nextWidth)
+        }
+        if (heightValue == null) {
+            localStorage.setItem(this.thumbnailMinHeightKey, nextHeight)
+        }
+    }
+
+    storeThumbnailMinimumSize() {
+        const widthValue = `${this.$refs.thumbnail_min_width?.value ?? ''}`.trim()
+        const heightValue = `${this.$refs.thumbnail_min_height?.value ?? ''}`.trim()
+
+        localStorage.setItem(this.thumbnailMinWidthKey, widthValue)
+        localStorage.setItem(this.thumbnailMinHeightKey, heightValue)
+    }
+
+    thumbnailMinimumSizeChange(event) {
+        event?.preventDefault?.()
+        this.storeThumbnailMinimumSize()
+    }
+
+    getThumbnailMinimumSize() {
+        const width = this.parsePositiveInteger(this.$refs.thumbnail_min_width?.value)
+        const height = this.parsePositiveInteger(this.$refs.thumbnail_min_height?.value)
+
+        if (!width && !height) {
+            return undefined
+        }
+
+        return {
+            width,
+            height,
+        }
+    }
+
     getCsrfToken() {
         const cookies = document.cookie ? document.cookie.split(';') : []
 
@@ -311,7 +383,7 @@ class UploadApp extends Mountable {
 
     async ensureScreenshotTools(needsCropTools = false) {
         const screenshotReady = Boolean(stage?.screenshot?.toBlob)
-        const cropReady = Boolean(window?.detectEdges && stage?.screenshot?.toBlobCropped)
+        const cropReady = Boolean(window?.detectEdges && stage?.screenshot?.toBlobDetectedCropped)
 
         if (screenshotReady && (!needsCropTools || cropReady)) {
             return
@@ -320,6 +392,7 @@ class UploadApp extends Mountable {
         const files = ['../point_src/screenshot.js']
         if (needsCropTools) {
             files.push('../point_src/image-edge-detection.js')
+            files.push('../point_src/offscreen.js')
         }
 
         await new Promise((resolve) => {
@@ -345,84 +418,18 @@ class UploadApp extends Mountable {
         })
     }
 
-    canvasToBlob(canvas, mimeType = 'image/png', quality = 0.9) {
-        return new Promise((resolve, reject) => {
-            canvas.toBlob((blob) => {
-                if (!blob) {
-                    reject(new Error('Screenshot capture failed.'))
-                    return
-                }
-
-                resolve(blob)
-            }, mimeType, quality)
-        })
-    }
-
     async captureThumbnailBlob() {
-        if (!window?.detectEdges) {
+        if (!stage?.screenshot?.toBlobDetectedCropped) {
             return this.captureFullBlob()
         }
 
         try {
-            const dimensions = stage?.dimensions
-            const hasDimensions = Number.isFinite(dimensions?.width)
-                && Number.isFinite(dimensions?.height)
-
-            if (!hasDimensions) {
-                return this.captureFullBlob()
-            }
-
-            const imageData = stage.ctx.getImageData(
-                0,
-                0,
-                dimensions.width,
-                dimensions.height,
-            )
-            const edges = detectEdges(imageData.data, imageData.width)
-            const cropLeft = Math.max(0, Math.floor(edges?.left || 0))
-            const cropTop = Math.max(0, Math.floor(edges?.top || 0))
-            const maxCropWidth = Math.max(1, dimensions.width - cropLeft)
-            const maxCropHeight = Math.max(1, dimensions.height - cropTop)
-            const cropWidth = Math.min(
-                maxCropWidth,
-                Math.max(1, Math.floor(edges?.width || 0)),
-            )
-            const cropHeight = Math.min(
-                maxCropHeight,
-                Math.max(1, Math.floor(edges?.height || 0)),
-            )
-            const validCrop = Number.isFinite(cropWidth)
-                && Number.isFinite(cropHeight)
-                && cropWidth > 0
-                && cropHeight > 0
-
-            if (!validCrop) {
-                return this.captureFullBlob()
-            }
-
-            const innerPadding = 10
-            const targetCanvas = document.createElement('canvas')
-            targetCanvas.width = cropWidth + (innerPadding * 2)
-            targetCanvas.height = cropHeight + (innerPadding * 2)
-            const targetCtx = targetCanvas.getContext('2d')
-            if (!targetCtx) {
-                return this.captureFullBlob()
-            }
-            targetCtx.fillStyle = '#222'
-            targetCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height)
-
-            const croppedImageData = stage.ctx.getImageData(
-                cropLeft,
-                cropTop,
-                cropWidth,
-                cropHeight,
-            )
-            targetCtx.putImageData(croppedImageData, innerPadding, innerPadding)
-
-            return this.canvasToBlob(
-                targetCanvas,
-                stage?.screenshot?.fileFormat || 'image/png',
-                stage?.screenshot?.fileQuality || 0.9,
+            const minimumSize = this.getThumbnailMinimumSize()
+            return await stage.screenshot.toBlobDetectedCropped(
+                undefined,
+                10,
+                stage?.dimensions,
+                minimumSize,
             )
         } catch {
             return this.captureFullBlob()

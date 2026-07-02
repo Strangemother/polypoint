@@ -171,6 +171,7 @@ def build_remote_command(
     bootstrap_steps.extend(
         [
             'BOOTSTRAP_DIR="$(mktemp -d /tmp/polypoint-deploy.XXXXXX)"',
+            'chmod 755 "$BOOTSTRAP_DIR"',
             'cleanup_bootstrap(){ rm -rf "$BOOTSTRAP_DIR"; }',
             "trap cleanup_bootstrap EXIT",
         ]
@@ -190,6 +191,10 @@ def build_remote_command(
         if executable in bootstrap_files:
             executable_q = shlex.quote(executable)
             bootstrap_steps.append(f'chmod +x "$BOOTSTRAP_DIR"/{executable_q}')
+
+    # update-app.sh can switch to the `site` user, so ensure that user can
+    # traverse/read the bootstrap tree and execute scripts inside it.
+    bootstrap_steps.append('chmod -R a+rX "$BOOTSTRAP_DIR"')
 
     script_rel_q = shlex.quote(script_rel)
     if script_rel == update_app_rel:

@@ -60,7 +60,7 @@
                 <li data-file="{{ obj.name }}">
                     <div class="image-container">
                         {% if obj.still_image_path %}
-                        <img src="/media/{{ obj.still_image_path }}">
+                        <img src="/media/{{ obj.still_image_path }}" loading="lazy" decoding="async" alt="{{ obj.name }} thumbnail">
                         {% endif %}
                     </div>
                     <div class="link">{% link "examples:file_example" obj.name obj.name %}</div>

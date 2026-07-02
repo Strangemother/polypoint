@@ -110,6 +110,33 @@ class CollisionRuleTests(unittest.TestCase):
             with self.assertRaises(resolver.CollisionResolutionError):
                 resolver.apply_action(repo_root, Path('site/beta/db.sqlite3'), stop_rule, False)
 
+    def test_wildcard_inline_key_rule_matches(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            patch_file = Path(temp_dir) / 'patches.yaml'
+            patch_file.write_text(
+                '\n'.join(
+                    [
+                        'default:',
+                        '  pattern: "*"',
+                        '  action: stop',
+                        '',
+                        'deployment/*:',
+                        '  action: replace',
+                    ]
+                ),
+                encoding='utf-8',
+            )
+
+            sections = resolver.parse_patches_yaml(patch_file)
+            rules, default_rule = resolver.build_rules(sections)
+
+        matched = resolver.resolve_rule(
+            Path('deployment/polypoint-deploy/update-app.sh'),
+            rules,
+            default_rule,
+        )
+        self.assertEqual(matched.action, 'replace')
+
 
 class CollisionGitIntegrationTests(unittest.TestCase):
     def test_apply_replace_reverts_tracked_file(self):
@@ -146,6 +173,34 @@ class CollisionGitIntegrationTests(unittest.TestCase):
 
             resolver.apply_replace(repo_root, Path('site/beta/db.sqlite3'), dry_run=False)
             self.assertFalse(target.exists())
+
+    def test_apply_replace_reverts_staged_and_unstaged_changes(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            repo_root = Path(temp_dir)
+            init_repo(repo_root)
+
+            target = repo_root / 'deployment' / 'polypoint-deploy' / 'update-app.sh'
+            target_rel = Path('deployment/polypoint-deploy/update-app.sh')
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text('v1\n', encoding='utf-8')
+
+            run_git(repo_root, 'add', target_rel.as_posix())
+            run_git(repo_root, 'commit', '-m', 'Add deploy script')
+
+            target.write_text('v2\n', encoding='utf-8')
+            run_git(repo_root, 'add', target_rel.as_posix())
+            target.write_text('v3\n', encoding='utf-8')
+
+            resolver.apply_replace(repo_root, target_rel, dry_run=False)
+
+            self.assertEqual(target.read_text(encoding='utf-8'), 'v1\n')
+            status = subprocess.run(
+                ['git', '-C', str(repo_root), 'status', '--porcelain', '--', target_rel.as_posix()],
+                check=True,
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(status.stdout.strip(), '')
 
 
 class CollisionMainFlowTests(unittest.TestCase):

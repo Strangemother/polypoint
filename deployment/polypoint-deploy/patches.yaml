@@ -21,14 +21,5 @@ site/beta/db.sqlite3:
   # pattern: "site/beta/db.sqlite3" # default key is used as pattern when omitted
   action: replace
 
-deployment/polypoint-deploy/update-app.sh:
-  action: replace
-
-deployment/polypoint-deploy/app/update-site-app.sh:
-  action: replace
-
-deployment/polypoint-deploy/app/resolve_git_pull_collisions.py:
-  action: replace
-
-deployment/polypoint-deploy/patches.yaml:
+deployment/*:
   action: replace

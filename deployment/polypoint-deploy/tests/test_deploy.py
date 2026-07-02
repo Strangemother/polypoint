@@ -28,6 +28,8 @@ class DeployCommandTests(unittest.TestCase):
             remote_script='/home/site/apps/polypoint/deployment/polypoint-deploy/update-app.sh',
             app_root='/home/site/apps/polypoint',
             bootstrap_deploy_scripts=False,
+            enable_patch_handling=True,
+            hard_refresh=False,
         )
 
         self.assertEqual(
@@ -40,6 +42,8 @@ class DeployCommandTests(unittest.TestCase):
             remote_script='/home/site/apps/polypoint/deployment/polypoint-deploy/update-app.sh',
             app_root='/home/site/apps/polypoint',
             bootstrap_deploy_scripts=True,
+            enable_patch_handling=True,
+            hard_refresh=False,
         )
 
         self.assertIn('set -e; cd /home/site/apps/polypoint;', command)
@@ -73,6 +77,8 @@ class DeployCommandTests(unittest.TestCase):
             remote_script='/home/site/apps/polypoint/custom/deploy.sh',
             app_root='/home/site/apps/polypoint',
             bootstrap_deploy_scripts=True,
+            enable_patch_handling=True,
+            hard_refresh=False,
         )
 
         self.assertIn('git show origin/main:custom/deploy.sh > "$BOOTSTRAP_DIR"/custom/deploy.sh', command)
@@ -83,6 +89,8 @@ class DeployCommandTests(unittest.TestCase):
             remote_script='/opt/custom/deploy.sh',
             app_root='/home/site/apps/polypoint',
             bootstrap_deploy_scripts=True,
+            enable_patch_handling=True,
+            hard_refresh=False,
         )
 
         self.assertEqual(
@@ -103,6 +111,8 @@ class DeployCommandTests(unittest.TestCase):
                 identity_file=identity_file,
                 app_root='/home/site/apps/polypoint',
                 bootstrap_deploy_scripts=False,
+                enable_patch_handling=True,
+                hard_refresh=False,
             )
 
         self.assertEqual(command[0], 'ssh')
@@ -112,6 +122,43 @@ class DeployCommandTests(unittest.TestCase):
         self.assertEqual(command[4], '2222')
         self.assertEqual(command[5], 'root@example.com')
         self.assertIn('set -e; bash ', command[6])
+
+    def test_build_remote_command_with_no_patch_and_hard_refresh(self):
+        command = deploy.build_remote_command(
+            remote_script='/home/site/apps/polypoint/deployment/polypoint-deploy/update-app.sh',
+            app_root='/home/site/apps/polypoint',
+            bootstrap_deploy_scripts=False,
+            enable_patch_handling=False,
+            hard_refresh=True,
+        )
+
+        self.assertEqual(
+            command,
+            'set -e; NO_PATCH=1 HARD_REFRESH=1 bash /home/site/apps/polypoint/deployment/polypoint-deploy/update-app.sh',
+        )
+
+    def test_render_command_preview_hides_remote_payload_by_default(self):
+        command = [
+            'ssh',
+            '-p',
+            '32432',
+            'root@polypointjs.com',
+            'set -e; cd /home/site/apps/polypoint; ...',
+        ]
+        preview = deploy.render_command_preview(command, show_remote_command=False)
+        self.assertIn('<remote-command-hidden;', preview)
+        self.assertNotIn('cd /home/site/apps/polypoint', preview)
+
+    def test_render_command_preview_shows_remote_payload_when_requested(self):
+        command = [
+            'ssh',
+            '-p',
+            '32432',
+            'root@polypointjs.com',
+            'set -e; cd /home/site/apps/polypoint; ...',
+        ]
+        preview = deploy.render_command_preview(command, show_remote_command=True)
+        self.assertIn('cd /home/site/apps/polypoint', preview)
 
 
 if __name__ == '__main__':

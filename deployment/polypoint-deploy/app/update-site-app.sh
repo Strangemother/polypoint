@@ -7,7 +7,20 @@ PATCH_FILE_DEFAULT="$DEPLOY_ROOT/patches.yaml"
 COLLISION_TOOL_DEFAULT="$DEPLOY_ROOT/app/resolve_git_pull_collisions.py"
 PATCH_FILE="${PATCH_FILE_OVERRIDE:-$PATCH_FILE_DEFAULT}"
 COLLISION_TOOL="${COLLISION_TOOL_OVERRIDE:-$COLLISION_TOOL_DEFAULT}"
+NO_PATCH="${NO_PATCH:-0}"
+HARD_REFRESH="${HARD_REFRESH:-0}"
 MAX_PULL_ATTEMPTS=5
+
+is_true() {
+    local value="${1:-}"
+    value="${value,,}"
+    [[ "$value" == "1" || "$value" == "true" || "$value" == "yes" || "$value" == "on" ]]
+}
+
+print_section() {
+    echo ""
+    echo "=== $1 ==="
+}
 
 extract_collision_files() {
     awk '
@@ -40,7 +53,7 @@ pull_with_collision_resolution() {
     fi
 
     while [ "$attempt" -le "$MAX_PULL_ATTEMPTS" ]; do
-        echo "→ Pull attempt $attempt/$MAX_PULL_ATTEMPTS..."
+        echo "→ Pull attempt $attempt/$MAX_PULL_ATTEMPTS"
 
         set +e
         pull_output="$(git pull --no-ff origin main 2>&1)"
@@ -78,9 +91,27 @@ pull_with_collision_resolution() {
 }
 
 cd "$APP_ROOT"
-pull_with_collision_resolution
+
+if is_true "$HARD_REFRESH"; then
+    print_section "Hard Refresh"
+    echo "→ Removing stale bootstrap temp dirs from /tmp"
+    find /tmp -maxdepth 1 -type d -name 'polypoint-deploy.*' -prune -exec rm -rf {} + || true
+    echo "→ Resetting repository to current HEAD"
+    git reset --hard HEAD
+    echo "→ Cleaning untracked files"
+    git clean -fd
+fi
+
+print_section "Git Update"
+if is_true "$NO_PATCH"; then
+    echo "→ Patch collision handling disabled (--no-patch mode)."
+    git pull --no-ff origin main
+else
+    pull_with_collision_resolution
+fi
 
 # Activate virtual environment.
+print_section "Collect Static"
 source "$APP_ROOT/.venv/bin/activate"
 
 # Collect static files.

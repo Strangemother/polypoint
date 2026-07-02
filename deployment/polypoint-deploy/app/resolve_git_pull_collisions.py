@@ -217,8 +217,10 @@ def apply_replace(repo_root: Path, path: Path, dry_run: bool) -> None:
         return
 
     if is_tracked(repo_root, path):
-        run_git(repo_root, ["checkout", "--", path_text])
-        print(f"Replaced tracked path from HEAD: {path_text}")
+        # Discard both staged and unstaged changes.
+        run_git(repo_root, ["reset", "--", path_text])
+        run_git(repo_root, ["checkout", "HEAD", "--", path_text])
+        print(f"Replaced tracked path from HEAD (index + worktree): {path_text}")
         return
 
     # Remove untracked path when merge complains about untracked overwrite.

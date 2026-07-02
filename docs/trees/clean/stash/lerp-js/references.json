@@ -1,0 +1,397 @@
+{
+    "src_file": "lerp.js",
+    "references": {
+        "classes": {
+            "Value": {
+                "class_name": "Value",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "Value",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "a",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "b",
+                                "default_value": 1
+                            },
+                            {
+                                "name": "easing",
+                                "default_value": "undefined"
+                            },
+                            {
+                                "name": "doneStop",
+                                "default_value": false
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 60
+                    },
+                    {
+                        "method_name": "setEasing",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "easing"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "let linear = v=>Number(v.toFixed(this.fix));",
+                                    "block": false,
+                                    "line": 73
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 71
+                    },
+                    {
+                        "method_name": "width",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 77
+                    },
+                    {
+                        "method_name": "t",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "v"
+                            },
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 81
+                    },
+                    {
+                        "method_name": "get",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "step"
+                            },
+                            {
+                                "name": "easing"
+                            },
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "a smoothing function",
+                                    "block": true,
+                                    "line": 86
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 85
+                    },
+                    {
+                        "method_name": "pluck",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "step"
+                            },
+                            {
+                                "name": "easing"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 106
+                    },
+                    {
+                        "method_name": "mutate",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "easing"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 110
+                    },
+                    {
+                        "method_name": "emitDoneEvent",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "preValue"
+                            },
+                            {
+                                "name": "mutator"
+                            },
+                            {
+                                "name": "step"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 119
+                    },
+                    {
+                        "method_name": "doneHandler",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "value"
+                            },
+                            {
+                                "name": "preValue"
+                            },
+                            {
+                                "name": "mutator"
+                            },
+                            {
+                                "name": "step"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "console.log('done', value, preValue)",
+                                    "block": false,
+                                    "line": 127
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 126
+                    },
+                    {
+                        "method_name": "split",
+                        "class_name": "Value",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "count",
+                                "default_value": 1
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "return a list of numbers, split through the count divisor\n\nv= new Value(100, 600)\nv.split(10)[9] == 600\nv.split(2) == [100, 600]",
+                                    "block": true,
+                                    "line": 136
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 130
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "let linear = v=>Number(v.toFixed(this.fix));",
+                            "block": false,
+                            "line": 73
+                        }
+                    ]
+                },
+                "line": 58
+            },
+            "PointListLerper": {
+                "class_name": "PointListLerper",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointListLerper",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "pointList"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 153
+                    },
+                    {
+                        "method_name": "getCommonValue",
+                        "class_name": "PointListLerper",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 160
+                    },
+                    {
+                        "method_name": "getCommonEasingFunction",
+                        "class_name": "PointListLerper",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "return an easing function",
+                                    "block": true,
+                                    "line": 172
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 171
+                    },
+                    {
+                        "method_name": "through",
+                        "class_name": "PointListLerper",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            },
+                            {
+                                "name": "settings"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Lerp this entire pointlist from _a_ to _b_.\nSettings can be a number or a settings object.",
+                                    "block": true,
+                                    "line": 178
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 176
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "return an easing function",
+                            "block": true,
+                            "line": 172
+                        }
+                    ]
+                },
+                "line": 151
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "lerp.js",
+        "path": "C:\\Users\\jay\\Documents\\projects\\polypoint\\point_src\\iter\\lerp.js",
+        "size": 6840,
+        "parsed_date": "2026-06-30T23:35:31.288Z"
+    }
+}

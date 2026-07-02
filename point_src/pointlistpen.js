@@ -61,8 +61,11 @@ class PointListPen {
     lines(ctx, color='inherit', width) {
         /* Draw a call the `pen.line`` for each point. */
 
+        let lc = color?.line?.color || color.color || color
+        let lw = color?.line?.width || color.width || width
+
         let eachPoint = (item, arcDrawF) =>{
-                item.project().pen.line(ctx, item, tryInheritColor(item, color), width)
+                item.project().pen.line(ctx, item, tryInheritColor(item, lc), lw)
                 ctx.beginPath();
                 // arcDrawF(item)
                 // quickStrokeWithCtx(ctx, tryInheritColor(item, cc), cw)

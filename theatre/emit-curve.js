@@ -105,7 +105,10 @@ class MainStage extends Stage {
             // e.points.pen.indicators(ctx)
         })
         */
+        if(this.line.points[0].wasDirty || this.line.points[0].wasDirty) {
+            this.lineEmitter.cachePoints(this.line, .5)
 
+        }
         this.line.render(ctx)
         // this.line.points.forEach((p)=>p.pen.indicator(ctx))
         // this.line.split(this.line.length / 16, 90).pen.indicators(ctx)

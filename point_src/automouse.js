@@ -173,11 +173,57 @@ class AutoMouse {
             , mousedown: this.mousedownHandler.bind(this)
             , mouseup: this.mouseupHandler.bind(this)
             , wheel: [this.wheelHandler.bind(this), {passive: true}]
+        }
 
+        if(this.hookTouch) {
+            Object.assign(methods, {
+                touchstart: this.touchstartHandler.bind(this)
+                , touchend: this.touchendHandler.bind(this)
+                , touchmove: this.touchmoveHandler.bind(this)
+            })
         }
         this._methods = methods
         return this._methods;
     }
+
+
+    touchstartHandler(canvas, event) {
+        console.log('touchstart')
+        let space = this.getActionSpace(event.button || 0)
+        space.down = true
+        this.applyPositionIncrement(space, event.touches[0], event)
+        this.callHandlers('mousedown', canvas, event.touches[0], event)
+        return this;
+    }
+
+    touchendHandler(canvas, event) {
+
+        console.log('touchend')
+        this.callHandlers('mouseup', canvas, event)
+        let space = this.getActionSpace(event.button || 0)
+        space.down = false
+        this.applyPositionIncrement(space, event)
+        return this;
+    }
+
+    touchmoveHandler(canvas, event){
+        console.log('onTouchmove')
+
+        // for(let touch of event.touches) {
+        //     let t = touches.get(touch.identifier)
+        //     t.touch = touch
+        //     t.movePoint.update({
+        //         x: touch.pageX
+        //         , y: touch.pageY  - t.yOffset
+        //         , radius: touch.radiusX * touch.force
+        //         , radians: touch.rotationAngle
+        //     })
+        // }
+        this.mousemoveHandler(canvas, event.touches[0], event)
+    }
+
+
+    hookTouch = true
 
     mount(canvas) {
         /* Call upon `mount` to initate listening of all events on a canvas. */
@@ -302,8 +348,8 @@ class AutoMouse {
     applyPositionIncrement(space, event) {
         space.count += 1
         space.position = {
-                x: event.offsetX
-                , y: event.offsetY
+                x: event.offsetX || event.clientX
+                , y: event.offsetY || event.clientY
             }
             return space
     }

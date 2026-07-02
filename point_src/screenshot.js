@@ -119,9 +119,7 @@ class Screenshot {
             edges.width, edges.height
         )
         let offCtx = offscreen.getContext('2d')
-        offCtx.rect(0, 0, edges.width + (innerPadding * 2), edges.height + (innerPadding * 2));
-        offCtx.fillStyle = '#222'
-        offCtx.fill()
+        offCtx.clearRect(0, 0, offscreen.width, offscreen.height)
         // offCtx.drawImage(offscreen,  innerPadding,+ innerPadding, edges.width, edges.height, 0, 0, edges.width, edges.height);
         offCtx.putImageData(imageData, 0 + innerPadding, 0 + innerPadding);
 
@@ -282,9 +280,7 @@ const asObjectWithCrop = async function(canvas, mimeType = "image/jpeg", quality
             targetCanvas.width = cropWidth + (innerPadding * 2);
             targetCanvas.height = cropHeight + (innerPadding * 2);
             const ctx = targetCanvas.getContext("2d");
-            ctx.rect(0, 0, targetCanvas.width, targetCanvas.height);
-            ctx.fillStyle = '#222'
-            ctx.fill()
+            ctx.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
             // ctx.putImageData(canvas, 0, 0);
             ctx.drawImage(
                 canvas,

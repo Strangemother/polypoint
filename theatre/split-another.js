@@ -25,12 +25,15 @@ files:
     ../point_src/screenwrap.js
     ../point_src/curve-extras.js
 */
+
+console.log('Role')
+
 class MainStage extends Stage {
     canvas='playspace'
     live = true
 
     mounted(){
-        this.count = 80
+        this.count = 300
         let lpoints4 = [new Point(200, 300, 300, 90), new Point(800, 400, 200, 100)]
         this.curve2 = new BezierCurve(...lpoints4)
         this.dragging.add( ...lpoints4)
@@ -49,8 +52,8 @@ class MainStage extends Stage {
         this.drawCollisonPoints = false
         // Physics constants
         this.gravity = 0.1
-        this.damping = 1  // Bounce damping (affects normal velocity)
-        this.rollingFriction = 0.98  // Rolling resistance (affects tangential velocity)
+        this.damping = .86  // Bounce damping (affects normal velocity)
+        this.rollingFriction = 0.8  // Rolling resistance (affects tangential velocity)
         this.dragging.add(this.ball)
 
     }
@@ -162,7 +165,7 @@ class MainStage extends Stage {
                 })
 
                 if (nearbyNormals.length < minNormals) {
-                    searchRadius *= 1.5
+                    searchRadius *= 0.5
                 }
             }
         }
@@ -256,8 +259,16 @@ class MainStage extends Stage {
                 tangentVelocity = tangentVelocity * this.rollingFriction
 
                 // Reconstruct velocity from components
-                this.ball.vx = normalVelocity * normalX + tangentVelocity * tangentX
-                this.ball.vy = normalVelocity * normalY + tangentVelocity * tangentY - this.gravity - 0.1 // Small extra gravity to prevent sticking
+                let vx = normalVelocity * normalX + tangentVelocity * tangentX
+                let vy = normalVelocity * normalY + tangentVelocity * tangentY - this.gravity - 0.1 // Small extra gravity to prevent sticking
+                // if(Math.abs(vx) <= .8) {
+                //     vx *= .8
+                // }
+                // if(Math.abs(vy) <= .8) {
+                //     vy *= .8
+                // }
+                this.ball.vx = vx
+                this.ball.vy = vy
             }
         }
         // Draw nearby normals in a different color to show detection

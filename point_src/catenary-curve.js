@@ -181,6 +181,44 @@ function getDistanceBetweenPoints(p1, p2) {
 }
 
 /**
+ * Rotate a point around a pivot by `angle` radians (clockwise, since `y`
+ * is assumed to increase downward as in canvas coordinates).
+ */
+function rotatePointAround(x, y, pivotX, pivotY, angle) {
+    const cos = Math.cos(angle)
+    const sin = Math.sin(angle)
+    const dx = x - pivotX
+    const dy = y - pivotY
+
+    return [
+        pivotX + dx * cos - dy * sin,
+        pivotY + dx * sin + dy * cos
+    ]
+}
+
+/**
+ * Rotate every coordinate contained within a catenary result (either a
+ * `line` or `quadraticCurve` result) around a pivot point by `angle`
+ * radians.
+ */
+function rotateResult(result, pivotX, pivotY, angle) {
+    const start = rotatePointAround(result.start[0], result.start[1], pivotX, pivotY, angle)
+
+    if (result.type === "line") {
+        const lines = result.lines.map(([x, y]) => rotatePointAround(x, y, pivotX, pivotY, angle))
+        return { type: "line", start, lines }
+    }
+
+    const curves = result.curves.map(([ox, oy, mx, my]) => {
+        const [rox, roy] = rotatePointAround(ox, oy, pivotX, pivotY, angle)
+        const [rmx, rmy] = rotatePointAround(mx, my, pivotX, pivotY, angle)
+        return [rox, roy, rmx, rmy]
+    })
+
+    return { type: "quadraticCurve", start, curves }
+}
+
+/**
  * Approximates the catenary curve between two points and returns the resulting
  * coordinates.
  *
@@ -190,18 +228,35 @@ function getDistanceBetweenPoints(p1, p2) {
  * It returns an object with a property `type` to differenciate between `line`
  * and `quadraticCurve`. You can pass this object together with your 2D canvas
  * context to `drawResult` to directly draw it to the canvas.
+ *
+ * `options.direction` (aliased below as `horizPlane`) rotates the plane of
+ * gravity, in radians. `0` is standard - gravity pulls "down" (+y). `Math.PI`
+ * flips gravity to pull "up", and `Math.PI / 2` rotates it to pull sideways.
  */
 function getCatenaryCurve(point1, point2, chainLength, options = {}) {
     const segments = options.segments || 25
     const iterationLimit = options.iterationLimit || 6
+    const horizPlane = options?.direction || 0
+
+    // Rotate around `point1` into a local frame where gravity points in the
+    // standard direction (+y) expected by the maths below. `point1` is the
+    // pivot, so it stays put - only `point2` needs to move.
+    const [localPoint2X, localPoint2Y] = horizPlane
+        ? rotatePointAround(point2.x, point2.y, point1.x, point1.y, -horizPlane)
+        : [point2.x, point2.y]
+
+    const localPoint1 = point1
+    const localPoint2 = { x: localPoint2X, y: localPoint2Y }
 
     // The curves are reversed
-    const isFlipped = point1.x > point2.x
+    const isFlipped = localPoint1.x > localPoint2.x
 
-    const p1 = isFlipped ? point2 : point1
-    const p2 = isFlipped ? point1 : point2
+    const p1 = isFlipped ? localPoint2 : localPoint1
+    const p2 = isFlipped ? localPoint1 : localPoint2
 
     const distance = getDistanceBetweenPoints(p1, p2)
+
+    let result
 
     if(distance < chainLength) {
         const diff = p2.x - p1.x
@@ -220,21 +275,25 @@ function getCatenaryCurve(point1, point2, chainLength, options = {}) {
             if (isFlipped) {
                 curveData.reverse()
             }
-            return getCurveResult(curveData)
+            result = getCurveResult(curveData)
+        } else {
+            const mx = (p1.x + p2.x) * 0.5
+            const my = (p1.y + p2.y + chainLength) * 0.5
+
+            result = getLineResult([
+                [p1.x, p1.y],
+                [mx, my],
+                [p2.x, p2.y]
+            ])
         }
-
-        const mx = (p1.x + p2.x) * 0.5
-        const my = (p1.y + p2.y + chainLength) * 0.5
-
-        return getLineResult([
+    } else {
+        result = getLineResult([
             [p1.x, p1.y],
-            [mx, my],
             [p2.x, p2.y]
         ])
     }
 
-    return getLineResult([
-        [p1.x, p1.y],
-        [p2.x, p2.y]
-    ])
+    return horizPlane
+        ? rotateResult(result, point1.x, point1.y, horizPlane)
+        : result
 }

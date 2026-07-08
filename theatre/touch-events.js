@@ -28,6 +28,7 @@ files:
 
 Detect finger touch events.
 */
+
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'

@@ -144,7 +144,7 @@ class MainStage extends Stage {
     canvas = 'playspace'
 
     mounted(){
-        let count = 100
+        let count = 10
         let multiplier = [400, 400, 5, 270]
         let offset = this.center.copy().subtract(multiplier[0] * .5)
 

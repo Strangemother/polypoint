@@ -415,14 +415,16 @@ class Other {
         const yOff = 500
         const xOff = 600
 
-        const w = -0.1 //+ Math.random();
+        // rotation
+        const w = 0  // -0.1 + Math.random();
+        // const w = -0.1 //+ Math.random();
 
         this.points = Array(width * height).fill(0).map((_, i) => {
-            const x = i % width;
-            const y = ~~(i / width);
+            // const x = i % width;
+            // const y = ~~(i / width);
 
-            // const x = Math.cos(i) % Math.PI;
-            // const y = Math.sin(i) % Math.PI;
+            const x = Math.cos(i) % Math.PI;
+            const y = Math.sin(i) % Math.PI;
 
             const p = new JellyPoint(
                 new JellyVector(
@@ -438,12 +440,13 @@ class Other {
         });
 
         this.points.forEach((point, i) => {
-            // const x = Math.round(Math.sin(i/width) * 10);
-            // const y = Math.round(Math.cos(2+i/width) * 10);
+            
 
             const x = (i % width);
             const y = ~~(i / width);
 
+            // const x = Math.cos(i) % Math.PI;
+            // const y = Math.sin(i) % Math.PI;
 
             // const y = Math.sin(i/width) * 10;
 

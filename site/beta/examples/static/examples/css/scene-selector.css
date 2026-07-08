@@ -1,6 +1,7 @@
 div#scene_selector_app {
     display: flex;
     position: relative;
+    gap: 1em;
 }
 
 ul.scene-list {
@@ -11,4 +12,30 @@ ul.scene-list {
     margin: 0;
     padding: 0;
     background: #111;
+}
+
+.stage-action-buttons {
+    display: flex;
+    flex-direction: column;
+    /* outline: solid; */
+}
+
+.pause-play-button {
+    display: flex;
+    gap: 1em;
+}
+
+
+.paused .pause-button {
+    display: none;
+}
+
+.paused .play-button {}
+
+.playing .play-button {
+    display: none;
+}
+
+.playing .step-button {
+    display: none;
 }

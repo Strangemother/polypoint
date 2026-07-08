@@ -53,3 +53,15 @@ const renderFuseSearch = function(search) {
     })
 
 }
+
+
+const clearFuseSearch = function() {
+    const nodes = document.querySelectorAll('*[data-file]')
+    nodes.forEach(n=>{
+        // not found
+        n.classList.remove('filter-not-found')
+        n.classList.remove('filter-found')
+
+    })
+
+}

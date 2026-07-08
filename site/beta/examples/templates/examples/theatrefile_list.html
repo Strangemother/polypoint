@@ -47,7 +47,7 @@
             <div id="search_app" class="search-app">
 
                 <div class="search-container">
-                    <input type="text" class="search-field">
+                    <input type="text" @input='inputHandler' class="search-field">
                 </div>
                 <script>
                     window.fuseItems = []
@@ -76,8 +76,13 @@
             import Fuse from '/static/examples/js/fuse.mjs'
             window.Fuse = Fuse;
         </script>
+    <!-- UI Application Dependencies -->
+    {% link.js "examples/js/petite-vue.iife.js" "defer" %}
+    {% link.js "examples/js/mountable.js" "defer" %}
 
         {% link.js "examples/js/fuse-search-app.js" 'defer' %}
+        {% link.js "examples/js/apps/search-app.js" 'defer' %}
+
 
     </div>
 </div>

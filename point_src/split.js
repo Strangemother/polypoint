@@ -86,6 +86,22 @@ const lerpRadius = function(a, b, v) {
 const radiusManual = function(a, b, i) {}
 
 
+class PointListSplit {
+    /* Buildin split functionality for a pointlist. */
+    segment(index=0, count=10) {
+        /* Split a segment */
+        let pl = this.parent
+        // return splitToPointList(
+        //         point
+        //         , count
+        //         , point.radius
+        //         , point.radians + outerAngle
+        //         , angle
+        //     )
+    }
+}
+
+
 Polypoint.head.installFunctions('Point', {
     /* A "split" function to divide the point circumference to many points.
     Return a list of points.

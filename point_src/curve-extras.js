@@ -443,6 +443,7 @@ class CantenaryCurve extends Line {
     reductionRate = .999
     swingDegrees = 20
     elasticity = .09
+    direction = 0
 
     create(a,b, length=undefined, color='red', width=1) {
         super.create(a,b,color,  width)
@@ -491,8 +492,9 @@ class CantenaryCurve extends Line {
         if(!this.cachedCantenary ) {
             let a = this.a
                 , b = this.b
+                , direction = this.direction
                 ;
-            this.cachedCantenary = getCatenaryCurve(a,b, this.getCurveLength(a,b))
+            this.cachedCantenary = getCatenaryCurve(a,b, this.getCurveLength(a,b),{direction})
         }
 
         return this.cachedCantenary

@@ -165,22 +165,30 @@ class MainStage extends Stage {
     // }
 
     randomMove(p=this.point, c=this.center, v=200){
-        if(this.tick % random.int(1, 100) == 0) {
-            p.relative.forward(random.int(5, 40))
+        // let forwMax = [5, 40]
+        // let rot = [20, 50]
+        // let rotMax = [4, 60]
+        let forw = [1, 100]
+        let forwMax = [5, 40]
+        let rot = [20, 50]
+        let rotMax = [4, 60]
+
+        if(this.tick % random.int(...forw) == 0) {
+            p.relative.forward(random.int(...forwMax))
             // p.rotation += random.int(-15, 15)
             // p.x = c.x + random.int(-v, v)
             // p.y = c.y + random.int(-v, v)
             // p.radius = random.int(.5, 7)
         }
 
-        if(this.tick % random.int(20, 50) == 0) {
-            let c = random.int(4, 60)
+
+        if(this.tick % random.int(...rot) == 0) {
+            let c = random.int(...rotMax)
             p.rotation += random.int(-c, c)
             // p.x = c.x + random.int(-v, v)
             // p.y = c.y + random.int(-v, v)
             // p.radius = random.int(.5, 7)
         }
-
     }
 
     draw(ctx){

@@ -65,18 +65,50 @@ class MainStage extends Stage {
         });
 
         const balls = Array(2).fill(0).map((_, i) => {
-            const radius = 40 + i * 15;
+            const radius = 60 + i * 20;
             return new Ball(
                     radius,
-                    12 + i * 2,
-                    5,
+                    5, // spacing: wall-contact margin, same meaning as Other's
                     hue + 160 + i * 30,
-                    .85, // slipDamping: 0 == sticky, 1 == no friction (skin grip on walls/floor)
-                    .9, // spinDamping: fraction of spin kept per rendered frame (1 == never slows)
+                    .91, // slipDamping: 0 == sticky, 1 == no friction (skin grip on walls/floor)
+                    .40, // bounciness: 0 == no bounce, 1 == fully elastic rebound
             );
         });
 
-        this.shapes = [...squares, ...balls];
+        const lshapesMitered = Array(1).fill(0).map((_, i) => {
+            return new LShapeMitered(
+                    3, // armWidth: thickness of each arm, in grid cells
+                    9, // width: overall bounding box, in grid cells
+                    9, // height: overall bounding box, in grid cells
+                    hue + 260 + i * 30,
+                    .50, // slipDamping: 0 == sticky, 1 == no friction
+                    .30, // bounciness: 0 == no bounce, 1 == fully elastic rebound
+            );
+        });
+
+        const lshapes = Array(1).fill(0).map((_, i) => {
+            return new LShape(
+                    3, // armWidth: thickness of each arm, in grid cells
+                    9, // width: overall bounding box, in grid cells
+                    9, // height: overall bounding box, in grid cells
+                    hue + 220 + i * 30,
+                    .50, // slipDamping: 0 == sticky, 1 == no friction
+                    .30, // bounciness: 0 == no bounce, 1 == fully elastic rebound
+            );
+        });
+
+        const pluses = Array(1).fill(0).map((_, i) => {
+            return new PlusShape(
+                    3, // armWidth: thickness of each arm, in grid cells
+                    7, // width: overall bounding box, in grid cells (margin (7-3)/2 = 2, centers evenly)
+                    7, // height: overall bounding box, in grid cells
+                    hue + 300 + i * 30,
+                    .50, // slipDamping: 0 == sticky, 1 == no friction
+                    .30, // bounciness: 0 == no bounce, 1 == fully elastic rebound
+            );
+        });
+
+        this.shapes = [...squares, ...balls, ...lshapesMitered, ...lshapes, ...pluses];
         this.allPoints = [].concat(...this.shapes.map((shape) => shape.allPoints));
     }
 
@@ -85,8 +117,8 @@ class MainStage extends Stage {
         const { width, height } = canvas;
         let i = ITERATIONS;
         while (i--) {
-            allContraints.forEach((con, i) => {
-                reactor(...con, i);
+            allContraints.forEach((con) => {
+                reactor(...con);
             });
 
             //  wall tests.
@@ -102,27 +134,49 @@ class MainStage extends Stage {
                     : .50;
                 const spacing = (square ? square.spacing : SPACING) / 2;
 
+                // 0 == no bounce (velocity is simply absorbed, like hitting
+                // concrete), 1 == perfectly elastic (rebounds losing zero
+                // momentum). Position is snapped back to the boundary
+                // directly (rather than sprung back with a force), so the
+                // bounce energy comes only from this reflection - keeping
+                // it exactly controllable across the full 0-1 range.
+                const bounciness = square && square.bounciness !== undefined
+                    ? square.bounciness
+                    : 0;
+
                 if (point.pos.x < spacing) {
                     // bounce off the left wall
-                    point.force.add(new JellyVector((spacing - point.pos.x) * 1, 0));
+                    point.pos.x = spacing;
+                    if (point.velocity.x < 0) {
+                        point.velocity.x *= -bounciness;
+                    }
                     point.velocity.y *= slipDamping;
                 } else if (point.pos.x > canvas.width - spacing) {
                     // bounce off the right wall.
-                    point.force.add(new JellyVector((point.pos.x - canvas.width + spacing) * -1, 0));
+                    point.pos.x = canvas.width - spacing;
+                    if (point.velocity.x > 0) {
+                        point.velocity.x *= -bounciness;
+                    }
                     point.velocity.y *= slipDamping;
                 }
 
                 if (point.pos.y < spacing) {
                     // bounce off the floor
-                    point.force.add(new JellyVector(0, (spacing - point.pos.y) * 1));
+                    point.pos.y = spacing;
+                    if (point.velocity.y < 0) {
+                        point.velocity.y *= -bounciness;
+                    }
                     point.velocity.x *= slipDamping;
                 } else if (point.pos.y > canvas.height - spacing) {
                     // bounce off the ceiling
-                    point.force.add(new JellyVector(0, (point.pos.y - canvas.height + spacing) * -1));
+                    point.pos.y = canvas.height - spacing;
+                    if (point.velocity.y > 0) {
+                        point.velocity.y *= -bounciness;
+                    }
                     point.velocity.x *= slipDamping;
                 }
 
-                  point.update();
+                point.update();
             });
         }
 
@@ -378,12 +432,13 @@ class JellyPoint {
 
 
 class Other {
-    constructor (width, height, spacing, hue, slipDamping = .50) {
+    constructor (width, height, spacing, hue, slipDamping = .50, bounciness = 0) {
         this.width = width;
         this.height = height;
         this.spacing = spacing;
         this.hue = hue;
         this.slipDamping = slipDamping;
+        this.bounciness = bounciness;
 
         const yOff = 500
         const xOff = 600
@@ -498,20 +553,27 @@ class Other {
 
 
 class Ball {
-    /* A circular jelly soft-body: a ring of points around a hub (center)
-    point. The ring points are constrained to their neighbours (to hold
-    the loop together) and to the hub (to keep the circle from
-    collapsing), using the same reactor() constraint used by the square
-    grid in `Other`. The perimeter is drawn as a smoothed, rounded
-    outline instead of straight edges so it renders as a wobbly ball
-    rather than a polygon. */
-    constructor (radius, count, spacing, hue, slipDamping = .50, spinDamping = 1) {
+    /* A disc-shaped jelly soft-body. This is deliberately built as the
+    *exact same* dense grid lattice as `Other` - same fixed neighbour
+    offsets, same constants, same collision path - just clipped to a
+    circle instead of a rectangle, rather than a hollow ring of points
+    orbiting a single hub.
+
+    A hollow ring+hub is a sparse, under-constrained structure (each
+    point connects to only 2 things: its ring neighbours and one spoke),
+    so it needed a pile of special-cased patches (per-shape rotational
+    inertia, spin damping, a soft contact margin, hub-based bounce
+    aggregation) to behave, and even then never matched the square's
+    robustness. A dense, redundant mesh - exactly like the square's -
+    naturally rolls, bounces, and settles correctly using the exact same
+    per-point wall collision as every other shape, with zero special
+    branches needed for it in MainStage.draw(). */
+    constructor (radius, spacing, hue, slipDamping = .50, bounciness = 0) {
         this.radius = radius;
-        this.count = count;
         this.spacing = spacing;
         this.hue = hue;
         this.slipDamping = slipDamping;
-        this.spinDamping = spinDamping;
+        this.bounciness = bounciness;
 
         const yOff = 300
         const xOff = 800
@@ -519,64 +581,78 @@ class Ball {
         // rotation
         const w = -0.1 + Math.random() * .2;
 
-        // Bigger balls have points that reach further from the hub, so scale
-        // their rotational inertia with the radius to keep them stable.
-        const armScale = Math.max(radius / 2, SPACING / 2);
+        /* Lay out a regular grid using the same step (SPACING) as the
+        square's lattice, and keep only the cells that fall inside
+        `radius` of the center - a filled disc built from the same grid
+        `Other` uses. Because the lattice is regular, the relative offset
+        between any two adjacent cells is always exactly (SPACING, 0) or
+        (0, SPACING), regardless of which particular cells end up inside
+        the circle - so the constraints below can reuse Other's exact
+        fixed offsets unmodified. */
+        const cells = Math.ceil(radius / SPACING);
+        const coords = [];
+        for (let row = -cells; row <= cells; row++) {
+            for (let col = -cells; col <= cells; col++) {
+                const dx = col * SPACING;
+                const dy = row * SPACING;
+                if (Math.sqrt(dx * dx + dy * dy) <= radius) {
+                    coords.push({ col, row });
+                }
+            }
+        }
 
-        this.hub = new JellyPoint(
-            new JellyVector(yOff, xOff),
-            this,
-            armScale,
-            spinDamping,
-        );
-        this.hub.w = w;
+        const key = (col, row) => `${col},${row}`;
+        const pointMap = new Map();
 
-        this.points = Array(count).fill(0).map((_, i) => {
+        this.points = coords.map(({ col, row }) => {
             const p = new JellyPoint(
                 new JellyVector(yOff, xOff),
                 this,
-                armScale,
-                spinDamping,
             );
-
             p.w = w;
-
+            pointMap.set(key(col, row), p);
             return p;
         });
 
-        /* Lay the ring points out evenly around the hub. This only sets
-        the *rest* offsets used by the constraints below - every point
-        still spawns stacked on the hub (like the squares do) and the
-        reactor constraints pull it out into a circle over the first
-        few frames. */
-        const ringOffsets = this.points.map((point, i) => {
-            const angle = (i / count) * Math.PI * 2;
-            return new JellyVector(
-                Math.cos(angle) * radius,
-                Math.sin(angle) * radius,
-            );
+        // Connect every point to its left/top neighbour - exactly like
+        // Other's grid.
+        coords.forEach(({ col, row }, i) => {
+            const point = this.points[i];
+
+            const left = pointMap.get(key(col - 1, row));
+            if (left) {
+                allContraints.push([left, point, new JellyVector(SPACING / 2, 0)]);
+            }
+
+            const top = pointMap.get(key(col, row - 1));
+            if (top) {
+                allContraints.push([top, point, new JellyVector(0, SPACING / 2)]);
+            }
         });
 
-        this.points.forEach((point, i) => {
-            const next = this.points[(i + 1) % count];
-            const offset = JellyVector.mul(
-                JellyVector.sub(ringOffsets[(i + 1) % count], ringOffsets[i]),
-                0.5,
-            );
+        /* Perimeter for drawing only (collision uses every point equally,
+        just like Other): any point missing at least one of its 4
+        immediate grid neighbours sits on the boundary. Order them by
+        angle around the disc's centroid so they trace a clean closed
+        loop instead of a jumbled path. */
+        const cx = coords.reduce((sum, c) => sum + c.col, 0) / coords.length;
+        const cy = coords.reduce((sum, c) => sum + c.row, 0) / coords.length;
 
-            // perimeter: connect each ring point to the next, forming a loop.
-            allContraints.push([point, next, offset]);
+        const boundary = coords
+            .map(({ col, row }, i) => ({ point: this.points[i], col, row }))
+            .filter(({ col, row }) => (
+                !pointMap.has(key(col + 1, row)) ||
+                !pointMap.has(key(col - 1, row)) ||
+                !pointMap.has(key(col, row + 1)) ||
+                !pointMap.has(key(col, row - 1))
+            ));
 
-            // spokes: connect each ring point back to the hub.
-            allContraints.push([
-                this.hub,
-                point,
-                JellyVector.mul(ringOffsets[i], 0.5),
-            ]);
-        });
+        boundary.sort((a, b) => (
+            Math.atan2(a.row - cy, a.col - cx) - Math.atan2(b.row - cy, b.col - cx)
+        ));
 
-        this.drawPoints = this.points.map((point) => point.pos);
-        this.allPoints = [this.hub, ...this.points];
+        this.drawPoints = boundary.map(({ point }) => point.pos);
+        this.allPoints = this.points;
     }
 
     draw(ctx) {
@@ -588,8 +664,8 @@ class Ball {
         ctx.strokeStyle = `hsla(${hue}, 90%, 70%, 0.8)`;
 
         /* Draw the perimeter as a smoothed loop: curve through the
-        midpoint of every pair of neighbouring points so the outline
-        rounds off instead of forming hard polygon corners. */
+        midpoint of every pair of neighbouring boundary points so the
+        grid's stair-stepped edge still reads as round. */
         const midpoint = (a, b) => new JellyVector((a.x + b.x) / 2, (a.y + b.y) / 2);
 
         const start = midpoint(drawPoints[n - 1], drawPoints[0]);
@@ -605,6 +681,373 @@ class Ball {
         }
 
         ctx.closePath();
+        ctx.stroke();
+        ctx.fill();
+
+        /* draw points. */
+        ctx.fillStyle = `hsla(${hue}, 10%, 50%, 1)`;
+        drawPoints.forEach((p) => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2)
+            ctx.fill();
+        });
+    }
+}
+
+
+class LShapeMitered {
+    /* An "L" shaped jelly soft-body. Exactly the same technique as
+    `Other` and the disc `Ball`: a regular SPACING-step grid, kept
+    wherever it falls inside a mask (here an L shape instead of a
+    rectangle or a circle), connected with the same fixed neighbour
+    offsets. Since the L is a known, simple, straight-edged topology, its
+    perimeter is walked explicitly (six straight edges, clockwise) rather
+    than inferred by sorting - the same reliable approach `Other` uses
+    for its four edges - and drawn with straight lines, not a curve, so
+    there's no smoothing/curve-fitting involved at all.
+
+    This variant keeps the ORIGINAL boundary walk, which cuts a diagonal
+    straight across the single inner concave corner (a "mitre") rather
+    than resolving it to a single point - kept around deliberately to
+    demonstrate the difference against the corrected `LShape` below. */
+    constructor (armWidth, width, height, hue, slipDamping = .50, bounciness = 0) {
+        this.armWidth = armWidth;
+        this.width = width;
+        this.height = height;
+        this.hue = hue;
+        this.slipDamping = slipDamping;
+        this.bounciness = bounciness;
+        this.spacing = 5; // wall-contact margin, same meaning as Other's
+
+        const yOff = 300
+        const xOff = 800
+
+        // rotation
+        const w = -0.1 + Math.random() * .2;
+
+        const aw = armWidth;
+
+        // A cell is part of the L if it's in the vertical arm (left,
+        // full height) or the horizontal arm (bottom, full width).
+        const included = (col, row) => col < aw || row >= height - aw;
+
+        const coords = [];
+        for (let row = 0; row < height; row++) {
+            for (let col = 0; col < width; col++) {
+                if (included(col, row)) coords.push({ col, row });
+            }
+        }
+
+        const key = (col, row) => `${col},${row}`;
+        const pointMap = new Map();
+
+        this.points = coords.map(({ col, row }) => {
+            const p = new JellyPoint(
+                new JellyVector(yOff, xOff),
+                this,
+            );
+            p.w = w;
+            pointMap.set(key(col, row), p);
+            return p;
+        });
+
+        // Connect every point to its left/top neighbour - exactly like
+        // Other's grid.
+        coords.forEach(({ col, row }, i) => {
+            const point = this.points[i];
+
+            const left = pointMap.get(key(col - 1, row));
+            if (left) {
+                allContraints.push([left, point, new JellyVector(SPACING / 2, 0)]);
+            }
+
+            const top = pointMap.get(key(col, row - 1));
+            if (top) {
+                allContraints.push([top, point, new JellyVector(0, SPACING / 2)]);
+            }
+        });
+
+        /* Walk the L's six straight edges clockwise, starting at the
+        top-left corner of the vertical arm. This only works because we
+        know the L's exact shape up front - the same reason `Other` can
+        walk a rectangle's four edges directly instead of detecting them. */
+        const boundaryCoords = [];
+
+        for (let col = 0; col < aw; col++) boundaryCoords.push([col, 0]);
+        for (let row = 1; row <= height - aw - 1; row++) boundaryCoords.push([aw - 1, row]);
+        for (let col = aw; col <= width - 1; col++) boundaryCoords.push([col, height - aw]);
+        for (let row = height - aw + 1; row <= height - 1; row++) boundaryCoords.push([width - 1, row]);
+        for (let col = width - 2; col >= 0; col--) boundaryCoords.push([col, height - 1]);
+        for (let row = height - 2; row >= 1; row--) boundaryCoords.push([0, row]);
+
+        this.drawPoints = boundaryCoords.map(([col, row]) => pointMap.get(key(col, row)).pos);
+        this.allPoints = this.points;
+    }
+
+    draw(ctx) {
+        const { drawPoints, hue } = this;
+
+        ctx.lineWidth = 2;
+        ctx.fillStyle = `hsla(${hue}, 90%, 80%, 0.8)`;
+        ctx.strokeStyle = `hsla(${hue}, 90%, 70%, 0.8)`;
+
+        ctx.beginPath();
+        ctx.moveTo(drawPoints[0].x, drawPoints[0].y);
+
+        drawPoints.forEach((p, i) => {
+            i && ctx.lineTo(p.x, p.y);
+        });
+
+        ctx.lineTo(drawPoints[0].x, drawPoints[0].y);
+
+        ctx.stroke();
+        ctx.fill();
+
+        /* draw points. */
+        ctx.fillStyle = `hsla(${hue}, 10%, 50%, 1)`;
+        drawPoints.forEach((p) => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2)
+            ctx.fill();
+        });
+    }
+}
+
+
+class LShape {
+    /* An "L" shaped jelly soft-body - same technique as `LShapeMitered`,
+    but the single inner concave corner is resolved to the one grid point
+    both arms actually share, instead of cutting a diagonal across it.
+    That shared point is (armWidth-1, height-armWidth): the last column
+    of the vertical arm, at the first row of the horizontal arm - exactly
+    where the two arms meet - so routing through it (rather than jumping
+    straight to the horizontal arm's next column) gives a proper sharp
+    right-angle corner. */
+    constructor (armWidth, width, height, hue, slipDamping = .50, bounciness = 0) {
+        this.armWidth = armWidth;
+        this.width = width;
+        this.height = height;
+        this.hue = hue;
+        this.slipDamping = slipDamping;
+        this.bounciness = bounciness;
+        this.spacing = 5; // wall-contact margin, same meaning as Other's
+
+        const yOff = 300
+        const xOff = 800
+
+        // rotation
+        const w = -0.1 + Math.random() * .2;
+
+        const aw = armWidth;
+
+        // A cell is part of the L if it's in the vertical arm (left,
+        // full height) or the horizontal arm (bottom, full width).
+        const included = (col, row) => col < aw || row >= height - aw;
+
+        const coords = [];
+        for (let row = 0; row < height; row++) {
+            for (let col = 0; col < width; col++) {
+                if (included(col, row)) coords.push({ col, row });
+            }
+        }
+
+        const key = (col, row) => `${col},${row}`;
+        const pointMap = new Map();
+
+        this.points = coords.map(({ col, row }) => {
+            const p = new JellyPoint(
+                new JellyVector(yOff, xOff),
+                this,
+            );
+            p.w = w;
+            pointMap.set(key(col, row), p);
+            return p;
+        });
+
+        // Connect every point to its left/top neighbour - exactly like
+        // Other's grid.
+        coords.forEach(({ col, row }, i) => {
+            const point = this.points[i];
+
+            const left = pointMap.get(key(col - 1, row));
+            if (left) {
+                allContraints.push([left, point, new JellyVector(SPACING / 2, 0)]);
+            }
+
+            const top = pointMap.get(key(col, row - 1));
+            if (top) {
+                allContraints.push([top, point, new JellyVector(0, SPACING / 2)]);
+            }
+        });
+
+        /* Walk the L's boundary clockwise, starting at the top-left
+        corner of the vertical arm - identical to `LShapeMitered`, except
+        the inner corner routes through the shared point (aw-1,
+        height-aw) instead of jumping diagonally past it. */
+        const boundaryCoords = [];
+
+        for (let col = 0; col < aw; col++) boundaryCoords.push([col, 0]);
+        for (let row = 1; row <= height - aw - 1; row++) boundaryCoords.push([aw - 1, row]);
+        boundaryCoords.push([aw - 1, height - aw]); // inner corner, resolved to one point
+        for (let col = aw; col <= width - 1; col++) boundaryCoords.push([col, height - aw]);
+        for (let row = height - aw + 1; row <= height - 1; row++) boundaryCoords.push([width - 1, row]);
+        for (let col = width - 2; col >= 0; col--) boundaryCoords.push([col, height - 1]);
+        for (let row = height - 2; row >= 1; row--) boundaryCoords.push([0, row]);
+
+        this.drawPoints = boundaryCoords.map(([col, row]) => pointMap.get(key(col, row)).pos);
+        this.allPoints = this.points;
+    }
+
+    draw(ctx) {
+        const { drawPoints, hue } = this;
+
+        ctx.lineWidth = 2;
+        ctx.fillStyle = `hsla(${hue}, 90%, 80%, 0.8)`;
+        ctx.strokeStyle = `hsla(${hue}, 90%, 70%, 0.8)`;
+
+        ctx.beginPath();
+        ctx.moveTo(drawPoints[0].x, drawPoints[0].y);
+
+        drawPoints.forEach((p, i) => {
+            i && ctx.lineTo(p.x, p.y);
+        });
+
+        ctx.lineTo(drawPoints[0].x, drawPoints[0].y);
+
+        ctx.stroke();
+        ctx.fill();
+
+        /* draw points. */
+        ctx.fillStyle = `hsla(${hue}, 10%, 50%, 1)`;
+        drawPoints.forEach((p) => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2)
+            ctx.fill();
+        });
+    }
+}
+
+
+class PlusShape {
+    /* A "+" shaped jelly soft-body. Same technique as `LShape`: a regular
+    SPACING-step grid kept wherever it falls inside a mask (here the
+    union of a centered vertical bar and a centered horizontal bar,
+    instead of an L), connected with the same fixed neighbour offsets,
+    and its 12 straight boundary edges walked explicitly and clockwise -
+    same reliable approach, just a different known shape. */
+    constructor (armWidth, width, height, hue, slipDamping = .50, bounciness = 0) {
+        this.armWidth = armWidth;
+        this.width = width;
+        this.height = height;
+        this.hue = hue;
+        this.slipDamping = slipDamping;
+        this.bounciness = bounciness;
+        this.spacing = 5; // wall-contact margin, same meaning as Other's
+
+        const yOff = 300
+        const xOff = 800
+
+        // rotation
+        const w = -0.1 + Math.random() * .2;
+
+        const aw = armWidth;
+
+        // Vertical arm: centered in width, full height.
+        const cs = Math.floor((width - aw) / 2);
+        const ce = cs + aw - 1;
+        // Horizontal arm: centered in height, full width.
+        const rs = Math.floor((height - aw) / 2);
+        const re = rs + aw - 1;
+
+        const included = (col, row) => (
+            (col >= cs && col <= ce) || (row >= rs && row <= re)
+        );
+
+        const coords = [];
+        for (let row = 0; row < height; row++) {
+            for (let col = 0; col < width; col++) {
+                if (included(col, row)) coords.push({ col, row });
+            }
+        }
+
+        const key = (col, row) => `${col},${row}`;
+        const pointMap = new Map();
+
+        this.points = coords.map(({ col, row }) => {
+            const p = new JellyPoint(
+                new JellyVector(yOff, xOff),
+                this,
+            );
+            p.w = w;
+            pointMap.set(key(col, row), p);
+            return p;
+        });
+
+        // Connect every point to its left/top neighbour - exactly like
+        // Other's grid.
+        coords.forEach(({ col, row }, i) => {
+            const point = this.points[i];
+
+            const left = pointMap.get(key(col - 1, row));
+            if (left) {
+                allContraints.push([left, point, new JellyVector(SPACING / 2, 0)]);
+            }
+
+            const top = pointMap.get(key(col, row - 1));
+            if (top) {
+                allContraints.push([top, point, new JellyVector(0, SPACING / 2)]);
+            }
+        });
+
+        /* Walk the plus's boundary clockwise, starting at the top-left
+        corner of the vertical arm's top segment.
+
+        The four inner "notch" corners (where an arm's side edge meets
+        the perpendicular arm) are where the vertical arm's column and
+        the horizontal arm's row actually intersect - that exact grid
+        point already exists (it's shared by both arms), so routing
+        through it gives a proper sharp right-angle corner instead of
+        cutting a diagonal across it. */
+        const boundaryCoords = [];
+
+        for (let col = cs; col <= ce; col++) boundaryCoords.push([col, 0]);
+        for (let row = 1; row <= rs - 1; row++) boundaryCoords.push([ce, row]);
+        boundaryCoords.push([ce, rs]); // notch (top-right)
+        for (let col = ce + 1; col <= width - 1; col++) boundaryCoords.push([col, rs]);
+        for (let row = rs + 1; row <= re; row++) boundaryCoords.push([width - 1, row]);
+        for (let col = width - 2; col >= ce + 1; col--) boundaryCoords.push([col, re]);
+        boundaryCoords.push([ce, re]); // notch (bottom-right)
+        for (let row = re + 1; row <= height - 1; row++) boundaryCoords.push([ce, row]);
+        for (let col = ce - 1; col >= cs; col--) boundaryCoords.push([col, height - 1]);
+        for (let row = height - 2; row >= re + 1; row--) boundaryCoords.push([cs, row]);
+        boundaryCoords.push([cs, re]); // notch (bottom-left)
+        for (let col = cs - 1; col >= 0; col--) boundaryCoords.push([col, re]);
+        for (let row = re - 1; row >= rs; row--) boundaryCoords.push([0, row]);
+        for (let col = 1; col <= cs - 1; col++) boundaryCoords.push([col, rs]);
+        boundaryCoords.push([cs, rs]); // notch (top-left)
+        for (let row = rs - 1; row >= 1; row--) boundaryCoords.push([cs, row]);
+        // closes back to (cs, 0), the very first point pushed above.
+
+        this.drawPoints = boundaryCoords.map(([col, row]) => pointMap.get(key(col, row)).pos);
+        this.allPoints = this.points;
+    }
+
+    draw(ctx) {
+        const { drawPoints, hue } = this;
+
+        ctx.lineWidth = 2;
+        ctx.fillStyle = `hsla(${hue}, 90%, 80%, 0.8)`;
+        ctx.strokeStyle = `hsla(${hue}, 90%, 70%, 0.8)`;
+
+        ctx.beginPath();
+        ctx.moveTo(drawPoints[0].x, drawPoints[0].y);
+
+        drawPoints.forEach((p, i) => {
+            i && ctx.lineTo(p.x, p.y);
+        });
+
+        ctx.lineTo(drawPoints[0].x, drawPoints[0].y);
+
         ctx.stroke();
         ctx.fill();
 

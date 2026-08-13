@@ -209,9 +209,71 @@ class Classifier extends NeuralNetwork {
 
 } 
 
+class WalkerNetwork extends NeuralNetwork {
+    constructor(inputSize=2, hiddenSize=6, outputSize=2, learningRate=0.03) {
+        super(inputSize, hiddenSize, outputSize, learningRate)
+        this.exploration = .15
+        this.maxForward = 20
+        this.maxRotation = 30
+        this.rewardDiscount = .95
+        this.memorySize = 30
+        this.memory = []
+        this.score = 0
+    }
+
+    think(inputs, explore=true) {
+        if(inputs.length !== this.inputSize) {
+            throw new Error(`Expected ${this.inputSize} sensor values, received ${inputs.length}`)
+        }
+
+        const sensorValues = inputs.map(value => Math.max(-1, Math.min(1, value)))
+        const expected = this.feedForward(sensorValues)
+        const action = expected.map(value => {
+            if(!explore) return value
+            const noise = (Math.random() * 2 - 1) * this.exploration
+            return Math.max(0, Math.min(1, value + noise))
+        })
+
+        if(explore) {
+            this.memory.push({
+                inputs: sensorValues,
+                expected: expected.slice(),
+                action: action.slice()
+            })
+            if(this.memory.length > this.memorySize) this.memory.shift()
+        }
+
+        return [
+            action[0] * this.maxForward,
+            (action[1] * 2 - 1) * this.maxRotation
+        ]
+    }
+
+    reward(value=1) {
+        if(!Number.isFinite(value)) return
+
+        this.score += value
+        const reward = Math.max(-1, Math.min(1, value))
+        const decisions = this.memory.splice(0)
+
+        decisions.forEach((decision, index) => {
+            const age = decisions.length - 1 - index
+            const strength = reward * Math.pow(this.rewardDiscount, age)
+            const target = decision.expected.map((expected, outputIndex) => {
+                const explored = decision.action[outputIndex]
+                return Math.max(0, Math.min(1,
+                    expected + (explored - expected) * strength
+                ))
+            })
+            this.trainOne(decision.inputs, target)
+        })
+    }
+}
+
 // var hiddenNodes = parseInt(6);
 // neuralNetwork = new NeuralNetwork(2, hiddenNodes, 4);
 
+// Example;
 neuralNetwork = new Classifier(2, 6, 4);
 
 
@@ -354,41 +416,74 @@ class MainStage extends Stage {
         this.points.each.color = ()=>random.color([290, 310], [50,100], [22,60])
         this.points.each.radius = ()=>random.int(1, 15)
 
+        this.points.forEach(p => p.brain = new WalkerNetwork())
+        this.actionInterval = walkTime
+        this.sensorRange = 800
+        this.progressRewardScale = .05
+        this.food = new Point({radius: 10, color: '#72b84a'})
+        this.spawnFood()
 
         this.targetPoint = 3
         this.dragging.add(this.points[0])
         this.tick = 0
     }
 
-    // firstDraw(ctx) {
-    //     ctx.lineCap = 'round'
-    // }
+    spawnFood() {
+        this.food.x = this.center.x + random.int(-400, 400)
+        this.food.y = this.center.y + random.int(-400, 400)
+        this.points.forEach(p => p.previousFoodDistance = undefined)
+    }
 
-    randomMove(p=this.point, c=this.center, v=200){
-        // let forwMax = [5, 40]
-        // let rot = [20, 50]
-        // let rotMax = [4, 60]
-        let forw = [1, 100]
-        let forwMax = [5, 40]
-        let rot = [20, 50]
-        let rotMax = [4, 60]
+    readSensors(p) {
+        const x = this.food.x - p.x
+        const y = this.food.y - p.y
+        const bearingRadians = Math.atan2(y, x) - p.radians
+        const bearing = Math.atan2(
+            Math.sin(bearingRadians),
+            Math.cos(bearingRadians)
+        ) / Math.PI
+        const distance = Math.hypot(x, y)
+        const normalizedDistance = Math.max(-1, Math.min(1,
+            (distance / this.sensorRange) * 2 - 1
+        ))
+        return [bearing, normalizedDistance]
+    }
 
-        if(this.tick % random.int(...forw) == 0) {
-            p.relative.forward(random.int(...forwMax))
-            // p.rotation += random.int(-15, 15)
-            // p.x = c.x + random.int(-v, v)
-            // p.y = c.y + random.int(-v, v)
-            // p.radius = random.int(.5, 7)
-        }
+    rewardProgress(p) {
+        const distance = p.distanceTo(this.food)
+        const previousDistance = p.previousFoodDistance
+        p.previousFoodDistance = distance
 
+        if(previousDistance === undefined) return 0
 
-        if(this.tick % random.int(...rot) == 0) {
-            let c = random.int(...rotMax)
-            p.rotation += random.int(-c, c)
-            // p.x = c.x + random.int(-v, v)
-            // p.y = c.y + random.int(-v, v)
-            // p.radius = random.int(.5, 7)
-        }
+        const progress = previousDistance - distance
+        const plausibleMovement = Math.abs(progress) <= p.brain.maxForward * 1.5
+        if(!plausibleMovement) return 0
+
+        const normalizedProgress = Math.max(-1, Math.min(1,
+            progress / p.brain.maxForward
+        ))
+        const reward = normalizedProgress * this.progressRewardScale
+        p.brain.reward(reward)
+        return reward
+    }
+
+    neuralMove(p) {
+        if(this.tick % this.actionInterval !== 0) return
+
+        this.rewardProgress(p)
+        const [forward, rotation] = p.brain.think(this.readSensors(p))
+        p.rotation += rotation
+        p.relative.forward(forward, 0, p.brain.maxForward)
+    }
+
+    awardFood(p) {
+        const touching = p.distanceTo(this.food) <= p.radius + this.food.radius
+        if(!touching) return false
+
+        p.brain.reward(1)
+        this.spawnFood()
+        return true
     }
 
     draw(ctx){
@@ -397,10 +492,12 @@ class MainStage extends Stage {
 
         this.screenWrap.performMany(this.points)
         this.points.forEach(p=>{
-            this.randomMove(p, this.center, 400)
+            this.neuralMove(p)
             p.step()
+            this.awardFood(p)
         })
 
+        this.food.pen.fill(ctx, this.food.color)
         // this.points.pen.fill(ctx)
         // this.points.pen.lines(ctx, { width: 2, color: '#111'})
         this.points.pen.indicator(ctx, { width: 2})

@@ -361,7 +361,7 @@ span.material-symbols-outlined {
     color: inherit;
 }
 
-.download-content-app a {
+.download-content-app a, .tiny-app a {
     text-decoration: none;
     color: inherit;
     /* font-size: 0.8rem; */
@@ -606,7 +606,7 @@ polypoint-canvas {
     min-width: 100px;
 }
 
-.download-image {
+.download-image, .tiny-dropdown {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -624,7 +624,7 @@ polypoint-canvas {
     color: unset;
 }
 
-.download-content-app a.primary-link {
+.download-content-app a.primary-link, .tiny-app a.primary-link {
     padding: 0 0.8em;
 }
 
@@ -638,7 +638,7 @@ polypoint-canvas {
     padding: 0 1em;
 }
 
-.download-content-app {
+.download-content-app, .tiny-app {
     color: #555;
     font-size: .8rem;
     /* display: none; */
@@ -740,13 +740,11 @@ polypoint-canvas {
 
 
 
-.download-content-app .download-image {
+.download-content-app .download-image, .tiny-dropdown {
     display: none;
 }
 
-.download-content-app:hover .download-image,
-.download-content-app:focus .download-image, 
-.download-content-app:focus-within .download-image{
+.download-content-app:hover .download-image, .download-content-app:focus .download-image, .download-content-app:focus-within .download-image, .tiny-app:hover .tiny-dropdown{
     display: flex;
 }
 
@@ -837,3 +835,32 @@ input[type="text"]:focus {
 }
 
 .meta-form form ul {list-style: none;margin: 0;padding: 0;}
+
+.thumbnail-min-size input {
+    background: unset;
+    color: inherit;
+    font: inherit;
+    border: solid 1px #000;
+    width: 7em;
+    padding: 0.4em;
+}
+
+.tiny-app .filename-input {
+    display: flex;
+}
+
+.meta-form textarea, .meta-form input[type=text] {
+    background: inherit;
+    color: inherit;
+    border: solid 1px #333;
+}
+
+.meta-form button {
+    background: inherit;
+    color: inherit;
+    font: inherit;
+    padding: .4em 1em;
+    border-radius: .4em;
+    border: solid 1px #333;
+    cursor: pointer;
+}

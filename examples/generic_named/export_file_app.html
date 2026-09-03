@@ -1,0 +1,49 @@
+{% load link %}
+
+<!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=file_export" />-->
+
+{% verbatim %}
+<div id="export_file_app" class="tiny-app width-height">
+    <a href="javascript:;" class="primary-link">
+        <span class="material-symbols-outlined">file_export</span>
+        <span class="label">Export</span>
+    </a>
+
+    <div class="tiny-dropdown export-file">
+        <div class="filename-input">
+            <input type="text"
+                ref="filename"
+                value="{% endverbatim %}{{part_name}}{% verbatim %}.js">
+        </div>
+
+        <div>
+
+            {% endverbatim %}
+            <a href="{% url "examples:file_example_all" part_name %}"
+                target="_blank">
+            {% verbatim %}
+                <span class="left-cell">
+                    <span class="material-symbols-outlined">download</span>
+                </span>
+                <span class="right-cell">
+                    <span class="label">Script + Theatre</span>
+                </span>
+            </a>
+
+        </div>
+        <div>
+            {% endverbatim %}
+            <a href="{% url "examples:file_example_scripts" part_name %}"
+                target="_blank">
+            {% verbatim %}
+                <span class="left-cell">
+                    <span class="material-symbols-outlined">download</span>
+                </span>
+                <span class="right-cell">
+                    <span class="label">Scripts Only</span>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endverbatim %}

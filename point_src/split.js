@@ -77,6 +77,22 @@ function get_bezier_derivative(p0, p1, p2, p3, t) {
 }
 
 
+const get_bezier_arc_lengths = function(p0, p1, p2, p3, samples) {
+    /* Cumulative chord lengths at `samples` evenly spaced `t` values.
+    Index i holds the length from t=0 to t=i/samples. */
+    let lengths = new Float64Array(samples + 1)
+    let prev = p0
+    let total = 0
+    for (var i = 1; i <= samples; i++) {
+        let p = get_bezier_point(p0, p1, p2, p3, i / samples)
+        total += Math.hypot(p.x - prev.x, p.y - prev.y)
+        lengths[i] = total
+        prev = p
+    }
+    return lengths
+}
+
+
 const lerpRadius = function(a, b, v) {
     /* Process the width from the _first_ to the _last_ of a line.*/
     // let av = ((asLast.radius - asFirst.radius) * (i/l))+asFirst.radius
@@ -245,6 +261,71 @@ Polypoint.head.installFunctions('BezierCurve', {
         }
 
         return r;
+    }
+
+    , splitExact(distance, angle=0) {
+        /* Split the curve into points spaced `distance` units apart along
+        the arc, starting at `a`. Unlike `split(count)` the spacing does not
+        bunch up where the curve is tight.
+
+            let points = curve.splitExact(10)
+        */
+        if(!(distance > 0)) { return new PointList }
+        return this._splitByArcLength(total => {
+            let targets = []
+            for (let d = 0; d <= total; d += distance) { targets.push(d) }
+            return targets
+        }, angle)
+    }
+
+    , splitEven(count, angle=0) {
+        /* Split the curve into `count` points with equal arc-length spacing,
+        including both ends. Same signature as `split(count)` but without
+        the bunching where the curve is tight.
+
+            let points = curve.splitEven(20)
+        */
+        if(!(count >= 1)) { return new PointList }
+        return this._splitByArcLength(total => {
+            if(count == 1) { return [total * .5] }
+            let targets = []
+            let step = total / (count - 1)
+            for (var i = 0; i < count; i++) { targets.push(i * step) }
+            return targets
+        }, angle)
+    }
+
+    , _splitByArcLength(targetsFn, angle=0) {
+        /* `targetsFn(total)` returns ascending arc-length distances to
+        place points at. */
+        let p0 = this.a
+        let p3 = this.b
+        let [p1, p2] = this.getControlPoints()
+
+        let r = new PointList
+
+        // Control polygon length is an upper bound of the arc length.
+        let polyLength = Math.hypot(p1.x - p0.x, p1.y - p0.y)
+                       + Math.hypot(p2.x - p1.x, p2.y - p1.y)
+                       + Math.hypot(p3.x - p2.x, p3.y - p2.y)
+        let samples = clamp(Math.ceil(polyLength * 2), 16, 4096)
+        let lengths = get_bezier_arc_lengths(p0, p1, p2, p3, samples)
+        let total = lengths[samples]
+
+        let seg = 0
+        for (let target of targetsFn(total)) {
+            while(seg < samples - 1 && lengths[seg + 1] < target) { seg++ }
+            let segLength = lengths[seg + 1] - lengths[seg]
+            let f = segLength > 0 ? (target - lengths[seg]) / segLength : 0
+            let t = clamp((seg + f) / samples, 0, 1)
+
+            let p = new Point(get_bezier_point(p0, p1, p2, p3, t))
+            let { dx, dy } = get_bezier_derivative(p0, p1, p2, p3, t)
+            p.radians = Math.atan2(-dx, dy) + angle
+            r.push(p)
+        }
+
+        return r
     }
 
     , splitHog(count, angle=undefined, ctx) {

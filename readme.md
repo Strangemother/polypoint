@@ -1,14 +1,16 @@
 <div align="center">
 
-### Polypoint.js — a tiny playground for 2D points and canvas
+### Polypoint.js 
 
-Immediate‑mode canvas helpers for creative coding, geometry sketches, and pixel doodles. No build step. Plug in only what you need. Draw now.
+> A tiny playground for 2D points and canvas
+
+Immediate‑mode canvas helpers for creative coding, geometry sketches, and pixel doodles.
 
 </div>
 
 ## Highlights
 
-- Zero-build, script-tag friendly. Works from file://, http://, anywhere
+- **Zero-build**, script-tag friendly. Works from file://, http://, anywhere
 - Immediate-mode Stage with draw loop and resize helpers
 - First-class Point with math, projection, rotation, lerp, and utilities
 - Pen vs Draw helpers to keep canvas code clean and expressive

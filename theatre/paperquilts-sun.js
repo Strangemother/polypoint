@@ -52,7 +52,7 @@ class MainStage extends Stage {
         e1.update({
             x: this.point.x
             , y: this.point.y
-            , radius: 60
+            , radius: 100
             // , radiusVariant: .1
             , directionVariant: 100
             , particleSpeed: .6
@@ -71,9 +71,11 @@ class MainStage extends Stage {
 
         this.e1 = e1
         this.g = (new Gradient).radial(this.e1)
-
-        let c1 = '#fbc148'
-        let c2 = '#d64b02'
+        // #eab510
+        // let c1 = '#fbc148'
+        // let c2 = '#d64b02'
+        let c1 = '#fbc148' // inner
+        let c2 = '#eab510' // outer
 
         this.g.addStops({
             0: {color: c1}
@@ -107,7 +109,6 @@ class MainStage extends Stage {
 
         // this.point.pen.indicator(ctx, 'orange')
         // this.point.rotation = 90-radiansToDegrees(this.point.speed2D.direction())
-        let c1 = '#fbc148'
         let rCol = function(){
             let lr = random.int(20, 21)
             let c2 = `hsl(21deg 97% ${lr}%)`
@@ -115,7 +116,6 @@ class MainStage extends Stage {
         }
 
         // this.e1.points.forEach(p=>p.pen.fill(ctx, rCol()))
-        let c2 = `#d64b02`
         this.e1.points.pen.fill(ctx, grad)
         this.e1.pen.fill(ctx, grad)
 

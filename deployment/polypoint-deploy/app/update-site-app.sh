@@ -56,7 +56,7 @@ pull_with_collision_resolution() {
         echo "→ Pull attempt $attempt/$MAX_PULL_ATTEMPTS"
 
         set +e
-        pull_output="$(git pull --no-ff origin main 2>&1)"
+        pull_output="$(git pull --ff-only origin main 2>&1)"
         pull_status=$?
         set -e
 
@@ -105,7 +105,7 @@ fi
 print_section "Git Update"
 if is_true "$NO_PATCH"; then
     echo "→ Patch collision handling disabled (--no-patch mode)."
-    git pull --no-ff origin main
+    git pull --ff-only origin main
 else
     pull_with_collision_resolution
 fi

@@ -16,5 +16,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 32432
           script: |
+            cd /home/site/apps/polypoint
+            su - site -s /bin/bash -c 'cd /home/site/apps/polypoint && git fetch origin main && git checkout origin/main -- site/beta/db.sqlite3 && git reset -- site/beta/db.sqlite3'
             cd /home/site/apps/polypoint/deployment/polypoint-deploy
             ./update-app.sh

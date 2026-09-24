@@ -25,6 +25,6 @@ jobs:
               echo "Removing stale .git/index.lock"
               rm -f .git/index.lock
             fi
-            su - site -s /bin/bash -c 'cd /home/site/apps/polypoint && git fetch origin main && git checkout origin/main -- site/beta/db.sqlite3 && git reset -- site/beta/db.sqlite3'
+            su - site -s /bin/bash -c 'cd /home/site/apps/polypoint && git fetch origin main && git reset --hard origin/main && git clean -fd'
             cd /home/site/apps/polypoint/deployment/polypoint-deploy
             ./update-app.sh

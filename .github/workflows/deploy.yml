@@ -17,6 +17,14 @@ jobs:
           port: 32432
           script: |
             cd /home/site/apps/polypoint
+            if [ -e .git/index.lock ]; then
+              if fuser -s .git/index.lock; then
+                echo "A Git process is still using .git/index.lock; aborting deployment."
+                exit 1
+              fi
+              echo "Removing stale .git/index.lock"
+              rm -f .git/index.lock
+            fi
             su - site -s /bin/bash -c 'cd /home/site/apps/polypoint && git fetch origin main && git checkout origin/main -- site/beta/db.sqlite3 && git reset -- site/beta/db.sqlite3'
             cd /home/site/apps/polypoint/deployment/polypoint-deploy
             ./update-app.sh

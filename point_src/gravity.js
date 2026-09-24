@@ -1,7 +1,12 @@
 /*
 
-The _gravity_ reactor provides 2d motion in a direction
+The _gravity_ reactor adds 2D motion in a direction 
+Apply many points to the reactor, and step every frame:
 
+    gr = new GravityReactor(gravityPoint, points)
+    gr.step()
+
+Note: this isn't a _mass_ reactor (where points tend towards each other)
 */
 
 class GravityReactor {

@@ -20,7 +20,8 @@ files:
 
 Transfer the rendering to an offscreen canvas. 
 
-In this example we use an offscreen canvas as the primary rendering unit, and the user doesn't handle anything.
+In this example we use an offscreen canvas as the primary rendering unit, 
+and the user doesn't handle anything.
 
     class Example extends Stage {
         mounted(){

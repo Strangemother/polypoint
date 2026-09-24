@@ -17,7 +17,7 @@ const setupFuseSearch = function(){
     const fuse = new Fuse(rr, {
       keys: ['name', 'desc']
       , includeScore: true
-      , threshold: .5
+      , threshold: .3
     })
 
     return fuse;

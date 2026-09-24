@@ -213,6 +213,16 @@ class Positionable extends Relative {
         return this._dirty
     }
 
+    set dirty(v) {
+        /* Typically we should allow dirty to be auto managed,
+       however it can be overridden with custom functionality.
+      At the moment we simply accept and store the given value.
+
+      This may affect the running code, as dirty is reflagged by the
+      internal point. In the future turning off auto dirty may be an option..*/
+        this._dirty = v;
+    }
+
     get wasDirty() {
         /* Return the _is_ `dirty` value, but also remove the dirty flag.
         This is useful for dirty tests within the active render loop:

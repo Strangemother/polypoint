@@ -32,7 +32,6 @@ class Line {
         ctx.stroke()
     }
 
-
     perform(ctx) {
         let b = this.b;
         ctx.lineTo(b[0], b[1])

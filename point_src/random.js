@@ -21,6 +21,24 @@ class Random {
     */
     pointIntMin = 2
 
+    flip(val=1) {
+        /* Perform a _coin flip_ 1/-1 for every call.
+        provide a value to potentially flip the sign.
+
+            random.flip() // -1
+            random.flip() // -1
+
+            random.flip(22) // 22
+            random.flip(22) // -22
+
+        Synonymous to:
+
+            val * random.choice([1, -1])
+
+        */
+        return this.choice([val, -val])
+    }
+
     int(min=1, max) {
         /* Generate an integer between 0 and the given min.
         Given 1 (default), the result will be either 0 or 1

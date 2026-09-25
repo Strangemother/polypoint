@@ -27,14 +27,18 @@ class MainStage extends Stage {
             )
 
         this.handles = []
-        this.curve[0].color = 'red'
-        this.curve.last().color = 'pink'
+        // this.curve[0].color = '#333'
+        this.curve.each.color = '#444'
+        this.linearDrag = true
+        this.equalDistance = false
+        this.scaleDistance = false
 
         this.curve.forEach(p => {
             let pair = p.split(2, 0, Math.PI * .5)
             pair[0].recordedDistance = pair[0].distance2D(p)
             pair[0].relRads = degToRad(calculateAngle360(p, pair[0]))
             pair[1].recordedDistance = pair[1].distance2D(p)
+            pair[1].relRads = degToRad(calculateAngle360(p, pair[1]))
             this.handles.push(pair)
             this.dragging.add(...pair)
         })
@@ -43,12 +47,42 @@ class MainStage extends Stage {
     }
 
     computeHandles(index, owner) {
-        console.log('compute')
-        // this.handles[index] = handle.split(2, 0, Math.PI * .5)
         let handles = this.handles[index]
-        handles.forEach((handle, i) => {
-
+        handles.forEach(handle => {
+            let radians = owner.radians + handle.relRads
+            let distance = handle.recordedDistance.distance
+            handle.x = owner.x + Math.cos(radians) * distance
+            handle.y = owner.y + Math.sin(radians) * distance
         })
+    }
+
+    constrainHandle(owner, handle) {
+        let radians = owner.radians + handle.relRads
+        let directionX = Math.cos(radians)
+        let directionY = Math.sin(radians)
+        let offsetX = handle.x - owner.x
+        let offsetY = handle.y - owner.y
+        let distance = offsetX * directionX + offsetY * directionY
+
+        handle.x = owner.x + directionX * distance
+        handle.y = owner.y + directionY * distance
+        return distance
+    }
+
+    mirrorHandle(owner, handle, distance, scaleDistance=false) {
+        let antipose = handle === owner.pair[0] ? owner.pair[1] : owner.pair[0]
+        let radians = owner.radians + handle.relRads
+        let antiposeDistance = distance
+        if (scaleDistance) {
+            let originalDistance = handle.recordedDistance.distance
+            let ratio = originalDistance == 0 ? 0 : Math.abs(distance) / originalDistance
+            antiposeDistance = antipose.recordedDistance.distance * ratio
+        }
+        antipose.x = owner.x - Math.cos(radians) * antiposeDistance
+        antipose.y = owner.y - Math.sin(radians) * antiposeDistance
+        antipose.recordedDistance = antipose.distance2D(owner)
+        antipose.relRads = degToRad(calculateAngle360(owner, antipose))
+        antipose.dirty = false
     }
 
 
@@ -82,19 +116,35 @@ class MainStage extends Stage {
                 this.computeHandles(i, p)
             }
         })
+
+        let linearDrag = this.linearDrag
+        let equalDistance = this.equalDistance
+        let scaleDistance = this.scaleDistance
         /* Iterate all handle pairs, if a handle within the pair is dirty, re-cache its
         position. */
         this.handles.forEach((pair, i) => {
             let p = this.curve[i]
             p.pair = pair
+            let dragged = this.dragging.isDragging ? this.dragging.getPoint() : undefined
+            let pairDrag = pair.includes(dragged)
             pair.forEach(handle => {
-                if (handle.wasDirty) {
+                if (handle.wasDirty && (!pairDrag || handle === dragged)) {
+                    let distance
+                    if (linearDrag) {
+                        distance = this.constrainHandle(p, handle)
+                    } else {
+                        distance = handle.distance2D(p).distance
+                        handle.relRads = degToRad(calculateAngle360(p, handle))
+                    }
+                    if (equalDistance || scaleDistance) {
+                        this.mirrorHandle(p, handle, distance, scaleDistance && !equalDistance)
+                    }
                     handle.recordedDistance = handle.distance2D(p)
+                    handle.relRads = degToRad(calculateAngle360(p, handle))
                 }
-            });
+            })
             pair.pen.indicator(ctx, { color: p.color, width: 1 })
         })
-
 
         let a = this.curve[0]
         let b = this.curve[1]
@@ -138,7 +188,7 @@ class MainStage extends Stage {
         //     d.pair[1].x, d.pair[1].y,
         //     d.x, d.y
         // )
-
+        ctx.strokeStyle = 'purple'
         ctx.stroke()
 
     }

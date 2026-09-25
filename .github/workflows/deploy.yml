@@ -16,5 +16,15 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 32432
           script: |
+            cd /home/site/apps/polypoint
+            if [ -e .git/index.lock ]; then
+              if fuser -s .git/index.lock; then
+                echo "A Git process is still using .git/index.lock; aborting deployment."
+                exit 1
+              fi
+              echo "Removing stale .git/index.lock"
+              rm -f .git/index.lock
+            fi
+            su - site -s /bin/bash -c 'cd /home/site/apps/polypoint && git fetch origin main && git reset --hard origin/main && git clean -fd && chmod 755 deployment/polypoint-deploy/deploy/gunicorn/start.sh'
             cd /home/site/apps/polypoint/deployment/polypoint-deploy
             ./update-app.sh

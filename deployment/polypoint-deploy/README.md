@@ -105,7 +105,7 @@ When patch handling is enabled, `update-site-app.sh` attempts pull up to 5 times
 
 Per attempt:
 
-1. Run `git pull --no-ff origin main`.
+1. Run `git pull --ff-only origin main`.
 2. If collision message is detected (`would be overwritten by merge|checkout`), parse file paths from output.
 3. Resolve each collision file using rules in `patches.yaml`.
 4. Retry pull.

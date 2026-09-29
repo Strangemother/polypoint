@@ -11,6 +11,7 @@ files:
     stage
     dragging
     stroke
+    ../point_src/keyboard.js
     ../point_src/split.js
     ../point_src/curve-extras.js
 
@@ -25,13 +26,14 @@ class MainStage extends Stage {
                 , new Point(450, 340, 60, -90)
                 , new Point(650, 340, 60, -90)
             )
-
+        this.keyboard.wake()
+        this.myKeys = {}
         this.handles = []
         // this.curve[0].color = '#333'
         this.curve.each.color = '#444'
-        this.linearDrag = true
+        this.linearDrag = false
         this.equalDistance = false
-        this.scaleDistance = false
+        this.scaleDistance = true
 
         this.curve.forEach(p => {
             let pair = p.split(2, 0, Math.PI * .5)
@@ -107,6 +109,15 @@ class MainStage extends Stage {
         return [primaryPoint.x + xRot, primaryPoint.y + yRot]
     }
 
+    onKeydown(ev) {
+        console.log('onKeydown', ev)
+        this.myKeys[ev.key] = 1
+    }
+    onKeyup(ev) {
+        console.log('onKeyup', ev)
+        this.myKeys[ev.key] = 0
+    }
+
     draw(ctx){
         this.clear(ctx)
         this.curve.pen.indicator(ctx, { width: 1 })
@@ -117,9 +128,10 @@ class MainStage extends Stage {
             }
         })
 
+        let altButton = this.myKeys['Control'] == 1
         let linearDrag = this.linearDrag
         let equalDistance = this.equalDistance
-        let scaleDistance = this.scaleDistance
+        let scaleDistance = altButton? false: this.scaleDistance
         /* Iterate all handle pairs, if a handle within the pair is dirty, re-cache its
         position. */
         this.handles.forEach((pair, i) => {
@@ -189,6 +201,7 @@ class MainStage extends Stage {
         //     d.x, d.y
         // )
         ctx.strokeStyle = 'purple'
+        ctx.lineWidth = 3
         ctx.stroke()
 
     }

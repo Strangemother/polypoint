@@ -1,0 +1,1 @@
+/* An auto display widget */

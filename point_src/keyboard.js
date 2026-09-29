@@ -29,6 +29,7 @@ const KEYS = new Proxy(KC, {
 
 class StageKeyboard {
     autoListen = true
+    _prepared = false
 
     constructor(stage=undefined) {
         this.stage = stage
@@ -37,11 +38,12 @@ class StageKeyboard {
         this.wake()
     }
 
-    wake(){
+    wake() {
+        if(this._prepared) { return }
         let p = this.getEventParent()
         p.addEventListener('keydown', this.stageKeydownHandler.bind(this))
         p.addEventListener('keyup', this.stageKeyupHandler.bind(this))
-
+        this._prepared = true
     }
 
     stageKeydownHandler(ev) {

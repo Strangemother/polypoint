@@ -1,0 +1,180 @@
+{
+    "src_file": "pointlock.js",
+    "references": {
+        "classes": {
+            "PointLock": {
+                "class_name": "PointLock",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "PointLock",
+                        "kind": "constructor",
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 29
+                    },
+                    {
+                        "method_name": "linear",
+                        "class_name": "PointLock",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "perform a to b",
+                                    "block": false,
+                                    "line": 36
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 34
+                    },
+                    {
+                        "method_name": "facing",
+                        "class_name": "PointLock",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "Locked to the pointing direction of self, assuming a _ray_ case from the center through\nthe tip of this (self) point. Only moving _forward_ or _backward_ but not sliding.\n\nThe constraint is applied only when this method is called.",
+                                    "block": true,
+                                    "line": 55
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 50
+                    },
+                    {
+                        "method_name": "between",
+                        "class_name": "PointLock",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "self point may only exist between the two given points.",
+                                    "block": true,
+                                    "line": 67
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 66
+                    },
+                    {
+                        "method_name": "radial",
+                        "class_name": "PointLock",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "origin"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "cast from the origin, no sliding.\n\nNote, this is already set from the existing origin. such that from the first call the sight-line\nis assumed. When moving the point, the _origin_ can move freely, where _this_ self point\nmay only move along the cast ray from the origin.\n\nluckily moving the origin doesn't affect the target (self) point.",
+                                    "block": true,
+                                    "line": 97
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 89
+                    },
+                    {
+                        "method_name": "ray",
+                        "class_name": "PointLock",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "origin"
+                            },
+                            {
+                                "name": "min",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "max",
+                                "default_value": "Infinity"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "cast from the origin, allowing sliding along the ray within the min and max bounds.\n\nBounds are signed multiples of origin.radius; negative values extend behind the origin.\n\n1. (default 0) min is the minimum multiple.\n2. (default Infinity) max is the maximum multiple.\n\nExamples: \n\n    // lock to the outside of a point.\n    point.lock.ray(other, 1) \n\n    // lock one half inside.\n    point.lock.ray(other, .5, 1) \n\n    // axis lock\n    point.lock.ray(other, -1, 1) \n\n    // lock between 1/3 of the radius, to a max of 3X the radius.\n    point.lock.ray(other,  .3,  3)",
+                                    "block": true,
+                                    "line": 132
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 111
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Linear lock.\n\nA linear locked point can move _only_ along the given axis - the direction.\n\nFor dragging and interaction, the point is locked by the linear direction relative to _other_.\n\n    point.lock.linear(other)\n\nThe point may only move towards, or away from the other, disregarding the `point` direction. When `other` position changes, the linear lock will reflect this.\n\n---\n\nThe point may only move in the direction of itself (forward or reverse)\n\n    point.lock.linear()\n\nWhen rotating the point, the linear lock will reflect this.\n\n---\n\nLock between two. Essentially the same as `other` (only `a`), but with a _max limit_.\n\n    point.lock.linear(a, b)",
+                            "block": true,
+                            "line": 27
+                        }
+                    ]
+                },
+                "line": 2
+            }
+        },
+        "functions": [],
+        "constants": []
+    },
+    "info": {
+        "filename": "pointlock.js",
+        "path": "/workspaces/polypoint/point_src/pointlock.js",
+        "size": 4988,
+        "parsed_date": "2026-09-30T00:43:14.489Z"
+    }
+}

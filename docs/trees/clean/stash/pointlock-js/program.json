@@ -1,0 +1,1083 @@
+{
+    "defs": [
+        {
+            "kind": "class",
+            "word": "PointLock",
+            "parentName": null,
+            "type": "ClassDeclaration",
+            "body": [
+                {
+                    "kind": "constructor",
+                    "word": "constructor",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "point"
+                            }
+                        ],
+                        "pos": {
+                            "start": 755,
+                            "end": 851,
+                            "loc": {
+                                "start": {
+                                    "line": 29,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 32,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": []
+                    },
+                    "pos": {
+                        "start": 744,
+                        "end": 851,
+                        "loc": {
+                            "start": {
+                                "line": 29,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 32,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointLock"
+                },
+                {
+                    "kind": "method",
+                    "word": "linear",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 863,
+                            "end": 1307,
+                            "loc": {
+                                "start": {
+                                    "line": 34,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 48,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "perform a to b",
+                                "block": false,
+                                "line": 36
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 857,
+                        "end": 1307,
+                        "loc": {
+                            "start": {
+                                "line": 34,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 48,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointLock"
+                },
+                {
+                    "kind": "method",
+                    "word": "facing",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [],
+                        "pos": {
+                            "start": 1319,
+                            "end": 1944,
+                            "loc": {
+                                "start": {
+                                    "line": 50,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 64,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "Locked to the pointing direction of self, assuming a _ray_ case from the center through\nthe tip of this (self) point. Only moving _forward_ or _backward_ but not sliding.\n\nThe constraint is applied only when this method is called.",
+                                "block": true,
+                                "line": 55
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1313,
+                        "end": 1944,
+                        "loc": {
+                            "start": {
+                                "line": 50,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 64,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointLock"
+                },
+                {
+                    "kind": "method",
+                    "word": "between",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "a"
+                            },
+                            {
+                                "name": "b"
+                            }
+                        ],
+                        "pos": {
+                            "start": 1957,
+                            "end": 2687,
+                            "loc": {
+                                "start": {
+                                    "line": 66,
+                                    "column": 11
+                                },
+                                "end": {
+                                    "line": 87,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "self point may only exist between the two given points.",
+                                "block": true,
+                                "line": 67
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 1950,
+                        "end": 2687,
+                        "loc": {
+                            "start": {
+                                "line": 66,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 87,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointLock"
+                },
+                {
+                    "kind": "method",
+                    "word": "radial",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "origin"
+                            }
+                        ],
+                        "pos": {
+                            "start": 2699,
+                            "end": 3496,
+                            "loc": {
+                                "start": {
+                                    "line": 89,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 109,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "cast from the origin, no sliding.\n\nNote, this is already set from the existing origin. such that from the first call the sight-line\nis assumed. When moving the point, the _origin_ can move freely, where _this_ self point\nmay only move along the cast ray from the origin.\n\nluckily moving the origin doesn't affect the target (self) point.",
+                                "block": true,
+                                "line": 97
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 2693,
+                        "end": 3496,
+                        "loc": {
+                            "start": {
+                                "line": 89,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 109,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointLock"
+                },
+                {
+                    "kind": "method",
+                    "word": "ray",
+                    "static": false,
+                    "computed": false,
+                    "is_symbol": false,
+                    "value": {
+                        "type": "FunctionExpression",
+                        "id": null,
+                        "generator": false,
+                        "expression": false,
+                        "async": false,
+                        "params": [
+                            {
+                                "name": "origin"
+                            },
+                            {
+                                "name": "min",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "max",
+                                "default_value": "Infinity"
+                            }
+                        ],
+                        "pos": {
+                            "start": 3505,
+                            "end": 4858,
+                            "loc": {
+                                "start": {
+                                    "line": 111,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 148,
+                                    "column": 5
+                                }
+                            }
+                        }
+                    },
+                    "type": "MethodDefinition",
+                    "comments": {
+                        "header": [],
+                        "inner": [
+                            {
+                                "text": "cast from the origin, allowing sliding along the ray within the min and max bounds.\n\nBounds are signed multiples of origin.radius; negative values extend behind the origin.\n\n1. (default 0) min is the minimum multiple.\n2. (default Infinity) max is the maximum multiple.\n\nExamples: \n\n    // lock to the outside of a point.\n    point.lock.ray(other, 1) \n\n    // lock one half inside.\n    point.lock.ray(other, .5, 1) \n\n    // axis lock\n    point.lock.ray(other, -1, 1) \n\n    // lock between 1/3 of the radius, to a max of 3X the radius.\n    point.lock.ray(other,  .3,  3)",
+                                "block": true,
+                                "line": 132
+                            }
+                        ]
+                    },
+                    "pos": {
+                        "start": 3502,
+                        "end": 4858,
+                        "loc": {
+                            "start": {
+                                "line": 111,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 148,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "class_name": "PointLock"
+                }
+            ],
+            "comments": {
+                "header": [],
+                "inner": [
+                    {
+                        "text": "Linear lock.\n\nA linear locked point can move _only_ along the given axis - the direction.\n\nFor dragging and interaction, the point is locked by the linear direction relative to _other_.\n\n    point.lock.linear(other)\n\nThe point may only move towards, or away from the other, disregarding the `point` direction. When `other` position changes, the linear lock will reflect this.\n\n---\n\nThe point may only move in the direction of itself (forward or reverse)\n\n    point.lock.linear()\n\nWhen rotating the point, the linear lock will reflect this.\n\n---\n\nLock between two. Essentially the same as `other` (only `a`), but with a _max limit_.\n\n    point.lock.linear(a, b)",
+                        "block": true,
+                        "line": 27
+                    }
+                ]
+            },
+            "pos": {
+                "start": 1,
+                "end": 4860,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 149,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 4863,
+                "end": 4896,
+                "loc": {
+                    "start": {
+                        "line": 152,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 152,
+                        "column": 33
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 4863,
+                    "end": 4885,
+                    "loc": {
+                        "start": {
+                            "line": 152,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 152,
+                            "column": 22
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 4863,
+                        "end": 4877,
+                        "loc": {
+                            "start": {
+                                "line": 152,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 152,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 4863,
+                            "end": 4872,
+                            "loc": {
+                                "start": {
+                                    "line": 152,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 152,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 4863,
+                                "end": 4872,
+                                "loc": {
+                                    "start": {
+                                        "line": 152,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 152,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 4873,
+                            "end": 4877,
+                            "loc": {
+                                "start": {
+                                    "line": 152,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 152,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 4873,
+                                "end": 4877,
+                                "loc": {
+                                    "start": {
+                                        "line": 152,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 152,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 4863,
+                            "end": 4877,
+                            "loc": {
+                                "start": {
+                                    "line": 152,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 152,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 4878,
+                        "end": 4885,
+                        "loc": {
+                            "start": {
+                                "line": 152,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 152,
+                                "column": 22
+                            }
+                        },
+                        "name": "install",
+                        "pos": {
+                            "start": 4878,
+                            "end": 4885,
+                            "loc": {
+                                "start": {
+                                    "line": 152,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 152,
+                                    "column": 22
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 4863,
+                        "end": 4885,
+                        "loc": {
+                            "start": {
+                                "line": 152,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 152,
+                                "column": 22
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "start": 4886,
+                        "end": 4895,
+                        "loc": {
+                            "start": {
+                                "line": 152,
+                                "column": 23
+                            },
+                            "end": {
+                                "line": 152,
+                                "column": 32
+                            }
+                        },
+                        "name": "PointLock",
+                        "pos": {
+                            "start": 4886,
+                            "end": 4895,
+                            "loc": {
+                                "start": {
+                                    "line": 152,
+                                    "column": 23
+                                },
+                                "end": {
+                                    "line": 152,
+                                    "column": 32
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 4863,
+                    "end": 4896,
+                    "loc": {
+                        "start": {
+                            "line": 152,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 152,
+                            "column": 33
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 4863,
+                "end": 4896,
+                "loc": {
+                    "start": {
+                        "line": 152,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 152,
+                        "column": 33
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "start": 4897,
+                "end": 4987,
+                "loc": {
+                    "start": {
+                        "line": 153,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 155,
+                        "column": 10
+                    }
+                },
+                "callee": {
+                    "type": "MemberExpression",
+                    "start": 4897,
+                    "end": 4922,
+                    "loc": {
+                        "start": {
+                            "line": 153,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 153,
+                            "column": 25
+                        }
+                    },
+                    "object": {
+                        "type": "MemberExpression",
+                        "start": 4897,
+                        "end": 4911,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 153,
+                                "column": 14
+                            }
+                        },
+                        "object": {
+                            "type": "Identifier",
+                            "start": 4897,
+                            "end": 4906,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 153,
+                                    "column": 9
+                                }
+                            },
+                            "name": "Polypoint",
+                            "pos": {
+                                "start": 4897,
+                                "end": 4906,
+                                "loc": {
+                                    "start": {
+                                        "line": 153,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 153,
+                                        "column": 9
+                                    }
+                                }
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "start": 4907,
+                            "end": 4911,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 10
+                                },
+                                "end": {
+                                    "line": 153,
+                                    "column": 14
+                                }
+                            },
+                            "name": "head",
+                            "pos": {
+                                "start": 4907,
+                                "end": 4911,
+                                "loc": {
+                                    "start": {
+                                        "line": 153,
+                                        "column": 10
+                                    },
+                                    "end": {
+                                        "line": 153,
+                                        "column": 14
+                                    }
+                                }
+                            }
+                        },
+                        "computed": false,
+                        "optional": false,
+                        "pos": {
+                            "start": 4897,
+                            "end": 4911,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 153,
+                                    "column": 14
+                                }
+                            }
+                        }
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "start": 4912,
+                        "end": 4922,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 15
+                            },
+                            "end": {
+                                "line": 153,
+                                "column": 25
+                            }
+                        },
+                        "name": "lazierProp",
+                        "pos": {
+                            "start": 4912,
+                            "end": 4922,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 15
+                                },
+                                "end": {
+                                    "line": 153,
+                                    "column": 25
+                                }
+                            }
+                        }
+                    },
+                    "computed": false,
+                    "optional": false,
+                    "pos": {
+                        "start": 4897,
+                        "end": 4922,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 153,
+                                "column": 25
+                            }
+                        }
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "start": 4923,
+                        "end": 4930,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 26
+                            },
+                            "end": {
+                                "line": 153,
+                                "column": 33
+                            }
+                        },
+                        "value": "Point",
+                        "raw": "'Point'",
+                        "pos": {
+                            "start": 4923,
+                            "end": 4930,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 26
+                                },
+                                "end": {
+                                    "line": 153,
+                                    "column": 33
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "FunctionExpression",
+                        "start": 4932,
+                        "end": 4978,
+                        "loc": {
+                            "start": {
+                                "line": 153,
+                                "column": 35
+                            },
+                            "end": {
+                                "line": 155,
+                                "column": 1
+                            }
+                        },
+                        "id": null,
+                        "expression": false,
+                        "generator": false,
+                        "async": false,
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "start": 4944,
+                            "end": 4978,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 47
+                                },
+                                "end": {
+                                    "line": 155,
+                                    "column": 1
+                                }
+                            },
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "start": 4950,
+                                    "end": 4976,
+                                    "loc": {
+                                        "start": {
+                                            "line": 154,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 154,
+                                            "column": 30
+                                        }
+                                    },
+                                    "argument": {
+                                        "type": "NewExpression",
+                                        "start": 4957,
+                                        "end": 4976,
+                                        "loc": {
+                                            "start": {
+                                                "line": 154,
+                                                "column": 11
+                                            },
+                                            "end": {
+                                                "line": 154,
+                                                "column": 30
+                                            }
+                                        },
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "start": 4961,
+                                            "end": 4970,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 154,
+                                                    "column": 15
+                                                },
+                                                "end": {
+                                                    "line": 154,
+                                                    "column": 24
+                                                }
+                                            },
+                                            "name": "PointLock",
+                                            "pos": {
+                                                "start": 4961,
+                                                "end": 4970,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 154,
+                                                        "column": 15
+                                                    },
+                                                    "end": {
+                                                        "line": 154,
+                                                        "column": 24
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "ThisExpression",
+                                                "start": 4971,
+                                                "end": 4975,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 154,
+                                                        "column": 25
+                                                    },
+                                                    "end": {
+                                                        "line": 154,
+                                                        "column": 29
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 4971,
+                                                    "end": 4975,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 154,
+                                                            "column": 25
+                                                        },
+                                                        "end": {
+                                                            "line": 154,
+                                                            "column": 29
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "pos": {
+                                            "start": 4957,
+                                            "end": 4976,
+                                            "loc": {
+                                                "start": {
+                                                    "line": 154,
+                                                    "column": 11
+                                                },
+                                                "end": {
+                                                    "line": 154,
+                                                    "column": 30
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "pos": {
+                                        "start": 4950,
+                                        "end": 4976,
+                                        "loc": {
+                                            "start": {
+                                                "line": 154,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 154,
+                                                "column": 30
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "pos": {
+                                "start": 4944,
+                                "end": 4978,
+                                "loc": {
+                                    "start": {
+                                        "line": 153,
+                                        "column": 47
+                                    },
+                                    "end": {
+                                        "line": 155,
+                                        "column": 1
+                                    }
+                                }
+                            }
+                        },
+                        "pos": {
+                            "start": 4932,
+                            "end": 4978,
+                            "loc": {
+                                "start": {
+                                    "line": 153,
+                                    "column": 35
+                                },
+                                "end": {
+                                    "line": 155,
+                                    "column": 1
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "Literal",
+                        "start": 4980,
+                        "end": 4986,
+                        "loc": {
+                            "start": {
+                                "line": 155,
+                                "column": 3
+                            },
+                            "end": {
+                                "line": 155,
+                                "column": 9
+                            }
+                        },
+                        "value": "lock",
+                        "raw": "'lock'",
+                        "pos": {
+                            "start": 4980,
+                            "end": 4986,
+                            "loc": {
+                                "start": {
+                                    "line": 155,
+                                    "column": 3
+                                },
+                                "end": {
+                                    "line": 155,
+                                    "column": 9
+                                }
+                            }
+                        }
+                    }
+                ],
+                "optional": false,
+                "pos": {
+                    "start": 4897,
+                    "end": 4987,
+                    "loc": {
+                        "start": {
+                            "line": 153,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 155,
+                            "column": 10
+                        }
+                    }
+                }
+            },
+            "pos": {
+                "start": 4897,
+                "end": 4987,
+                "loc": {
+                    "start": {
+                        "line": 153,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 155,
+                        "column": 10
+                    }
+                }
+            }
+        }
+    ],
+    "types": [
+        "ClassDeclaration",
+        "ExpressionStatement",
+        "ExpressionStatement"
+    ],
+    "info": {
+        "filename": "pointlock.js",
+        "path": "/workspaces/polypoint/point_src/pointlock.js",
+        "size": 4988,
+        "parsed_date": "2026-09-30T00:43:14.489Z"
+    }
+}

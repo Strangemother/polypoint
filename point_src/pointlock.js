@@ -28,17 +28,18 @@ class PointLock {
 
     constructor(point) {
         this.point = point
+        this._facingOrigin = {x: point.x, y: point.y}
     }
 
     linear(a, b) {
         if (b !== undefined) {
             // perform a to b
-            return this.between(a,b)
+            return this.between(a, b)
         }
 
         if (a !== undefined) {
             /* A point may only exist on the line extending from the center
-           of the given point (to inifinity) */
+           of the given point (to infinity) */
             return this.radial(a)
         }
 
@@ -50,17 +51,39 @@ class PointLock {
         /* Locked to the pointing direction of self, assuming a _ray_ case from the center through
         the tip of this (self) point. Only moving _forward_ or _backward_ but not sliding.
 
-        The point may rotate freely, but will be constrained when `x` or `y` is altered.
+        The constraint is applied only when this method is called.
         */
 
-        // lock X/Y through the direcitonal ray
-        return this.radial(this.point)
+        this._facingOrigin.radians = this.point.radians
+        const constrainedPoint = this.radial(this._facingOrigin)
+        // Must update after, else the rotation of the origin
+        // will be incorrect.
+        this._facingOrigin.x = constrainedPoint.x
+        this._facingOrigin.y = constrainedPoint.y
+        return constrainedPoint
     }
 
     between(a, b) {
         /* self point may only exist between the two given points. */
 
-        // lock x/y between the invisible line of points `a` and `b`.
+        const point = this.point
+            , originX = a.x
+            , originY = a.y
+            , dx = b.x - originX
+            , dy = b.y - originY
+            , lengthSquared = dx * dx + dy * dy
+            , f = ()=> { 
+                let lr = (
+                        (point.x - originX) * dx 
+                      + (point.y - originY) * dy
+                    ) / lengthSquared
+                let _min = Math.min(1, lr)
+                return Math.max(0, _min)
+            }
+        const amount = lengthSquared === 0 ? 0 : f()
+        point.x = originX + amount * dx
+        point.y = originY + amount * dy
+        return point
     }
 
     radial(origin) {
@@ -73,7 +96,55 @@ class PointLock {
         luckily moving the origin doesn't affect the target (self) point.
         */
 
-        // lock x/y along the directional ray of the origin.
+        const point = this.point
+        const originX = origin.x
+        const originY = origin.y
+        const radians = origin.radians
+        const dx = Math.cos(radians)
+        const dy = Math.sin(radians)
+        const amount = (point.x - originX) * dx + (point.y - originY) * dy
+        point.x = originX + amount * dx
+        point.y = originY + amount * dy
+        return point
+    }
+
+    ray(origin, min=0, max=Infinity) {
+        /* cast from the origin, allowing sliding along the ray within the min and max bounds.
+
+        Bounds are signed multiples of origin.radius; negative values extend behind the origin.
+        
+        1. (default 0) min is the minimum multiple.
+        2. (default Infinity) max is the maximum multiple.
+
+        Examples: 
+
+            // lock to the outside of a point.
+            point.lock.ray(other, 1) 
+
+            // lock one half inside.
+            point.lock.ray(other, .5, 1) 
+
+            // axis lock
+            point.lock.ray(other, -1, 1) 
+
+            // lock between 1/3 of the radius, to a max of 3X the radius.
+            point.lock.ray(other,  .3,  3) 
+        */
+
+        const point = this.point
+        const originX = origin.x
+        const originY = origin.y
+        const radians = origin.radians
+        const radius = origin.radius
+        const dx = Math.cos(radians)
+        const dy = Math.sin(radians)
+        const projected = (point.x - originX) * dx + (point.y - originY) * dy
+        const minDistance = min * radius
+        const maxDistance = max === Infinity ? Infinity : max * radius
+        const amount = Math.max(minDistance, Math.min(maxDistance, projected))
+        point.x = originX + amount * dx
+        point.y = originY + amount * dy
+        return point
     }
 }
 

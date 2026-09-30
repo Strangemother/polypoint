@@ -1,4 +1,11 @@
 {% extends "docs/doc-base.html" %}
+{% comment "what" %}
+    Grid of examples
+
+    http://localhost:8000/examples/list/
+
+{% endcomment %}
+
 {% load link theatre markdown %}
 {% block page_title %}Examples{% endblock page_title %}
 
@@ -58,15 +65,18 @@
             <ul class='object-list file-list'>
                 {% for obj in object_list %}
                 <li data-file="{{ obj.name }}">
-                    <div class="image-container">
-                        {% if obj.still_image_path %}
-                        <img src="/media/{{ obj.still_image_path }}" loading="lazy" decoding="async" alt="{{ obj.name }} thumbnail">
-                        {% endif %}
-                    </div>
-                    <div class="link">{% link "examples:file_example" obj.name obj.name %}</div>
-                    <div class="description">
-                        {{ obj.description }}
-                    </div>
+
+                    <a href='{% url "examples:file_example" obj.name %}'>
+                        <div class="image-container">
+                            {% if obj.still_image_path %}
+                            <img src="/media/{{ obj.still_image_path }}" loading="lazy" decoding="async" alt="{{ obj.name }} thumbnail">
+                            {% endif %}
+                        </div>
+                        <div class="link">{% link "examples:file_example" obj.name obj.name %}</div>
+                        <div class="description">
+                            {{ obj.description }}
+                        </div>
+                    </a>
                 </li>
                 {% endfor %}
             </ul>

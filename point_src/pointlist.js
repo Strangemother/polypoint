@@ -607,6 +607,17 @@ class PointList extends LazyAccessArray {
         }
 
     }
+
+    getDirty() {
+        let r = []
+        this.forEach(p => {
+            if (p.dirty) {
+                r.push(p)
+            }
+        })
+
+        return r
+    }
 }
 
 

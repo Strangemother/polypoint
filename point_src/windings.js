@@ -27,34 +27,15 @@ class PointWinding {
     reset(point=this.parent) {
         this.total = point.rotation
         this.initRad = point.radians
-        this.prevCache = 0// point.rotation
+        this.prevCache = point.radians
         this.lastDiff = 0
     }
 
     calculate(point=this.parent) {
-        let initRad = this.initRad
         point = point || this.parent
-
-        // if(initRad == undefined) {
-        //     initRad = point.radians
-        // };
-        let lro = {radians:initRad};
-        let rotW = calculateAngleDiffWrapped(lro, point)
-        let rot = calculateAngleDiff(lro, point)
-        if(rot != this.prevCache) {
-            // console.log(rot, this.initRad)
-            let diff = (this.prevCache - rot)
-            if (diff < -180 || diff > 180) {
-                // skip it.
-                diff = ((this.prevCache - 360) % 360 ) + rot
-            } else {
-                this.total += diff;
-            }
-            this.lastDiff = diff
-        }
-
-        this.prevCache = rot
-        this.initRad = initRad
+        this.lastDiff = radiansToDegrees(radiansDiff2(point.radians, this.prevCache))
+        this.total += this.lastDiff
+        this.prevCache = point.radians
         return this.total
     }
 

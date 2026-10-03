@@ -3,6 +3,14 @@ from django.contrib import admin
 from . import models
 
 
+@admin.register(models.TheatreFileCategory)
+class TheatreFileCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    filter_horizontal = ('files',)
+    ordering = ('name',)
+
+
 @admin.register(models.TheatreFile)
 class TheatreFileAdmin(admin.ModelAdmin):
     list_display = (

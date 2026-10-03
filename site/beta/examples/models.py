@@ -14,7 +14,6 @@ def crc(fileName):
         prev = zlib.crc32(eachLine, prev)
     return "%X"%(prev & 0xFFFFFFFF)
 
-
 class TheatreFile(models.Model):
     # represent a file.
     description = fields.text()
@@ -23,6 +22,10 @@ class TheatreFile(models.Model):
 
     def __str__(self):
         return self.filepath
+
+    @property
+    def example_path(self):
+        return Path(self.filepath).with_suffix('').as_posix()
 
     # when renaming a file, the crc doesn't change. This can
     # detect a rename.
@@ -66,3 +69,11 @@ class TheatreFile(models.Model):
         print('Creating.', clean_fp)
         m.save()
         return True
+
+
+
+class TheatreFileCategory(models.Model):
+    name = fields.chars(unique=True, nil=False, blank=False)
+    files = fields.m2m(TheatreFile)
+    def __str__(self):
+        return self.name

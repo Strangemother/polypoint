@@ -1,0 +1,22 @@
+{% extends "docs/doc-base.html" %}
+{% load link %}
+{% block page_title %}Theatre Categories{% endblock page_title %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        <h2>Theatre Categories</h2>
+        <p><a href="{% url 'examples:example_db' %}">All theatre files</a></p>
+        <ul>
+            {% for category in object_list %}
+            <li>
+                {% link 'examples:category_files' category.name category.name %}
+                ({{ category.file_count }})
+            </li>
+            {% empty %}
+            <li>No categories have been imported yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}

@@ -7,7 +7,7 @@
 {% endcomment %}
 
 {% load link theatre markdown %}
-{% block page_title %}Examples{% endblock page_title %}
+{% block page_title %}{% if category %}{{ category.name }} {% endif %}Examples{% endblock page_title %}
 
 {% block content %}
 
@@ -21,7 +21,12 @@
             {{ markdown_text|safe }}
         </div>
 
+        <p><a href="{% url 'examples:categories' %}">Browse categories</a></p>
+        {% if category %}
+        <h2>{{ category.name }}: {{ object_list|length }} Examples</h2>
+        {% else %}
         <h2>{{ object_list|length }} Examples</h2>
+        {% endif %}
 
         <div class="new-files-container">
             <div>
@@ -66,13 +71,13 @@
                 {% for obj in object_list %}
                 <li data-file="{{ obj.name }}">
 
-                    <a href='{% url "examples:file_example" obj.name %}'>
+                    <a href='{% url "examples:file_example" obj.example_path %}'>
                         <div class="image-container">
                             {% if obj.still_image_path %}
                             <img src="/media/{{ obj.still_image_path }}" loading="lazy" decoding="async" alt="{{ obj.name }} thumbnail">
                             {% endif %}
                         </div>
-                        <div class="link">{% link "examples:file_example" obj.name obj.name %}</div>
+                        <div class="link">{% link "examples:file_example" obj.example_path obj.name %}</div>
                         <div class="description">
                             {{ obj.description }}
                         </div>

@@ -1,6 +1,7 @@
 /*
 ---
 title: Apple Motion Timing Curve
+category: motion
 
 ---
 

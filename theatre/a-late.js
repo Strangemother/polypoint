@@ -8,7 +8,7 @@ tags: example
     another
     beta
     alpha
-category: emitter
+category: old
 ---
 
 A very long description. A stage will adapt to its global size.

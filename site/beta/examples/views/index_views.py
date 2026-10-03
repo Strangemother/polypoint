@@ -2,8 +2,11 @@ import json
 from pathlib import Path
 
 from django.conf import settings
+from django.db.models import Count
+from django.shortcuts import get_object_or_404
 from trim import views
 
+from ..models import TheatreFileCategory
 from ..theatre import get_theatre_list
 
 
@@ -52,6 +55,26 @@ class ExampleIndexTemplateView(views.ListView):
 
 class TheatreIndexTemplateView(ExampleIndexTemplateView):
     parent_dir = settings.POLYPOINT_THEATRE_DIR
+
+
+class TheatreFileCategoryListView(views.ListView):
+    template_name = 'examples/theatrefilecategory_list.html'
+
+    def get_queryset(self):
+        return TheatreFileCategory.objects.annotate(file_count=Count('files')).order_by('name')
+
+
+class TheatreFileCategoryFilesView(views.ListView):
+    template_name = 'examples/theatrefile_list.html'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(TheatreFileCategory, name=self.kwargs['name'])
+        return self.category.files.order_by('-modified', 'filepath')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        return context
 
 
 class TheatreIndexJSONTemplateView(ExampleIndexTemplateView):

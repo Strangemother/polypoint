@@ -243,6 +243,14 @@ def render_markdown(path, parent, clean_meta=False, meta_keys=None, encoding='ut
     return res
 
 
+def extract_theatre_header(content):
+    """Return the leading documentation comment, ignoring comments in code."""
+    match = re.search(r"/\*(.*?)\*/", content, re.DOTALL)
+    if match and not content[:match.start()].strip():
+        return match.group(1)
+    return ''
+
+
 def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js', rel_prefix=None):
     """Attempt to parse the theatre file and other config locations
     to apply _metadata_ about the theatre file to the context.
@@ -272,15 +280,7 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js', rel_pre
     # extract the first comment and convert to markdown.
     content = tf.read_text()
 
-    text_data = ''
-    match = re.search(r"/\*(.*?)\*/", content, re.DOTALL)
-    if match:
-        # match start: match.start()
-        # match end (exclusive): match.end()
-        start = match.start()
-        first = start == 0 or len(content[0: start].strip()) == 0
-        if first:
-            text_data = match.group(1)
+    text_data = extract_theatre_header(content)
 
     md = ''
     html = ''

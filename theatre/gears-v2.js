@@ -28,9 +28,10 @@ Set internal to true for teeth on the inner rim instead of the outer rim.
 The first manually rotated point drives its touching group before any motor.
 Register a Line with addRack(line) to connect tangent wheels; passive:false
 locks the connected chain when the rack speed is zero.
-Set line.rim to -1 or 1 for the negative/positive side from a to b; 0
-(the default) engages both sides.
+Set line.rim to -1 or 1 for the negative/positive side from a to b; internal
+wheels use the opposite side. 0 (the default) engages both sides.
 line.speed is rack tooth travel per gearbox step.
+Internal wheels use their inward-facing teeth when meshing with a rack.
 */
 
 
@@ -258,9 +259,15 @@ class GearBox2 {
             let radiusX = contactX - point.x
             let radiusY = contactY - point.y
             let distance = Math.hypot(radiusX, radiusY)
-            if(Math.abs(distance - point.radius) > this.edgeLimit) continue
+            let rimGap = point.radius - distance
+            if(point.internal) {
+                if(rimGap <= 0 || rimGap > this.edgeLimit) continue
+            } else if(Math.abs(rimGap) > this.edgeLimit) {
+                continue
+            }
             let side = Math.sign(tangentX * (point.y - a.y) - tangentY * (point.x - a.x))
-            if(rim !== 0 && side !== rim) continue
+            let contactSide = point.internal ? -rim : rim
+            if(rim !== 0 && side !== contactSide) continue
 
             let cross = radiusX * tangentY - radiusY * tangentX
             if(Math.abs(cross) < 1e-9) continue
@@ -280,6 +287,10 @@ class GearBox2 {
 
     rackPointDiff(travel, contact) {
         return travel / contact.cross * RADIANS_TO_DEGREES
+    }
+
+    rackTravelFromPoint(diff, contact) {
+        return diff * DEGREES_TO_RADIANS * contact.cross
     }
 
     beltDiff(belt, point, child, diff) {
@@ -328,7 +339,7 @@ class GearBox2 {
                 let pointDiff = inputDiffs.get(contact.point) || 0
                 if(pointDiff === 0) continue
 
-                let candidate = pointDiff * DEGREES_TO_RADIANS * contact.cross
+                let candidate = this.rackTravelFromPoint(pointDiff, contact)
                 if(fastest === undefined || Math.abs(candidate) > Math.abs(fastest)) {
                     fastest = candidate
                 }
@@ -368,8 +379,10 @@ class GearBox2 {
             let fastest = undefined
             for(let contact of rack.contacts) {
                 if(!motorSources.includes(contact.point)) continue
-                let candidate = Number(contact.point.motor)
-                    * DEGREES_TO_RADIANS * contact.cross
+                let candidate = this.rackTravelFromPoint(
+                    Number(contact.point.motor),
+                    contact
+                )
                 if(candidate === 0) continue
                 if(fastest === undefined || Math.abs(candidate) > Math.abs(fastest)) {
                     fastest = candidate
@@ -441,7 +454,7 @@ class GearBox2 {
                 if(visitedRacks.has(rack)) continue
                 let contact = rack.contacts.find(item => item.point === point)
                 if(!contact) continue
-                let travel = diff * DEGREES_TO_RADIANS * contact.cross
+                let travel = this.rackTravelFromPoint(diff, contact)
                 if(travel === 0 && rack.passive) continue
 
                 let length = rack.line.length

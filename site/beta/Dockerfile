@@ -1,5 +1,11 @@
 # Use an official Python runtime based on Debian 10 "buster" as a parent image.
+FROM node:20-bullseye-slim AS node-tools
+RUN npm install --prefix /opt/terser terser@5.51.2 --omit=dev
+
 FROM python:3.8.1-slim-buster
+
+COPY --from=node-tools /usr/local/bin/node /usr/local/bin/node
+COPY --from=node-tools /opt/terser /opt/terser
 
 # Add user that will be used in the container.
 RUN useradd wagtail
@@ -12,7 +18,8 @@ EXPOSE 8000
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
 #    command.
 ENV PYTHONUNBUFFERED=1 \
-    PORT=8000
+    PORT=8000 \
+    PATH="/opt/terser/node_modules/.bin:${PATH}"
 
 # Install system packages required by Wagtail and Django.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \

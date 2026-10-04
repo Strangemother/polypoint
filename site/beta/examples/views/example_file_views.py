@@ -5,6 +5,7 @@ from trim import views
 
 from ..theatre import get_metadata
 from .utils import remove_comments
+from ..tree_shake import tree_shake
 from .. import models
 
 
@@ -138,6 +139,13 @@ class ExampleFileScriptsView(views.TemplateView):
 
 class ExampleFileScriptsAndTheatreView(ExampleFileScriptsView):
     include_theatre_file = True
+
+
+class ExampleFileScriptsShakenView(ExampleFileScriptsAndTheatreView):
+    def get_context_data(self, **kwargs):
+        r = super().get_context_data(**kwargs)
+        r['concat_content'] = tree_shake(r['concat_content'])
+        return r
 
 
 class ExampleExtFileView(ExampleFileView):

@@ -284,21 +284,21 @@ class GearBox2 {
     }
 
     stepView() {
-        let sources = []
+        let manualSources = []
+        let motorSources = []
         let inputDiffs = new Map()
         this.items.forEach(point => {
             point.windings.calculate()
             inputDiffs.set(point, point.windings.lastDiff)
-            if(point.windings.lastDiff != 0) sources.push(point)
+            if(point.windings.lastDiff != 0) manualSources.push(point)
         })
 
         this.items.forEach(point => {
-            if(isMotor(point) && !sources.includes(point)) sources.push(point)
+            if(isMotor(point) && !manualSources.includes(point)) motorSources.push(point)
         })
 
         let visited = new Set()
         let visitedRacks = new Set()
-        let rackQueue = []
         for(let rack of this.racks) {
             rack.contacts = this.rackContacts(rack)
             rack.speed = Number(rack.line.speed ?? 0)
@@ -312,45 +312,79 @@ class GearBox2 {
                 rack.contacts = []
                 continue
             }
+        }
 
-            let travel = this.rackTravel(rack)
-            if(travel === 0 && rack.passive) {
-                let fastest = undefined
-                for(let contact of rack.contacts) {
-                    let pointDiff = inputDiffs.get(contact.point) || 0
-                    if(pointDiff === 0 && isMotor(contact.point)) {
-                        pointDiff = Number(contact.point.motor)
-                    }
-                    if(pointDiff === 0) continue
+        let manualRackQueue = []
+        for(let rack of this.racks) {
+            if(rack.line.length <= 0) continue
+            let fastest = undefined
+            for(let contact of rack.contacts) {
+                let pointDiff = inputDiffs.get(contact.point) || 0
+                if(pointDiff === 0) continue
 
-                    let candidate = pointDiff * DEGREES_TO_RADIANS * contact.cross
-                    if(fastest === undefined || Math.abs(candidate) > Math.abs(fastest)) {
-                        fastest = candidate
-                    }
-                }
-                if(fastest !== undefined) {
-                    travel = fastest
-                    rack.speed = travel / (length * RACK_TOOTH_SCALE)
+                let candidate = pointDiff * DEGREES_TO_RADIANS * contact.cross
+                if(fastest === undefined || Math.abs(candidate) > Math.abs(fastest)) {
+                    fastest = candidate
                 }
             }
+            if(fastest !== undefined) {
+                rack.speed = fastest / (rack.line.length * RACK_TOOTH_SCALE)
+                manualRackQueue.push({rack, diff: fastest})
+                visitedRacks.add(rack)
+            }
+        }
 
+        this.stepMotionQueue(manualRackQueue, visited, visitedRacks, inputDiffs)
+
+        for(let source of manualSources) {
+            if(visited.has(source) || source.radius <= 0) continue
+            let diff = source.windings.lastDiff
+            if(diff == 0) continue
+
+            visited.add(source)
+            this.stepMotionQueue([{point: source, diff}], visited, visitedRacks, inputDiffs)
+        }
+
+        let rackQueue = []
+        for(let rack of this.racks) {
+            if(visitedRacks.has(rack)) continue
+            let travel = this.rackTravel(rack)
             if(travel !== 0 || !rack.passive) {
                 rackQueue.push({rack, diff: travel})
                 visitedRacks.add(rack)
             }
         }
-
         this.stepMotionQueue(rackQueue, visited, visitedRacks, inputDiffs)
 
-        for(let source of sources) {
-            if(visited.has(source) || source.radius <= 0) continue
-            let diff = source.windings.lastDiff
-            if(diff == 0) {
-                source.rotation += Number(source.motor)
-                source.windings.calculate()
-                diff = source.windings.lastDiff
+        let motorRackQueue = []
+        for(let rack of this.racks) {
+            if(visitedRacks.has(rack) || !rack.passive || rack.speed !== 0) continue
+            let fastest = undefined
+            for(let contact of rack.contacts) {
+                if(!motorSources.includes(contact.point)) continue
+                let candidate = Number(contact.point.motor)
+                    * DEGREES_TO_RADIANS * contact.cross
+                if(candidate === 0) continue
+                if(fastest === undefined || Math.abs(candidate) > Math.abs(fastest)) {
+                    fastest = candidate
+                }
             }
-            if(diff == 0) continue
+            if(fastest !== undefined) {
+                rack.speed = fastest / (rack.line.length * RACK_TOOTH_SCALE)
+                motorRackQueue.push({rack, diff: fastest})
+                visitedRacks.add(rack)
+            }
+        }
+        this.stepMotionQueue(motorRackQueue, visited, visitedRacks, inputDiffs)
+
+        for(let source of motorSources) {
+            if(visited.has(source) || source.radius <= 0) continue
+            let diff = Number(source.motor)
+            if(diff === 0) continue
+            source.rotation += diff
+            source.windings.calculate()
+            diff = source.windings.lastDiff
+            if(diff === 0) continue
 
             visited.add(source)
             this.stepMotionQueue([{point: source, diff}], visited, visitedRacks, inputDiffs)

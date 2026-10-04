@@ -30,6 +30,7 @@ Register a Line with addRack(line) to connect tangent wheels; passive:false
 locks the connected chain when the rack speed is zero.
 Set line.rim to -1 or 1 for the negative/positive side from a to b; 0
 (the default) engages both sides.
+line.speed is rack tooth travel per gearbox step.
 */
 
 
@@ -269,7 +270,12 @@ class GearBox2 {
     }
 
     rackTravel(rack, speed=rack.speed) {
-        return speed * rack.line.length * RACK_TOOTH_SCALE
+        return speed
+    }
+
+    rackPhaseDelta(rack) {
+        let length = rack.line.length
+        return rack.speed / (length * RACK_TOOTH_SCALE)
     }
 
     rackPointDiff(travel, contact) {
@@ -328,7 +334,7 @@ class GearBox2 {
                 }
             }
             if(fastest !== undefined) {
-                rack.speed = fastest / (rack.line.length * RACK_TOOTH_SCALE)
+                rack.speed = fastest
                 manualRackQueue.push({rack, diff: fastest})
                 visitedRacks.add(rack)
             }
@@ -370,7 +376,7 @@ class GearBox2 {
                 }
             }
             if(fastest !== undefined) {
-                rack.speed = fastest / (rack.line.length * RACK_TOOTH_SCALE)
+                rack.speed = fastest
                 motorRackQueue.push({rack, diff: fastest})
                 visitedRacks.add(rack)
             }
@@ -392,7 +398,7 @@ class GearBox2 {
 
         this.visited = visited
         this.items.forEach(point => point.windings.calculate())
-        this.racks.forEach(rack => rack.phase += rack.speed)
+        this.racks.forEach(rack => rack.phase += this.rackPhaseDelta(rack))
     }
 
     stepMotionQueue(queue, visited, visitedRacks, inputDiffs) {
@@ -440,7 +446,7 @@ class GearBox2 {
 
                 let length = rack.line.length
                 if(length <= 0) continue
-                rack.speed = travel / (length * RACK_TOOTH_SCALE)
+                rack.speed = travel
                 visitedRacks.add(rack)
                 queue.push({rack, diff: travel})
             }

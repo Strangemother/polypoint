@@ -28,6 +28,8 @@ Set internal to true for teeth on the inner rim instead of the outer rim.
 The first manually rotated point drives its touching group before any motor.
 Register a Line with addRack(line) to connect tangent wheels; passive:false
 locks the connected chain when the rack speed is zero.
+Set line.rim to -1 or 1 for the negative/positive side from a to b; 0
+(the default) engages both sides.
 */
 
 
@@ -129,6 +131,8 @@ class GearBox2 {
         if(!line?.a || !line?.b) {
             throw new TypeError('A rack requires a line with endpoints a and b')
         }
+        line.rim ??= 0
+        this.rackRim(line)
         if((line.a.z ?? 0) !== (line.b.z ?? 0)) {
             throw new Error('Rack endpoints must be on the same z layer')
         }
@@ -149,6 +153,14 @@ class GearBox2 {
         }
         this.racks.push(rack)
         return rack
+    }
+
+    rackRim(line) {
+        let rim = line.rim ?? 0
+        if(![-1, 0, 1].includes(rim)) {
+            throw new RangeError('Rack rim must be -1, 0, or 1')
+        }
+        return rim
     }
 
     spinTarget(point, target) {
@@ -224,6 +236,7 @@ class GearBox2 {
 
     rackContacts(rack) {
         let {a, b} = rack.line
+        let rim = this.rackRim(rack.line)
         let dx = b.x - a.x
         let dy = b.y - a.y
         let lengthSquared = dx * dx + dy * dy
@@ -245,6 +258,8 @@ class GearBox2 {
             let radiusY = contactY - point.y
             let distance = Math.hypot(radiusX, radiusY)
             if(Math.abs(distance - point.radius) > this.edgeLimit) continue
+            let side = Math.sign(tangentX * (point.y - a.y) - tangentY * (point.x - a.x))
+            if(rim !== 0 && side !== rim) continue
 
             let cross = radiusX * tangentY - radiusY * tangentX
             if(Math.abs(cross) < 1e-9) continue
@@ -434,6 +449,7 @@ class MainStage extends Stage {
             new Point({x:400, y:400, z: 0})
         )
         this.line.speed = 0.5
+        this.line.rim = 1
         this.dragging.add(this.line.a, this.line.b)
 
         this.rack = this.gearBox.addRack(this.line)
@@ -468,7 +484,7 @@ class MainStage extends Stage {
 
         let count = ~~(this.line.length * .04)
         
-        let splits = this.line.splitAnimated(count, 90, 1, this.rack.phase)
+        let splits = this.line.splitAnimated(count, -90, 1, this.rack.phase)
         splits.pen.indicators(ctx, this.rawPointConf)
 
     }

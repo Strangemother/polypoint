@@ -103,6 +103,15 @@ The references can be mixed with standard paths. Ordering is managed.
 + dependences are applied in order
 + repeats are ignored
 
+## Tree-shaken export
+
+The theatre-file export menu also offers a tree-shaken download. It uses the
+same ordered file list, with the theatre file and its stage setup as the
+compilation roots. Unreferenced top-level declarations are removed while
+top-level side effects are retained. Since theatre files are classic browser
+scripts, dynamic lookups such as `window[name]` cannot always be resolved
+statically; avoid relying on dynamically named declarations in this export.
+
 ```js
 /*
 src_dir: ../point_src/

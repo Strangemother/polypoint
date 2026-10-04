@@ -36,6 +36,7 @@ urlpatterns = urls.paths_named(views,
     ## View the file-list only.
     file_example_scripts=('ExampleFileScriptsView', 'scripts/<path:path>/'),
     file_example_all=('ExampleFileScriptsAndTheatreView', 'scripts+theatre/<path:path>/'),
+    file_example_shaken=('ExampleFileScriptsShakenView', 'scripts+theatre+shaken/<path:path>/'),
 
     remote_meta_service=('ExampleFileMetaFormView', 'meta/form/'),
     file_description_form=('FileDescriptionFormView', 'meta/desc/<str:pk>/'),

@@ -1,15 +1,18 @@
+import json
 from io import StringIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.db import IntegrityError, transaction
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from .categories import UNCATEGORISED, parse_categories
 from .models import TheatreFile, TheatreFileCategory
+from . import theatre as theatre_module
 
 
 class TheatreCategoryTests(TestCase):
@@ -204,3 +207,84 @@ class TheatreCategoryTests(TestCase):
     def test_database_list_links_to_categories(self):
         response = self.client.get(reverse('examples:example_db'))
         self.assertContains(response, reverse('examples:categories'))
+
+
+class ExampleFileShakenExportTests(TestCase):
+    def setUp(self):
+        self.directory = TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.root = Path(self.directory.name)
+        self.theatre_root = self.root / 'theatre'
+        self.source_root = self.root / 'point_src'
+        self.theatre_root.mkdir()
+        self.source_root.mkdir()
+        (self.source_root / 'files.json').write_text(
+            json.dumps({'stage': '../point_src/stage.js'}),
+            encoding='utf-8',
+        )
+        (self.source_root / 'stage.js').write_text(
+            'class Stage { constructor() { console.log("stage initialized"); } }\n'
+            'function unusedDependencyFunction() { return 1; }\n'
+            'window.stageLibraryInitialized = true;\n',
+            encoding='utf-8',
+        )
+        (self.theatre_root / 'sample.js').write_text(
+            '/*\nfiles:\n    stage\n*/\n'
+            'const stage = new Stage();\n'
+            'function keepStage() { return stage; }\n'
+            'window.stage = stage;\n'
+            'window.keepStage = keepStage;\n'
+            'function unusedTheatreFunction() { return 2; }\n'
+            'console.log("theatre initialized");\n',
+            encoding='utf-8',
+        )
+        override = override_settings(
+            POLYPOINT_THEATRE_DIR=self.theatre_root,
+            POLYPOINT_SRC_DIR=self.source_root,
+            POLYPOINT_THEATRE_SRC_RELATIVE_PATH='../point_src/',
+        )
+        override.enable()
+        self.addCleanup(override.disable)
+        for name, value in (
+            ('POLYPOINT_THEATRE_DIR', self.theatre_root),
+            ('POLYPOINT_SRC_DIR', self.source_root),
+            ('POLYPOINT_THEATRE_SRC_RELATIVE_PATH', '../point_src/'),
+        ):
+            setting = patch.object(theatre_module.settings, name, value)
+            setting.start()
+            self.addCleanup(setting.stop)
+
+    def test_shaken_export_keeps_stage_roots_and_side_effects(self):
+        self.assertEqual(
+            theatre_module.settings.POLYPOINT_THEATRE_DIR,
+            self.theatre_root,
+        )
+        response = self.client.get(
+            reverse('examples:file_example_shaken', kwargs={'path': 'sample'})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        output = response.context['concat_content']
+        self.assertIn('class Stage', output)
+        self.assertIn('new class Stage', output)
+        self.assertIn('keepStage', output)
+        self.assertIn('stage initialized', output)
+        self.assertIn('stageLibraryInitialized', output)
+        self.assertIn('theatre initialized', output)
+        self.assertNotIn('unusedDependencyFunction', output)
+        self.assertNotIn('unusedTheatreFunction', output)
+
+    def test_existing_script_and_theatre_export_is_not_shaken(self):
+        response = self.client.get(
+            reverse('examples:file_example_all', kwargs={'path': 'sample'})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            'unusedDependencyFunction',
+            response.context['concat_content'],
+        )
+        self.assertIn(
+            'unusedTheatreFunction',
+            response.context['concat_content'],
+        )

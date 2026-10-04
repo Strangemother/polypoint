@@ -14,6 +14,7 @@ files:
     mouse
     stroke
     ../point_src/split.js
+    ../point_src/curve-extras.js
     ../point_src/stage-clock.js
     ../point_src/touching.js
     ../point_src/protractor.js
@@ -25,15 +26,19 @@ A simple example of gear-like rotations. Drag to move; Shift-drag to rotate.
 Set motor to signed degrees per frame, or false to disable it.
 Set internal to true for teeth on the inner rim instead of the outer rim.
 The first manually rotated point drives its touching group before any motor.
+Register a Line with addRack(line) to connect tangent wheels; passive:false
+locks the connected chain when the rack speed is zero.
 */
 
 
 function cv(circleA, circleB, rotation) {
     let direction = circleA.internal || circleB.internal ? 1 : -1
-    let diff = direction * (circleA.radius / circleB.radius) * rotation
-        circleB.rotation += diff
-        return diff
+    return direction * (circleA.radius / circleB.radius) * rotation
 }
+
+const RACK_TOOTH_SCALE = 0.005 // Keep in sync with animatedSegmentOffset in split.js.
+const DEGREES_TO_RADIANS = Math.PI / 180
+const RADIANS_TO_DEGREES = 180 / Math.PI
 
 
 const isMotor = function(point) {
@@ -54,6 +59,7 @@ class GearBox2 {
         this.items = items
         this.pinned = this.pinned || []
         this.spinTargets = []
+        this.racks = []
         this.edgeLimit = 5
     }   
 
@@ -119,6 +125,32 @@ class GearBox2 {
         return belt
     }
 
+    addRack(line, {passive=true}={}) {
+        if(!line?.a || !line?.b) {
+            throw new TypeError('A rack requires a line with endpoints a and b')
+        }
+        if((line.a.z ?? 0) !== (line.b.z ?? 0)) {
+            throw new Error('Rack endpoints must be on the same z layer')
+        }
+        if(!Number.isFinite(line.length) || line.length <= 0) {
+            throw new Error('A rack line must have a positive finite length')
+        }
+
+        let rack = {
+            line,
+            layer: line.z ?? line.a.z ?? 0,
+            passive,
+            speed: Number(line.speed ?? 0),
+            phase: 0,
+            contacts: []
+        }
+        if(!Number.isFinite(rack.speed)) {
+            throw new TypeError('Rack speed must be a finite number')
+        }
+        this.racks.push(rack)
+        return rack
+    }
+
     spinTarget(point, target) {
         let dx = target.x - point.x
         let dy = target.y - point.y
@@ -178,6 +210,7 @@ class GearBox2 {
     }
 
     isTouching(point, other) {
+        if((point.z ?? 0) !== (other.z ?? 0)) return false
         if(!point.internal && !other.internal) {
             return pointToPointContactEdge(point, other, this.edgeLimit)
         }
@@ -189,6 +222,45 @@ class GearBox2 {
             && Math.abs(distance + gear.radius - ring.radius) <= this.edgeLimit
     }
 
+    rackContacts(rack) {
+        let {a, b} = rack.line
+        let dx = b.x - a.x
+        let dy = b.y - a.y
+        let lengthSquared = dx * dx + dy * dy
+        if(lengthSquared === 0) return []
+
+        let length = Math.sqrt(lengthSquared)
+        let tangentX = dx / length
+        let tangentY = dy / length
+        let contacts = []
+
+        for(let point of this.items) {
+            if(point.radius <= 0 || (point.z ?? 0) !== rack.layer) continue
+
+            let amount = ((point.x - a.x) * dx + (point.y - a.y) * dy) / lengthSquared
+            amount = Math.max(0, Math.min(1, amount))
+            let contactX = a.x + amount * dx
+            let contactY = a.y + amount * dy
+            let radiusX = contactX - point.x
+            let radiusY = contactY - point.y
+            let distance = Math.hypot(radiusX, radiusY)
+            if(Math.abs(distance - point.radius) > this.edgeLimit) continue
+
+            let cross = radiusX * tangentY - radiusY * tangentX
+            if(Math.abs(cross) < 1e-9) continue
+            contacts.push({point, cross})
+        }
+        return contacts
+    }
+
+    rackTravel(rack, speed=rack.speed) {
+        return speed * rack.line.length * RACK_TOOTH_SCALE
+    }
+
+    rackPointDiff(travel, contact) {
+        return travel / contact.cross * RADIANS_TO_DEGREES
+    }
+
     beltDiff(belt, point, child, diff) {
         let pointIndex = belt.items.indexOf(point)
         let childIndex = belt.items.indexOf(child)
@@ -198,8 +270,10 @@ class GearBox2 {
 
     stepView() {
         let sources = []
+        let inputDiffs = new Map()
         this.items.forEach(point => {
             point.windings.calculate()
+            inputDiffs.set(point, point.windings.lastDiff)
             if(point.windings.lastDiff != 0) sources.push(point)
         })
 
@@ -208,6 +282,51 @@ class GearBox2 {
         })
 
         let visited = new Set()
+        let visitedRacks = new Set()
+        let rackQueue = []
+        for(let rack of this.racks) {
+            rack.contacts = this.rackContacts(rack)
+            rack.speed = Number(rack.line.speed ?? 0)
+            if(!Number.isFinite(rack.speed)) {
+                throw new TypeError('Rack speed must be a finite number')
+            }
+
+            let length = rack.line.length
+            if(length <= 0 || !Number.isFinite(length)) {
+                rack.speed = 0
+                rack.contacts = []
+                continue
+            }
+
+            let travel = this.rackTravel(rack)
+            if(travel === 0 && rack.passive) {
+                let fastest = undefined
+                for(let contact of rack.contacts) {
+                    let pointDiff = inputDiffs.get(contact.point) || 0
+                    if(pointDiff === 0 && isMotor(contact.point)) {
+                        pointDiff = Number(contact.point.motor)
+                    }
+                    if(pointDiff === 0) continue
+
+                    let candidate = pointDiff * DEGREES_TO_RADIANS * contact.cross
+                    if(fastest === undefined || Math.abs(candidate) > Math.abs(fastest)) {
+                        fastest = candidate
+                    }
+                }
+                if(fastest !== undefined) {
+                    travel = fastest
+                    rack.speed = travel / (length * RACK_TOOTH_SCALE)
+                }
+            }
+
+            if(travel !== 0 || !rack.passive) {
+                rackQueue.push({rack, diff: travel})
+                visitedRacks.add(rack)
+            }
+        }
+
+        this.stepMotionQueue(rackQueue, visited, visitedRacks, inputDiffs)
+
         for(let source of sources) {
             if(visited.has(source) || source.radius <= 0) continue
             let diff = source.windings.lastDiff
@@ -218,34 +337,65 @@ class GearBox2 {
             }
             if(diff == 0) continue
 
-            let queue = [{point: source, diff}]
             visited.add(source)
-          
-            for(let index = 0; index < queue.length; index++) {
-                let {point, diff} = queue[index]
-                for(let group of this.pinned) {
-                    if(!group.items.includes(point)) continue
-                    for(let child of group.items) {
-                        if(visited.has(child) || child.radius <= 0) continue
-                        let childDiff = group.type === 'belt'
-                            ? this.beltDiff(group, point, child, diff)
-                            : diff
-                        visited.add(child)
-                        child.rotation += childDiff
-                        queue.push({point: child, diff: childDiff})
-                    }
-                }
-                for(let child of this.items) {
-                    if(visited.has(child) || child.radius <= 0) continue
-                    if(!this.isTouching(point, child)) continue
-                    visited.add(child)
-                    queue.push({point: child, diff: cv(point, child, diff)})
-                }
-            }
+            this.stepMotionQueue([{point: source, diff}], visited, visitedRacks, inputDiffs)
         }
 
         this.visited = visited
         this.items.forEach(point => point.windings.calculate())
+        this.racks.forEach(rack => rack.phase += rack.speed)
+    }
+
+    stepMotionQueue(queue, visited, visitedRacks, inputDiffs) {
+        for(let index = 0; index < queue.length; index++) {
+            let node = queue[index]
+            if(node.rack) {
+                for(let contact of node.rack.contacts) {
+                    let child = contact.point
+                    if(visited.has(child)) continue
+                    let childDiff = this.rackPointDiff(node.diff, contact)
+                    visited.add(child)
+                    child.rotation += childDiff - (inputDiffs.get(child) || 0)
+                    queue.push({point: child, diff: childDiff})
+                }
+                continue
+            }
+
+            let {point, diff} = node
+            for(let group of this.pinned) {
+                if(!group.items.includes(point)) continue
+                for(let child of group.items) {
+                    if(visited.has(child) || child.radius <= 0) continue
+                    let childDiff = group.type === 'belt'
+                        ? this.beltDiff(group, point, child, diff)
+                        : diff
+                    visited.add(child)
+                    child.rotation += childDiff - (inputDiffs.get(child) || 0)
+                    queue.push({point: child, diff: childDiff})
+                }
+            }
+            for(let child of this.items) {
+                if(visited.has(child) || child.radius <= 0) continue
+                if(!this.isTouching(point, child)) continue
+                let childDiff = cv(point, child, diff)
+                visited.add(child)
+                child.rotation += childDiff - (inputDiffs.get(child) || 0)
+                queue.push({point: child, diff: childDiff})
+            }
+            for(let rack of this.racks) {
+                if(visitedRacks.has(rack)) continue
+                let contact = rack.contacts.find(item => item.point === point)
+                if(!contact) continue
+                let travel = diff * DEGREES_TO_RADIANS * contact.cross
+                if(travel === 0 && rack.passive) continue
+
+                let length = rack.line.length
+                if(length <= 0) continue
+                rack.speed = travel / (length * RACK_TOOTH_SCALE)
+                visitedRacks.add(rack)
+                queue.push({rack, diff: travel})
+            }
+        }
     }
 
     render(ctx, rawPointConf) {
@@ -278,6 +428,15 @@ class MainStage extends Stage {
         this.spinTarget = new Point({x:500, y:500, radius: 50})
         this.dragging.add(this.spinTarget)
         this.gearBox.spinTarget(this.items[8], this.spinTarget)
+
+        this.line = new Line(
+            new Point({x:200, y:200, z: 0}),
+            new Point({x:400, y:400, z: 0})
+        )
+        this.line.speed = 0.5
+        this.dragging.add(this.line.a, this.line.b)
+
+        this.rack = this.gearBox.addRack(this.line)
     }
 
     generate(pointCount=2){
@@ -305,6 +464,13 @@ class MainStage extends Stage {
         this.clear(ctx)
         this.drawView(ctx)
         this.spinTarget.pen.indicator(ctx)
+        this.line.render(ctx)
+
+        let count = ~~(this.line.length * .04)
+        
+        let splits = this.line.splitAnimated(count, 90, 1, this.rack.phase)
+        splits.pen.indicators(ctx, this.rawPointConf)
+
     }
 
     drawView(ctx){

@@ -1,0 +1,511 @@
+{
+    "src_file": "split-v2.js",
+    "references": {
+        "classes": {
+            "BezierArcTable": {
+                "class_name": "BezierArcTable",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "constructor",
+                        "class_name": "BezierArcTable",
+                        "kind": "constructor",
+                        "params": [],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "Cumulative chord lengths at `samples` evenly spaced `t` values,\nused to map an arc-length distance back to `t`. Reused across frames;\n`update()` only resamples when the control points or sample count change.",
+                                    "block": true,
+                                    "line": 146
+                                }
+                            ],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 147
+                    },
+                    {
+                        "method_name": "update",
+                        "class_name": "BezierArcTable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "p0"
+                            },
+                            {
+                                "name": "p1"
+                            },
+                            {
+                                "name": "p2"
+                            },
+                            {
+                                "name": "p3"
+                            },
+                            {
+                                "name": "samples"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 155
+                    },
+                    {
+                        "method_name": "tAt",
+                        "class_name": "BezierArcTable",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "distance"
+                            }
+                        ],
+                        "comments": {
+                            "header": [],
+                            "inner": [
+                                {
+                                    "text": "`t` for an arc-length `distance`. Queries are expected in ascending\norder; call `rewind()` before a new walk.",
+                                    "block": true,
+                                    "line": 185
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 183
+                    },
+                    {
+                        "method_name": "rewind",
+                        "class_name": "BezierArcTable",
+                        "kind": "method",
+                        "params": [],
+                        "comments": {
+                            "header": [],
+                            "inner": []
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 196
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Cumulative chord lengths at `samples` evenly spaced `t` values,\nused to map an arc-length distance back to `t`. Reused across frames;\n`update()` only resamples when the control points or sample count change.",
+                            "block": true,
+                            "line": 146
+                        }
+                    ]
+                },
+                "line": 143
+            },
+            "PointListSplit": {
+                "class_name": "PointListSplit",
+                "inherits": null,
+                "methods": [
+                    {
+                        "method_name": "segment",
+                        "class_name": "PointListSplit",
+                        "kind": "method",
+                        "params": [
+                            {
+                                "name": "index",
+                                "default_value": 0
+                            },
+                            {
+                                "name": "count",
+                                "default_value": 10
+                            }
+                        ],
+                        "comments": {
+                            "header": [
+                                {
+                                    "text": "Buildin split functionality for a pointlist.",
+                                    "block": true,
+                                    "line": 213
+                                }
+                            ],
+                            "inner": [
+                                {
+                                    "text": "Split a segment",
+                                    "block": true,
+                                    "line": 215
+                                }
+                            ]
+                        },
+                        "static": false,
+                        "is_symbol": false,
+                        "computed": false,
+                        "line": 214
+                    }
+                ],
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Buildin split functionality for a pointlist.",
+                            "block": true,
+                            "line": 213
+                        }
+                    ]
+                },
+                "line": 212
+            }
+        },
+        "functions": [
+            {
+                "name": "splitToPointList",
+                "kind": "const",
+                "line": 33,
+                "comments": {
+                    "header": [
+                        {
+                            "text": "splitToPointList(point, count).pen.indicators(ctx)",
+                            "block": true,
+                            "line": 32
+                        }
+                    ],
+                    "inner": [
+                        {
+                            "text": "p1.rotation = rotation || point.rotation",
+                            "block": false,
+                            "line": 38
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "point"
+                    },
+                    {
+                        "name": "count"
+                    },
+                    {
+                        "name": "radius"
+                    },
+                    {
+                        "name": "rotation"
+                    },
+                    {
+                        "name": "angle",
+                        "default_value": "undefined"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "lerp",
+                "kind": "const",
+                "line": 49,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "arrow_function",
+                "params": [
+                    {
+                        "name": "x"
+                    },
+                    {
+                        "name": "y"
+                    },
+                    {
+                        "name": "a"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "animatedSegmentOffset",
+                "kind": "const",
+                "line": 52,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Keep animation inside one segment width/angle to avoid hard clipping pops.",
+                            "block": false,
+                            "line": 54
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "delta"
+                    },
+                    {
+                        "name": "speed"
+                    },
+                    {
+                        "name": "segmentSize"
+                    },
+                    {
+                        "name": "scale",
+                        "default_value": 0.005
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "splitArgs",
+                "kind": "const",
+                "line": 61,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Normalise `split(count, options)` arguments.\nAccepts `split({ every: 10 })` and the legacy `split(count, angle)`.",
+                            "block": true,
+                            "line": 63
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "count"
+                    },
+                    {
+                        "name": "options"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "splitFractions",
+                "kind": "const",
+                "line": 75,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Linear 0..1 fractions along a path for `count` points.\nEnds are included unless `inner`; a single point sits at the middle.",
+                            "block": true,
+                            "line": 77
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "count"
+                    },
+                    {
+                        "name": "inner"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "everyFractions",
+                "kind": "const",
+                "line": 92,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Fractions for a point every `every` units along a `total` length.",
+                            "block": true,
+                            "line": 93
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "total"
+                    },
+                    {
+                        "name": "every"
+                    },
+                    {
+                        "name": "inner"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "bLerp",
+                "kind": "function",
+                "type": "function",
+                "line": 104,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "t"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "lerpV2",
+                "kind": "function",
+                "type": "function",
+                "line": 110,
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "t"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "get_bezier_point",
+                "kind": "function",
+                "type": "function",
+                "line": 118,
+                "params": [
+                    {
+                        "name": "p0"
+                    },
+                    {
+                        "name": "p1"
+                    },
+                    {
+                        "name": "p2"
+                    },
+                    {
+                        "name": "p3"
+                    },
+                    {
+                        "name": "t"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "get_bezier_derivative",
+                "kind": "function",
+                "type": "function",
+                "line": 128,
+                "params": [
+                    {
+                        "name": "p0"
+                    },
+                    {
+                        "name": "p1"
+                    },
+                    {
+                        "name": "p2"
+                    },
+                    {
+                        "name": "p3"
+                    },
+                    {
+                        "name": "t"
+                    }
+                ],
+                "async": false,
+                "generator": false,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                }
+            },
+            {
+                "name": "lerpRadius",
+                "kind": "const",
+                "line": 203,
+                "comments": {
+                    "header": [],
+                    "inner": [
+                        {
+                            "text": "Process the width from the _first_ to the _last_ of a line.",
+                            "block": true,
+                            "line": 204
+                        }
+                    ]
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "v"
+                    }
+                ],
+                "async": false
+            },
+            {
+                "name": "radiusManual",
+                "kind": "const",
+                "line": 209,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "function",
+                "params": [
+                    {
+                        "name": "a"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "i"
+                    }
+                ],
+                "async": false
+            }
+        ],
+        "constants": [
+            {
+                "name": "EMPTY_SPLIT_OPTIONS",
+                "kind": "const",
+                "line": 59,
+                "comments": {
+                    "header": [],
+                    "inner": []
+                },
+                "type": "constant"
+            }
+        ]
+    },
+    "info": {
+        "filename": "split-v2.js",
+        "path": "/workspaces/polypoint/point_src/split-v2.js",
+        "size": 14931,
+        "parsed_date": "2026-10-04T04:40:11.092Z"
+    }
+}

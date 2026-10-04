@@ -53,6 +53,7 @@ class GearBox2 {
     constructor(items) {
         this.items = items
         this.pinned = this.pinned || []
+        this.spinTargets = []
         this.edgeLimit = 5
     }   
 
@@ -118,9 +119,36 @@ class GearBox2 {
         return belt
     }
 
+    spinTarget(point, target) {
+        let dx = target.x - point.x
+        let dy = target.y - point.y
+        let angle = dx === 0 && dy === 0
+            ? undefined
+            : Math.atan2(dy, dx) * (180 / Math.PI)
+        let driver = {point, target, angle}
+        this.spinTargets.push(driver)
+        return driver
+    }
+
     step() {
         this.stepPinned()
+        this.stepSpinTargets()
         this.stepView()
+    }
+
+    stepSpinTargets() {
+        for(let driver of this.spinTargets) {
+            let dx = driver.target.x - driver.point.x
+            let dy = driver.target.y - driver.point.y
+            if(dx === 0 && dy === 0) continue
+
+            let angle = Math.atan2(dy, dx) * (180 / Math.PI)
+            if(driver.angle !== undefined) {
+                let diff = (angle - driver.angle + 540) % 360 - 180
+                driver.point.rotation += diff
+            }
+            driver.angle = angle
+        }
     }
 
     stepPinned() {
@@ -242,11 +270,14 @@ class MainStage extends Stage {
         this.gearBox = new GearBox2(this.items)
         this.gearBox.pin(this.items[0], this.items[1])
         this.gearBox.pin(this.items[4], this.items[5])
-
+        
         let pin = this.gearBox.pin(this.items[6], this.items[7])
         pin.xyLock = false
         
-        let pin2 = this.gearBox.belt(this.items[8], this.items[9])       
+        let pin2 = this.gearBox.belt(this.items[8], this.items[9])
+        this.spinTarget = new Point({x:500, y:500, radius: 50})
+        this.dragging.add(this.spinTarget)
+        this.gearBox.spinTarget(this.items[8], this.spinTarget)
     }
 
     generate(pointCount=2){
@@ -273,6 +304,7 @@ class MainStage extends Stage {
         this.gearBox.step()
         this.clear(ctx)
         this.drawView(ctx)
+        this.spinTarget.pen.indicator(ctx)
     }
 
     drawView(ctx){

@@ -33,6 +33,8 @@ wheels use the opposite side. 0 (the default) engages both sides.
 line.speed is rack tooth travel per gearbox step.
 Internal wheels use their inward-facing teeth when meshing with a rack.
 Set gearBox.recordConflicts = true to flag points with incompatible inputs.
+TouchCache caches current wheel and rack contacts; attach one with
+gearBox.setTouchCache(cache). Without it, the gearbox uses live contact checks.
 */
 
 
@@ -56,6 +58,249 @@ const isMotor = function(point) {
     return true
 }
 
+const pointTouchesPoint = function(point, other, edgeLimit) {
+    if((point.z ?? 0) !== (other.z ?? 0)) return false
+    if(!point.internal && !other.internal) {
+        return pointToPointContactEdge(point, other, edgeLimit)
+    }
+    if(point.internal && other.internal) return false
+    let ring = point.internal ? point : other
+    let gear = point.internal ? other : point
+    let distance = Math.hypot(ring.x - gear.x, ring.y - gear.y)
+    return ring.radius > gear.radius && distance < ring.radius
+        && Math.abs(distance + gear.radius - ring.radius) <= edgeLimit
+}
+
+const pointTouchesLine = function(point, line, edgeLimit, layer) {
+    if(point.radius <= 0 || (point.z ?? 0) !== layer) return undefined
+
+    let rim = line.rim ?? 0
+    if(![-1, 0, 1].includes(rim)) {
+        throw new RangeError('Rack rim must be -1, 0, or 1')
+    }
+    let {a, b} = line
+    let dx = b.x - a.x
+    let dy = b.y - a.y
+    let lengthSquared = dx * dx + dy * dy
+    if(lengthSquared === 0) return undefined
+
+    let amount = ((point.x - a.x) * dx + (point.y - a.y) * dy) / lengthSquared
+    amount = Math.max(0, Math.min(1, amount))
+    let contactX = a.x + amount * dx
+    let contactY = a.y + amount * dy
+    let radiusX = contactX - point.x
+    let radiusY = contactY - point.y
+    let distance = Math.hypot(radiusX, radiusY)
+    let rimGap = point.radius - distance
+    if(point.internal) {
+        if(rimGap <= 0 || rimGap > edgeLimit) return undefined
+    } else if(Math.abs(rimGap) > edgeLimit) {
+        return undefined
+    }
+
+    let length = Math.sqrt(lengthSquared)
+    let tangentX = dx / length
+    let tangentY = dy / length
+    let side = Math.sign(tangentX * (point.y - a.y) - tangentY * (point.x - a.x))
+    let contactSide = point.internal ? -rim : rim
+    if(rim !== 0 && side !== contactSide) return undefined
+
+    let cross = radiusX * tangentY - radiusY * tangentX
+    if(Math.abs(cross) < 1e-9) return undefined
+    return {point, cross}
+}
+
+class TouchCache {
+    /*
+    Cache point-to-point and point-to-line contacts. Call step() after changing
+    membership; geometry changes are detected from snapshots automatically.
+    */
+    constructor(points=[], {edgeLimit=5}={}) {
+        this.points = new Set()
+        this.lines = new Map()
+        this.pointTouches = new Map()
+        this.lineTouches = new Map()
+        this.pointSnapshots = new Map()
+        this.lineSnapshots = new Map()
+        this.pointOrder = new Map()
+        this.edgeLimit = edgeLimit
+        this.invalidated = true
+        for(let point of points) this.addPoint(point)
+        this.step()
+    }
+
+    addPoint(point) {
+        if(!this.points.has(point)) {
+            this.points.add(point)
+            this.invalidate()
+        }
+        return this
+    }
+
+    removePoint(point) {
+        if(this.points.delete(point)) this.invalidate()
+        return this
+    }
+
+    addLine(line, layer=undefined) {
+        if(!line?.a || !line?.b) {
+            throw new TypeError('A cached line requires endpoints a and b')
+        }
+        if(!this.lines.has(line) || !Object.is(this.lines.get(line), layer)) {
+            this.lines.set(line, layer)
+            this.invalidate()
+        }
+        return this
+    }
+
+    removeLine(line) {
+        if(this.lines.delete(line)) this.invalidate()
+        return this
+    }
+
+    invalidate() {
+        this.invalidated = true
+        return this
+    }
+
+    pointSnapshot(point) {
+        return [point.x, point.y, point.radius, point.z ?? 0, !!point.internal]
+    }
+
+    lineSnapshot(line, layerOverride) {
+        let {a, b} = line
+        return [
+            a.x, a.y, a.z ?? 0,
+            b.x, b.y, b.z ?? 0,
+            layerOverride ?? line.z ?? a.z ?? 0,
+            line.rim ?? 0
+        ]
+    }
+
+    snapshotsEqual(before, current) {
+        if(!before || before.length !== current.length) return false
+        for(let index = 0; index < before.length; index++) {
+            if(!Object.is(before[index], current[index])) return false
+        }
+        return true
+    }
+
+    refreshPoint(point) {
+        let touching = this.pointTouches.get(point)
+        if(!touching) {
+            touching = new Set()
+            this.pointTouches.set(point, touching)
+        }
+        for(let other of touching) this.pointTouches.get(other)?.delete(point)
+        touching.clear()
+
+        for(let other of this.points) {
+            if(other === point || !pointTouchesPoint(point, other, this.edgeLimit)) continue
+            touching.add(other)
+            this.pointTouches.get(other)?.add(point)
+        }
+
+        for(let [line, contacts] of this.lineTouches) {
+            let updated = contacts.filter(contact => contact.point !== point)
+            let layerOverride = this.lines.get(line)
+            let layer = layerOverride ?? line.z ?? line.a.z ?? 0
+            let contact = pointTouchesLine(point, line, this.edgeLimit, layer)
+            if(contact) updated.push(contact)
+            updated.sort((a, b) => this.pointOrder.get(a.point) - this.pointOrder.get(b.point))
+            this.lineTouches.set(line, updated)
+        }
+    }
+
+    refreshLine(line) {
+        let layerOverride = this.lines.get(line)
+        let layer = layerOverride ?? line.z ?? line.a.z ?? 0
+        let contacts = []
+        for(let point of this.points) {
+            let contact = pointTouchesLine(point, line, this.edgeLimit, layer)
+            if(contact) contacts.push(contact)
+        }
+        this.lineTouches.set(line, contacts)
+    }
+
+    rebuild() {
+        let points = [...this.points]
+        this.pointTouches.clear()
+        this.lineTouches.clear()
+        this.pointOrder.clear()
+        points.forEach((point, index) => {
+            this.pointTouches.set(point, new Set())
+            this.pointOrder.set(point, index)
+        })
+
+        for(let i = 0; i < points.length; i++) {
+            for(let j = i + 1; j < points.length; j++) {
+                let a = points[i]
+                let b = points[j]
+                if(!pointTouchesPoint(a, b, this.edgeLimit)) continue
+                this.pointTouches.get(a).add(b)
+                this.pointTouches.get(b).add(a)
+            }
+        }
+        for(let line of this.lines.keys()) this.refreshLine(line)
+
+        this.pointSnapshots.clear()
+        for(let point of points) {
+            this.pointSnapshots.set(point, this.pointSnapshot(point))
+        }
+        this.lineSnapshots.clear()
+        for(let [line, layer] of this.lines) {
+            this.lineSnapshots.set(line, this.lineSnapshot(line, layer))
+        }
+        this.invalidated = false
+    }
+
+    step(edgeLimit=this.edgeLimit) {
+        let changedPoints = []
+        let changedLines = []
+        for(let point of this.points) {
+            if(!this.snapshotsEqual(this.pointSnapshots.get(point), this.pointSnapshot(point))) {
+                changedPoints.push(point)
+            }
+        }
+        for(let [line, layer] of this.lines) {
+            if(!this.snapshotsEqual(
+                this.lineSnapshots.get(line),
+                this.lineSnapshot(line, layer)
+            )) changedLines.push(line)
+        }
+
+        let edgeLimitChanged = edgeLimit !== this.edgeLimit
+        if(this.invalidated || edgeLimitChanged) {
+            this.edgeLimit = edgeLimit
+            this.rebuild()
+            return true
+        }
+        if(!changedPoints.length && !changedLines.length) return false
+
+        for(let point of changedPoints) {
+            this.refreshPoint(point)
+            this.pointSnapshots.set(point, this.pointSnapshot(point))
+        }
+        for(let line of changedLines) {
+            this.refreshLine(line)
+            this.lineSnapshots.set(line, this.lineSnapshot(line, this.lines.get(line)))
+        }
+        return true
+    }
+
+    getTouching(point) {
+        return this.pointTouches.get(point) || new Set()
+    }
+
+    getLineContacts(line) {
+        return this.lineTouches.get(line) || []
+    }
+
+    isTouching(point, other) {
+        return this.pointTouches.get(point)?.has(other) || false
+    }
+}
+
 
 class GearBox2 {
     /*
@@ -66,6 +311,7 @@ class GearBox2 {
         this.pinned = this.pinned || []
         this.spinTargets = []
         this.racks = []
+        this.touchCache = undefined
         this.recordConflicts = false
         this._conflictsRecorded = false
         this.edgeLimit = 5
@@ -74,6 +320,20 @@ class GearBox2 {
     addGear(item) {
         this.items.push(item)
         item.windings.reset()
+        this.touchCache?.addPoint(item)
+    }
+
+    setTouchCache(cache) {
+        if(cache !== undefined && !(cache instanceof TouchCache)) {
+            throw new TypeError('Gearbox touchCache must be a TouchCache instance')
+        }
+        this.touchCache = cache
+        if(cache) {
+            this.items.forEach(point => cache.addPoint(point))
+            this.racks.forEach(rack => cache.addLine(rack.line, rack.layer))
+            cache.step(this.edgeLimit)
+        }
+        return cache
     }
 
     addDoubleGear(itemA, itemB) {
@@ -158,6 +418,7 @@ class GearBox2 {
             throw new TypeError('Rack speed must be a finite number')
         }
         this.racks.push(rack)
+        this.touchCache?.addLine(line, rack.layer)
         return rack
     }
 
@@ -228,54 +489,16 @@ class GearBox2 {
     }
 
     isTouching(point, other) {
-        if((point.z ?? 0) !== (other.z ?? 0)) return false
-        if(!point.internal && !other.internal) {
-            return pointToPointContactEdge(point, other, this.edgeLimit)
-        }
-        if(point.internal && other.internal) return false
-        let ring = point.internal ? point : other
-        let gear = point.internal ? other : point
-        let distance = ring.distanceTo(gear)
-        return ring.radius > gear.radius && distance < ring.radius
-            && Math.abs(distance + gear.radius - ring.radius) <= this.edgeLimit
+        if(this.touchCache) return this.touchCache.isTouching(point, other)
+        return pointTouchesPoint(point, other, this.edgeLimit)
     }
 
     rackContacts(rack) {
-        let {a, b} = rack.line
-        let rim = this.rackRim(rack.line)
-        let dx = b.x - a.x
-        let dy = b.y - a.y
-        let lengthSquared = dx * dx + dy * dy
-        if(lengthSquared === 0) return []
-
-        let length = Math.sqrt(lengthSquared)
-        let tangentX = dx / length
-        let tangentY = dy / length
+        if(this.touchCache) return this.touchCache.getLineContacts(rack.line)
         let contacts = []
-
         for(let point of this.items) {
-            if(point.radius <= 0 || (point.z ?? 0) !== rack.layer) continue
-
-            let amount = ((point.x - a.x) * dx + (point.y - a.y) * dy) / lengthSquared
-            amount = Math.max(0, Math.min(1, amount))
-            let contactX = a.x + amount * dx
-            let contactY = a.y + amount * dy
-            let radiusX = contactX - point.x
-            let radiusY = contactY - point.y
-            let distance = Math.hypot(radiusX, radiusY)
-            let rimGap = point.radius - distance
-            if(point.internal) {
-                if(rimGap <= 0 || rimGap > this.edgeLimit) continue
-            } else if(Math.abs(rimGap) > this.edgeLimit) {
-                continue
-            }
-            let side = Math.sign(tangentX * (point.y - a.y) - tangentY * (point.x - a.x))
-            let contactSide = point.internal ? -rim : rim
-            if(rim !== 0 && side !== contactSide) continue
-
-            let cross = radiusX * tangentY - radiusY * tangentX
-            if(Math.abs(cross) < 1e-9) continue
-            contacts.push({point, cross})
+            let contact = pointTouchesLine(point, rack.line, this.edgeLimit, rack.layer)
+            if(contact) contacts.push(contact)
         }
         return contacts
     }
@@ -319,6 +542,7 @@ class GearBox2 {
     }
 
     stepView() {
+        this.touchCache?.step(this.edgeLimit)
         if(this.recordConflicts) {
             this.items.forEach(point => point.conflicted = false)
             this._conflictsRecorded = true
@@ -482,9 +706,12 @@ class GearBox2 {
                     queue.push({point: child, diff: childDiff})
                 }
             }
-            for(let child of this.items) {
+            let touching = this.touchCache
+                ? this.touchCache.getTouching(point)
+                : this.items
+            for(let child of touching) {
                 if(child.radius <= 0) continue
-                if(!this.isTouching(point, child)) continue
+                if(!this.touchCache && !this.isTouching(point, child)) continue
                 let childDiff = cv(point, child, diff)
                 this.recordMotion(child, childDiff, motionDiffs)
                 if(visited.has(child)) continue
@@ -528,6 +755,7 @@ class MainStage extends Stage {
         this.generate()
         this.dragging.add(...this.items)
         this.gearBox = new GearBox2(this.items)
+        this.gearBox.setTouchCache(new TouchCache(this.items))
         this.gearBox.pin(this.items[0], this.items[1])
         this.gearBox.pin(this.items[4], this.items[5])
         

@@ -371,12 +371,12 @@ const applyGravityAndBoundsAngular = function(point, gravityVector, bounds, line
 
 
 
-const gravityVector = { x: 0, y: 0.1 }; // Gravity pointing downwards
+const gravityVector = { x: 0, y: 0.00 }; // Gravity pointing downwards
 const bounds = { left: 100, right: 800, top: 100, bottom: 600 }; // Define bounds of the canvas or space
 // Illustrative material values, not SI-calibrated. Mass matters when balls collide;
 // bounciness and friction control how each ball responds to the box.
 const ballMaterials = {
-    bowlingBall: { mass: 3, bounciness: 0.15, friction: 0.3 }
+    bowlingBall: { mass: 3, bounciness: 0.915, friction: 0.3 }
     , beachBall: { mass: 0.3, bounciness: 0.85, friction: 0.65 }
 };
 

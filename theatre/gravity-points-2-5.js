@@ -14,6 +14,8 @@ files:
     ../point_src/point.js
     ../point_src/stage.js
     ../point_src/setunset.js
+    mouse
+    dragging
     ../point_src/stroke.js
  */
 /* moved to functions/gravity */
@@ -626,7 +628,7 @@ class MainStage extends Stage {
                 x: 5.8, y: 4.5, vx: -1.8, vy: -0.5, mass: 0.3, material: materials.beachBall
             })
         )
-
+        this.dragging.add(...this.points)
         this.bouncy = new BodyHitReactor(this.points, {
             beforeStep: dt => {
                 this.points.forEach(point => {

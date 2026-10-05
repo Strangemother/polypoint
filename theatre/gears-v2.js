@@ -32,6 +32,7 @@ Set line.rim to -1 or 1 for the negative/positive side from a to b; internal
 wheels use the opposite side. 0 (the default) engages both sides.
 line.speed is rack tooth travel per gearbox step.
 Internal wheels use their inward-facing teeth when meshing with a rack.
+Set gearBox.recordConflicts = true to flag points with incompatible inputs.
 */
 
 
@@ -43,6 +44,7 @@ function cv(circleA, circleB, rotation) {
 const RACK_TOOTH_SCALE = 0.005 // Keep in sync with animatedSegmentOffset in split.js.
 const DEGREES_TO_RADIANS = Math.PI / 180
 const RADIANS_TO_DEGREES = 180 / Math.PI
+const MOTION_CONFLICT_EPSILON = 1e-6
 
 
 const isMotor = function(point) {
@@ -64,6 +66,8 @@ class GearBox2 {
         this.pinned = this.pinned || []
         this.spinTargets = []
         this.racks = []
+        this.recordConflicts = false
+        this._conflictsRecorded = false
         this.edgeLimit = 5
     }   
 
@@ -282,7 +286,21 @@ class GearBox2 {
 
     rackPhaseDelta(rack) {
         let length = rack.line.length
+        if(!Number.isFinite(length) || length <= 0 || !Number.isFinite(rack.speed)) {
+            return 0
+        }
         return rack.speed / (length * RACK_TOOTH_SCALE)
+    }
+
+    recordMotion(point, diff, motionDiffs) {
+        if(!motionDiffs) return
+        if(motionDiffs.has(point)) {
+            if(Math.abs(motionDiffs.get(point) - diff) > MOTION_CONFLICT_EPSILON) {
+                point.conflicted = true
+            }
+            return
+        }
+        motionDiffs.set(point, diff)
     }
 
     rackPointDiff(travel, contact) {
@@ -301,13 +319,24 @@ class GearBox2 {
     }
 
     stepView() {
+        if(this.recordConflicts) {
+            this.items.forEach(point => point.conflicted = false)
+            this._conflictsRecorded = true
+        } else if(this._conflictsRecorded) {
+            this.items.forEach(point => delete point.conflicted)
+            this._conflictsRecorded = false
+        }
         let manualSources = []
         let motorSources = []
         let inputDiffs = new Map()
+        let motionDiffs = this.recordConflicts ? new Map() : undefined
         this.items.forEach(point => {
             point.windings.calculate()
             inputDiffs.set(point, point.windings.lastDiff)
-            if(point.windings.lastDiff != 0) manualSources.push(point)
+            if(point.windings.lastDiff != 0) {
+                manualSources.push(point)
+                if(motionDiffs) this.recordMotion(point, point.windings.lastDiff, motionDiffs)
+            }
         })
 
         this.items.forEach(point => {
@@ -351,7 +380,7 @@ class GearBox2 {
             }
         }
 
-        this.stepMotionQueue(manualRackQueue, visited, visitedRacks, inputDiffs)
+        this.stepMotionQueue(manualRackQueue, visited, visitedRacks, inputDiffs, motionDiffs)
 
         for(let source of manualSources) {
             if(visited.has(source) || source.radius <= 0) continue
@@ -359,7 +388,7 @@ class GearBox2 {
             if(diff == 0) continue
 
             visited.add(source)
-            this.stepMotionQueue([{point: source, diff}], visited, visitedRacks, inputDiffs)
+            this.stepMotionQueue([{point: source, diff}], visited, visitedRacks, inputDiffs, motionDiffs)
         }
 
         let rackQueue = []
@@ -371,7 +400,7 @@ class GearBox2 {
                 visitedRacks.add(rack)
             }
         }
-        this.stepMotionQueue(rackQueue, visited, visitedRacks, inputDiffs)
+        this.stepMotionQueue(rackQueue, visited, visitedRacks, inputDiffs, motionDiffs)
 
         let motorRackQueue = []
         for(let rack of this.racks) {
@@ -394,34 +423,43 @@ class GearBox2 {
                 visitedRacks.add(rack)
             }
         }
-        this.stepMotionQueue(motorRackQueue, visited, visitedRacks, inputDiffs)
+        this.stepMotionQueue(motorRackQueue, visited, visitedRacks, inputDiffs, motionDiffs)
 
         for(let source of motorSources) {
-            if(visited.has(source) || source.radius <= 0) continue
             let diff = Number(source.motor)
             if(diff === 0) continue
+            if(visited.has(source)) {
+                this.recordMotion(source, diff, motionDiffs)
+                continue
+            }
+            if(source.radius <= 0) continue
             source.rotation += diff
             source.windings.calculate()
             diff = source.windings.lastDiff
             if(diff === 0) continue
 
+            this.recordMotion(source, diff, motionDiffs)
             visited.add(source)
-            this.stepMotionQueue([{point: source, diff}], visited, visitedRacks, inputDiffs)
+            this.stepMotionQueue([{point: source, diff}], visited, visitedRacks, inputDiffs, motionDiffs)
         }
 
         this.visited = visited
         this.items.forEach(point => point.windings.calculate())
-        this.racks.forEach(rack => rack.phase += this.rackPhaseDelta(rack))
+        this.racks.forEach(rack => {
+            if(!Number.isFinite(rack.phase)) rack.phase = 0
+            rack.phase += this.rackPhaseDelta(rack)
+        })
     }
 
-    stepMotionQueue(queue, visited, visitedRacks, inputDiffs) {
+    stepMotionQueue(queue, visited, visitedRacks, inputDiffs, motionDiffs) {
         for(let index = 0; index < queue.length; index++) {
             let node = queue[index]
             if(node.rack) {
                 for(let contact of node.rack.contacts) {
                     let child = contact.point
-                    if(visited.has(child)) continue
                     let childDiff = this.rackPointDiff(node.diff, contact)
+                    this.recordMotion(child, childDiff, motionDiffs)
+                    if(visited.has(child)) continue
                     visited.add(child)
                     child.rotation += childDiff - (inputDiffs.get(child) || 0)
                     queue.push({point: child, diff: childDiff})
@@ -433,19 +471,23 @@ class GearBox2 {
             for(let group of this.pinned) {
                 if(!group.items.includes(point)) continue
                 for(let child of group.items) {
-                    if(visited.has(child) || child.radius <= 0) continue
+                    if(child.radius <= 0) continue
                     let childDiff = group.type === 'belt'
                         ? this.beltDiff(group, point, child, diff)
                         : diff
+                    this.recordMotion(child, childDiff, motionDiffs)
+                    if(visited.has(child)) continue
                     visited.add(child)
                     child.rotation += childDiff - (inputDiffs.get(child) || 0)
                     queue.push({point: child, diff: childDiff})
                 }
             }
             for(let child of this.items) {
-                if(visited.has(child) || child.radius <= 0) continue
+                if(child.radius <= 0) continue
                 if(!this.isTouching(point, child)) continue
                 let childDiff = cv(point, child, diff)
+                this.recordMotion(child, childDiff, motionDiffs)
+                if(visited.has(child)) continue
                 visited.add(child)
                 child.rotation += childDiff - (inputDiffs.get(child) || 0)
                 queue.push({point: child, diff: childDiff})

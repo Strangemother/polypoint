@@ -231,55 +231,59 @@ class PointTangents {
         this.parent = point
     }
 
-    calculateTangentLines(pointA, pointB) {
+    calculateTangentBasis(pointA, pointB) {
         const { x: x1, y: y1, radius: r1 } = pointA;
         const { x: x2, y: y2, radius: r2 } = pointB;
-
-        // Calculate distance between centers
         const dx = x2 - x1;
         const dy = y2 - y1;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        const distance = Math.hypot(dx, dy);
 
-        // Calculate the angle between the points
-        const angle = Math.atan2(dy, dx);
+        if (!Number.isFinite(distance) || distance === 0 || distance < Math.abs(r1 - r2)) {
+            return null;
+        }
 
-        const extra = 0
-        // Calculate the angle offset to adjust for size differences
-        const angleOffset = -Math.asin((r1 - r2) / dist) || 0;
+        const radiusOffset = (r1 - r2) / distance;
+        if (!Number.isFinite(radiusOffset)) {
+            return null;
+        }
 
-        let a = angle + halfPi + angleOffset + extra
-        // Rotate the direction vectors by +90 and -90 degrees (perpendicular) based on the relative angle
-        const perpNx1 = Math.cos(a);
-        const perpNy1 = Math.sin(a);
-
-        let am = angle - halfPi - angleOffset - extra
-        const perpNx2 = Math.cos(am);
-        const perpNy2 = Math.sin(am);
-
-        // Calculate the tangent points for both sides of pointA (adjusted with angle)
-        const lineA1 = {
-            x: x1 + perpNx1 * r1,
-            y: y1 + perpNy1 * r1
-        };
-        const lineA2 = {
-            x: x1 + perpNx2 * r1,
-            y: y1 + perpNy2 * r1
-        };
-
-        // Calculate the tangent points for both sides of pointB (adjusted with angle)
-        const lineB1 = {
-            x: x2 + perpNx1 * r2,
-            y: y2 + perpNy1 * r2
-        };
-        const lineB2 = {
-            x: x2 + perpNx2 * r2,
-            y: y2 + perpNy2 * r2
-        };
-
-        // Return the two lines (top and bottom)
         return {
-            a: [{ x: lineA2.x, y: lineA2.y }, { x: lineB2.x, y: lineB2.y }],
-            b: [{ x: lineA1.x, y: lineA1.y }, { x: lineB1.x, y: lineB1.y }]
+            x1, y1, r1, x2, y2, r2,
+            unitX: dx / distance,
+            unitY: dy / distance,
+            radiusOffset,
+            perpendicularOffset: Math.sqrt(Math.max(0, 1 - radiusOffset * radiusOffset))
+        };
+    }
+
+    tangentLineFromBasis(basis, side) {
+        const {
+            x1, y1, r1, x2, y2, r2,
+            unitX, unitY, radiusOffset, perpendicularOffset
+        } = basis;
+        const normalX = radiusOffset * unitX - side * perpendicularOffset * unitY;
+        const normalY = radiusOffset * unitY + side * perpendicularOffset * unitX;
+
+        return [
+            { x: x1 + normalX * r1, y: y1 + normalY * r1 },
+            { x: x2 + normalX * r2, y: y2 + normalY * r2 }
+        ];
+    }
+
+    calculateTangentLine(pointA, pointB, side) {
+        const basis = this.calculateTangentBasis(pointA, pointB);
+        return basis && this.tangentLineFromBasis(basis, side);
+    }
+
+    calculateTangentLines(pointA, pointB) {
+        const basis = this.calculateTangentBasis(pointA, pointB);
+        if (!basis) {
+            return null;
+        }
+
+        return {
+            a: this.tangentLineFromBasis(basis, -1),
+            b: this.tangentLineFromBasis(basis, 1)
         };
     }
 
@@ -352,7 +356,7 @@ class PointTangents {
             [a(top), b(top), a(bottom), b(bottom)]
         */
        let v = this.calculateTangentLines(this.parent, other)
-       return v.a.concat(v.b)
+       return v && v.a.concat(v.b)
     }
 
     outerLines(other){
@@ -361,48 +365,65 @@ class PointTangents {
        return v
     }
 
-    crossLines(){
-        /* return the inner tagents, point A (top), to point B (bottom), and
-        the antethisis. similar to [ab(), ba()]*/
+    crossLines(other) {
+        const lines = this.calculateCrossTangentLines(this.parent, other);
+        if (!lines) {
+            return null;
+        }
+
+        return {
+            a: lines.ba,
+            b: lines.ab
+        };
+    }
+
+    outerArcs(other, length) {
+        return this.convexArcs(other, length)
+    }
+    
+    innerArcs(other, length) {
+        return this.concaveArcs(other, length)
+    }
+
+    concaveArcs(other, length) {
+        return this.calculateConcaveTangentArcs(this.parent, other, length)
+    }
+    
+    convexArcs(other, length) {
+        return this.calculateConvexTangentArcs(this.parent, other, length)
     }
 
     lineA(other) {
         /* return a line (two points) for the _top_ direct tagent. */
-        let v = this.calculateTangentLines(this.parent, other)
-        return v.a
+        return this.calculateTangentLine(this.parent, other, -1)
     }
 
     lineB(other) {
         /* return a line (two points) for the _bottom_ direct tagent. */
-        let v = this.calculateTangentLines(this.parent, other)
-        return v.b
+        return this.calculateTangentLine(this.parent, other, 1)
     }
 
     a(other) {
         /* return the top line tangent _start_ point */
-        let v = this.calculateTangentLines(this.parent, other)
-        return v && v.a[0]
+        return this.calculateTangentLine(this.parent, other, -1)?.[0]
     }
 
     b(other){
        /* return the bottom line _start_ point */
-       let v = this.calculateTangentLines(this.parent, other)
-        return v && v.b[0]
+       return this.calculateTangentLine(this.parent, other, 1)?.[0]
     }
 
     aa(other){
         /* return the _line_ of pointA (top), to pointB (top)
         Similar to `this.points(other)[0,2]` */
-        let v = this.calculateTangentLines(this.parent, other)
-        return v && v.a
+        return this.calculateTangentLine(this.parent, other, -1)
     }
 
     bb(other){
         /* return the antipose parallel tangent to aa(), similar to
         `this.points(other)[1,4]`
         */
-        let v = this.calculateTangentLines(this.parent, other)
-        return v && v.b
+        return this.calculateTangentLine(this.parent, other, 1)
     }
 
     ab(other) {

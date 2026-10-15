@@ -746,6 +746,7 @@ class GearBox2 {
     }
 }
 
+
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
@@ -795,13 +796,19 @@ class MainStage extends Stage {
               new Point({x:300, y:570, radius: 40}),
               new Point({x:500, y:560, radius: 60, rotation: 50}),
         )
-        this.items.forEach(point => point.windings.reset())
+        // this.items.forEach(point => point.windings.reset())
     }
 
     draw(ctx) {
         this.gearBox.step()
         this.clear(ctx)
         this.drawView(ctx)
+
+    }
+
+    drawView(ctx){
+        /* Draw a circle at the origin points */
+        this.gearBox.render(ctx, this.rawPointConf)
         this.spinTarget.pen.indicator(ctx)
         this.line.render(ctx)
 
@@ -809,12 +816,6 @@ class MainStage extends Stage {
         
         let splits = this.line.splitAnimated(count, -90, 1, this.rack.phase)
         splits.pen.indicators(ctx, this.rawPointConf)
-
-    }
-
-    drawView(ctx){
-        /* Draw a circle at the origin points */
-        this.gearBox.render(ctx, this.rawPointConf)
     }
 }
 

@@ -351,6 +351,12 @@ class StageRender extends StageBase {
     }
 
     static announce(additionalData) {
+        /* "Announce" the presence of a stage, emiting the event "stage::announce"
+        The given `additionalData` is the same dictionary given to `Stage.go({})`
+
+            Stage.announce({})
+
+        */
 
         const currentLoc = document.currentScript.src
         dispatchEvent(new CustomEvent('stage::announce', {
@@ -358,6 +364,8 @@ class StageRender extends StageBase {
             bubbles: true
         }));
 
+        // Perhaps return a proxy allowing `Stage.go() == Proxy(Stage.annouce())
+        
     }
 
     stageStartDraw(drawFunc){
@@ -642,4 +650,3 @@ class Stage extends StageRender {
 
 
 Polypoint.head.install(Stage)
-

@@ -65,12 +65,16 @@ function inkSplines(pointList, { rate = 1, uniform = false } = {}) {
         )
         let length = lengths[lengths.length - 1]
         pointList._inkSegments.push({
-            index, length, start: distance, lengths: uniform ? lengths : undefined
+            index
+            , length
+            , start: distance
+            , lengths: uniform ? lengths : undefined
         })
         distance += length
     })
     pointList._inkLength = distance
 }
+
 
 class BezierSpline extends PointList {
     /* A _spline_ is many line segments presented as a single

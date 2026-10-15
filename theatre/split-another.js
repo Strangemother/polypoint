@@ -54,9 +54,9 @@ class MainStage extends Stage {
         this.showHitPoint = false
         this.drawCollisonPoints = false
         // Physics constants
-        this.gravity = 0.1
-        this.damping = .86  // Bounce damping (affects normal velocity)
-        this.rollingFriction = 0.98  // Rolling resistance (affects tangential velocity)
+        this.gravity = 0.4
+        this.damping = .74  // Bounce damping (affects normal velocity)
+        this.rollingFriction = 0.997  // Rolling resistance (affects tangential velocity)
         this.dragging.add(this.ball)
 
     }

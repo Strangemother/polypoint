@@ -1,3 +1,4 @@
+
 .title h1, h1.title, h1 {
     background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%);
     -webkit-background-clip: text;
@@ -330,10 +331,10 @@ main .outer-block.primary-highlight.info-block {
     font-size: 5em;
     margin: 0;
     font-family: 'Noto Serif';
-    /* background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%); */
-    /* -webkit-background-clip: text; */
+    background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, hsl(244deg 71% 56%) 77%);
+    -webkit-background-clip: text;
     background-clip: text;
-    /* -webkit-text-fill-color: transparent; */
+    -webkit-text-fill-color: transparent;
     /* margin: 20% 1rem; */
     /* margin: 5% 0px; */
 }
@@ -409,4 +410,15 @@ polypoint-canvas {
 .design-bars {
     /* z-index: 1; */
     opacity: .3;
+}
+
+
+.domain-list ul {
+    font-size: 1.2em;
+    list-style: none;
+    margin: 1em;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
 }

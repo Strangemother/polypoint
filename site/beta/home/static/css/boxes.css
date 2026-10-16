@@ -4,18 +4,19 @@ ul.box-list {
     /* justify-content: space-evenly; */
     list-style: none;
     margin: 2vh 10vh;
-    padding: 0;
+    padding: 0 0.5em;
+    border-radius: 0.7em;
     margin: 0;
     /* min-height: 40vh; */
     /* padding: 7vh 0; */
     /* border-radius: 2em; */
     background: linear-gradient(110deg, hsl(299deg 62% 44%) 7%, #4a3fde 77%);
-    -webkit-background-clip: border-box;
+    /* -webkit-background-clip: border-box; */
     -webkit-background-clip: border-area;
     /* gap: 4em; */
     flex-flow: wrap;
     -webkit-border-clip: text;
-    background-clip: text;
+    /* background-clip: text; */
     /* -webkit-text-fill-color: transparent; */
     /* background-origin: border-box; */
     /* background-clip: content-box; */
@@ -36,8 +37,9 @@ li.box-item {
     background-origin: border-box;
     background-clip: content-box;
     border-radius: 0;
-    margin: 4px 2px;
+    margin: 0.8em 0.2em;
     align-items: flex-start;
+    border-radius: .4em;
 }
 
 .box-item .text-container {
@@ -65,6 +67,7 @@ li.box-item {
     /* background: linear-gradient(#0a0a0a, #111111) padding-box,
               linear-gradient(to right, darkblue, darkorchid) border-box; */
     padding: 12vh 1vw;
+    justify-content: center;
     border-top: dashed 2px #333;
     border-bottom: dashed 2px #333;
 }
@@ -74,7 +77,7 @@ li.box-item.filler {
     flex-basis: auto;
     flex-grow: 1;
     /* border-radius: 15em; */
-    margin: 0vh 2px;
+    /* margin: 0vh 2px; */
 }
 
 li.box-item.filler:first-child {

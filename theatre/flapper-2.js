@@ -186,8 +186,7 @@ class MainStage extends Stage {
     }
 
     onUpKeydown(ev) {
-        /* On keydown we add some to the throttle.
-        As keydown first repeatedly, this will raise the power until
+        /* On keydown we add some to the throttle. As keydown first repeatedly, this will raise the power until
         keyup */
         this.powerDown = true
     }

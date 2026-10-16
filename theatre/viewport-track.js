@@ -191,21 +191,21 @@ class MainStage extends Stage {
         let s = 1 + (this.mouse.wheelSize() * .1)
 
         if (this.doRotate) {
-            this.rotateZoomTranslate(ctx, c, target, s)
+            this.viewport.rotateZoomTranslate(ctx, c, target, s)
         }
 
         if (this.doTracking) {
             // Shift the canvas to ensure the target is
             // at the center.
             if (!this.doRotate && this.doZoom) {
-                this.zoomTranslate(ctx, c, s)
+                this.viewport.zoomTranslate(ctx, c, s)
             }
             ctx.translate(...v);
         }
     }
 
     viewport = {
-    
+
         rotateZoomTranslate(ctx, c, target, s=2) {
             // First we translate to the _center_
             ctx.translate(c.x, c.y);
@@ -215,7 +215,7 @@ class MainStage extends Stage {
             // Move the canvas back to its initial place (now rotated)
             ctx.translate(-c.x, -c.y);
         }
-    
+
         , zoomTranslate(ctx, c, v) {
             ctx.translate(c.x, c.y);
             ctx.scale(v,v)

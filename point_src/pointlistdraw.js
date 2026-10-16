@@ -58,7 +58,7 @@ class PointListDraw {
         let pointsArray = this.list;
         let prevPoint = pointsArray[0];
         position = position? position: prevPoint
-        let numPoints = pointArray.length;
+        let numPoints = pointsArray.length;
         let p0 = pointsArray[numPoints - 1] || position;
         let _p2 = prevPoint;
         let strength = .5

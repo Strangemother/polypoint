@@ -11,6 +11,7 @@ files:
     stage
     mouse
     dragging
+    ../point_src/events.js
     ../point_src/velocity.js
 ---
 
@@ -23,8 +24,8 @@ class MainStage extends Stage {
     canvas = 'playspace'
 
     mounted() {
-        const { width, height } = this.dimensions
-        this.well = new Point({ x: width / 2, y: height / 2, radius: 18 })
+        this.well = this.center.copy()
+        this.well.radius = 18
         this.points = new PointList(...Array.from({ length: 80 }, () => new Point()))
         this.reactor = new VelocityReactor()
         this.reactor.points = this.points
@@ -39,9 +40,10 @@ class MainStage extends Stage {
 
         // Let PollyPoint deal with pointer coordinates and dragging.
         this.dragging.addPoints(this.well)
-        this.canvasElement = document.getElementById(this.canvas)
-        this.onScatter = () => this.scatter()
-        this.canvasElement.addEventListener('dblclick', this.onScatter)
+    }
+
+    onDblclick() {
+        this.scatter()
     }
 
     resetOrbit(p) {

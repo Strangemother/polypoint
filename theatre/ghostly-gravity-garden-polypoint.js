@@ -11,6 +11,7 @@ files:
     stage
     mouse
     dragging
+    ../point_src/gradient.js
     ../point_src/events.js
     ../point_src/velocity.js
 ---
@@ -30,6 +31,11 @@ class MainStage extends Stage {
         this.reactor = new VelocityReactor()
         this.reactor.points = this.points
         this.trails = new Map()
+        this.glow = new Gradient()
+        this.glow.addStops({
+            0: 'rgba(100,230,255,.75)',
+            1: 'rgba(100,230,255,0)'
+        })
 
         this.points.forEach(p => {
             p.radius = 1.5 + Math.random() * 2.2
@@ -110,10 +116,12 @@ class MainStage extends Stage {
             p.pen.fill(ctx, p.color)
         })
 
-        const glow = ctx.createRadialGradient(this.well.x, this.well.y, 2, this.well.x, this.well.y, 58)
-        glow.addColorStop(0, 'rgba(100,230,255,.75)')
-        glow.addColorStop(1, 'rgba(100,230,255,0)')
-        ctx.fillStyle = glow
+        // Refresh the radial gradient around the draggable well.
+        this.glow.radial(
+            this.well.copy().update({ radius: 2 }),
+            this.well.copy().update({ radius: 58 })
+        )
+        ctx.fillStyle = this.glow.getObject(ctx)
         ctx.beginPath()
         ctx.arc(this.well.x, this.well.y, 58, 0, Math.PI * 2)
         ctx.fill()

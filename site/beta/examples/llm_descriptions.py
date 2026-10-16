@@ -4,7 +4,7 @@ import requests
 from django.conf import settings
 from django.template import loader
 
-LMSTUDIO_ENDPOINT = os.getenv('LMSTUDIO_ENDPOINT', 'http://localhost:1234/v1/chat/completions')
+LMSTUDIO_ENDPOINT = os.getenv('LMSTUDIO_ENDPOINT', 'http://192.168.50.60:1234/v1/chat/completions')
 MODEL_NAME = os.getenv('LMSTUDIO_MODEL', 'gemma-4-12b-it')
 LMSTUDIO_API_TOKEN = os.getenv('LMSTUDIO_API_TOKEN', '')
 

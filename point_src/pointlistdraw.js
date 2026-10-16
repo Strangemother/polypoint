@@ -58,6 +58,8 @@ class PointListDraw {
         let pointsArray = this.list;
         let prevPoint = pointsArray[0];
         position = position? position: prevPoint
+        // TODO: Check naming: pointArray is not declared here, but pointsArray is.
+        // Keep existing behaviour until the intended reference is confirmed.
         let numPoints = pointArray.length;
         let p0 = pointsArray[numPoints - 1] || position;
         let _p2 = prevPoint;

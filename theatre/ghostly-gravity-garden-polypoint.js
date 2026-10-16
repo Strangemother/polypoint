@@ -65,6 +65,21 @@ class MainStage extends Stage {
         })
     }
 
+    drawTrail(ctx, points, hue) {
+        if (points.length < 2) return
+        ctx.beginPath()
+        ctx.moveTo(points[0].x, points[0].y)
+        for (let i = 1; i < points.length - 1; i++) {
+            const a = points[i], b = points[i + 1]
+            ctx.quadraticCurveTo(a.x, a.y, (a.x + b.x) / 2, (a.y + b.y) / 2)
+        }
+        const last = points[points.length - 1]
+        ctx.lineTo(last.x, last.y)
+        ctx.strokeStyle = `hsla(${hue}, 95%, 75%, .36)`
+        ctx.lineWidth = 1.2
+        ctx.stroke()
+    }
+
     draw(ctx) {
         this.clear(ctx)
         const { width, height } = this.dimensions
@@ -90,20 +105,8 @@ class MainStage extends Stage {
             trail.push({ x: p.x, y: p.y })
             if (trail.length > 28) trail.shift()
 
-            // Soft quadratic curves keep the original garden's fuzzy tails.
-            if (trail.length > 1) {
-                ctx.beginPath()
-                ctx.moveTo(trail[0].x, trail[0].y)
-                for (let i = 1; i < trail.length - 1; i++) {
-                    const a = trail[i], b = trail[i + 1]
-                    ctx.quadraticCurveTo(a.x, a.y, (a.x + b.x) / 2, (a.y + b.y) / 2)
-                }
-                const end = trail[trail.length - 1]
-                ctx.lineTo(end.x, end.y)
-                ctx.strokeStyle = `hsla(${p.hue}, 95%, 75%, .36)`
-                ctx.lineWidth = 1.2
-                ctx.stroke()
-            }
+            // Local quadratic trail variant; core quadCurve remains untouched.
+            this.drawTrail(ctx, trail, p.hue)
             p.pen.fill(ctx, p.color)
         })
 

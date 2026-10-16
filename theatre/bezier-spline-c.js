@@ -44,32 +44,115 @@ class BezierPoint extends Point {
 }
 
 
-function inkSplines(pointList, { rate = 1, uniform = false } = {}) {
+function getSplineCache(pointList) {
+    let cached = pointList._splineCache
+    if (cached && cached.sources.length == pointList.length
+            && cached.sources.every((p, i) => p === pointList[i])) {
+        return cached
+    }
+
+    let points = pointList.length
+        ? [{ x: pointList[0].x, y: pointList[0].y, distance: 0 }]
+        : []
+    let segments = []
+    let distance = 0
+    const samples = 100
+
+    for (let index = 0; index < pointList.length - 1; index++) {
+        let p = pointList[index]
+        let n = pointList[index + 1]
+        let start = distance
+        let startIndex = points.length - 1
+        let previous = p
+
+        for (let i = 1; i <= samples; i++) {
+            let sample = get_bezier_point(p, p.handles[0], n.handles[1], n, i / samples)
+            distance += Math.hypot(sample.x - previous.x, sample.y - previous.y)
+            points.push({ ...sample, distance })
+            previous = sample
+        }
+
+        segments.push({
+            start, length: distance - start, startIndex, endIndex: points.length - 1
+        })
+    }
+
+    pointList._splineCache = {
+        sources: Array.from(pointList), points, segments, length: distance
+    }
+    return pointList._splineCache
+}
+
+function splineIndexAtDistance(cache, distance, uniform) {
+    if (!cache.segments.length) return 0
+
+    let segment = cache.segments.find(s => distance <= s.start + s.length)
+        || cache.segments[cache.segments.length - 1]
+    let localDistance = Math.max(0, Math.min(segment.length, distance - segment.start))
+
+    if (!uniform || segment.length == 0) {
+        return segment.startIndex
+            + (segment.endIndex - segment.startIndex)
+                * localDistance / (segment.length || 1)
+    }
+
+    let i = segment.startIndex + 1
+    while (i < segment.endIndex && cache.points[i].distance < distance) i++
+    let before = cache.points[i - 1].distance
+    let after = cache.points[i].distance
+    return i - 1 + (distance - before) / (after - before || 1)
+}
+
+function drawSplineCache(ctx, cache, from, to) {
+    ctx.beginPath()
+    if (!cache.points.length) return
+
+    let at = index => {
+        let i = Math.floor(index)
+        let a = cache.points[i]
+        let b = cache.points[Math.min(i + 1, cache.points.length - 1)]
+        let t = index - i
+        return {
+            x: a.x + (b.x - a.x) * t,
+            y: a.y + (b.y - a.y) * t
+        }
+    }
+
+    let first = at(from)
+    ctx.moveTo(first.x, first.y)
+    if (from < to) {
+        for (let i = Math.floor(from) + 1; i < to; i++) {
+            ctx.lineTo(cache.points[i].x, cache.points[i].y)
+        }
+    } else {
+        for (let i = Math.ceil(from) - 1; i > to; i--) {
+            ctx.lineTo(cache.points[i].x, cache.points[i].y)
+        }
+    }
+    let last = at(to)
+    ctx.lineTo(last.x, last.y)
+}
+
+function startSplineAnimation(pointList, options, { reverse = false, erase = false } = {}) {
+    let { rate = 1, uniform = false } = options
     if (!Number.isFinite(rate) || rate <= 0) {
         throw new RangeError('rate must be a positive number')
     }
 
-    // Rate is measured in canvas units per second.
-    pointList._inkStartedAt = performance.now()
-    pointList._inkRate = rate
-    pointList._inkUniform = uniform
+    getSplineCache(pointList)
+    pointList._splineAnimation = { rate, uniform, reverse, erase, startedAt: performance.now() }
+}
 
-    let distance = 0
-    pointList._inkSegments = []
-    pointList.forEach((p, index) => {
-        let next = pointList[index + 1]
-        if (!next) return
+function inkSplines(pointList, options = {}) {
+    startSplineAnimation(pointList, options)
+}
 
-        let lengths = get_bezier_arc_lengths(
-            p, p.handles[0], next.handles[1], next, 100
-        )
-        let length = lengths[lengths.length - 1]
-        pointList._inkSegments.push({
-            index, length, start: distance, lengths: uniform ? lengths : undefined
-        })
-        distance += length
-    })
-    pointList._inkLength = distance
+function unInkSplines(pointList, options = {}) {
+    startSplineAnimation(pointList, options, { erase: true })
+}
+
+function inkSplineReverse(pointList, options = {}) {
+    startSplineAnimation(pointList, options, { reverse: true })
 }
 
 class BezierSpline extends PointList {
@@ -142,73 +225,38 @@ class BezierSpline extends PointList {
     }
 
     renderCurve(ctx, conf={}) {
-        ctx.beginPath()
-        let a = this[0]
-        ctx.moveTo(a.x, a.y)
-        let closeLoop = 0
-        let progress = this._inkStartedAt === undefined
-            ? this.length
-            : (performance.now() - this._inkStartedAt) * this._inkRate / 1000
-
-        if (this._inkStartedAt !== undefined && this._inkLength > 0) {
-            let target = Math.min(this._inkLength, progress)
-            let segment = this._inkSegments.find(s => target <= s.start + s.length)
-
-            if (segment) {
-                let distance = target - segment.start
-                if (this._inkUniform) {
-                    let sample = 1
-                    while (sample < segment.lengths.length - 1
-                            && segment.lengths[sample] < distance) {
-                        sample++
-                    }
-                    let before = segment.lengths[sample - 1]
-                    let after = segment.lengths[sample]
-                    let fraction = (distance - before) / (after - before || 1)
-                    progress = segment.index
-                        + (sample - 1 + fraction) / (segment.lengths.length - 1)
-                } else {
-                    progress = segment.index + distance / (segment.length || 1)
+        let animation = this._splineAnimation
+        if (animation) {
+            let cache = getSplineCache(this)
+            let distance = Math.min(
+                cache.length,
+                (performance.now() - animation.startedAt) * animation.rate / 1000
+            )
+            let from = animation.reverse ? cache.points.length - 1 : 0
+            let to = splineIndexAtDistance(
+                cache,
+                animation.reverse || animation.erase ? cache.length - distance : distance,
+                animation.uniform
+            )
+            drawSplineCache(
+                ctx, cache,
+                from, to
+            )
+        } else {
+            ctx.beginPath()
+            if (this.length) {
+                ctx.moveTo(this[0].x, this[0].y)
+                for (let i = 0; i < this.length - 1; i++) {
+                    let p = this[i]
+                    let n = this[i + 1]
+                    ctx.bezierCurveTo(
+                        p.handles[0].x, p.handles[0].y,
+                        n.handles[1].x, n.handles[1].y,
+                        n.x, n.y
+                    )
                 }
-            } else {
-                progress = this.length
             }
         }
-
-        this.forEach((p, i) => {
-            let n = this[i + 1]
-            if (n == undefined) {
-                if (closeLoop) {
-                    n = this[0]
-                } else {
-                    return
-                }
-            }
-
-            let t = Math.min(1, progress - i)
-            if (t <= 0) return
-
-            if (t == 1) {
-                ctx.bezierCurveTo(
-                    p.handles[0].x, p.handles[0].y,
-                    n.handles[1].x, n.handles[1].y,
-                    n.x, n.y
-                )
-                return
-            }
-
-            let lerp = (a, b) => ({
-                x: a.x + (b.x - a.x) * t,
-                y: a.y + (b.y - a.y) * t
-            })
-            let q0 = lerp(p, p.handles[0])
-            let q1 = lerp(p.handles[0], n.handles[1])
-            let q2 = lerp(n.handles[1], n)
-            let r0 = lerp(q0, q1)
-            let r1 = lerp(q1, q2)
-            let end = lerp(r0, r1)
-            ctx.bezierCurveTo(q0.x, q0.y, r0.x, r0.y, end.x, end.y)
-        })
 
         ctx.strokeStyle = conf.color || 'purple'
         ctx.lineWidth = 3
@@ -217,17 +265,20 @@ class BezierSpline extends PointList {
 
     checkUpdates(options) {
         let mirror = this.mirrorHandles
+        let changed = false
         if (options.altMode !== undefined) {
             mirror = !options.altMode
         }
         this.forEach((p, i) => {
 
             if (p.wasDirty) {
+                changed = true
                 this.computeHandles(i, p)
             }
 
             p.handles.forEach(h => {
                 if (h.wasDirty) {
+                    changed = true
                     // store
                     let other = h._other
                     // this.constrainHandle(p, other)
@@ -239,6 +290,7 @@ class BezierSpline extends PointList {
                 }
             })
         })
+        if (changed) this._splineCache = undefined
     }
 
     mirrorHandle(owner, handle, distance, scaleDistance=false) {

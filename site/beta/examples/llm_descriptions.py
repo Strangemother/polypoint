@@ -1,12 +1,24 @@
+import os
+
 import requests
 from django.conf import settings
 from django.template import loader
 
-LMSTUDIO_ENDPOINT = 'http://192.168.50.60:1234/v1/chat/completions'
-MODEL_NAME = 'gemma-4-12b-it'
+LMSTUDIO_ENDPOINT = os.getenv('LMSTUDIO_ENDPOINT', 'http://192.168.50.60:1234/v1/chat/completions')
+MODEL_NAME = os.getenv('LMSTUDIO_MODEL', 'gemma-4-12b-it')
+LMSTUDIO_API_TOKEN = os.getenv('LMSTUDIO_API_TOKEN', '')
 
 
-def build_payload(system_prompt, prompt_text):
+def build_payload(system_prompt, prompt_text, endpoint=LMSTUDIO_ENDPOINT):
+    if endpoint.rstrip('/').endswith('/api/v1/chat'):
+        return {
+            'model': MODEL_NAME,
+            'system_prompt': system_prompt,
+            'input': prompt_text,
+            'temperature': 0.8,
+            'stream': False,
+            'store': False,
+        }
     return {
         'model': MODEL_NAME,
         'messages': [
@@ -58,13 +70,27 @@ def request_description_response(
         notes=notes,
         request=request,
     )
-    payload = build_payload(system_prompt, prompt_text)
-    response = requests.post(endpoint, json=payload, timeout=timeout)
+    payload = build_payload(system_prompt, prompt_text, endpoint=endpoint)
+    headers = {}
+    if LMSTUDIO_API_TOKEN:
+        headers['Authorization'] = f'Bearer {LMSTUDIO_API_TOKEN}'
+    response = requests.post(endpoint, json=payload, headers=headers, timeout=timeout)
     response.raise_for_status()
-    return response.json()
+    data = response.json()
+    # Preserve the OpenAI-compatible shape expected by the examples-page JS.
+    if endpoint.rstrip('/').endswith('/api/v1/chat'):
+        content = extract_message(data)
+        return {'choices': [{'message': {'content': content}}]}
+    return data
 
 
 def extract_message(response_data):
+    if isinstance(response_data, dict) and isinstance(response_data.get('output'), list):
+        return '\n'.join(
+            item['content'] for item in response_data['output']
+            if isinstance(item, dict) and item.get('type') == 'message'
+            and isinstance(item.get('content'), str)
+        ).strip()
     try:
         return response_data['choices'][0]['message']['content'].strip()
     except (KeyError, IndexError, TypeError, AttributeError):

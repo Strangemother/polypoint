@@ -17,7 +17,7 @@ class SceneToolsApp extends Mountable {
 
     mounted(){
         setTimeout(()=>{
-            this.store.paused = !stage._loopDraw
+            this.store.paused = !stage?._loopDraw
         }, 300)
     }
 

@@ -1,3 +1,4 @@
+import encodings
 from pathlib import Path
 from django.http import Http404, HttpResponseBadRequest
 from django.conf import settings
@@ -197,10 +198,9 @@ def get_file_contents(path, root=None):
     exists = target.exists()
     content = None
     if exists:
-        content = target.read_text()
+        content = target.read_text(encoding='utf')
     return {
         'exists': exists,
         'content': content,
         'path': path,
     }
-

@@ -155,6 +155,7 @@ function inkSplineReverse(pointList, options = {}) {
     startSplineAnimation(pointList, options, { reverse: true })
 }
 
+
 class BezierSpline extends PointList {
     /* A _spline_ is many line segments presented as a single
     continuious line.

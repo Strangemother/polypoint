@@ -278,7 +278,7 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js', rel_pre
 
     tf = theatre_file
     # extract the first comment and convert to markdown.
-    content = tf.read_text()
+    content = tf.read_text(encoding='utf')
 
     text_data = extract_theatre_header(content)
 

@@ -142,20 +142,25 @@ class AutoLerpPoint extends Point {
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');
     canvas = 'playspace'
+    doTracking = true
+    doRotate = true
+    doZoom = true
 
     mounted(){
         let count = 100
-        let multiplier = [400, 400, 5, 270]
+        let multiplier = [600, 600, 5, 270]
         let offset = this.center.copy().subtract(multiplier[0] * .5)
 
         this.points = PointList.generate.random(count, multiplier, offset)
         this.points = this.points.cast(AutoLerpPoint)
 
-        this.points.each.color = ()=>random.color([290, 310], [50,100], [22,60])
+        this.points.each.color = ()=>random.color([290, 310], [50,100], [22,50])
         this.points.each.radius = ()=>random.int(1, 15)
 
-
         this.targetPoint = 3
+
+        this.points[this.targetPoint].color = 'orange'
+
         this.dragging.add(this.points[0])
         this.tick = 0
     }
@@ -167,20 +172,55 @@ class MainStage extends Stage {
     randomMove(p=this.point, c=this.center, v=200){
         if(this.tick % random.int(1, 100) == 0) {
             p.relative.forward(random.int(5, 40))
-            // p.rotation += random.int(-15, 15)
-            // p.x = c.x + random.int(-v, v)
-            // p.y = c.y + random.int(-v, v)
-            // p.radius = random.int(.5, 7)
         }
 
         if(this.tick % random.int(20, 50) == 0) {
             let c = random.int(4, 60)
             p.rotation += random.int(-c, c)
-            // p.x = c.x + random.int(-v, v)
-            // p.y = c.y + random.int(-v, v)
-            // p.radius = random.int(.5, 7)
         }
 
+    }
+
+    viewportTrack(ctx, target, others) {
+        /* focus on the target by moving the others. */
+        // get offset from center.
+        let v = this.doTracking
+        let t = target.xy
+        let c = this.center.xy
+        v = [c.x - t.x, c.y - t.y]
+        let s = 1 + (this.mouse.wheelSize() * .1)
+
+        if (this.doRotate) {
+            this.viewport.rotateZoomTranslate(ctx, c, target, s)
+        }
+
+        if (this.doTracking) {
+            // Shift the canvas to ensure the target is
+            // at the center.
+            if (!this.doRotate && this.doZoom) {
+                this.viewport.zoomTranslate(ctx, c, s)
+            }
+            ctx.translate(...v);
+        }
+    }
+
+    viewport = {
+
+        rotateZoomTranslate(ctx, c, target, s=2) {
+            // First we translate to the _center_
+            ctx.translate(c.x, c.y);
+            // spin opposite to the display direction
+            ctx.rotate(-target.radians - (Math.PI * .5))
+            ctx.scale(s, s)
+            // Move the canvas back to its initial place (now rotated)
+            ctx.translate(-c.x, -c.y);
+        }
+
+        , zoomTranslate(ctx, c, v) {
+            ctx.translate(c.x, c.y);
+            ctx.scale(v,v)
+            ctx.translate(-c.x, -c.y);
+        }
     }
 
     draw(ctx){
@@ -188,13 +228,20 @@ class MainStage extends Stage {
         this.clear(ctx)
 
         this.screenWrap.performMany(this.points)
+
         this.points.forEach(p=>{
             this.randomMove(p, this.center, 400)
             p.step()
         })
 
+        this.viewportTrack(ctx, this.points[this.targetPoint], this.points)
+
         this.points.pen.fill(ctx)
-        this.points.pen.lines(ctx, { width: 2, color: '#111'})
+        this.points.pen.lines(ctx, { width: 2, color: '#111' })
+        if (this.doTracking) {
+            // reset any tranlate or rotate
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+        }
     }
 }
 

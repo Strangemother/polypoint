@@ -207,4 +207,5 @@ class MainStage extends Stage {
     }
 }
 
-stage = MainStage.go(/*{ loop: true }*/)
+stage = MainStage.announce(/*{ loop: true }*/)
+// stage = MainStage.go(/*{ loop: true }*/)

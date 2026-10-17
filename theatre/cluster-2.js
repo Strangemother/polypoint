@@ -30,11 +30,23 @@ points.forEach(p => {
 })
 
 
+const  randomizeSettings = function(points) {
+    points.forEach(p => {
+        p.minDistance = 100 + Math.random() * 100
+        p.minVelocity = 0.1 + Math.random() * 0.1
+        p.maxVelocity = 1 + Math.random() * 1
+        p.damping = 0.94 + Math.random() * 0.14
+        p.attractionStrength = .01 + Math.random() * .1
+        p.repulsionStrength = 23 + Math.random() * 20
+    })
+}
+
 class MainStage extends Stage {
 
     mounted() {
         this.target = this.center.copy()
         this.dragging.add(this.target)
+        randomizeSettings(points)
     }
 
     draw(ctx) {
@@ -42,9 +54,12 @@ class MainStage extends Stage {
         let target = this.target
         simpleCluster(points, target, {
                 func: gravitateSquareDistance // clusterStyleB // clusterStable
+                // func: clusterStyleB // clusterStable
                 // func: clusterStable
+                , maxVelocity: 2
+                , method: 'springy'
             })
-
+        
         points.forEach(faceVelocity)
         target.pen.indicator(ctx, {color:'red'})
         // points.pen.lines(ctx, 'red', {color:'#33aa99'})

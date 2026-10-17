@@ -144,6 +144,25 @@ function clusterStyleB(items, focul, settings) {
 
 function limitSpeed(minVelocity, maxVelocity, item) {
 
+        // Apply limits to total speed so neither threshold changes the heading.
+        const speed = Math.hypot(item.vx, item.vy)
+
+        if (speed < minVelocity) {
+            item.vx = 0
+            item.vy = 0
+        } else if (speed > maxVelocity && speed > 0) {
+            const scale = maxVelocity / speed
+            item.vx *= scale
+            item.vy *= scale
+        }
+
+        return item
+}
+
+
+function limitSpeedCardinal(minVelocity, maxVelocity, item) {
+
+        // Limits each axis independently, biasing headings toward the 8 cardinal directions.
         let vx = item.vx
         let vy = item.vy
         let avx = Math.abs(vx)
@@ -152,8 +171,8 @@ function limitSpeed(minVelocity, maxVelocity, item) {
         if (avx < minVelocity){ item.vx = 0;}
         if (avy < minVelocity){ item.vy = 0;}
 
-        if (avx > maxVelocity){ item.vx = (2 * (vx > 0) - 1) * maxVelocity;}
-        if (avy > maxVelocity){ item.vy = (2 * (vy > 0) - 1) * maxVelocity;}
+        if (avx > maxVelocity){ item.vx = Math.sign(vx) * maxVelocity;}
+        if (avy > maxVelocity){ item.vy = Math.sign(vy) * maxVelocity;}
 
         return item
 }
@@ -204,14 +223,7 @@ function clusterStable(items, focul, settings) {
         item.vx *= damping;
         item.vy *= damping;
 
-        let avx = Math.abs(item.vx)
-        let avy = Math.abs(item.vy)
-
-        if (avx < minVelocity) item.vx = 0;
-        if (avx < minVelocity) item.vx = 0;
-
-        if (avx > maxVelocity) item.vx = maxVelocity;
-        if (avy > maxVelocity) item.vy = maxVelocity;
+        limitSpeed(minVelocity, maxVelocity, item)
 
         item.x += item.vx;
         item.y += item.vy;
@@ -239,14 +251,15 @@ function gravitateSquareDistance(items, focul, settings) {
             const other = items[j]
             const dxy = other.subtract(item)
             const distance = item.distanceTo(other)
-
-            if (distance > minDistance) {
+            const _minDistance = item?.minDistance ?? minDistance;
+            if (distance > _minDistance) {
                 /* If the distance is too far, we dont perform the
                 replusion force below ...*/
                 continue
             }
 
-            const repulsionForce = repulsionStrength / (distance * distance);
+            let _repulsionStrength = item?.repulsionStrength ?? repulsionStrength; 
+            const repulsionForce = _repulsionStrength / (distance * distance);
             item.vx -= repulsionForce * dxy.x / distance;
             item.vy -= repulsionForce * dxy.y / distance;
         }
@@ -256,25 +269,20 @@ function gravitateSquareDistance(items, focul, settings) {
         const dy = centerY - item.y;
         const distance = item.distanceTo({x:centerX, y:centerY}) * .0004
 
-        const at = (attractionStrength * .01) +  ((distance * distance) * .03)
+        let _attractionStrength = item?.attractionStrength ?? attractionStrength;
+        const at = (_attractionStrength * .01) +  ((distance * distance) * .03)
 
         item.vx +=  at * dx;
         item.vy +=  at * dy;
+        let _damp = item?.damping ?? damping;
+        let _minVelocity = item?.minVelocity ?? minVelocity;
+        let _maxVelocity = item?.maxVelocity ?? maxVelocity;
+        item.vx *= _damp;
+        item.vy *= _damp;
 
-        item.vx *= damping;
-        item.vy *= damping;
-
-        let avx = Math.abs(item.vx)
-        let avy = Math.abs(item.vy)
-
-        if (avx < minVelocity) item.vx = 0;
-        if (avx < minVelocity) item.vx = 0;
-
-        if (avx > maxVelocity) item.vx = maxVelocity;
-        if (avy > maxVelocity) item.vy = maxVelocity;
+        limitSpeed(_minVelocity, _maxVelocity, item)
 
         item.x += item.vx;
         item.y += item.vy;
     }
 }
-

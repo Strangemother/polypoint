@@ -286,3 +286,94 @@ function gravitateSquareDistance(items, focul, settings) {
         item.y += item.vy;
     }
 }
+
+
+/*
+Ducklings: each point follows the average position of its nearest neighbors
+that are strictly closer to the target. A point with no such neighbor is a
+leader and follows the target directly. Because every link leads closer to the
+target, a duck can never follow a duck that follows it (no AB/BA pairs or
+longer loops), and every chain ends at the target.
+
+Usage: simpleCluster(points, target, {func: clusterDucks, followNearestCount: 2})
+followNearestCount defaults to 1; each point may override it and the usual
+clustering settings. Without a target, the canvas center is used.
+*/
+function clusterDucks(items, focul, settings) {
+    // Read all positions before moving any points to avoid update-order bias.
+    const positions = Array.from(items, item => ({x: item.x, y: item.y}))
+    if (positions.length == 0) { return }
+
+    const targetX = focul == undefined ? canvas.width * .5 : focul.x
+        , targetY = focul == undefined ? canvas.height * .5 : focul.y
+        ;
+    const targetDistances = positions.map(p => Math.hypot(targetX - p.x, targetY - p.y))
+    const followCounts = Array.from(items, item => {
+        const count = item.followNearestCount ?? settings.followNearestCount ?? 1
+        if (!Number.isInteger(count) || count < 1) {
+            throw new RangeError('followNearestCount must be a positive integer')
+        }
+        return count
+    })
+
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i]
+        const position = positions[i]
+        const minDistance = item.minDistance ?? settings.minDistance
+        const repulsionStrength = item.repulsionStrength ?? settings.repulsionStrength
+        const attractionStrength = item.attractionStrength ?? settings.attractionStrength
+        const damping = item.damping ?? settings.damping
+        const minVelocity = item.minVelocity ?? settings.minVelocity
+        const maxVelocity = item.maxVelocity ?? settings.maxVelocity
+        const neighbors = []
+
+        for (let j = 0; j < positions.length; j++) {
+            if (i == j) { continue }
+
+            const other = positions[j]
+            const dx = other.x - position.x
+            const dy = other.y - position.y
+            const distance = Math.hypot(dx, dy)
+            // Only ducks nearer the target may be followed.
+            if (targetDistances[j] < targetDistances[i]) {
+                neighbors.push({position: other, distance})
+            }
+
+            // Coincident points have no separation direction; avoid dividing by zero.
+            if (distance > 0 && distance <= minDistance) {
+                const repulsionForce = repulsionStrength / (distance * distance)
+                item.vx -= repulsionForce * dx / distance
+                item.vy -= repulsionForce * dy / distance
+            }
+        }
+
+        let centerX, centerY
+        if (neighbors.length > 0) {
+            neighbors.sort((a, b) => a.distance - b.distance)
+            const count = Math.min(followCounts[i], neighbors.length)
+            centerX = 0
+            centerY = 0
+            for (let j = 0; j < count; j++) {
+                centerX += neighbors[j].position.x / count
+                centerY += neighbors[j].position.y / count
+            }
+        } else {
+            centerX = targetX
+            centerY = targetY
+        }
+
+        const dx = centerX - position.x
+        const dy = centerY - position.y
+        const distance = Math.hypot(dx, dy) * .0004
+        const at = (attractionStrength * .01) + ((distance * distance) * .03)
+
+        item.vx += at * dx
+        item.vy += at * dy
+        item.vx *= damping
+        item.vy *= damping
+        limitSpeed(minVelocity, maxVelocity, item)
+
+        item.x += item.vx
+        item.y += item.vy
+    }
+}

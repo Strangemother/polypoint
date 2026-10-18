@@ -77,6 +77,17 @@ const randomizeSettings = function(points) {
     })
 }
 
+const  randomizeSettingsOther = function(points) {
+    points.forEach(p => {
+        p.minDistance = 10 + Math.random() * 10
+        p.minVelocity = 0.01 + Math.random() * 0.1
+        p.maxVelocity = 1 + Math.random() * 1
+        p.damping = .9 + Math.random() * 0.01
+        p.attractionStrength = 0 + Math.random() * .5
+        p.repulsionStrength = 20 + Math.random() * 20
+    })
+}
+
 class MainStage extends Stage {
 
     mounted() {
@@ -138,9 +149,11 @@ class MainStage extends Stage {
         this.clear(ctx)
         let target = this.target
         simpleCluster(points, target, {
-                func: gravitateSquareDistance // clusterStyleB // clusterStable
+                // func: gravitateSquareDistance // clusterStyleB // clusterStable
                 // func: clusterStyleB // clusterStable
                 // func: clusterStable
+                func: clusterDucks
+                , followNearestCount: 3
                 , maxVelocity: 2
                 , method: 'springy'
             })

@@ -32,7 +32,7 @@ points.forEach(p => {
 points[10].color = 'white'
 
 
-const  randomizeSettingsCrowd = function(points) {
+const randomizeSettingsCrowd = function(points) {
     points.forEach(p => {
         p.minDistance = 100 + Math.random() * 100
         p.minVelocity = 0.1 + Math.random() * 0.1
@@ -44,7 +44,7 @@ const  randomizeSettingsCrowd = function(points) {
 }
 
 
-const  randomizeSettingsRandomStable = function(points) {
+const randomizeSettingsRandomStable = function(points) {
     points.forEach(p => {
         p.minDistance = 400 + Math.random() * 100
         p.minVelocity = 0.1 + Math.random() * 0.1
@@ -55,8 +55,7 @@ const  randomizeSettingsRandomStable = function(points) {
     })
 }
 
-
-const  randomizeSettingsMoshPit = function(points) {
+const randomizeSettingsMoshPit = function(points) {
     points.forEach(p => {
         p.minDistance = 40 + Math.random() * 100
         p.minVelocity = 0 // 0.01 + Math.random() * 0.1
@@ -67,7 +66,7 @@ const  randomizeSettingsMoshPit = function(points) {
     })
 }
 
-const  randomizeSettings = function(points) {
+const randomizeSettings = function(points) {
     points.forEach(p => {
         p.minDistance = 100 + Math.random() * 10
         p.minVelocity = 0.01 + Math.random() * 0.1
@@ -83,13 +82,16 @@ class MainStage extends Stage {
     mounted() {
         this.target = this.center.copy()
         this.dragging.add(this.target)
-        randomizeSettings(points)
+        // randomizeSettingsCrowd(points)
+        randomizeSettingsRandomStable(points)
+        // randomizeSettingsMoshPit(points)
+        // randomizeSettings(points)
     }
-    
+
     doTracking = false
     doRotate = false
     doZoom = false
-    
+
     viewportTrack(ctx, target, others) {
         /* focus on the target by moving the others. */
         // get offset from center.
@@ -142,7 +144,7 @@ class MainStage extends Stage {
                 , maxVelocity: 2
                 , method: 'springy'
             })
-        
+
         points.forEach(faceVelocity)
         this.viewportTrack(ctx, points[10], points)
         target.pen.indicator(ctx, {color:'red'})

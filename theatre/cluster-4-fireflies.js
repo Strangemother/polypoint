@@ -40,8 +40,6 @@ class MainStage extends Stage {
             p.attractionStrength = 0.12 + Math.random() * 0.4
             p.repulsionStrength = 50 + Math.random() * 180
             p.followNearestCount = 1 + (i % 4)
-            p.phase = Math.random() * Math.PI * 2
-            p.blinkSpeed = 1.5 + Math.random() * 2.5
             p.hue = 36 + Math.random() * 22
         })
     }
@@ -102,14 +100,15 @@ class MainStage extends Stage {
         }
 
         for (const p of points) {
-            // Low steady ember, interrupted by brief, asynchronous flashes.
-            const wave = Math.max(0, Math.sin(time * p.blinkSpeed + p.phase))
-            const flash = Math.pow(wave, 12)
-            const brightness = 0.11 + 0.89 * flash
-            // Keep the light within the node: a dim ember, then a crisp glint.
+            // Light is driven by actual movement, not a random blink timer.
+            // Each firefly has a different maxVelocity, so normalize by its own cap.
+            const speed = Math.hypot(p.vx, p.vy)
+            const motion = Math.min(1, speed / p.maxVelocity)
+            const glint = motion * motion
+            const brightness = 0.10 + 0.90 * glint
             ctx.beginPath()
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-            ctx.fillStyle = `hsla(${p.hue}, 100%, ${48 + flash * 45}%, ${brightness})`
+            ctx.fillStyle = `hsla(${p.hue}, 100%, ${45 + 48 * glint}%, ${brightness})`
             ctx.fill()
         }
 

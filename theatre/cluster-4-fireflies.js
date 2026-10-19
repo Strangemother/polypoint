@@ -106,12 +106,9 @@ class MainStage extends Stage {
             const wave = Math.max(0, Math.sin(time * p.blinkSpeed + p.phase))
             const flash = Math.pow(wave, 12)
             const brightness = 0.11 + 0.89 * flash
+            // Keep the light within the node: a dim ember, then a crisp glint.
             ctx.beginPath()
-            ctx.arc(p.x, p.y, p.radius * (2.1 + flash * 2.3), 0, Math.PI * 2)
-            ctx.fillStyle = `hsla(${p.hue}, 100%, 75%, ${0.005 + 0.24 * flash})`
-            ctx.fill()
-            ctx.beginPath()
-            ctx.arc(p.x, p.y, p.radius * (0.7 + flash * 0.45), 0, Math.PI * 2)
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
             ctx.fillStyle = `hsla(${p.hue}, 100%, ${48 + flash * 45}%, ${brightness})`
             ctx.fill()
         }

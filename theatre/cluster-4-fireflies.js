@@ -28,11 +28,11 @@ class MainStage extends Stage {
         this.beacon = this.center.copy()
         this.dragging.add(this.beacon)
         this.t = 0
-        this.points = PointList.generate.random(90, 500)
+        this.points = PointList.generate.random(120, 500)
         this.points.forEach((p, i) => {
             p.vx = 0
             p.vy = 0
-            p.radius = 2 + Math.random() * 2.5
+            p.radius = 1.4 + Math.random() * 1.6
             p.minDistance = 25 + Math.random() * 65
             p.minVelocity = 0.01
             p.maxVelocity = 1.5 + Math.random() * 2
@@ -88,8 +88,8 @@ class MainStage extends Stage {
 
         // Real following edges, drawn from the pre-move snapshot so the
         // rendered graph matches the neighbours used by this simulation step.
-        ctx.lineWidth = 0.7
-        ctx.strokeStyle = 'rgba(255, 182, 55, 0.22)'
+        ctx.lineWidth = 0.45
+        ctx.strokeStyle = 'rgba(140, 165, 165, 0.055)'
         for (const link of links) {
             const a = positions[link.from]
             const b = link.toTarget ? target : positions[link.to]
@@ -115,7 +115,7 @@ class MainStage extends Stage {
             ctx.fill()
         }
 
-        ctx.strokeStyle = 'rgba(255, 208, 125, 0.25)'
+        ctx.strokeStyle = 'rgba(140, 165, 165, 0.08)'
         ctx.lineWidth = 1
         ctx.beginPath()
         ctx.moveTo(center.x, center.y)

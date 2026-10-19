@@ -41,6 +41,7 @@ class MainStage extends Stage {
             p.repulsionStrength = 50 + Math.random() * 180
             p.followNearestCount = 1 + (i % 4)
             p.phase = Math.random() * Math.PI * 2
+            p.blinkSpeed = 1.5 + Math.random() * 2.5
             p.hue = 36 + Math.random() * 22
         })
     }
@@ -101,14 +102,17 @@ class MainStage extends Stage {
         }
 
         for (const p of points) {
-            const pulse = 0.65 + 0.35 * Math.sin(time * 3 + p.phase)
+            // Low steady ember, interrupted by brief, asynchronous flashes.
+            const wave = Math.max(0, Math.sin(time * p.blinkSpeed + p.phase))
+            const flash = Math.pow(wave, 12)
+            const brightness = 0.11 + 0.89 * flash
             ctx.beginPath()
-            ctx.arc(p.x, p.y, p.radius * (2.1 + pulse), 0, Math.PI * 2)
-            ctx.fillStyle = `hsla(${p.hue}, 95%, 65%, ${0.055 * pulse})`
+            ctx.arc(p.x, p.y, p.radius * (2.1 + flash * 2.3), 0, Math.PI * 2)
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 75%, ${0.005 + 0.24 * flash})`
             ctx.fill()
             ctx.beginPath()
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-            ctx.fillStyle = `hsla(${p.hue}, 95%, 73%, ${0.55 + 0.45 * pulse})`
+            ctx.arc(p.x, p.y, p.radius * (0.7 + flash * 0.45), 0, Math.PI * 2)
+            ctx.fillStyle = `hsla(${p.hue}, 100%, ${48 + flash * 45}%, ${brightness})`
             ctx.fill()
         }
 

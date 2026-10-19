@@ -33,12 +33,12 @@ class MainStage extends Stage {
             p.vx = 0
             p.vy = 0
             p.radius = 2 + Math.random() * 2.5
-            p.minDistance = 25 + Math.random() * 65
+            p.minDistance = 18 + Math.random() * 35
             p.minVelocity = 0.01
             p.maxVelocity = 1.5 + Math.random() * 2
             p.damping = 0.93 + Math.random() * 0.055
-            p.attractionStrength = 0.12 + Math.random() * 0.4
-            p.repulsionStrength = 50 + Math.random() * 180
+            p.attractionStrength = 0.22 + Math.random() * 0.35
+            p.repulsionStrength = 30 + Math.random() * 85
             p.followNearestCount = 1 + (i % 4)
             p.phase = Math.random() * Math.PI * 2
             p.hue = 36 + Math.random() * 22
@@ -53,8 +53,8 @@ class MainStage extends Stage {
 
         // The orbiting target tugs the duckling chains into a gentle dance.
         const target = {
-            x: center.x + Math.cos(time) * 78,
-            y: center.y + Math.sin(time * 0.73) * 55
+            x: center.x + Math.cos(time) * 50,
+            y: center.y + Math.sin(time * 0.73) * 35
         }
         // Snapshot first: clusterDucks chooses neighbours using pre-move positions.
         // Mirror that exact selection rule for the visual edges.

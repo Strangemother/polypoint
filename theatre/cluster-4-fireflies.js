@@ -28,6 +28,7 @@ class MainStage extends Stage {
         this.beacon = this.center.copy()
         this.dragging.add(this.beacon)
         this.t = 0
+        this.linkGlow = new Map()
         this.points = PointList.generate.random(120, 500)
         this.points.forEach((p, i) => {
             p.vx = 0
@@ -88,16 +89,26 @@ class MainStage extends Stage {
 
         // Real following edges, drawn from the pre-move snapshot so the
         // rendered graph matches the neighbours used by this simulation step.
-        ctx.lineWidth = 0.45
-        ctx.strokeStyle = 'rgba(140, 165, 165, 0.055)'
+        // Each directed relationship has its own flash state, independent
+        // of node brightness. New edges flash; surviving edges slowly fade.
+        const nextGlow = new Map()
+        ctx.lineWidth = 0.6
         for (const link of links) {
+            const key = `${link.from}:${link.toTarget ? 'target' : link.to}`
+            const previous = this.linkGlow.get(key)
+            const glow = previous === undefined ? 1 : previous * 0.965
+            nextGlow.set(key, glow)
+
             const a = positions[link.from]
             const b = link.toTarget ? target : positions[link.to]
+            ctx.strokeStyle = `rgba(210, 220, 185, ${0.055 + 0.60 * glow})`
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
             ctx.stroke()
         }
+        // Removed links lose their glow; reappearing links flash anew.
+        this.linkGlow = nextGlow
 
         for (const p of points) {
             // Light is driven by actual movement, not a random blink timer.

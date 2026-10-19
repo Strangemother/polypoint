@@ -87,37 +87,50 @@ class MainStage extends Stage {
             followNearestCount: 2
         })
 
+        // Update each node's actual glow before sampling it for new links.
+        // The same computed value is used to draw the node below.
+        for (const p of points) {
+            const speed = Math.hypot(p.vx, p.vy)
+            const motion = Math.min(1, speed / p.maxVelocity)
+            const targetGlint = motion * motion
+            p.glint = Math.max(targetGlint, (p.glint ?? 0) * 0.975)
+        }
+
         // Real following edges, drawn from the pre-move snapshot so the
         // rendered graph matches the neighbours used by this simulation step.
-        // Each directed relationship has its own flash state, independent
-        // of node brightness. New edges flash; surviving edges slowly fade.
+        // Each link samples its source node's glow only when first formed,
+        // then fades on its own, regardless of later speed changes.
         const nextGlow = new Map()
         ctx.lineWidth = 0.6
         for (const link of links) {
             const key = `${link.from}:${link.toTarget ? 'target' : link.to}`
             const previous = this.linkGlow.get(key)
-            const glow = previous === undefined ? 1 : previous * 0.965
-            nextGlow.set(key, glow)
+            const source = points[link.from]
+            const state = previous === undefined
+                ? {fade: 1, initialLight: 0.10 + 0.90 * source.glint}
+                : {fade: previous.fade * 0.965, initialLight: previous.initialLight}
+            nextGlow.set(key, state)
 
             const a = positions[link.from]
             const b = link.toTarget ? target : positions[link.to]
-            ctx.strokeStyle = `rgba(210, 220, 185, ${0.055 + 0.60 * glow})`
+            // The quiet baseline remains barely visible for all links.
+            ctx.strokeStyle = 'rgba(140, 165, 165, 0.055)'
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
             ctx.stroke()
+
+            const flashAlpha = 0.60 * state.initialLight * state.fade
+            if (flashAlpha > 0.003) {
+                ctx.strokeStyle = `hsla(${source.hue}, 100%, 80%, ${flashAlpha})`
+                ctx.stroke()
+            }
         }
         // Removed links lose their glow; reappearing links flash anew.
         this.linkGlow = nextGlow
 
         for (const p of points) {
-            // Light is driven by actual movement, not a random blink timer.
-            // Each firefly has a different maxVelocity, so normalize by its own cap.
-            const speed = Math.hypot(p.vx, p.vy)
-            const motion = Math.min(1, speed / p.maxVelocity)
-            // Fast attack, slow release: avoid flicker when velocity drops.
-            const targetGlint = motion * motion
-            p.glint = Math.max(targetGlint, (p.glint ?? 0) * 0.975)
+            // Brightness uses the same velocity-driven value sampled by links.
             const glint = p.glint
             const brightness = 0.10 + 0.90 * glint
             ctx.beginPath()

@@ -41,7 +41,7 @@ class MainStage extends Stage {
             p.repulsionStrength = 50 + Math.random() * 180
             p.followNearestCount = 1 + (i % 4)
             p.phase = Math.random() * Math.PI * 2
-            p.hue = 155 + Math.random() * 85
+            p.hue = 36 + Math.random() * 22
         })
     }
 
@@ -56,35 +56,48 @@ class MainStage extends Stage {
             x: center.x + Math.cos(time) * 78,
             y: center.y + Math.sin(time * 0.73) * 55
         }
+        // Snapshot first: clusterDucks chooses neighbours using pre-move positions.
+        // Mirror that exact selection rule for the visual edges.
+        const positions = points.map(p => ({x: p.x, y: p.y}))
+        const distances = positions.map(p => Math.hypot(target.x - p.x, target.y - p.y))
+        const links = []
+        for (let i = 0; i < points.length; i++) {
+            const nearer = []
+            for (let j = 0; j < points.length; j++) {
+                if (i === j || !(distances[j] < distances[i])) continue
+                nearer.push({
+                    index: j,
+                    distance: Math.hypot(positions[j].x - positions[i].x,
+                                         positions[j].y - positions[i].y)
+                })
+            }
+            nearer.sort((a, b) => a.distance - b.distance)
+            if (!nearer.length) {
+                links.push({from: i, toTarget: true})
+            } else {
+                const count = Math.min(points[i].followNearestCount ?? 2, nearer.length)
+                for (let k = 0; k < count; k++) {
+                    links.push({from: i, to: nearer[k].index})
+                }
+            }
+        }
+
         simpleCluster(points, target, {
             func: clusterDucks,
             followNearestCount: 2
         })
 
-        // Short filaments connect nearby fireflies, making clusters visible.
+        // Real following edges, drawn from the pre-move snapshot so the
+        // rendered graph matches the neighbours used by this simulation step.
         ctx.lineWidth = 0.7
-        for (let i = 0; i < points.length; i++) {
-            const a = points[i]
-            let nearest = null
-            let nearestSq = 75 * 75
-            for (let j = 0; j < points.length; j++) {
-                if (i === j) continue
-                const b = points[j]
-                const dx = a.x - b.x
-                const dy = a.y - b.y
-                const dsq = dx * dx + dy * dy
-                if (dsq < nearestSq) {
-                    nearestSq = dsq
-                    nearest = b
-                }
-            }
-            if (nearest) {
-                ctx.strokeStyle = 'rgba(80, 220, 180, 0.16)'
-                ctx.beginPath()
-                ctx.moveTo(a.x, a.y)
-                ctx.lineTo(nearest.x, nearest.y)
-                ctx.stroke()
-            }
+        ctx.strokeStyle = 'rgba(255, 182, 55, 0.22)'
+        for (const link of links) {
+            const a = positions[link.from]
+            const b = link.toTarget ? target : positions[link.to]
+            ctx.beginPath()
+            ctx.moveTo(a.x, a.y)
+            ctx.lineTo(b.x, b.y)
+            ctx.stroke()
         }
 
         for (const p of points) {
@@ -99,7 +112,7 @@ class MainStage extends Stage {
             ctx.fill()
         }
 
-        ctx.strokeStyle = 'rgba(210, 230, 255, 0.2)'
+        ctx.strokeStyle = 'rgba(255, 208, 125, 0.25)'
         ctx.lineWidth = 1
         ctx.beginPath()
         ctx.moveTo(center.x, center.y)
@@ -108,7 +121,7 @@ class MainStage extends Stage {
 
         ctx.beginPath()
         ctx.arc(target.x, target.y, 5, 0, Math.PI * 2)
-        ctx.fillStyle = '#c5dfff'
+        ctx.fillStyle = '#ffda85'
         ctx.fill()
         center.pen.indicator(ctx, {color: '#ffffff'})
     }

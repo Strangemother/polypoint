@@ -104,7 +104,10 @@ class MainStage extends Stage {
             // Each firefly has a different maxVelocity, so normalize by its own cap.
             const speed = Math.hypot(p.vx, p.vy)
             const motion = Math.min(1, speed / p.maxVelocity)
-            const glint = motion * motion
+            // Fast attack, slow release: avoid flicker when velocity drops.
+            const targetGlint = motion * motion
+            p.glint = Math.max(targetGlint, (p.glint ?? 0) * 0.975)
+            const glint = p.glint
             const brightness = 0.10 + 0.90 * glint
             ctx.beginPath()
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)

@@ -5,7 +5,7 @@ files:
     head
     stage
 
-Six-colour tapered spectral trails from bright white stars at warp.
+Individually coloured stars with rotated six-band spectral trails at warp.
 A surrounding recycled star volume and a tiny blue steering indicator.
 Three sliders control impulse speed, warp speed, and acceleration.
 Mouse position controls turning relative to the canvas centre.
@@ -90,6 +90,7 @@ class WarpStage extends Stage {
             x: (Math.random() * 2 - 1) * halfX,
             y: (Math.random() * 2 - 1) * halfY,
             z: depth,
+            colorIndex: Math.floor(Math.random() * 6),
             brightness: 0.55 + Math.random() * 0.45
         };
     }
@@ -170,7 +171,7 @@ class WarpStage extends Stage {
             // Every star traverses the entire rainbow; blue takes more space.
             const weights = [1, 1, 1, 0.7, 2.3, 1];
             // Rotate colours and their widths as pairs, preserving blue's emphasis.
-            const shift = ((Math.round(this.spectrumShift) % spectrum.length) + spectrum.length) % spectrum.length;
+            const shift = ((Math.round(this.spectrumShift) + star.colorIndex) % spectrum.length + spectrum.length) % spectrum.length;
             const shiftedColors = spectrum.map((_, i) => spectrum[(i + shift) % spectrum.length]);
             const shiftedWeights = weights.map((_, i) => weights[(i + shift) % weights.length]);
             const totalWeight = shiftedWeights.reduce((sum, weight) => sum + weight, 0);
@@ -196,15 +197,17 @@ class WarpStage extends Stage {
                 ctx.globalAlpha = 1;
             }
 
-            // At rest, points remain visible with no artificial streak.
-            if (true) {
-                ctx.fillStyle = separation > 0.01
-                    ? shiftedColors[0]
-                    : `rgba(235,242,255,${star.brightness})`;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, Math.max(0.6, baseWidth * 0.6), 0, Math.PI * 2);
-                ctx.fill();
-            }
+            // Resting stars use a softer tint in the same colour family;
+            // their warp heads match the leading band of the rotated spectrum.
+            const restingColors = ['#ffc5d0', '#ffdeb1', '#fff0b6', '#bcebdc', '#bdd5ff', '#dfc7ff'];
+            ctx.fillStyle = separation > 0.01
+                ? shiftedColors[0]
+                : restingColors[shift];
+            ctx.globalAlpha = star.brightness;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, Math.max(0.6, baseWidth * 0.6), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
         }
 
         ctx.font = '15px sans-serif';

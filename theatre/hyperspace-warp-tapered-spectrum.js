@@ -33,6 +33,8 @@ class WarpStage extends Stage {
         this.stars = Array.from({length: 1100}, () => this.makeStar(true));
         this.speed = 0;
         this.distanceUnits = 0;
+        // Fictional calibration: one simulation unit equals one millionth of a light-year.
+        this.lightYearsPerUnit = 0.000001;
         this.elapsedSeconds = 0;
         this.targetSpeed = 0;
         this.impulseSpeed = 0;
@@ -228,6 +230,12 @@ class WarpStage extends Stage {
         ctx.font = '13px monospace';
         ctx.fillText('DIST  ' + this.distanceUnits.toFixed(1) + ' su', 22, 75);
         ctx.fillText('TIME  ' + this.elapsedSeconds.toFixed(1) + ' s', 22, 94);
+        const ly = this.distanceUnits * this.lightYearsPerUnit;
+        const au = ly * 63241.077;
+        const distanceLabel = ly >= 0.01
+            ? ly.toFixed(4) + ' LY'
+            : au.toFixed(4) + ' AU';
+        ctx.fillText('TRAVEL  ' + distanceLabel + ' (sim scale)', 22, 113);
         // Replace the big cursor with a subtle blue indicator.
         const mx = width * (0.5 + this.steerX * 0.5);
         const my = height * (0.5 + this.steerY * 0.5);

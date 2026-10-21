@@ -5,7 +5,8 @@ files:
     head
     stage
 
-Three sliders control impulse speed, warp speed, and acceleration.\nMouse position controls turning relative to the canvas centre.
+Three sliders control impulse speed, warp speed, and acceleration.
+Mouse position controls turning relative to the canvas centre.
 Click the canvas or press Space to engage/disengage warp.
 Stars accelerate into colourful trails and settle back into points.
 */
@@ -33,6 +34,7 @@ class WarpStage extends Stage {
         this.lastTime = performance.now();
         this.steerX = 0;
         this.steerY = 0;
+        this.keysDown = new Set();
         this.canvas.addEventListener('mousemove', e => {
             const rect = this.canvas.getBoundingClientRect();
             this.steerX = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
@@ -45,12 +47,18 @@ class WarpStage extends Stage {
         this.canvas.style.cursor = 'pointer';
         this.canvas.addEventListener('click', () => this.toggleWarp());
         this.onWarpKey = e => {
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.code)) {
+                this.keysDown.add(e.code);
+                e.preventDefault();
+            }
             if (e.code === 'Space') {
                 e.preventDefault();
                 this.toggleWarp();
             }
         };
         window.addEventListener('keydown', this.onWarpKey);
+        window.addEventListener('keyup', e => this.keysDown.delete(e.code));
+        window.addEventListener('blur', () => this.keysDown.clear());
     }
 
     makeStar() {
@@ -92,10 +100,25 @@ class WarpStage extends Stage {
         ctx.fillRect(0, 0, width, height);
         ctx.lineCap = 'round';
 
+        const keyX = Number(this.keysDown.has('ArrowRight')) - Number(this.keysDown.has('ArrowLeft'));
+        const keyY = Number(this.keysDown.has('ArrowDown')) - Number(this.keysDown.has('ArrowUp'));
+        const inputX = Math.max(-1, Math.min(1, this.steerX + keyX));
+        const inputY = Math.max(-1, Math.min(1, this.steerY + keyY));
+        const turnRate = 0.75 / (1 + this.speed / 90);
+        const yaw = inputX * dt * turnRate;
+        const pitch = inputY * dt * turnRate;
+        const cy = Math.cos(yaw), sy = Math.sin(yaw);
+        const cp = Math.cos(pitch), sp = Math.sin(pitch);
+
         for (let i = 0; i < this.stars.length; i++) {
             let star = this.stars[i];
-            const oldZ = star.z;
-            star.z -= this.speed * dt;
+            // Rotate the local starfield opposite to the camera heading.
+            const x = star.x * cy - star.z * sy;
+            const z = star.x * sy + star.z * cy;
+            const y = star.y * cp - z * sp;
+            star.z = star.y * sp + z * cp - this.speed * dt;
+            star.x = x;
+            star.y = y;
 
             // Recycle stars that pass the camera or fly outside the view.
             if (star.z <= 0.8) {
@@ -139,7 +162,7 @@ class WarpStage extends Stage {
         ctx.fillText(this.warpEngaged ? 'WARP ENGAGED' : (Math.abs(this.speed - this.impulseSpeed) > 1 ? 'DROPPING OUT OF WARP' : 'IMPULSE / IDLE'), 22, 32);
         ctx.fillStyle = '#7891b1';
         ctx.font = '12px sans-serif';
-        ctx.fillText('Mouse to steer · click or SPACE to toggle warp', 22, 53);
+        ctx.fillText('Mouse / arrow keys to steer · click or SPACE for warp', 22, 53);
     }
 }
 

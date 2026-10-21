@@ -177,7 +177,9 @@ class WarpStage extends Stage {
 
             // At rest, points remain visible with no artificial streak.
             if (true) {
-                ctx.fillStyle = `rgba(235,242,255,${star.brightness})`;
+                ctx.fillStyle = separation > 0.01
+                    ? `rgba(250,82,107,${star.brightness})`
+                    : `rgba(235,242,255,${star.brightness})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, Math.max(0.6, baseWidth * 0.6), 0, Math.PI * 2);
                 ctx.fill();

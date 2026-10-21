@@ -18,6 +18,8 @@ addSliderControlSet({
         onchange(ev, unit) { stage.impulseSpeed = Number(ev.currentTarget.value); unit.value = ev.currentTarget.value; }},
     warpSpeed: {min: 20, max: 200, step: 5, value: 95,
         onchange(ev, unit) { stage.warpSpeed = Number(ev.currentTarget.value); unit.value = ev.currentTarget.value; }},
+    starCount: {min: 200, max: 5000, step: 100, value: 1100,
+        onchange(ev, unit) { stage.setStarCount(Number(ev.currentTarget.value)); unit.value = ev.currentTarget.value; }},
     warpRamp: {min: 0.2, max: 5, step: 0.1, value: 1,
         onchange(ev, unit) { stage.warpRamp = Number(ev.currentTarget.value); unit.value = ev.currentTarget.value; }}
 });
@@ -61,6 +63,12 @@ class WarpStage extends Stage {
         window.addEventListener('keydown', this.onWarpKey);
         window.addEventListener('keyup', e => this.keysDown.delete(e.code));
         window.addEventListener('blur', () => this.keysDown.clear());
+    }
+
+    setStarCount(count) {
+        const target = Math.max(200, Math.min(5000, Math.round(count)));
+        while (this.stars.length < target) this.stars.push(this.makeStar(true));
+        if (this.stars.length > target) this.stars.length = target;
     }
 
     makeStar(initial = false) {

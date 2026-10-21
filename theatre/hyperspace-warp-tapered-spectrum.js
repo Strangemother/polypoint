@@ -20,6 +20,8 @@ addSliderControlSet({
         onchange(ev, unit) { stage.warpSpeed = Number(ev.currentTarget.value); unit.value = ev.currentTarget.value; }},
     starCount: {min: 200, max: 5000, step: 100, value: 1100,
         onchange(ev, unit) { stage.setStarCount(Number(ev.currentTarget.value)); unit.value = ev.currentTarget.value; }},
+    spectrumShift: {min: 0, max: 5, step: 1, value: 0,
+        onchange(ev, unit) { stage.spectrumShift = Number(ev.currentTarget.value); unit.value = ev.currentTarget.value; }},
     warpRamp: {min: 0.2, max: 5, step: 0.1, value: 1,
         onchange(ev, unit) { stage.warpRamp = Number(ev.currentTarget.value); unit.value = ev.currentTarget.value; }}
 });
@@ -34,6 +36,7 @@ class WarpStage extends Stage {
         this.impulseSpeed = 0;
         this.warpSpeed = 95;
         this.warpRamp = 1;
+        this.spectrumShift = 0;
         this.warpEngaged = false;
         this.lastTime = performance.now();
         this.steerX = 0;
@@ -166,21 +169,25 @@ class WarpStage extends Stage {
             const spectrum = ['#fa526b', '#ffb457', '#f9eb82', '#64efbf', '#3876dc', '#a88cff'];
             // Every star traverses the entire rainbow; blue takes more space.
             const weights = [1, 1, 1, 0.7, 2.3, 1];
-            const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+            // Rotate colours and their widths as pairs, preserving blue's emphasis.
+            const shift = ((Math.round(this.spectrumShift) % spectrum.length) + spectrum.length) % spectrum.length;
+            const shiftedColors = spectrum.map((_, i) => spectrum[(i + shift) % spectrum.length]);
+            const shiftedWeights = weights.map((_, i) => weights[(i + shift) % weights.length]);
+            const totalWeight = shiftedWeights.reduce((sum, weight) => sum + weight, 0);
             const separation = Math.min(1, Math.max(0, (this.speed - 8) / 50));
             const baseWidth = Math.max(0.8, Math.min(3.2, 0.7 + (1 - star.z / 130) * 2.3));
             if (separation > 0.01) {
                 for (let band = 0; band < spectrum.length; band++) {
                     let weightBefore = 0;
-                    for (let k = 0; k < band; k++) weightBefore += weights[k];
+                    for (let k = 0; k < band; k++) weightBefore += shiftedWeights[k];
                     const a = weightBefore / totalWeight;
-                    const b = (weightBefore + weights[band]) / totalWeight;
+                    const b = (weightBefore + shiftedWeights[band]) / totalWeight;
                     const start = 1 - b * separation;
                     const end = 1 - a * separation;
                     // Keep normal width except for the fine red leading segment.
-                    ctx.lineWidth = band === 0 ? baseWidth * 0.3 : baseWidth;
+                    ctx.lineWidth = (band + shift) % spectrum.length === 0 ? baseWidth * 0.3 : baseWidth;
                     ctx.globalAlpha = star.brightness;
-                    ctx.strokeStyle = spectrum[band];
+                    ctx.strokeStyle = shiftedColors[band];
                     ctx.beginPath();
                     ctx.moveTo(tail.x + dx * start, tail.y + dy * start);
                     ctx.lineTo(tail.x + dx * end, tail.y + dy * end);
@@ -192,7 +199,7 @@ class WarpStage extends Stage {
             // At rest, points remain visible with no artificial streak.
             if (true) {
                 ctx.fillStyle = separation > 0.01
-                    ? `rgba(250,82,107,${star.brightness})`
+                    ? shiftedColors[0]
                     : `rgba(235,242,255,${star.brightness})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, Math.max(0.6, baseWidth * 0.6), 0, Math.PI * 2);

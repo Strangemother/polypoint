@@ -149,17 +149,22 @@ class WarpStage extends Stage {
             // separates the wavelengths into visible streaks.
             const dx = p.x - tail.x;
             const dy = p.y - tail.y;
-            const spectrum = ['#fa526b', '#eb729d', '#b678d9', '#354cb2', '#3876dc', '#a6caff'];
+            const spectrum = ['#fa526b', '#ffb457', '#f9eb82', '#64efbf', '#3876dc', '#a88cff'];
+            // Every star traverses the entire rainbow; blue takes more space.
+            const weights = [1, 1, 1, 0.7, 2.3, 1];
+            const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
             const separation = Math.min(1, Math.max(0, (this.speed - 8) / 50));
             const baseWidth = Math.max(0.8, Math.min(3.2, 0.7 + (1 - star.z / 130) * 2.3));
             if (separation > 0.01) {
                 for (let band = 0; band < spectrum.length; band++) {
-                    const a = band / spectrum.length;
-                    const b = (band + 1) / spectrum.length;
+                    let weightBefore = 0;
+                    for (let k = 0; k < band; k++) weightBefore += weights[k];
+                    const a = weightBefore / totalWeight;
+                    const b = (weightBefore + weights[band]) / totalWeight;
                     const start = 1 - b * separation;
                     const end = 1 - a * separation;
-                    // Fine red tip, widening smoothly towards the blue-white head.
-                    ctx.lineWidth = baseWidth * (0.24 + 0.76 * ((band + 0.5) / spectrum.length));
+                    // Keep normal width except for the fine red leading segment.
+                    ctx.lineWidth = band === 0 ? baseWidth * 0.3 : baseWidth;
                     ctx.globalAlpha = star.brightness;
                     ctx.strokeStyle = spectrum[band];
                     ctx.beginPath();

@@ -5,7 +5,8 @@ files:
     head
     stage
 
-Three sliders control impulse speed, warp speed, and acceleration.\nClick the canvas or press Space to engage/disengage warp.
+Three sliders control impulse speed, warp speed, and acceleration.
+Click the canvas or press Space to engage/disengage warp.
 Stars accelerate into colourful trails and settle back into points.
 */
 
@@ -24,7 +25,11 @@ class WarpStage extends Stage {
     mounted() {
         this.stars = Array.from({length: 650}, () => this.makeStar());
         this.speed = 0;
-        this.targetSpeed = 0;\n        this.impulseSpeed = 0;\n        this.warpSpeed = 95;\n        this.warpRamp = 1;\n        this.warpEngaged = false;
+        this.targetSpeed = 0;
+        this.impulseSpeed = 0;
+        this.warpSpeed = 95;
+        this.warpRamp = 1;
+        this.warpEngaged = false;
         this.lastTime = performance.now();
         this.canvas.style.cursor = 'pointer';
         this.canvas.addEventListener('click', () => this.toggleWarp());
@@ -68,7 +73,8 @@ class WarpStage extends Stage {
         const height = ctx.canvas.height;
 
         // Ease speed in both directions. In normal space stars are still.
-        this.targetSpeed = this.warpEngaged ? this.warpSpeed : this.impulseSpeed;\n        const response = 1 - Math.exp(-dt * (this.warpEngaged ? 1.8 : 2.4) * this.warpRamp);
+        this.targetSpeed = this.warpEngaged ? this.warpSpeed : this.impulseSpeed;
+        const response = 1 - Math.exp(-dt * (this.warpEngaged ? 1.8 : 2.4) * this.warpRamp);
         this.speed += (this.targetSpeed - this.speed) * response;
 
         ctx.fillStyle = '#02040e';

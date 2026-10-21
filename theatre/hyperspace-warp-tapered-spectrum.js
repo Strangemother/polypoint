@@ -32,6 +32,8 @@ class WarpStage extends Stage {
     mounted() {
         this.stars = Array.from({length: 1100}, () => this.makeStar(true));
         this.speed = 0;
+        this.distanceUnits = 0;
+        this.elapsedSeconds = 0;
         this.targetSpeed = 0;
         this.impulseSpeed = 0;
         this.warpSpeed = 95;
@@ -118,7 +120,12 @@ class WarpStage extends Stage {
         // Ease speed in both directions. In normal space stars are still.
         this.targetSpeed = this.warpEngaged ? this.warpSpeed : this.impulseSpeed;
         const response = 1 - Math.exp(-dt * (this.warpEngaged ? 1.8 : 2.4) * this.warpRamp);
+        const previousSpeed = this.speed;
         this.speed += (this.targetSpeed - this.speed) * response;
+        // Speed already describes simulated depth-units per real second.
+        // Integrate the mean frame velocity for a frame-rate-independent odometer.
+        this.distanceUnits += Math.max(0, (previousSpeed + this.speed) * 0.5) * dt;
+        this.elapsedSeconds += dt;
 
         ctx.fillStyle = '#02040e';
         ctx.fillRect(0, 0, width, height);
@@ -217,6 +224,10 @@ class WarpStage extends Stage {
         ctx.fillStyle = '#7891b1';
         ctx.font = '12px sans-serif';
         ctx.fillText('Mouse / arrow keys to steer · click or SPACE for warp', 22, 53);
+        ctx.fillStyle = '#b6ddf8';
+        ctx.font = '13px monospace';
+        ctx.fillText('DIST  ' + this.distanceUnits.toFixed(1) + ' su', 22, 75);
+        ctx.fillText('TIME  ' + this.elapsedSeconds.toFixed(1) + ' s', 22, 94);
         // Replace the big cursor with a subtle blue indicator.
         const mx = width * (0.5 + this.steerX * 0.5);
         const my = height * (0.5 + this.steerY * 0.5);

@@ -68,10 +68,16 @@ class WarpStage extends Stage {
         // introduced ahead of the flight direction instead of popping up
         // at arbitrary screen coordinates.
         const depth = initial ? 2 + Math.random() * 145 : 115 + Math.random() * 35;
-        const spread = depth * 0.95;
+        // Seed across the actual camera frustum rather than a square.
+        // The 10% overscan keeps stars populated right up to the edges.
+        const width = this.canvas.width;
+        const height = this.canvas.height;
+        const focal = Math.min(width, height) * 0.75;
+        const halfX = depth * width / (2 * focal) * 1.1;
+        const halfY = depth * height / (2 * focal) * 1.1;
         return {
-            x: (Math.random() * 2 - 1) * spread,
-            y: (Math.random() * 2 - 1) * spread,
+            x: (Math.random() * 2 - 1) * halfX,
+            y: (Math.random() * 2 - 1) * halfY,
             z: depth,
             brightness: 0.55 + Math.random() * 0.45
         };
@@ -177,7 +183,9 @@ class WarpStage extends Stage {
 
             // At rest, points remain visible with no artificial streak.
             if (true) {
-                ctx.fillStyle = `rgba(235,242,255,${star.brightness})`;
+                ctx.fillStyle = separation > 0.01
+                    ? `rgba(250,82,107,${star.brightness})`
+                    : `rgba(235,242,255,${star.brightness})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, Math.max(0.6, baseWidth * 0.6), 0, Math.PI * 2);
                 ctx.fill();

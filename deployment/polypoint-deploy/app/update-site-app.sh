@@ -110,12 +110,17 @@ else
     pull_with_collision_resolution
 fi
 
-# Activate virtual environment.
-print_section "Collect Static"
+# Use the same virtualenv as Gunicorn, installing dependencies before Django imports.
 source "$APP_ROOT/.venv/bin/activate"
-
-# Collect static files.
 cd "$APP_ROOT/site/beta"
-python3 manage.py collectstatic --noinput
+
+print_section "Install Requirements"
+python -m pip install --disable-pip-version-check -r requirements.txt
+
+print_section "Database Migrations"
+python manage.py migrate --noinput
+
+print_section "Collect Static"
+python manage.py collectstatic --noinput
 
 echo "✓ Application updated successfully"

@@ -1,5 +1,6 @@
 /*
 title: VAD Waveform Display
+category: audio
 */
 async function micMonitorMain() {
     const myvad = await vad.MicVAD.new({

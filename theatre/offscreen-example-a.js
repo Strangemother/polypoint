@@ -1,5 +1,6 @@
 /*
 title: Offscreen Canvas with Distorted Copy
+category: offscreen
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

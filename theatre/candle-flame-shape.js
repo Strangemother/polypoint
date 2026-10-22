@@ -1,5 +1,6 @@
 /*
 title: Flame Teardrop Shape Generator
+category: shapes
 files:
     head
     stroke

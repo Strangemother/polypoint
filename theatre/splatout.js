@@ -1,6 +1,7 @@
 /*
 ---
 title: Splat Explosion Effect
+category: particles
 files:
     head
     point

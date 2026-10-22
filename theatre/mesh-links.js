@@ -1,5 +1,6 @@
 /*
 title: Mesh Links
+category: graph
 files:
     ../point_src/math.js
     head

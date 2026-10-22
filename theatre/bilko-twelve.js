@@ -1,5 +1,6 @@
 /*
 title: Bezier Egg Shape with Control Points
+category: curve
 src_dir: ../point_src/
 files:
     ../point_src/math.js

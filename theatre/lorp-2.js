@@ -1,5 +1,6 @@
 /*
 title: Bezier Curve Tube Between Points
+category: curve
 files:
     head
     point

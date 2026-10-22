@@ -1,5 +1,6 @@
 /*
 title: Click Event Handler
+category: events
 files:
     head
     ../point_src/pointpen.js

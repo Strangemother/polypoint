@@ -1,6 +1,7 @@
 /*
 ---
 title: Bezier Curve Example
+category: curve
 files:
     ../point_src/math.js
     head

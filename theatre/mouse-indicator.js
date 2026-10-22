@@ -1,6 +1,7 @@
 /*
 ---
 title: Widget: Mouse Indicator
+category: widgets
 tags: widget
 files:
     head

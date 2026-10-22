@@ -1,5 +1,6 @@
 /*
 title: Brain.js Neural Network Library
+category: neural
 */
 
 (function (global, factory) {

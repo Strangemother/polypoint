@@ -1,5 +1,6 @@
 /*
 title: (Better) Control Point
+category: binding
 files:
     head
     point

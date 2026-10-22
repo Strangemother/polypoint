@@ -1,5 +1,6 @@
 /*
 title: Quadtree Spatial Partitioning
+category: quadtree
 */
 
 class QuadTree {

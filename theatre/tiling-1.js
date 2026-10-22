@@ -1,6 +1,7 @@
 /*
 ---
 title: Spread Line
+category: arrange
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

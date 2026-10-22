@@ -1,5 +1,6 @@
 /*
 title: Line Rider Smooth Rolling
+category: physics
 src_dir: ../point_src/
 files:
     ../point_src/core/head.js

@@ -1,5 +1,6 @@
 /*
 title: Canvas Blur Filter
+category: blur
 files:
     head
     point

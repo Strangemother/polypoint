@@ -1,6 +1,7 @@
 /*
 ---
 title: Bezier
+category: curve
 files:
     ../point_src/math.js
     head

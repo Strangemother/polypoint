@@ -1,5 +1,6 @@
 /*
 title: Pairs And Siblings
+category: chain
 files:
     head
     stage

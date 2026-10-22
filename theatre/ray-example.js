@@ -1,5 +1,6 @@
 /*
 title: Ray Casting Example
+category: projection
 files:
     ../point_src/core/head.js
     ../point_src/stage.js

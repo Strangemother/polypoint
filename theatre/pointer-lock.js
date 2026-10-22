@@ -1,5 +1,6 @@
 /*
 title: Pointer Lock API Example
+category: mouse
 */
 
 /*

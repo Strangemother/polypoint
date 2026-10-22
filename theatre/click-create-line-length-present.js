@@ -1,6 +1,7 @@
 /*
 ---
 title: Line Length Display on Click
+category: measurement
 files:
     head
     point

@@ -1,5 +1,6 @@
 /*
 title: Vector Controller Object
+category: vectors
 */
 
 // Gamepad integration

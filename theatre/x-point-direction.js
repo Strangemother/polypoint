@@ -1,5 +1,6 @@
 /*
 title: Experimental: Point Direction
+category: angles
 files:
     ../point_src/math.js
     ../point_src/core/head.js

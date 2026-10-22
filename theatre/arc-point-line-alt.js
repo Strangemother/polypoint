@@ -1,5 +1,6 @@
 /*
 title: Arc Point Line Alt
+category: arc
 files:
     head
     point

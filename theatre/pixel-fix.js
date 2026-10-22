@@ -1,5 +1,6 @@
 /*
 title: Pixel Rounding Fix
+category: canvas
 */
 class MainStage extends Stage {
     // canvas = document.getElementById('playspace');

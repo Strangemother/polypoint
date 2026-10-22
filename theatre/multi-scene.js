@@ -1,5 +1,6 @@
 /*
 title: Multi Scene
+category: stage
 files:
     head
     pointlist

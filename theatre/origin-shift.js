@@ -1,5 +1,6 @@
 /*
 title: Origin Shift
+category: relative
 files:
     ../point_src/math.js
     ../point_src/core/head.js

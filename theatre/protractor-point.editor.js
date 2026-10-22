@@ -1,5 +1,6 @@
 /*
 title: Protractor Point Editor
+category: angles
 */
 
 /* Perform this:

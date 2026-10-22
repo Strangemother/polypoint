@@ -1,5 +1,6 @@
 /*
 title: Quadtree Visual Sketch
+category: quadtree
 */
 	
 	let qtree;

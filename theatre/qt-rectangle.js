@@ -1,5 +1,6 @@
 /*
 title: Quadtree Rectangle Operations
+category: quadtree
 */
 	
 	class Rectangle {

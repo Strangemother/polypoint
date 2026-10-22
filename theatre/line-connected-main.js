@@ -1,5 +1,6 @@
 /*
 title: Connected Line Chain
+category: chain
 files:
     head
     point

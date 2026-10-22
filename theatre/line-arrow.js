@@ -1,5 +1,6 @@
 /*
 title: Line Arrow
+category: line
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

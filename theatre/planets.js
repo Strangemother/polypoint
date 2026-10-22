@@ -1,5 +1,6 @@
 /*
 title: Orbital Planets System
+category: space
 files:
     ../point_src/core/head.js
     ../point_src/pointlistpen.js

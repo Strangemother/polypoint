@@ -1,5 +1,6 @@
 /*
 title: UI Widget Components
+category: widgets
 files:
     head
     point

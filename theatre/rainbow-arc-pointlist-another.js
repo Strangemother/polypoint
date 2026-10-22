@@ -1,5 +1,6 @@
 /*
 title: Rainbow Arc Through Points
+category: arc
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

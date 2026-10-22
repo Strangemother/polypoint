@@ -1,5 +1,6 @@
 /*
 title: Random Gauge Meter
+category: widgets
 files:
     ../point_src/core/head.js
     ../point_src/point-content.js

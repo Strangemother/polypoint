@@ -1,5 +1,6 @@
 /*
 title: Quadratic Curve Drawing
+category: curve
 files:
     ../point_src/math.js
     ../point_src/core/head.js

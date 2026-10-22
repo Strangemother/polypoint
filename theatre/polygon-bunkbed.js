@@ -1,5 +1,6 @@
 /*
 title: Polygon Point-in-Polygon Test
+category: geometry
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

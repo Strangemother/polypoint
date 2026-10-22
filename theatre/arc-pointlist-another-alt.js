@@ -1,5 +1,6 @@
 /*
 title: Arc Pointlist Another Alt
+category: arc
 */
 const arcLoop = function(ctx, points) {
 

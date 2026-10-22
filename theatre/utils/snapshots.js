@@ -1,5 +1,6 @@
 /*
 title: Snapshot Utility Functions
+category: images
 */
 
 // In your js file you can include this code block

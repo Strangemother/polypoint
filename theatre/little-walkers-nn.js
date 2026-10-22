@@ -1,5 +1,6 @@
 /*
 title: Poly Bugs!
+category: animation
 files:
     head
     point

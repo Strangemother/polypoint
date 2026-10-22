@@ -1,5 +1,6 @@
 /*
 title: Screen Lock
+category: screen
 */
 
 class MainStage extends Stage {

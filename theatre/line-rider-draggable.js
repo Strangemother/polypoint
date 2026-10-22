@@ -1,5 +1,6 @@
 /*
 title: Line Rider with Draggable Boundary
+category: physics
 src_dir: ../point_src/
 files:
     ../point_src/core/head.js

@@ -177,3 +177,34 @@ DigitalOcean links:
 - NS setup: https://docs.digitalocean.com/products/networking/dns/getting-started/dns-registrars/
 - IPv6 setup: https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets
 
+
+## Production workflow and dependency updates
+
+The `Deploy to Production` workflow invokes `update-app.sh`, which runs the shared
+`app/update-site-app.sh` as the `site` user. After fetching code, the app update
+activates `/home/site/apps/polypoint/.venv` (the same virtualenv used by Gunicorn),
+installs `site/beta/requirements.txt`, applies migrations, and collects static
+files, in that order. Any failure aborts the deployment before service restart.
+Requirements are checked on every deployment; this does not run `pip --upgrade`.
+The SSH command timeout is 20 minutes to allow dependency installation.
+
+To register ChatGPT's OAuth client without logging into the server:
+
+1. Merge and let the normal production deployment finish.
+2. Open GitHub Actions → Deploy to Production → Run workflow, using `main`.
+3. Set `oauth_redirect_uri` to the exact callback currently shown in ChatGPT's
+   OAuth form (the default is the callback from the initial setup). Leave it
+   blank for a normal manual deployment without OAuth registration.
+4. Run the workflow. After a successful deployment it registers the fixed client
+   as the `site` user with the production virtualenv. This is idempotent for the
+   same callback and refuses to overwrite mismatched existing client settings.
+
+Push-triggered deployments do not register or modify an OAuth client. The callback
+is public metadata, not a password or token; no API key is needed in the workflow.
+Input is passed through the SSH action's environment and shell-quoted before use.
+
+Both shipped nginx configs forward only the supported OAuth discovery URLs to
+Django before denying other hidden paths. `update-app.sh` already installs the
+configs, runs `nginx -t`, and reloads nginx. Other `.well-known` paths are not
+opened by this exception. The server's real nginx config check remains the final
+validation before reload.

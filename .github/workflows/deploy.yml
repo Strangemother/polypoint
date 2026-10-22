@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch:  # Allows manual trigger from GitHub Actions tab
+    inputs:
+      oauth_redirect_uri:
+        description: "Optional: register ChatGPT's exact OAuth callback after deploying"
+        required: false
+        type: string
+        default: 'https://chatgpt.com/connector/oauth/yRaE1roUUgwO'
 
 concurrency:
   group: production-deploy
@@ -17,12 +23,17 @@ jobs:
     steps:
       - name: Deploy to Server
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          THEATRE_OAUTH_REDIRECT_URI: ${{ inputs.oauth_redirect_uri || '' }}
         with:
           host: 178.128.172.154
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 32432
+          envs: THEATRE_OAUTH_REDIRECT_URI
+          command_timeout: 20m
           script: |
+            set -euo pipefail
             cd /home/site/apps/polypoint
             if [ -e .git/index.lock ]; then
               if fuser -s .git/index.lock; then
@@ -35,3 +46,9 @@ jobs:
             su - site -s /bin/bash -c 'cd /home/site/apps/polypoint && git fetch origin main && git reset --hard origin/main && git clean -fd && chmod 755 deployment/polypoint-deploy/deploy/gunicorn/start.sh'
             cd /home/site/apps/polypoint/deployment/polypoint-deploy
             ./update-app.sh
+
+            # Manual runs can bootstrap OAuth without an interactive SSH login.
+            if [ -n "${THEATRE_OAUTH_REDIRECT_URI:-}" ]; then
+              callback_q="$(printf '%q' "$THEATRE_OAUTH_REDIRECT_URI")"
+              su - site -s /bin/bash -c "cd /home/site/apps/polypoint/site/beta && /home/site/apps/polypoint/.venv/bin/python manage.py register_theatre_oauth_client --redirect-uri $callback_q"
+            fi

@@ -10,6 +10,8 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
+from .oauth import authenticate_oauth, metadata_url
+
 from .views import (
     MAX_REVISION, _authenticate, _json_response, _read, _remove, _store,
     _validate_fields,
@@ -115,13 +117,13 @@ class TheatreMCPView(View):
         if origin is not None and origin not in allowed:
             return _rpc_error(None, -32000, "Origin is not allowed.", 403)
         try:
-            user = _authenticate(request)
+            user = _authenticate(request) or authenticate_oauth(request)
         except Exception:
             logger.exception("MCP authentication failed")
             return _rpc_error(None, -32603, "Internal server error.", 500)
         if user is None:
             response = _rpc_error(None, -32000, "Valid API credentials are required.", 401)
-            response["WWW-Authenticate"] = 'Bearer realm="polypoint-theatre"'
+            response["WWW-Authenticate"] = f'Bearer resource_metadata="{metadata_url()}", scope="theatre"'
             return response
         request.theatre_api_user = user
         version = request.headers.get("MCP-Protocol-Version")

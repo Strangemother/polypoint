@@ -199,6 +199,13 @@ def _authenticate(request):
     if not token or not token.isascii():
         return None
 
+    # Accept standard bearer credentials while preserving pre-MCP raw keys.
+    parts = token.split()
+    if len(parts) == 2 and parts[0].lower() == "bearer":
+        token = parts[1]
+    elif len(parts) != 1:
+        return None
+
     key_hash = TheatreAPIKey.hash_token(token)
     key = (
         TheatreAPIKey.objects.select_related("user")

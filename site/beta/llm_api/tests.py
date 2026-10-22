@@ -1,4 +1,5 @@
 import hashlib
+import json
 import re
 from datetime import timedelta
 from urllib.parse import urlencode
@@ -395,3 +396,132 @@ class TheatreAPIViewTests(TestCase):
         self.assertEqual(method.json()["error"]["code"], "method_not_allowed")
         self.assertEqual(oversized.status_code, 413)
         self.assertEqual(oversized.json()["error"]["code"], "content_too_large")
+
+
+class TheatreMCPTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(username="mcp-owner")
+        self.key, self.token = TheatreAPIKey.issue_for(self.user)
+        self.endpoint = reverse("llm_api:mcp")
+
+    def rpc(self, method, params=None, request_id=1, **headers):
+        message = {"jsonrpc": "2.0", "method": method}
+        if request_id is not None:
+            message["id"] = request_id
+        if params is not None:
+            message["params"] = params
+        return self.client.post(
+            self.endpoint, data=json.dumps(message),
+            content_type="application/json",
+            **({"HTTP_AUTHORIZATION": "Bearer " + self.token,
+                "HTTP_ACCEPT": "application/json, text/event-stream",
+                "HTTP_MCP_PROTOCOL_VERSION": "2025-06-18"} | headers),
+        )
+
+    def tool(self, name, arguments):
+        return self.rpc("tools/call", {"name": name, "arguments": arguments}).json()
+
+    def payload(self, result):
+        return json.loads(result["result"]["content"][0]["text"])
+
+    def test_initialize_discover_notify_and_ping(self):
+        response = self.rpc("initialize", {
+            "protocolVersion": "2099-01-01", "capabilities": {},
+            "clientInfo": {"name": "test", "version": "1"},
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["result"]["protocolVersion"], "2025-06-18")
+        self.assertEqual(response["Cache-Control"], "no-store")
+        self.assertNotIn("Mcp-Session-Id", response)
+        notify = self.rpc("notifications/initialized", request_id=None)
+        self.assertEqual(notify.status_code, 202)
+        self.assertEqual(notify.content, b"")
+        tools = self.rpc("tools/list").json()["result"]["tools"]
+        self.assertEqual({t["name"] for t in tools}, {
+            "store_theatre", "read_theatre", "remove_theatre"})
+        self.assertTrue(next(t for t in tools if t["name"] == "read_theatre")["annotations"]["readOnlyHint"])
+        self.assertEqual(self.rpc("ping").json()["result"], {})
+
+    def test_full_lifecycle_and_revision_conflict(self):
+        source = 'const text = "café + & =";\r\n'
+        created = self.payload(self.tool("store_theatre", {
+            "name": "mcp-example", "theatre_file_content": source}))
+        self.assertEqual(created["revision"], 1)
+        read = self.payload(self.tool("read_theatre", {"id": created["id"]}))
+        self.assertEqual(read["theatre_file_content"], source)
+        conflict = self.tool("store_theatre", {
+            "id": created["id"], "theatre_file_content": "changed"})
+        self.assertTrue(conflict["result"]["isError"])
+        self.assertEqual(self.payload(conflict)["error"]["code"], "revision_required")
+        updated = self.payload(self.tool("store_theatre", {
+            "id": created["id"], "theatre_file_content": "changed", "revision": 1}))
+        self.assertEqual(updated["revision"], 2)
+        stale = self.payload(self.tool("remove_theatre", {"id": created["id"], "revision": 1}))
+        self.assertEqual(stale["error"]["code"], "revision_conflict")
+        removed = self.payload(self.tool("remove_theatre", {"id": created["id"], "revision": 2}))
+        self.assertTrue(removed["removed"])
+        self.assertEqual(self.payload(self.tool("read_theatre", {"id": created["id"]}))["error"]["code"], "not_found")
+
+    def test_ownership_and_public_reads(self):
+        other = get_user_model().objects.create_user(username="other-mcp")
+        example = TheatreExample.objects.create(owner=other, name="other", source="other")
+        for name, args in (
+            ("read_theatre", {"id": example.pk}),
+            ("store_theatre", {"id": example.pk, "revision": 1, "theatre_file_content": "oops"}),
+            ("remove_theatre", {"id": example.pk, "revision": 1}),
+        ):
+            self.assertEqual(self.payload(self.tool(name, args))["error"]["code"], "not_found")
+        example.visibility = "public"
+        example.save()
+        result = self.payload(self.tool("read_theatre", {"name": "other", "scope": "public"}))
+        self.assertEqual(result["theatre_file_content"], "other")
+        self.assertFalse(result["owned"])
+
+    def test_authentication_origin_and_http_transport(self):
+        self.assertEqual(self.rpc("tools/list", HTTP_AUTHORIZATION="").status_code, 401)
+        self.assertEqual(self.rpc("tools/list", HTTP_ORIGIN="https://evil.example").status_code, 403)
+        self.assertEqual(self.rpc("tools/list", HTTP_ORIGIN="http://testserver").status_code, 200)
+        self.assertEqual(self.rpc("tools/list", HTTP_ACCEPT="application/json").status_code, 406)
+        self.assertEqual(self.rpc("tools/list", HTTP_MCP_PROTOCOL_VERSION="invalid").status_code, 400)
+        for method in (self.client.get, self.client.delete):
+            response = method(self.endpoint, HTTP_AUTHORIZATION="Bearer " + self.token)
+            self.assertEqual(response.status_code, 405)
+            self.assertEqual(response["Allow"], "POST")
+        self.key.revoked_at = timezone.now()
+        self.key.save()
+        self.assertEqual(self.rpc("tools/list").status_code, 401)
+
+    def test_invalid_arguments_do_not_mutate(self):
+        for arguments in (
+            {"name": "one", "id": "two", "theatre_file_content": "x"},
+            {"name": "../escape", "theatre_file_content": "x"},
+            {"name": "one", "theatre_file_content": "x", "owner": "other"},
+            {"name": "one", "theatre_file_content": "x", "revision": True},
+            {"name": "one", "theatre_file_content": "x", "revision": "1"},
+            {"name": "one", "theatre_file_content": "x" * 1_048_577},
+        ):
+            self.assertEqual(self.tool("store_theatre", arguments)["error"]["code"], -32602)
+        self.assertEqual(self.tool("remove_theatre", {"name": "one"})["error"]["code"], -32602)
+        self.assertEqual(self.tool("read_theatre", {"id": "one", "scope": "public"})["error"]["code"], -32602)
+        self.assertEqual(self.tool("unknown", {})["error"]["code"], -32602)
+        self.assertFalse(TheatreExample.objects.exists())
+
+    def test_malformed_messages_and_notification_cannot_execute_tool(self):
+        for body in ('{', '[]', '{"jsonrpc":"2.0","id":1,"id":2,"method":"ping"}',
+                     '{"jsonrpc":"2.0","id":true,"method":"ping"}'):
+            response = self.client.post(self.endpoint, body, content_type="application/json",
+                HTTP_AUTHORIZATION="Bearer " + self.token,
+                HTTP_ACCEPT="application/json, text/event-stream")
+            self.assertEqual(response.status_code, 400)
+        self.assertEqual(self.rpc("unknown").json()["error"]["code"], -32601)
+        response = self.rpc("tools/call", {"name": "store_theatre", "arguments": {
+            "name": "nope", "theatre_file_content": "x"}}, request_id=None)
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(TheatreExample.objects.exists())
+
+    def test_form_api_accepts_bearer_and_legacy_raw_key(self):
+        for token in (self.token, "Bearer " + self.token):
+            response = self.client.post(reverse("llm_api:theatres"),
+                urlencode({"action": "read", "name": "missing"}),
+                content_type="application/x-www-form-urlencoded", HTTP_AUTHORIZATION=token)
+            self.assertEqual(response.status_code, 404)

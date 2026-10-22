@@ -1,6 +1,7 @@
 /*
 
 title: Dual Line Potter Wheel
+category: drawing
 files:
     head
     point

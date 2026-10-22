@@ -1,5 +1,6 @@
 /*
 title: Stamp Pattern Tool
+category: drawing
 files:
     head
     ../point_src/math.js

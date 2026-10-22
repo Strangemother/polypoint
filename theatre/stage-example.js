@@ -1,5 +1,6 @@
 /*
 title: Basic Stage Setup
+category: basic
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

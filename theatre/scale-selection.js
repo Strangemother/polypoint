@@ -1,5 +1,6 @@
 /*
 title: Scale Selection Tool
+category: scaling
 files:
     head
     point

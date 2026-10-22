@@ -1,5 +1,6 @@
 /*
 title: Node Titles with Styled Arrows
+category: text
 files:
     head
     point

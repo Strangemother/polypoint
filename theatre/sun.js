@@ -1,5 +1,6 @@
 /*
 title: Radial Sun Ray Effect
+category: space
 files:
     ../point_src/core/head.js
     ../point_src/pointlistpen.js

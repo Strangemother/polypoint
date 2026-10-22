@@ -1,5 +1,6 @@
 /*
 title: Bezier Curve Between Split Points
+category: curve
 files:
     head
     point

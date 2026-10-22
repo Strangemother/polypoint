@@ -1,6 +1,7 @@
 /*
 
 title: Spinning Function Plotter
+category: plotter
 files:
     head
     point

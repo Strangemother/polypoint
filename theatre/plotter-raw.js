@@ -1,6 +1,7 @@
 /*
 
 title: Raw Function Plotter
+category: graph
 files:
     head
     point

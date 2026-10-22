@@ -1,5 +1,6 @@
 /*
 title: Rotation Selection Tool
+category: mouse
 files:
     head
     point

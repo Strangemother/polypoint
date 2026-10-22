@@ -1,6 +1,7 @@
 /*
 ---
 title: Spread Line Distribution V2
+category: arrange
 src_dir: ../point_src/
 files:
     ../point_src/core/head.js

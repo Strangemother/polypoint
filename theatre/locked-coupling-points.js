@@ -1,6 +1,7 @@
 /*
 ---
 title: Locked Coupling Points
+category: binding
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

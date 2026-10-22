@@ -1,5 +1,6 @@
 /*
 title: Click-Drag Point Creation
+category: mouse
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

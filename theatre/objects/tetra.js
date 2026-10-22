@@ -1,5 +1,6 @@
 /*
 title: Tetrahedron Object
+category: pseudo3D
 */
 
 

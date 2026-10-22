@@ -1,5 +1,6 @@
 /*
 title: Track one point
+category: tracking
 files:
     head
     point

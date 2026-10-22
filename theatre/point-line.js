@@ -1,5 +1,6 @@
 /*
 title: Point to Line Projection
+category: projection
 */
 
 class Line {

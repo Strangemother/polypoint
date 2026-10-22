@@ -1,5 +1,6 @@
 /*
 title: Clipping Path Star Example
+category: clipping
 files:
     head
     point

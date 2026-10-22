@@ -1,5 +1,6 @@
 /*
 title: Pointlist Split
+category: split
 files:
     head
     point

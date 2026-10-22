@@ -1,5 +1,6 @@
 /*
 title: Point Within Polygon Hit Test
+category: geometry
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

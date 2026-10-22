@@ -1,5 +1,6 @@
 /*
 title: Street Plot
+category: plotter
 files:
     head
     pointlist

@@ -1,5 +1,6 @@
 /*
 title: Point Stack Management
+category: arrange
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,5 +1,6 @@
 /*
 title: Vector Rotation Field
+category: angles
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

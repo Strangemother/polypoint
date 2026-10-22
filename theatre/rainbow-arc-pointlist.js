@@ -1,5 +1,6 @@
 /*
 title: Rainbow Gradient Arc Path
+category: arc
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

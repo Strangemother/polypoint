@@ -1,5 +1,6 @@
 /*
 title: Canvas Pattern Fill
+category: patterns
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

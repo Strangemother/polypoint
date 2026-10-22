@@ -1,5 +1,6 @@
 /*
 title: Canvas Snapshot Upload
+category: images
 */
     /*
 title: Upload Snapshots

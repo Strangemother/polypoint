@@ -1,6 +1,7 @@
 /*
 
 title: Cosine-Sine Wave Plotter
+category: graph
 files:
     head
     point

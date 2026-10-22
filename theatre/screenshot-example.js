@@ -1,5 +1,6 @@
 /*
 title: Screenshot
+category: images
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

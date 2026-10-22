@@ -1,5 +1,6 @@
 /*
 title: MIDI Tools
+category: midi
 https://www.recordingblogs.com/wiki/status-byte-of-a-midi-message
 */
 

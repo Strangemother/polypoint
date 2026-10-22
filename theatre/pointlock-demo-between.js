@@ -1,6 +1,7 @@
 /*
 ---
 title: PointLock Demo
+category: pointlock
 files:
     ../point_src/math.js
     head

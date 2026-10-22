@@ -1,6 +1,7 @@
 /*
 
 title: Spinning Plotter V2
+category: plotter
 files:
     head
     point

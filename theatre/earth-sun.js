@@ -1,5 +1,6 @@
 /*
 title: Earth and Sun
+category: space
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,5 +1,6 @@
 /*
 title: MIDI Tracks
+category: midi
 */
 
 const riverFlowsIntro = [

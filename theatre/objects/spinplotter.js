@@ -1,5 +1,6 @@
 /*
 title: Spinning Plot Object
+category: plotter
 */
 
 class SpinPlotter extends Point {

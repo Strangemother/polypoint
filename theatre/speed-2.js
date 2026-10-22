@@ -1,5 +1,6 @@
 /*
 title: Speed Calculation V2
+category: velocity
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

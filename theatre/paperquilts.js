@@ -1,5 +1,6 @@
 /*
 title: Will be PaperQuilts logo.
+category: patterns
 files:
     head
     point

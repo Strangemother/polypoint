@@ -1,6 +1,7 @@
 /*
 src_dir: ../point_src/
 title: Experimental: Projected Circle
+category: pseudo3D
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,6 +1,7 @@
 /*
 ---
 title: Inverted Maze Walls (Origin Shift)
+category: maze
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

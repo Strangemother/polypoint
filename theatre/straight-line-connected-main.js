@@ -1,5 +1,6 @@
 /*
 title: Straight Line Connection
+category: line
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

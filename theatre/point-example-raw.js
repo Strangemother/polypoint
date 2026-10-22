@@ -1,5 +1,6 @@
 /*
 title: Raw Point Example
+category: raw
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

@@ -1,6 +1,7 @@
 /*
 ---
 title: Project Cone
+category: pseudo3D
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

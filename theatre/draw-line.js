@@ -1,5 +1,6 @@
 /*
 title: Interactive Line Drawing
+category: drawing
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

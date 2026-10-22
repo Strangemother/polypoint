@@ -1,5 +1,6 @@
 /*
 title: Multisheet Component V1
+category: components
 */
 console.log('multisheet-component')
 

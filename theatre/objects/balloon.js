@@ -1,5 +1,6 @@
 /*
 title: Balloon Physics Object
+category: physics
 */
 
 class Balloon {

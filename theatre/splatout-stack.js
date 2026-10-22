@@ -1,6 +1,7 @@
 /*
 ---
 title: Splat Stack Effect
+category: particles
 files:
     head
     point

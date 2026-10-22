@@ -1,5 +1,6 @@
 /*
 title: Vector Point Object
+category: vectors
 files:
     ../point_src/random.js
     ../point_src/tethers.js

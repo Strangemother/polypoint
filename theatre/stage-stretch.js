@@ -1,5 +1,6 @@
 /*
 title: Stage Stretch Scaling
+category: scaling
 files:
     ../point_src/core/head.js
     ../point_src/pointpen.js

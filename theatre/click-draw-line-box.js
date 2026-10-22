@@ -1,5 +1,6 @@
 /*
 title: Draw Box
+category: rectangles
 files:
     head
     point

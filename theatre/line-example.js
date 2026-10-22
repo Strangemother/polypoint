@@ -1,6 +1,7 @@
 /*
 ---
 title: Line class example
+category: line
 files:
     ../point_src/math.js
     head

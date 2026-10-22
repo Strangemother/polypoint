@@ -78,9 +78,8 @@ Preserve the returned permanent ID for later operations.
   external HTTPS origin to the setting if the proxy presents an internal scheme.
 - The body limit in base settings allows JSON escaping overhead. Proxies should
   allow 8 MiB requests; the decoded source still has the separate 1 MiB limit.
-- This endpoint supports provisioned API keys, **not OAuth discovery or login**.
-  An MCP host must support secure custom bearer-header configuration to connect.
-  A host that requires OAuth needs a separate OAuth implementation before use.
+- The endpoint accepts existing API keys and OAuth access tokens. The web MCP
+  connector uses the fixed-client OAuth setup below.
 - No plugin is installed or authenticated merely by deploying this endpoint.
   Verify host authentication support before registering the private plugin.
 
@@ -90,3 +89,72 @@ Protocol references:
 - https://modelcontextprotocol.io/specification/2025-06-18/basic/transports
 - https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle
 - https://modelcontextprotocol.io/specification/2025-06-18/server/tools
+
+## ChatGPT web: fixed OAuth client with PKCE
+
+Uses Django OAuth Toolkit, authorization-code flow, S256 PKCE, and a public client.
+There is no client secret, DCR, CIMD, or OpenID Connect. Users sign in with their
+normal Django/Polypoint credentials (including nonstaff accounts), then explicitly
+approve access to their workspace. The API key is not used in this browser flow.
+
+Deploy from `site/beta`:
+
+```bash
+python -m pip install -r requirements.txt
+python manage.py migrate
+python manage.py register_theatre_oauth_client \
+  --redirect-uri 'https://chatgpt.com/connector/oauth/yRaE1roUUgwO'
+```
+
+Restart the Django workers after deployment. The command prints the non-secret
+client ID (`polypoint-chatgpt` by default). Re-running with matching settings is
+safe; it refuses to silently change an existing client's callback. If ChatGPT
+shows a different callback, supply that exact URL and a new `--client-id`, or
+review/update the registered application through Django admin. Do not use wildcard
+callbacks. Do not use the stable callback mode: issuer-response identification is
+not advertised, so this setup uses ChatGPT's callback-ID-specific URL.
+
+Set `POLYPOINT_OAUTH_ORIGIN` before startup if deploying anywhere other than
+`https://www.polypoint.xyz`. This controls the canonical issuer and audience.
+Behind a trusted TLS-terminating proxy, ensure Django sees the original HTTPS
+scheme and public hostname (for example, configure `SECURE_PROXY_SSL_HEADER`
+only when your proxy strips and sets that header). OAuth resource validation
+rejects tokens used at a different origin. Keep session and CSRF cookies secure
+in production. Use normal login protections and rate limiting at your proxy.
+
+Use these values in the ChatGPT connector form after deploying:
+
+| Field | Value |
+| --- | --- |
+| MCP URL | `https://www.polypoint.xyz/llm_api/mcp/` |
+| Registration method | User-Defined OAuth Client |
+| Client ID | `polypoint-chatgpt` (or the ID printed by the registration command) |
+| Client secret | Leave blank |
+| Token endpoint auth method | `none` |
+| Default scopes | `theatre` |
+| Base scopes | Leave blank |
+| Auth URL | `https://www.polypoint.xyz/llm_api/oauth/authorize/` |
+| Token URL | `https://www.polypoint.xyz/llm_api/oauth/token/` |
+| Registration URL | Leave blank |
+| Authorization server base | `https://www.polypoint.xyz` |
+| Resource | `https://www.polypoint.xyz/llm_api/mcp/` |
+| PKCE | Enabled, S256 |
+| OIDC enabled | Off; leave all OIDC fields blank |
+
+Discovery is available at `/.well-known/oauth-authorization-server` and
+`/.well-known/oauth-protected-resource/llm_api/mcp/` (also at the root resource
+metadata path). MCP 401 responses advertise the protected-resource metadata URL.
+Retry discovery after deployment before entering endpoint values manually.
+
+OAuth tokens must contain the `theatre` scope and exactly this MCP resource as
+their audience. Tokens cannot bypass the existing owner/revision rules. Access
+tokens expire after one hour; refresh tokens rotate and expire after 30 days.
+Access and refresh tokens are hashed at rest. Revocation is available at
+`/llm_api/oauth/revoke/`; deleting an authorization application's tokens through
+Django admin also removes their access. Only authorize/token/revoke/login routes
+are exposed, not public application management or registration endpoints.
+
+The migration command applies the OAuth library's database migrations; no custom
+OAuth model migration is required. Schedule `python manage.py cleartokens` using
+your deployment's normal housekeeping if you want expired database records
+removed. ChatGPT's real browser connection still needs verification after deploy.

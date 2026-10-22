@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Connect Polypoint Theatre</title></head>
+<body>
+    <main>
+        {% if error %}
+            <h1>Unable to connect</h1>
+            <p>{{ error.error }}: {{ error.description }}</p>
+        {% else %}
+            <h1>Connect {{ application.name }}?</h1>
+            <p>Signed in as {{ request.user.username }}.</p>
+            <p>This connection can read public examples and your examples, and create, update, or remove examples in your workspace.</p>
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}{% if field.is_hidden %}{{ field }}{% endif %}{% endfor %}
+                {{ form.errors }}
+                {{ form.non_field_errors }}
+                <button type="submit">Cancel</button>
+                <button type="submit" name="allow" value="Authorize">Connect</button>
+            </form>
+        {% endif %}
+    </main>
+</body>
+</html>

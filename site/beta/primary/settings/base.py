@@ -133,7 +133,8 @@ DATABASES = {
     }
 }
 
-DATA_UPLOAD_MAX_MEMORY_SIZE = 4 * 1024 * 1024
+# Allow 1 MiB of source even with JSON escaping overhead.
+DATA_UPLOAD_MAX_MEMORY_SIZE = 8 * 1024 * 1024
 
 
 # Password validation

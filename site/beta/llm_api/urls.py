@@ -1,11 +1,13 @@
 from django.urls import path
 
 from . import views
+from .mcp import TheatreMCPView
 
 
 app_name = "llm_api"
 
 urlpatterns = [
+    path("mcp/", TheatreMCPView.as_view(), name="mcp"),
     path("", views.IndexView.as_view(), name="index"),
     path("v1-micro/", views.IndexView.as_view(), name="v1_micro"),
     path(

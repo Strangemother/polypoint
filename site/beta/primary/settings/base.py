@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "documentation",
     "screenshot",
     "llm_api",
+    "oauth2_provider",
     "trim",
     # "trimdocs",
     "wagtail.contrib.forms",
@@ -223,3 +224,34 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+
+# Canonical public origin; never derive OAuth audience/issuer from user input.
+LLM_API_OAUTH_ORIGIN = os.environ.get("POLYPOINT_OAUTH_ORIGIN", "https://www.polypoint.xyz").rstrip("/")
+OAUTH2_PROVIDER = {
+    "OAUTH2_VALIDATOR_CLASS": "llm_api.oauth.TheatreOAuthValidator",
+    "SCOPES": {"theatre": "Read accessible theatre source; create, update and remove your own examples"},
+    "DEFAULT_SCOPES": ["theatre"],
+    "PKCE_REQUIRED": True,
+    "COMPLIANT_BCP_RFC9700_PKCE_METHOD": True,
+    "COMPLIANT_BCP_RFC9700_ACCESS_TOKEN_TRANSPORT": True,
+    "COMPLIANT_BCP_RFC9700_IMPLICIT_GRANT": True,
+    "COMPLIANT_BCP_RFC9700_PASSWORD_GRANT": True,
+    "COMPLIANT_BCP_RFC9700_TOKEN_STORAGE": True,
+    "ACCESS_TOKEN_EXPIRE_SECONDS": 3600,
+    "AUTHORIZATION_CODE_EXPIRE_SECONDS": 120,
+    "ROTATE_REFRESH_TOKEN": True,
+    "REFRESH_TOKEN_REUSE_PROTECTION": True,
+    "REFRESH_TOKEN_EXPIRE_SECONDS": 30 * 24 * 60 * 60,
+    "ALLOWED_REDIRECT_URI_SCHEMES": ["https"],
+    "OIDC_ENABLED": False,
+    "OIDC_ISS_ENDPOINT": LLM_API_OAUTH_ORIGIN,
+    "DCR_ENABLED": False,
+    "CIMD_ENABLED": False,
+    "REQUIRE_FORM_ENCODED_REQUEST_BODY": True,
+    "OAUTH2_TOKEN_ENDPOINT_AUTH_METHODS_SUPPORTED": ["none"],
+    "OAUTH2_RESPONSE_TYPES_SUPPORTED": ["code"],
+    "OAUTH2_GRANT_TYPES_SUPPORTED": ["authorization_code", "refresh_token"],
+    "OAUTH2_PROTECTED_RESOURCE_IDENTIFIER": LLM_API_OAUTH_ORIGIN + "/llm_api/mcp/",
+    "OAUTH2_PROTECTED_RESOURCE_AUTHORIZATION_SERVERS": [LLM_API_OAUTH_ORIGIN],
+    "OAUTH2_PROTECTED_RESOURCE_NAME": "Polypoint Theatre",
+}

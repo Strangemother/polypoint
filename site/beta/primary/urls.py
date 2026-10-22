@@ -32,6 +32,7 @@ urlpatterns += includes(
                     'examples',
                     'documentation',
                     'screenshot',
+                    'llm_api',
                     # 'trimdocs',
                 )
 

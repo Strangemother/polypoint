@@ -21,12 +21,18 @@
             {{ markdown_text|safe }}
         </div>
 
-        <p><a href="{% url 'examples:categories' %}">Browse categories</a></p>
-        {% if category %}
-        <h2>{{ category.name }}: {{ object_list|length }} Examples</h2>
-        {% else %}
-        <h2>{{ object_list|length }} Examples</h2>
-        {% endif %}
+        <div>
+            {% link 'examples:example_db' "Examples" %}
+            {% link 'examples:example' "Files" %}
+            {% link 'examples:categories' "Categories" %}
+        </div>
+
+        <h2>
+            {% if category %}
+                {{ category.name }}:
+            {% endif %}
+            {{ object_list|length }} Examples
+        </h2>
 
         <div class="new-files-container">
             <div>

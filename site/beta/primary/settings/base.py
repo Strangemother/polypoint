@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "examples",
     "documentation",
     "screenshot",
+    "llm_api",
     "trim",
     # "trimdocs",
     "wagtail.contrib.forms",

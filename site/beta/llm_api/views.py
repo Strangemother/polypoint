@@ -486,6 +486,18 @@ from examples.views import ExampleFileView
 from pathlib import Path
 from examples.theatre import get_source_metadata
 
+from trim import views as t_views
+
+
+class UserTheatreViewerView(t_views.ListView):
+    """Show a users list of examples. Will be live view."""
+    model = TheatreExample
+
+    def get_queryset(self):
+        u = self.kwargs.get('username')
+        return self.model.objects.filter(owner__username=u)
+
+
 
 class TheatreViewerView(ExampleFileView):
 
@@ -496,7 +508,7 @@ class TheatreViewerView(ExampleFileView):
         r['part_name'] = 'example'
 
         tfm = TheatreExample.objects.filter(id=example_id)
-        obj = None 
+        obj = None
         if tfm.exists():
             obj = tfm.get()
             r['theatreexample_object'] = obj

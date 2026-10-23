@@ -28,4 +28,9 @@ urlpatterns = [
         views.TheatreViewerView.as_view(),
         name="theatre_view",
     ),
+    path(
+        "u/<str:username>/",
+        views.UserTheatreViewerView.as_view(),
+        name="user_theatre_view",
+    )
 ]

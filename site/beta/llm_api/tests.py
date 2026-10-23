@@ -398,6 +398,80 @@ class TheatreAPIViewTests(TestCase):
         self.assertEqual(oversized.json()["error"]["code"], "content_too_large")
 
 
+class UserTheatreViewerLatestChangeViewTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(username="viewer-owner")
+        self.endpoint = reverse(
+            "llm_api:user_theatre_latest_change",
+            kwargs={"username": self.user.username},
+        )
+
+    def test_returns_newest_example_updated_after_stamp(self):
+        stamp = timezone.now() - timedelta(days=1)
+        earlier = TheatreExample.objects.create(
+            owner=self.user,
+            name="earlier",
+            source="",
+        )
+        newest = TheatreExample.objects.create(
+            owner=self.user,
+            name="newest",
+            source="",
+        )
+        earlier_change = stamp + timedelta(seconds=1)
+        newest_change = stamp + timedelta(seconds=2)
+        TheatreExample.objects.filter(pk=earlier.pk).update(
+            updated_at=earlier_change
+        )
+        TheatreExample.objects.filter(pk=newest.pk).update(
+            updated_at=newest_change
+        )
+
+        response = self.client.get(
+            self.endpoint,
+            {"stamp": stamp.timestamp()},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(
+            response.json()["latest_change"],
+            newest_change.timestamp(),
+        )
+        self.assertTrue(
+            response.json()["url"].endswith(
+                reverse("llm_api:theatre_view", kwargs={"example_id": newest.pk})
+            )
+        )
+
+    def test_returns_stamp_when_there_is_no_newer_example(self):
+        stamp = timezone.now()
+        old_example = TheatreExample.objects.create(
+            owner=self.user,
+            name="old",
+            source="",
+        )
+        TheatreExample.objects.filter(pk=old_example.pk).update(
+            updated_at=stamp - timedelta(seconds=1)
+        )
+
+        response = self.client.get(
+            self.endpoint,
+            {"stamp": stamp.timestamp()},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json(),
+            {"latest_change": stamp.timestamp(), "url": None},
+        )
+
+    def test_invalid_stamp_returns_bad_request(self):
+        response = self.client.get(self.endpoint, {"stamp": "not-a-timestamp"})
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["error"]["code"], "invalid_stamp")
+
+
 class TheatreMCPTests(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(username="mcp-owner")

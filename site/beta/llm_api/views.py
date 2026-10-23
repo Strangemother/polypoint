@@ -1,5 +1,6 @@
 import logging
 import re
+from datetime import datetime, timezone as datetime_timezone
 from urllib.parse import parse_qsl
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -219,10 +220,7 @@ def _authenticate(request):
 
 
 def _theatre_url(request, theatre):
-    return request.build_absolute_uri(
-        reverse("llm_api:theatre_view", kwargs={"example_id": theatre.pk})
-    )
-
+    return reverse("llm_api:theatre_view", kwargs={"example_id": theatre.pk})
 
 def _not_found():
     return _error(404, "not_found", "The example was not found.")
@@ -497,6 +495,45 @@ class UserTheatreViewerView(t_views.ListView):
         u = self.kwargs.get('username')
         return self.model.objects.filter(owner__username=u)
 
+
+class UserTheatreViewerLatestChangeView(t_views.View):
+    """Return JSON indicating the latest change for a user's theatre examples.
+
+        http://localhost:8000/llm_api/u/ghostly/latest_change/?stamp=1234567890
+
+    Returns the latest changed example's timestamp and URL, or the supplied
+    stamp and a null URL when there has been no newer change.
+
+        {
+            "latest_change": 1234567890.0,
+            "url": "http://localhost:8000/llm_api/theatres/th_.../",
+        }
+    """
+
+    def get(self, request, username, *args, **kwargs):
+        try:
+            stamp = float(request.GET.get("stamp", "0"))
+            since = datetime.fromtimestamp(stamp, tz=datetime_timezone.utc)
+        except (OverflowError, OSError, ValueError):
+            return _error(400, "invalid_stamp", "Stamp must be a Unix timestamp.")
+
+        theatre = (
+            TheatreExample.objects.filter(
+                owner__username=username,
+                updated_at__gt=since,
+            )
+            .order_by("-updated_at", "-pk")
+            .first()
+        )
+        if theatre is None:
+            return _json_response({"latest_change": stamp, "url": None})
+
+        return _json_response(
+            {
+                "latest_change": theatre.updated_at.timestamp(),
+                "url": _theatre_url(request, theatre),
+            }
+        )
 
 
 class TheatreViewerView(ExampleFileView):

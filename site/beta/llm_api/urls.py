@@ -29,6 +29,11 @@ urlpatterns = [
         name="theatre_view",
     ),
     path(
+        "u/<str:username>/latest_change/",
+        views.UserTheatreViewerLatestChangeView.as_view(),
+        name="user_theatre_latest_change",
+    ),
+    path(
         "u/<str:username>/",
         views.UserTheatreViewerView.as_view(),
         name="user_theatre_view",

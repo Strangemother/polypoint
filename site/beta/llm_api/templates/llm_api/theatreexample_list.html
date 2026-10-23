@@ -6,7 +6,7 @@
 
 {% endcomment %}
 
-{% load link theatre markdown %}
+{% load link theatre markdown static %}
 {% block page_title %}{% if category %}{{ category.name }} {% endif %}Examples{% endblock page_title %}
 
 {% block content %}
@@ -105,9 +105,10 @@
 
         {% link.js "examples/js/fuse-search-app.js" 'defer' %}
         {% link.js "examples/js/apps/search-app.js" 'defer' %}
+            <script src="{% static 'js/auto-caller.js' %}" defer></script>
 
 
-    </div>
+        </div>
 </div>
 
 

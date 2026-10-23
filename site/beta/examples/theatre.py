@@ -109,6 +109,7 @@ def resolve_source_file(filename):
 
     return target.relative_to(source_root).as_posix(), target
 
+
 def store_tree(filename, tree_data):
     """ Called by the editor.TreeStorePostView to record a JSON POST
     of the AST.
@@ -305,6 +306,52 @@ def get_metadata(path, parent=None, meta_keys=None, ensure_suffix='.js', rel_pre
     res['filepath_exists'] = True
     res['path'] = path
     res['filepath'] = theatre_file.relative_to(parent)
+    # res['clean_files'] = destack_file_dependencies(clean_files_list(res))
+    res['clean_files'] = clean_files_list(res)
+    res['markdown'] = {
+        "html": html,
+        "content": text_data,
+    }
+
+    return res
+
+
+def get_source_metadata(content, parent=None, meta_keys=None, ensure_suffix='.js', rel_prefix=None):
+    """Attempt to parse the theatre source and other config locations
+    to apply _metadata_ about the theatre file to the context.
+
+    This information is the extended data for a theatre source, such as
+    a description, tags, and optionally, imports.
+
+    This is parsed from the head of the target source (js comment),
+    converted through markdown.
+    """
+
+    text_data = extract_theatre_header(content)
+
+    md = ''
+    html = ''
+    meta = None
+
+    if len(text_data) > 0:
+        # print(text_data)
+        text_data = normalize_markdown_text(text_data)
+        extensions=[
+            # MyExtClass(),
+            # 'myext',
+            # 'path.to.my.ext:MyExtClass'
+            'meta',
+            'extra',
+            # 'examples.meta2:MetaExtension'
+            ]
+        md = markdown.Markdown(extensions=extensions)
+        html = md.convert(text_data)
+        meta = md.Meta
+
+    res = file_default_meta(None, meta, meta_keys=meta_keys)
+    res['filepath_exists'] = True
+    res['path'] = None
+    res['filepath'] = None # theatre_file.relative_to(parent)
     # res['clean_files'] = destack_file_dependencies(clean_files_list(res))
     res['clean_files'] = clean_files_list(res)
     res['markdown'] = {
@@ -554,7 +601,7 @@ def flatten_leaf(leaf, file_ref, src_dir=None):
     return tuple({x:0 for x in res}.keys())
 
 
-def file_default_meta(path, raw_meta=None, meta_keys=None):
+def file_default_meta(_, raw_meta=None, meta_keys=None):
     """Return the meta object, The given meta object is cleaned when applied.
     """
     meta = {}

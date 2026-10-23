@@ -1,0 +1,114 @@
+{% extends "docs/doc-base.html" %}
+{% comment "what" %}
+    Grid of examples
+
+    http://localhost:8000/llm_api/u/ghostly/
+
+{% endcomment %}
+
+{% load link theatre markdown %}
+{% block page_title %}{% if category %}{{ category.name }} {% endif %}Examples{% endblock page_title %}
+
+{% block content %}
+
+{% link.css  "examples/css/list_view.css" %}
+
+<div class="outer-block">
+    <div class="block">
+        {% markdown.file "docs" "headers/theatre.md" %}
+        {% theatre.render_markdown "readme.md" as markdown_text %}
+        <div>
+            {{ markdown_text|safe }}
+        </div>
+
+        <div>
+            {% link 'examples:example_db' "Examples" %}
+            {% link 'examples:example' "Files" %}
+            {% link 'examples:categories' "Categories" %}
+        </div>
+
+        <h2>
+            {% if category %}
+                {{ category.name }}:
+            {% endif %}
+            {{ object_list|length }} Examples
+        </h2>
+
+        <div class="new-files-container">
+            <div>
+
+                {% if new_files %}
+                <p>New files detected</p>
+
+                <form method="post" action="{% url 'examples:onboard_all_theatre_files' %}">
+                    {% csrf_token %}
+                    <button type="submit">Onboard All</button>
+                </form>
+                {% endif %}
+            </div>
+
+            <ul class='new-files file-list'>
+                {% for obj in new_files %}
+                <li>
+                    {% link "examples:file_example" obj obj %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="models-list-container">
+
+            <div>
+                <p>Theatre files</p>
+            </div>
+
+            <div id="search_app" class="search-app">
+
+                <div class="search-container">
+                    <input type="text"
+                        placeholder="Filter"
+                            @input='inputHandler'
+                            class="search-field">
+                </div>
+                <script>
+                    window.fuseItems = []
+                </script>
+            </div>
+
+            <ul class='object-list file-list'>
+                {% for obj in object_list %}
+                <li data-file="{{ obj.name }}">
+
+                    <a href='{% url "examples:file_example" obj %}'>
+                        <div class="image-container">
+                            {% if obj.still_image_path %}
+                            <img src="/media/{{ obj.still_image_path }}" loading="lazy" decoding="async" alt="{{ obj.name }} thumbnail">
+                            {% endif %}
+                        </div>
+                        <div class="link">{% link "llm_api:theatre_view" obj.id obj.name %}</div>
+                        <div class="description">
+                            {{ obj.description }}
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <script type="module">
+            import Fuse from '/static/examples/js/fuse.mjs'
+            window.Fuse = Fuse;
+        </script>
+    <!-- UI Application Dependencies -->
+    {% link.js "examples/js/petite-vue.iife.js" "defer" %}
+    {% link.js "examples/js/mountable.js" "defer" %}
+
+        {% link.js "examples/js/fuse-search-app.js" 'defer' %}
+        {% link.js "examples/js/apps/search-app.js" 'defer' %}
+
+
+    </div>
+</div>
+
+
+{% endblock content %}

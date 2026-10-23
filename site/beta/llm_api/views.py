@@ -439,7 +439,7 @@ class TheatreAPIView(View):
             return _error(500, "internal_error", "An unexpected server error occurred.")
 
 
-class TheatreViewerView(View):
+class TheatreViewerSourceView(View):
     http_method_names = ["get", "head"]
 
     def http_method_not_allowed(self, request, *args, **kwargs):
@@ -472,7 +472,7 @@ class TheatreViewerView(View):
 
             response = HttpResponse(
                 theatre.source,
-                content_type="text/plain; charset=utf-8",
+                content_type="text/javascript; charset=utf-8",
             )
             response["Cache-Control"] = "no-store"
             response["X-Content-Type-Options"] = "nosniff"
@@ -480,3 +480,36 @@ class TheatreViewerView(View):
         except Exception:
             logger.exception("Unexpected error serving llm_api viewer")
             return _error(500, "internal_error", "An unexpected server error occurred.")
+
+
+from examples.views import ExampleFileView
+from pathlib import Path
+from examples.theatre import get_source_metadata
+
+
+class TheatreViewerView(ExampleFileView):
+
+    def get_context_data(self, **kwargs):
+        r = super().get_context_data(**kwargs)
+        example_id = self.kwargs.get('example_id')
+        # p = Path(example_id).with_suffix('')
+        r['part_name'] = 'example'
+
+        tfm = TheatreExample.objects.filter(id=example_id)
+        obj = None 
+        if tfm.exists():
+            obj = tfm.get()
+            r['theatreexample_object'] = obj
+
+        meta = get_source_metadata(obj.source)
+
+        ## flag to call the _single file_ endpoint
+        ## rather than list all files individually.
+        r['concat_file'] = False
+
+        r['metadata'] = meta
+        md = meta.get('markdown', None)
+        if md:
+            r['markdown'] = md
+            del meta['markdown']
+        return r

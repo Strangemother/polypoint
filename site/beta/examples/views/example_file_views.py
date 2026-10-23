@@ -36,6 +36,9 @@ class ExampleFileView(views.TemplateView):
     def get_context_data(self, **kwargs):
         r = super().get_context_data(**kwargs)
         path = self.kwargs.get('path')
+        if path is None:
+            return r
+
         p = Path(path).with_suffix('')
         r['part_name'] = p
         meta = get_metadata(path)
@@ -52,7 +55,6 @@ class ExampleFileView(views.TemplateView):
             r['theatrefile_object'] = tfm.get()
             # except TF.MultipleObjectsReturned:
 
-
         r['metadata'] = meta
         md = meta.get('markdown', None)
         if md:
@@ -67,8 +69,10 @@ class ExampleFileView(views.TemplateView):
         """
 
         path = self.kwargs.get('path')
-
-        names = [path, f"{path}.html", self.template_name] + super().get_template_names()
+        pa = []
+        if path is not None:
+            pa = [path, f"{path}.html", self.template_name]
+        names = pa + super().get_template_names()
         return names
 
 

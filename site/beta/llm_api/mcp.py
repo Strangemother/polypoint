@@ -2,8 +2,13 @@
 
 import json
 import logging
+import uuid
+from django.urls import reverse
 
 from django.conf import settings
+from django.core.cache import cache
+from django.utils import timezone
+from .models import TheatreExample
 from django.core.exceptions import RequestDataTooBig
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
@@ -94,6 +99,21 @@ TOOLS = [
             "additionalProperties": False,
         },
         "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
+    },
+    {
+        "name": "request_view_action",
+        "description": "Ask the signed-in owner's Polypoint viewer to navigate to an owned or public theatre by exact ID or name. Command expires after 60 seconds; never accepts arbitrary URLs. Viewer must be open and signed in as the same user.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "name": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$"},
+                "scope": {"type": "string", "enum": ["personal", "public"], "description": "Only for name lookup; defaults to personal."}
+            },
+            "oneOf": [{"required": ["id"]}, {"required": ["name"]}],
+            "additionalProperties": False,
+        },
+        "annotations": {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": False},
     },
     {
         "name": "get_knowledge",
@@ -265,6 +285,39 @@ class TheatreMCPView(View):
                 "content": [{"type": "text", "text": json.dumps(payload, ensure_ascii=False)}],
                 "isError": False,
             })
+        if name == "request_view_action":
+            if (set(arguments) - {"id", "name", "scope"}
+                    or ("id" in arguments) == ("name" in arguments)
+                    or not all(isinstance(value, str) for value in arguments.values())
+                    or ("scope" in arguments and ("id" in arguments or arguments["scope"] not in ("personal", "public")))):
+                return _rpc_error(request_id, -32602, "Invalid theatre selector.")
+            user = request.theatre_api_user
+            if "id" in arguments:
+                qs = TheatreExample.objects.filter(pk=arguments["id"], is_deleted=False)
+                theatre = qs.first()
+                if theatre and theatre.owner_id != user.pk and theatre.visibility != TheatreExample.Visibility.PUBLIC:
+                    theatre = None
+            else:
+                qs = TheatreExample.objects.filter(name=arguments["name"], is_deleted=False)
+                if arguments.get("scope", "personal") == "public":
+                    qs = qs.filter(visibility=TheatreExample.Visibility.PUBLIC)
+                else:
+                    qs = qs.filter(owner=user)
+                matches = list(qs[:2])
+                if len(matches) > 1:
+                    payload = {"ok": False, "error": {"code": "ambiguous_name", "message": "Multiple theatres match; select by ID."}}
+                    return _result(request_id, {"content": [{"type": "text", "text": json.dumps(payload)}], "isError": True})
+                theatre = matches[0] if matches else None
+            if theatre is None:
+                payload = {"ok": False, "error": {"code": "not_found", "message": "Theatre not found."}}
+                return _result(request_id, {"content": [{"type": "text", "text": json.dumps(payload)}], "isError": True})
+            command = {"id": uuid.uuid4().hex, "theatre_id": theatre.pk,
+                       "issued_at": timezone.now().timestamp()}
+            cache.set(f"llm_api:view_command:{user.pk}", command, timeout=60)
+            payload = {"ok": True, "command_id": command["id"], "name": theatre.name,
+                       "url": request.build_absolute_uri(reverse("llm_api:theatre_view", kwargs={"example_id": theatre.pk})),
+                       "expires_in_seconds": 60}
+            return _result(request_id, {"content": [{"type": "text", "text": json.dumps(payload)}], "isError": False})
         if name in ("get_knowledge", "validate_theatre"):
             if name == "get_knowledge":
                 if set(arguments) - {"topic"} or not isinstance(arguments.get("topic", "overview"), str) or arguments.get("topic", "overview") not in TOPICS:

@@ -6,6 +6,7 @@ from urllib.parse import parse_qsl
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import RequestDataTooBig
 from django.db import IntegrityError, transaction
+from django.core.cache import cache
 from django.db.models import F, Q
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
@@ -517,6 +518,19 @@ class UserTheatreViewerLatestChangeView(t_views.View):
         except (OverflowError, OSError, ValueError):
             return _error(400, "invalid_stamp", "Stamp must be a Unix timestamp.")
 
+        # Navigation commands are only visible to the logged-in owner, never
+        # to other users or anonymous visitors viewing public theatres.
+        navigation = None
+        if request.user.is_authenticated and request.user.username == username:
+            command = cache.get(f"llm_api:view_command:{request.user.pk}")
+            if command and command["issued_at"] + 60 > timezone.now().timestamp():
+                target = TheatreExample.objects.filter(pk=command["theatre_id"], is_deleted=False).first()
+                if target and (target.owner_id == request.user.pk or target.visibility == TheatreExample.Visibility.PUBLIC):
+                    navigation = {
+                        "id": command["id"], "issued_at": command["issued_at"],
+                        "url": _theatre_url(request, target),
+                    }
+
         theatre = (
             TheatreExample.objects.filter(
                 owner__username=username,
@@ -526,12 +540,13 @@ class UserTheatreViewerLatestChangeView(t_views.View):
             .first()
         )
         if theatre is None:
-            return _json_response({"latest_change": stamp, "url": None})
+            return _json_response({"latest_change": stamp, "url": None, "navigation": navigation})
 
         return _json_response(
             {
                 "latest_change": theatre.updated_at.timestamp(),
                 "url": _theatre_url(request, theatre),
+                "navigation": navigation,
             }
         )
 

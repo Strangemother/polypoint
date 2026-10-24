@@ -499,6 +499,28 @@ class TheatreMCPTests(TestCase):
         return json.loads(result["result"]["content"][0]["text"])
 
 
+    def test_public_theatre_discovery_filters_private_and_pages(self):
+        TheatreExample.objects.create(owner=self.user, name="secret", source="private")
+        for name in ("atlas-one", "atlas-two"):
+            TheatreExample.objects.create(
+                owner=self.user, name=name,
+                source="/*\\ntitle: Atlas\\ndescription: A mapped example\\n*/",
+                visibility=TheatreExample.Visibility.PUBLIC,
+            )
+        tools = self.rpc("tools/list").json()["result"]["tools"]
+        self.assertIn("list_public_theatres", [t["name"] for t in tools])
+        first = self.payload(self.tool("list_public_theatres", {"query": "atlas", "limit": 1}))
+        self.assertEqual(first["count"], 1)
+        self.assertEqual(first["next_offset"], 1)
+        self.assertEqual(first["theatres"][0]["description"], "A mapped example")
+        self.assertIn("/llm_api/theatres/", first["theatres"][0]["url"])
+        second = self.payload(self.tool("list_public_theatres", {"limit": 1, "offset": 1}))
+        self.assertEqual(second["count"], 1)
+        self.assertNotEqual(first["theatres"][0]["id"], second["theatres"][0]["id"])
+        self.assertEqual(self.payload(self.tool("list_public_theatres", {"query": "secret"}))["count"], 0)
+        bad = self.rpc("tools/call", {"name": "list_public_theatres", "arguments": {"limit": 0}}).json()
+        self.assertEqual(bad["error"]["code"], -32602)
+
     def test_authoring_knowledge_and_validation_tools(self):
         names = [item["name"] for item in self.rpc("tools/list").json()["result"]["tools"]]
         self.assertIn("get_knowledge", names)

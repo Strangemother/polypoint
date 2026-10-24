@@ -289,13 +289,13 @@ class TheatreAPIViewTests(TestCase):
             visibility=TheatreExample.Visibility.PUBLIC,
         )
         viewer_url = reverse(
-            "llm_api:theatre_view",
+            "llm_api:theatre_source_view",
             kwargs={"example_id": public.pk},
         )
 
         response = self.client.get(viewer_url, HTTP_AUTHORIZATION=self.token)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "text/plain; charset=utf-8")
+        self.assertEqual(response["Content-Type"], "text/javascript; charset=utf-8")
         self.assertEqual(response["X-Content-Type-Options"], "nosniff")
         self.assertEqual(response.content.decode(), public.source)
 
@@ -307,7 +307,7 @@ class TheatreAPIViewTests(TestCase):
             source="secret",
         )
         private_url = reverse(
-            "llm_api:theatre_view",
+            "llm_api:theatre_source_view",
             kwargs={"example_id": private.pk},
         )
         forbidden = self.client.get(

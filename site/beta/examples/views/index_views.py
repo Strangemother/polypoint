@@ -59,9 +59,11 @@ class TheatreIndexTemplateView(ExampleIndexTemplateView):
 
 class TheatreFileCategoryListView(views.ListView):
     template_name = 'examples/theatrefilecategory_list.html'
-
+    model = TheatreFileCategory
     def get_queryset(self):
-        return TheatreFileCategory.objects.annotate(file_count=Count('files')).order_by('name')
+        return self.model.objects.annotate(
+            file_count=Count('files')
+        ).order_by('name')
 
 
 class TheatreFileCategoryFilesView(views.ListView):

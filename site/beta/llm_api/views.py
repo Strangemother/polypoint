@@ -452,10 +452,8 @@ class TheatreViewerSourceView(View):
     def get(self, request, example_id, *args, **kwargs):
         try:
             user = _authenticate(request)
-            # if user is None and request.user.is_authenticated:
-            #     user = request.user
-            # if user is None:
-            #     return _error(401, "unauthorized", "Valid credentials are required.")
+            if user is None and request.user.is_authenticated:
+                user = request.user
 
             theatre = TheatreExample.objects.filter(
                 pk=example_id,
@@ -464,8 +462,8 @@ class TheatreViewerSourceView(View):
             if theatre is None:
                 return _not_found()
             if (
-                theatre.owner_id != user.pk
-                and theatre.visibility != TheatreExample.Visibility.PUBLIC
+                (user is None or theatre.owner_id != user.pk)
+                and theatre.visibility == TheatreExample.Visibility.PRIVATE
             ):
                 return _not_found()
 
@@ -494,7 +492,7 @@ class UserTheatreViewerView(t_views.ListView):
 
     def get_queryset(self):
         u = self.kwargs.get('username')
-        return self.model.objects.filter(owner__username=u)
+        return self.model.objects.filter(owner__username=u, is_deleted=False).exclude(visibility=TheatreExample.Visibility.PRIVATE)
 
 
 class UserTheatreViewerLatestChangeView(t_views.View):
@@ -534,8 +532,10 @@ class UserTheatreViewerLatestChangeView(t_views.View):
         theatre = (
             TheatreExample.objects.filter(
                 owner__username=username,
+                is_deleted=False,
                 updated_at__gt=since,
             )
+            .exclude(visibility=TheatreExample.Visibility.PRIVATE)
             .order_by("-updated_at", "-pk")
             .first()
         )
@@ -561,11 +561,15 @@ class TheatreViewerView(ExampleFileView):
         # p = Path(example_id).with_suffix('')
         r['part_name'] = 'example'
 
-        tfm = TheatreExample.objects.filter(id=example_id)
+        tfm = TheatreExample.objects.filter(id=example_id, is_deleted=False)
         obj = None
         if tfm.exists():
             obj = tfm.get()
             r['theatreexample_object'] = obj
+
+        if obj is None or (obj.visibility == TheatreExample.Visibility.PRIVATE and not (self.request.user.is_authenticated and self.request.user.pk == obj.owner_id)):
+            from django.http import Http404
+            raise Http404
 
         meta = get_source_metadata(obj.source)
 

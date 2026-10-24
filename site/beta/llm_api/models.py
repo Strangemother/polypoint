@@ -51,6 +51,7 @@ class TheatreAPIKey(models.Model):
 class TheatreExample(models.Model):
     class Visibility(models.TextChoices):
         PRIVATE = "private", "Private"
+        UNLISTED = "unlisted", "Unlisted"
         PUBLIC = "public", "Public"
 
     id = models.CharField(
@@ -73,7 +74,7 @@ class TheatreExample(models.Model):
     visibility = models.CharField(
         max_length=7,
         choices=Visibility.choices,
-        default=Visibility.PRIVATE,
+        default=Visibility.UNLISTED,
     )
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

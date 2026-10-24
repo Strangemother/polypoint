@@ -20,6 +20,24 @@
             }
 
             const result = await response.json();
+            // Consume at most once per browser tab. The server additionally
+            // expires commands and verifies that this viewer is the owner.
+            const navigation = result.navigation;
+            if (navigation?.id && navigation?.url) {
+                const key = 'polypoint.lastNavigationCommand';
+                let lastId = null;
+                try { lastId = window.sessionStorage.getItem(key); } catch (_) {}
+                if (navigation.id !== lastId) {
+                    try { window.sessionStorage.setItem(key, navigation.id); } catch (_) {}
+                    const target = new URL(navigation.url, window.location.href);
+                    // Never navigate from a command outside our own origin.
+                    if (target.origin === window.location.origin &&
+                            target.pathname.startsWith('/llm_api/theatres/')) {
+                        window.location.assign(target.href);
+                        return;
+                    }
+                }
+            }
             if (result.url && result.latest_change > stamp) {
                 window.location.assign(result.url);
                 return;

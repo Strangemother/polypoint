@@ -452,10 +452,8 @@ class TheatreViewerSourceView(View):
     def get(self, request, example_id, *args, **kwargs):
         try:
             user = _authenticate(request)
-            # if user is None and request.user.is_authenticated:
-            #     user = request.user
-            # if user is None:
-            #     return _error(401, "unauthorized", "Valid credentials are required.")
+            if user is None and request.user.is_authenticated:
+                user = request.user
 
             theatre = TheatreExample.objects.filter(
                 pk=example_id,
@@ -464,8 +462,8 @@ class TheatreViewerSourceView(View):
             if theatre is None:
                 return _not_found()
             if (
-                theatre.owner_id != user.pk
-                and theatre.visibility != TheatreExample.Visibility.PUBLIC
+                theatre.visibility != TheatreExample.Visibility.PUBLIC
+                and (user is None or theatre.owner_id != user.pk)
             ):
                 return _not_found()
 
@@ -531,14 +529,14 @@ class UserTheatreViewerLatestChangeView(t_views.View):
                         "url": _theatre_url(request, target),
                     }
 
-        theatre = (
-            TheatreExample.objects.filter(
-                owner__username=username,
-                updated_at__gt=since,
-            )
-            .order_by("-updated_at", "-pk")
-            .first()
+        # Anonymous spectators only receive published updates. The owner
+        # continues receiving their own private changes after logging in.
+        updates = TheatreExample.objects.filter(
+            owner__username=username, is_deleted=False, updated_at__gt=since,
         )
+        if not (request.user.is_authenticated and request.user.username == username):
+            updates = updates.filter(visibility=TheatreExample.Visibility.PUBLIC)
+        theatre = updates.order_by("-updated_at", "-pk").first()
         if theatre is None:
             return _json_response({"latest_change": stamp, "url": None, "navigation": navigation})
 
@@ -554,6 +552,20 @@ class UserTheatreViewerLatestChangeView(t_views.View):
 class TheatreViewerView(ExampleFileView):
 
     template_name = 'llm_api/theatreexample_view.html'
+
+    def get(self, request, *args, **kwargs):
+        theatre = TheatreExample.objects.filter(
+            pk=kwargs.get("example_id"), is_deleted=False,
+        ).first()
+        if theatre is None:
+            return _not_found()
+        user = _authenticate(request)
+        if user is None and request.user.is_authenticated:
+            user = request.user
+        if (theatre.visibility != TheatreExample.Visibility.PUBLIC
+                and (user is None or user.pk != theatre.owner_id)):
+            return _not_found()
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         r = super().get_context_data(**kwargs)

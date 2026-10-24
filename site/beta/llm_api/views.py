@@ -6,6 +6,7 @@ from urllib.parse import parse_qsl
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import RequestDataTooBig
 from django.db import IntegrityError, transaction
+from django.core.cache import cache
 from django.db.models import F, Q
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
@@ -451,10 +452,8 @@ class TheatreViewerSourceView(View):
     def get(self, request, example_id, *args, **kwargs):
         try:
             user = _authenticate(request)
-            # if user is None and request.user.is_authenticated:
-            #     user = request.user
-            # if user is None:
-            #     return _error(401, "unauthorized", "Valid credentials are required.")
+            if user is None and request.user.is_authenticated:
+                user = request.user
 
             theatre = TheatreExample.objects.filter(
                 pk=example_id,
@@ -463,8 +462,8 @@ class TheatreViewerSourceView(View):
             if theatre is None:
                 return _not_found()
             if (
-                theatre.owner_id != user.pk
-                and theatre.visibility != TheatreExample.Visibility.PUBLIC
+                (user is None or theatre.owner_id != user.pk)
+                and theatre.visibility == TheatreExample.Visibility.PRIVATE
             ):
                 return _not_found()
 
@@ -493,7 +492,7 @@ class UserTheatreViewerView(t_views.ListView):
 
     def get_queryset(self):
         u = self.kwargs.get('username')
-        return self.model.objects.filter(owner__username=u)
+        return self.model.objects.filter(owner__username=u, is_deleted=False).exclude(visibility=TheatreExample.Visibility.PRIVATE)
 
 
 class UserTheatreViewerLatestChangeView(t_views.View):
@@ -517,21 +516,37 @@ class UserTheatreViewerLatestChangeView(t_views.View):
         except (OverflowError, OSError, ValueError):
             return _error(400, "invalid_stamp", "Stamp must be a Unix timestamp.")
 
+        # Navigation commands are only visible to the logged-in owner, never
+        # to other users or anonymous visitors viewing public theatres.
+        navigation = None
+        if request.user.is_authenticated and request.user.username == username:
+            command = cache.get(f"llm_api:view_command:{request.user.pk}")
+            if command and command["issued_at"] + 60 > timezone.now().timestamp():
+                target = TheatreExample.objects.filter(pk=command["theatre_id"], is_deleted=False).first()
+                if target and (target.owner_id == request.user.pk or target.visibility == TheatreExample.Visibility.PUBLIC):
+                    navigation = {
+                        "id": command["id"], "issued_at": command["issued_at"],
+                        "url": _theatre_url(request, target),
+                    }
+
         theatre = (
             TheatreExample.objects.filter(
                 owner__username=username,
+                is_deleted=False,
                 updated_at__gt=since,
             )
+            .exclude(visibility=TheatreExample.Visibility.PRIVATE)
             .order_by("-updated_at", "-pk")
             .first()
         )
         if theatre is None:
-            return _json_response({"latest_change": stamp, "url": None})
+            return _json_response({"latest_change": stamp, "url": None, "navigation": navigation})
 
         return _json_response(
             {
                 "latest_change": theatre.updated_at.timestamp(),
                 "url": _theatre_url(request, theatre),
+                "navigation": navigation,
             }
         )
 
@@ -546,11 +561,15 @@ class TheatreViewerView(ExampleFileView):
         # p = Path(example_id).with_suffix('')
         r['part_name'] = 'example'
 
-        tfm = TheatreExample.objects.filter(id=example_id)
+        tfm = TheatreExample.objects.filter(id=example_id, is_deleted=False)
         obj = None
         if tfm.exists():
             obj = tfm.get()
             r['theatreexample_object'] = obj
+
+        if obj is None or (obj.visibility == TheatreExample.Visibility.PRIVATE and not (self.request.user.is_authenticated and self.request.user.pk == obj.owner_id)):
+            from django.http import Http404
+            raise Http404
 
         meta = get_source_metadata(obj.source)
 

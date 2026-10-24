@@ -172,7 +172,7 @@ class TheatreCategoryTests(TestCase):
         category = TheatreFileCategory.objects.get(name='angles')
         self.assertContains(response, 'angles')
         self.assertContains(response, UNCATEGORISED)
-        self.assertContains(response, reverse('examples:category_files', args=[category.pk]))
+        self.assertContains(response, reverse('examples:category_files', args=[category.name]))
         self.assertEqual(list(response.context['object_list'].values_list('file_count', flat=True)), [1, 1])
 
     def test_category_files_view_only_shows_members(self):
@@ -185,6 +185,17 @@ class TheatreCategoryTests(TestCase):
         self.assertContains(response, 'first')
         self.assertNotContains(response, 'data-file="second"')
         self.assertEqual(list(response.context['object_list'].values_list('filepath', flat=True)), ['first.js'])
+
+    def test_category_name_urls_remain_supported(self):
+        self.write_file('first.js', 'category: angles')
+        self.run_import()
+        category = TheatreFileCategory.objects.get(name='angles')
+
+        response = self.client.get(
+            reverse('examples:category_files', args=[category.name])
+        )
+
+        self.assertContains(response, 'angles: 1 Examples')
 
     def test_unknown_category_returns_404(self):
         response = self.client.get(reverse('examples:category_files', args=[999]))

@@ -70,7 +70,20 @@ class TheatreFileCategoryFilesView(views.ListView):
     template_name = 'examples/theatrefile_list.html'
 
     def get_queryset(self):
-        self.category = get_object_or_404(TheatreFileCategory, name=self.kwargs['name'])
+        category_key = self.kwargs['name']
+        self.category = TheatreFileCategory.objects.filter(
+            name=category_key,
+        ).first()
+        if self.category is None and category_key.isdecimal():
+            self.category = get_object_or_404(
+                TheatreFileCategory,
+                pk=int(category_key),
+            )
+        elif self.category is None:
+            self.category = get_object_or_404(
+                TheatreFileCategory,
+                name=category_key,
+            )
         return self.category.files.order_by('-modified', 'filepath')
 
     def get_context_data(self, **kwargs):

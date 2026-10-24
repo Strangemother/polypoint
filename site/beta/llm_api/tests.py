@@ -305,6 +305,7 @@ class TheatreAPIViewTests(TestCase):
             owner=self.user,
             name="private",
             source="secret",
+            visibility=TheatreExample.Visibility.PRIVATE,
         )
         private_url = reverse(
             "llm_api:theatre_view",
@@ -462,7 +463,7 @@ class UserTheatreViewerLatestChangeViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.json(),
-            {"latest_change": stamp.timestamp(), "url": None},
+            {"latest_change": stamp.timestamp(), "url": None, "navigation": None},
         )
 
     def test_invalid_stamp_returns_bad_request(self):
@@ -662,3 +663,54 @@ class TheatreMCPTests(TestCase):
                 urlencode({"action": "read", "name": "missing"}),
                 content_type="application/x-www-form-urlencoded", HTTP_AUTHORIZATION=token)
             self.assertEqual(response.status_code, 404)
+
+
+class AnonymousTheatreVisibilityTests(TestCase):
+    def setUp(self):
+        self.owner = get_user_model().objects.create_user(username="sharing-owner")
+        self.poll_url = reverse(
+            "llm_api:user_theatre_latest_change",
+            kwargs={"username": self.owner.username},
+        )
+
+    def test_unlisted_default_is_link_viewable_but_private_is_not(self):
+        unlisted = TheatreExample.objects.create(
+            owner=self.owner, name="shared", source="const visible = true;"
+        )
+        private = TheatreExample.objects.create(
+            owner=self.owner, name="secret", source="const secret = true;",
+            visibility=TheatreExample.Visibility.PRIVATE,
+        )
+        self.assertEqual(unlisted.visibility, TheatreExample.Visibility.UNLISTED)
+        for theatre, expected in ((unlisted, 200), (private, 404)):
+            url = reverse("llm_api:theatre_view", kwargs={"example_id": theatre.pk})
+            self.assertEqual(Client().get(url).status_code, expected)
+            source_url = reverse("llm_api:theatre_source_view", kwargs={"example_id": theatre.pk})
+            response = Client().get(source_url)
+            self.assertEqual(response.status_code, expected)
+            if expected == 200:
+                self.assertIn(b"const visible", response.content)
+
+    def test_anonymous_watcher_only_tracks_nonprivate_active_theatres(self):
+        unlisted = TheatreExample.objects.create(
+            owner=self.owner, name="unlisted", source="hello"
+        )
+        private = TheatreExample.objects.create(
+            owner=self.owner, name="private", source="secret",
+            visibility=TheatreExample.Visibility.PRIVATE,
+        )
+        now = timezone.now()
+        TheatreExample.objects.filter(pk=unlisted.pk).update(
+            updated_at=now - timedelta(seconds=2)
+        )
+        TheatreExample.objects.filter(pk=private.pk).update(
+            updated_at=now - timedelta(seconds=1)
+        )
+        result = Client().get(
+            self.poll_url, {"stamp": (now - timedelta(seconds=10)).timestamp()}
+        )
+        self.assertEqual(result.status_code, 200)
+        self.assertTrue(result.json()["url"].endswith(
+            reverse("llm_api:theatre_view", kwargs={"example_id": unlisted.pk})
+        ))
+        self.assertIsNone(result.json()["navigation"])

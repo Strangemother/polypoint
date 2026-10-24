@@ -12,6 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .oauth import authenticate_oauth, metadata_url
 from .knowledge.guide import TOPICS, get_guide, validate_source
+from .models import TheatreExample
+from django.urls import reverse
 
 from .views import (
     MAX_REVISION, _authenticate, _json_response, _read, _remove, _store,
@@ -78,6 +80,20 @@ TOOLS = [
         "description": "Remove an owned Polypoint example by name or id with its current revision.",
         "inputSchema": _schema("remove"),
         "annotations": {"readOnlyHint": False, "destructiveHint": True, "idempotentHint": False, "openWorldHint": False},
+    },
+    {
+        "name": "list_public_theatres",
+        "description": "Discover public Polypoint theatres by optional name search. Returns names, short source-header descriptions and direct links. Use read_theatre by id for full source.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "query": {"type": "string", "maxLength": 100, "description": "Optional case-insensitive name search."},
+                "limit": {"type": "integer", "minimum": 1, "maximum": 100, "description": "Results per page; defaults to 30."},
+                "offset": {"type": "integer", "minimum": 0, "description": "Result offset; defaults to 0."}
+            },
+            "additionalProperties": False,
+        },
+        "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
     },
     {
         "name": "get_knowledge",
@@ -214,6 +230,41 @@ class TheatreMCPView(View):
         arguments = params.get("arguments", {})
         if not isinstance(arguments, dict):
             return _rpc_error(request_id, -32602, "Tool arguments must be an object.")
+        if name == "list_public_theatres":
+            if (set(arguments) - {"query", "limit", "offset"}
+                    or not isinstance(arguments.get("query", ""), str)
+                    or len(arguments.get("query", "")) > 100
+                    or type(arguments.get("limit", 30)) is not int
+                    or not 1 <= arguments.get("limit", 30) <= 100
+                    or type(arguments.get("offset", 0)) is not int
+                    or arguments.get("offset", 0) < 0):
+                return _rpc_error(request_id, -32602, "Invalid public theatre search arguments.")
+            qs = TheatreExample.objects.filter(
+                visibility=TheatreExample.Visibility.PUBLIC, is_deleted=False,
+            )
+            query = arguments.get("query", "").strip()
+            if query:
+                qs = qs.filter(name__icontains=query)
+            qs = qs.order_by("name", "id")
+            offset, limit = arguments.get("offset", 0), arguments.get("limit", 30)
+            batch = list(qs[offset:offset + limit + 1])
+            examples = []
+            for theatre in batch[:limit]:
+                import re
+                match = re.search(r"(?m)^\\s*(?:description|summary)\\s*:\\s*(.+)$",
+                                  theatre.source[:4096])
+                description = match.group(1).strip()[:240] if match else ""
+                url = request.build_absolute_uri(reverse(
+                    "llm_api:theatre_view", kwargs={"example_id": theatre.pk}))
+                examples.append({"id": theatre.pk, "name": theatre.name,
+                                 "description": description, "url": url})
+            payload = {"ok": True, "theatres": examples,
+                       "count": len(examples), "offset": offset,
+                       "next_offset": offset + limit if len(batch) > limit else None}
+            return _result(request_id, {
+                "content": [{"type": "text", "text": json.dumps(payload, ensure_ascii=False)}],
+                "isError": False,
+            })
         if name in ("get_knowledge", "validate_theatre"):
             if name == "get_knowledge":
                 if set(arguments) - {"topic"} or not isinstance(arguments.get("topic", "overview"), str) or arguments.get("topic", "overview") not in TOPICS:

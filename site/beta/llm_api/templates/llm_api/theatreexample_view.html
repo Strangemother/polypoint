@@ -1,0 +1,15 @@
+{% extends "generic_named.html" %}
+{% load link %}
+
+
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        var CALL_REF = {
+            username: "{{ theatreexample_object.owner.username }}"
+            // http://localhost:8000/llm_api/u/ghostly/latest_change/
+            , change_url: "{% url 'llm_api:user_theatre_latest_change' theatreexample_object.owner.username %}"
+        }
+    </script>
+    {% link.js "js/auto-caller.js" %}
+{% endblock extra_js %}

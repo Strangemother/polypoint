@@ -538,6 +538,8 @@ class UserTheatreViewerLatestChangeView(t_views.View):
 
 class TheatreViewerView(ExampleFileView):
 
+    template_name = 'llm_api/theatreexample_view.html'
+
     def get_context_data(self, **kwargs):
         r = super().get_context_data(**kwargs)
         example_id = self.kwargs.get('example_id')

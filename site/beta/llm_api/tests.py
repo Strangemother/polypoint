@@ -498,6 +498,22 @@ class TheatreMCPTests(TestCase):
     def payload(self, result):
         return json.loads(result["result"]["content"][0]["text"])
 
+
+    def test_authoring_knowledge_and_validation_tools(self):
+        names = [item["name"] for item in self.rpc("tools/list").json()["result"]["tools"]]
+        self.assertIn("get_knowledge", names)
+        self.assertIn("validate_theatre", names)
+        result = self.payload(self.tool("get_knowledge", {"topic": "imports"}))
+        self.assertTrue(result["ok"])
+        self.assertIn("../point_src/stage.js", result["content"])
+        self.assertEqual(self.rpc("tools/call", {"name": "get_knowledge", "arguments": {"topic": "../secret"}}).json()["error"]["code"], -32602)
+        invalid = self.payload(self.tool("validate_theatre", {"theatre_file_content": "class MainStage extends Stage {}"}))
+        self.assertFalse(invalid["ok"])
+        self.assertIn("missing_header", [d["code"] for d in invalid["diagnostics"]])
+        valid = self.payload(self.tool("validate_theatre", {"theatre_file_content": "/*\\ntitle: Test\\nfiles:\\n    ../point_src/stage.js\\n*/\\nclass MainStage extends Stage { canvas = 'playspace'; }"}))
+        self.assertTrue(valid["ok"])
+        self.assertEqual(valid["diagnostics"], [])
+
     def test_initialize_discover_notify_and_ping(self):
         response = self.rpc("initialize", {
             "protocolVersion": "2099-01-01", "capabilities": {},

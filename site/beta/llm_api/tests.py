@@ -521,6 +521,31 @@ class TheatreMCPTests(TestCase):
         bad = self.rpc("tools/call", {"name": "list_public_theatres", "arguments": {"limit": 0}}).json()
         self.assertEqual(bad["error"]["code"], -32602)
 
+    def test_request_view_navigation_is_owner_scoped(self):
+        owner_theatre = TheatreExample.objects.create(
+            owner=self.user, name="private-navigation", source="const ok=true;"
+        )
+        other = get_user_model().objects.create_user(username="different-user")
+        another = TheatreExample.objects.create(
+            owner=other, name="foreign-private", source="secret"
+        )
+        result = self.payload(self.tool("request_view_action", {"id": owner_theatre.pk}))
+        self.assertTrue(result["ok"])
+        self.assertIn(owner_theatre.pk, result["url"])
+        polling_url = reverse("llm_api:user_theatre_latest_change", kwargs={"username": self.user.username})
+        anonymous = self.client.get(polling_url, {"stamp": "0"}).json()
+        self.assertIsNone(anonymous["navigation"])
+        self.client.force_login(other)
+        unauthorized = self.client.get(polling_url, {"stamp": "0"}).json()
+        self.assertIsNone(unauthorized["navigation"])
+        self.client.force_login(self.user)
+        allowed = self.client.get(polling_url, {"stamp": "0"}).json()
+        self.assertEqual(allowed["navigation"]["id"], result["command_id"])
+        self.assertIn(owner_theatre.pk, allowed["navigation"]["url"])
+        failed = self.payload(self.tool("request_view_action", {"id": another.pk}))
+        self.assertFalse(failed["ok"])
+        self.assertEqual(failed["error"]["code"], "not_found")
+
     def test_authoring_knowledge_and_validation_tools(self):
         names = [item["name"] for item in self.rpc("tools/list").json()["result"]["tools"]]
         self.assertIn("get_knowledge", names)

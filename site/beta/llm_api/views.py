@@ -452,10 +452,10 @@ class TheatreViewerSourceView(View):
     def get(self, request, example_id, *args, **kwargs):
         try:
             user = _authenticate(request)
-            if user is None and request.user.is_authenticated:
-                user = request.user
-            if user is None:
-                return _error(401, "unauthorized", "Valid credentials are required.")
+            # if user is None and request.user.is_authenticated:
+            #     user = request.user
+            # if user is None:
+            #     return _error(401, "unauthorized", "Valid credentials are required.")
 
             theatre = TheatreExample.objects.filter(
                 pk=example_id,

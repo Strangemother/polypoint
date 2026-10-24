@@ -11,6 +11,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from .oauth import authenticate_oauth, metadata_url
+from .knowledge.guide import TOPICS, get_guide, validate_source
 
 from .views import (
     MAX_REVISION, _authenticate, _json_response, _read, _remove, _store,
@@ -78,8 +79,20 @@ TOOLS = [
         "inputSchema": _schema("remove"),
         "annotations": {"readOnlyHint": False, "destructiveHint": True, "idempotentHint": False, "openWorldHint": False},
     },
+    {
+        "name": "get_knowledge",
+        "description": "Read version-matched Polypoint authoring guidance before writing or changing theatre source. Choose a focused topic.",
+        "inputSchema": {"type": "object", "properties": {"topic": {"type": "string", "enum": list(TOPICS), "description": "Deck topic; defaults to overview."}}, "additionalProperties": False},
+        "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
+    },
+    {
+        "name": "validate_theatre",
+        "description": "Run non-executing advisory static checks on complete JavaScript theatre source before storing. Does not guarantee rendering correctness.",
+        "inputSchema": {"type": "object", "properties": {"theatre_file_content": {"type": "string", "description": "Complete JavaScript source, maximum 1 MiB."}}, "required": ["theatre_file_content"], "additionalProperties": False},
+        "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
+    },
 ]
-ACTIONS = {tool["name"]: tool["name"].removesuffix("_theatre") for tool in TOOLS}
+ACTIONS = {tool["name"]: tool["name"].removesuffix("_theatre") for tool in TOOLS if tool["name"] in ("store_theatre", "read_theatre", "remove_theatre")}
 
 
 def _rpc_error(request_id, code, message, status=200):
@@ -196,11 +209,24 @@ class TheatreMCPView(View):
         if method != "tools/call":
             return _rpc_error(request_id, -32601, "Method not found.")
         name = params.get("name")
-        if not isinstance(name, str) or name not in ACTIONS:
+        if not isinstance(name, str) or name not in {tool["name"] for tool in TOOLS}:
             return _rpc_error(request_id, -32602, "Unknown tool.")
         arguments = params.get("arguments", {})
         if not isinstance(arguments, dict):
             return _rpc_error(request_id, -32602, "Tool arguments must be an object.")
+        if name in ("get_knowledge", "validate_theatre"):
+            if name == "get_knowledge":
+                if set(arguments) - {"topic"} or not isinstance(arguments.get("topic", "overview"), str) or arguments.get("topic", "overview") not in TOPICS:
+                    return _rpc_error(request_id, -32602, "Invalid knowledge topic.")
+                payload = get_guide(arguments.get("topic", "overview"))
+            else:
+                if set(arguments) != {"theatre_file_content"} or not isinstance(arguments["theatre_file_content"], str):
+                    return _rpc_error(request_id, -32602, "Expected theatre_file_content string.")
+                payload = validate_source(arguments["theatre_file_content"])
+            return _result(request_id, {
+                "content": [{"type": "text", "text": json.dumps(payload, ensure_ascii=False)}],
+                "isError": not payload["ok"],
+            })
         action = ACTIONS[name]
         schema = _schema(action)
         if (set(arguments) - set(schema["properties"])

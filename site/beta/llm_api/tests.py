@@ -317,6 +317,23 @@ class TheatreAPIViewTests(TestCase):
         self.assertEqual(forbidden.status_code, 404)
         self.assertTrue(another_key.pk)
 
+    def test_anonymous_public_view_and_source_private_denied(self):
+        public = TheatreExample.objects.create(
+            owner=self.user, name="shared-anonymous", source="const published=true;",
+            visibility=TheatreExample.Visibility.PUBLIC,
+        )
+        private = TheatreExample.objects.create(
+            owner=self.user, name="hidden-anonymous", source="const private=true;",
+        )
+        for example, expected in ((public, 200), (private, 404)):
+            page = reverse("llm_api:theatre_view", kwargs={"example_id": example.pk})
+            source = reverse("llm_api:theatre_source_view", kwargs={"example_id": example.pk})
+            self.assertEqual(self.client.get(page).status_code, expected)
+            self.assertEqual(self.client.get(source).status_code, expected)
+        self.client.force_login(self.user)
+        source = reverse("llm_api:theatre_source_view", kwargs={"example_id": private.pk})
+        self.assertEqual(self.client.get(source).status_code, 200)
+
     def test_invalid_or_missing_credentials_return_401(self):
         missing = self.client.post(
             self.endpoint,
@@ -412,11 +429,13 @@ class UserTheatreViewerLatestChangeViewTests(TestCase):
             owner=self.user,
             name="earlier",
             source="",
+            visibility=TheatreExample.Visibility.PUBLIC,
         )
         newest = TheatreExample.objects.create(
             owner=self.user,
             name="newest",
             source="",
+            visibility=TheatreExample.Visibility.PUBLIC,
         )
         earlier_change = stamp + timedelta(seconds=1)
         newest_change = stamp + timedelta(seconds=2)
@@ -464,6 +483,22 @@ class UserTheatreViewerLatestChangeViewTests(TestCase):
             response.json(),
             {"latest_change": stamp.timestamp(), "url": None},
         )
+
+    def test_anonymous_poll_skips_private_updates(self):
+        private = TheatreExample.objects.create(owner=self.user, name="private", source="secret")
+        public = TheatreExample.objects.create(
+            owner=self.user, name="public", source="published",
+            visibility=TheatreExample.Visibility.PUBLIC,
+        )
+        TheatreExample.objects.filter(pk=public.pk).update(
+            updated_at=timezone.now() - timedelta(seconds=10)
+        )
+        anonymous = self.client.get(self.endpoint, {"stamp": "0"}).json()
+        self.assertIn(public.pk, anonymous["url"])
+        self.assertNotIn(private.pk, anonymous["url"])
+        self.client.force_login(self.user)
+        owner = self.client.get(self.endpoint, {"stamp": "0"}).json()
+        self.assertIn(private.pk, owner["url"])
 
     def test_invalid_stamp_returns_bad_request(self):
         response = self.client.get(self.endpoint, {"stamp": "not-a-timestamp"})

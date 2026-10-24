@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                     ("public", "Public"),
                 ],
                 default="unlisted",
-                max_length=7,
+                max_length=8,
             ),
         ),
     ]

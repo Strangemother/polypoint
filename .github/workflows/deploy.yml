@@ -43,6 +43,18 @@ jobs:
               echo "Removing stale .git/index.lock"
               rm -f .git/index.lock
             fi
+            # The SSH deployment runs as root, but Git runs as 'site'.
+            # Repair object ownership left behind by root-run Git commands.
+            # Keep the repair restricted to this repository's .git directory.
+            if find .git \( ! -user site -o ! -group site \) -print -quit | grep -q .; then
+              echo "Repairing Git metadata ownership for site user"
+              chown -R site:site .git
+            fi
+            # Also repair directories/files whose owner write bit was lost.
+            if find .git \( -type d ! -perm -u+w -o -type f ! -perm -u+w \) -print -quit | grep -q .; then
+              echo "Repairing Git metadata owner write permissions"
+              chmod -R u+rwX .git
+            fi
             su - site -s /bin/bash -c 'cd /home/site/apps/polypoint && git fetch origin main && git reset --hard origin/main && git clean -fd && chmod 755 deployment/polypoint-deploy/deploy/gunicorn/start.sh'
             cd /home/site/apps/polypoint/deployment/polypoint-deploy
             ./update-app.sh

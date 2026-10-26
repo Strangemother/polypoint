@@ -72,7 +72,7 @@ class TheatreExample(models.Model):
     source = models.TextField()
     revision = models.PositiveBigIntegerField(default=1)
     visibility = models.CharField(
-        max_length=7,
+        max_length=8,
         choices=Visibility.choices,
         default=Visibility.UNLISTED,
     )

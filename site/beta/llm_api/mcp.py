@@ -16,7 +16,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from .oauth import authenticate_oauth, metadata_url
-from .knowledge.guide import TOPICS, get_guide, validate_source
+from .knowledge.guide import TOPICS, get_guide, read_header_metadata, validate_source
 from .models import TheatreExample
 from django.urls import reverse
 
@@ -117,8 +117,8 @@ TOOLS = [
     },
     {
         "name": "get_knowledge",
-        "description": "Read version-matched Polypoint authoring guidance before writing or changing theatre source. Choose a focused topic.",
-        "inputSchema": {"type": "object", "properties": {"topic": {"type": "string", "enum": list(TOPICS), "description": "Deck topic; defaults to overview."}}, "additionalProperties": False},
+        "description": "Read version-matched Polypoint authoring guidance. Use topic 'examples' to discover 20 complete, individually retrievable theatre starters.",
+        "inputSchema": {"type": "object", "properties": {"topic": {"type": "string", "enum": list(TOPICS), "description": "Deck or example topic; defaults to overview."}}, "additionalProperties": False},
         "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
     },
     {
@@ -270,10 +270,12 @@ class TheatreMCPView(View):
             batch = list(qs[offset:offset + limit + 1])
             examples = []
             for theatre in batch[:limit]:
-                import re
-                match = re.search(r"(?m)^\\s*(?:description|summary)\\s*:\\s*(.+)$",
-                                  theatre.source[:4096])
-                description = match.group(1).strip()[:240] if match else ""
+                metadata = read_header_metadata(theatre.source[:4096]) or {}
+                description = next(
+                    (value.strip() for key in ("description", "summary")
+                     for value in metadata.get(key, ()) if value.strip()),
+                    "",
+                )[:240]
                 url = request.build_absolute_uri(reverse(
                     "llm_api:theatre_view", kwargs={"example_id": theatre.pk}))
                 examples.append({"id": theatre.pk, "name": theatre.name,

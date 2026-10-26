@@ -54,12 +54,13 @@ All methods require a valid key, including discovery. For example:
 | `remove_theatre` | Exactly one of `name` or `id`; integer `revision` required |
 | `request_view_action` | Exactly one of `id` or `name`, with optional `scope=personal|public` for name lookup; issues a short-lived viewer navigation request |
 | `list_public_theatres` | Optional `query` name filter, `limit` (1–100), `offset`; returns paginated public IDs, names, descriptions and links |
-| `get_knowledge` | Optional `topic`: `overview`, `imports`, `stage`, `canvas`, `animation`, `3d-projection` |
+| `get_knowledge` | Optional `topic`; use `overview` for guidance and `examples` for 20 individually retrievable starter topics |
 | `validate_theatre` | `theatre_file_content`: JavaScript source (maximum 1 MiB); returns non-executing advisory diagnostics |
 
 Discovery returns JSON Schemas and read/destructive annotations. Names use
 `[A-Za-z0-9][A-Za-z0-9_-]{0,127}`. Complete JavaScript source is limited to 1 MiB
-UTF-8; it is stored without execution. New examples are private. Public reads and
+UTF-8; it is stored without execution. New examples are unlisted: anyone with
+the viewer link can view them. Public reads and
 owned reads work as in the form API; writes and removals only affect owned examples.
 
 Tool results contain the original form API JSON serialized into a text content
@@ -72,7 +73,11 @@ Updates and removals require the revision obtained from a read. On a conflict,
 read again and reconcile; never automatically retry using a newer revision.
 Preserve the returned permanent ID for later operations.
 
-Public theatre discovery lists only visible, non-deleted examples. Descriptions are taken from the optional `description:` or `summary:` metadata header; blank if absent. Use `read_theatre` by returned ID for full source. Discovery is authenticated and read-only.
+Public theatre discovery lists only public, non-deleted examples. It returns the
+first nonempty `description:` or `summary:` metadata value, capped at 240
+characters. The leading comment must close within the first 4096 source
+characters; otherwise the description is blank. Use `read_theatre` by returned
+ID for full source. Discovery is authenticated and read-only.
 
 ## Remote viewer navigation
 
@@ -84,7 +89,19 @@ Existing `u/<username>/latest_change/` polling also returns a `navigation` objec
 
 ## Versioned authoring knowledge
 
-The authored knowledge deck lives in `llm_api/knowledge/*.md` and is shipped with the MCP server revision. Call `get_knowledge` before generating or modifying theatres. Call `validate_theatre` before `store_theatre`. Diagnostics cover basic metadata, imports, stage and canvas conventions; this is **not** a complete JavaScript parser or runtime renderer. The existing store/read/remove actions are unchanged. Both new tools require the same MCP authentication, are read-only and do not execute source.
+The authoring deck and 20 curated theatre-source snapshots live in
+`llm_api/knowledge/` and must be deployed together. Call `get_knowledge` with
+`topic: "examples"` for the index, then retrieve an individual `example-*`
+topic for its complete copyable source. The sources are based on repository
+theatres, with the adaptations noted in the index; they do not require public
+database records or MCP filesystem access. Guidance topics cover metadata,
+Stage, points, lists, drawing, interaction, animation, canvas, and projection.
+
+Call `validate_theatre` before `store_theatre`. It checks metadata and some Stage
+conventions, including supported Stage bundles, but it is **not** a JavaScript
+parser, dependency-existence check, or runtime renderer. Inspect rendering and
+interaction in a browser. Both tools require MCP authentication, are read-only,
+and do not execute source.
 
 ## Deployment
 

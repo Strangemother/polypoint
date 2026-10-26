@@ -3,6 +3,8 @@ import hashlib
 import json
 from datetime import timedelta
 from io import StringIO
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from urllib.parse import parse_qs, urlencode, urlsplit
 
 from django.contrib.auth import get_user_model
@@ -10,6 +12,7 @@ from django.core.management import call_command, CommandError
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils import timezone
+from examples.models import TheatreFile
 from oauth2_provider.models import Grant, get_access_token_model, get_application_model
 
 from .models import TheatreExample
@@ -98,6 +101,19 @@ class TheatreOAuthTests(TestCase):
         removed = self.rpc(token, "remove_theatre", {"id": example["id"], "revision": 1}).json()
         self.assertFalse(removed["result"]["isError"])
         self.assertTrue(TheatreExample.objects.get(pk=example["id"]).is_deleted)
+
+    def test_oauth_can_search_and_read_indexed_theatre_files(self):
+        token = self.issue()["access_token"]
+        with TemporaryDirectory() as directory, self.settings(POLYPOINT_THEATRE_DIR=Path(directory)):
+            source = "/*\ntitle: OAuth Catalogue\n*/\nconst example = true;\n"
+            (Path(directory) / "example.js").write_text(source, encoding="utf-8")
+            theatre = TheatreFile.objects.create(filepath="example.js", name="example", crc="0")
+            listed = self.rpc(token, "list_theatre_files", {"query": "OAuth Catalogue"}).json()
+            results = json.loads(listed["result"]["content"][0]["text"])
+            self.assertEqual([item["id"] for item in results["theatres"]], [theatre.pk])
+            read = self.rpc(token, "read_theatre_file", {"id": theatre.pk}).json()
+            result = json.loads(read["result"]["content"][0]["text"])
+            self.assertEqual(result["theatre_file_content"], source)
 
     def test_code_replay_wrong_verifier_and_wrong_resource(self):
         code = self.grant()["code"][0]

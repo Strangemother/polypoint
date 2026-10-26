@@ -5,7 +5,7 @@ from datetime import timedelta
 from urllib.parse import urlencode
 
 from django.contrib.auth import get_user_model
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -126,7 +126,7 @@ class TheatreAPIViewTests(TestCase):
         self.assertEqual(by_id.status_code, 200)
         self.assertEqual(by_id.json()["theatre_file_content"], source)
         self.assertEqual(by_name.json(), by_id.json())
-        self.assertEqual(by_id.json()["visibility"], "private")
+        self.assertEqual(by_id.json()["visibility"], TheatreExample.Visibility.UNLISTED)
         self.assertTrue(by_id.json()["owned"])
 
     def test_store_requires_revisions_for_existing_examples(self):
@@ -499,6 +499,69 @@ class TheatreMCPTests(TestCase):
     def payload(self, result):
         return json.loads(result["result"]["content"][0]["text"])
 
+    def test_tool_registry_matches_discovery_and_dispatch(self):
+        from .mcp_tools import HANDLERS, TOOL_MODULES, TOOLS
+
+        discovered = self.rpc("tools/list").json()["result"]["tools"]
+        self.assertEqual(discovered, TOOLS)
+        self.assertEqual(len(HANDLERS), len(TOOLS))
+        for module in TOOL_MODULES:
+            self.assertIs(HANDLERS[module.TOOL["name"]], module.handle)
+
+        invalid_arguments = {
+            "store_theatre": {},
+            "read_theatre": {},
+            "remove_theatre": {},
+            "list_public_theatres": {"limit": True},
+            "list_theatre_files": {"limit": True},
+            "read_theatre_file": {},
+            "request_view_action": {},
+            "get_knowledge": {"topic": "unknown"},
+            "validate_theatre": {},
+        }
+        self.assertEqual(set(invalid_arguments), set(HANDLERS))
+        for name, arguments in invalid_arguments.items():
+            with self.subTest(tool=name):
+                self.assertEqual(self.tool(name, arguments)["error"]["code"], -32602)
+        self.assertFalse(TheatreExample.objects.exists())
+
+    def test_form_and_mcp_share_theatre_operations(self):
+        endpoint = reverse("llm_api:theatres")
+        created = self.client.post(
+            endpoint,
+            data=urlencode({
+                "action": "store", "name": "shared-operation",
+                "theatre_file_content": "const first = true;",
+            }),
+            content_type="application/x-www-form-urlencoded",
+            HTTP_AUTHORIZATION=self.token,
+        )
+        self.assertEqual(created.status_code, 201)
+        theatre_id = created.json()["id"]
+        read = self.payload(self.tool("read_theatre", {"id": theatre_id}))
+        self.assertEqual(read["theatre_file_content"], "const first = true;")
+        updated = self.payload(self.tool("store_theatre", {
+            "id": theatre_id, "revision": read["revision"],
+            "theatre_file_content": "const second = true;",
+        }))
+        form_read = self.client.post(
+            endpoint,
+            data=urlencode({"action": "read", "id": theatre_id}),
+            content_type="application/x-www-form-urlencoded",
+            HTTP_AUTHORIZATION=self.token,
+        )
+        self.assertEqual(form_read.json()["theatre_file_content"], "const second = true;")
+        removed = self.client.post(
+            endpoint,
+            data=urlencode({"action": "remove", "id": theatre_id, "revision": updated["revision"]}),
+            content_type="application/x-www-form-urlencoded",
+            HTTP_AUTHORIZATION=self.token,
+        )
+        self.assertEqual(removed.status_code, 200)
+        missing = self.tool("read_theatre", {"id": theatre_id})
+        self.assertTrue(missing["result"]["isError"])
+        self.assertEqual(self.payload(missing)["error"]["code"], "not_found")
+
 
     def test_public_theatre_discovery_filters_private_and_pages(self):
         TheatreExample.objects.create(
@@ -637,8 +700,13 @@ class TheatreMCPTests(TestCase):
         tools = self.rpc("tools/list").json()["result"]["tools"]
         self.assertEqual({t["name"] for t in tools}, {
             "store_theatre", "read_theatre", "remove_theatre",
-            "list_public_theatres", "request_view_action", "get_knowledge", "validate_theatre"})
+            "list_public_theatres", "list_theatre_files", "read_theatre_file",
+            "request_view_action", "get_knowledge", "validate_theatre"})
         self.assertTrue(next(t for t in tools if t["name"] == "read_theatre")["annotations"]["readOnlyHint"])
+        for name in ("list_theatre_files", "read_theatre_file"):
+            tool = next(item for item in tools if item["name"] == name)
+            self.assertTrue(tool["annotations"]["readOnlyHint"])
+            self.assertFalse(tool["annotations"]["destructiveHint"])
         self.assertEqual(self.rpc("ping").json()["result"], {})
 
     def test_full_lifecycle_and_revision_conflict(self):
@@ -734,6 +802,10 @@ class AnonymousTheatreVisibilityTests(TestCase):
             kwargs={"username": self.owner.username},
         )
 
+    @override_settings(STORAGES={
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+    })
     def test_unlisted_default_is_link_viewable_but_private_is_not(self):
         unlisted = TheatreExample.objects.create(
             owner=self.owner, name="shared", source="const visible = true;"

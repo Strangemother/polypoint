@@ -1,5 +1,19 @@
 # Pseudo-3D projection
 
-Store objects and paths in one shared world coordinate system (x,y,z). Rotate world points relative to a camera, then apply perspective and viewport centering. Project both endpoints of line segments, orbit samples, planet positions and markers through **the same** function.
+Keep geometry in a shared world coordinate system `(x, y, z)`. Transform it into
+camera space, apply a consistent projection, and map it to the viewport. Project
+line endpoints, orbit samples, objects, and world-space labels through the same
+camera function. Draw fixed HUD elements in screen space after restoring any
+world transform.
 
-Do not draw orbital ellipses directly in screen coordinates if they are meant to tilt with camera orbit. Generate samples in the orbital plane in 3D, project samples individually and join them. Place labels and HUD intentionally in either world space or screen space. A working reference is `theatre/sol-local-stellar-neighbourhood.js` from the ghostly favourites branch, if merged or available.
+For a tilted orbit, sample the orbit in its 3D plane, project each sample, and
+join them; a screen-space ellipse will not follow camera orbit. Handle points
+near or behind the camera's projection plane: avoid dividing by zero and clip
+segments crossing the near plane rather than projecting invalid coordinates.
+For filled or overlapping objects, choose and verify a depth-ordering or
+occlusion strategy; projection alone does not provide one.
+
+Fetch `example-projection` for complete code using the library's rotation and
+perspective helpers, including the needed imports. It is a demonstration, not a
+general-purpose clipping or depth-buffer implementation, and its frame-based
+motion may need elapsed-time updates for consistent speed.

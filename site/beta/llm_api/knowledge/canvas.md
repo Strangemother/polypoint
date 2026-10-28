@@ -1,5 +1,18 @@
-# Canvas and coordinate rules
+# Canvas coordinates and drawing
 
-Canvas drawings are screen coordinates unless you explicitly transform them. Use `ctx.save()` / `ctx.restore()` around translates, scales, rotates and opacity changes. Clear or fill the background before drawing scene elements; otherwise later fills can obscure the scene. Verify CSS pixels versus backing buffer dimensions for responsive rendering.
+Canvas coordinates normally start at the top left, with x increasing right and y
+increasing down. `this.canvas.width` and `.height` are backing-buffer dimensions;
+CSS dimensions and device pixel ratio may differ. Check the target viewer and
+resize behavior before implementing high-DPI or responsive scaling.
 
-For a centered 2D scene, prefer `ctx.translate(width/2,height/2)` and draw relative to that origin. Alternatively, calculate absolute pixel coordinates in the projection function and do not translate again. Never mix the two conventions. Draw HUD text outside world-space transforms when it should stay fixed to the screen.
+Clear or paint the background before scene elements unless trails are
+intentional. Use `ctx.save()` / `ctx.restore()` around transforms, alpha, and
+other temporary state. A clear is affected by the current transform, and canvas
+paths are not part of the saved state: start independent shapes with
+`ctx.beginPath()`.
+
+Choose one coordinate convention: either translate to the center and draw
+relative to it, or calculate absolute screen coordinates (for example in a
+projection function). Do not do both. Restore the world transform before
+drawing screen-fixed HUD text. Do not assume a filled background is visible
+if another fill is drawn over it later.

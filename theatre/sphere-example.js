@@ -10,7 +10,7 @@ files:
     dragging
 ---
 */
-// Minimal teaching example: just quaternion rotation and projected latitude lines.
+// Minimal teaching example: drag to move the sphere, right-drag to rotate it.
 class MainStage extends Stage {
     canvas = 'playspace'
     live = true
@@ -20,17 +20,12 @@ class MainStage extends Stage {
 
         this.q = [1, 0, 0, 0]; // quaternion [w,x,y,z]
         this.last = null;
-        // this.radius = Math.min(this.canvas.width, this.canvas.height) * 0.34;
         const canvas = this.canvas;
-        // canvas.style.touchAction = 'none';
         const mouse = e => {
-            const cHeight = canvas.height // this.sphere.radius * 2
             const b = canvas.getBoundingClientRect();
-            let sX = this.sphere.x// canvas.width/2
-            // let sY = this.sphere.y// canvas.width/2
-            let sR = this.sphere.radius;
-            let x = ( (e.clientX - b.left) * canvas.width / b.width - sX) / sR;
-            let y = (cHeight / 2 - (e.clientY - b.top) * cHeight / b.height) / sR;
+            const { x: sX, y: sY, radius: sR } = this.sphere;
+            let x = ((e.clientX - b.left) * canvas.width / b.width - sX) / sR;
+            let y = (sY - (e.clientY - b.top) * canvas.height / b.height) / sR;
             const d = Math.hypot(x,y);
             if (d > 1) {
                 x /= d;

@@ -12,6 +12,12 @@ files:
 228 colour creatures (28 large, 200 half-sized and slower) seek similar hues, blend on contact, and merge with close matches.
 Drag them into each other to play genetic matchmaker. Big creatures that go 800 frames without merging burst into a random number of differently sized, random-coloured offspring while conserving mass.
 */
+
+const mateHueMix = 200;
+const maxNeighbourTrack = 10
+const minNeighbourTrack = 1
+const overrideColor = undefined //"hsl(23, 60%, 40%)"
+
 class MainStage extends Stage {
     canvas = 'playspace'
     randomGenes() {
@@ -22,8 +28,8 @@ class MainStage extends Stage {
             turnRate: .008 + Math.random() * .48,
             curiosity: Math.random(),
             metabolism: .25 + Math.random() * 1.85,
-            longevity: .45 + Math.random() * 1.65,
-            digestion: .55 + Math.random() * 1.45,
+            longevity: 3.45 + Math.random() * 1.65,
+            digestion: 0.35 + Math.random() * 1.45,
             sociability: Math.random()
         }
     }
@@ -217,6 +223,10 @@ class MainStage extends Stage {
     wrapDelta(a,b,size) {
         return ((b-a+size*1.5)%size)-size*.5;
     }
+    onLongClick(event) {
+        let p = Point.from(event)
+        this.sprinkleFood(p.x, p.y)
+    }
     step() {
         const ps = this.points
         const width = this.canvas.width, height = this.canvas.height
@@ -246,7 +256,7 @@ class MainStage extends Stage {
                 }
                 const score = hue*3 + dist*.12 - p.genes.curiosity * (1 - Math.min(1,dist/180)) * 18
                 if (score < best) {best=score; friend=q}
-                if(hue<35 && dist<175 && p.genes.sociability>.12) {
+                if(hue<mateHueMix && dist<175 && p.genes.sociability>.12) {
                     mates.push({q,score:dist + hue*.7});
                 }
                 // Gently repel neighbours so the screen stays lively.
@@ -308,8 +318,9 @@ class MainStage extends Stage {
             }
             if(!desperate && mates.length && p.genes.sociability>.12) {
                 // Duckies-style local cohesion: seek the centre of 2-3 similar neighbours.
-                mates.sort((a,b)=>a.score-b.score);
-                const n=Math.min(mates.length,p.genes.sociability>.55?3:2);
+                mates.sort((a, b) => a.score - b.score);
+
+                const n=Math.min(mates.length,p.genes.sociability>.55?maxNeighbourTrack:minNeighbourTrack);
                 let dx=0,dy=0,ax=0,ay=0;
                 for(let i=0;i<n;i++){
                     const q=mates[i].q;
@@ -490,7 +501,7 @@ class MainStage extends Stage {
             if(p.age > p.lifespan * (p.mass<.8?1.20:1)) {
                 p.energy -= .035 * p.genes.metabolism
             }
-            if(p.energy <= 0 && p.age > 500) {this.popShockwave(p,.65);gone.add(p);this.recycle(p)}
+            if(p.energy <= 0 && p.age > 900) {this.popShockwave(p,.65);gone.add(p);this.recycle(p)}
         }
         if(gone.size || newborns.length) {
             // Keep the surviving Point objects and re-register dragging.
@@ -525,7 +536,8 @@ class MainStage extends Stage {
     drawTail(ctx,p) {
         if(!p.tail)return
         ctx.save()
-        ctx.strokeStyle='hsla('+p.hue+' 85% 67% / .82)'
+
+        ctx.strokeStyle=overrideColor? overrideColor: 'hsla('+p.hue+' 85% 67% / .82)'
         ctx.lineCap='round';ctx.lineJoin='round'
         let prev={x:p.x,y:p.y}
         for(let i=0;i<p.tail.length;i++){
@@ -552,9 +564,9 @@ class MainStage extends Stage {
         ctx.save()
         for(const f of this.nutrients){
             const r=Math.max(1.2,Math.min(3,2*Math.sqrt(f.mass/.25)))
-            ctx.fillStyle=Number.isFinite(f.hue)?`hsla(${f.hue} 65% 35% / .85)`:'rgba(32,40,53,.8)'
+            ctx.fillStyle=overrideColor? overrideColor: Number.isFinite(f.hue)?`hsla(${f.hue} 65% 35% / .85)`:'rgba(32,40,53,.8)'
             ctx.beginPath();ctx.arc(f.x,f.y,r,0,Math.PI*2);ctx.fill()
-            ctx.fillStyle=Number.isFinite(f.hue)?`hsla(${f.hue} 80% 70% / .65)`:'rgba(95,107,120,.55)'
+            ctx.fillStyle=overrideColor? overrideColor: Number.isFinite(f.hue)?`hsla(${f.hue} 80% 70% / .65)`:'rgba(95,107,120,.55)'
             ctx.beginPath();ctx.arc(f.x-.35,f.y-.45,.5,0,Math.PI*2);ctx.fill()
         }
         ctx.restore()
@@ -562,8 +574,9 @@ class MainStage extends Stage {
             this.updateTail(p)
             this.drawTail(ctx,p)
             ctx.beginPath()
-            ctx.arc(p.x,p.y,Math.max(.8,p.radius*.66),0,Math.PI*2)
-            ctx.fillStyle=`hsl(${p.hue} 85% ${Math.max(33,65-(p.age/p.lifespan)*18)}%)`
+            ctx.arc(p.x, p.y, Math.max(.8, p.radius * .66), 0, Math.PI * 2)
+            ctx.fillStyle = overrideColor? overrideColor:`hsl(${p.hue} 85% ${Math.max(33,65-(p.age/p.lifespan)*18)}%)`
+
             ctx.fill()
         }
     }

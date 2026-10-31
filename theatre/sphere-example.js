@@ -11,12 +11,13 @@ files:
 ---
 */
 // Minimal teaching example: drag to move the sphere, right-drag to rotate it.
+// The trackball chooses the 3D axis; mouse distance keeps rotation continuous beyond the rim.
 class MainStage extends Stage {
     canvas = 'playspace'
     live = true
-    gridDirection = 'latitude' // 'latitude', 'longitude', or 'both'
-    latitudeCount = 1
-    longitudeCount = 6 // Each circle contains two opposite meridians.
+    gridDirection = 'both' // 'latitude', 'longitude', or 'both'
+    latitudeCount = 6
+    longitudeCount = 1 // Each circle contains two opposite meridians.
 
     mounted() {
         this.sphere = this.center.copy().update({ radius: 200, color: 'rgb(166,222,239)' })
@@ -33,15 +34,17 @@ class MainStage extends Stage {
         const canvas = this.canvas;
         const mouse = e => {
             const b = canvas.getBoundingClientRect();
-            const { x: sX, y: sY, radius: sR } = this.sphere;
-            let x = ((e.clientX - b.left) * canvas.width / b.width - sX) / sR;
-            let y = (sY - (e.clientY - b.top) * canvas.height / b.height) / sR;
-            const d = Math.hypot(x,y);
-            if (d > 1) {
-                x /= d;
-                y /= d;
-            }
-            return [x,y,Math.sqrt(Math.max(0,1-x*x-y*y))];
+            return [
+                (e.clientX - b.left) * canvas.width / b.width,
+                -(e.clientY - b.top) * canvas.height / b.height
+            ];
+        };
+        const trackball = ([mouseX, mouseY]) => {
+            const { x, y, radius } = this.sphere;
+            const px = (mouseX-x)/radius, py = (mouseY+y)/radius;
+            const d = Math.hypot(px,py);
+            const z = d <= Math.SQRT1_2 ? Math.sqrt(1-d*d) : 0.5/d;
+            return [px,py,z];
         };
 
         canvas.addEventListener('pointerdown', e => {
@@ -56,11 +59,17 @@ class MainStage extends Stage {
             if(!this.last){return};
             const a = this.last,
                 b = mouse(e);
-            const cross=[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
-            const len=Math.hypot(...cross), dot=Math.max(-1,Math.min(1,a.reduce((s,v,i)=>s+v*b[i],0)));
-            if(len>1e-8) {
-                const half = Math.atan2(len,dot)/2, t=Math.sin(half)/len;
-                this.q = this.mul([Math.cos(half),...cross.map(v=>v*t)],this.q);
+            const dx = b[0]-a[0], dy = b[1]-a[1];
+            const distance = Math.hypot(dx,dy);
+            if(distance>0) {
+                const from = trackball(a), to = trackball(b);
+                const axis = [
+                    from[1]*to[2]-from[2]*to[1],
+                    from[2]*to[0]-from[0]*to[2],
+                    from[0]*to[1]-from[1]*to[0]
+                ];
+                const half = distance / this.sphere.radius / 2, t=Math.sin(half)/Math.hypot(...axis);
+                this.q = this.mul([Math.cos(half),...axis.map(v=>v*t)],this.q);
                 const n = Math.hypot(...this.q);
                 this.q = this.q.map(v=>v/n);
                 this.sphere.dirty = true;

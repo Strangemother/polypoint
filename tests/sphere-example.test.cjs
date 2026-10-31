@@ -75,8 +75,8 @@ function createExample(exampleSource = source) {
     return {stage: context.stage, canvas, emit};
 }
 
-function closeTo(actual, expected) {
-    assert.ok(Math.abs(actual - expected) < 1e-12, `${actual} != ${expected}`);
+function closeTo(actual, expected, tolerance = 1e-12) {
+    assert.ok(Math.abs(actual - expected) < tolerance, `${actual} != ${expected}`);
 }
 
 test('right-drag rotation follows the sphere at different positions and canvas scales', () => {
@@ -90,11 +90,13 @@ test('right-drag rotation follows the sphere at different positions and canvas s
 
         emit('pointerdown', x, y);
         assert.equal(canvas.capturedPointer, 7);
-        Array.from(stage.last).forEach((value, i) => closeTo(value, [0, 0, 1][i]));
+        Array.from(stage.last).forEach((value, i) => closeTo(value, [x, -y][i]));
 
         emit('pointermove', x + 30, y - 40);
-        Array.from(stage.last).forEach((value, i) => closeTo(value, [0.3, 0.4, Math.sqrt(0.75)][i]));
+        Array.from(stage.last).forEach((value, i) => closeTo(value, [x + 30, 40 - y][i]));
         const rotation = Array.from(stage.q);
+        rotation.forEach((value, i) => closeTo(value,
+            [Math.cos(0.25), -0.8 * Math.sin(0.25), 0.6 * Math.sin(0.25), 0][i]));
         if (referenceRotation) {
             rotation.forEach((value, i) => closeTo(value, referenceRotation[i]));
         } else {
@@ -117,10 +119,107 @@ test('only right-drag starts rotation and captured drags can continue outside th
 
     emit('pointerdown', 150, 120);
     emit('pointermove', 350, 120);
-    Array.from(stage.last).forEach((value, i) => closeTo(value, [1, 0, 0][i]));
+    Array.from(stage.last).forEach((value, i) => closeTo(value, [350, -120][i]));
     assert.notEqual(stage.q[0], 1);
     emit('pointercancel', 350, 120);
     assert.equal(stage.last, null);
+});
+
+test('radial right-drags keep rotating beyond the rim and reverse without a snap', () => {
+    for (const [dx, dy] of [[1, 0], [0, -1], [0.6, 0.8]]) {
+        const {stage, emit} = createExample();
+        Object.assign(stage.sphere, {x: 150, y: 120, radius: 100});
+        const move = distance => emit('pointermove', 150 + dx * distance, 120 + dy * distance);
+        const distances = [0, 50, 70, 90, 99, 100, 101, 120, 200, 400, 800, 1600, 3200, 6400];
+        emit('pointerdown', 150, 120);
+        for (const distance of distances.slice(1)) {
+            stage.sphere.dirty = false;
+            move(distance);
+            const half = distance / stage.sphere.radius / 2;
+            Array.from(stage.q).forEach((value, i) => closeTo(value,
+                [Math.cos(half), dy * Math.sin(half), dx * Math.sin(half), 0][i]));
+            closeTo(Math.hypot(...stage.q), 1);
+            assert.equal(stage.sphere.dirty, true);
+        }
+        const stationary = Array.from(stage.q);
+        stage.sphere.dirty = false;
+        move(6400);
+        assert.deepEqual(Array.from(stage.q), stationary);
+        assert.equal(stage.sphere.dirty, false);
+        for (const distance of distances.slice(0, -1).reverse()) move(distance);
+        Array.from(stage.q).forEach((value, i) => closeTo(value, [1, 0, 0, 0][i]));
+        emit('lostpointercapture', 150, 120);
+        assert.equal(stage.last, null);
+        const released = Array.from(stage.q);
+        move(200);
+        assert.deepEqual(Array.from(stage.q), released);
+    }
+});
+
+test('right-drag rotation has constant sensitivity inside and far outside the sphere', () => {
+    const {stage, emit} = createExample();
+    Object.assign(stage.sphere, {x: 150, y: 120, radius: 100});
+    const step = 0.001;
+    for (const boundary of [0, 100 * Math.SQRT1_2, 100, 1000, 10000]) {
+        emit('pointerdown', 150 + boundary - step, 120);
+        const angles = [];
+        for (const distance of [boundary, boundary + step]) {
+            const previous = Array.from(stage.q);
+            emit('pointermove', 150 + distance, 120);
+            const delta = stage.mul(stage.q, [previous[0], -previous[1], -previous[2], -previous[3]]);
+            angles.push(2 * Math.atan2(Math.hypot(...delta.slice(1)), delta[0]));
+        }
+        angles.forEach(angle => closeTo(angle, step / stage.sphere.radius));
+        emit('pointerup', 150 + boundary + step, 120);
+    }
+});
+
+test('continuous radial right-drag rotation is independent of event frequency', () => {
+    for (const radius of [50, 200]) {
+        const rotations = [];
+        for (const steps of [1, 100]) {
+            const {stage, emit} = createExample();
+            Object.assign(stage.sphere, {x: 450, y: 320, radius});
+            emit('pointerdown', 450, 320);
+            for (let i = 1; i <= steps; i++) {
+                emit('pointermove', 450 + 1440 * i / steps, 320 - 1920 * i / steps);
+            }
+            rotations.push(Array.from(stage.q));
+        }
+        const half = 2400 / radius / 2;
+        const expected = [Math.cos(half), -0.8 * Math.sin(half), 0.6 * Math.sin(half), 0];
+        rotations.forEach(rotation => rotation.forEach((value, i) => closeTo(value, expected[i], 1e-10)));
+    }
+});
+
+test('off-center right-drags retain the trackball twist axis at every orientation', () => {
+    const {stage, emit} = createExample();
+    Object.assign(stage.sphere, {x: 400, y: 300, radius: 100});
+    const half = 0.05;
+    for (const offset of [-300, -100, -40, 40, 100, 300]) {
+        const y = -offset / 100;
+        const depth = d => d <= Math.SQRT1_2 ? Math.sqrt(1 - d*d) : 0.5/d;
+        const z = depth(Math.abs(y));
+        const nextZ = depth(Math.hypot(0.1, y));
+        const axis = [y * (nextZ - z), z * 0.1, -y * 0.1];
+        const length = Math.hypot(...axis);
+        const expected = [Math.cos(half), ...axis.map(value => value * Math.sin(half) / length)];
+        for (const initial of [
+            [1, 0, 0, 0],
+            [Math.SQRT1_2, Math.SQRT1_2, 0, 0],
+            [Math.SQRT1_2, 0, Math.SQRT1_2, 0],
+            [Math.SQRT1_2, 0, 0, Math.SQRT1_2]
+        ]) {
+            stage.q = initial.slice();
+            emit('pointerdown', 400, 300 + offset);
+            emit('pointermove', 410, 300 + offset);
+            const delta = stage.mul(stage.q, [initial[0], -initial[1], -initial[2], -initial[3]]);
+            Array.from(delta).forEach((value, i) => closeTo(value, expected[i]));
+            assert.ok(Math.abs(delta[3]) > 0.01, 'off-center drag must allow Z-axis twist');
+            closeTo(Math.hypot(...stage.q), 1);
+            emit('pointerup', 410, 300 + offset);
+        }
+    }
 });
 
 test('pole markers, both tips, and the internal line rotate with the sphere', () => {

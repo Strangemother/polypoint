@@ -1,0 +1,32 @@
+{% extends "docs/doc-base.html" %}
+
+{% block title %}Account Page{% endblock title %}
+{% block page_title %}Account Page{% endblock page_title %}
+{% block breadcrumbs_root_link %}Account{% endblock breadcrumbs_root_link %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        <p>Signed in as {{ request.user.get_username }}.</p>
+        <form method="post" action="{% url 'account:logout' %}">
+            {% csrf_token %}
+            <button type="submit">Log out</button>
+        </form>
+        {% if can_create_sub_account %}
+            <p><a href="{% url 'account:create' %}">Create a sub-account</a></p>
+            <h2>Sub-accounts</h2>
+            <ul>
+                {% for profile in sub_accounts %}
+                    <li>
+                        <a href="{% url 'llm_api:user_theatre_view' profile.user.get_username %}">{{ profile.user.get_username }}</a>
+                        <a href="{% url 'account:password' profile.pk %}">Change password</a>
+                        <a href="{% url 'account:delete' profile.user_id %}">Delete sub-account</a>
+                    </li>
+                {% empty %}
+                    <li>No sub-accounts yet.</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "examples",
     "documentation",
     "screenshot",
+    "account",
     "llm_api",
     "oauth2_provider",
     "trim",

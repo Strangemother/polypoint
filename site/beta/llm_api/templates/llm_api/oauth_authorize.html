@@ -1,24 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Connect Polypoint Theatre</title></head>
-<body>
-    <main>
+{% extends "docs/doc-base.html" %}
+
+{% block title %}Connect Polypoint Theatre{% endblock title %}
+{% block page_title %}{% if error %}Unable to connect{% else %}Connect Polypoint Theatre{% endif %}{% endblock page_title %}
+{% block breadcrumbs_root_link %}<a href="{% url 'account:index' %}">Account</a>{% endblock breadcrumbs_root_link %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
         {% if error %}
-            <h1>Unable to connect</h1>
             <p>{{ error.error }}: {{ error.description }}</p>
         {% else %}
-            <h1>Connect {{ application.name }}?</h1>
-            <p>Signed in as {{ request.user.username }}.</p>
-            <p>This connection can read public examples and your examples, and create, update, or remove examples in your workspace.</p>
+            <h2>Connect {{ application.name }}?</h2>
+            <p>Signed in as {{ request.user.get_username }}.</p>
+            <p>This connection can read public examples and the selected account's examples, and create, update, or remove examples in that account's workspace.</p>
             <form method="post">
                 {% csrf_token %}
                 {% for field in form %}{% if field.is_hidden %}{{ field }}{% endif %}{% endfor %}
                 {{ form.errors }}
-                {{ form.non_field_errors }}
+                <p>{{ form.sub_account.label_tag }} {{ form.sub_account }}</p>
+                <p>{{ form.sub_account.help_text }}</p>
+                {% if create_sub_account_url %}
+                    <p><a href="{{ create_sub_account_url }}">Create a sub-account</a></p>
+                {% endif %}
                 <button type="submit">Cancel</button>
                 <button type="submit" name="allow" value="Authorize">Connect</button>
             </form>
         {% endif %}
-    </main>
-</body>
-</html>
+    </div>
+</div>
+{% endblock content %}

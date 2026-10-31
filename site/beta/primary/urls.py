@@ -18,6 +18,7 @@ from llm_api.oauth import discovery_urlpatterns, oauth_urlpatterns
 
 urlpatterns = discovery_urlpatterns + [
     path("llm_api/oauth/", include((oauth_urlpatterns, "oauth2_provider"))),
+    path("account/", include("account.urls")),
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),

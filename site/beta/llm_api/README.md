@@ -234,8 +234,18 @@ their audience. Tokens cannot bypass the existing owner/revision rules. Access
 tokens expire after one hour; refresh tokens rotate and expire after 30 days.
 Access and refresh tokens are hashed at rest. Revocation is available at
 `/llm_api/oauth/revoke/`; deleting an authorization application's tokens through
-Django admin also removes their access. Only authorize/token/revoke/login routes
-are exposed, not public application management or registration endpoints.
+Django admin also removes their access. The authorize/token/revoke/login routes
+and signed-in sub-account creation are exposed, not public application management
+or client registration endpoints.
+
+After signing in, choose your current account or an active sub-account you own
+on the consent page. You can also create a sub-account there; creation returns
+to the same OAuth request so you can select it and connect. The authorization
+code and tokens belong to the selected account, including refreshed tokens.
+Your browser remains signed in as the owner, and MCP operations use only the
+selected account's workspace and permissions. Sub-accounts cannot create more
+accounts. Consent is shown for each connection so an earlier authorization does
+not silently choose your current account.
 
 The migration command applies the OAuth library's database migrations; no custom
 OAuth model migration is required. Schedule `python manage.py cleartokens` using

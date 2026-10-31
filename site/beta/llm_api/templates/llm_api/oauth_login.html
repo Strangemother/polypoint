@@ -1,16 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sign in to Polypoint</title></head>
-<body>
-    <main>
-        <h1>Sign in to Polypoint</h1>
-        <p>Sign in to choose whether ChatGPT can access your theatre workspace.</p>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="hidden" name="next" value="{{ next }}">
-            <button type="submit">Sign in</button>
-        </form>
-    </main>
-</body>
-</html>
+{% extends "account/login.html" %}
+
+{% block title %}Sign in to Polypoint{% endblock title %}
+{% block page_title %}Sign in to Polypoint{% endblock page_title %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        <p>Sign in to choose or create the account your MCP connection will use.</p>
+    </div>
+</div>
+{{ block.super }}
+{% endblock content %}

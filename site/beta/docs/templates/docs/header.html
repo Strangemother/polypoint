@@ -20,7 +20,7 @@
                       <li class="spacer"></li>
                       <li class="account-area">
                           <div class="user-account">
-                              {{ request.user }}
+                              <a href="{% url 'account:index' %}">{{ request.user }}</a>
                           </div>
                       </li>
                   </ul>

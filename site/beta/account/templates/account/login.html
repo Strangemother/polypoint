@@ -1,0 +1,18 @@
+{% extends "docs/doc-base.html" %}
+
+{% block title %}Sign in{% endblock title %}
+{% block page_title %}Sign in{% endblock page_title %}
+{% block breadcrumbs_root_link %}Account{% endblock breadcrumbs_root_link %}
+
+{% block content %}
+<div class="outer-block">
+    <div class="block">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit">Sign in</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

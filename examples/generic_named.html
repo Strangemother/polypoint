@@ -25,6 +25,7 @@ The "Generic named" template extends the example base and infers the name of
 
  {% css "css/index.css" %}
  {% css "examples/css/slider.css" %}
+ {% css "css/global-fonts.css" %}
 
  {% include "docs/header.html" %}
 
@@ -88,16 +89,16 @@ The "Generic named" template extends the example base and infers the name of
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="footer-tools"></div>
             </div>
 
             <div class="right-panel-container">
                 <div class="K">
-                    <h1>LLM API DEMO</h1>
+
                     {{ theatreexample_object }}
                 </div>
-                
+
                 <div class="editor-assist-tools">
                     <ul class="editor-assist-list">
                         {% if not theatrefile_object %}

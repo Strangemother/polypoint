@@ -76,7 +76,7 @@ header.primary ul li a {
 
 .header-container {
     display: grid;
-    grid-template-columns: 1fr minmax(auto, 73em) 1fr;
+    grid-template-columns: 1fr minmax(auto, 73em) auto;
     grid-template-rows: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
@@ -434,4 +434,21 @@ polypoint-canvas {
 .view-type-links {
     display: flex;
     gap: 2em;
+}
+
+
+header.primary ul li.spacer {flex-grow: 1;}
+
+header.primary ul li.account-area {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+header.primary ul .user-account {
+    padding: 0.4em 1em;
+    font-size: 1.1rem;
+    /* border: solid 1px; */
+    flex-grow: 1;
+    display: inline-flex;
 }

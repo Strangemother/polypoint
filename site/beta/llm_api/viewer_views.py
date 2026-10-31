@@ -146,6 +146,7 @@ class TheatreViewerView(ExampleFileView):
         if tfm.exists():
             obj = tfm.get()
             r["theatreexample_object"] = obj
+            r["part_name"] = obj.name
 
         if obj is None or (
             obj.visibility == TheatreExample.Visibility.PRIVATE

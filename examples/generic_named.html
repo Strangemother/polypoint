@@ -95,8 +95,7 @@ The "Generic named" template extends the example base and infers the name of
 
             <div class="right-panel-container">
                 <div class="K">
-
-                    {{ theatreexample_object }}
+                    
                 </div>
 
                 <div class="editor-assist-tools">
@@ -206,6 +205,7 @@ The "Generic named" template extends the example base and infers the name of
         {% str_merge "../scripts/" part_name ".js" as script_path %}
         <script src="{{script_path}}"></script>
     {% else %}
+    
     {% if theatreexample_object %}
         {% if metadata %}{% for filepath in metadata.clean_files  %}
         <script src=/{{ filepath }}></script>{% endfor %}

@@ -28,9 +28,9 @@ class MainStage extends Stage {
         this.poleMarkers = [
             { y: -1, color: '#990000' },
             { y: 1, color: '#009900' },
-            { y: 0, color: this.sphere.color },
+            // { y: 0, color: this.sphere.color },
         ];
-        
+
         const canvas = this.canvas;
         const mouse = e => {
             const b = canvas.getBoundingClientRect();
@@ -96,14 +96,14 @@ class MainStage extends Stage {
 
     draw(ctx) {
         this.clear(ctx)
-        // this.sphere.pen.circle(ctx)
         this.drawSphere(ctx)
+        // this.sphere.pen.circle(ctx)
     }
 
     drawSphere(ctx) {
         const cx = this.sphere.x, //ctx.canvas.width / 2,
             cy = this.sphere.y, // ctx.canvas.height / 2,
-            r = this.sphere.radius //- 1;
+            r = this.sphere.radius - 1;
 
         const project = p => {
             const [x,y,z]=this.rotate(p),scale=3.6/(3.6-z*.34);
@@ -125,12 +125,12 @@ class MainStage extends Stage {
         // inside line
         // ctx.save();
         ctx.setLineDash([6, 4]);
-        strokePoleLine(poles[0], poles[1], 'rgb(166,222,239)', 1);
+        strokePoleLine(this.sphere, poles[1], 'rgb(166,222,239)', 1);
         // ctx.restore();
         ctx.setLineDash([]);
 
         for (const [i, sign] of [-1, 1].entries()) {
-            const tip = project([0, sign * 1.24, 0]);
+            const tip = project([0, sign * 1.04, 0]);
             const pole = poles[i];
             const tipDistance = Math.hypot(tip[0] - cx, tip[1] - cy);
             if (pole[2] < 0 && tipDistance > r) {
@@ -189,8 +189,8 @@ class MainStage extends Stage {
         }
         for (const { path, front, index } of this.gridCache.paths) {
             ctx.strokeStyle = colors[index % colors.length];
-            ctx.globalAlpha = front ? 1 : .2;
-            ctx.lineWidth = front ? 1.4 : .9;
+            ctx.globalAlpha = front ? 1 : 1;
+            ctx.lineWidth = front ? 1 : .9;
             ctx.stroke(path);
         }
 

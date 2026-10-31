@@ -13,10 +13,7 @@
 
         <title>{% block title %}Polypoint{% endblock title %}</title>
     </head>
-    <body polyclass class="{% block body_class %}{% endblock body_class %}
-    font-pack-lexend+deca-500
-    font-lexend+deca-500
-    font-pack-Inter-400-500">
+    <body polyclass class="{% block body_class %}{% endblock body_class %} public-sans">
         {% block content %}
         <canvas id="playspace"></canvas>
         {% endblock content %}
@@ -29,4 +26,3 @@
         {% block extra_css %}{% endblock extra_css %}
     </body>
 </html>
-

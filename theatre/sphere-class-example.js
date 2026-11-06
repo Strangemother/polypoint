@@ -14,9 +14,10 @@ files:
 
 class Sphere extends Point {
     gridDirection = 'both' // 'latitude', 'longitude', or 'both'
-    latitudeCount = 1
-    longitudeCount = 2 // Each circle contains two opposite meridians.
-
+    latitudeCount = 3
+    longitudeCount = 3 // Each circle contains two opposite meridians.
+    waveformAmp = .01
+    
     mounted() {
 
         this.q = [1, 0, 0, 0]; // quaternion [w,x,y,z]
@@ -86,7 +87,7 @@ class Sphere extends Point {
     }
 
     testValues() {
-        
+
         const { gridDirection, latitudeCount, longitudeCount } = this;
         if (!['latitude', 'longitude', 'both'].includes(gridDirection)) {
             throw new RangeError(`Unknown grid direction: ${gridDirection}`);
@@ -96,9 +97,9 @@ class Sphere extends Point {
             if (!Number.isSafeInteger(count) || count < 0) {
                 throw new RangeError(`${name} must be a non-negative integer`);
             }
-        }        
+        }
     }
-    
+
     render(ctx) {
         const cx = this.x
             , cy = this.y
@@ -147,13 +148,13 @@ class Sphere extends Point {
         }
 
         const latitudeMode =  'bezier' // 'bezier'; // Use 'wave' to keep the sampled latitude renderer.
-        const waveformAmp = .40;
+        const waveformAmp = this.waveformAmp;
         const startSliceAngle = 0;
         const endSliceAngle = 280;
         const colors = [this.color] // ['#deb78b', '#ba8a68', '#edc7a2', '#b76e57', '#e7d0aa'];
 
         const { gridDirection, latitudeCount, longitudeCount } = this;
-        
+
         const state = [this, cx, cy, r,
                         ...this.q,
                         gridDirection
@@ -198,7 +199,7 @@ class Sphere extends Point {
         }
         for (const { path, front, index } of this.gridCache.paths) {
             ctx.strokeStyle = colors[index % colors.length];
-            ctx.globalAlpha = front ? 1 : .6;
+            ctx.globalAlpha = front ? 1 : .4;
             ctx.lineWidth = front ? 1 : .9;
             ctx.stroke(path);
         }
@@ -406,7 +407,7 @@ class MainStage extends Stage {
     onLostpointercapture(e) {
         this.clearMouseLast()
     }
-    
+
     draw(ctx) {
         this.clear(ctx)
         this.drawSphere(ctx)
@@ -414,7 +415,7 @@ class MainStage extends Stage {
 
     drawSphere(ctx) {
         this.sphere.render(ctx)
-        this.sphere.pen.circle(ctx)
+        // this.sphere.pen.circle(ctx)
     }
 }
 

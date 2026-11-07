@@ -105,6 +105,12 @@
 
         {% link.js "examples/js/fuse-search-app.js" 'defer' %}
         {% link.js "examples/js/apps/search-app.js" 'defer' %}
+            <script>
+                window.CALL_REF = {
+                    change_url: "{% url 'llm_api:user_theatre_latest_change' view.kwargs.username %}",
+                    stamp: {{ monitor_stamp }}
+                };
+            </script>
             <script src="{% static 'js/auto-caller.js' %}" defer></script>
 
 

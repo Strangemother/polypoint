@@ -6,7 +6,8 @@
     {{ block.super }}
     <script>
         var CALL_REF = {
-            username: "{{ theatreexample_object.owner.username }}"
+            username: "{{ theatreexample_object.owner.username }}",
+            stamp: {{ monitor_stamp }}
             // http://localhost:8000/llm_api/u/ghostly/latest_change/
             , change_url: "{% url 'llm_api:user_theatre_latest_change' theatreexample_object.owner.username %}"
         }

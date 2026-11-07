@@ -1,5 +1,11 @@
 (() => {
-    const stamp = Date.now() / 1000;
+    // The watermark comes from Django, on the same clock as updated_at.
+    // A browser-generated timestamp causes repeated reloads when clocks differ.
+    const stamp = Number(window.CALL_REF?.stamp);
+    if (!Number.isFinite(stamp) || stamp <= 0) {
+        console.error("Missing server-supplied theatre monitor timestamp.");
+        return;
+    }
     var endpoint = new URL("latest_change/", window.location.href);
 
     if (window?.CALL_REF) {

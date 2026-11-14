@@ -7,14 +7,71 @@
 {% endcomment %}
 
 {% load link theatre markdown static %}
-{% block page_title %}{% if category %}{{ category.name }} {% endif %}Examples{% endblock page_title %}
+{% block page_title %}{{ subaccount }} LLM endpoint{% endblock page_title %}
 
 {% block content %}
 
 {% link.css  "examples/css/list_view.css" %}
 
+<script src="/editor/point_src/core/loader.js"></script>
+<script src="/editor/point_src/files.js"></script>
+<script src="/editor/point_src/core/polypoint-canvas.js"></script>
+
 <div class="outer-block">
     <div class="block">
+        <section aria-labelledby="endpoint-welcome-title">
+            <h1 id="endpoint-welcome-title">Your live LLM endpoint</h1>
+            <p>
+                This is your <strong>{{ subaccount }}</strong> endpoint. Use your connected LLM client to send a change,
+                or leave this page open while you wait for incoming changes.
+            </p>
+            <p>New and updated examples will open here automatically.</p>
+        </section>
+
+        <section aria-labelledby="mcp-setup-title">
+            <h2 id="mcp-setup-title">Connect your LLM client</h2>
+            <ol>
+                <li>
+                    <h3>Setup</h3>
+                    <p>Add a remote MCP server in your client and choose Streamable HTTP.</p>
+                    <p>Server URL:</p>
+                    <pre><code>{{ mcp_endpoint }}</code></pre>
+                    <p>No local server installation is needed.</p>
+                </li>
+                <li>
+                    <h3>Auth</h3>
+                    <p>
+                        For API-key authentication, set your client's HTTP authorization
+                        header to <code>Authorization: Bearer YOUR_API_KEY</code>, using
+                        a key issued for {{ subaccount }}. Keep the key private and never
+                        include it in a prompt or tool call. Contact your account
+                        administrator if you need a key.
+                    </p>
+                    <p>
+                        If your client is configured for Polypoint OAuth, sign in and
+                        select {{ subaccount }} when asked which account to authorize.
+                    </p>
+                </li>
+                <li>
+                    <h3>Call!</h3>
+                    
+                    <div class="demo">
+                        <div class="input-example">
+                            <p>Hello agent, I would like you to create a simple theatre example for me, presenting a rotating cube.</p>
+                        </div>
+                        <div class="output-example">
+                            <p>A rotating cube, rendered with Polypoint.</p>
+                            <polypoint-canvas
+                                theatre="{% url 'examples:file_example_all' 'pseudo3D-wirefame-cube.js' %}"
+                                width="300" height="300"
+                                role="img" aria-label="Animated rotating wireframe cube">
+                            </polypoint-canvas>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
         {% markdown.file "docs" "headers/theatre.md" %}
         {% theatre.render_markdown "readme.md" as markdown_text %}
         <div>

@@ -138,4 +138,4 @@ class MainStage extends Stage {
 }
 
 
-;stage = MainStage.go();
+MainStage.announce();

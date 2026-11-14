@@ -407,6 +407,78 @@ class UserTheatreViewerLatestChangeViewTests(TestCase):
             kwargs={"username": self.user.username},
         )
 
+    @override_settings(
+        STORAGES={
+            "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+            "staticfiles": {
+                "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+            },
+        }
+    )
+    def test_user_endpoint_shows_live_change_welcome(self):
+        response = self.client.get(
+            reverse(
+                "llm_api:user_theatre_view",
+                kwargs={"username": self.user.username},
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["subaccount"], self.user.username)
+        self.assertTrue(
+            response.context["mcp_endpoint"].endswith(reverse("llm_api:mcp"))
+        )
+        self.assertContains(
+            response,
+            "Use your connected LLM client to send a change",
+        )
+        self.assertContains(
+            response,
+            "leave this page open while you wait for incoming changes",
+        )
+        self.assertContains(response, "Streamable HTTP")
+        self.assertContains(response, "Authorization: Bearer YOUR_API_KEY")
+        self.assertContains(response, "An example input and small Polypoint demo")
+
+    @override_settings(
+        STORAGES={
+            "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+            "staticfiles": {
+                "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+            },
+        }
+    )
+    def test_user_endpoint_embeds_rotating_cube(self):
+        response = self.client.get(
+            reverse(
+                "llm_api:user_theatre_view",
+                kwargs={"username": self.user.username},
+            )
+        )
+
+        self.assertContains(
+            response,
+            '<polypoint-canvas\n'
+            '                                theatre="'
+            + reverse(
+                "examples:file_example_all",
+                kwargs={"path": "pseudo3D-wirefame-cube.js"},
+            )
+            + '"',
+        )
+        self.assertContains(response, 'width="300" height="300"')
+        self.assertContains(response, 'aria-label="Animated rotating wireframe cube"')
+        self.assertNotContains(response, "Agent's response will appear here.")
+        content = response.content.decode()
+        script_paths = (
+            "/editor/point_src/core/loader.js",
+            "/editor/point_src/files.js",
+            "/editor/point_src/core/polypoint-canvas.js",
+            "<polypoint-canvas",
+        )
+        positions = [content.index(path) for path in script_paths]
+        self.assertEqual(positions, sorted(positions))
+
     def test_returns_newest_example_updated_after_stamp(self):
         stamp = timezone.now() - timedelta(days=1)
         earlier = TheatreExample.objects.create(

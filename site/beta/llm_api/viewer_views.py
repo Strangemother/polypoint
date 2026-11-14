@@ -5,6 +5,7 @@ from datetime import datetime, timezone as datetime_timezone
 
 from django.core.cache import cache
 from django.http import HttpResponse
+from django.urls import reverse
 from django.utils import timezone
 from django.views import View
 from examples.theatre import get_source_metadata
@@ -61,6 +62,14 @@ class UserTheatreViewerView(t_views.ListView):
     """Show a users list of examples. Will be live view."""
 
     model = TheatreExample
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["subaccount"] = self.kwargs["username"]
+        context["mcp_endpoint"] = self.request.build_absolute_uri(
+            reverse("llm_api:mcp")
+        )
+        return context
 
     def get_queryset(self):
         u = self.kwargs.get("username")

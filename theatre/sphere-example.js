@@ -10,14 +10,16 @@ files:
     dragging
 ---
 */
+
+
 // Minimal teaching example: drag to move the sphere, right-drag to rotate it.
 // The trackball chooses the 3D axis; mouse distance keeps rotation continuous beyond the rim.
 class MainStage extends Stage {
     canvas = 'playspace'
     live = true
     gridDirection = 'both' // 'latitude', 'longitude', or 'both'
-    latitudeCount = 6
-    longitudeCount = 1 // Each circle contains two opposite meridians.
+    latitudeCount = 1
+    longitudeCount = 2 // Each circle contains two opposite meridians.
 
     mounted() {
         this.sphere = this.center.copy().update({ radius: 200, color: 'rgb(166,222,239)' })
@@ -146,8 +148,8 @@ class MainStage extends Stage {
             }
         }
 
-        const latitudeMode = 'bezier'; // Use 'wave' to keep the sampled latitude renderer.
-        const waveformAmp = 0;
+        const latitudeMode =  'bezier' // 'bezier'; // Use 'wave' to keep the sampled latitude renderer.
+        const waveformAmp = .0;
         const startSliceAngle = 0;
         const endSliceAngle = 280;
         const colors = [this.sphere.color] // ['#deb78b', '#ba8a68', '#edc7a2', '#b76e57', '#e7d0aa'];
@@ -161,11 +163,18 @@ class MainStage extends Stage {
                 throw new RangeError(`${name} must be a non-negative integer`);
             }
         }
-        const state = [this.sphere, cx, cy, r, ...this.q, gridDirection, latitudeCount, longitudeCount,
-            latitudeMode, waveformAmp, startSliceAngle, endSliceAngle];
+        const state = [this.sphere, cx, cy, r,
+                        ...this.q,
+                        gridDirection
+                        , latitudeCount, longitudeCount
+                        , latitudeMode, waveformAmp
+                        , startSliceAngle, endSliceAngle
+                    ];
+
         if (!this.gridCache || state.some((value, i) => value !== this.gridCache.state[i])) {
             this.sphere.dirty = true;
         }
+
         if (this.sphere.wasDirty) {
             this.gridCache = null;
             const paths = [];
@@ -178,13 +187,22 @@ class MainStage extends Stage {
                         : this.createWaveLongitudes(project, options);
                 }
                 const options = { cx, cy, r, lineCount };
-                return direction === 'latitude'
-                    ? this.createBezierLatitudes(options)
-                    : this.createBezierLongitudes(options);
+                const f = direction === 'latitude' ? 'createBezierLatitudes': 'createBezierLongitudes';
+                return this[f](options);
+
             };
-            if (gridDirection !== 'longitude') paths.push(...createGrid('latitude', latitudeCount));
-            if (gridDirection !== 'latitude') paths.push(...createGrid('longitude', longitudeCount));
-            if (gridDirection === 'both') paths.sort((a, b) => Number(a.front) - Number(b.front));
+
+            if (gridDirection !== 'longitude') {
+                paths.push(...createGrid('latitude', latitudeCount))
+            };
+
+            if (gridDirection !== 'latitude') {
+                paths.push(...createGrid('longitude', longitudeCount))
+            };
+
+            if (gridDirection === 'both') {
+                paths.sort((a, b) => Number(a.front) - Number(b.front))
+            };
             this.gridCache = { state, paths };
         }
         for (const { path, front, index } of this.gridCache.paths) {
@@ -194,11 +212,13 @@ class MainStage extends Stage {
             ctx.stroke(path);
         }
 
-        ctx.globalAlpha=1;
+        ctx.globalAlpha=1; 
 
         // ctx.save();
-        const poleMarkers = this.poleMarkers.map(({ y, color }) => ({ position: project([0, y, 0]), color }))
-            .sort((a, b) => a.position[2] - b.position[2]);
+        const poleMarkers = this.poleMarkers
+            .map(({ y, color }) => ({ position: project([0, y, 0]), color }))
+            .sort((a, b) => a.position[2] - b.position[2])
+            ;
         for (const { position, color } of poleMarkers) {
             ctx.fillStyle = color;
             ctx.globalAlpha = position[2] >= 0 ? .9 : .18;

@@ -69,6 +69,9 @@ class UserTheatreViewerView(t_views.ListView):
         context["mcp_endpoint"] = self.request.build_absolute_uri(
             reverse("llm_api:mcp")
         )
+        # Use the server clock for the initial change watermark. Client clocks
+        # may be out of sync and would otherwise repeatedly reopen a theatre.
+        context["monitor_stamp"] = timezone.now().timestamp()
         return context
 
     def get_queryset(self):
@@ -146,6 +149,7 @@ class TheatreViewerView(ExampleFileView):
 
     def get_context_data(self, **kwargs):
         r = super().get_context_data(**kwargs)
+        r["monitor_stamp"] = timezone.now().timestamp()
         example_id = self.kwargs.get("example_id")
         # p = Path(example_id).with_suffix('')
         r["part_name"] = "example"

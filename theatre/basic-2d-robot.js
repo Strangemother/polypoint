@@ -14,6 +14,8 @@ files:
     ../point_src/keyboard.js
     ../point_src/stage-clock.js
     stroke
+    ../point_src/screenwrap.js
+    ../theatre/pets/2d-robot/connection.js
 ---
 
 */
@@ -23,7 +25,7 @@ class MainStage extends Stage {
     canvas='playspace'
 
     mounted(){
-      
+
         // our little robot's body top down.
         this.body = new Point(200, 200, 25)
         this.wheelSpacing = this.body.radius * 2
@@ -41,14 +43,14 @@ class MainStage extends Stage {
         this._speedB = 0
         this.keyDown = {}
 
-        this._tick = 0 
+        this._tick = 0
         this.dragging.add(this.body)
         this.keyboard.wake()
     }
 
     step() {
-        /* run the bot. In this first example, the bot only has 
-        functioning 2 wheels, buggy style [-1, 0, 1]. 
+        /* run the bot. In this first example, the bot only has
+        functioning 2 wheels, buggy style [-1, 0, 1].
         Use a differential drive algorithm to control the wheels
         */
        this._tick++;
@@ -70,7 +72,6 @@ class MainStage extends Stage {
         let key = ev.key
         this.keyDown[key] = false
         // console.log('keyup', key)
-    
     }
 
     updateWheelSpeeds() {
@@ -85,32 +86,46 @@ class MainStage extends Stage {
             this._speedA += (pushSpeed * .5) * torque
             this._speedB += (pushSpeed * .5) * torque
         }
-        
+
         if(this.keyDown['ArrowDown'] == true) {
             this._speedA += pushSpeed * -1.1 * torque
             this._speedB += pushSpeed * -1.1 * torque
         }
-        
+
         if(this.keyDown['ArrowLeft'] == true){
             this._speedA += (pushSpeed * .5) * torque
         }
-        
+
         if(this.keyDown['ArrowRight'] == true) {
             this._speedB += (pushSpeed * .5) * torque
         }
-        
+
+        this._speedA += this.leftPower
+        this._speedB += this.rightPower
+
+        this.leftPower *= friction
+        this.rightPower *= friction
         // friction
         this._speedA *= friction
         this._speedB *= friction
 
-        // clamp 
+        // clamp
         this._speedA = clamp(this._speedA, -maxSpeed, maxSpeed)
         this._speedB = clamp(this._speedB, -maxSpeed, maxSpeed)
 
-        // apply user input to wheel speeds
+        // apply user input to wheel, speeds
         this.wheels[0].speed = this._speedA
         this.wheels[1].speed = this._speedB
 
+    }
+
+    leftPower = 0
+    rightPower = 0
+
+    setTrackPowers(left, right) {
+        console.log('setTrackPowers', left, right)
+        this.leftPower = left;
+        this.rightPower = right;
     }
 
     moveRobot() {
@@ -143,10 +158,11 @@ class MainStage extends Stage {
     draw(ctx){
         this.clear(ctx)
         this.step()
+        this.screenWrap.performMany([this.body]);
 
         let p = this.body
         p.pen.indicator(ctx, {color: '#336600'})
-        
+
         ctx.save()
         ctx.setLineDash([5, 10])
         ctx.lineCap = 'round'

@@ -4,13 +4,25 @@ First version of the chromite is a swimming auto mover.
 
 const overrideColor=undefined;
 
+
 class Chromite {
     intentColor = 'cyan'
     exploreColor = '#999'
     dragColor = 'orange'
 
-    constructor({x=200,y=200,hue=210,mass=1,genes={}}={}){
-        const radians=Math.random()*Math.PI*2;
+    autoWander = false
+
+    constructor(definition) {
+        let _d = definition
+        let x= _d?.x || 200
+            ,y= _d?.y || 200
+            ,hue= _d?.hue || 210
+            , mass = _d?.mass ||   1
+            , genes = _d?.genes ||   {}
+            ;
+
+        this.exploreColor = _d.exploreColor || this.exploreColor
+        const radians = Math.random() * Math.PI * 2;
         const g={...Chromite.randomGenes(),...genes};
         g.curiosity=Math.max(.35,g.curiosity);
         this.point=new Point({
@@ -105,9 +117,9 @@ class Chromite {
 
         return this.exploreColor
     }
-    
+
     update(dt=1){
-        
+
         const p = this.point
             , g = p.genes
             , d = Math.max(0, Math.min(3, dt))
@@ -121,7 +133,7 @@ class Chromite {
         const maxSpeed = 2.3 * p.speedScale * g.speed * .30 * cruise;
 
         if (this.intent) {
-            
+
             const cmd=this.intent;
             const desired=maxSpeed*cmd.speed;
             const steering=Math.min(1,.08*d);
@@ -133,18 +145,21 @@ class Chromite {
             };
         }else{
             // V34 curiosity-driven solo exploration, with its gentle noise and damping.
-            
+
             this.wanderTimer -= d;
             if (this.wanderTimer <= 0) {
                 this.wanderHeading=Math.random()*Math.PI*2;
                 this.wanderTimer=90+Math.random()*240;
             }
-            
-            this.point.hue = this.getColor()        
 
-            const urge = .014 * g.curiosity * d;
-            p.vx += Math.cos(this.wanderHeading) * urge + (Math.random() - .5) * .08 * d;
-            p.vy += Math.sin(this.wanderHeading) * urge + (Math.random() - .5) * .08 * d;
+            this.point.hue = this.getColor()
+            let gc = g.curiosity
+            
+            const urge = .014 * gc * d;
+            if (this.autoWander) {
+                p.vx += Math.cos(this.wanderHeading) * urge + (Math.random() - .5) * .08 * d;
+                p.vy += Math.sin(this.wanderHeading) * urge + (Math.random() - .5) * .08 * d;
+            }
             const damping = Math.pow(.97, d);
 
             p.vx *= damping;
@@ -226,7 +241,7 @@ class Chromite {
 
         this.drawIntentRing(ctx)
     }
-
+    
     drawIntentRing(ctx) {
         /*
             intent={
@@ -238,18 +253,19 @@ class Chromite {
         const p = this.point;
         if (!this.intent) return;
         const {speed, heading, remaining} = this.intent;
-        
+
         // p.lookAt = heading
         // draw intent ring based on speed and heading
         let ringR = p.radius + (10 * speed * 2)
         // p.pen.circle(ctx, ringR, 'red', 2)
         // p.project(ringR * (speed * 1.1)).pen.circle(ctx, 4, 'white', 2)
         // p.radians = heading
-        p.project(ringR * (speed * 1.1)).pen.circle(ctx, 4, 'yellow', 1)
-        
+        p.project(ringR * (speed * 1.1)).pen.circle(ctx, 4, 'green', 1)
+
     }
 
-    perform(ctx, d){
+    perform(ctx, d) {
+        
         this.update(d)
         this.draw(ctx)
     }
